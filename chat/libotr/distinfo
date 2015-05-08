@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2014/10/21 11:46:31 gdt Exp $
+
+SHA1 (libotr-4.1.0.tar.gz) = df30bc87a7a8f37678dd679d17fa1f9638ea247e
+RMD160 (libotr-4.1.0.tar.gz) = addbde1d9b4f423025ee14481961c580fbe6b9e6
+Size (libotr-4.1.0.tar.gz) = 576771 bytes

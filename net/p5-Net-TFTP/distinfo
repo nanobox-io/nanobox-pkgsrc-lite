@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2015/02/27 14:01:28 mef Exp $
+
+SHA1 (Net-TFTP-0.19.tar.gz) = ca21af0b9f3c7f33e28a76a53aa495efa5ef3e4f
+RMD160 (Net-TFTP-0.19.tar.gz) = 62ca7b3f998bb732f73758bf0da138d22505d143
+Size (Net-TFTP-0.19.tar.gz) = 9789 bytes

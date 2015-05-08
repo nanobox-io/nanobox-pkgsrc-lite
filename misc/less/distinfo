@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.14.4.1 2015/04/15 19:36:46 bsiegert Exp $
+
+SHA1 (less-475.tar.gz) = 8232220364ce95fe2397fd717cad4ecffa6bcbce
+RMD160 (less-475.tar.gz) = a1404028b0d17492a1f8f28a2e4638de0975e6dd
+Size (less-475.tar.gz) = 316345 bytes

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/12/14 08:59:54 obache Exp $
+
+SHA1 (Elixir-0.7.1.tar.gz) = 22a1fbdc0163532b7cfbbd54c074a0a5ccf7d060
+RMD160 (Elixir-0.7.1.tar.gz) = a52872aace0db06864ec8ee14263988a9e5886da
+Size (Elixir-0.7.1.tar.gz) = 47110 bytes

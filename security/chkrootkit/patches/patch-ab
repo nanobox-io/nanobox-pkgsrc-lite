@@ -1,0 +1,17 @@
+$NetBSD: patch-ab,v 1.2 2014/12/08 14:04:57 mef Exp $
+
+Add NetBSD Path
+
+--- chklastlog.c.orig	2014-05-06 19:12:14.000000000 +0900
++++ chklastlog.c	2014-12-08 22:32:03.000000000 +0900
+@@ -59,6 +59,10 @@
+ #define WTMP_FILENAME "/var/log/wtmp"
+ #define LASTLOG_FILENAME "/var/log/lastlog"
+ #endif
++#ifdef __NetBSD__
++#define WTMP_FILENAME "/var/log/wtmp"
++#define LASTLOG_FILENAME "/var/log/lastlog"
++#endif
+ #ifdef __OpenBSD__
+ #include <stdlib.h> 
+ #define WTMP_FILENAME "/var/log/wtmp"

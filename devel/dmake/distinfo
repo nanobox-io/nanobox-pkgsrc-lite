@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2013/12/31 18:05:55 wiz Exp $
+
+SHA1 (dmake-4.12.2.tar.bz2) = 375a58b516020549951bb16a46b4d4e787cd1e51
+RMD160 (dmake-4.12.2.tar.bz2) = c7440f84999ed30a2879260f90f75196934ec0db
+Size (dmake-4.12.2.tar.bz2) = 461738 bytes

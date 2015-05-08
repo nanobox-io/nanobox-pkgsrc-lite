@@ -1,0 +1,11 @@
+$NetBSD: distinfo,v 1.2 2014/12/07 10:48:12 ryoon Exp $
+
+SHA1 (gcc-4.9.2.tar.bz2) = 79dbcb09f44232822460d80b033c962c0237c6d8
+RMD160 (gcc-4.9.2.tar.bz2) = bc6454e7c67c6f5fd2c98cdd1364ebb1739e1347
+Size (gcc-4.9.2.tar.bz2) = 89939747 bytes
+SHA1 (ghdl-0.32rc1.tar.bz2) = cbf25b49b542aaf26ca40fc5f3a4f698561f0ffa
+RMD160 (ghdl-0.32rc1.tar.bz2) = 708b680f9e11fa313f820cb08b2b4f898800c930
+Size (ghdl-0.32rc1.tar.bz2) = 973466 bytes
+SHA1 (patch-gcc_vhdl_Make-lang.in) = ba763e4c2f97fe67e494d8684d21c0a7c7610afa
+SHA1 (patch-gcc_vhdl_Makefile.in) = cbbd49a0f2c946276db371990513b276264bf8bd
+SHA1 (patch-gcc_vhdl_grt_Makefile.inc) = 354422f756ffb77fc32879b9ea5668e5b2f06900

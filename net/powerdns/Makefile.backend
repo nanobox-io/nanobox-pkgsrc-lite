@@ -1,0 +1,13 @@
+# $NetBSD: Makefile.backend,v 1.2 2014/12/10 14:50:08 fhajny Exp $
+
+.include "../../net/powerdns/Makefile.common"
+
+DEPENDS+=		powerdns>=${PDNS_VERSION}:../../net/powerdns
+
+DISTINFO_FILE=		${.CURDIR}/../../net/powerdns/distinfo
+PATCHDIR=		${.CURDIR}/../../net/powerdns/patches
+
+CONFIGURE_ARGS+=	--disable-pdns_server
+CONFIGURE_ARGS+=	--with-modules=""
+
+BUILD_DIRS=		modules

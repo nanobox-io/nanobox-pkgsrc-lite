@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2015/02/10 22:25:24 snj Exp $
+
+SHA1 (singularity-0.30c-src.tar.gz) = f4cb2d9e7a04cf22fe76c58b482c568c817baa02
+RMD160 (singularity-0.30c-src.tar.gz) = ab2b1b057767fb3f1d903bd3807fc30cd2d7698a
+Size (singularity-0.30c-src.tar.gz) = 2265133 bytes

@@ -1,0 +1,30 @@
+# $NetBSD: Makefile,v 1.2 2015/03/21 21:23:30 joerg Exp $
+
+DISTNAME=	pyfits-3.2
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
+CATEGORIES=	graphics
+MASTER_SITES=	https://pypi.python.org/packages/source/p/pyfits/
+
+MAINTAINER=	kamelderouiche@yahoo.com
+HOMEPAGE=	http://www.stsci.edu/resources/software_hardware/pyfits
+COMMENT=	Python module for reading, writing, and manipulating FITS files
+LICENSE=	modified-bsd
+
+BROKEN=		Fetches stsci.distutils during build.
+
+PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+REPLACE_PYTHON=	lib/pyfits/core.py
+
+CONFLICTS=	${PYPKGPREFIX}-pyfits-[0-9]*
+
+post-install:
+	if [ -f ${DESTDIR}${PREFIX}/bin/fitscheck ]; then \
+	cd ${DESTDIR}${PREFIX}/bin && \
+		${MV} fitscheck fitscheck${PYVERSSUFFIX} && \
+		${MV} fitsdiff fitsdiff${PYVERSSUFFIX}; \
+	fi
+
+.include "../../lang/python/application.mk"
+.include "../../lang/python/egg.mk"
+.include "../../math/py-numpy/buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

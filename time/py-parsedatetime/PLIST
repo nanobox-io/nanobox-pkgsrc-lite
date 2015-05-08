@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.4 2014/01/19 19:52:44 wiz Exp $
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/parsedatetime/__init__.py
+${PYSITELIB}/parsedatetime/__init__.pyc
+${PYSITELIB}/parsedatetime/__init__.pyo
+${PYSITELIB}/parsedatetime/parsedatetime.py
+${PYSITELIB}/parsedatetime/parsedatetime.pyc
+${PYSITELIB}/parsedatetime/parsedatetime.pyo
+${PYSITELIB}/parsedatetime/pdt_locales.py
+${PYSITELIB}/parsedatetime/pdt_locales.pyc
+${PYSITELIB}/parsedatetime/pdt_locales.pyo

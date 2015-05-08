@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2013/08/26 01:15:43 wen Exp $
+
+SHA1 (Text-RewriteRules-0.25.tar.gz) = e067c01c574e977f1439dcd38f35fdbf05538240
+RMD160 (Text-RewriteRules-0.25.tar.gz) = 0136a179d9faa07489f88facafec56b6c78fd276
+Size (Text-RewriteRules-0.25.tar.gz) = 15785 bytes

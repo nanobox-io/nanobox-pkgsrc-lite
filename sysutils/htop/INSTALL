@@ -1,0 +1,17 @@
+# $NetBSD$
+
+case ${STAGE} in
+POST-INSTALL)
+	if test "`uname -s`" = "SunOS" && ! test -d /system/lxproc; then
+	  cat <<EOF
+===========================================================================
+
+htop will only work on SmartOS if a recent platform is used that contains
+support for a Linux-compatible proc system at /system/lxproc. You do not
+seem to have lxproc mounted at /system/lxproc, and htop will not work.
+
+===========================================================================
+EOF
+	fi
+;;
+esac

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2014/11/14 08:49:38 markd Exp $
+
+SHA1 (katomic-4.14.3.tar.xz) = 4d0d67ddc428ad391d94f497c1325fc8edc23a3e
+RMD160 (katomic-4.14.3.tar.xz) = 8812eab625a1124b3d0fbae12df000ae3bb5a13d
+Size (katomic-4.14.3.tar.xz) = 658260 bytes

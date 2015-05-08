@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2013/09/05 20:29:48 wiz Exp $
+
+SHA1 (ply-3.4.tar.gz) = 123b9449b838dc387b240ea737a33b6407e5a1ac
+RMD160 (ply-3.4.tar.gz) = c86c2581b4e2766f5045b76632c92a3220b3c48a
+Size (ply-3.4.tar.gz) = 138342 bytes

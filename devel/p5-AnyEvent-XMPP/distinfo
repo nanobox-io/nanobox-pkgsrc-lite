@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2014/07/29 03:44:21 wen Exp $
+
+SHA1 (AnyEvent-XMPP-0.55.tar.gz) = 6fd2581555ae8fcbfcad3fbcbfae2ed40009ec58
+RMD160 (AnyEvent-XMPP-0.55.tar.gz) = a2307302d72910f181556c02c3361c4464164fe9
+Size (AnyEvent-XMPP-0.55.tar.gz) = 122235 bytes

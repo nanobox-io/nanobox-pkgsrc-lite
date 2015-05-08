@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2013/09/15 17:29:26 taca Exp $
+
+SHA1 (net-http-digest_auth-1.4.gem) = 2b2826cf85fe307c4b770de5c077880d8d8f1fe2
+RMD160 (net-http-digest_auth-1.4.gem) = 750ebbbf12f72c154726f4a3e6ffdff2cff1db80
+Size (net-http-digest_auth-1.4.gem) = 13312 bytes

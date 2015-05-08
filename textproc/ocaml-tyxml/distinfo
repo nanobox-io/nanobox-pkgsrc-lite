@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2014/11/15 14:53:03 jaapb Exp $
+
+SHA1 (3.3.0.tar.gz) = 66830f036756b31788ac42737d34fb5eb43e2cfe
+RMD160 (3.3.0.tar.gz) = f6ecbbd3fbdd153b1fe625124fd25a03016e40bb
+Size (3.3.0.tar.gz) = 124692 bytes

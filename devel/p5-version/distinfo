@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.21 2015/01/19 01:10:15 wen Exp $
+
+SHA1 (version-0.9911.tar.gz) = efc3e92b7dcf25776a10a38d3c358bfa2ca9e51a
+RMD160 (version-0.9911.tar.gz) = 3a178be1eace27881448bfd4619ea6c669839d57
+Size (version-0.9911.tar.gz) = 122923 bytes

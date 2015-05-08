@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2015/03/19 16:16:58 gdt Exp $
+
+SHA1 (pyproj/v1.9.4rel.tar.gz) = 31f4c64c2d41d4b77d71725cd963c4160e42ac6f
+RMD160 (pyproj/v1.9.4rel.tar.gz) = 65a176a1ca4c38cfe915532260e46e64f79c3afd
+Size (pyproj/v1.9.4rel.tar.gz) = 2744881 bytes

@@ -1,0 +1,81 @@
+# $NetBSD: Makefile.common,v 1.46 2014/10/05 16:41:07 wiz Exp $
+#
+# used by audio/xfce4-mixer/Makefile
+# used by audio/xfce4-xmms-plugin/Makefile
+# used by devel/xfce4-dev-tools/Makefile
+# used by devel/xfconf/Makefile
+# used by editors/xfce4-mousepad/Makefile
+# used by graphics/xfce4-icon-theme/Makefile
+# used by meta-pkgs/xfce4-extras/Makefile
+# used by misc/xfce4-weather-plugin/Makefile
+# used by multimedia/xfce4-mpc-plugin/Makefile
+# used by net/xfce4-wavelan-plugin/Makefile
+# used by print/xfce4-print/Makefile
+# used by sysutils/xfce4-appfinder/Makefile
+# used by sysutils/xfce4-battery-plugin/Makefile
+# used by sysutils/xfce4-cpugraph-plugin/Makefile
+# used by sysutils/xfce4-diskperf-plugin/Makefile
+# used by sysutils/xfce4-fsguard-plugin/Makefile
+# used by sysutils/xfce4-genmon-plugin/Makefile
+# used by sysutils/xfce4-netload-plugin/Makefile
+# used by sysutils/xfce4-quicklauncher-plugin/Makefile
+# used by sysutils/xfce4-systemload-plugin/Makefile
+# used by sysutils/xfce4-thunar/Makefile
+# used by sysutils/xfce4-volman/Makefile
+# used by sysutils/xfce4-xarchiver/Makefile
+# used by sysutils/xfce4-xkb-plugin/Makefile
+# used by textproc/xfce4-dict-plugin/Makefile
+# used by time/xfce4-datetime-plugin/Makefile
+# used by time/xfce4-orage/Makefile
+# used by time/xfce4-timer-plugin/Makefile
+# used by wm/xfce4-wm-themes/Makefile
+# used by wm/xfce4-wm/Makefile
+# used by x11/libxfce4gui/Makefile
+# used by x11/libxfce4menu/Makefile
+# used by x11/libxfce4util/Makefile
+# used by x11/xfce4-clipman-plugin/Makefile
+# used by x11/xfce4-desktop/Makefile
+# used by x11/xfce4-exo/Makefile
+# used by x11/xfce4-eyes-plugin/Makefile
+# used by x11/xfce4-gtk2-engine/Makefile
+# used by x11/xfce4-notes-plugin/Makefile
+# used by x11/xfce4-panel/Makefile
+# used by x11/xfce4-places-plugin/Makefile
+# used by x11/xfce4-screenshooter-plugin/Makefile
+# used by x11/xfce4-session/Makefile
+# used by x11/xfce4-settings/Makefile
+# used by x11/xfce4-terminal/Makefile
+# used by x11/xfce4-utils/Makefile
+
+MASTER_SITES=		http://www.xfce.org/archive/xfce-4.6.1/src/
+EXTRACT_SUFX=		.tar.bz2
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://www.xfce.org/
+LICENSE=		gnu-gpl-v2
+
+XFCE4_VERSION=		4.6.1
+
+# Do NOT put a PKGREVISION statement in this file!
+
+USE_PKGLOCALEDIR=	yes
+USE_LIBTOOL=		yes
+USE_MULTIARCH=		lib
+GNU_CONFIGURE=		yes
+USE_TOOLS+=		gmake pkg-config msgfmt perl intltool
+
+.if ${MACHINE_ARCH} == "alpha"
+GCC_REQD+=		3.0
+.endif
+
+XFCE4_EGBASE=		${PREFIX}/share/examples/xfce4
+
+.include "../../devel/glib2/buildlink3.mk"
+.include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/libSM/buildlink3.mk"
+
+## # Use the latest GNU tar when the native tar is buggy
+## .if !empty(MACHINE_PLATFORM:MNetBSD-1.6*)
+## BUILD_DEPENDS+=		gtar-base-[0-9]*:../../archivers/gtar-base
+## GTAR=			${PREFIX}/bin/gtar
+## .endif

@@ -1,0 +1,71 @@
+$NetBSD: patch-ac,v 1.24 2014/08/12 15:57:14 hauke Exp $
+
+--- configure.orig	2014-06-08 21:43:53.000000000 +0000
++++ configure
+@@ -4408,6 +4408,9 @@ $as_echo "$ac_cv_gcc_accepts_no_cpp_prec
+    ac_gcc_accepts_no_cpp_precomp="$ac_cv_gcc_accepts_no_cpp_precomp"
+   fi
+ 
++# Disable c89 options, since these trigger more errors than expected and
++# cause build failures.
++if false; then
+ if test -n "$GCC"; then
+ 
+   case "$host" in
+@@ -4468,6 +4471,7 @@ $as_echo "Disabling C++ comments in ANSI
+ #     CC="$CC -Wp,-lang-c89"
+    fi
+   fi
++fi
+ 
+ ac_ext=c
+ ac_cpp='$CPP $CPPFLAGS'
+@@ -7568,7 +7572,7 @@ _ACEOF
+ 
+ 
+ 
+-ALL_LINGUAS="ca da de es et fi fr hu it ja ko nb nl pl pt pt_BR ru sk sv vi wa zh_CN zh_TW"
++ALL_LINGUAS="da de es et fi fr hu it ja ko nb nl pl pt ru sk sv vi wa zh_CN zh_TW"
+ 
+    for ac_header in locale.h
+ do :
+@@ -10793,7 +10797,7 @@ if ${ac_cv_lib_krb4_krb_get_tf_realm+:} 
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lkrb4  $LIBS"
++LIBS="-lkrb4 -lcrypto -lroken -lcom_err $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -10851,7 +10855,7 @@ $as_echo "$as_me: WARNING: Cannot find c
+     # from Matt Knopp <mhat@infocalypse.netlag.com>
+     # (who got it from amu@mit.edu)
+ 
+-    PASSWD_LIBS="$PASSWD_LIBS -lkrb4 -ldes425 -lkrb5 -lk5crypto -lcom_err"
++    PASSWD_LIBS="$PASSWD_LIBS -lkrb5 -lasn1 -lkrb -lcrypto -lroken -lcom_err"
+ 
+     # jwz: MacOS X uses -lkrb5, but not -lcrypt
+ 
+@@ -11612,7 +11616,7 @@ fi
+ #
+ if test "$enable_locking" = yes ; then
+   case "$host" in
+-    *-hpux* | *-aix* | *-netbsd* | *-freebsd* | *-openbsd* )
++    *-hpux* | *-aix* | *-freebsd* | *-openbsd* )
+       need_setuid=yes
+     ;;
+   esac
+@@ -12131,11 +12135,7 @@ $as_echo "$ac_cv_gtk_config_libs" >&6; }
+   ac_gtk_config_libs=$ac_cv_gtk_config_libs
+ 
+   GTK_EXTRA_OBJS=""
+-  GTK_DATADIR=""
+-  if test "$have_gtk" = yes; then
+-    GTK_DATADIR=`$pkg_config --variable=prefix gtk+-2.0`
+-    GTK_DATADIR="$GTK_DATADIR/share"
+-  fi
++  GTK_DATADIR="$datadir"
+ 
+   if test "$have_gtk" = yes; then
+     INCLUDES="$INCLUDES $ac_gtk_config_cflags"

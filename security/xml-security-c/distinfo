@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.5 2013/09/10 11:42:52 obache Exp $
+
+SHA1 (xml-security-c-1.7.2.tar.gz) = fee59d5347ff0666802c8e5aa729e0304ee492bc
+RMD160 (xml-security-c-1.7.2.tar.gz) = 305ade41811df9ea10e5f474a7172400daabc774
+Size (xml-security-c-1.7.2.tar.gz) = 875465 bytes
+SHA1 (patch-xsec_Makefile.in) = f610c63b888f8f744a5de5b47975eb7dc4aee55b

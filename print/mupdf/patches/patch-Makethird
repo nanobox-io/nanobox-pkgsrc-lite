@@ -1,0 +1,24 @@
+$NetBSD: patch-Makethird,v 1.4 2014/06/15 19:15:51 wiz Exp $
+
+o mujs building support with libtool
+
+--- Makethird.orig	2014-06-10 15:09:28.000000000 +0000
++++ Makethird
+@@ -50,14 +50,14 @@ endif
+ 
+ ifneq "$(wildcard $(MUJS_DIR)/README)" ""
+ 
+-MUJS_LIB := $(OUT)/libmujs.a
++MUJS_LIB := $(OUT)/libmujs.la
+ MUJS_OUT := $(OUT)/mujs
+ MUJS_SRC := one.c
+ 
+-$(MUJS_LIB): $(addprefix $(MUJS_OUT)/, $(MUJS_SRC:%.c=%.o))
++$(MUJS_LIB): $(addprefix $(MUJS_OUT)/, $(MUJS_SRC:%.c=%.lo))
+ $(MUJS_OUT):
+ 	$(MKDIR_CMD)
+-$(MUJS_OUT)/%.o: $(MUJS_DIR)/%.c | $(MUJS_OUT)
++$(MUJS_OUT)/%.lo: $(MUJS_DIR)/%.c | $(MUJS_OUT)
+ 	$(CC_CMD)
+ 
+ MUJS_CFLAGS := -I$(MUJS_DIR)

@@ -1,0 +1,213 @@
+$NetBSD: patch-configure,v 1.10 2015/03/17 14:14:43 jperkin Exp $
+
+Several configure changes to work on and detect NetBSD (and some other OSes)
+
+--- configure.orig	2014-10-03 19:25:46.000000000 +0000
++++ configure
+@@ -318,11 +318,11 @@ TOOLCHAIN="cc"
+ case "$bytecc,$target" in
+   cc,*-*-nextstep*)
+     # GNU C extensions disabled, but __GNUC__ still defined!
+-    bytecccompopts="-fno-defer-pop $gcc_warnings -U__GNUC__ -posix"
++    bytecccompopts="$gcc_warnings -U__GNUC__ -posix"
+     bytecclinkopts="-posix";;
+   *,*-*-rhapsody*)
+     # Almost the same as NeXTStep
+-    bytecccompopts="-fno-defer-pop $gcc_warnings -DSHRINKED_GNUC"
++    bytecccompopts="$gcc_warnings -DSHRINKED_GNUC"
+     mathlib="";;
+   *,*-*-darwin*)
+     bytecccompopts="$gcc_warnings"
+@@ -334,15 +334,15 @@ case "$bytecc,$target" in
+     echo "#  define ARCH_CODE32" >> m.h
+     echo "#endif" >> m.h;;
+   *,*-*-haiku*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings"
++    bytecccompopts="$gcc_warnings"
+     # No -lm library
+     mathlib="";;
+   *,*-*-beos*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings"
++    bytecccompopts="$gcc_warnings"
+     # No -lm library
+     mathlib="";;
+   *gcc,alpha*-*-osf*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings"
++    bytecccompopts="$gcc_warnings"
+     if cc="$bytecc" sh ./hasgot -mieee; then
+       bytecccompopts="-mieee $bytecccompopts";
+     fi
+@@ -370,11 +370,11 @@ case "$bytecc,$target" in
+     bytecccompopts="-DUMK";;
+   *gcc*,powerpc-*-aix*)
+     # Avoid name-space pollution by requiring Unix98-conformant includes
+-    bytecccompopts="-fno-defer-pop $gcc_warnings -D_XOPEN_SOURCE=500";;
++    bytecccompopts="$gcc_warnings -D_XOPEN_SOURCE=500";;
+   *,powerpc-*-aix*)
+     bytecccompopts="-D_XOPEN_SOURCE=500";;
+   *gcc*,*-*-cygwin*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings -U_WIN32"
++    bytecccompopts="$gcc_warnings -U_WIN32"
+     dllccompopts="-U_WIN32 -DCAML_DLL"
+     if test $with_sharedlibs = yes; then
+       flexlink="flexlink -chain cygwin -merge-manifest -stack 16777216"
+@@ -395,7 +395,7 @@ case "$bytecc,$target" in
+     exe=".exe"
+     ostype="Cygwin";;
+   *gcc*,*-*-mingw*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings"
++    bytecccompopts="$gcc_warnings"
+     dllccompopt="-DCAML_DLL"
+     if test $with_sharedlibs = yes; then
+       case "$target" in
+@@ -419,14 +419,14 @@ case "$bytecc,$target" in
+     SO="dll"
+     ;;
+   *gcc*,x86_64-*-linux*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings"
++    bytecccompopts="$gcc_warnings"
+     # Tell gcc that we can use 32-bit code addresses for threaded code
+     # unless we are compiled for a shared library (-fPIC option)
+     echo "#ifndef __PIC__" >> m.h
+     echo "#  define ARCH_CODE32" >> m.h
+     echo "#endif" >> m.h;;
+   *gcc*)
+-    bytecccompopts="-fno-defer-pop $gcc_warnings";;
++    bytecccompopts="$gcc_warnings";;
+ esac
+ 
+ # Configure compiler to use in further tests
+@@ -659,7 +659,7 @@ if test $with_sharedlibs = "yes"; then
+       mksharedlib="$flexlink"
+       mkmaindll="$flexlink -maindll"
+       shared_libraries_supported=true;;
+-    *-*-linux-gnu|*-*-linux|*-*-freebsd[3-9]*|*-*-freebsd[1-9][0-9]*|*-*-openbsd*|*-*-netbsd*|*-*-gnu*|*-*-haiku*)
++    *-*-linux-gnu|*-*-linux|*-*-freebsd[3-9]*|*-*-freebsd[1-9][0-9]*|*-*-openbsd*|*-*-netbsd*|*-*-dragonfly|*-*-gnu*|*-*-haiku*)
+       sharedcccompopts="-fPIC"
+       mksharedlib="$bytecc -shared"
+       bytecclinkopts="$bytecclinkopts -Wl,-E"
+@@ -756,7 +756,7 @@ if test $with_sharedlibs = "yes"; then
+     x86_64-*-linux*)              natdynlink=true;;
+     i[3456]86-*-darwin[89].*)     natdynlink=true;;
+     i[3456]86-*-darwin*)
+-      if test $arch64 == true; then
++      if test $arch64 = true; then
+         natdynlink=true
+       fi;;
+     x86_64-*-darwin*)             natdynlink=true;;
+@@ -770,6 +770,8 @@ if test $with_sharedlibs = "yes"; then
+     x86_64-*-openbsd*)            natdynlink=true;;
+     i[3456]86-*-netbsd*)          natdynlink=true;;
+     x86_64-*-netbsd*)             natdynlink=true;;
++    i[3456]86-*-dragonfly*)       natdynlink=true;;
++    x86_64-*-dragonfly*)          natdynlink=true;;
+     i386-*-gnu0.3)                natdynlink=true;;
+     i[3456]86-*-haiku*)           natdynlink=true;;
+     arm*-*-linux*)                natdynlink=true;;
+@@ -798,6 +800,7 @@ case "$target" in
+   sparc*-*-gnu*)                arch=sparc; system=gnu;;
+   i[3456]86-*-linux*)           arch=i386; system=linux_`sh ./runtest elf.c`;;
+   i[3456]86-*-*bsd*)            arch=i386; system=bsd_`sh ./runtest elf.c`;;
++  i[3456]86-*-dragonfly*)       arch=i386; system=bsd_`sh ./runtest elf.c`;;
+   i[3456]86-*-nextstep*)        arch=i386; system=nextstep;;
+   i[3456]86-*-solaris*)         if $arch64; then
+                                   arch=amd64; system=solaris
+@@ -807,6 +810,7 @@ case "$target" in
+   i[3456]86-*-haiku*)           arch=i386; system=beos;;
+   i[3456]86-*-beos*)            arch=i386; system=beos;;
+   i[3456]86-*-cygwin*)          arch=i386; system=cygwin;;
++  i[3456]86-*-interix3*)        arch=i386; system=interix3;;
+   i[3456]86-*-darwin*)          if $arch64; then
+                                   arch=amd64; system=macosx
+                                 else
+@@ -820,6 +824,7 @@ case "$target" in
+   powerpc-*-rhapsody*)          arch=power; model=ppc; system=rhapsody;;
+   powerpc-*-darwin*)            arch=power; system=rhapsody
+                                 if $arch64;then model=ppc64;else model=ppc;fi;;
++	arm*-*-netbsd)								arch=arm; system=netbsd;;
+   armv6*-*-linux-gnueabihf)     arch=arm; model=armv6; system=linux_eabihf;;
+   arm*-*-linux-gnueabihf)       arch=arm; system=linux_eabihf;;
+   armv7*-*-linux-gnueabi)       arch=arm; model=armv7; system=linux_eabi;;
+@@ -835,6 +840,8 @@ case "$target" in
+   x86_64-*-gnu*)                arch=amd64; system=gnu;;
+   x86_64-*-freebsd*)            arch=amd64; system=freebsd;;
+   x86_64-*-netbsd*)             arch=amd64; system=netbsd;;
++  x86_64-*-dragonfly*)          arch=amd64; system=dragonfly;;
++  x86_64-*-solaris*)            arch=amd64; system=solaris;;
+   x86_64-*-openbsd*)            arch=amd64; system=openbsd;;
+   x86_64-*-darwin*)             arch=amd64; system=macosx;;
+   x86_64-*-mingw*)              arch=amd64; system=mingw;;
+@@ -874,7 +881,7 @@ case "$arch,$nativecc,$system,$target" i
+                        if $arch64; then partialld="ld -r -arch ppc64"; fi;;
+   *,gcc*,cygwin,*)     nativecccompopts="$gcc_warnings -U_WIN32";;
+   amd64,gcc*,macosx,*) partialld="ld -r -arch x86_64";;
+-  amd64,gcc*,solaris,*) partialld="ld -r -m elf_x86_64";;
++  amd64,gcc*,solaris,*) partialld="ld -r -64";;
+   *,gcc*,*,*)          nativecccompopts="$gcc_warnings";;
+ esac
+ 
+@@ -891,7 +898,7 @@ case "$arch,$system" in
+   amd64,solaris)  as="${TOOLPREF}as --64"
+                   aspp="${TOOLPREF}gcc -m64 -c";;
+   i386,solaris)   as="${TOOLPREF}as"
+-                  aspp="/usr/ccs/bin/${TOOLPREF}as -P";;
++                  aspp="gcc -traditional -c";;
+   power,elf)      as="${TOOLPREF}as -u -m ppc"
+                   aspp="${TOOLPREF}gcc -c";;
+   power,rhapsody) as="${TOOLPREF}as -arch $model"
+@@ -930,6 +937,7 @@ case "$arch,$system" in
+   arm,linux*) profiling='prof';;
+   power,elf) profiling='prof';;
+   power,bsd*) profiling='prof';;
++	*,*,dragonfly) profiling='prof';;
+   *) profiling='noprof';;
+ esac
+ 
+@@ -1434,6 +1442,8 @@ fi
+ x11_include="not found"
+ x11_link="not found"
+ 
++if test "$disable_x11" != "yes"; then
++
+ if test -z "$x11_include_dir" -a -z "$x11_lib_dir"; then
+   if pkg-config --exists x11 2>/dev/null; then
+     x11_include=`pkg-config --cflags x11`
+@@ -1480,6 +1490,7 @@ if test "$x11_include" = "not found"; th
+     /usr/XFree86/include/X11  \
+                               \
+     /usr/include              \
++    /usr/pkg/include          \
+     /usr/local/include        \
+     /usr/unsupported/include  \
+     /usr/athena/include       \
+@@ -1537,6 +1548,7 @@ if test "$x11_include" = "not found"; th
+                           \
+     /usr/lib64            \
+     /usr/lib              \
++    /usr/pkg/lib          \
+     /usr/local/lib        \
+     /usr/unsupported/lib  \
+     /usr/athena/lib       \
+@@ -1558,18 +1570,16 @@ if test "$x11_include" = "not found"; th
+       if test $dir = /usr/lib; then
+         x11_link="-lX11"
+       else
+-        x11_libs="-L$dir"
+-        case "$target" in
+-          *-kfreebsd*-gnu) x11_link="-L$dir -lX11";;
+-          *-*-*bsd*) x11_link="-R$dir -L$dir -lX11";;
+-          *) x11_link="-L$dir -lX11";;
+-        esac
++				x11_libs="-L$dir ${COMPILER_RPATH_FLAG}$dir"
++				x11_link="-L$dir ${COMPILER_RPATH_FLAG}$dir -lX11"
+       fi
+       break
+     fi
+   done
+ fi
+ 
++fi # end of disable_x11 test
++
+ if test "x11_include" != "not found"; then
+   if test "$x11_include" = "-I/usr/include"; then
+     x11_include=""

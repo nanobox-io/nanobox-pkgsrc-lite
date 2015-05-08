@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2014/01/21 10:45:22 wiz Exp $
+
+SHA1 (libmtag-python-0.3.1.tar.gz) = cfc57e7ca597ece41a91e6fca853605c76685563
+RMD160 (libmtag-python-0.3.1.tar.gz) = c0d426f26ce10f74f25f5357daa78285b9a0bed0
+Size (libmtag-python-0.3.1.tar.gz) = 2637 bytes
+SHA1 (patch-aa) = d5446fd173f34df78e3475cff7f31124b3860470

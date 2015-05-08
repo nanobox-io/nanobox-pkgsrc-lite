@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/01/01 02:37:39 mef Exp $
+
+SHA1 (Catalyst-Plugin-StatusMessage-1.002000.tar.gz) = 3d0eaf72dae67e97b0faddcfb155d39de9aa853f
+RMD160 (Catalyst-Plugin-StatusMessage-1.002000.tar.gz) = a84fd3b2123dedb1599fdb3eb79aa5537d3e5129
+Size (Catalyst-Plugin-StatusMessage-1.002000.tar.gz) = 12247 bytes

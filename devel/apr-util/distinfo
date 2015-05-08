@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.19 2014/10/01 08:17:43 adam Exp $
+
+SHA1 (apr-util-1.5.4.tar.bz2) = b00038b5081472ed094ced28bcbf2b5bb56c589d
+RMD160 (apr-util-1.5.4.tar.bz2) = 9710ffbffea60750b2c1f75532c607bda87ecb71
+Size (apr-util-1.5.4.tar.bz2) = 694427 bytes
+SHA1 (patch-aa) = 36798ae08fcf5a74dba742e5ced6e5ceb16ba449

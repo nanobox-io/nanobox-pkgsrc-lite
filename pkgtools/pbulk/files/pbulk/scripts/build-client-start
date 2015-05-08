@@ -1,0 +1,36 @@
+#!@SH@
+# $NetBSD: build-client-start,v 1.2 2008/09/16 18:21:30 joerg Exp $
+
+. ${PBULK_CONF:-@PBULK_CONFIG@}
+
+set -e
+
+if [ "${config_version}" != "@PBULK_CONFIG_VERSION@" ]; then
+	echo "Your configuration has version ${config_version}."
+	echo "This version of pbulk expects version @PBULK_CONFIG_VERSION@."
+	exit 1
+fi
+
+# Start build processes inside chroots.  We assume that the chroots were
+# created successfully.
+if [ -n "${chroot_create}" -a "${chroot_dir}" ]; then
+	if [ -n "${build_clients}" ]; then
+		for client in ${build_clients}; do
+			ssh $client "for dir in ${chroot_dir}-build*; do
+				PBULK_CONF=${PBULK_CONF} /usr/sbin/chroot \${dir} @SH@ -c \"${pbuild} -c ${master_port_build} -b ${pbuild_script}\" &
+			done" &
+		done
+	else
+		for dir in ${chroot_dir}-build*; do
+			PBULK_CONF=${PBULK_CONF} /usr/sbin/chroot ${dir} @SH@ -c "${pbuild} -c ${master_port_build} -b ${pbuild_script}" &
+		done
+	fi
+else
+	if [ -n "${build_clients}" ]; then
+		for client in ${build_clients}; do
+			ssh $client "PBULK_CONF=${PBULK_CONF} ${pbuild} -c ${master_port_build} -b ${pbuild_script}" &
+		done
+	else
+		PBULK_CONF=${PBULK_CONF} ${pbuild} -c ${master_port_build} -b ${pbuild_script} &
+	fi
+fi

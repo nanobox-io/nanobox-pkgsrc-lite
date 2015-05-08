@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2014/11/06 20:46:01 asau Exp $
+
+SHA1 (libfirm-1.21.0.tar.bz2) = 92a46fcc284e6eef5c02c253362b864fb601830a
+RMD160 (libfirm-1.21.0.tar.bz2) = 953b3c1e6d182c04df1e1cead88e59b40c6e8d21
+Size (libfirm-1.21.0.tar.bz2) = 1457097 bytes
+SHA1 (patch-ir_adt_bitfiddle.h) = 069a96e05bacb7779d0f3efb1226a0508a5d7a99

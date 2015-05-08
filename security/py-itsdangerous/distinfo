@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2014/04/03 08:40:28 kleink Exp $
+
+SHA1 (itsdangerous-0.24.tar.gz) = 0a6ae9c20cd72e89d75314ebc7b0f390f93e6a0d
+RMD160 (itsdangerous-0.24.tar.gz) = 870c1cef9d39c74f2d376be07b50d0e11f343018
+Size (itsdangerous-0.24.tar.gz) = 46541 bytes

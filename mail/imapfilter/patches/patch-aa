@@ -1,0 +1,57 @@
+$NetBSD: patch-aa,v 1.13 2013/11/05 18:57:32 adam Exp $
+
+--- src/Makefile.orig	2013-10-27 22:46:05.000000000 +0000
++++ src/Makefile
+@@ -1,5 +1,3 @@
+-DESTDIR =
+-PREFIX = /usr/local
+ BINDIR = $(PREFIX)/bin
+ SHAREDIR = $(PREFIX)/share/imapfilter
+ MANDIR = $(PREFIX)/man
+@@ -16,8 +14,8 @@ LIBPCRE = -lpcre
+ LIBSSL = -lssl
+ LIBCRYPTO = -lcrypto
+ 
+-CFLAGS = -Wall -Wextra -O -DCONFIG_SHAREDIR='"$(SHAREDIR)"' $(INCDIRS) $(MYCFLAGS)
+-LDFLAGS = $(LIBDIRS) $(MYLDFLAGS)
++CFLAGS += -Wall -Wextra -DCONFIG_SHAREDIR='"$(SHAREDIR)"' $(INCDIRS) $(MYCFLAGS)
++LDFLAGS += $(LIBDIRS) $(MYLDFLAGS)
+ LIBS = -lm $(LIBLUA) $(LIBPCRE) $(LIBSSL) $(LIBCRYPTO) $(MYLIBS)
+ 
+ MAN1 = imapfilter.1
+@@ -34,7 +32,7 @@ OBJ = auth.o buffer.o cert.o core.o file
+ all: $(BIN)
+ 
+ $(BIN): $(OBJ)
+-	$(CC) -o $(BIN) $(LDFLAGS) $(OBJ) $(LIBS)
++	$(CC) -o $(BIN) $(LDFLAGS) $(CFLAGS) $(OBJ) $(LIBS)
+ 
+ $(OBJ): imapfilter.h
+ buffer.o: buffer.h 
+@@ -52,18 +50,14 @@ session.o: list.h session.h
+ socket.o: session.h
+ 
+ install: $(BIN)
+-	mkdir -p $(DESTDIR)$(BINDIR) && \
+-	cp -f $(BIN) $(DESTDIR)$(BINDIR) && \
+-	chmod 0755 $(DESTDIR)$(BINDIR)/$(BIN)
+-	mkdir -p $(DESTDIR)$(SHAREDIR) && \
+-	cp -f $(LUA) $(DESTDIR)$(SHAREDIR) && \
+-	chmod 0644 $(DESTDIR)$(SHAREDIR)/$(LUA)
+-	mkdir -p $(DESTDIR)$(MANDIR)/man1 && \
+-	cp -f ../doc/$(MAN1) $(DESTDIR)$(MANDIR)/man1 && \
+-	chmod 0644 $(DESTDIR)$(MANDIR)/man1/$(MAN1)
+-	mkdir -p $(DESTDIR)$(MANDIR)/man5 && \
+-	cp -f ../doc/$(MAN5) $(DESTDIR)$(MANDIR)/man5 && \
+-	chmod 0644 $(DESTDIR)$(MANDIR)/man5/$(MAN5)
++	$(BSD_INSTALL_PROGRAM_DIR) ${DESTDIR}$(BINDIR)
++	$(BSD_INSTALL_PROGRAM) $(BIN) ${DESTDIR}$(BINDIR)/$(BIN)
++	$(BSD_INSTALL_DATA_DIR) ${DESTDIR}$(SHAREDIR)
++	$(BSD_INSTALL_DATA) $(LUA) ${DESTDIR}$(SHAREDIR)/
++	$(BSD_INSTALL_MAN_DIR) ${DESTDIR}$(MANDIR)/man1
++	$(BSD_INSTALL_MAN) ../doc/$(MAN1) ${DESTDIR}$(MANDIR)/man1/$(MAN1)
++	$(BSD_INSTALL_MAN_DIR) ${DESTDIR}$(MANDIR)/man5
++	$(BSD_INSTALL_MAN) ../doc/$(MAN5) ${DESTDIR}$(MANDIR)/man5/$(MAN5)
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(BINDIR)/$(BIN)

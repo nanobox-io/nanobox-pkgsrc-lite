@@ -1,0 +1,41 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.2 2014/01/16 21:10:00 tron Exp $
+
+cacti is now installed.
+
+To get cacti up and running asap, you have to complete these steps:
+
+- Install & Configure MySQL database server.
+
+- Add a cacti database and cactiuser user to MySQL and create the cacti
+  database layout (${CACTIDIR}/cacti.sql) to MySQL:
+
+	mysql> CREATE DATABASE cacti;
+	mysql> GRANT ALL PRIVILEGES ON cacti.* TO 'cactiuser'@'localhost'
+	    -> IDENTIFIED BY 'cactiuser';
+        mysql> FLUSH PRIVILEGES;
+        mysql> USE cacti;
+        mysql> SOURCE ${CACTIDIR}/cacti.sql;
+
+- Install & Configure an Apache webserver.
+
+- If you have not already done so, add these lines to enable php extensions
+  required by cacti in ${PKG_SYSCONFBASE}/etc/php.ini
+
+	extension=mysql.so
+	extension=snmp.so
+	extension=sockets.so
+
+- Append this to Apache webserver's "httpd.conf" and restart the server.
+
+	Include etc/httpd/httpd-cacti.conf
+
+- Add the following lines to ${CACTI_USER}'s crontab
+
+# Invoke poller.php to collect SNMP statistics.
+*/5 * * * *	${PREFIX}/bin/cacti-poller
+
+Please read the included README (${CACTIDIR}/docs/README) file,
+for more information about configuring and starting cacti.
+
+===========================================================================

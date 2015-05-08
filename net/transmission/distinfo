@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.7 2014/07/11 10:10:10 wiz Exp $
+
+SHA1 (transmission-2.84.tar.xz) = 455359bc1fa34aeecc1bac9255ad0c884b94419c
+RMD160 (transmission-2.84.tar.xz) = 9d209bdf0ebeb6f4d6d9dc726cf8bf9e9c8ccb40
+Size (transmission-2.84.tar.xz) = 3077836 bytes
+SHA1 (patch-ab) = 796faa7c61762dc3ffe563748e55160c827149d2
+SHA1 (patch-qt_qtr.pro) = 5f1f8d7caace223b67b3612299e6dddae0212518

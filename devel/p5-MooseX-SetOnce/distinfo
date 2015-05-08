@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/11/03 07:32:09 wen Exp $
+
+SHA1 (MooseX-SetOnce-0.200002.tar.gz) = 6017e803da6ebee4ec7f8a0843d00ea833f5b4cf
+RMD160 (MooseX-SetOnce-0.200002.tar.gz) = deb6cfaab51f713e07d8f6aaef2e1f15280ef95c
+Size (MooseX-SetOnce-0.200002.tar.gz) = 13849 bytes

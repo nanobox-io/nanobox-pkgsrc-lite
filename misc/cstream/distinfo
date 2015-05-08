@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2014/12/10 02:40:04 mef Exp $
+
+SHA1 (cstream-3.1.1.tar.gz) = 8df4ca60af8647a08d0dbeb3f0fa660edfefc202
+RMD160 (cstream-3.1.1.tar.gz) = 955346f09c078a36e7d39a38d25da87ed638f20a
+Size (cstream-3.1.1.tar.gz) = 96609 bytes

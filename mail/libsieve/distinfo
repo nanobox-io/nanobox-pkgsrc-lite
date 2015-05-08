@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2014/12/05 08:48:49 obache Exp $
+
+SHA1 (libsieve-2.3.1.tar.gz) = 411f51ba772ca2af4c04ea21b95952bdfeba9a0a
+RMD160 (libsieve-2.3.1.tar.gz) = fcf8255e65d404c017118a8c31531e2d70de194c
+Size (libsieve-2.3.1.tar.gz) = 579265 bytes

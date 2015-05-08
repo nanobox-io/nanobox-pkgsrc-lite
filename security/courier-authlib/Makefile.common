@@ -1,0 +1,31 @@
+# $NetBSD: Makefile.common,v 1.14 2014/05/06 03:45:36 rodent Exp $
+#
+# used by mail/courier-mta/Makefile.common
+
+COURIER_USER?=		courier
+COURIER_GROUP?=		mail
+FILES_SUBST+=		COURIER_USER=${COURIER_USER}
+FILES_SUBST+=		COURIER_GROUP=${COURIER_GROUP}
+MESSAGE_SUBST+=		COURIER_USER=${COURIER_USER}
+MESSAGE_SUBST+=		COURIER_GROUP=${COURIER_GROUP}
+
+PKG_GROUPS=		${COURIER_GROUP}
+PKG_USERS=		${COURIER_USER}:${COURIER_GROUP}
+
+PKG_GROUPS_VARS+=	COURIER_GROUP
+PKG_USERS_VARS+=	COURIER_USER
+
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-mailuser=${COURIER_USER}
+CONFIGURE_ARGS+=	--with-mailgroup=${COURIER_GROUP}
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ARGS+=	--with-waitfunc=wait3
+.endif
+
+.if ${OPSYS} == "OpenBSD"
+BUILDLINK_DEPMETHOD.libiconv?=  build
+.include "../../converters/libiconv/buildlink3.mk"
+.endif

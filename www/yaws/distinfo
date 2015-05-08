@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2013/11/13 15:59:22 is Exp $
+
+SHA1 (yaws-1.97.tar.gz) = 4b8b811c40e6408ba03d25d31fa004483aede2b2
+RMD160 (yaws-1.97.tar.gz) = 21c6138cf982b67f608ef8fd7228d17c754fe959
+Size (yaws-1.97.tar.gz) = 1242089 bytes
+SHA1 (patch-ai) = fff8d3007722922d1b40ab579817626616740be6

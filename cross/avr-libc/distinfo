@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.11 2014/10/28 00:26:56 mef Exp $
+
+SHA1 (avr-libc-1.8.1.tar.bz2) = b56fe21b30341869aa768689b0f6a07d896b17fa
+RMD160 (avr-libc-1.8.1.tar.bz2) = ffc4de159690048cac1dd018e55576faed47ed45
+Size (avr-libc-1.8.1.tar.bz2) = 3230418 bytes
+SHA1 (patch-doc_Makefile.in) = e44e69a7a438c4175a8c15c0548b77df49a691d8

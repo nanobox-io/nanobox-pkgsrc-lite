@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.8 2015/01/28 01:50:06 mef Exp $
+
+SHA1 (Test-Aggregate-0.372.tar.gz) = a5dacda410384a01e9cc1e808dd10f1bf592dcf2
+RMD160 (Test-Aggregate-0.372.tar.gz) = 08aad45dc6a54819a1a2449d3e37f6e948befbd3
+Size (Test-Aggregate-0.372.tar.gz) = 33707 bytes

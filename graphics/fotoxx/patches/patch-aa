@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.15 2014/03/15 05:37:03 ryoon Exp $
+
+* Pass LDFLAGS from pkgsrc's Makefile
+
+--- Makefile.orig	2014-03-05 07:17:10.000000000 +0000
++++ Makefile
+@@ -15,7 +15,7 @@ DATADIR = $(SHAREDIR)/data
+ ICONDIR = $(SHAREDIR)/icons
+ LOCALESDIR = $(SHAREDIR)/locales
+ DOCDIR = $(PREFIX)/share/doc/fotoxx
+-MANDIR = $(PREFIX)/share/man/man1
++MANDIR = $(PREFIX)/${PKGMANDIR}/man1
+ MENUFILE = $(PREFIX)/share/applications/fotoxx.desktop
+ 
+ CFLAGS = $(CXXFLAGS) -c `pkg-config --cflags gtk+-3.0`

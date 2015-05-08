@@ -1,0 +1,14 @@
+$NetBSD: distinfo,v 1.112 2015/03/19 22:11:22 tron Exp $
+
+SHA1 (openssl-1.0.2a.tar.gz) = 46ecd325b8e587fa491f6bb02ad4a9fb9f382f5f
+RMD160 (openssl-1.0.2a.tar.gz) = 2974a0a8cc469d85a5391a64aa0a2b2c5b00acfa
+Size (openssl-1.0.2a.tar.gz) = 5262089 bytes
+SHA1 (patch-Configure) = d57986a34cd88a27c5d94df5a3cc3e2c12bf8bbe
+SHA1 (patch-Makefile.org) = 7b957a6170961c6f7325d04c29653ae1ae07a23c
+SHA1 (patch-Makefile.shared) = 709283ba4bb4bd568e289fe111b8dea319968328
+SHA1 (patch-apps_Makefile) = 7c05b5578a520991058f75a703fc9bc96591390b
+SHA1 (patch-config) = ac8ced00cfa7d31b84afb08aedc38102fd777824
+SHA1 (patch-crypto_bn_bn__prime.pl) = c07e8ccba319e4260af46e714c3be56f70579fa6
+SHA1 (patch-crypto_des_Makefile) = 6c67c81ba7054647e1138165d9280c8db82b8498
+SHA1 (patch-engines_ccgost_Makefile) = 8834074c74abab604ef1ba7959750c22c0ffb6e7
+SHA1 (patch-tools_Makefile) = 6ce1ee06c560dff3337d5a804405243aee18c05a

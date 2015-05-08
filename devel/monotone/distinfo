@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.51 2014/05/06 08:21:15 wiz Exp $
+
+SHA1 (monotone-1.1.tar.bz2) = 2b97559b252decaee3a374b81bf714cf33441ba3
+RMD160 (monotone-1.1.tar.bz2) = c5e0f45028b806eb166b4aaecababa8e8e81b686
+Size (monotone-1.1.tar.bz2) = 3428699 bytes
+SHA1 (patch-src_hash__map.hh) = 3f8e83b651452aa87eb5409d6e852a49e3747db4

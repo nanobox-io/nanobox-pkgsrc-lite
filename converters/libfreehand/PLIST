@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2014/07/22 11:14:57 wiz Exp $
+bin/fh2raw
+bin/fh2svg
+include/libfreehand-0.1/libfreehand/FreeHandDocument.h
+include/libfreehand-0.1/libfreehand/libfreehand.h
+lib/libfreehand-0.1.la
+lib/pkgconfig/libfreehand-0.1.pc

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.8 2015/01/29 12:42:01 mef Exp $
+
+SHA1 (ExtUtils-XSpp-0.18.tar.gz) = 1ec4a6e1d86a02f22a0afc65be9d6a79402271ee
+RMD160 (ExtUtils-XSpp-0.18.tar.gz) = dc1a4b6be084fd39c2b720661a1f5b1c79f8145b
+Size (ExtUtils-XSpp-0.18.tar.gz) = 185431 bytes

@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.10 2015/03/08 02:45:35 mef Exp $
+
+SHA1 (dtcpclient-20090812.tar.gz) = beca8811f4b699fd675db634b7743fd4ee85babf
+RMD160 (dtcpclient-20090812.tar.gz) = 9697e311e8c16e1ebc04ae26955ef4501879cc5e
+Size (dtcpclient-20090812.tar.gz) = 13711 bytes
+SHA1 (patch-aa) = a93a99918f7724e0a101fccf84ad7e6811c8e30c
+SHA1 (patch-ac) = a0445b2b86accb3c3a1212e08eb217cc05e9caca

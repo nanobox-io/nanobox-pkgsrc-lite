@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2014/07/29 03:29:25 wen Exp $
+
+SHA1 (AnyEvent-HTTP-2.21.tar.gz) = 2c13d2ce2931aa4908d10bbb53aa9613c0f972f0
+RMD160 (AnyEvent-HTTP-2.21.tar.gz) = e6cef173f2dc71504320ff7a15aa86b51b323927
+Size (AnyEvent-HTTP-2.21.tar.gz) = 26710 bytes

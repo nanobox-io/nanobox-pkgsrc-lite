@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2015/02/01 13:45:28 taca Exp $
+
+SHA1 (rubysdl-2.2.0.gem) = efd0f03ee10661b632eb45d4314dfdd789c4c313
+RMD160 (rubysdl-2.2.0.gem) = 4ab5e28b5827e38738119a8b7401c513d758a216
+Size (rubysdl-2.2.0.gem) = 259584 bytes

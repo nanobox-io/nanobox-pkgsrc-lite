@@ -1,0 +1,47 @@
+$NetBSD: patch-Makefile,v 1.6 2014/04/04 20:20:42 ryoon Exp $
+
+* Add "all" target.
+* Use ${PREFIX} variable.
+* Install man pages in ${PREFIX}/${PKGMANDIR}, not ${PREFIX}/share/man.
+
+--- Makefile.orig	2014-03-28 09:49:47.000000000 +0000
++++ Makefile
+@@ -6,12 +6,12 @@
+ 
+ VERSION=1.10
+ 
+-prefix?=/usr/local
++prefix?=$(PREFIX)
+ target=$(DESTDIR)$(prefix)
+ 
+ INSTALL = install
+ YACC = bison -y
+-LEX = flex
++mandir=$(PKGMANDIR)
+ 
+ GCC_WARNINGS1=-Wall -Wpointer-arith -Wstrict-prototypes
+ GCC_WARNINGS2=-Wmissing-prototypes -Wmissing-declarations
+@@ -38,6 +38,8 @@ OBJS=gram.o lex.o rbtree.o main.o cvsuti
+ 	revlist.o atom.o revcvs.o generate.o export.o \
+ 	nodehash.o tags.o authormap.o graph.o utils.o
+ 
++all: cvs-fast-export cvs-fast-export.1
++
+ cvs-fast-export: $(OBJS)
+ 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@ 
+ 
+@@ -77,11 +79,11 @@ check: cvs-fast-export
+ 
+ install: cvs-fast-export man
+ 	$(INSTALL) -d "$(target)/bin"
+-	$(INSTALL) -d "$(target)/share/man/man1"
++	$(INSTALL) -d "$(target)/$(mandir)/man1"
+ 	$(INSTALL) cvs-fast-export "$(target)/bin"
+ 	$(INSTALL) cvssync "$(target)/bin"
+-	$(INSTALL) -m 644 cvs-fast-export.1 "$(target)/share/man/man1"
+-	$(INSTALL) -m 644 cvssync.1 "$(target)/share/man/man1"
++	$(INSTALL) -m 644 cvs-fast-export.1 "$(target)/$(mandir)/man1"
++	$(INSTALL) -m 644 cvssync.1 "$(target)/$(mandir)/man1"
+ 
+ PROFILE_REPO = ~/software/groff-conversion/groff-mirror/groff
+ gmon.out: cvs-fast-export

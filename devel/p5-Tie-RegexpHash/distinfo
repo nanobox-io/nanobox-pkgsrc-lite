@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/02/18 03:25:45 mef Exp $
+
+SHA1 (Tie-RegexpHash-0.17.tar.gz) = 5bce87f92c1931ec3aa74a8972cf56bc8b449130
+RMD160 (Tie-RegexpHash-0.17.tar.gz) = 9f6c2c7bcac3d4545a73554356137291a8735711
+Size (Tie-RegexpHash-0.17.tar.gz) = 6417 bytes

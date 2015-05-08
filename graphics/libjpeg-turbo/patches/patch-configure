@@ -1,0 +1,13 @@
+$NetBSD: patch-configure,v 1.2 2015/01/28 21:51:02 rjs Exp $
+
+--- configure.orig	2015-01-07 04:56:50.000000000 +0000
++++ configure
+@@ -22851,7 +22851,7 @@ case "$host_os" in
+         ;;
+     esac
+   ;;
+-  kfreebsd* | freebsd* | netbsd* | openbsd*)
++  dragonfly* | kfreebsd* | freebsd* | netbsd* | openbsd*)
+     if echo __ELF__ | $CC -E - | grep __ELF__ > /dev/null; then
+       objfmt='BSD-a.out'
+     else

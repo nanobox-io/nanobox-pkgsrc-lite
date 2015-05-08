@@ -1,0 +1,15 @@
+$NetBSD: patch-at,v 1.13 2014/06/07 07:34:05 wiz Exp $
+
+Don't create directories, do that with OWN_DIRS and OWN_DIRS_PERMS
+
+--- scheduler/Makefile.orig	2013-05-29 11:51:34.000000000 +0000
++++ scheduler/Makefile
+@@ -146,6 +146,8 @@ install:	all install-data install-header
+ #
+ 
+ install-data:
++
++install-dirs:
+ 	echo Creating $(SERVERBIN)/driver...
+ 	$(INSTALL_DIR) -m 755 $(SERVERBIN)/driver
+ 	echo Creating $(SERVERROOT)...

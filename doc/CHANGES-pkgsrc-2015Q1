@@ -1,0 +1,69 @@
+$NetBSD: CHANGES-pkgsrc-2015Q1,v 1.1.2.18 2015/04/26 08:47:38 tron Exp $
+
+Changes to the packages collection and infrastructure on the
+pkgsrc-2015Q1 branch:
+
+Created pkgsrc-2015Q1 branch [agc 2015-04-02 22:06 UTC]
+
+Pullup ticket #4655 - requested by he
+graphics/ImageMagick: security update
+Pullup ticket #4656 - requested by joerg
+graphics/py-pygal: build fix
+Pullup ticket #4657 - requested by wiz
+net/tor: security update
+Pullup ticket #4659 - requested by tnn
+graphics/gd - security fix
+Pullup ticket #4661 - requested by tnn
+sysutils/coreutils - security fix
+Pullup ticket #4662 - requested by tnn
+misc/less - security fix
+Pullup ticket #4663 - requested by joerg
+emulators/dgen - ARM build fix
+Pullup ticket #4660 - requested by hannken
+net/chrony: security update
+Pullup ticket #4665 - requested by joerg
+inputmethod/librime - build fix
+Pullup ticket #4668 - requested by manu
+www/ap2-auth-mellon - apache24 support
+Pullup ticket #4664 - requested by joerg
+security/beecrypt: build fix
+Pullup ticket #4666 - requested by joerg
+devel/gperftools: build fix
+Pullup ticket #4671 - requested by joerg
+devel/spin: build fix
+Pullup ticket #4672 - requested by joerg
+devel/st: build fix
+Pullup ticket #4673 - requested by joerg
+games/ivan: build fix
+Pullup ticket #4669 - requested by manu
+databases/php-ldap: build fix
+Pullup ticket #4674 - requested by joerg
+games/orbital_eunuchs_sniper: packaging fix
+Pullup ticket #4675 - requested by joerg
+games/ioquake3: build fix
+Pullup ticket #4676 - requested by tron
+net/tigervnc: build fix
+Pullup ticket #4677 - requested by taca
+lang/php54: security update
+Pullup ticket #4678 - requested by taca
+net/ntp4: security update
+Pullup ticket #4679 - requested by taca
+lang/php55: security update
+Pullup ticket #4680 - requested by taca
+lang/php56: security update
+Pullup ticket #4681 - requested by joerg
+graphics/p5-PerlMagick: bug fix patch
+Pullup ticket #4654 - requested by dsainty
+security/zoneminder: security update
+Pullup ticket #4683 - requested by joerg
+editors/p5-Wx-Scintilla: linker fix patch
+Pullup ticket #4682 - requested by hiramatsu
+inputmethod/librime: build fix
+Pullup ticket #4670 - requested by joerg
+devel/rsltc: build fix
+Pullup ticket #4684 - requested by taca
+lang/ruby200-base: security update
+Pullup ticket #4685 - requested by taca
+lang/ruby21-base: security update
+Pullup ticket #4686 - requested by taca
+lang/ruby22-base: security update

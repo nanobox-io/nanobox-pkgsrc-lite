@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.9 2015/03/08 15:19:13 taca Exp $
+
+SHA1 (rb-gsl-1.16.0.4.gem) = d4dec715563926f50122b86b035b00bb063f3fad
+RMD160 (rb-gsl-1.16.0.4.gem) = 68e296f56c7d3e4b01a960face4f63cf0b538ae0
+Size (rb-gsl-1.16.0.4.gem) = 588288 bytes

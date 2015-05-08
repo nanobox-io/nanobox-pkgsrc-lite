@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.36 2015/03/13 17:58:02 taca Exp $
+
+SHA1 (rabbit-2.1.6.tar.gz) = 62070c83b22d8b1c2c1c63a955837e852af0c78c
+RMD160 (rabbit-2.1.6.tar.gz) = f8dd4963272cbc8743cef1cd17253b813b7c067d
+Size (rabbit-2.1.6.tar.gz) = 5235550 bytes

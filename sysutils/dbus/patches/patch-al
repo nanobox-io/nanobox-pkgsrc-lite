@@ -1,0 +1,25 @@
+$NetBSD: patch-al,v 1.3 2013/09/12 13:25:47 wiz Exp $
+
+--- tools/Makefile.in.orig	2013-09-05 15:37:16.000000000 +0000
++++ tools/Makefile.in
+@@ -412,7 +412,7 @@ AM_CPPFLAGS = \
+ 	$(DBUS_STATIC_BUILD_CPPFLAGS) \
+ 	$(DBUS_X_CFLAGS) \
+ 	-DDBUS_COMPILATION \
+-	-DDBUS_MACHINE_UUID_FILE=\""$(localstatedir)/lib/dbus/machine-id"\" \
++	-DDBUS_MACHINE_UUID_FILE=\""$(localstatedir)/db/dbus/machine-id"\" \
+ 	$(NULL)
+ 
+ 
+@@ -818,9 +818,9 @@ uninstall-am: uninstall-binPROGRAMS
+ 	uninstall-am uninstall-binPROGRAMS
+ 
+ 
+-# create the /var/lib/dbus directory for dbus-uuidgen
++# create the /var/db/dbus directory for dbus-uuidgen
+ install-data-local:
+-	$(MKDIR_P) $(DESTDIR)$(localstatedir)/lib/dbus
++	$(MKDIR_P) $(DESTDIR)$(localstatedir)/db/dbus
+ 
+ installcheck-local:
+ 	test -d $(DESTDIR)$(localstatedir)/lib/dbus

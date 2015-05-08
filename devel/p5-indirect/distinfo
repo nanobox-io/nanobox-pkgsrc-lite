@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/02/18 12:58:05 mef Exp $
+
+SHA1 (indirect-0.33.tar.gz) = 43cb79212254471fa2be6541080fe224dce597d6
+RMD160 (indirect-0.33.tar.gz) = 3d206abff76e2b5b4a706efce3f748545f36d01f
+Size (indirect-0.33.tar.gz) = 42372 bytes

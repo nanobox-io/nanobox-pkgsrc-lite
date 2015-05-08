@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.11 2013/09/13 10:13:20 sno Exp $
+
+SHA1 (libstatgrab-0.90.tar.gz) = ecc53aafe259c778cafa7df0ef95cf8443d988f1
+RMD160 (libstatgrab-0.90.tar.gz) = e05463287493ef4e4d1dd8c571856ff41b3576bf
+Size (libstatgrab-0.90.tar.gz) = 755785 bytes

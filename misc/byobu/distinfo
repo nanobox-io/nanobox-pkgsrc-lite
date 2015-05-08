@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/07/13 07:13:21 ryoon Exp $
+
+SHA1 (byobu_5.81.orig.tar.gz) = 94639fae93253d86705b1a8c1d40a9112c9b8087
+RMD160 (byobu_5.81.orig.tar.gz) = 2d580832419c711cf0dc32ecad2018480a15ae27
+Size (byobu_5.81.orig.tar.gz) = 651669 bytes

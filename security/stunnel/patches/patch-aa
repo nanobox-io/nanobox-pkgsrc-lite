@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.26 2014/11/07 11:30:47 schmonz Exp $
+
+Install configuration files into examples directory.
+
+--- tools/Makefile.in.orig	2014-10-23 15:09:25.000000000 +0000
++++ tools/Makefile.in
+@@ -226,7 +226,7 @@ top_srcdir = @top_srcdir@
+ EXTRA_DIST = ca.html ca.pl importCA.html importCA.sh script.sh \
+ 	stunnel.spec stunnel.cnf stunnel.nsi stunnel.license stunnel.conf
+ 
+-confdir = $(sysconfdir)/stunnel
++confdir = $(datadir)/examples/stunnel
+ conf_DATA = stunnel.conf-sample
+ examplesdir = $(docdir)/examples
+ examples_DATA = ca.html ca.pl importCA.html importCA.sh script.sh \
+@@ -414,7 +414,7 @@ info: info-am
+ 
+ info-am:
+ 
+-install-data-am: install-confDATA install-data-local \
++install-data-am: install-confDATA \
+ 	install-examplesDATA
+ 
+ install-dvi: install-dvi-am

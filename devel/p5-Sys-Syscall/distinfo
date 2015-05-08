@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/02/17 05:33:45 mef Exp $
+
+SHA1 (Sys-Syscall-0.25.tar.gz) = 2f3318e660acc1ddf49b18604dd13381605c7a3e
+RMD160 (Sys-Syscall-0.25.tar.gz) = 84d6b4ee1174e074c8c93c21920f7c566600a417
+Size (Sys-Syscall-0.25.tar.gz) = 6222 bytes

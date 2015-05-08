@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/09/05 18:05:19 wiz Exp $
+
+SHA1 (DBIx-Class-Cursor-Cached-1.001002.tar.gz) = 5238625053c052e65871dbdd5281ae33c41a9261
+RMD160 (DBIx-Class-Cursor-Cached-1.001002.tar.gz) = 8dff79f3b50361e34d5c3ed1221b729527b6b2e3
+Size (DBIx-Class-Cursor-Cached-1.001002.tar.gz) = 27050 bytes

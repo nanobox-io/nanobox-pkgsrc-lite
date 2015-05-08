@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/03/13 14:41:31 taca Exp $
+
+SHA1 (thread_safe-0.3.5.gem) = c8d37f72d2c0f7949c89f62a47ad2daebf1f5311
+RMD160 (thread_safe-0.3.5.gem) = 94b3b2b7b427dae928dbea5e5f8edb5bc11d56db
+Size (thread_safe-0.3.5.gem) = 120832 bytes

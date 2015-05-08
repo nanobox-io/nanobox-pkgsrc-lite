@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.14 2014/09/14 17:55:38 wiz Exp $
+
+SHA1 (Sphinx-1.2.3.tar.gz) = 3a11f130c63b057532ca37fe49c8967d0cbae1d5
+RMD160 (Sphinx-1.2.3.tar.gz) = 5ef9971a64595407b9a2b64463b744a1bac4f197
+Size (Sphinx-1.2.3.tar.gz) = 3200548 bytes

@@ -1,0 +1,14 @@
+$NetBSD: patch-stdlib_Makefile.shared,v 1.2 2014/10/09 19:08:28 jaapb Exp $
+
+Use BSD_INSTALL_* instead of mkdir and cp
+--- stdlib/Makefile.shared.orig	2014-05-12 15:37:29.000000000 +0000
++++ stdlib/Makefile.shared
+@@ -42,7 +42,7 @@ all: stdlib.cma std_exit.cmo camlheader 
+ INSTALL_LIBDIR=$(DESTDIR)$(LIBDIR)
+ 
+ install: install-$(RUNTIMED)
+-	cp stdlib.cma std_exit.cmo *.cmi *.mli *.ml camlheader camlheader_ur \
++	$(BSD_INSTALL_DATA) stdlib.cma std_exit.cmo *.cmi *.mli *.ml camlheader camlheader_ur \
+ 	  $(INSTALL_LIBDIR)
+ 
+ install-noruntimed:

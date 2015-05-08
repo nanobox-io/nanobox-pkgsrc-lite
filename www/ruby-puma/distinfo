@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2015/03/08 15:33:01 taca Exp $
+
+SHA1 (puma-2.11.1.gem) = 6ffe779972f0fbb1ca9c0a0262333d5c5c26dcd0
+RMD160 (puma-2.11.1.gem) = 4f17514fde5382332e1afae5a3de7dc209f42a8b
+Size (puma-2.11.1.gem) = 94208 bytes

@@ -1,0 +1,9 @@
+$NetBSD: distinfo,v 1.2 2013/11/28 06:33:49 dholland Exp $
+
+SHA1 (smbchartool-2.3anb5/smbchartool-2.3a.tar.gz) = 59ad29b550bc3c56455500058104cf0e01026206
+RMD160 (smbchartool-2.3anb5/smbchartool-2.3a.tar.gz) = f3c5968692cb64006d0497f7eec15ad087159316
+Size (smbchartool-2.3anb5/smbchartool-2.3a.tar.gz) = 30978 bytes
+SHA1 (smbchartool-2.3anb5/smbchartool-2.3a_3.0a.diff.gz) = 11b5adf68defce9fbf3b976b0e360156626447d0
+RMD160 (smbchartool-2.3anb5/smbchartool-2.3a_3.0a.diff.gz) = 24bbac3bf1dd03d6d67b5d66bdb5d5f69383d6d1
+Size (smbchartool-2.3anb5/smbchartool-2.3a_3.0a.diff.gz) = 7327 bytes
+SHA1 (patch-aa) = 4a960b0f20927d61c5966cd566530c67f46679c2

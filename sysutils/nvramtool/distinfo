@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/12/09 18:40:07 jakllsch Exp $
+
+SHA1 (nvramtool-4.0-5009-gf87c20a-6af86f2.tar.gz) = 526cc5641454180919fda3c8bf63ce3a33872905
+RMD160 (nvramtool-4.0-5009-gf87c20a-6af86f2.tar.gz) = 2bb194f0c5b250c36d92ca692319317b2abc1089
+Size (nvramtool-4.0-5009-gf87c20a-6af86f2.tar.gz) = 56273 bytes

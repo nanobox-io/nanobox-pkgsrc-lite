@@ -1,0 +1,27 @@
+$NetBSD: patch-ak,v 1.4 2007/07/01 22:43:07 tnn Exp $
+
+--- configure.orig	2007-04-20 13:31:18.000000000 +0000
++++ configure
+@@ -4259,6 +4259,11 @@ else
+ 	osf4*)		MODULE=decosf1;;
+ 	osf5*)		MODULE=decosf1;;
+         freebsd*)	MODULE=freebsd; USE_KMEM=1;;
++	netbsd0*)      MODULE=netbsd08;;
++	netbsd10)	MODULE=netbsd10;;
++	netbsd13*)	MODULE=netbsd132;;
++	netbsd*)	MODULE=netbsd20;;
++	dragonfly*)	MODULE=dragonfly; LIBS="$LIBS -lkinfo";;
+ 	hpux7*)		MODULE=hpux7;;
+ 	hpux8*)		MODULE=hpux8;;
+ 	hpux9*)		MODULE=hpux9;;
+@@ -4461,7 +4466,9 @@ fi
+ 
+     ;;
+     sunos5)
+-	if test -f /usr/bin/isainfo; then
++	if test "x${ABI}" != "x"; then
++	    bits="${ABI}"
++	elif test -f /usr/bin/isainfo; then
+ 	    bits="`/usr/bin/isainfo -b`"
+ 	    if test -d /kernel/amd64; then
+ 		extra_flag="-xarch=amd64"

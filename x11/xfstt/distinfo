@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.14 2014/11/12 15:24:16 wiz Exp $
+
+SHA1 (xfstt-1.9.1.tar.xz) = bae76366a84babc2d63d674864d66efa77fda626
+RMD160 (xfstt-1.9.1.tar.xz) = d38e480011a19b5537aa914ec5ace01b26b7f203
+Size (xfstt-1.9.1.tar.xz) = 210704 bytes
+SHA1 (patch-ab) = 78dc21537e86e5533e747e7bab3e5280087fa43b
+SHA1 (patch-ac) = c9bfc230c6be8872da329da8ab54363b7f87cdea

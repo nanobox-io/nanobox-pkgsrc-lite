@@ -1,0 +1,9 @@
+$NetBSD: distinfo,v 1.6 2013/10/06 17:15:35 adam Exp $
+
+SHA1 (barcode-0.99.tar.xz) = a6283a844ebfdccc9458256e5e6db15760348384
+RMD160 (barcode-0.99.tar.xz) = 57d91ddf49595ef29d83b5c3515727b8a04ccbf8
+Size (barcode-0.99.tar.xz) = 586028 bytes
+SHA1 (patch-Makefile.in) = 75b316c0e240966cb87eb3c57c0a48b96a615c3e
+SHA1 (patch-barcode.h) = 5c8409cf67428e0448872291555b178beca2c741
+SHA1 (patch-main.c) = 924a01db8fa3a33ce4ba7b050aefd4fd6019f58d
+SHA1 (patch-sample.c) = d143a473a2cebbc485220321323e81caf36b38b9

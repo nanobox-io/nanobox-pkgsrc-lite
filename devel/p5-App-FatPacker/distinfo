@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2015/01/26 04:55:31 mef Exp $
+
+SHA1 (App-FatPacker-0.010002.tar.gz) = dd5a8cd1a9b8b8d4a6ecc5e450992d736c8312b7
+RMD160 (App-FatPacker-0.010002.tar.gz) = 73fe07fb4911bc78586ebed61061a73c5b464512
+Size (App-FatPacker-0.010002.tar.gz) = 11374 bytes

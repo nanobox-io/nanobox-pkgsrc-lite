@@ -1,0 +1,15 @@
+$NetBSD: patch-library_database_riak,v 1.2 2014/06/15 00:15:08 rodent Exp $
+
+Fix hardcoded paths to be replaced with SUBST framework.
+
+--- library/database/riak.orig	2014-06-09 21:23:31.000000000 +0000
++++ library/database/riak
+@@ -118,7 +118,7 @@ def main():
+         argument_spec=dict(
+         command=dict(required=False, default=None, choices=[
+                     'ping', 'kv_test', 'join', 'plan', 'commit']),
+-        config_dir=dict(default='/etc/riak'),
++        config_dir=dict(default='@PKG_SYSCONFDIR@/riak'),
+         http_conn=dict(required=False, default='127.0.0.1:8098'),
+         target_node=dict(default='riak@127.0.0.1', required=False),
+         wait_for_handoffs=dict(default=False, type='int'),

@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.6 2012/11/02 07:29:30 sbd Exp $
+bin${BINARCHSUFFIX}/a2p
+bin${BINARCHSUFFIX}/perl
+bin${BINARCHSUFFIX}/perl5.20.2
+bin${BINARCHSUFFIX}/perllink
+lib/perl5/bin${BINARCHSUFFIX}/perllink
+lib/perl5/${PKGMANDIR}/man1/perllink.1
+man/man1/perllink.1

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/08/27 08:06:56 obache Exp $
+
+SHA1 (Quota-1.7.0.tar.gz) = 237dae8a360560a25511d269fc6361d4c436b732
+RMD160 (Quota-1.7.0.tar.gz) = 8ded8582fa0256c9ed7f524427d99925a4c4f818
+Size (Quota-1.7.0.tar.gz) = 50342 bytes

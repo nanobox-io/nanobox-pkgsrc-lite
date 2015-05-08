@@ -1,0 +1,47 @@
+# $NetBSD: Makefile,v 1.10 2014/09/16 09:48:41 wiz Exp $
+
+.include "../../devel/ncurses/Makefile.common"
+
+PKGNAME=	${DISTNAME:S/ncurses/ncursesw/}
+PKGREVISION=	1
+COMMENT=	Wide character CRT screen handling and optimization package
+
+PATCHDIR=	${.CURDIR}/../../devel/ncurses/patches
+DISTINFO_FILE=	${.CURDIR}/../../devel/ncurses/distinfo
+
+CONFIGURE_ARGS+=	--enable-widec
+CONFIGURE_ARGS+=	--includedir=${PREFIX}/include/ncursesw
+
+INSTALLATION_DIRS+=	include/ncursesw
+INSTALLATION_DIRS+=	bin${BINARCHSUFFIX}
+INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}
+
+BUILD_TARGET=	libs
+
+.if ${OPSYS} == "SunOS"
+CXXFLAGS+=	-D_XPG5
+.endif
+
+SUBST_CLASSES+=		includes
+SUBST_MESSAGE.includes=	Fixing include paths for ncurses headers.
+SUBST_STAGE.includes=	post-build
+SUBST_FILES.includes=	include/curses.h
+SUBST_SED.includes=	-e 's,<ncurses_dll\.h>,<ncurses/ncurses_dll\.h>,'
+SUBST_SED.includes+=	-e 's,<unctrl\.h>,<ncurses/unctrl\.h>,'
+
+do-install:
+	cd ${WRKSRC}/include &&	\
+	${MAKE_ENV} ${MAKE_PROGRAM} ${INSTALL_MAKE_FLAGS} install
+	${INSTALL_SCRIPT} ${WRKSRC}/misc/ncurses-config ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}/ncursesw${NC_VERS:R}-config
+	for LIB in form menu ncurses++ ncurses panel; do	\
+		${SETENV} ${MAKE_ENV} ${LIBTOOL} --mode=install ${INSTALL_PROGRAM}	\
+		    ${WRKSRC}/lib/lib$${LIB}w.la ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX};	\
+	done
+
+BUILDLINK_API_DEPENDS.ncurses+=	ncurses-${NC_VERS}{,nb*}
+BUILDLINK_ABI_DEPENDS.ncurses+=	ncurses-${NC_VERS}{,nb*}
+USE_NCURSES=			yes
+
+.include "../../devel/ncurses/buildlink3.mk"
+
+.include "../../mk/bsd.pkg.mk"

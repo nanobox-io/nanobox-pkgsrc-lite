@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.5 2014/11/23 10:06:41 mef Exp $
+${PYSITELIB}/gammu/Data.py
+${PYSITELIB}/gammu/Data.pyc
+${PYSITELIB}/gammu/Data.pyo
+${PYSITELIB}/gammu/Worker.py
+${PYSITELIB}/gammu/Worker.pyc
+${PYSITELIB}/gammu/Worker.pyo
+${PYSITELIB}/gammu/__init__.py
+${PYSITELIB}/gammu/__init__.pyc
+${PYSITELIB}/gammu/__init__.pyo
+${PYSITELIB}/gammu/_gammu.so
+${PYSITELIB}/gammu/data.py
+${PYSITELIB}/gammu/data.pyc
+${PYSITELIB}/gammu/data.pyo
+${PYSITELIB}/gammu/exception.py
+${PYSITELIB}/gammu/exception.pyc
+${PYSITELIB}/gammu/exception.pyo
+${PYSITELIB}/gammu/smsd.py
+${PYSITELIB}/gammu/smsd.pyc
+${PYSITELIB}/gammu/smsd.pyo
+${PYSITELIB}/gammu/worker.py
+${PYSITELIB}/gammu/worker.pyc
+${PYSITELIB}/gammu/worker.pyo
+${PYSITELIB}/${EGG_FILE}

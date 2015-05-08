@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2013/10/30 21:15:49 gls Exp $
+
+SHA1 (libconfig-1.4.9.tar.gz) = b7a3c307dfb388e57d9a35c7f13f6232116930ec
+RMD160 (libconfig-1.4.9.tar.gz) = ec0f28737fa603379f3b91c2de1857d7b1ae676f
+Size (libconfig-1.4.9.tar.gz) = 688158 bytes

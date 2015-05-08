@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.14 2014/10/07 20:48:28 shattered Exp $
+
+SHA1 (datlib236.zip) = 99d4e787d3a3cd66a3274d7481486ee7189d6f8f
+RMD160 (datlib236.zip) = e581cef88b063430f169963370091d1ddc15b926
+Size (datlib236.zip) = 109484 bytes
+SHA1 (patch-aa) = 58052a8c72989212d83081691f685574af6b40d4
+SHA1 (patch-ab) = e01959114bafc63ae29fcde587b507f67e1c69b2

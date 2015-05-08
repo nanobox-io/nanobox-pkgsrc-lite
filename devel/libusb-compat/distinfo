@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/11/24 12:53:19 mef Exp $
+
+SHA1 (libusb-compat-0.1.5.tar.bz2) = 062319276d913c753a4b1341036e6a2e42abccc9
+RMD160 (libusb-compat-0.1.5.tar.bz2) = 1e4d8b9ea524818380c5a5f53d1d05dac37033cf
+Size (libusb-compat-0.1.5.tar.bz2) = 276769 bytes

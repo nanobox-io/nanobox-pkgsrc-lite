@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2015/01/28 04:30:04 mef Exp $
+
+SHA1 (Config-Auto-0.44.tar.gz) = 3101baa68632cb626746f4f468a7e79055ec6333
+RMD160 (Config-Auto-0.44.tar.gz) = 317ca98b41a958f63bb7229e1d40ccf5e7a004a1
+Size (Config-Auto-0.44.tar.gz) = 16668 bytes

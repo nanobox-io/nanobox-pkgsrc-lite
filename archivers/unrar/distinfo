@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.53 2015/01/11 13:26:04 adam Exp $
+
+SHA1 (unrarsrc-5.2.4.tar.gz) = 19de7ef93b5b483045f1689eb90834431d90dc1f
+RMD160 (unrarsrc-5.2.4.tar.gz) = 7629544389d3af026807ff7928c749120c8726c4
+Size (unrarsrc-5.2.4.tar.gz) = 217915 bytes

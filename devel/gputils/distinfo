@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.8 2014/12/30 22:19:35 ryoon Exp $
+
+SHA1 (gputils-1.4.0.tar.gz) = 5ea4de160e33ed20ebabbcad0f4091d80bcf81bd
+RMD160 (gputils-1.4.0.tar.gz) = 94492df5ed4d99c6af2e6f0ad54c43e830488d2f
+Size (gputils-1.4.0.tar.gz) = 9659449 bytes

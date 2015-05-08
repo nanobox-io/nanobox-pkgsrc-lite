@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.22 2015/01/04 23:15:19 wiz Exp $
+
+SHA1 (signing-party_1.1.12.orig.tar.gz) = bfe0c97c097d0c682a37c98ea03cd7d47c8a7cb8
+RMD160 (signing-party_1.1.12.orig.tar.gz) = 5bd05b4adfe00d683af9029dc4383be9d93c6c55
+Size (signing-party_1.1.12.orig.tar.gz) = 234388 bytes
+SHA1 (patch-keyanalyze_pgpring_configure.in) = 970a31b75721abb885cd6d7af3bad8efc73c11a2

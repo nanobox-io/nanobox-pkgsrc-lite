@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2015/01/31 06:18:42 mef Exp $
+
+SHA1 (primer3-src-2.3.6.tar.gz) = 7dbd33a4e9c2a4fe06c74d6b83f8ff0f9ed1c49a
+RMD160 (primer3-src-2.3.6.tar.gz) = 1cd48d0677303efd5ca0ce76ac46c04fd5f29b9c
+Size (primer3-src-2.3.6.tar.gz) = 1667573 bytes
+SHA1 (patch-src_primer3__boulder__main.c) = b99c0aa87d4e6282200d72c502c9c938f6ea2b76

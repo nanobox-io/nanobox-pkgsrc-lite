@@ -1,0 +1,36 @@
+$NetBSD: patch-aa,v 1.13 2014/08/28 17:45:53 jperkin Exp $
+
+Use correct CFLAGS on SunOS.
+
+--- configure.orig	2014-07-20 06:15:05.000000000 +0000
++++ configure
+@@ -3038,8 +3038,8 @@ GAUCHE_CONFIGURE_ARGS="`echo ""$ac_confi
+ 
+ 
+ case $host in
+-  *-pc-solaris2.*)
+-    CFLAGS="$CFLAGS -D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1 -D__EXTENSIONS__" ;;
++  *-solaris2.*)
++    CFLAGS="$CFLAGS -D_XOPEN_SOURCE=600 -D__EXTENSIONS__" ;;
+ esac
+ 
+ ac_ext=c
+@@ -5170,6 +5170,9 @@ $as_echo "#define SCM_TARGET_X86_64 1" >
+  ;;
+   alpha*)
+     CFLAGS="$CFLAGS -mieee" ;;
++  arm*-*-netbsd*)
++    # Don't define DOUBLE_ARMENDIAN on netbsd.
++    ;;
+   arm*)
+     # ARM processor may use a special mixed endian for doubles.  It can
+     # be switched by processor configuration.  So we check it at runtime.
+@@ -6377,7 +6380,7 @@ _ACEOF
+ 
+ fi
+ 
+-for ac_func in isnan isinf trunc rint tgamma lgamma
++for ac_func in isnan isinf trunc tgamma lgamma
+ do :
+   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"

@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.5 2013/11/15 14:10:29 wiz Exp $
+
+SHA1 (frama-c-Oxygen-20120901.tar.gz) = 65aef0a88b788d11a6b5061dc08741492859de40
+RMD160 (frama-c-Oxygen-20120901.tar.gz) = 76daf11770a52b1b1bc59ca9c576208ac08755a8
+Size (frama-c-Oxygen-20120901.tar.gz) = 10815011 bytes
+SHA1 (patch-configure) = c7e895c967199433c9d55d99347ec14cad9b41ab

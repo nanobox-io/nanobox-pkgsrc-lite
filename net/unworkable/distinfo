@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2013/08/22 00:59:33 agc Exp $
+
+SHA1 (unworkable-0.53.tar.gz) = 546dee5844fcbac42fe7ae51bc5344537e9b769d
+RMD160 (unworkable-0.53.tar.gz) = a361bff35856f255be85256f9d74c3dfb11fb60e
+Size (unworkable-0.53.tar.gz) = 72053 bytes
+SHA1 (patch-BSDMakefile) = 722124fc797d751cb4402132a1f662553ddce0ec

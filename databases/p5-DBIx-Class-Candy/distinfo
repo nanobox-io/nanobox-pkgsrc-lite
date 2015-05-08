@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2014/12/04 00:28:59 wen Exp $
+
+SHA1 (DBIx-Class-Candy-0.002107.tar.gz) = 757b5da1a1edae8d902edac949e14035340d6351
+RMD160 (DBIx-Class-Candy-0.002107.tar.gz) = a8eaa6d40c9080c79b59a162b6808a760740e860
+Size (DBIx-Class-Candy-0.002107.tar.gz) = 18796 bytes

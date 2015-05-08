@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.8 2014/11/13 12:06:45 markd Exp $
+
+SHA1 (kmix-4.14.3.tar.xz) = 556d49a0d54f5908ab5ffaacfe821e2ec3047b81
+RMD160 (kmix-4.14.3.tar.xz) = 217854ce2004ccf70e0c76b99095a9b4abb96d24
+Size (kmix-4.14.3.tar.xz) = 379220 bytes
+SHA1 (patch-CMakeLists.txt) = 94d47c2e106f5073b1474ba1ed3ebe8018943063
+SHA1 (patch-tests_CMakeLists.txt) = 4c39d6268e6c690099d06a8ba6946cb90242791e

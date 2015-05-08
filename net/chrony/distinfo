@@ -1,0 +1,10 @@
+$NetBSD: distinfo,v 1.9.14.1 2015/04/15 21:13:51 tron Exp $
+
+SHA1 (chrony-1.31.1.tar.gz) = 8e92871e164dad89b315a5dda99d94ff7b31770a
+RMD160 (chrony-1.31.1.tar.gz) = 7dd53fb95c1ecf30099bb580adeccd1a808c4dff
+Size (chrony-1.31.1.tar.gz) = 395797 bytes
+SHA1 (patch-Makefile.in) = 28abbbf1cfd037f018a92c3827642e749fd8768a
+SHA1 (patch-conf.c) = df47df974995f9f947b731a4812fb7633fd874a4
+SHA1 (patch-examples_chrony.conf.example) = ed17d749b1e4ad1c168da7a0393ef35a5e68aac0
+SHA1 (patch-examples_chrony.keys.example) = 5be7672dc40a1a1cb4451db05a4318185ef4f4d2
+SHA1 (patch-ntp__io.c) = edd1b5cf49fc24d3bfed128cd686b17633335a4d

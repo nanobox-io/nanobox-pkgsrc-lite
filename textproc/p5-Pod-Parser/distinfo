@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2014/07/15 20:31:02 schmonz Exp $
+
+SHA1 (Pod-Parser-1.62.tar.gz) = 8d09161af72c78fdf13a0a2c16e46950ad72cfdc
+RMD160 (Pod-Parser-1.62.tar.gz) = f34f6f9f794d8724554251a8707b9319660a9f13
+Size (Pod-Parser-1.62.tar.gz) = 79529 bytes

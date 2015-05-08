@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/10/17 23:52:53 tonnerre Exp $
+
+SHA1 (PyRSS2Gen-1.1.tar.gz) = 347cda707760df83f35a3bb16e4adf90c052bbd0
+RMD160 (PyRSS2Gen-1.1.tar.gz) = 0dea97364066f78189b99a512015e851601aa2fa
+Size (PyRSS2Gen-1.1.tar.gz) = 9149 bytes

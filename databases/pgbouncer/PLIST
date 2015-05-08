@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2014/03/11 14:05:00 jperkin Exp $
+bin/pgbouncer
+man/man1/pgbouncer.1
+man/man5/pgbouncer.5
+share/examples/pgbouncer/pgbouncer.ini
+share/examples/pgbouncer/pgbouncer.userlist

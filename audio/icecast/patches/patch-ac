@@ -1,0 +1,22 @@
+$NetBSD: patch-ac,v 1.4 2013/10/22 19:27:52 drochner Exp $
+
+--- configure.orig	2012-06-11 17:03:18.000000000 +0000
++++ configure
+@@ -13214,7 +13214,7 @@ else
+   have_kate=no
+ fi
+ 
+-if test "x$have_kate" == "xyes"
++if test "x$have_kate" = "xyes"
+ then
+   { $as_echo "$as_me:${as_lineno-$LINENO}: checking for kate_ogg_decode_headerin in -loggkate" >&5
+ $as_echo_n "checking for kate_ogg_decode_headerin in -loggkate... " >&6; }
+@@ -13258,7 +13258,7 @@ else
+   have_kate=no
+ fi
+ 
+-  if test "x$have_kate" == "xyes"
++  if test "x$have_kate" = "xyes"
+   then
+     KATE_LIBS="-loggkate -lkate -logg"
+ 

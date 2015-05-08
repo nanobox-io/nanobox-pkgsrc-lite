@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2014/09/06 12:59:20 wiz Exp $
+
+SHA1 (Dist-CheckConflicts-0.11.tar.gz) = 5c2f6796c420e0db750541e605e45140f5f374be
+RMD160 (Dist-CheckConflicts-0.11.tar.gz) = 5228a84ce011d9bc1072411cf60b82b89e38354d
+Size (Dist-CheckConflicts-0.11.tar.gz) = 19964 bytes

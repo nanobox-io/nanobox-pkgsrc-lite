@@ -1,0 +1,58 @@
+$NetBSD: patch-aa,v 1.11 2015/02/20 21:06:52 fhajny Exp $
+
+Fix locations; don't mess with ownership.
+--- Makefile.in.orig	2015-02-11 23:14:57.000000000 +0000
++++ Makefile.in
+@@ -9,7 +9,7 @@ exec_prefix = @exec_prefix@
+ DESTDIR =
+ 
+ # /etc/ejabberd/
+-ETCDIR = $(DESTDIR)@sysconfdir@/ejabberd
++ETCDIR = $(DESTDIR)@prefix@/share/examples/ejabberd
+ 
+ # /bin/
+ BINDIR = $(DESTDIR)@bindir@
+@@ -18,7 +18,7 @@ BINDIR = $(DESTDIR)@bindir@
+ SBINDIR = $(DESTDIR)@sbindir@
+ 
+ # /lib/ejabberd/
+-EJABBERDDIR = $(DESTDIR)@libdir@/ejabberd
++EJABBERDDIR = $(DESTDIR)@prefix@/lib/erlang/lib/@DISTNAME@
+ 
+ # /share/doc/ejabberd
+ PACKAGE_TARNAME = @PACKAGE_TARNAME@
+@@ -44,16 +44,16 @@ SODIR = $(PRIVDIR)/lib
+ MSGSDIR = $(PRIVDIR)/msgs
+ 
+ # /var/lib/ejabberd/
+-SPOOLDIR = $(DESTDIR)@localstatedir@/lib/ejabberd
++SPOOLDIR = $(DESTDIR)@EJABBERD_DB@
+ 
+ # /var/lock/ejabberdctl
+-CTLLOCKDIR = $(DESTDIR)@localstatedir@/lock/ejabberdctl
++CTLLOCKDIR = $(DESTDIR)@EJABBERD_PIDDIR@
+ 
+ # /var/lib/ejabberd/.erlang.cookie
+ COOKIEFILE = $(SPOOLDIR)/.erlang.cookie
+ 
+ # /var/log/ejabberd/
+-LOGDIR = $(DESTDIR)@localstatedir@/log/ejabberd
++LOGDIR = $(DESTDIR)@EJABBERD_LOGDIR@
+ 
+ INSTALLUSER=@INSTALLUSER@
+ # if no user was enabled, don't set privileges or ownership
+@@ -64,10 +64,10 @@ ifeq ($(INSTALLUSER),)
+   CHOWN_OUTPUT=/dev/null
+   INIT_USER=root
+ else
+-  O_USER=-o $(INSTALLUSER)
+-  G_USER=-g $(INSTALLUSER)
+-  CHOWN_COMMAND=chown
+-  CHOWN_OUTPUT=&1
++  O_USER=
++  G_USER=
++  CHOWN_COMMAND=echo
++  CHOWN_OUTPUT=/dev/null
+   INIT_USER=$(INSTALLUSER)
+ endif
+ 

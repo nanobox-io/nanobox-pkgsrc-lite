@@ -1,0 +1,18 @@
+$NetBSD: patch-ag,v 1.3 2013/08/20 11:07:13 shattered Exp $
+
+--- configure.orig	2012-10-10 11:54:30.000000000 +0000
++++ configure
+@@ -6612,13 +6612,8 @@ else
+   OS_DARWIN_FALSE=
+ fi
+ 
+- if test "$os_solaris" = "yes"; then
+-  OS_SOLARIS_TRUE=
+-  OS_SOLARIS_FALSE='#'
+-else
+   OS_SOLARIS_TRUE='#'
+   OS_SOLARIS_FALSE=
+-fi
+ 
+  if test "$os_win32" = "yes"; then
+   OS_WIN32_TRUE=

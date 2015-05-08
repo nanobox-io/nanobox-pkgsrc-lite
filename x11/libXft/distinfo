@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2014/06/06 07:05:52 wiz Exp $
+
+SHA1 (libXft-2.3.2.tar.bz2) = e025d790a7b6c4d283a78d8df06615cb10278e2d
+RMD160 (libXft-2.3.2.tar.bz2) = 538536c5b10e2ae7696a2183a25bc3b59b5442b3
+Size (libXft-2.3.2.tar.bz2) = 335495 bytes

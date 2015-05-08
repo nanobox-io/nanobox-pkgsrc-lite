@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.8 2014/11/13 19:19:06 markd Exp $
+
+SHA1 (kmag-4.14.3.tar.xz) = 2ec27ba8b380f6a3c8a14908ec1a913f99b8b70f
+RMD160 (kmag-4.14.3.tar.xz) = 019de8e6b15f24628fd9c32927cc43fe3c4cafcd
+Size (kmag-4.14.3.tar.xz) = 86264 bytes

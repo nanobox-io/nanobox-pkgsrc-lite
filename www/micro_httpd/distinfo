@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2014/07/13 14:49:13 schwarz Exp $
+
+SHA1 (micro_httpd_10jul2014.tar.gz) = 9171770319a2b74a9976ff3adcdb04dff185f684
+RMD160 (micro_httpd_10jul2014.tar.gz) = b8990a06800389431d5d2545a556ee2a90c7b60b
+Size (micro_httpd_10jul2014.tar.gz) = 5253 bytes
+SHA1 (patch-aa) = 0e28f7c330a0860238e131f9e891fdf6daaaee88

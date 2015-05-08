@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.5 2015/02/07 16:01:07 mef Exp $
+
+- Ensure we use the required ldflags for the platform.
+
+--- Makefile.PL.orig	2015-02-02 02:42:08.000000000 +0900
++++ Makefile.PL	2015-02-03 10:19:06.000000000 +0900
+@@ -22,7 +22,7 @@
+   "EXE_FILES" => [],
+   "INC" => "-I. -Ic",
+   "LDFROM" => "LibMagic\$(OBJ_EXT)",
+-  "LIBS" => "-lmagic",
++  'LIBS' => "$ENV{LDFLAGS}  -lmagic -lz", # e.g., '-lm'
+   "LICENSE" => "perl",
+   "MIN_PERL_VERSION" => "5.008",
+   "NAME" => "File::LibMagic",

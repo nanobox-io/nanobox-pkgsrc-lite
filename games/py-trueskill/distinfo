@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2014/09/07 20:33:59 wiz Exp $
+
+SHA1 (trueskill-0.4.3.tar.gz) = d864a631aa8eae67af1d6608dc014bf3db64dd69
+RMD160 (trueskill-0.4.3.tar.gz) = a45d8f8c86f935f0d31814ac64ac9cc6b12a2b51
+Size (trueskill-0.4.3.tar.gz) = 21060 bytes

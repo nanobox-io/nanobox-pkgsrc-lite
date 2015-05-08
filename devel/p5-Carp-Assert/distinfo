@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2015/01/26 07:20:48 mef Exp $
+
+SHA1 (Carp-Assert-0.21.tar.gz) = 4dfdd9fa1a63c6d2104443fdac06ad33b995429c
+RMD160 (Carp-Assert-0.21.tar.gz) = c89b74e783ce3547b43e94c5158e5e19f46697e7
+Size (Carp-Assert-0.21.tar.gz) = 11106 bytes

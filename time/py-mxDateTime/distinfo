@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.11 2014/01/20 20:39:22 wiz Exp $
+
+SHA1 (egenix-mx-base-3.2.7.tar.gz) = fd9e470f8d8b14f793d65991858e5cc95ae17fcf
+RMD160 (egenix-mx-base-3.2.7.tar.gz) = eb3256f1070807758c4b1976b98e7c4f89136fd4
+Size (egenix-mx-base-3.2.7.tar.gz) = 4585906 bytes

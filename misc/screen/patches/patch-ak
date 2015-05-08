@@ -1,0 +1,38 @@
+$NetBSD: patch-ak,v 1.7 2015/02/13 04:44:40 rodent Exp $
+
+Patch configure after configure.in (see patch-aj).
+
+Include curses header when testing tgetent in order to prevent
+crash on 64-bit architectures.
+
+Detect getutent correctly on NetBSD with utmpx.
+
+--- configure.orig	2014-04-26 10:58:46.000000000 +0000
++++ configure
+@@ -5017,6 +5017,8 @@ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
++#include <curses.h>
++
+ main()
+ {
+  exit(strcmp(tgoto("%p1%d", 0, 1), "1") ? 0 : 1);
+@@ -5413,9 +5415,16 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+ 
+ #include <time.h> /* to get time_t on SCO */
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#include <sys/param.h>
++#if (defined(SVR4) && !defined(DGUX)) \
++ || (defined(__NetBSD_Version__) && (__NetBSD_Version__ >= 106050000)) \
++ || (defined(__DragonFly__) && (__DragonFly_version >= 200902))
+ #include <utmpx.h>
+ #define utmp utmpx
++# if defined(__NetBSD__) || defined(__DragonFly__)
++#  define pututline pututxline
++#  define getutent  getutxent
++# endif
+ #else
+ #include <utmp.h>
+ #endif

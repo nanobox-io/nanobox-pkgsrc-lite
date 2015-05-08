@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2013/09/14 13:55:58 wiz Exp $
+
+SHA1 (freeDiameter/1.2.0.tar.gz) = 687bd9d551eb4261c3600fcbe35ea519b711e9f7
+RMD160 (freeDiameter/1.2.0.tar.gz) = c998ef87eb5ba00d58723a545d30c9d0d53be50e
+Size (freeDiameter/1.2.0.tar.gz) = 855257 bytes

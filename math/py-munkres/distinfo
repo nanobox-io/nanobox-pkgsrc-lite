@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/01/20 20:26:39 wiz Exp $
+
+SHA1 (munkres-1.0.6.tar.gz) = f5115fe4df109d8ef04e51e1c3799caded84d66d
+RMD160 (munkres-1.0.6.tar.gz) = 21db2ea164f20a829b8c6b3faf691cfb8ec5e625
+Size (munkres-1.0.6.tar.gz) = 9841 bytes

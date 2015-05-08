@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:59:26 joerg Exp $
+include/pycairo/pycairo.h
+lib${LIBARCHSUFFIX}/pkgconfig/pycairo.pc
+${PYSITELIB}${LIBARCHSUFFIX}/cairo/__init__.py
+${PYSITELIB}${LIBARCHSUFFIX}/cairo/__init__.pyc
+${PYSITELIB}${LIBARCHSUFFIX}/cairo/__init__.pyo
+${PYSITELIB}${LIBARCHSUFFIX}/cairo/_cairo.la

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.18 2014/02/06 12:34:51 abs Exp $
+
+SHA1 (JSON-2.90.tar.gz) = 8f0ffe72cbe9e6287d7ecafcf19b31cc297364c2
+RMD160 (JSON-2.90.tar.gz) = 629becc378221dadbd01162c26dabec2ea7550cc
+Size (JSON-2.90.tar.gz) = 85333 bytes

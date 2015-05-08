@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2013/09/05 17:57:54 wiz Exp $
+
+SHA1 (DBICx-TestDatabase-0.05.tar.gz) = b078453ec4d3e4da5d6a6798db83103386caa3ec
+RMD160 (DBICx-TestDatabase-0.05.tar.gz) = 335e11046db124138ba14047cead8229de453c2c
+Size (DBICx-TestDatabase-0.05.tar.gz) = 21574 bytes

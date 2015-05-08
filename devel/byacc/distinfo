@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2014/12/15 06:04:13 mef Exp $
+
+SHA1 (byacc-20141128.tgz) = 59ea0a166b10eaec99edacc4c38fcb006c6e84d3
+RMD160 (byacc-20141128.tgz) = 246dece91262b8f1f8746b03a8a0b32249e47f84
+Size (byacc-20141128.tgz) = 710145 bytes

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2014/01/19 22:22:56 wiz Exp $
+
+SHA1 (zbase32-1.1.5.tar.gz) = 1cbf1144b953fb299e189ef9d06066456f30a1e3
+RMD160 (zbase32-1.1.5.tar.gz) = 78cfa5baf90699392653080380f5ab42f6e405c1
+Size (zbase32-1.1.5.tar.gz) = 21745 bytes

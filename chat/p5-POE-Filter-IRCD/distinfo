@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2013/12/15 13:49:44 wen Exp $
+
+SHA1 (POE-Filter-IRCD-2.44.tar.gz) = 9c5ec395bf8106293542b8dc85d30b46aa1a1a82
+RMD160 (POE-Filter-IRCD-2.44.tar.gz) = 404073c968591704e5f8700db1c4983cc2fb6dd5
+Size (POE-Filter-IRCD-2.44.tar.gz) = 15760 bytes

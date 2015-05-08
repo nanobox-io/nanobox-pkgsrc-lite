@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.11 2014/08/26 11:35:49 obache Exp $
+
+SHA1 (libthai-0.1.21.tar.xz) = 9098285a7c1cd937f97caf19462fe24c117a7755
+RMD160 (libthai-0.1.21.tar.xz) = f07dcc9505c3165699bdedac6b1209718c4602d7
+Size (libthai-0.1.21.tar.xz) = 385384 bytes

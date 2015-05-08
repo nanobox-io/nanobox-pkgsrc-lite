@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2014/12/04 08:10:22 mef Exp $
+
+SHA1 (DBD-ODBC-1.50.tar.gz) = 290b8bd11dfddceb7fa8990242763b1c5d8b328e
+RMD160 (DBD-ODBC-1.50.tar.gz) = c64520f1088221ccb5957fcae7eebadf2b0d0148
+Size (DBD-ODBC-1.50.tar.gz) = 277936 bytes

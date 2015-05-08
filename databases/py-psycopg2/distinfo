@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.20 2015/02/17 14:01:56 wiz Exp $
+
+SHA1 (psycopg2-2.6.tar.gz) = a3b0c6e07c5d34d949087f08a6c623df03407bbf
+RMD160 (psycopg2-2.6.tar.gz) = 9ead00b8be9168e0492050705b17b218edbbb669
+Size (psycopg2-2.6.tar.gz) = 367972 bytes

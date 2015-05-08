@@ -1,0 +1,71 @@
+$NetBSD: patch-aa,v 1.6 2014/01/02 17:10:23 fhajny Exp $
+
+Set pkgsrc standard paths.
+--- configure.orig	2013-10-20 09:38:47.000000000 +0000
++++ configure
+@@ -647,6 +647,7 @@ localstatelogdir
+ localstatelibdir
+ locallibdir
+ localdocdir
++localegdir
+ localdatadir
+ localconfdir
+ bug_uri
+@@ -18326,7 +18327,7 @@ fi
+ done
+ test -n "$CURL_CONFIG" || CURL_CONFIG="no"
+ 
+-    if test "$CURL_CONFIG" == "no"; then :
++    if test "$CURL_CONFIG" = "no"; then :
+ 
+       :
+ 
+@@ -18338,7 +18339,7 @@ $as_echo "$as_me: WARNING: You will be u
+ 
+ else
+ 
+-            if test x"" == x; then :
++            if test x"" = x; then :
+ 
+ 	CURL_CFLAGS="`$CURL_CONFIG $curl_config_args --cflags`"
+ 
+@@ -18348,7 +18349,7 @@ else
+ 
+ fi
+ 
+-            if test x"" == x; then :
++            if test x"" = x; then :
+ 
+ 	CURL_LIBS="`$CURL_CONFIG $curl_config_args --libs`"
+ 
+@@ -19153,13 +19154,15 @@ localdatadir=${datadir}/${package_identi
+ 
+ localdocdir=${datadir}/doc/${package_identifier}
+ 
++localegdir=@COUCH_EGDIR@
++
+ locallibdir=${libdir}/${package_identifier}
+ 
+-localstatelibdir=${localstatedir}/lib/${package_identifier}
++localstatelibdir=@COUCH_DBDIR@
+ 
+-localstatelogdir=${localstatedir}/log/${package_identifier}
++localstatelogdir=@COUCH_LOGDIR@
+ 
+-localstaterundir=${localstatedir}/run/${package_identifier}
++localstaterundir=@COUCH_RUNDIR@
+ 
+ erlangversion=${erlangversion}
+ 
+@@ -19174,9 +19177,9 @@ if test x${IS_WINDOWS} = xTRUE; then
+     localerlanglibdir=${libdir}
+ 
+ else
+-    locallibbindir=${locallibdir}/bin
++    locallibbindir=${libexecdir}/${package_identifier}
+ 
+-    localerlanglibdir=${locallibdir}/erlang/lib
++    localerlanglibdir=@ERLANG_PREFIX@/lib/erlang/lib
+ 
+ fi
+ 

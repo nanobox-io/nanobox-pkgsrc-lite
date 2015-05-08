@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/01/20 11:35:00 wiz Exp $
+
+SHA1 (python-cdb-0.35.tar.gz) = 4bfbc695d7d3bbe688a86a3cc14b158b3b397bcb
+RMD160 (python-cdb-0.35.tar.gz) = c067f06959b59d71846c82f3348c9ca471402f94
+Size (python-cdb-0.35.tar.gz) = 19573 bytes

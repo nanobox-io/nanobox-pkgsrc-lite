@@ -1,0 +1,34 @@
+$NetBSD: patch-aa,v 1.2 2014/12/13 01:05:44 mef Exp $
+
+--- Makefile.orig	2013-11-28 08:39:42.000000000 +0900
++++ Makefile	2014-12-13 09:59:58.000000000 +0900
+@@ -2,13 +2,14 @@
+ 
+ VERS=3.14
+ 
+-CFLAGS = -O
++CFLAGS? = -O
+ 
+ PREFIX = /usr
+ 
+ all: ascii ascii.1
+ 
+ ascii: ascii.c splashscreen.h nametable.h
++	$(LIBTOOL) --mode=link --tag=CC \
+ 	$(CC) $(CFLAGS) -DREVISION=$(VERS) ascii.c -o ascii
+ 
+ splashscreen.h: splashscreen
+@@ -35,8 +36,11 @@ splint:
+ 	splint +quiet +posixlib $(SPLINT_SUPPRESSIONS) ascii.c
+ 
+ install: ascii ascii.1
+-	cp ascii $(DESTDIR)$(PREFIX)/bin/ascii
+-	cp ascii.1 $(DESTDIR)$(PREFIX)/share/man/man1
++	$(BSD_INSTALL_PROGRAM_DIR) $(DESTDIR)$(PREFIX)/bin
++	$(LIBTOOL) --mode=install \
++		$(BSD_INSTALL_PROGRAM) ascii $(DESTDIR)$(PREFIX)/bin
++	$(BSD_INSTALL_MAN_DIR) $(DESTDIR)$(PREFIX)/$(PKGMANDIR)/man1
++	$(BSD_INSTALL_MAN) ascii.1 $(DESTDIR)$(PREFIX)/$(PKGMANDIR)/man1/ascii.1
+ 
+ uninstall:
+ 	rm $(DESTDIR)$(PREFIX)/bin/ascii

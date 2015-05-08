@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/08/19 12:48:28 ryoon Exp $
+
+SHA1 (umph-0.2.5.tar.gz) = f333ed13e4bf4ce59fd745f8b4c8bedae4e6c2e7
+RMD160 (umph-0.2.5.tar.gz) = 961a55d60e3d718baee3fa096ad2396175850bef
+Size (umph-0.2.5.tar.gz) = 23687 bytes

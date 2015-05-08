@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.42 2014/11/07 11:30:47 schmonz Exp $
+
+SHA1 (stunnel-5.07.tar.gz) = 006002eec15881214257e50a967422318720c501
+RMD160 (stunnel-5.07.tar.gz) = dee4871b98082d0baa9d5527dc4770ef20f096f6
+Size (stunnel-5.07.tar.gz) = 599111 bytes
+SHA1 (patch-aa) = 6e64233183a9ca19a5f86c7152a21f3d8e146268
+SHA1 (patch-ac) = fadcc1e2a1c36acc44cb90bd7160540990dd1983

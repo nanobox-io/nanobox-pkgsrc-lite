@@ -1,0 +1,37 @@
+$NetBSD: patch-ag,v 1.1.1.1 2011/02/06 05:55:15 schnoebe Exp $
+
+# Only include only the non-omitted components 
+# Support multiarch
+
+--- Makefile.orig	2011-09-24 08:07:05.000000000 +0000
++++ Makefile	2013-01-04 11:20:05.448843344 +0000
+@@ -24,14 +24,16 @@
+ all: libexecs tests samples
+ 
+ INSTALLDIR = $(DESTDIR)$(POCO_PREFIX)
+-COMPONENTS = Foundation XML Util Net Crypto NetSSL_OpenSSL Data Data/SQLite Data/ODBC Data/MySQL Zip PageCompiler PageCompiler/File2Page
++Master_COMPONENTS = Foundation XML Util Net Crypto NetSSL_OpenSSL Data Data/SQLite Data/ODBC Data/MySQL Zip PageCompiler PageCompiler/File2Page
++
++COMPONENTS=$(filter-out $(foreach f,$(OMIT),$f%),$(Master_COMPONENTS))
+ 
+ cppunit:
+ 	$(MAKE) -C $(POCO_BASE)/CppUnit 
+ 
+ install: libexecs
+ 	mkdir -p $(INSTALLDIR)/include/Poco
+-	mkdir -p $(INSTALLDIR)/lib
++	mkdir -p $(INSTALLDIR)/lib${LIBARCHSUFFIX}
+ 	mkdir -p $(INSTALLDIR)/bin
+ 	for comp in $(COMPONENTS) ; do \
+ 		if [ -d "$(POCO_BASE)/$$comp/include" ] ; then \
+@@ -41,8 +43,8 @@
+ 			find $(POCO_BUILD)/$$comp/bin -perm -700 -type f -exec cp -f {} $(INSTALLDIR)/bin \; ; \
+ 		fi ; \
+ 	done
+-	find $(POCO_BUILD)/lib -name "libPoco*" -type f -exec cp -f {} $(INSTALLDIR)/lib \;
+-	find $(POCO_BUILD)/lib -name "libPoco*" -type l -exec cp -Rf {} $(INSTALLDIR)/lib \;
++	find $(POCO_BUILD)/lib -name "libPoco*" -type f -exec cp -f {} $(INSTALLDIR)/lib${LIBARCHSUFFIX} \;
++	find $(POCO_BUILD)/lib -name "libPoco*" -type l -exec cp -Rf {} $(INSTALLDIR)/lib${LIBARCHSUFFIX} \;
+ 
+ libexecs =  Foundation-libexec XML-libexec Util-libexec Net-libexec Crypto-libexec NetSSL_OpenSSL-libexec Data-libexec Data/SQLite-libexec Data/ODBC-libexec Data/MySQL-libexec Zip-libexec PageCompiler-libexec PageCompiler/File2Page-libexec
+ tests    =  Foundation-tests XML-tests Util-tests Net-tests Crypto-tests NetSSL_OpenSSL-tests Data-tests Data/SQLite-tests Data/ODBC-tests Data/MySQL-tests Zip-tests

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2015/02/17 06:42:37 mef Exp $
+
+SHA1 (Test-POE-Server-TCP-1.18.tar.gz) = 4f1678d20ad5251b831da9cc6eafc7cb314768a7
+RMD160 (Test-POE-Server-TCP-1.18.tar.gz) = a446ca5f35aeebc0efdd468c4c479838a582a904
+Size (Test-POE-Server-TCP-1.18.tar.gz) = 22407 bytes

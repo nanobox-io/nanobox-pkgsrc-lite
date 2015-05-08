@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.8 2014/11/10 23:23:18 prlw1 Exp $
+bin/dconf-editor
+share/appdata/ca.desrt.dconf-editor.appdata.xml
+share/applications/ca.desrt.dconf-editor.desktop
+share/dbus-1/services/ca.desrt.dconf-editor.service
+share/glib-2.0/schemas/ca.desrt.dconf-editor.gschema.xml
+share/icons/HighContrast/16x16/apps/dconf-editor.png
+share/icons/HighContrast/22x22/apps/dconf-editor.png
+share/icons/HighContrast/24x24/apps/dconf-editor.png
+share/icons/HighContrast/256x256/apps/dconf-editor.png
+share/icons/HighContrast/32x32/apps/dconf-editor.png
+share/icons/HighContrast/48x48/apps/dconf-editor.png
+share/icons/hicolor/16x16/apps/dconf-editor.png
+share/icons/hicolor/22x22/apps/dconf-editor.png
+share/icons/hicolor/24x24/apps/dconf-editor.png
+share/icons/hicolor/256x256/apps/dconf-editor.png
+share/icons/hicolor/32x32/apps/dconf-editor.png
+share/icons/hicolor/48x48/apps/dconf-editor.png
+share/icons/hicolor/64x64/apps/dconf-editor.png

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2015/02/09 22:20:44 wiz Exp $
+
+SHA1 (Module-Install-RTx-0.37.tar.gz) = 981d2d377ef6c9e83ee02394303e82e6af7e19fb
+RMD160 (Module-Install-RTx-0.37.tar.gz) = 9d92a0b990c4e3556b15d060227b61b02c153575
+Size (Module-Install-RTx-0.37.tar.gz) = 26658 bytes

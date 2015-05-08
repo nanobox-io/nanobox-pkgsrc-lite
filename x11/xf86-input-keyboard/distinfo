@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.9 2013/11/01 01:22:48 wiz Exp $
+
+SHA1 (xf86-input-keyboard-1.8.0.tar.bz2) = 7728d733ef16d664a201868ecae5db3705cf8ef1
+RMD160 (xf86-input-keyboard-1.8.0.tar.bz2) = 19ce2bf7a0c7c245afce557990dc762d66575b3d
+Size (xf86-input-keyboard-1.8.0.tar.bz2) = 323838 bytes

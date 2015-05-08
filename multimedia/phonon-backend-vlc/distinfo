@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2014/11/30 03:07:09 markd Exp $
+
+SHA1 (phonon-backend-vlc-0.8.1.tar.xz) = b35c3326a868b1fc84fba4cf1d0a94ce2f931fbf
+RMD160 (phonon-backend-vlc-0.8.1.tar.xz) = b1b7ced8133d42226df0784a9cfd329ff2f42d2c
+Size (phonon-backend-vlc-0.8.1.tar.xz) = 59852 bytes

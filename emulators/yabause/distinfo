@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.9 2015/02/13 05:45:09 snj Exp $
+
+SHA1 (yabause-0.9.14.tar.gz) = abd7936234f47f9568809b6bf955940c7a3ad447
+RMD160 (yabause-0.9.14.tar.gz) = 545eea2280b881ae4ddcea2b8b189301bea4176d
+Size (yabause-0.9.14.tar.gz) = 1662762 bytes
+SHA1 (patch-src_CMakeLists.txt) = 382d8004222ff9f5235ddce35fa41e6196469ba0
+SHA1 (patch-src_qt_YabauseThread.cpp) = 1dc06681cd04b6d5eb26b818120724ccdb89fd25

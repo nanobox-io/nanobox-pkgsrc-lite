@@ -1,0 +1,44 @@
+$NetBSD: patch-av,v 1.1 2012/12/10 03:15:49 tsarna Exp $
+
+Support multiarch.
+
+--- Lib/distutils/command/install.py.orig	2012-04-11 06:54:02.000000000 +0000
++++ Lib/distutils/command/install.py	2012-12-13 15:21:18.968115706 +0000
+@@ -44,8 +44,8 @@
+ 
+ INSTALL_SCHEMES = {
+     'unix_prefix': {
+-        'purelib': '$base/lib/python$py_version_short/site-packages',
+-        'platlib': '$platbase/lib/python$py_version_short/site-packages',
++        'purelib': '$base/lib/python$py_version_short/site-packages$libarchsuffix',
++        'platlib': '$platbase/lib/python$py_version_short/site-packages$libarchsuffix',
+         'headers': '$base/include/python$py_version_short$abiflags/$dist_name',
+         'scripts': '$base/bin',
+         'data'   : '$base',
+@@ -311,6 +311,10 @@
+ 
+         py_version = sys.version.split()[0]
+         (prefix, exec_prefix) = get_config_vars('prefix', 'exec_prefix')
++        if sys.maxsize > 2**32:
++            self.libarchsuffix = "@LIBARCHSUFFIX.64@"
++        else:
++            self.libarchsuffix = "@LIBARCHSUFFIX.32@"
+         try:
+             abiflags = sys.abiflags
+         except AttributeError:
+@@ -327,6 +331,7 @@
+                             'sys_exec_prefix': exec_prefix,
+                             'exec_prefix': exec_prefix,
+                             'abiflags': abiflags,
++                            'libarchsuffix': self.libarchsuffix,
+                            }
+ 
+         if HAS_USER_SITE:
+@@ -676,5 +681,6 @@
+                     ('install_headers', has_headers),
+                     ('install_scripts', has_scripts),
+                     ('install_data',    has_data),
+-                    ('install_egg_info', lambda self:True),
+                    ]
++    if not os.environ.get('PKGSRC_PYTHON_NO_EGG'):
++        sub_commands += [('install_egg_info', lambda self:True),]

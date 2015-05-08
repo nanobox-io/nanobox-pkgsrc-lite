@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.9 2015/01/29 02:59:27 mef Exp $
+
+SHA1 (net6-1.3.14.tar.gz) = 7523a604e6b7f723cdd7f457f8f7c8c9cf48dae1
+RMD160 (net6-1.3.14.tar.gz) = c1445cdf2e7a34d0639d7bb410404d83ab972d27
+Size (net6-1.3.14.tar.gz) = 483549 bytes
+SHA1 (patch-src_select.cpp) = 802bced5dc405ad1b3e59fd26d70d45da776c227

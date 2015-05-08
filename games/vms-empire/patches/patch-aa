@@ -1,0 +1,34 @@
+$NetBSD: patch-aa,v 1.4 2013/10/17 16:28:02 roy Exp $
+
+--- Makefile.orig	2004-09-27 15:32:07.000000000 +0000
++++ Makefile
+@@ -18,17 +18,17 @@ SYS = LINUX
+ # Use -g to compile the program for debugging.
+ 
+ #DEBUG = -g -DDEBUG -Wall
+-DEBUG = -O2
++#DEBUG = -O2
+ 
+ # Use -p to profile the program.
+ #PROFILE = -p -DPROFILE
+ PROFILE =
+ 
+-LIBS = -lncurses
++LIBS = -lcurses
+ 
+ # You shouldn't have to modify anything below this line.
+ 
+-CFLAGS = $(DEBUG) $(PROFILE) -D$(SYS)
++CFLAGS += $(DEBUG) $(PROFILE) -D$(SYS)
+ 
+ FILES = \
+ 	attack.c \
+@@ -67,7 +67,7 @@ OFILES = \
+ all: vms-empire
+ 
+ vms-empire: $(OFILES)
+-	$(CC) $(PROFILE) -o vms-empire $(OFILES) $(LIBS)
++	$(CC) $(PROFILE) -o vms-empire $(OFILES) $(LIBS) $(LDFLAGS)
+ 
+ TAGS: $(HEADERS) $(FILES)
+ 	etags $(HEADERS) $(FILES)

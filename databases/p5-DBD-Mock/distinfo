@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2015/02/20 07:50:35 mef Exp $
+
+SHA1 (DBD-Mock-1.45.tar.gz) = 0635d97979b3943dc8098549b4b2289768236b33
+RMD160 (DBD-Mock-1.45.tar.gz) = 7199217a64b7be5cb066f42e6490c7e365db65b0
+Size (DBD-Mock-1.45.tar.gz) = 44496 bytes

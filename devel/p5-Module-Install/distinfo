@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.22 2015/01/04 06:09:43 schmonz Exp $
+
+SHA1 (Module-Install-1.14.tar.gz) = 255bff1bdf9e7b0f67eff15d0b4d52662c0f67d7
+RMD160 (Module-Install-1.14.tar.gz) = 7aaffff91de0ff4077e80661e91f9fd27c56c338
+Size (Module-Install-1.14.tar.gz) = 128795 bytes

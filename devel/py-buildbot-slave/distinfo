@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/11/08 15:33:32 riz Exp $
+
+SHA1 (buildbot-slave-0.8.8.tar.gz) = ea099c521d06fa91a95dcfb38252ecaea5ac88d9
+RMD160 (buildbot-slave-0.8.8.tar.gz) = 5885923f122e8d08de2a8bf60dc9ed0738754002
+Size (buildbot-slave-0.8.8.tar.gz) = 107470 bytes

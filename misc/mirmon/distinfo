@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2014/12/10 05:40:12 mef Exp $
+
+SHA1 (mirmon-2.10.tar.gz) = dd36c72282c80670555d8f90060d5bbd816f5a9e
+RMD160 (mirmon-2.10.tar.gz) = ced12530ef24cb019fa544f225d8169108e38668
+Size (mirmon-2.10.tar.gz) = 72212 bytes
+SHA1 (patch-ab) = 360a27e90ed31add03bf596d0a69c53f93fb7224

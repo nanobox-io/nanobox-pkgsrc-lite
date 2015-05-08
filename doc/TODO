@@ -1,0 +1,1359 @@
+$NetBSD: TODO,v 1.14257 2015/04/02 15:30:24 wiz Exp $
+
+Suggested new packages
+======================
+
+	Any unresolved PRs (if you have commit access)
+	http://gnats.NetBSD.org/summary/category/pkg.html
+
+	Any complete, polished packages in pkgsrc-wip (ditto)
+	http://pkgsrc-wip.sourceforge.net/
+
+	bacula-rescue
+	Scripts used to help create rescue boot CDs for bare metal
+	restores with Bacula.  Scripts exist for Linux, Solaris, and
+	FreeBSD.  Hopefully the FreeBSD one could be adapted to create
+	a NetBSD one, or perhaps it could be turned into a *BSD script.
+	http://www.bacula.org/
+
+	SquirrelMail plugins
+	SquirrelMail has a plugin feature and several plugins exist.
+	http://www.squirrelmail.org/plugins.php
+
+	p5-CGI-AppToolkit-0.051
+	Perl CGI application toolkit
+	${MASTER_SITE_PERL_CPAN:=CGI/}
+
+	info2man
+	http://freshmeat.net/projects/info2man/
+	Requires Perl, provides info2man and info2pod
+
+	moji
+	http://moji.mozdev.org/
+	Mozilla Firefox extension which helps you learn Japanese
+
+	joyce
+	http://www.seasip.demon.co.uk/Unix/Joyce/index.html
+	Amstrad PCW emulator
+
+	Attal: Lords of Doom
+	http://www.attal-thegame.org/
+	Turn based strategy game
+
+	Sphinx-4
+	http://cmusphinx.sourceforge.net/sphinx4/
+	Speaker-independent, continuous speech recognition system.
+
+	doxywizard
+	QT-based wizard for doxygen documentation generator.
+	See devel/doxygen
+
+	tkfontsel
+	http://ftp.sunet.se/pub/lang/tcl/sorted/graphics/tkfontsel/
+	http://ftp.se.kde.org/pub/lang/tcl/sorted/packages-7.6/graphics/tkfontsel/
+	Simple Tk font browser.
+
+	xftlsfonts
+	FreeType font list displayer.
+
+	choosefont
+	http://choosefont.sourceforge.net/
+	Utility for browsing, previewing and selecting a X11 font.
+
+	ardour
+	http://ardour.org/
+	Digital audio workstation with plugins, professional mixer,
+	multichannel recording, and more.
+
+	libdisassemble
+	http://www.immunitysec.com/resources-freesoftware.shtml
+	http://lwn.net/Articles/98988/?format=printable
+	Python library that will disassemble X86.
+
+	pdftk
+	http://www.accesspdf.com/pdftk/
+	PDF manipulation tool for merging, splitting, decrypting,
+	encrypting, and more.
+	[use Java classes in C++ program]
+
+	guipdftk
+	http://de.geocities.com/dpaehl2004/guipdftk/
+	GUI for Pdftk for PDF manipulation
+
+	grip
+	http://nostatic.org/grip/
+	cd-player and cd-ripper for the Gnome desktop
+
+	wired
+	http://bloodshed.net/wired/
+	Professional music production and creation software
+
+	ices-mp3-v2
+	http://www.icecast.org/ices.php
+	Major version 2 of ices-mp3
+	Maintainer reply:
+	    The ices-mp3 package is for ices0.  There is no MP3 support
+	    in ices2.  This is why I called the package "ices-mp3" when
+	    I initially created it.  (kim@)
+
+	cricket 1.0.5
+	http://cricket.sourceforge.net
+	Monitoring & graphing system based on RRDtool
+
+	Webware for Python
+	http://www.webwareforpython.org/
+	Suite of software components for developing object-oriented,
+	web-based applications.
+
+	TROPHY
+	http://trophy.sourceforge.net/
+	A 2D car racing action game with untypical racing game features
+	such as shooting at other players.
+
+	The Open Racing Car Simulator [pkgsrc-wip]
+	http://torcs.sf.net/
+	TORCS is a 3D racing cars simulator using OpenGL. The goal
+	is to have programmed robots drivers racing against each
+	others.  You can also drive yourself with either a wheel or
+	keyboard or mouse.
+
+	CarWorld driving simulator
+	http://carworld.sourceforge.net/
+	A small driving simulator/demo.
+
+	Road Fighter remake
+	http://www.braingames.getput.com/roadf/
+	Unofficial remake of Konami's ROAD FIGHTER which was
+	originally released in 1985 for the MSX home computer
+	systems.  In Road Fighter you drive a car in a death
+	race between you and a group of crazy  drivers.
+
+	XRally
+	http://www.linuxgames.com/xrally/
+	Clone of the classic Rally X arcade game using basic Xlib
+	and Xpm. You control a blue (good) car, that has to collect
+	yellow flags around a maze-like map, while avoiding the
+	red (bad) cars.
+
+	Postoffice
+	http://www.pell.portland.or.us/~orc/Code/postoffice/index.html
+	Simple SMTP mail server and client.
+
+	LabelNation
+	http://www.red-bean.com/labelnation/
+	Command-line label, business card printing program.
+
+	VirtualBox [pkgsrc-wip]
+	http://www.virtualbox.org/
+	Fast x86 emulator
+
+	qphotosort
+	http://pintant.cat/qphotosort
+	rename photos by date to support merged albums from different sources
+
+	TinySNMP
+	http://oasis.frogfoot.net/code/tinysnmp/
+	Fast lightweight SNMPv1 daemon
+
+	BSNMP [pkgsrc-wip]
+	http://people.freebsd.org/~harti/bsnmp/
+	Mini SNMP daemon
+
+	ReportMagic
+	http://www.reportmagic.org/
+	Builds nice looking statistics reports for output from www/analog
+
+	mime-support [pkg/28529]
+	Support commands for manipulating files using MIME and mailcap
+
+	Compiler of the AGFL formalis [pkg/28946]
+	formalism for the syntactic description of Natural Languages
+
+	Vuze
+	http://www.vuze.com/
+	BitTorrent client written in Java
+
+	Webfwlog Firewall Log Analyzer [pkg/30110]
+	http://www.webfwlog.net/
+	Web-Based Firewall Log Analysis and Reporting
+
+	FreeVRRPd [pkg/30113]
+	VRRP (Virtual Router Redundancy Protocol) implementation daemon
+
+	SystemC class library [pkg/30707]
+	http://www.systemc.org/
+	SystemC is a C++ class collection for modelling systems.
+
+	crm114 [pkg/31969]
+	http://crm114.sourceforge.net/
+	Controllable Regex Mutilator
+
+	Raster3D [pkg/34225]
+	http://skuld.bmsc.washington.edu/raster3d/
+
+	libpcapnav [pkg/34473]
+	http://netdude.sourceforge.net/
+	Wrapper library that allows navigation in tcpdump traces
+
+	libnetdude [pkg/34473]
+	http://netdude.sourceforge.net/
+	Library for manipulating libpcap/tcpdump trace files
+
+	netdude [pkg/34473]
+	http://netdude.sourceforge.net/
+	NETwork DUmp data Displayer and Editor for tcpdump tracefiles
+
+	BennuGD
+	http://www.bennugd.org/
+	Cross-platform game development suite (fork of Fenix Project).
+
+	Skins for XMMS [pkg/35666]
+	http://www.xmms.org/skins.php
+
+	Berkeley automounter suite of utilities [pkg/35668]
+	http://www.am-utils.org/
+
+	Javascript major mode for Emacs [pkg/35669]
+	http://www.brgeight.se/
+
+	THEAMA [pkg/35896]
+	http://sourceforge.net/projects/theama
+	curses-based version of the famous HangMan game.
+
+	sharatype [pkg/36217]
+	http://ftp.45.free.net/pub/fonts/type1/
+	Cyrillic fonts for a2ps (a part of sharatype project)
+
+	xmms-cdread [pkg/36220]
+	ftp://mud.stack.nl/pub/OuterSpace/willem/
+	XMMS input plugin that reads audio data from CDs
+
+	ioquake3-demo [pkg/36367]
+
+	OTR localhost AIM proxy [pkg/37397]
+	http://www.cypherpunks.ca/otr/
+	Off-the-Record Messaging Proxy
+
+	M+ FONTS [pkg/37614]
+	http://mplus-fonts.sourceforge.jp/
+	Small and neat Japanese bitmap fonts
+
+	tkimg [pkg/38026]
+	http://tkimg.sourceforge.net/
+	Add support for several image formats to Tk
+
+	xine-plugin [pkg/38159]
+	http://xinehq.de/
+	Plugin for www/firefox for using multimedia/xine-lib
+
+	flyback [pkgsrc-wip]
+	http://code.google.com/p/flyback/
+	Backup software inspired by Apple's Time Machine
+
+	SpiralSynthModular (spiralmodular)
+	http://www.pawfal.org/Software/SSM/
+	Obsoletes audio/spiralloops and audio/spiralsynth, which are
+	no longer supported.
+
+	STklos
+	http://www.stklos.org/
+	Scheme system. "STklos is the next generation of STklos using
+	GTK," obsoletes lang/STk.
+
+	sage
+	http://www.sagemath.org/
+	Open-source alternative to Magma, Maple, Mathematica, Matlab.
+
+	xl2tpd [pkg/47898]
+	http://www.xelerance.com/services/software/xl2tpd/
+	xl2tpd is an improved version of l2tpd, the L2TP protocol daemon.
+
+	Torque
+	http://www.clusterresources.com/products/torque-resource-manager.php
+	Open source batch jobs resource manager, successor to OpenPBS.
+	(Check me when taking on it - asau.)
+
+	lightspark
+	http://sourceforge.net/apps/trac/lightspark
+	Implementation of ActionScript3 (modern Flash), needed for
+	(but not quite working for) Potlatch2 of OpenStreetMap.
+
+	shellcheck
+	http://www.shellcheck.net/about.html
+	Static analysis program for POSIX sh, written in haskell
+
+	softether
+	http://www.softether.org/
+	VPN packages, aiming to be a better replacement for openvpn
+
+	ddar
+	http://www.synctus.com/ddar/
+	de-duplicating archiver for Unix.
+
+	jitsi
+	https://jitsi.org/
+	Secure Video Calls and Chat
+
+	retroshare
+	http://retroshare.sourceforge.net/index.html
+	Decentralized social-networking/filesharing blend.
+
+	Trinity
+	https://www.trinitydesktop.org/
+	KDE3 successor
+
+	Phabricator
+	http://phabricator.org/
+	Software engineering platform.
+
+	Geogebra
+	http://www.geogebra.org/
+	Simple and powerful geometry application
+
+	Baikal
+	http://baikal-server.com/
+	Lightweight CalDAV and CardDAV server
+
+	Gitlab
+	https://gitlab.com/gitlab-org/gitlab-ce
+	Git repository management tool with code review and tracker/wiki
+
+	Missing xorg packages
+	app: constype, intel-gpu-tools
+	driver: xf86-input-aiptek, xf86-input-calcomp, xf86-input-citron,
+	xf86-input-digitaledge, xf86-input-dmc, xf86-input-dynapro,
+	xf86-input-elo2300, xf86-input-elographics, xf86-input-evdev,
+	xf86-input-fpit, xf86-input-hyperpen, xf86-input-jamstudio,
+	xf86-input-joystick, xf86-input-libinput, xf86-input-magellan,
+	xf86-input-magictouch,
+	xf86-input-microtouch, xf86-input-mutouch, xf86-input-palmax,
+	xf86-input-spaceorb, xf86-input-summa, xf86-input-synaptics [pkg/47082],
+	xf86-input-tek4957, xf86-input-ur98, xf86-video-amd, xf86-video-dummy,
+	xf86-video-freedreno, xf86-video-glide, xf86-video-impact,
+	xf86-video-omap, xf86-video-qxl,
+	xf86-video-sisusb, xf86-video-sunbw2, xf86-video-suncg6, 
+	xf86-video-sunleo, xf86-video-suntcx, xf86-video-v4l,
+	xf86-video-vermilion, xf86-video-xgi,
+	xf86-video-xgixp
+	lib: liboldX
+	test: xorg-gtest, xts
+	util: gccmakedep, lndir
+	xcb: xcb-demo, xpyb
+	non-xorg: xf86-input-wacom, xinput_calibrator
+
+Suggested package updates
+=========================
+For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html.
+
+	o 3proxy-0.7.1.1
+	o CSP-0.34
+	o Canna-3.7p3
+	o Chinput-3.0.1
+	o DarwinStreamingServer-6.0.3
+	o GMT-5.1.1
+	o Geomyidae-0.26.3 [pkg/49585]
+	o GNUMail-1.2.2
+	o Mesa-10.5.2 [do not update since it removes support for DRI features needed by NetBSD. Work on updated MesaLib takes place in pkgsrc-wip.]
+	o MesaLib-10.5.2 [do not update since it removes support for DRI features needed by NetBSD. Work on updated MesaLib takes place in pkgsrc-wip.]
+	o PAM-0.99.7.1
+	o R-3.1.2
+	o RBTools-0.6.3
+	o Sigil-0.8.5
+	o TeXmacs-1.0.7.21
+	o TiffIO-130e
+	o YoSucker-81
+	o abcm2ps-7.8.13
+	o abcmidi-20150316
+	o abiword-3.0
+	o acpica-utils-20110623
+	o adocman-0.13
+	o aewm++-1.0.27
+	o afl-1.58b
+	o alacarte-0.13.2
+	o allegro-5.10
+	o alsa-lib-1.0.29
+	o alsa-plugins-1.0.29
+	o alsa-utils-1.0.29
+	o amavis-perl-0.3.12 [called just amavis]
+	o amavisd-new-2.9.1
+	o amaya-11.4.4 [wip]
+	o angband-3.2
+	o anjuta-3.16.0
+	o anope-1.8.7
+	o antiright-8.6
+	o ap-Embperl-1.3.6
+	o ap-auth-pam-1.1.1
+	o ap-dtcl-1.0.0
+	o ap-layout-3.4
+	o ap-mp3-0.40
+	o ap-xslt-1.4.3
+	o ap2-auth-ldap-3.11
+	o ap2-transform-0.6.0
+	o apache-ivy-2.4.0
+	o apollo-1.7
+	o apr0-2.4.1
+	o argtable-2.9
+	o arirang-1.70
+	o arnold-20040104
+	o asapm-3.1
+	o asc-2.6.0
+	o aspell-nb-2.0.10
+	o asymptote-2.32
+	o aterm-1.0.1
+	o atk-2.16.0
+	o aubio-0.4.0
+	o audacity-2.0.5 [wip (audacity-devel)]
+	o audacity-2.1
+	o autoconvert-0.3.16
+	o autogen-5.18.4
+	o avidemux-2.6
+	o avl-2.0.3 [2.x is not source and binary compatible with 1.x]
+	o awesome-3.5.6
+	o baci-20040415
+	o bbcim-1.0
+	o bbkeys-0.9.0
+	o bbsload-0.2.8
+	o bbweather-0.6.3
+	o benchfft-3.1
+	o binutils-2.25
+	o bitchx-1.2.1 [wip]
+	o blender-2.74
+	o bliz++-0.10
+	o blur6ex-0.3.462
+	o bmon-2.1.0
+	o bochs-2.6.7 [wip]
+	o boolean-7.1
+	o bos-2.5
+	o boson-0.13
+	o botan-1.10.9
+	o brasero-3.4.0
+	o bugzilla-3.6.12
+	o bzr-2.6.0
+	o c4-1.10 [schmonz]
+	o cabextract-1.6 [wiz]
+	o cal3d-0.11.0
+	o calcoo-2.1.0
+	o calibre-2.22.0
+	o calligra-2.4.3 [in wip; koffice successor]
+	o cardboard-schedule-1.14c [at http://www.bright-green.com/downloads/]
+	o cddbd-1.5.2
+	o cdk-5.0.20120323
+	o cdrkit-1.1.10
+	o cfitsio-3.350
+	o cheese-2.32.0 [GNOME 2.32]
+	o cheese-3.16.0
+	o cherokee-1.2.103 [pkg/48268]
+	o chktex-1.7.2
+	o chrony-1.29.1
+	o cinepaint-1.3
+	o cint-5.16
+	o cjk-lyx-1.4.4
+	o classpath-0.98
+	o cln-1.3.4
+	o cloog-0.18.3
+	o clutter-1.22.0
+	o clutter-gst-3.0.2
+	o colorize-0.3.4
+	o colortail-0.3.3
+	o compiz-0.8.10
+	o cone-0.91.1
+	o conserver-8.1.19
+	o cook-2.31
+	o coreutils-8.23
+	o courier-0.74.1
+	o courier-authlib-0.66.1
+	o courier-imap-4.16
+	o courier-mta-0.72
+	o covered-0.7.10
+	o covered-current-20091126
+	o cross-h8300-elf-binutils-2.23.2 [wip]
+	o cross-h8300-hms-binutils-2.17
+	o crossfire-1.71.0
+	o crossfire-client-gtk2-1.60.0
+	o cvs-fast-export-1.29
+	o cvs2p4-2.5.5 [schmonz]
+	o cwm-5.6
+	o cxref-1.6e
+	o cygwin_lib-1.5.24.2
+	o dante-1.4.1
+	o dap-3.10
+	o dar-2.4.14
+	o darcs-2.4
+	o darktable-1.6
+	o dasher-4.11
+	o dateutils-0.3.2
+	o dbmail-3.2.0
+	o dcc-1.3.147 [ask OWNER first]
+	o dd_rescue-1.45
+	o delegate-9.9.9
+	o denemo-1.2.2
+	o digikam-4.7.0
+	o dillo-3.0.4.1
+	o dinotrace-9.4d
+	o doclifter-2.15
+	o dolphin-4.0.2
+	o dos2unix-7.2.1
+	o drivel-3.0.5
+	o duplicity-0.7.02
+	o e2fsprogs-1.42.12 [wip]
+	o easymenu-0.7.2p1
+	o easytag-2.2.6
+	o eboard-1.1.1
+	o ebook-tools-0.2.2
+	o eclipse-3.2.0
+	o ed-1.10
+	o ede-2.0
+	o edonkeyclc-1.0.2 [replaces net/edonkey2k]
+	o egtk-0.3.6.2
+	o eigen3-3.2.1
+	o ekiga-4.0.1
+	o electric-9.05
+	o electricfence-2.4.16
+	o elf-0.5.4p1
+	o elfsh-0.65 [pkg/33959]
+	o elfsh-0.78
+	o elftoolchain-0.6.1 [pkg/48227]
+	o elm-me-2.5plalpha35
+	o emacs-muse-3.20
+	o emerillon-0.1.90
+	o enlightenment-0.18
+	o eog-plugins-3.6.1
+	o epiphany-3.16.0
+	o epiphany-extensions-3.2.0
+	o eric5-5.4.6
+	o erlang-17.0
+	o esh-0.8.5
+	o espeak-1.46.02 [wip]
+	o et-2.60
+	o etach-1.4.1
+	o eterm-0.9.6
+	o etm-3.0.43 [wip/py-etmtk]
+	o ettercap-0.7.6
+	o evolution-3.16.0
+	o evolution-couchdb-0.4.5
+	o evolution-exchange-3.5.2
+	o evolution-mapi-0.32.2 [GNOME 2.32]
+	o ex-20050325
+	o exaile-3.4.4
+	o exult-1.4.9rc1 [pkg/49800]
+	o ezmlm-idx-7.2.0 [schmonz]
+	o faces-1.7.7
+	o fakeroot-1.6.5
+	o fastjar-0.94 [wip]
+	o fcitx-3.6.2
+	o felt-3.07 [wip]
+	o festival-2.4
+	o fetchmail-6.3.26
+	o fetchyahoo-2.14.0
+	o ffmpeg2-2.6.1
+	o fillets-ng-0.7.4
+	o fillets-ng-data-0.7.4
+	o filerunner-14.06.18.10
+	o findutils-4.4.2
+	o flashplayer-0.4.13
+	o flightgear-2.12
+	o fltk2-2.0pre8323
+	o fluxbox-1.3.7
+	o fmsx-4.0
+	o fontforge-20150228
+	o fotoxx-14.06
+	o fox-1.7.51
+	o frama-c-20140301
+	o freeciv-2.5.0
+	o freenet-0.7
+	o freesci-0.6.4
+	o freeswitch-1.2.3
+	o freetype-2.5.5
+	o freetype-lib-1.5.20050518
+	o freetype-utils-1.5.20050518
+	o freewais-sf-2.2.14
+	o ftplibpp-2.0.2
+	o fuse-archivemount-0.6.1
+	o fuse-encfs-1.5.2
+	o fuse-mp3fs-0.91 [needs fixes to work on NetBSD; started in wip]
+	o fvwm2-themes-0.7.0
+	o gallery3-3.0.2
+	o gap-4r4p9
+	o gated-3.6
+	o gaupol-0.25
+	o gbrainy-2.24
+	o gcin-1.5.5
+	o gcombust-0.1.55
+	o gcompris-14.05
+	o gdb-7.6 [wip]
+	o gdb-7.9
+	o gdeskcal-1.01
+	o gdl-3.16.0
+	o gdm-2.32.2 [GNOME 2.32]
+	o gdm-3.0.3
+	o geany-1.24.1
+	o gedit-plugins-2.32.0 [GNOME 2.32]
+	o genius-1.0.20
+	o gentoo-0.20.4
+	o geoclue-2.1.10
+	o gerbv-2.6.1
+	o gfract-0.33
+	o ghc-7.8.3
+	o ghc7-7.10.1
+	o gimp-docs-2.8.2
+	o gkrellm-2.3.5
+	o gkrellm-multiping-2.0.13
+	o gkrellm-snmp-1.0
+	o glade3-3.18.3
+	o glade3-3.8.5 [GNOME 2.34]
+	o gle-4.2.4
+	o glib2-2.44.0
+	o glibmm-2.44.0
+	o global-6.4
+	o glom-1.14.2 [GNOME 2.26]
+	o glu-10.5.2
+	o gnats-4.2.0
+	o gnet1-1.1.9
+	o gnetman-20050429
+	o gnome-3.16
+	o gnome-applets-3.14.0
+	o gnome-bluetooth-2.30.0 [GNOME 2.30]
+	o gnome-chess-3.12.3
+	o gnome-color-manager-2.32.0 [GNOME 2.32]
+	o gnome-commander-1.4.5
+	o gnome-control-center-3.8.3
+	o gnome-devel-docs-2.30.0 [GNOME 2.30]
+	o gnome-disk-utility-2.32.0 [GNOME 2.32]
+	o gnome-games-3.6.1
+	o gnome-games-extra-data-2.30.0 [GNOME 2.30]
+	o gnome-keyring-3.14
+	o gnome-media-2.32.0 [GNOME 2.32]
+	o gnome-media-3.4.0
+	o gnome-menus-3.8.0
+	o gnome-netstatus-2.28.2 [GNOME 2.32]
+	o gnome-nettool-2.32.0 [GNOME 2.32]
+	o gnome-nettool-3.8.1
+	o gnome-packagekit-2.32.0 [GNOME 2.32]
+	o gnome-packagekit-3.2.1
+	o gnome-panel-3.14.0
+	o gnome-pilot-2.32.1 [GNOME 2.32]
+	o gnome-pilot-conduits-2.32.1 [GNOME 2.32]
+	o gnome-power-manager-2.32.0 [GNOME 2.32, wants UPower]
+	o gnome-power-manager-3.4.0 [wants UPower]
+	o gnome-session-2.32.1 [GNOME 2.32, wants UPower]
+	o gnome-settings-daemon-3.8.3
+	o gnome-subtitles-1.3
+	o gnome-system-tools-2.32.0 [GNOME 2.32]
+	o gnome-system-tools-3.0.0
+	o gnome-user-share-2.30.2 [GNOME 2.32]
+	o gnomeicu-0.99.16
+	o gnopernicus-1.1.2
+	o gnu-crypto-2.1.0
+	o gnucash-2.6.6
+	o gnustep-back-0.24.0
+	o gnustep-base-1.24.7
+	o gnustep-examples-1.4.0
+	o gnustep-gui-0.24.0
+	o gnustep-make-2.6.6
+	o gnustep-objc-1.7
+	o gnuchess-6.2.1
+	o gob-2.0.19
+	o gok-2.30.1 [GNOME 2.32]
+	o golem-0.0.6
+	o goocanvas-2.0.2
+	o gossip-0.31
+	o gourmet-0.13.3
+	o gperftools-2.4 [pkg/49625]
+	o gperiodic-3.0.0
+	o gpsdrive-2.11
+	o gramofile-1.6P
+	o gramps-4.1.0
+	o grilo-0.2.12
+	o grilo-plugins-0.2.14
+	o gsharutils-4.15 [pkg/49770]
+	o gss-1.0.3
+	o gthumb-3.2.8
+	o gtk-gnutella-0.98.4
+	o gtk-systrace-20030623
+	o gtk3-3.16.0
+	o gtkglarea-2.1.0
+	o gtkmm-3.16.0
+	o gtkmm-documentation-2.16.0 [GNOME 2.26]
+	o gtl-3.6
+	o gtodo-0.16.0rc2
+	o gtodo-applet-0.16.2
+	o guile-gtk-2.0
+	o gutenprint-lib-5.2.10
+	o gvfs-1.22.0
+	o gworkspace-0.9.3
+	o gxine-0.99.9
+	o h323plus-1.24.0 [replaces openh323, from http://www.h323plus.org/]
+	o hamster-applet-2.32.1 [GNOME 2.32]
+	o handbrake-0.10.0
+	o hanzim-3.5
+	o harfbuzz-0.9.40
+	o haskell-mode-1.45
+	o hdf-4.2.8
+	o hdf5-1.8.14
+	o hesiod-3.1.0
+	o heyu-2.9.0
+	o hiawatha-9.5
+	o holtz-1.4.0
+	o honeyd-1.5c
+	o horde-5.1.6
+	o html2wml-0.4.11
+	o htmldoc-1.8.28
+	o htop-1.0.3
+	o hugin-2012.0.0
+	o hwloc-1.10.0
+	o icc11-13.0
+	o icdprog-0.5
+	o ike-2.0.1 [pkg/37032]
+	o imp-6.1.7
+	o inadyn-1.99.10 [https://github.com/troglobit/inadyn]
+	o ingo-3.1.4
+	o inspircd-1.2.1
+	o instiki-0.13
+	o ircservices-5.1.21
+	o ispell-ga-4.6
+	o ja-vflib-lib-3.6.10
+	o ja-vflib-utils-2.25.6
+	o ja-vfxdvik-22.40y1
+	o jabberd-1.6.1.1
+	o jack-0.124.1
+	o java-db3-3.87
+	o jcabc2ps-20070110
+	o jed-0.99-18
+	o joe-4.0.0
+	o jpilot-syncmal-0.81
+	o json-glib-1.0.4
+	o kadu-0.11.1
+	o kaffe-1.1.9
+	o kapooka-0.3
+	o kbiff-4.0
+	o kbool-2.1 [kbool_2_1, next to boolean-7.1]
+	o kdbg-2.5.4
+	o kdenlive-0.9.8
+	o kismet-2011.03r2 [pkg/45692]
+	o klavaro-3.0
+	o kmess-1.5.1
+	o kmp-0.5
+	o kmymoney2-4.6.1
+	o knights-2.5.0
+	o koffice-l10n-de-2.0.2
+	o kphotobook-0.0.7
+	o kronolith-4.1.5
+	o krusader-2.0
+	o ktorrent3-3.3.4
+	o lbdb-0.39
+	o lcc-4.2
+	o ldapsdk-6.0.7
+	o lftp-4.5.2
+	o lgeneral-1.2.3
+	o libXdmcp-1.1.2 [wiz]
+	o libcanberra-0.28 [drops support for GNOME2; don't update for now -- wiz]
+	o libchamplain08-0.12.10
+	o libdrm-2.4.60 [wiz]
+	o libextractor-1.2 [requires shm_open()]
+	o libflash-0.4.13
+	o libfolks-0.10.1
+	o libgdata-0.16.1
+	o libgdiplus-3.0
+	o libgee-0.18.0
+	o libgiigic-1.1.2
+	o libgnome-keyring-3.12.0
+	o libgnomedb-3.1.2
+	o libgnomekbd-3.4.0.2
+	o libgroove-4.2.1
+	o libixp-0.5 [breaks wmii-3.6, wait for compatible version; see also wmii+ixp entry]
+	o libjit-1.0.2
+	o liblangtag-0.5.5
+	o libmcs-0.7.2
+	o libnasl-2.3.1
+	o liboobs-2.32.0 [GNOME 2.32]
+	o libplist-1.11
+	o libprelude-1.2.5
+	o libquantum-1.1.0 [pkg/43728, development release]
+	o libraw-0.16.0
+	o libreoffice4-4.4.2
+	o libreoffice4-bin-4.4.2
+	o librsvg-2.40.9
+	o libstree-0.4.3pre2 [pkg/43748]
+	o libtar-1.2.20
+	o libtcl-nothread-8.5.1
+	o libthrift-0.8.0
+	o libtool-2.4.6
+	o libusb-1.0.19
+	o libuv-1.0.1 [pkg/49442]
+	o libuv-1.4.2
+	o libv4l-0.8.5
+	o libvdpau-1.1
+	o libxdg-basedir-1.2.0
+	o libxklavier-5.3
+	o libxml++-2.38.0
+	o licq-1.3.8
+	o liferea-1.10.9
+	o lincvs-2.1.4 [now called CrossVC]
+	o linpsk-1.2 [ld: cannot find -lqt-mt with qt4]
+	o liquidwar-6.0.0.11
+	o lit2epub-0.2.2
+	o lmbench-2.5 [http://lmbench.sourceforge.net/]
+	o lottanzb-0.5.3
+	o lq-sp-1.3.4.13
+	o lsh-2.1
+	o lwm-1.2.3
+	o maelstrom-x11-2.0.7
+	o magic-8.1.23
+	o maildrop-2.8.1
+	o mailscanner-4.74
+	o mailutis-2.2 [wip]
+	o maketool-0.8.4
+	o makeztxt-1.60
+	o mame-0.160 [wiz]
+	o manedit-1.2.1
+	o maradns-2.0.11
+	o matchbox-panel-0.9.3
+	o mawk-1.3.4.20141206
+	o mbuf-20141227
+	o mc-4.8.14
+	o mcsim-5.5.0
+	o mediainfo-0.7.72
+	o mednafen-0.9.38.2
+	o mergeant-0.67
+	o mess-0.160 [wiz]
+	o mesure-0.7.2
+	o metacity-3.14.2
+	o metis-5.1.0
+	o mgetty+sendfax-1.1.35
+	o mined-2015.25
+	o minicom-2.7
+	o minivmac-3.2.3
+	o miredo-1.2.4
+	o mit-krb5-1.12.1
+	o mknmz-wwwoffle-0.7.2
+	o mksh-50e
+	o mkvtoolnix-7.6.0
+	o modular-xorg-server-1.16.4
+	o modular-xorg-server-1.17.1 (see pkgsrc-wip/modular-xorg-server)
+	o molden-4.8 [after which PR 40252 can be closed]
+	o moneyguru-2.8.2
+	o mono-3.12.0
+	o moserial-2.30.0 [GNOME 2.30]
+	o mousetweaks-3.12.0 [wip]
+	o mp3splt-2.6.2
+	o mp3splt-gtk-0.9.0
+	o mpeg4ip-1.6.1
+	o mpop-1.0.29
+	o mserv-devel-0.41
+	o msgpack-1.0.0
+	o multitail-6.2
+	o munin-doc-1.4.6
+	o munin-node-1.4.6
+	o munin-server-1.4.6
+	o muse-0.9.2
+	o mutt-kz-1.5.23.1
+	o mysql-5.7.6
+	o nagios-plugins-2.0.3
+	o nano-2.4.0
+	o nap-1.5.3
+	o nautilus-actions-2.30.3 [GNOME 2.30]
+	o ncview-2.1.1
+	o ne-2.01
+	o nessus-4.4.1
+	o nestopia-1.46.2 [http://0ldsk00l.ca/nestopia/]
+	o netatalk-3.1.0 [wip]
+	o netramet-50
+	o netsurf-3.2
+	o nettle-3.0 [wip; breaks gnutls-3.2.15, wait for newer version]
+	o newmail-1.0.2
+	o nfdump-1.6.12 [pkg/49332]
+	o nikto-2.0.1
+	o nodejs-0.12.0
+	o ns-3.14.1
+	o ns-plugger-common-5.1.3
+	o nspluginwrapper-1.4.4 [pkg/47208]
+	o nss-3.18
+	o ntop-5.0
+	o nut-20.1
+	o nxtvepg-2.8.1
+	o ocamlgraph-1.8.6
+	o ocrad-0.24
+	o octave-3.8.2
+	o olvwm-4.5
+	o oo2c-2.1.7
+	o opal-3.8.0 [pkg/42942]
+	o opal-3.10.10
+	o open-vm-tools-2010.09.19.301124
+	o openmortal-0.7.1
+	o openmpi-1.8.4
+	o openoffice-4.1
+	o openoffice3-3.3
+	o openscad-2013.06
+	o openslp-2.0.0
+	o openssh-6.8p1 (Note: it drop tcp_wrappers support since 6.7p1!!)
+	o opera-26
+	o opus-1.1
+	o oroborus-2.0.18
+	o ortp-0.16.5
+	o oto-0.5
+	o p0f-3.00b
+	o p5-GD-2.56
+	o p5-GTop-0.18
+	o p5-GraphViz2-2.06
+	o p5-Gtk2-1.223
+	o p5-JSON-MaybeXS-1.003004 [pkg/49771]
+	o p5-SDL-2.544 [wip, make sure games/frozen-bubble runs, may require p5-SDL_perl]
+	o p5-Sereal-Decoder-3.005 [pkg/49772]
+	o p5-Sereal-Encoder-3.005 [pkg/49773]
+	o p5-Unicode-Collate-1.12 [pkg/49774]
+	o p5-gtk2-1.300
+	o p5-sybperl-2.18
+	o p5-xmltv-0.5.66
+	o packagekit-0.5.1
+	o pam-passwdqc-1.2.2
+	o parallel-20140522
+	o pari-2.7.1
+	o parrot-6.7.0
+	o pcal-4.8
+	o pcb-20140316 [pkg/49383]
+	o pcmanfm-0.5.2 [pkg/42451]
+	o pdmenu-1.2.87
+	o pen-0.17.3
+	o pessulus-2.30.3 [GNOME 2.28]
+	o phonon-4.8.3
+	o php-jpgraph-3.0.6
+	o php-tiki6-6.10
+	o php-tt-rss-1.15.3
+	o phpmyadmin-4.4
+	o picp-0.6.8
+	o picprg-3.01
+	o pim6dd-20040819a
+	o pim6sd-20040824a
+	o pinfo-0.6.10
+	o pingus-0.7.4
+	o pioneers-15.3
+	o pks-0.9.6
+	o plasma-5.0.2
+	o ploticus-examples-230
+	o png-1.6.17
+	o pngcrush-1.7.85
+	o pokerth-1.0.1
+	o polsms-2.1.0
+	o poppass-4.0.14
+	o postal-0.72
+	o postfix-3.0
+	o powermanga-0.91
+	o powwow-1.2.16
+	o pppd-2.4.7
+	o profit-2.5.3
+	o psmisc-22.20
+	o pspp-0.8.4
+	o putty-0.64
+	o pv-1.6.0 [pkg/49795]
+	o pvs-5.0
+	o pwlib-1.11.1
+	o py-HappyDoc-3.0
+	o py-PasteDeploy-1.5.2
+	o py-Scientific-doc-2.5.5
+	o py-Unidecode-0.04.14
+	o py-anki2-2.0.32
+	o py-cassa-1.11.0
+	o py-creole-1.1.1
+	o py-cryptography-0.8.1
+	o py-datapkg-0.9
+	o py-django-photologue-2.7
+	o py-django-registration-1.0
+	o py-djangorestframework-2.3.12
+	o py-gmpy-1.17
+	o py-gnome-menus-3.8.0
+	o py-greenlet-0.4.2
+	o py-lasso-2.4.0
+	o py-markdown-2.3.1
+	o py-matplotlib-1.4.3
+	o py-mezzanine-3.0.5
+	o py-musicbrainz-0.7.4
+	o py-notify-0.3.1
+	o py-omniORBpy-3.7
+	o py-pendrell-0.3.7
+	o py-psutil-2.2.0
+	o py-ptt-1.10.2
+	o py-reportlab-3.0
+	o py-rope-0.9.4
+	o py-setuptools-14.3.1
+	o py-simpletal-5.1
+	o py-simpy-3.0.5
+	o py-smb-1.1.8
+	o py-sphinx-theme-cloud-1.6
+	o py-suds-0.4.1
+	o py-sybase-0.37
+	o py-test-2.7.0
+	o py-tlslite-0.4.6
+	o py-trytond-account-3.4.1	
+	o py-trytond-stock-3.4.0
+	o py-vdirsyncer-0.4.4
+	o py-wxWidgets-3.0.0
+	o py-zconfig-3.0.3
+	o qcad-3.7.5.0
+	o qnetwalk-1.4
+	o radiance-4.1
+	o rails-4.1.5
+	o rainbowcrack-1.5
+	o raine-0.64.2
+	o rat-4.2.25
+	o rc-1.7.1 [at ftp://quenix2.dyndns.org/FreeBSD/ports/distfiles/]
+	o rdp-1.6
+	o re-alpine-2.03 [pkg/47802]
+	o redis-3.0.0
+	o rep-gtk-0.90.8.1
+	o resize_image-0.7
+	o rhythmbox-3.2
+	o rio500-0.8.1
+	o robodoc-4.99.6
+	o root-5.34.01
+	o root-tail-1.2
+	o rosegarden4-1.7.0 [replacing audio/rosegarden|pkgsrc-wip]
+	o rosegarden-14.12
+	o rox-session-0.29
+	o roxirc-2.0
+	o rp-l2tp-0.4
+	o rp-pppoe-3.11
+	o rspamd-0.8.3
+	o rtcw-1.41.3
+	o rtty-4.0 [at ftp://ftp.isc.org/isc/rtty/]
+	o ruby-ncurses-1.3.1
+	o ruby-review-1.4.0 [wip]
+	o sabayon-2.30.1 [GNOME 2.30]
+	o sablecc-3.7
+	o samba-4.2.0
+	o samba-4.1.9 [wip]
+	o samba-4.1.14
+	o sane-1.0.24
+	o sarg-2.2.5
+	o scew-0.4.0
+	o scilab-5.5.1
+	o scipy-0.13.3
+	o scm-5e7
+	o scribus-1.4.5
+	o scripts-1.0.1
+	o scrollz-1.9.99
+	o scsh-1.3.0
+	o seahorse-3.14
+	o seahorse-nautilus-3.10.1
+	o secpanel-0.6.1
+	o sendfile-20010424
+	o ser-0.9.6
+	o sge-8.1.8
+	o sharity-3.7
+	o sharity-light-1.3
+	o shc-3.8
+	o shmux-1.0.2
+	o showfont-1.0.4 [wip]
+	o sign-1.0.7
+	o silc-1.1.11
+	o silc-client-1.1.11
+	o silc-server-1.1.19
+	o sitescooper-3.1.2
+	o sjeng-11.2
+	o skype-4.3
+	o slurm-14.11.2
+	o smproxy-1.0.3
+	o snd-10.6
+	o snes9x-1.53
+	o snort-2.9.6.0
+	o solfege-3.22.0
+	o sope-4.6
+	o sound-juicer-3.16.0
+	o source-highlight-3.1.8
+	o sourcesans-fonts-2.0
+	o spcaview-20060501
+	o spidermonkey-1.8.5
+	o spl-1.0pre6
+	o sqwebmail-5.8.1
+	o srp_client-1.7.5
+	o ssh-askpass-1.2.4.1
+	o stalin-0.11
+	o star-1.5.3
+	o statist-1.3.0
+	o stella-4.5
+	o stellarium-0.13.2
+	o stgit-0.16
+	o stlport-4.6.2
+	o stow-2.2.0
+	o strace-4.10
+	o stratagus-2.2.5.5
+	o streamtuner-2.1.4
+	o subtitleeditor-0.41.1
+	o sudo-1.8.13
+	o sun-jre8-8.0
+	o swapd-1.0.5
+	o swatch-3.2.3
+	o swath-0.5.2
+	o swfdec-gnome-2.30.1
+	o sysinfo-4.2.2
+	o system-tools-backends-2.10.1 [needs polkit|GNOME 2.30]
+	o systrace-1.6e
+	o t-prot-2.101
+	o tads-3.0.16
+	o taskjuggler-3.3.0
+	o tc-hasida-table-0.8 [wip]
+	o tcl85-8.5.16
+	o tcpdpriv-0.9
+	o tcpdstat-0.9
+	o tcpillust-1.00b
+	o tcpreplay-4.0.4
+	o tct-1.16
+	o tds-1.6.2
+	o tea-38.0.0
+	o ted-en-us-2.17
+	o teem-1.10.0
+	o telepathy-gabble-0.16.6
+	o tetrinetx-1.40c
+	o tex2page-20130325
+	o texlive-2014
+	o tfmxplay-1.1.6
+	o tigervnc-1.4.2
+	o tightvnc-2.7.10
+	o tile-0.7.4
+	o tinc-1.0.24
+	o tk85-8.5.16
+	o tkhylafax-3.2
+	o tkpasman-2.2b
+	o tn5250-0.17.3 [at http://tn5250.sourceforge.net/]
+	o tob-0.26
+	o tomboy-1.4.2 [GNOME 2.32]
+	o tomboy-1.10.2
+	o top-3.8beta1
+	o totem-3.14.1
+	o totem-pl-parser-3.10.3
+	o tripwire-2.3.1 [see also pkg/22362]
+	o trojita-0.5
+	o tsclient-0.140
+	o turba-4.1.4
+	o uae-0.8.29
+	o ubs-0.20
+	o ucblogo-5.5
+	o udunits-2.1.17 [pkg/43529, breaks ncview-1.x, also need to update it to 2.x]
+	o ufoai-2.3.1
+	o unicap-0.9.8
+	o unison2.40-2.40.128
+	o userppp-030706
+	o utilisp-1.14
+	o vala-0.28.0
+	o varnish-4.0.2
+	o vbetool-1.1
+	o verilog-current-20130827 [wip]
+	o veusz-1.22
+	o vfu-4.09
+	o vicq-0.4.2
+	o vile-9.8p
+	o vinagre-3.16.0
+	o vino-3.16.0
+	o visual-regexp-3.1
+	o vlc-2.2
+	o vm-8.0.7.522 [pkg/37707]
+	o vnc-4.0 [http://www.realvnc.com/download.html|pkgsrc-wip]
+	o vte-0.36.0
+	o vtk-5.10.1
+	o wMosaic-3.8.22
+	o wap-utils-1.4.1
+	o warzone2100-2.3.8
+	o wbm-cyrus-imapd-1.6.2
+	o wcalc-2.4
+	o webalizer-2.23.05
+	o webkit-gtk-2.8.0 [wip]
+	o webmin-1.690
+	o websvn-2.3.2
+	o weechat-1.1
+	o windowlab-1.40
+	o wine-devel-1.7.39
+	o wmi-11
+	o wmii+ixp-3.9.2 [pkg/43459; wip (wmii-devel); see also libixp entry]
+	o wmweather-2.4.4
+	o wmx-7
+	o worker-3.4.1
+	o wpi-firmware-1.14.2
+	o wwwoffle-2.9i
+	o wxRemind-101
+	o xbindkeys-1.8.6
+	o xbindkeys-tk-1.8.0
+	o xboard-4.8.0
+	o xcircuit-3.9.33
+	o xcmsdb-1.0.4 [unpackaged]
+	o xemacs-current-21.5.31
+	o xentools44-4.4.0
+	o xerces-j-2.4.0 [pkg/21725]
+	o xerces-j-2.9.0
+	o xf86-input-ws-1.3.0 [successor to openbsd-input-ws, only builds on OpenBSD]
+	o xf86-video-geode-2.11.9 [wip]
+	o xf86-video-glide-1.2.2
+	o xf86-video-modesetting-0.8.1 [wip]
+	o xf86-video-sisusb-0.9.4
+	o xf86-video-voodoo-1.2.5 [wip]
+	o xf86-video-xgi-1.6.0 [unpackaged]
+	o xfce-4.12
+	o xfce4-4.10
+	o xfce4-volman-0.3.80
+	o xfig-3.2.5c
+	o xforms-1.0.93sp1
+	o xfs-1.1.1 [wip]
+	o xhippo-3.5
+	o xine-1.2.3
+	o xinput-1.6.1
+	o xjman-0.7
+	o xli-2006.11.10
+	o xmbdfed-4.6
+	o xmcd-3.3.2
+	o xml2-0.5
+	o xmlsec1-1.2.20
+	o xmlstarlet-1.5.0
+	o xmms-crossfade-0.3.14
+	o xmms-musepack-1.8.0 [http://dl.slik.org/musepack/xmms-musepack-1.8.0.tar.gz]
+	o xmon-1.5.6
+	o xnap-2.5r3
+	o xorp-1.8.5
+	o xosview-1.15
+	o xpaint-2.9.9
+	o xpr-1.0.4 [unpackaged]
+	o xpuyopuyo-0.9.8
+	o xrmap-base-2.33.1
+	o xrn-9.02
+	o xscreensaver-5.30
+	o xsd-3.3.0
+	o xsoldier-1.4
+	o xterm-317
+	o xtraceroute-0.9.1
+	o xtux-20030306
+	o xvidcap-1.1.7
+	o xview-3.2.1.4.25.5
+	o xwpe-1.5.30a
+	o xye-0.12.2
+	o xzip-182
+	o yacas-1.3.5
+	o yafc-1.1
+	o yaz-4.1.7
+	o yodl-2.14.3
+	o yorick-2.1.05
+	o z26-2.14
+	o zenicb-1.31 (needs merge with lots of local changes)
+	o zephyr-20070719
+	o zile-2.4.11
+	o zim-0.60
+	o zoom-1.1.5
+	o zopeedit-0.8
+
+Infrastructure problems which need addressing
+=============================================
+
+	o Correct and consistent handling of file names containing
+	  white-space and other special characters.
+
+	o Bootstrap building of gcc2/gcc3.
+
+Licenses of packages
+====================
+
+[This section contains discussion of enhancements needed to the
+licensing framework.]
+
+	o Documentation sometimes refers to a user "accepting a
+	  license".  This wording makes it sound like pkgsrc
+	  operations give rise to contracts, and pkgsrc should be as
+	  neutral as possible as such issues.  The documentation
+	  should be adjusted to instead refer to the user instructing
+	  pkgsrc not to refrain from building packages with such a
+	  license tag.  This is awkward, so a shorter phrase is needed
+	  which does not give the impression of a contract.
+
+Suggested pkgsrc enhancements
+=============================
+
+	o Make pkgsrc work on more operating systems.
+
+	o Permit cross-building of packages which are capable of
+	  doing so (e.g. ones that use GNU autoconf properly).
+
+	o Man page handling in PLIST for pkgs which install catman or
+	  man pages depending on OS (typically imake).
+
+	o Add an optional check to buildlink to verify that the contents
+	  of CFLAGS, LDFLAGS etc are present when the compiler/linker is
+	  called. To be used as a means to detect packages which ignore
+	  such environment variables.
+
+	o Add framework to generate messages (lines) for email to send
+	  to PKGSRC_MESSAGE_RECIPIENTS after pkg install/deinstall, for
+	  purposes including:
+		- MESSAGE files
+		- msgprint() messages
+		- CONF_FILES*, SUPPORT_FILES* installation/customization
+		- OWN_DIRS* messages (from PKG_CONFIG=NO)
+		- User/group changes (PKG_CREATE_USERGROUP=YES)
+		- /etc/shells changes (PKG_REGISTER_SHELLS=YES)
+		- pkg-specific rc.d script instructions
+	  (Consider renaming PKGSRC_MESSAGE_RECIPIENTS as well.)
+
+	o Add a facility to execute a makefile fragment if a variable
+	  is or is not a member of a list (e.g., ${OPSYS} in a list of
+	  Open Source OSes).
+
+	o Consider defining a list of Open Source operating systems,
+	  to be used for packages like x11/openmotif that set
+	  NO_*_ON_* for non-open-source systems.
+
+	o Make "pkg_install -u" clear the unsafe_depends* and rebuild
+	  tags, and set unsafe_depends* on depending packages,
+	  following the behavior of make replace.
+
+	o Figure out a way to have "pkg_install -u", probably with a
+	  flag, preserve the value of the automatic tag.  We do not
+	  have consensus on the right behavior.
+
+Suggested other platform enhancements
+=====================================
+
+	o Platform independent bulk build infrastructure
+
+	o Update the binary bootstrap kits in
+	  ftp.NetBSD.org:/pub/pkgsrc/packages/OS/arch/version-branch/
+
+Suggested cleanups in pkgsrc
+============================
+
+	o Make packages install their configuration files under the
+	  examples hierarchy, using bsd.pkg.install.mk to copy them
+	  to the PKG_SYSCONFDIR directory when necessary.
+
+	o Make packages install honour PKGLOCALEDIR by setting
+	  USE_PKGLOCALEDIR=YES where appropriate (for eg. Solaris).
+	  Affects: cross/h8300-hms-binutils, cross/h8300-hms-gcc,
+	  sysutils/apcupsd, sysutils/gnometoaster,
+	  sysutils/mtoolsfm, sysutils/xnc
+
+	o Install documentation consistently into share/doc/${PKGBASE} or
+	  share/doc/${PKGNAME}, not share/doc/html.
+
+	o Remove USE_X11BASE if there is no good reason to install a
+	  package into X11BASE.
+
+	o Convert packages to use VARBASE instead of hardcoding /var.
+
+	o Convert packages to use bsd.options.mk instead of various
+	  FOO_USE_* variables.
+
+	o Fix packages installing manual pages under share/man to install
+	  them directly under man.
+	  Affects: net/tsclient
+
+	o Convert packages to use generic install scripts where possible
+	  (for example, mail/majordomo).
+
+	o Remove the redundancy of builtin.mk files by factoring out the
+	  most commonly used cases into a well-documented file. For
+	  example, x11/kbproto/builtin.mk and x11/libXrender/builtin.mk
+	  almost look the same.
+
+	o Replace inclusion mk/tex.buildlink3.mk (pulling in a lot of
+	  tex packages) with (build) dependencies on the appropriate
+	  split tex packages. In case styles are used, look for
+	  \RequirePackage{...}.
+
+	o Make the use of mktexlsr in the install and deinstall
+	  scripts for tex-* packages more efficient.  If you install
+	  or deinstall many tex-* packages, you should be able to run
+	  mktexlsr once at the end of the entire operation, not once per
+	  package.

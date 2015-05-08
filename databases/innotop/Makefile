@@ -1,0 +1,23 @@
+# $NetBSD: Makefile,v 1.2 2014/05/29 23:35:24 wiz Exp $
+#
+
+DISTNAME=	innotop-1.9.1
+PKGREVISION=	1
+CATEGORIES=	databases
+MASTER_SITES=	http://innotop.googlecode.com/files/
+
+MAINTAINER=	filip@joyent.com
+HOMEPAGE=	http://code.google.com/p/innotop/
+COMMENT=	MySQL and InnoDB monitor program
+LICENSE=	gnu-gpl-v2
+
+DEPENDS+=	p5-Term-ReadKey>=2.10:../../devel/p5-Term-ReadKey
+DEPENDS+=	p5-DBI>=1.13:../../databases/p5-DBI
+DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
+
+PERL5_PACKLIST=	auto/innotop/.packlist
+REPLACE_PERL=	innotop
+NO_BUILD=	YES
+
+.include "../../lang/perl5/module.mk"
+.include "../../mk/bsd.pkg.mk"

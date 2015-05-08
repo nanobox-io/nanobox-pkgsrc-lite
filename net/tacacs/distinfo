@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2015/02/13 22:36:00 he Exp $
+
+SHA1 (tacacs-F4.0.4.28.tar.gz) = 7ceb93ed743096dd9755dccf7405f9b1d70188a3
+RMD160 (tacacs-F4.0.4.28.tar.gz) = 1336eee599a47068b657c333da66517f5620a144
+Size (tacacs-F4.0.4.28.tar.gz) = 530049 bytes

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.130.2.1 2015/04/08 02:56:49 hiramatsu Exp $
+
+SHA1 (ImageMagick-6.9.1-1.tar.xz) = 77e2dc47f87ec1c5b2cb519f298acf1f8202d7d8
+RMD160 (ImageMagick-6.9.1-1.tar.xz) = 9bc9dbc5c5cc83d4ab34b25c6c2eae2e676181e6
+Size (ImageMagick-6.9.1-1.tar.xz) = 7906164 bytes

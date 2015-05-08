@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2014/11/13 09:07:17 markd Exp $
+
+SHA1 (qjson-0.8.1.tar.bz2) = 197ccfd533f17bcf40428e68a82e6622047ed4ab
+RMD160 (qjson-0.8.1.tar.bz2) = b8b76c253bf241de1fccd411b4fbc67ea96b53fd
+Size (qjson-0.8.1.tar.bz2) = 64398 bytes
