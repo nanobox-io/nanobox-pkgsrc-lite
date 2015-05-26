@@ -312,6 +312,8 @@ LOWER_OPSYS_VERSUFFIX=	2.${OS_VERSION:C/5.//}
 _UNAME_V!=		${UNAME} -v
 .  if !empty(_UNAME_V:Mjoyent_*)
 OS_VARIANT=		SmartOS
+.  elif !empty(_UNAME_V:Mpagoda-*)
+OS_VARIANT=		SmartOS
 .  elif !empty(_UNAME_V:Momnios-*)
 OS_VARIANT=		OmniOS
 .  endif
