@@ -18,3 +18,8 @@ GOCHAR=		5
 .endif
 PLIST_SUBST+=	GO_PLATFORM=${LOWER_OPSYS:Q}_${GOARCH:Q} GOARCH=${GOARCH:Q}
 PLIST_SUBST+=	GOCHAR=${GOCHAR:Q}
+
+PRINT_PLIST_AWK+=	{if ($$0 ~ /\/$(LOWER_OPSYS)_$(GOARCH)\//) {sub(/\/$(LOWER_OPSYS)_$(GOARCH)\//,"/$${GO_PLATFORM}/", $$0);}}
+PRINT_PLIST_AWK+=	{if ($$0 ~ /$(GOARCH)/) {sub(/$(GOARCH)/,"$${GOARCH}", $$0);}}
+PRINT_PLIST_AWK+=	{if ($$0 ~ /\/$(GOCHAR)[acgl]$$/) {sub(/\/$(GOCHAR)/,"/$${GOCHAR}", $$0);}}
+
