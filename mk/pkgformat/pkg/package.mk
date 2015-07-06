@@ -207,7 +207,7 @@ su-real-package-install:
 	@${MV} ${_PKG_DBDIR}/${PKGNAME:Q}/+CONTENTS.tmp ${_PKG_DBDIR}/${PKGNAME:Q}/+CONTENTS
 .else
 	${RUN} case ${_AUTOMATIC:Q}"" in					\
-	[yY][eE][sS])	${PKG_ADD} -A ${STAGE_PKGFILE} ;;		\
-	*)		${PKG_ADD} ${STAGE_PKGFILE} ;;			\
+	[yY][eE][sS])	${PKG_ADD} -A ${STAGE_PKGFILE} || ${LOCALBASE}/bin/pkgin -y in ${PKGNAME:Q} ;;		\
+	*)		${PKG_ADD} ${STAGE_PKGFILE} || ${LOCALBASE}/bin/pkgin -y in ${PKGNAME:Q} ;;			\
 	esac
 .endif
