@@ -62,3 +62,15 @@ depends-message:
 .PHONY: pre-depends-hook
 pre-depends-hook:
 	@${DO_NADA}
+
+######################################################################
+### fetch-depends (PUBLIC)
+######################################################################
+### fetch-depends is a target that will attempt to fetch all of the
+### dependencies remotely, via pkgin. Invoking this target before
+### invoking the default build target can greatly reduce build time.
+###
+.PHONY: fetch-depends
+fetch-depends:
+	@${PHASE_MSG} "Attempting to determine and fetch dependencies"
+	@../../mk/depends/fetch-depends.sh $$(${PWD_CMD} | ${SED} 's,${PKGSRCDIR},,') ${LOCALBASE}
