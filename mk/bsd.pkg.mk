@@ -638,6 +638,7 @@ ${.CURDIR}/${WRKDIR_BASENAME}:
 .include "build/bsd.build.mk"
 .include "install/bsd.install.mk"
 .include "package/bsd.package.mk"
+.include "publish/publish.mk"
 
 .include "bsd.pkg.clean.mk"
 .include "bsd.pkg.update.mk"
