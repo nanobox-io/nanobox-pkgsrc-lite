@@ -11,8 +11,10 @@ BUILDLINK_PKGSRCDIR.editline?=	../../devel/editline
 BUILDLINK_FILES.editline+=	include/history.h
 BUILDLINK_FILES.editline+=	include/readline.h
 
+.if !defined(EDITLINE_SKIP_FNAME_TRANSFORM)
 BUILDLINK_FNAME_TRANSFORM.editline+=	-e 's|include/editline/history\.h|include/readline/history.h|g'
 BUILDLINK_FNAME_TRANSFORM.editline+=	-e 's|include/editline/readline\.h|include/readline/readline.h|g'
+.endif
 
 CHECK_BUILTIN.editline:=	yes
 .include "../../devel/editline/builtin.mk"
