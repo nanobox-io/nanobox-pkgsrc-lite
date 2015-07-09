@@ -47,7 +47,7 @@ publish_all() {
   for file in $(ls /content/packages/pkgsrc/${project}/${platform}/All/*)
   do
     file=$(basename ${file})
-    if [[ ! ${uploaded} =~ ${file} ]]
+    if [[ ! ${uploaded} =~ ${file//\+/\\\+} ]]
     then
       publish_file ${secret} ${user} ${project} ${platform} ${file}
     fi
