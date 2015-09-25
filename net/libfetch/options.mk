@@ -2,7 +2,7 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.libfetch
 PKG_SUPPORTED_OPTIONS=	inet6 openssl
-PKG_SUGGESTED_OPTIONS=	inet6
+PKG_SUGGESTED_OPTIONS=	inet6 openssl
 
 CHECK_BUILTIN.openssl:=	yes
 .include "../../security/openssl/builtin.mk"
