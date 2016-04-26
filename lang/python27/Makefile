@@ -137,7 +137,7 @@ PLIST.no-nis=	yes
 .  endif
 .endif
 
-.include "../../mk/bdb.buildlink3.mk"
+# .include "../../mk/bdb.buildlink3.mk"
 MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
 .if empty(BDB_LIBS)
 BUILDLINK_TRANSFORM+=	rm:-ldb
