@@ -32,12 +32,12 @@ PKG_METADATA_DIR="${2-${CURDIR}}"
 exitcode=0
 case $ACTION in
 ADD)
-	${ECHO} "${PKGNAME}: rebuilding run-time library search paths database"
+	${ECHO} "${PKGNAME}: rebuilding run-time library search paths database" > /dev/null
 	( @LDCONFIG_ADD_CMD@ ) >/dev/null 2>&1 || ${TRUE}
 	;;
 
 REMOVE)
-	${ECHO} "${PKGNAME}: rebuilding run-time library search paths database"
+	${ECHO} "${PKGNAME}: rebuilding run-time library search paths database" > /dev/null
 	( @LDCONFIG_REMOVE_CMD@ ) >/dev/null 2>&1 || ${TRUE}
 	;;
 esac

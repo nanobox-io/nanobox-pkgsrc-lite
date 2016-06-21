@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2014/05/29 23:38:13 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:35 wiz Exp $
 
 DISTNAME=	Plack-Middleware-Header-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Plack/}
 
@@ -15,7 +15,7 @@ USE_LANGUAGES=	# empty
 PERL5_PACKLIST= auto/Plack/Middleware/Header/.packlist
 
 DEPENDS+=	p5-Plack-[0-9]*:../../www/p5-Plack
-DEPENDS+=	{perl>=5.10.1,p5-parent-[0-9]*}:../../devel/p5-parent
+#DEPENDS+=	{perl>=5.10.1,p5-parent-[0-9]*}:../../devel/p5-parent
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

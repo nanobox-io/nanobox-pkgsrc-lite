@@ -1,18 +1,18 @@
-# $NetBSD: Makefile,v 1.50 2014/12/20 02:26:59 wen Exp $
+# $NetBSD: Makefile,v 1.58 2015/12/26 10:45:45 wen Exp $
 
 DISTNAME=	mediawiki-${VER}.${PVER}
 CATEGORIES=	www
-MASTER_SITES=	http://releases.wikimedia.org/mediawiki/${VER}/
+MASTER_SITES=	https://releases.wikimedia.org/mediawiki/${VER}/
 
 MAINTAINER=	wenheping@gmail.com
 HOMEPAGE=	http://www.mediawiki.org/
 COMMENT=	Free software wiki package originally written for Wikipedia
 LICENSE=	gnu-gpl-v2
 
-DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.3.2:../../textproc/php-dom
-DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.3.2:../../graphics/php-gd
-DEPENDS+=	${PHP_PKG_PREFIX}-intl>=5.3.2:../../textproc/php-intl
-DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.3.2:../../textproc/php-json
+DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.3.3:../../textproc/php-dom
+DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.3.3:../../graphics/php-gd
+DEPENDS+=	${PHP_PKG_PREFIX}-intl>=5.3.3:../../textproc/php-intl
+DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.3.3:../../textproc/php-json
 
 EGDIR=			share/examples/mediawiki
 MEDIAWIKI=		${PREFIX}/share/mediawiki
@@ -21,8 +21,8 @@ INSTALLATION_DIRS=	${EGDIR} share/mediawiki
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
-VER=			1.24
-PVER=			1
+VER=			1.26
+PVER=			2
 
 APACHE_USER?=		www
 APACHE_GROUP?=		www
@@ -79,13 +79,6 @@ SUBST_STAGE.python2=	post-patch
 SUBST_MESSAGE.python2=	Fixing python path
 SUBST_FILES.python2+=	maintenance/language/zhtable/Makefile.py
 SUBST_SED.python2=	-e "s,/usr/bin/env python,${PYTHONBIN},"
-
-SUBST_CLASSES+=		php
-SUBST_MESSAGE.php=	Fixing the path of php.
-SUBST_STAGE.php=	post-patch
-SUBST_FILES.php+=	includes/normal/UtfNormalTest2.php
-SUBST_FILES.php+=	maintenance/update.php
-SUBST_SED.php=          -e "s,/usr/bin/env php,${PREFIX}/bin/php,g"
 
 post-extract:
 	${CP} ${FILESDIR}/mediawiki.conf ${WRKDIR}/mediawiki.conf

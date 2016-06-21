@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.7 2016/02/18 10:07:48 wiz Exp $
+
+SHA1 (mlr-3.4.0.tar.gz) = 21885584296dc9bfa585137d472b45a3e8827300
+RMD160 (mlr-3.4.0.tar.gz) = 939b2c4b11b689864d6a2fa378c7d876be85e61d
+SHA512 (mlr-3.4.0.tar.gz) = 8886354e46763336c5b785bd44c2c6038ac9c0112dc21930cc80031d98084f62792bfd7bab904df8eb6f161cd8d77c2e193ead1ece12edf6f60c3ec49713901c
+Size (mlr-3.4.0.tar.gz) = 799412 bytes

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.153 2014/10/09 14:06:41 wiz Exp $
+# $NetBSD: Makefile,v 1.164 2016/02/25 15:26:55 jperkin Exp $
 
-DISTNAME=		R-3.1.1
+DISTNAME=		R-3.2.2
 CATEGORIES=		math
 MASTER_SITES=		${MASTER_SITE_R_CRAN:=base/R-3/}
 
@@ -22,7 +22,7 @@ USE_TOOLS+=		gmake gzip:run makeinfo perl:run sed unzip:run xmkmf
 USE_TOOLS+=		pkg-config
 USE_LANGUAGES=		c c++ fortran
 USE_LIBTOOL=		yes
-TEXINFO_REQD=		4.7
+TEXINFO_REQD=		5.1
 INFO_FILES=		yes
 
 PTHREAD_AUTO_VARS=	yes
@@ -88,11 +88,7 @@ CONFIGURE_ENV+=		R_LD_LIBRARY_PATH=${PREFIX}/lib:${LIBGCC_PREFIX}/${GCC_TARGET_M
 # been installed SHAREMODE
 SHAREMODE=		644
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-openmp
-.endif
+CONFIGURE_ARGS.Darwin+=	--disable-openmp
 
 # R_PAPERSIZE can be: A4, Letter, Legal, Executive
 .if defined(PAPERSIZE)
@@ -133,13 +129,25 @@ INSTALL_SCRIPT=		${INSTALL} ${COPY} -m ${BINMODE}
 SUBST_CLASSES+=		fixwrap
 SUBST_STAGE.fixwrap=	post-build
 SUBST_FILES.fixwrap=	libtool
-SUBST_SED.fixwrap=	-e "s,${WRAPPER_BINDIR}/libtool-fortran,${PKG_LIBTOOL},g"
+SUBST_SED.fixwrap=	-e "s,${WRAPPER_BINDIR}/libtool,${PKG_LIBTOOL},g"
 
 BUILDLINK_API_DEPENDS.zlib+= zlib>=1.2.3
 BUILDLINK_API_DEPENDS.bzip2+= bzip2>=1.0.5
 
 .if ${OPSYS} == "NetBSD" && !empty(OS_VERSION:M1.[0-6]*)
 CONFIGURE_ARGS+=	--enable-mbcs=no
+.endif
+
+# Fix library names.  Relies on build system using -headerpad_max_install_names.
+.if ${OPSYS} == "Darwin"
+.PHONY: fix-darwin-install-name
+post-install: fix-darwin-install-name
+fix-darwin-install-name:
+	${FIND} ${DESTDIR}${PREFIX} -name "*.so" | while read lib; do	\
+		libname=`basename $${lib}`;				\
+		libdir=`dirname $${lib} | sed -e 's,${DESTDIR},,'`;	\
+		install_name_tool -id $${libdir}/$${libname} $${lib};	\
+	done
 .endif
 
 .include "../../archivers/bzip2/buildlink3.mk"

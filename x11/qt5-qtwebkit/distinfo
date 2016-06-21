@@ -1,8 +1,9 @@
-$NetBSD: distinfo,v 1.2 2015/03/31 16:01:12 joerg Exp $
+$NetBSD: distinfo,v 1.7 2016/03/18 07:37:38 dbj Exp $
 
-SHA1 (qtwebkit-opensource-src-5.4.0.tar.xz) = e5e92e126bb673dadc329bc726c21bf4f994d829
-RMD160 (qtwebkit-opensource-src-5.4.0.tar.xz) = 7310e566174839214a962f1d2ff07cbb7decb7a2
-Size (qtwebkit-opensource-src-5.4.0.tar.xz) = 33456404 bytes
+SHA1 (qtwebkit-opensource-src-5.5.1.tar.xz) = e1e16f3eb48c1ce863b9ab33364e4ac178ae51a7
+RMD160 (qtwebkit-opensource-src-5.5.1.tar.xz) = 0594ec1150f7899d72f57d8ff2f108f3f75faaf9
+SHA512 (qtwebkit-opensource-src-5.5.1.tar.xz) = a44ca088fee7dbf0b10df7e1f6c914f37b31cf7c3b95156c32e5b8373a8de54013cd51cdf5b18b72f165d60c21ce55bceca86b038de68b1eb78ae0cd4bb8228a
+Size (qtwebkit-opensource-src-5.5.1.tar.xz) = 33489924 bytes
 SHA1 (patch-Source_JavaScriptCore_API_ObjCCallbackFunction.h) = be77c4b19f5f97c12180c1b7d3b72968364f3229
 SHA1 (patch-Source_JavaScriptCore_DerivedSources.pri) = b7a81c85257ddebd7bdff546a6d6720c9a2c5b56
 SHA1 (patch-Source_JavaScriptCore_JavaScriptCore.pri) = ccf64d0df1c61ff5c31c000636f3b64460562314
@@ -11,7 +12,7 @@ SHA1 (patch-Source_JavaScriptCore_assembler_ARMAssembler.h) = a6cfdbced0bb528f47
 SHA1 (patch-Source_JavaScriptCore_assembler_MacroAssemblerARM.cpp) = 2ed23192d9a4ec2c0f7b7b9a48bed664adbc7fb3
 SHA1 (patch-Source_JavaScriptCore_dfg_DFGNode.h) = cf39645a9b61299bb7b5b700a4cf2af68aa2f9f6
 SHA1 (patch-Source_JavaScriptCore_heap_MachineStackMarker.cpp) = 09bfdb6e63b835fb50611289d4a1c50cd18c9e37
-SHA1 (patch-Source_JavaScriptCore_tools_CodeProfiling.cpp) = 3b73e876e89e920267a6bd19dba696298f00c704
+SHA1 (patch-Source_JavaScriptCore_tools_CodeProfiling.cpp) = da6e2627337be1d6a4692697f23381b1bc80d08a
 SHA1 (patch-Source_QtWebKit.pro) = cfa9b6a36ce63f7655a164bbc696db2c0a44d288
 SHA1 (patch-Source_ThirdParty_ANGLE_Target.pri) = 33473cbae5e2f835b0cea6cfd5fe50f031bea60c
 SHA1 (patch-Source_ThirdParty_ANGLE_src_compiler_glslang.y) = 875cfb3a98b943a78bf87e91d724d067b5bd2523
@@ -22,7 +23,7 @@ SHA1 (patch-Source_WTF_WTF.pro) = 06883057a69fb95142cf33615a800cd532528e3e
 SHA1 (patch-Source_WTF_wtf_Assertions.cpp) = 9146f5c8a44563328194470e3f1f4ec5150fbe93
 SHA1 (patch-Source_WTF_wtf_InlineASM.h) = 64ea54605fbe787be57f7423e33802def66d6432
 SHA1 (patch-Source_WTF_wtf_NumberOfCores.cpp) = 5f80234f0bc8a66b2f1b4824a8b79b402e707491
-SHA1 (patch-Source_WTF_wtf_Platform.h) = 1d43e161c9836949970eca4545fd995b85a4f4d6
+SHA1 (patch-Source_WTF_wtf_Platform.h) = d44960e5a5d171e815f973999c29d88a785cb3d7
 SHA1 (patch-Source_WTF_wtf_RAMSize.cpp) = 1c5a9c0aaffdec25cea74b010b9bc8922593b1af
 SHA1 (patch-Source_WTF_wtf_ThreadIdentifierDataPthreads.cpp) = 249308d00b18a8b89e9787f440341e77a1927531
 SHA1 (patch-Source_WTF_wtf_Threading.h) = 92f303cb972335fc9aaf4054cf66d9b6e99c94a5

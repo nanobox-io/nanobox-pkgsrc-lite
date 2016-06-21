@@ -1,6 +1,14 @@
-$NetBSD: distinfo,v 1.33 2015/03/31 16:35:29 joerg Exp $
+$NetBSD: distinfo,v 1.49 2016/04/04 17:32:17 joerg Exp $
 
-SHA1 (mame0159s.zip) = 0170b73e45dcaa6c9842948f69c54310bf314934
-RMD160 (mame0159s.zip) = 9b02aeeebf956c453b2c041c6c40c2952ce3521c
-Size (mame0159s.zip) = 80801723 bytes
-SHA1 (patch-makefile) = 57837dbc8571682e4fd73a2be5771df109c7225f
+SHA1 (mame-0.171.tar.gz) = 53a6c72b2b8c11e72e622c14cb4d2ec710c1dbd5
+RMD160 (mame-0.171.tar.gz) = 7f0468d0240f3dd7f927eb135925d7ad78a66464
+SHA512 (mame-0.171.tar.gz) = 0d15261d6eea983258f6d747f63f159fcba440f0b7f098e5bebd7cefa5cef1e0189e41858df40bbfd0c2e4cb8820a967e7c291632d817fa5d5d29489c51553da
+Size (mame-0.171.tar.gz) = 98456350 bytes
+SHA1 (patch-3rdparty_bgfx_examples_common_font_font__manager.cpp) = e39b2dff553505531adb5f0a31b0a22306b8e2e4
+SHA1 (patch-3rdparty_bx_include_bx_thread.h) = 779c8b750a3ae5d50d12c6430678ada64a4b82ed
+SHA1 (patch-3rdparty_libuv_src_unix_netbsd.c) = 63d2378c19cbbcb71d7540e088c3bdf5940f4dc6
+SHA1 (patch-3rdparty_luv_deps_uv.cmake) = 619cebcb8013139d765c2dfe2bcf7b5b86f50681
+SHA1 (patch-3rdparty_luv_src_dns.c) = 44d480e34971362ee696191c267dbac08005ec0f
+SHA1 (patch-makefile) = 620a9ca0884479f9624dfd8720e9cdbd9afcd1a7
+SHA1 (patch-scripts_genie.lua) = abcdc05a019761b815ce22991062ca546ae2f711
+SHA1 (patch-scripts_src_3rdparty.lua) = 306917af65da601667ffc9ffaf7b8092a2d03ef7

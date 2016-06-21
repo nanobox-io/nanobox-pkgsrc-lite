@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.30 2014/10/09 14:06:38 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2016/03/03 19:42:29 shattered Exp $
 #
 
 DISTNAME=	anomy-sanitizer-1.76
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	mail
 MASTER_SITES=	http://mailtools.anomy.net/dist/
 
@@ -10,8 +10,8 @@ MAINTAINER=	kim@tac.nyc.ny.us
 HOMEPAGE=	http://mailtools.anomy.net/
 COMMENT=	Mail message filter and sanitizer
 
-DEPENDS+=	{perl>=5.7.3,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
-DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.7.3,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
+#DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -28,7 +28,7 @@ INSTALLATION_DIRS=	sbin
 
 post-extract:
 	chmod -R u+w,go-w,a+r ${WRKSRC}
-	cd ${WRKSRC}/bin/Anomy && chmod -x *.pm */*.pm
+	cd ${WRKSRC}/bin/Anomy && chmod a-x *.pm */*.pm
 
 do-build:
 	set -e; \

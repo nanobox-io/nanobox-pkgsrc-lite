@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2014/09/25 12:59:30 fhajny Exp $
+# $NetBSD: Makefile,v 1.42 2016/03/05 11:28:53 jperkin Exp $
 
 DISTNAME=	ScientificPython-2.8.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/Python//}
+PKGREVISION=	1
 CATEGORIES=	math python
 MASTER_SITES=	http://sourcesup.cru.fr/frs/download.php/4411/
 
@@ -16,7 +17,7 @@ MAKE_ENV+=	NETCDF_PREFIX=${BUILDLINK_PREFIX.netcdf}
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 PLIST_SUBST+=	OSNAME=${LOWER_OPSYS:S/solaris/sunos/}
 PLIST_SUBST+=	OSVER=${OS_VERSION:C/^(.).*/\1/}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.8.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.8.1
 
 INSTALLATION_DIRS=	bin
 
@@ -31,6 +32,6 @@ post-install:
 .include "../../devel/netcdf/buildlink3.mk"
 .include "../../lang/python/distutils.mk"
 .include "../../math/py-numpy/buildlink3.mk"
-.include "../../parallel/mpi-ch/buildlink3.mk"
+.include "../../mk/mpi.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2015/01/10 16:15:30 gdt Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/05 15:34:13 gson Exp $
 
 PKGNAME=	${DISTNAME:S/emacs/emacs24/:S/-/-nox11-/}
 PKGREVISION=	1

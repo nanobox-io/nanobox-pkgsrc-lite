@@ -225,23 +225,23 @@ CHECK-ADD)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following directories should be created for ${PKGNAME}:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following directories should be created for ${PKGNAME}:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
 		case $d_user:$d_group:$d_mode in
 		[!:]*:[!:]*:[!:]*)
-			${ECHO} "	$dir (m=$d_mode, o=$d_user, g=$d_group)"
+			${ECHO} "	$dir (m=$d_mode, o=$d_user, g=$d_group)" > /dev/null
 			;;
 		*)
-			${ECHO} "	$dir"
+			${ECHO} "	$dir" > /dev/null
 			;;
 		esac
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -265,17 +265,17 @@ CHECK-REMOVE)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following directories are no longer being used by ${PKGNAME},"
-			${ECHO} "and they can be removed if no other packages are using them:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following directories are no longer being used by ${PKGNAME}," > /dev/null
+			${ECHO} "and they can be removed if no other packages are using them:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
-		${ECHO} "	$dir"
+		${ECHO} "	$dir" > /dev/null
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -333,27 +333,27 @@ CHECK-PERMS)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following directories are used by ${PKGNAME} and"
-			${ECHO} "have the wrong ownership and/or permissions:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following directories are used by ${PKGNAME} and" > /dev/null
+			${ECHO} "have the wrong ownership and/or permissions:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
 		case $d_mode:$d_user:$d_group in
 		[!:]*::)
-			${ECHO} "	$dir (m=$d_mode)"
+			${ECHO} "	$dir (m=$d_mode)" > /dev/null
 			;;
 		[!:]*:[!:]*:)
-			${ECHO} "	$dir (m=$d_mode, o=$d_user)"
+			${ECHO} "	$dir (m=$d_mode, o=$d_user)" > /dev/null
 			;;
 		[!:]*:[!:]*:[!:]*)
-			${ECHO} "	$dir (m=$d_mode, o=$d_user, g=$d_group)"
+			${ECHO} "	$dir (m=$d_mode, o=$d_user, g=$d_group)" > /dev/null
 			;;
 		esac
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -362,8 +362,8 @@ CHECK-PERMS)
 	;;
 
 *)
-	${ECHO} "Usage: ./+DIRS ADD|REMOVE|PERMS [metadatadir]"
-	${ECHO} "       ./+DIRS CHECK-ADD|CHECK-REMOVE|CHECK-PERMS [metadatadir]"
+	${ECHO} "Usage: ./+DIRS ADD|REMOVE|PERMS [metadatadir]" > /dev/null
+	${ECHO} "       ./+DIRS CHECK-ADD|CHECK-REMOVE|CHECK-PERMS [metadatadir]" > /dev/null
 	;;
 esac
 exit $exitcode

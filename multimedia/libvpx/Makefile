@@ -1,18 +1,16 @@
-# $NetBSD: Makefile,v 1.51 2015/02/25 11:13:54 adam Exp $
+# $NetBSD: Makefile,v 1.64 2016/02/25 15:49:44 jperkin Exp $
 
-DISTNAME=	libvpx_1.3.0.orig
-PKGNAME=	${DISTNAME:S/_/-/:S/.orig//}
-PKGREVISION=	3
+DISTNAME=	libvpx-1.5.0
+PKGREVISION=	1
 CATEGORIES=	multimedia
-MASTER_SITES=	${MASTER_SITE_DEBIAN:=pool/main/libv/libvpx/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GITHUB:=webmproject/}
+GITHUB_PROJECT=	libvpx
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	ryoon@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/webm/
+HOMEPAGE=	https://chromium.googlesource.com/webm/libvpx
 COMMENT=	On2 VP8 library from Google
 LICENSE=	modified-bsd
-
-WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
@@ -29,8 +27,7 @@ CONFIGURE_ARGS+=	--disable-unit-tests
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64" || \
-	${MACHINE_ARCH} == "amd64"
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 .  if ${PKGSRC_COMPILER} == "gcc" && (${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS")
 # PR pkg/48508: GCC 4.4 or later is required to compile ssse3 code on NetBSD & Solaris.
 GCC_REQD+=	4.4
@@ -95,9 +92,15 @@ CONFIGURE_ARGS+=	--target=x86-solaris-gcc
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 CXXFLAGS+=	-std=c++11
-.  if ${OPSYS} == "NetBSD"
+.  if ${OPSYS} == "NetBSD" || ${OPSYS} == "Darwin"
 # https://bugzilla.mozilla.org/show_bug.cgi?id=982693
-CFLAGS+=	-fno-integrated-as
+SUBST_CLASSES+=		clang
+SUBST_STAGE.clang=	pre-configure
+SUBST_FILES.clang=	build/make/Makefile
+SUBST_MESSAGE.clang=	Disabling clang integrated assembler
+# Test for whether clang supports -fno-integrated-as instead of -no-integrated-as
+CLANG_INTEGRATED_AS!=  if ${CCPATH} --version -fno-integrated-as > /dev/null 2>&1; then ${ECHO} "-fno-integrated-as"; else ${ECHO} "-no-integrated-as"; fi
+SUBST_SED.clang=	-e 's/-DINLINE_ASM/-DINLINE_ASM ${CLANG_INTEGRATED_AS}/'
 .  endif
 .endif
 
@@ -109,27 +112,26 @@ CONFIGURE_ARGS+=	--target=mips32-linux-gcc
 CONFIGURE_ARGS+=	--disable-runtime-cpu-detect
 .endif
 
-.if ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-lrt
+BUILDLINK_TRANSFORM.MirBSD+=	rm:-lrt
 # Compiler is too old for these newfangled features
-CONFIGURE_ENV+=		sse2=no sse3=no ssse3=no sse4_1=no
+CONFIGURE_ENV.MirBSD+=		sse2=no sse3=no ssse3=no sse4_1=no
 # runtime_cpu_detect=no
-CONFIGURE_ENV+=		RTCD_OPTIONS='--disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4_1'
-CONFIGURE_ARGS+=	--disable-runtime-cpu-detect
-.endif
+CONFIGURE_ENV.MirBSD+=		RTCD_OPTIONS='--disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4_1'
+CONFIGURE_ARGS.MirBSD+=		--disable-runtime-cpu-detect
 
 # Under Solaris 10 its /usr/xpg4/bin/tr is not sufficient. PR pkg/48508
 .if !empty(MACHINE_PLATFORM:MSunOS-5.10*)
 BUILD_DEPENDS=		coreutils-[0-9]*:../../sysutils/coreutils
-FIND_PREFIX:=		GTRDIR=coreutils
-.include "../../mk/find-prefix.mk"
-TOOLS_PLATFORM.tr=	${GTRDIR}/bin/gtr
+TOOLS_PLATFORM.tr=	${LOCALBASE}/bin/gtr
 .endif
 
 BUILD_TARGET=	# none
 
 post-extract:
 	${CP} ${FILESDIR}/strip_fPIC.sh ${WRKSRC}
+
+PKGCONFIG_OVERRIDE+=		vpx.pc
+PKGCONFIG_OVERRIDE_STAGE=	post-build
 
 # PR pkg/48508: newer gas from binutils is required to compile ssse3 code.
 .if !empty(MACHINE_PLATFORM:MNetBSD-5.*) || \

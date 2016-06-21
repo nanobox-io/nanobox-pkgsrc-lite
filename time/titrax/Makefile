@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2014/11/05 22:41:38 he Exp $
+# $NetBSD: Makefile,v 1.33 2015/07/04 16:18:40 joerg Exp $
 #
 
 DISTNAME=		titrax-1.98
-PKGREVISION=		10
+PKGREVISION=		11
 CATEGORIES=		x11 time
 MASTER_SITES=		${MASTER_SITE_XCONTRIB:=office/}
 
@@ -23,7 +23,6 @@ USE_TOOLS+=		perl:run
 pre-configure:
 	${MV} ${WRKSRC}/Imakefile ${WRKSRC}/Imakefile.bak
 	${SED}	-e "s|@LOCALBASE@|${PREFIX}|g"			\
-		-e "s|@X11BASE@|${X11PREFIX}|g"				\
 		${WRKSRC}/Imakefile.bak > ${WRKSRC}/Imakefile
 
 INSTALLATION_DIRS=	libexec/titrax

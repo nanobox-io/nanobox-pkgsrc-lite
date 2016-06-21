@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.28 2015/01/16 09:54:29 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2016/02/04 12:16:42 wiz Exp $
 
-DISTNAME=	vala-0.26.2
+DISTNAME=	vala-0.30.0
 CATEGORIES=	lang gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/vala/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -11,11 +11,11 @@ COMMENT=	Compiler for the GObject type system
 LICENSE=	gnu-lgpl-v2.1
 
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--disable-unversioned
 USE_LIBTOOL=		yes
 USE_TOOLS+=		bison flex gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	libvala.pc.in
+PKGCONFIG_OVERRIDE+=	vapigen/vapigen.pc.in
 
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.24.0
 

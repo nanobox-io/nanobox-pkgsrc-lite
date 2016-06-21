@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.111 2014/11/07 19:39:34 adam Exp $
+# $NetBSD: Makefile,v 1.120 2016/03/05 11:28:36 jperkin Exp $
 
-DISTNAME=	blender-2.71
-PKGREVISION=	4
+DISTNAME=	blender-2.76b
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.blender.org/source/
 
@@ -10,17 +10,13 @@ HOMEPAGE=	http://www.blender.org/
 COMMENT=	Fully integrated 3D graphics creation suite
 LICENSE=	gnu-gpl-v2
 
-#WRKSRC=		${WRKDIR}/blender-2.71
-
 USE_TOOLS+=		gmake sed
 USE_LANGUAGES=		c c++
 
-PYTHON_VERSIONS_ACCEPTED=	34 33
+PYTHON_VERSIONS_ACCEPTED=	35 34 33
+GCC_REQD+=	4.7
 
 BUILD_DEPENDS+=		scons-[0-9]*:../../devel/scons
-
-FIND_PREFIX:=		SCONSDIR=scons
-.include "../../mk/find-prefix.mk"
 
 .include "options.mk"
 
@@ -67,6 +63,18 @@ SCONS_ARGS+=	BF_FFTW3=${BUILDLINK_PREFIX.fftw}
 SCONS_ARGS+=	BF_INSTALLDIR=${DESTDIR}${PREFIX}/share/blender
 
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+PLIST_SUBST+=	BLENDERVER=${PKGVERSION_NOREV:C/[a-z]//}
+
+.if !empty(MACHINE_PLATFORM:MNetBSD-7.*)
+PLIST_SUBST+=	NETBSDVER=netbsd7
+.else
+PLIST_SUBST+=	NETBSDVER=netbsd6
+.endif
+
+PLIST_VARS+=	py34 py35
+
+post-patch:
+	cd ${WRKSRC}/build_files/scons/config/; ln netbsd6-config.py netbsd7-config.py
 
 # I cannot separate build and install...
 do-build:
@@ -74,7 +82,7 @@ do-build:
 # build is done in install phase.
 do-install:
 	cd ${WRKSRC:Q} && ${PKGSRC_SETENV} ${MAKE_ENV}			\
-		${SCONSDIR}/bin/scons ${SCONS_ARGS} ${_MAKE_JOBS}
+		${LOCALBASE}/bin/scons ${SCONS_ARGS} ${_MAKE_JOBS}
 
 CHECK_INTERPRETER_SKIP=	share/blender/${DISTNAME:S/blender-//:C/[a-z]//}/scripts/*.py share/blender/${DISTNAME:S/blender-//:C/[a-z]//}datafiles/*.py \
 			share/blender/${DISTNAME:S/blender-//:C/[a-z]//}/python/lib/python3.3/venv/scripts/posix/pydoc
@@ -104,5 +112,11 @@ post-install:
 .include "../../security/openssl/buildlink3.mk"
 
 .include "../../lang/python/application.mk"
+
+.if ${PYVERSSUFFIX} == "3.4"
+PLIST.py34=	yes
+.elif ${PYVERSSUFFIX} == "3.5"
+PLIST.py35=	yes
+.endif
 
 .include "../../mk/bsd.pkg.mk"

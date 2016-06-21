@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.2 2014/12/12 11:45:05 fhajny Exp $
+# $NetBSD: Makefile,v 1.6 2016/02/22 11:41:59 fhajny Exp $
 
-DISTNAME=	argcomplete-0.8.4
+DISTNAME=	argcomplete-1.1.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	sysutils
-MASTER_SITES=	https://pypi.python.org/packages/source/a/argcomplete/
+MASTER_SITES=	${MASTER_SITE_PYPI:=a/argcomplete/}
 
 MAINTAINER=	filip@joyent.com
 HOMEPAGE=	https://github.com/kislyuk/argcomplete/
 COMMENT=	Bash tab completion for argparse
 LICENSE=	apache-2.0
-
-PYTHON_VERSIONS_INCOMPATIBLE=	26
 
 USE_LANGUAGES=	# none
 

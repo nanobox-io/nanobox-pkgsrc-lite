@@ -1,4 +1,4 @@
-# $NetBSD: license.mk,v 1.66 2015/03/22 03:43:11 tnn Exp $
+# $NetBSD: license.mk,v 1.75 2016/02/10 10:50:18 wiz Exp $
 #
 # This file handles everything about the LICENSE variable. It is
 # included automatically by bsd.pkg.mk.
@@ -113,6 +113,7 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	cpl-1.0 \
 	epl-v1.0 \
 	eupl-v1.1 \
+	gfsl \
 	gnu-fdl-v1.1 gnu-fdl-v1.2 gnu-fdl-v1.3 \
 	gnu-gpl-v1 \
 	gnu-gpl-v2 gnu-lgpl-v2 gnu-lgpl-v2.1 \
@@ -120,7 +121,7 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	ibm-public-license-1.0 \
 	ipafont \
 	isc \
-	lppl-1.3c \
+	lppl-1.0 lppl-1.2 lppl-1.3c \
 	lucent \
 	miros \
 	mit \
@@ -130,6 +131,7 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	openssl \
 	original-bsd modified-bsd 2-clause-bsd \
 	osl \
+	paratype \
 	php \
 	png-license \
 	postgresql-license \
@@ -139,12 +141,18 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	sgi-free-software-b-v2.0 \
 	sleepycat-public \
 	unlicense \
+	w3c \
 	x11 \
 	zlib \
-	zpl
+	zpl-2.0 \
+	zpl-2.1
 
 # not approved by OSI, derived from BSD
 DEFAULT_ACCEPTABLE_LICENSES+=	info-zip
+
+# not approved by OSI, in line with Free Software principles but with rename
+# restrictions and typefaces can not be sold by itself.
+DEFAULT_ACCEPTABLE_LICENSES+=	vera-ttf-license
 
 ##### Variant spellings
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.63 2014/10/08 22:12:55 wiz Exp $
+# $NetBSD: Makefile,v 1.66 2015/10/15 14:19:54 tnn Exp $
 
-DISTNAME=	glibmm-2.42.0
+DISTNAME=	glibmm-2.44.0
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/glibmm/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -11,6 +11,7 @@ COMMENT=	C++ bindings for glib
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
 
 USE_LANGUAGES=		c c++
+CXXFLAGS+=		-std=c++11
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
@@ -30,7 +31,7 @@ post-install:
 		${DESTDIR}${PREFIX}/share/glibmm-2.4/doctool/${tool}
 .endfor
 
-BUILDLINK_API_DEPENDS.glib2+=		glib2>=2.42.0
+BUILDLINK_API_DEPENDS.glib2+=		glib2>=2.44.0
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libsigcpp+=	libsigc++>=2.2.10
 .include "../../devel/libsigc++/buildlink3.mk"

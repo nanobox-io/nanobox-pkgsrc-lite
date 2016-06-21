@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2014/05/09 07:37:23 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2015/12/05 21:26:03 adam Exp $
 
 DISTNAME=	bmpanel2-2.1pre1
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bmpanel2.googlecode.com/files/
 
@@ -18,7 +18,7 @@ USE_TOOLS+=	pkg-config gzip
 
 PY_PATCHPLIST=	yes
 REPLACE_PYTHON=	extra/py/bmpanel2.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.1pre1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.1pre1
 
 SUBST_CLASSES+=		prefix
 SUBST_SED.prefix=	-e "s,/usr/local,${PREFIX},g"

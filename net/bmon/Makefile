@@ -1,36 +1,23 @@
-# $NetBSD: Makefile,v 1.13 2014/10/09 14:06:44 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2015/11/03 17:46:57 bsiegert Exp $
 #
 
-DISTNAME=	bmon-2.0.1
-PKGREVISION=	3
+DISTNAME=	bmon-3.8
 CATEGORIES=	net
-MASTER_SITES=	http://people.suug.ch/~tgr/bmon/files/
+MASTER_SITES=	https://github.com/tgraf/
+LICENSE=	mit AND 2-clause-bsd
+GITHUB_RELEASE=	v3.8
 
 MAINTAINER=	hsaliak@gmail.com
-HOMEPAGE=	http://people.suug.ch/~tgr/bmon/
-COMMENT=	Bmon is an interface bandwidth monitor
+HOMEPAGE=	https://github.com/tgraf/bmon
+COMMENT=	Interface bandwidth monitor
 
 GNU_CONFIGURE=	yes
-MAKE_FILE=	GNUmakefile
-USE_TOOLS+=	gmake
-
-# In NetBSD 1.6.x the native curses implementation has problems with bmon.
-# So mark it as incompatible and link bmon against the
-# 3rd party ncurses library in NetBSD 1.6.x.
-INCOMPAT_CURSES= NetBSD-1.6*-*
+USE_TOOLS+=	pkg-config
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 
-EGDIR=		${PREFIX}/share/examples/bmon
-CONF_FILES=	${EGDIR}/bmon.conf ${PKG_SYSCONFDIR}/bmon.conf
-
-INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/examples/bmon
-
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/src/bmon ${DESTDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/man/bmon.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
-	${INSTALL_DATA} ${WRKSRC}/etc/bmon.conf	\
-	    ${DESTDIR}${PREFIX}/share/examples/bmon/bmon.conf
-
+.include "../../devel/confuse/buildlink3.mk"
+.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/ncurses/buildlink3.mk"
+.include "../../mk/fetch/github.mk"
 .include "../../mk/bsd.pkg.mk"

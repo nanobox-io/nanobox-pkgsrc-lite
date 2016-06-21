@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.106 2013/12/06 19:58:27 asau Exp $
+$NetBSD: distinfo,v 1.108 2015/11/04 03:28:43 agc Exp $
 
 SHA1 (kdelibs-3.5.10.tar.bz2) = c930a25f4419134def55b8466c3a6f737227fb82
 RMD160 (kdelibs-3.5.10.tar.bz2) = 4c960664283c83ebc8e68932ca9044336fcff223
+SHA512 (kdelibs-3.5.10.tar.bz2) = 656bc06de2b9bd02682258d10b63e09d6249e408ed71247ecdfefa50602948b537ee4919f3fa9cee8e49afcc9b5f013addcd0a7215811f4f4a5c4e40892df60d
 Size (kdelibs-3.5.10.tar.bz2) = 15614607 bytes
 SHA1 (patch-aa) = be278f29b743c573b71c7804eff26324e78ed779
 SHA1 (patch-ab) = 3a79b3e7fadef1a93a5490b716dace60f3de30a1
@@ -31,6 +32,7 @@ SHA1 (patch-config.h.in) = c76bf7392d686acb8694c4aa15bcaa8dc14ff059
 SHA1 (patch-da) = ac1888a52f22ac81c0fb51dda48c8e168516a229
 SHA1 (patch-db) = bba958ba9f3059074fd97174dacab2bf47801fa8
 SHA1 (patch-dc) = 3d6971b13599ac7acce9d63b76a8813e9c87bc96
+SHA1 (patch-dcop_dcopidlng_kdocAstUtil.pm) = ef6146e1bb4aae2149833ccb8fa0e3fdb40a7c30
 SHA1 (patch-dd) = 16c5972250c867cf87e959287fdbedd94e9bfd8c
 SHA1 (patch-kate_part_katebuffer.cpp) = bc5bf102cb5d843622878816d432019aa4811d05
 SHA1 (patch-kdecore_kpty.cpp) = 647b159fe5548fd9ab9af4cb4aee2f5fe7b74105

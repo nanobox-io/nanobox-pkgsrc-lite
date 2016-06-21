@@ -1,4 +1,4 @@
-$NetBSD: patch-configure,v 1.1.26.1 2015/04/18 21:55:54 tron Exp $
+$NetBSD: patch-configure,v 1.2 2015/04/14 14:23:14 joerg Exp $
 
 --- configure.orig	2004-11-19 12:33:58.000000000 +0000
 +++ configure

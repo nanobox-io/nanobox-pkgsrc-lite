@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2015/02/12 06:29:40 mef Exp $
+# $NetBSD: Makefile,v 1.8 2015/07/12 18:56:14 wiz Exp $
 
 DISTNAME=	Module-Build-WithXSpp-0.14
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Module/}
 
@@ -10,7 +11,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Module-Build-WithXSpp/
 COMMENT=	Build and install Perl XS++ modules
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.9.4,p5-Module-Build-[0-9]*}:../../devel/p5-Module-Build
+#DEPENDS+=	{perl>=5.9.4,p5-Module-Build-[0-9]*}:../../devel/p5-Module-Build
 DEPENDS+=	p5-ExtUtils-CppGuess-[0-9]*:../../devel/p5-ExtUtils-CppGuess
 DEPENDS+=	p5-ExtUtils-XSpp-[0-9]*:../../devel/p5-ExtUtils-XSpp
 

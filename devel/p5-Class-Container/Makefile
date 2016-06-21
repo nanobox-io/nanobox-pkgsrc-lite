@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2014/10/09 14:06:12 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2015/07/12 18:56:11 wiz Exp $
 
 DISTNAME=	Class-Container-0.12
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Class/}
 
@@ -12,7 +12,7 @@ COMMENT=	Glues object frameworks together transparently
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Params-Validate>=0.23:../../devel/p5-Params-Validate
-DEPENDS+=	{perl>=5.10,p5-Scalar-List-Utils-[0-9]*}:../../devel/p5-Scalar-List-Utils
+#DEPENDS+=	{perl>=5.10,p5-Scalar-List-Utils-[0-9]*}:../../devel/p5-Scalar-List-Utils
 
 USE_LANGUAGES=		# none
 PERL5_MODULE_TYPE=	Module::Build

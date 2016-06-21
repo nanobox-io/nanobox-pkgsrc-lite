@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.101.2.1 2015/04/08 20:53:25 tron Exp $
+# $NetBSD: Makefile,v 1.109 2016/03/05 11:29:12 jperkin Exp $
 
-DISTNAME=		tor-0.2.5.12
+DISTNAME=		tor-0.2.7.6
+PKGREVISION=		1
 CATEGORIES=		net security
 MASTER_SITES=		http://www.torproject.org/dist/
 
@@ -13,6 +14,8 @@ LICENSE=		modified-bsd
 
 USE_LANGUAGES=		c99
 USE_PKGLOCALEDIR=	yes
+# https://trac.torproject.org/projects/tor/ticket/17818
+USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 
 CONFIGURE_ENV+=		CPP=${CPP:Q}
@@ -22,8 +25,8 @@ TEST_TARGET=		check
 
 TOR_USER?=		tor
 TOR_GROUP?=		tor
-PKG_GECOS.${TOR_USER}?=	Torifier
-PKG_HOME.${TOR_USER}?=	${VARBASE}/chroot/tor
+PKG_GECOS.${TOR_USER}=	Torifier
+PKG_HOME.${TOR_USER}=	${VARBASE}/chroot/tor
 BUILD_DEFS+=		VARBASE
 PKG_SYSCONFSUBDIR=	tor
 
@@ -46,12 +49,6 @@ CONF_FILES+=		${PREFIX}/share/examples/tor/torrc.sample 	\
 FILES_SUBST+=		PKG_HOME=${PKG_HOME.${TOR_USER}}
 FILES_SUBST+=		TOR_USER=${TOR_USER} TOR_GROUP=${TOR_GROUP}
 
-SUBST_CLASSES+=			fix-paths
-SUBST_STAGE.fix-paths=		pre-configure
-SUBST_MESSAGE.fix-paths=	Fixing absolute paths.
-SUBST_FILES.fix-paths=		contrib/torify.in
-SUBST_SED.fix-paths=		-e 's,"/etc/tor,"${PKG_SYSCONFDIR},g'
-
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples
 
 CHECK_PORTABILITY_SKIP+=contrib/*
@@ -60,9 +57,10 @@ CHECK_PORTABILITY_SKIP+=contrib/*
 CFLAGS+=		-c99
 .endif
 
-BUILDLINK_API_DEPENDS.libevent+= libevent>=1.2
+BUILDLINK_API_DEPENDS.libevent+= libevent>=2.0
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+BUILDLINK_API_DEPENDS.openssl+=	openssl>=1.0
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 

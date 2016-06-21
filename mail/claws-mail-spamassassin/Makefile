@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2014/04/09 07:27:10 obache Exp $
+# $NetBSD: Makefile,v 1.35 2016/03/05 11:28:46 jperkin Exp $
 #
 
 PLUGIN_NAME=	spamassassin
-PKGREVISION=	1
+PKGREVISION= 1
 .include "../../mail/claws-mail/plugins.mk"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

@@ -1,35 +1,31 @@
-# $NetBSD: options.mk,v 1.1 2014/02/17 11:21:54 fhajny Exp $
+# $NetBSD: options.mk,v 1.7 2016/02/26 10:24:11 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.collectd
-PKG_SUPPORTED_OPTIONS=	cpu df interface load memory perl python syslog uptime
+PKG_SUPPORTED_OPTIONS=	cpu df interface load memory syslog uptime
 PKG_SUGGESTED_OPTIONS+=	cpu df interface load memory syslog uptime
 
-.if ${OPSYS} == "NetBSD"
-PKG_SUPPORTED_OPTIONS+=	contextswitch pf tcpconns users
-PKG_SUGGESTED_OPTIONS+=	contextswitch pf tcpconns users
-.endif
+PKG_SUPPORTED_OPTIONS.NetBSD+=	contextswitch disk entropy irq pf netstat_udp
+PKG_SUPPORTED_OPTIONS.NetBSD+=	processes swap tcpconns users
+PKG_SUGGESTED_OPTIONS.NetBSD+=	contextswitch disk entropy irq pf netstat_udp
+PKG_SUGGESTED_OPTIONS.NetBSD+=	processes swap tcpconns users
 
-.if ${OPSYS} == "FreeBSD"
-PKG_SUPPORTED_OPTIONS+=	contextswitch pf processes swap tcpconns zfs-arc
-PKG_SUGGESTED_OPTIONS+=	contextswitch pf processes swap tcpconns zfs-arc
-.endif
+PKG_SUPPORTED_OPTIONS.FreeBSD+=	contextswitch pf processes swap tcpconns zfs-arc
+PKG_SUGGESTED_OPTIONS.FreeBSD+=	contextswitch pf processes swap tcpconns zfs-arc
 
-.if ${OPSYS} == "Darwin"
-PKG_SUPPORTED_OPTIONS+=	apple-sensors battery contextswitch disk processes swap	\
-			tcpconns users
-PKG_SUGGESTED_OPTIONS+=	apple-sensors battery contextswitch disk processes swap	\
-			tcpconns users
-.endif
+PKG_SUPPORTED_OPTIONS.Darwin+=	apple-sensors battery contextswitch disk
+PKG_SUPPORTED_OPTIONS.Darwin+=	processes swap tcpconns users
+PKG_SUGGESTED_OPTIONS.Darwin+=	apple-sensors battery contextswitch disk
+PKG_SUGGESTED_OPTIONS.Darwin+=	processes swap tcpconns users
 
-.if ${OPSYS} == "SunOS"
-PKG_SUPPORTED_OPTIONS+=	disk nfs swap users zfs-arc
-PKG_SUGGESTED_OPTIONS+=	disk nfs swap users zfs-arc
-.endif
+PKG_SUPPORTED_OPTIONS.SunOS+=	disk nfs swap users zfs-arc
+PKG_SUGGESTED_OPTIONS.SunOS+=	disk nfs swap users zfs-arc
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=		apple-sensors battery contextswitch cpu df disk		\
-			interface load memory nfs perl pf processes python swap	\
+PLIST_VARS+=		apple-sensors battery contextswitch cpu entropy \
+			df disk		\
+			interface irq load netstat_udp \
+			memory nfs pf processes swap	\
 			syslog tcpconns uptime users zfs-arc
 
 .for option in ${PLIST_VARS}
@@ -38,17 +34,3 @@ CONFIGURE_ARGS+=	--enable-${option:S/-/_/}
 PLIST.${option}=	yes
 .  endif
 .endfor
-
-.if !empty(PKG_OPTIONS:Mperl)
-USE_TOOLS+=		perl
-PERL5_CONFIGURE=	no
-PERL5_PACKLIST+=	auto/Collectd/.packlist
-CONFIGURE_ARGS+=	--with-libperl=${BUILDLINK_PREFIX.perl}
-CONFIGURE_ARGS+=	--with-perl-bindings=${MAKE_PARAMS:Q}
-.  include "../../lang/perl5/module.mk"
-.endif
-
-.if !empty(PKG_OPTIONS:Mpython)
-CONFIGURE_ARGS+=	--with-python=${PYTHONBIN}
-.  include "../../lang/python/application.mk"
-.endif

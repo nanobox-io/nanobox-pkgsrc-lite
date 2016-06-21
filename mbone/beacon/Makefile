@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2014/05/29 23:36:56 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2016/01/03 22:48:52 sevan Exp $
 #
 
 DISTNAME=	beacon-1.3
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	mbone
 MASTER_SITES=	${MASTER_SITE_FREEBSD}
 
@@ -26,10 +26,6 @@ SUBST_SED.conf=		-e s,@prefix@/etc,${PKG_SYSCONFDIR},
 
 CONF_FILES+=	${PREFIX}/share/examples/beacon/beacon.conf \
 		${PKG_SYSCONFDIR}/beacon.conf
-
-.if ${MACHINE_ARCH} == "amd64"
-CFLAGS+= -fPIC
-.endif
 
 post-extract:
 	cd ${WRKSRC} && ${TAR} -zxvf common-1.2.16.tar.gz

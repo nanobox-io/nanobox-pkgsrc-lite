@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.60 2014/06/07 08:56:20 wiz Exp $
+# $NetBSD: Makefile,v 1.62 2015/07/14 09:03:05 wiz Exp $
 
 .include "../../print/poppler/Makefile.common"
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2014/02/12 23:18:32 tron Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/05 11:29:21 jperkin Exp $
 
 DISTNAME=	hydan-0.13
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	security
 MASTER_SITES=	http://crazyboy.com/hydan/
 
@@ -9,7 +9,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://crazyboy.com/hydan/
 COMMENT=	Steganography tool for covert comms, signing and watermarking
 
-ONLY_FOR_PLATFORM=	NetBSD-*-i386 FreeBSD-*-i386 Linux-*-i386
+ONLY_FOR_PLATFORM=	*-*-i386
 
 WRKSRC=		${WRKDIR}/hydan
 

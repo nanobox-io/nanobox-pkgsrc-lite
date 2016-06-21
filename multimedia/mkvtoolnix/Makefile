@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2015/03/02 19:59:07 joerg Exp $
+# $NetBSD: Makefile,v 1.79 2016/03/28 03:47:46 taca Exp $
 
 DISTNAME=	mkvtoolnix-5.0.1
-PKGREVISION=	24
+PKGREVISION=	27
 CATEGORIES=	multimedia
 MASTER_SITES=	http://www.bunkus.org/videotools/mkvtoolnix/sources/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,6 +10,8 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.bunkus.org/videotools/mkvtoolnix/
 COMMENT=	Set of tools to create, alter and inspect Matroska files
 LICENSE=	gnu-gpl-v2
+
+BUILD_DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 
 USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
@@ -27,10 +29,6 @@ LDFLAGS.SunOS+=		-lintl
 
 INSTALL_ENV+=	SHELL=${SH:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
-CXXFLAGS+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
-
 .if !empty(MAKE_JOBS)
 DRAKE_ARGS=	-j${MAKE_JOBS}
 .else
@@ -38,18 +36,14 @@ DRAKE_ARGS=	# empty
 .endif
 
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ruby drake ${DRAKE_ARGS}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${LOCALBASE}/bin/${RAKE_NAME} ${DRAKE_ARGS}
 
 do-install:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${INSTALL_ENV} ruby drake install
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${INSTALL_ENV} ${LOCALBASE}/bin/${RAKE_NAME} install
 
 .include "options.mk"
 
-.if ${OPSYS} != "Darwin"
-.include "../../lang/ruby/buildlink3.mk"
-BUILDLINK_DEPMETHOD.${RUBY_BASE}=	build
-.endif
-
+.include "../../lang/ruby/rubyversion.mk"
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../archivers/lzo/buildlink3.mk"
 .include "../../audio/flac/buildlink3.mk"

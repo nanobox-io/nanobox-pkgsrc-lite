@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.56 2014/10/09 14:07:15 wiz Exp $
+# $NetBSD: Makefile,v 1.58 2016/02/26 11:27:17 jperkin Exp $
 
 DISTNAME=		rxvt-2.7.10
 PKGREVISION=		6
@@ -11,7 +11,6 @@ MAINTAINER=		gcw@rxvt.org
 HOMEPAGE=		http://sourceforge.net/projects/rxvt
 COMMENT=		Low memory usage xterm replacement that supports color
 
-USE_X11BASE=		YES
 GNU_CONFIGURE=		YES
 
 CONFIGURE_ARGS+=	--enable-utmp \
@@ -48,9 +47,7 @@ CONFIGURE_ARGS+=	--with-xpm-library=${BUILDLINK_PREFIX.libXpm}/lib
 SPECIAL_PERMS=	${PREFIX}/bin/rxvt ${SETUID_ROOT_PERMS}
 .endif
 
-.if ${OPSYS} == "SunOS"
-CFLAGS+=	-DSunOS
-.endif
+CFLAGS.SunOS+=	-DSunOS
 
 post-patch:
 	${MV} ${WRKSRC}/src/feature.h  ${WRKSRC}/src/feature.h.orig

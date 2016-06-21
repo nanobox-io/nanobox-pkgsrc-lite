@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.59 2014/06/02 12:07:26 pettai Exp $
+# $NetBSD: Makefile,v 1.62 2015/07/12 18:56:23 wiz Exp $
 
-DISTNAME=		mimedefang-2.75
+DISTNAME=		mimedefang-2.78
+PKGREVISION=		1
 CATEGORIES=		mail
 MASTER_SITES=		http://www.mimedefang.org/static/
 
@@ -14,7 +15,7 @@ DEPENDS+=		p5-HTML-Parser>=3.26:../../www/p5-HTML-Parser
 DEPENDS+=		p5-HTML-Tagset>=3.03:../../www/p5-HTML-Tagset
 DEPENDS+=		p5-IO-stringy>=2.108:../../devel/p5-IO-stringy
 DEPENDS+=		p5-MailTools>=1.44:../../mail/p5-MailTools
-DEPENDS+=		{perl>=5.8.6,p5-MIME-Base64>=3.03}:../../converters/p5-MIME-Base64
+#DEPENDS+=		{perl>=5.8.6,p5-MIME-Base64>=3.03}:../../converters/p5-MIME-Base64
 DEPENDS+=		p5-MIME-tools>=5.413:../../mail/p5-MIME-tools
 DEPENDS+=		spamassassin>=2.31:../../mail/spamassassin
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2014/05/09 07:37:05 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2015/12/05 21:25:43 adam Exp $
 
 DISTNAME=		4stAttack-2.1.4
-PKGREVISION=		17
+PKGREVISION=		18
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=forcedattack/}
 
@@ -14,7 +14,7 @@ INSTALLATION_DIRS=	bin share/${PKGBASE}
 USE_TOOLS+=	pax
 
 REPLACE_PYTHON=	4stattack.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.1.4
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.1.4
 
 FIND_EXCLUDE=	\( -name \*.orig -or -name \*.txt -or -name \*.pre -or -name GPL -or -name \*~ -or -name 4stattack \)
 

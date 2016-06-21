@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.49 2014/12/01 12:39:18 joerg Exp $
+# $NetBSD: Makefile,v 1.54 2016/03/05 11:29:31 jperkin Exp $
 
 DISTNAME=	open-vm-tools-2008.08.08-109361
 PKGNAME=	open-vm-tools-2008.08.08.109361
-PKGREVISION=	38
+PKGREVISION=	43
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=open-vm-tools/}
 
@@ -19,7 +19,7 @@ USE_TOOLS+=	pkg-config autoconf automake
 
 PLIST_SRC=	PLIST.common
 
-CONFIGURE_ARGS+=		--disable-unity
+CONFIGURE_ARGS+=		--disable-unity --sysconfdir=${PKG_SYSCONFDIR:Q}
 
 INSTALLATION_DIRS+=		${PKG_SYSCONFDIR} share/examples/vmware-tools
 
@@ -29,7 +29,7 @@ CONF_FILES_PERMS+=		${EGDIR}/poweroff-vm-default ${PKG_SYSCONFDIR}/poweroff-vm-d
 CONF_FILES_PERMS+=		${EGDIR}/poweron-vm-default ${PKG_SYSCONFDIR}/poweron-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
 CONF_FILES_PERMS+=		${EGDIR}/resume-vm-default ${PKG_SYSCONFDIR}/resume-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
 CONF_FILES_PERMS+=		${EGDIR}/suspend-vm-default ${PKG_SYSCONFDIR}/suspend-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
-CONF_FILES_PERMS+=		${EGDIR}/tools.conf ${PKG_SYSCONFDIR}/tools.conf ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
+CONF_FILES_PERMS+=		${EGDIR}/tools.conf ${PKG_SYSCONFDIR}/tools.conf ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 644
 RCD_SCRIPTS=			vmtools
 
 pre-configure:

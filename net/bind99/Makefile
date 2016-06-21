@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.43 2015/02/26 10:14:10 taca Exp $
+# $NetBSD: Makefile,v 1.54 2016/03/10 00:50:34 taca Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
@@ -14,7 +14,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.9.7
+BIND_VERSION=	9.9.8-P4
 
 USE_MULTIARCH=		lib
 
@@ -42,9 +42,7 @@ CONFIGURE_ARGS+=        --disable-atomic
 .if ${MACHINE_PLATFORM:MNetBSD-*-powerpc} != ""
 CONFIGURE_ARGS+=	--disable-threads
 .endif
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=       --disable-kqueue
-.endif
+CONFIGURE_ARGS.DragonFly+=	--disable-kqueue
 
 PKG_GROUPS_VARS+=	BIND_GROUP
 PKG_USERS_VARS+=	BIND_USER

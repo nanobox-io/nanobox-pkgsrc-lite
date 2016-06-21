@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.34 2015/01/07 23:23:02 wiz Exp $
+$NetBSD: distinfo,v 1.40 2016/03/09 11:26:43 wiz Exp $
 
-SHA1 (DateTime-1.18.tar.gz) = 3b8c81e15b02b3621f079464e7d0f7018d73ff28
-RMD160 (DateTime-1.18.tar.gz) = f36e912f33df960625b1b198c4d8042f561c82c5
-Size (DateTime-1.18.tar.gz) = 212053 bytes
+SHA1 (DateTime-1.25.tar.gz) = a6ae0d4f56640abc4d7181d91756f6d4910cffb3
+RMD160 (DateTime-1.25.tar.gz) = 665f9e8221f12ba6b361bd7f38f8577239d9f878
+SHA512 (DateTime-1.25.tar.gz) = 794214956672e5b3d81d1094914f58b97a6454f1b9817ca8f4f0ed2cc63459e472149e809e155db3d8b7ebaa93560c3d8b3efc1b2d6b520c7b9f097391b51db8
+Size (DateTime-1.25.tar.gz) = 219558 bytes

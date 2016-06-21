@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/03/18 21:39:18 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2016/01/30 04:05:53 markd Exp $
 
 DISTNAME=	pst-poly
-PKGNAME=	tex-${DISTNAME}-1.61
-TEXLIVE_REV=	16460
+PKGNAME=	tex-${DISTNAME}-1.63
+TEXLIVE_REV=	35062
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Polygons with PSTricks
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-multido-[0-9]*:../../devel/tex-multido
 DEPENDS+=	tex-pst-node-[0-9]*:../../graphics/tex-pst-node

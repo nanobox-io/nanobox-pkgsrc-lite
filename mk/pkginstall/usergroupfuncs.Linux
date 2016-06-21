@@ -127,7 +127,7 @@ adduser()
 	: ${shell:="@PKG_USER_SHELL@"}
 
 	if ${TEST} -n "${USERADD}" -a -x "${USERADD}"; then
-		${ECHO} "${PKGNAME}: Creating user \`\`$user''"
+		${ECHO} "${PKGNAME}: Creating user \`\`$user''" > /dev/null
 		if grep -i -- "^CREATE_HOME.*yes" /etc/login.defs > /dev/null; then
 			call_useradd -M
 		else
@@ -147,7 +147,7 @@ addgroup()
 	GROUPADD="@GROUPADD@"
 
 	if ${TEST} -n "${GROUPADD}" -a -x "${GROUPADD}"; then
-		${ECHO} "${PKGNAME}: Creating group \`\`$group''"
+		${ECHO} "${PKGNAME}: Creating group \`\`$group''" > /dev/null
 		case $groupid in
 		"")	${GROUPADD} -r $group ;;
 		*)	${GROUPADD} -g $groupid $group ;;

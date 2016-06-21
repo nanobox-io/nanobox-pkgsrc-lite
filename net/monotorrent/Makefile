@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2014/10/07 16:47:13 adam Exp $
+# $NetBSD: Makefile,v 1.19 2015/10/10 01:57:55 ryoon Exp $
 
 DISTNAME=	monotorrent-0.72
-PKGREVISION=	10
+PKGREVISION=	13
 CATEGORIES=	net
 MASTER_SITES=	http://projects.qnetp.net/attachments/download/13/
 
@@ -14,5 +14,11 @@ MAKE_JOBS_SAFE=	no
 USE_TOOLS+=	gmake bsdtar pkg-config
 EXTRACT_USING=	bsdtar
 
-.include "../../lang/mono2/buildlink3.mk"
+SUBST_CLASSES+=		fix-mcs
+SUBST_STAGE.fix-mcs=	post-patch
+SUBST_MESSAGE.fix-mcs=	Fix compiler name
+SUBST_FILES.fix-mcs=	configure MonoTorrent/Makefile.in
+SUBST_SED.fix-mcs=	-e 's,gmcs,mcs,'
+
+.include "../../lang/mono/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

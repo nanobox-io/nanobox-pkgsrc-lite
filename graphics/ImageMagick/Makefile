@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.215.2.1 2015/04/08 02:56:49 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.221 2016/03/05 11:27:47 jperkin Exp $
 
+PKGREVISION= 2
 .include "Makefile.common"
 
 PKGNAME=	ImageMagick-${DISTVERSION}
@@ -31,9 +32,6 @@ PKGCONFIG_OVERRIDE+=	wand/MagickWand.pc.in
 PKGCONFIG_OVERRIDE+=	wand/Wand.pc.in
 
 GCC_REQD+=		2.95.3
-
-PLIST_SUBST+=		IM_MAJOR_VER=${IM_MAJOR_VER:Q}
-PLIST_SUBST+=		IM_MAJOR_LIB_VER=${IM_MAJOR_LIB_VER:Q}
 
 TEST_TARGET=		check
 

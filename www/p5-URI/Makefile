@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.57 2015/02/27 08:31:13 wiz Exp $
+# $NetBSD: Makefile,v 1.62 2016/01/08 13:54:23 wen Exp $
 
-DISTNAME=	URI-1.67
+DISTNAME=	URI-1.71
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=URI/}
@@ -10,7 +10,7 @@ HOMEPAGE=	http://search.cpan.org/dist/URI/
 COMMENT=	Perl5 Uniform Resource Identifiers class (URI, RFC 2396)
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.7,p5-MIME-Base64>=2.12}:../../converters/p5-MIME-Base64
+#DEPENDS+=	{perl>=5.7,p5-MIME-Base64>=2.12}:../../converters/p5-MIME-Base64
 # recommended
 DEPENDS+=	p5-Business-ISBN-[0-9]*:../../misc/p5-Business-ISBN
 

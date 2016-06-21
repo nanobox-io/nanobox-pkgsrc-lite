@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.50 2015/03/22 09:53:57 asau Exp $
+# $NetBSD: Makefile,v 1.58 2015/12/26 11:58:19 joerg Exp $
 
 DISTNAME=		mercury-srcdist-14.01.1
 PKGNAME=		mercury-14.01.1
-PKGREVISION=		2
+PKGREVISION=		6
 CATEGORIES=		lang
 MASTER_SITES=		http://dl.mercurylang.org/release/ \
 			ftp://ftp.mercury.cs.mu.oz.au/pub/mercury/ \
@@ -13,9 +13,11 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.mercurylang.org/
 COMMENT=		Modern logic/functional programming language
 
-BUILD_DEPENDS+=		tex-dvips>=0:../../print/tex-dvips # dvips
+BUILD_DEPENDS+=		dvipsk>=0:../../print/dvipsk # dvips
 BUILD_DEPENDS+=		web2c>=0:../../print/web2c # pdftex
 BUILD_DEPENDS+=		gtexinfo>=0:../../devel/gtexinfo # texi2dvi
+BUILD_DEPENDS+=		tex-texinfo>=0:../../print/tex-texinfo # texinfo.tex
+BUILD_DEPENDS+=		tex-latex-fonts>=0:../../fonts/tex-latex-fonts
 
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake pax bison flex makeinfo
@@ -29,7 +31,7 @@ CONFIGURE_ENV+=		CC=gcc
 CONFIGURE_ENV+=		HOSTNAMECMD=${TOOLS_HOSTNAME_CMD:Q}
 USE_TOOLS+=		hostname
 
-MAKE_ENV+=		READLINE_PREFIX=${BUILDLINK_PREFIX.readline}
+ALL_ENV+=		READLINE_PREFIX=${BUILDLINK_PREFIX.readline}
 
 INSTALL_PREFIX=		${WRKSRC}/tmp
 BUILD_MAKE_FLAGS=	${MAKE_FLAGS}

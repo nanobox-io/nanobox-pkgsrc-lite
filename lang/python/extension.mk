@@ -1,4 +1,4 @@
-# $NetBSD: extension.mk,v 1.37 2014/01/24 12:42:52 obache Exp $
+# $NetBSD: extension.mk,v 1.41 2015/12/27 21:08:45 wiz Exp $
 
 .include "../../lang/python/pyversion.mk"
 
@@ -56,7 +56,7 @@ do-test:
 # appears to be that creating egg info files was new in Python 2.5.
 PY_NO_EGG?=		yes
 .if !empty(PY_NO_EGG:M[yY][eE][sS])
-# see python26/patches/patch-av
+# see python*/patches/patch-av
 INSTALL_ENV+=		PKGSRC_PYTHON_NO_EGG=defined
 .endif
 
@@ -78,8 +78,9 @@ PY_PEP3147?=	yes
 .endif
 .if defined(PY_PEP3147) && !empty(PY_PEP3147:M[yY][eE][sS])
 PLIST_AWK+=	-f ${PKGSRCDIR}/lang/python/plist-python.awk
-PLIST_AWK_ENV+=	PYTHON_SOABI="cpython-${_PYTHON_VERSION}"
+PLIST_AWK_ENV+=	PYVERS="${PYVERSSUFFIX:S/.//}"
 PRINT_PLIST_AWK+=	/^[^@]/ && /[^\/]+\.py[co]$$/ {
 PRINT_PLIST_AWK+=	gsub(/__pycache__\//, "")
+PRINT_PLIST_AWK+=	gsub(/opt-1\.pyc$$/, "pyo")
 PRINT_PLIST_AWK+=	gsub(/\.cpython-${_PYTHON_VERSION}/, "")}
 .endif

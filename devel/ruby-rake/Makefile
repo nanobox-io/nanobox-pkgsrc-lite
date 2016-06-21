@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.11 2015/03/10 16:33:55 taca Exp $
+# $NetBSD: Makefile,v 1.15 2016/03/14 00:59:06 tnn Exp $
 
 DISTNAME=	rake-${VERS}
 CATEGORIES=	devel
 
 MAINTAINER=	taca@NetBSD.org
-HOMEPAGE=	http://rubyforge.org/projects/rake/
+HOMEPAGE=	https://github.com/ruby/rake
 COMMENT=	Ruby Make
 LICENSE=	mit
 
@@ -14,7 +14,7 @@ USE_TOOLS+=	gzip
 FIX_PERM=	doc/release_notes/rake-0.7.3.rdoc
 VERS=		10.4.2
 
-RUBY_VERSION_SUPPORTED= 200 193 18 21
+RUBY_VERSION_SUPPORTED= 18 21 22
 
 FILES_SUBST+=	GEM_NAME=${GEM_NAME} RAKE_HACK=${RAKE_HACK} RAKEBIN=${RAKEBIN}
 PLIST_SUBST+=	RAKE_HACK=${RAKE_HACK} RAKEBIN=${RAKEBIN}

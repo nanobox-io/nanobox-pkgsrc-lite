@@ -1,14 +1,18 @@
-# $NetBSD: Makefile,v 1.7 2013/12/17 01:43:29 minskim Exp $
+# $NetBSD: Makefile,v 1.11 2015/12/12 23:15:03 markd Exp $
 
 DISTNAME=	context
-PKGNAME=	tex-${DISTNAME}-2013
-TEXLIVE_REV=	31080
+PKGNAME=	tex-${DISTNAME}-2015
+PKGREVISION=	1
+TEXLIVE_REV=	37464
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/context
 COMMENT=	The ConTeXt macro package
 
 CONFLICTS+=	teTeX-bin<=3.0nb44
 DEPENDS+=	tex-lm>=2.004nb1:../../fonts/tex-lm
+DEPENDS+=	tex-manfnt-font>=2014:../../fonts/tex-manfnt-font
+DEPENDS+=	tex-mflogo-font>=1.002:../../fonts/tex-mflogo-font
 DEPENDS+=	tex-luatex>=0.70.1pl30581nb1:../../print/tex-luatex
 DEPENDS+=	tex-metapost>=1.211:../../graphics/tex-metapost
 DEPENDS+=	tex-mptopdf>=2010:../../graphics/tex-mptopdf
@@ -26,7 +30,7 @@ REPLACE_TEXLUA=	bin/mtxrun \
 		texmf-dist/scripts/context/stubs/unix/mtxrun \
 		texmf-dist/scripts/context/stubs/unix/luatools
 
-TEX_FORMATS+=		"cont-en pdftex cont-usr.tex -8bit *cont-en.ini\\ncont-en xetex cont-usr.tex -8bit *cont-en.ini\\n"
+TEX_FORMATS+=		"cont-en pdftex cont-usr.tex -8bit *cont-en.mkii\\ncont-en xetex cont-usr.tex -8bit *cont-en.mkii\\n"
 TEX_MAP_FILES+=		original-context-symbol.map
 
 INSTALLATION_DIRS+=	bin
@@ -37,7 +41,7 @@ post-extract:
 	${MKDIR} ${WRKSRC}/bin
 	${MV} ${WRKSRC}/texmf-dist/scripts/context/lua/mtxrun.lua \
 		${WRKSRC}/bin/mtxrun
-.for f in context ctxtools luatools pstopdf texexec texmfstart
+.for f in context luatools texexec texmfstart
 	${CP} ${WRKSRC}/texmf-dist/scripts/context/stubs/unix/${f} \
 		${WRKSRC}/bin/
 .endfor

@@ -1,14 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2015/03/17 08:55:57 taca Exp $
+# $NetBSD: Makefile,v 1.28 2016/03/05 11:29:18 jperkin Exp $
 
-DISTNAME=	clamav-${CLAMAV_VERSION}
-PKGREVISION=	2
-CATEGORIES=	security
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=clamav/}
+PKGREVISION= 1
+.include "Makefile.common"
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.clamav.net/
 COMMENT=	Anti-virus toolkit
-LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
@@ -24,6 +19,7 @@ CONFIGURE_ARGS+=	--with-libcurl=${BUILDLINK_PREFIX.curl}
 CONFIGURE_ARGS+=	--with-ltdl-include=${BUILDLINK_PREFIX.libltdl}/include
 CONFIGURE_ARGS+=	--with-ltdl-lib=${BUILDLINK_PREFIX.libltdl}/lib
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+CONFIGURE_ARGS+=	--with-pcre=${BUILDLINK_PREFIX.pcre}
 CONFIGURE_ARGS+=	--with-xml=${BUILDLINK_PREFIX.libxml2}
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 # pkgsrc enforces a "secure" version of zlib, so don't let this check
@@ -81,10 +77,10 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/etc/${i}.sample ${DESTDIR}${EGDIR}/${i}
 .endfor
 
-.include "Makefile.common"
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../devel/ncurses/buildlink3.mk"
+.include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.61 2014/12/12 13:30:07 joerg Exp $
+# $NetBSD: Makefile,v 1.65 2015/12/10 23:07:21 ryoon Exp $
 #
 
 COMMENT=	Cross-platform development utilities
 
 SUBDIR+=	GenFw
+SUBDIR+=	arm-none-eabi-binutils
+SUBDIR+=	arm-none-eabi-gcc5
+SUBDIR+=	arm-none-eabi-gdb
 SUBDIR+=	atasm
 SUBDIR+=	avr-binutils
 SUBDIR+=	avr-gcc
@@ -43,6 +46,8 @@ SUBDIR+=	nios2-binutils
 SUBDIR+=	nios2-gcc
 SUBDIR+=	nios2-gcc3
 SUBDIR+=	nios2-gcc41
+SUBDIR+=	objconv
+SUBDIR+=	stlink
 SUBDIR+=	uisp
 
 .include "../mk/misc/category.mk"

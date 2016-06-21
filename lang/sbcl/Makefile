@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.59 2015/03/17 14:23:34 jperkin Exp $
+# $NetBSD: Makefile,v 1.66 2016/03/01 19:22:41 asau Exp $
 
 DISTNAME=		${PKGNAME_NOREV}-source
-PKGNAME=		sbcl-1.2.9
+PKGNAME=		sbcl-1.3.3
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=sbcl/}
 EXTRACT_SUFX=		.tar.bz2
@@ -94,7 +94,7 @@ do-test:
 #	for f in compiler.pure.lisp interface.pure.lisp compiler.impure.lisp debug.impure.lisp interface.impure.lisp; do mv ${WRKSRC}/tests/$$f ${WRKSRC}/tests/$$f.off || :; done
 	cd ${WRKSRC}/tests && ${SH} ./run-tests.sh
 
-.if $(LOWER_ARCH) == "amd64" || $(LOWER_ARCH) == "x86_64"
+.if ${MACHINE_ARCH} == "x86_64"
 PLIST_SUBST+=	SUFX64=-64
 .else
 PLIST_SUBST+=	SUFX64=

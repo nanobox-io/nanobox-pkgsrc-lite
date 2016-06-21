@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.5 2015/02/05 15:32:25 taca Exp $
+# $NetBSD: Makefile,v 1.7 2015/09/26 23:43:37 taca Exp $
 
-DISTNAME=	csspool-4.0.3
+DISTNAME=	csspool-4.0.5
 CATEGORIES=	www
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://csspool.rubyforge.org/
+HOMEPAGE=	https://github.com/sparklemotion/csspool
 COMMENT=	CSSPool is a CSS parser
 LICENSE=	mit
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.44 2015/01/02 12:40:59 morr Exp $
+# $NetBSD: Makefile,v 1.54 2016/02/11 09:30:39 jklos Exp $
 
 DISTNAME=		wordpress-${VERSION}
-VERSION=		4.1
+VERSION=		4.4.2
 CATEGORIES=		www
 MASTER_SITES=		http://wordpress.org/
 
@@ -32,14 +32,14 @@ FILES_SUBST+=		WPHOME=${WPHOME}
 MESSAGE_SUBST+=		DOCDIR=${DOCDIR}
 
 CONF_FILES+=		${EGDIR}/wordpress.conf ${PKG_SYSCONFDIR}/wordpress.conf
-CONF_FILES_PERMS+=	${EGDIR}/wp-config-sample.php ${WPHOME}/wp-config.php \
-			${WWW_USER} ${WWW_GROUP} 0640
 OWN_DIRS_PERMS+=	${WPHOME}/wp-content/uploads \
 			${WWW_USER} ${WWW_GROUP} 0750
 
 INSTALLATION_DIRS+=	${DOCDIR} ${WPHOME} ${EGDIR}
 
 DEPENDS+=		${PHP_PKG_PREFIX}-mysql>=4.3.3:../../databases/php-mysql
+
+PHP_VERSIONS_ACCEPTED=	55 56
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/readme.html ${DESTDIR}${DOCDIR}

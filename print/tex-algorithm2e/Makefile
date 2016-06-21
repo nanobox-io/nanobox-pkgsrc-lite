@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.5 2013/11/21 23:50:04 jmmv Exp $
+# $NetBSD: Makefile,v 1.7 2016/01/30 03:26:06 markd Exp $
 
 DISTNAME=	algorithm2e
-PKGNAME=	tex-${DISTNAME}-4.01
-TEXLIVE_REV=	16417
+PKGNAME=	tex-${DISTNAME}-5.0
+TEXLIVE_REV=	28749
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Floating algorithm environment with algorithmic keywords
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-endfloat-[0-9]*:../../print/tex-endfloat
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics

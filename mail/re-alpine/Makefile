@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/02/12 23:18:09 tron Exp $
+# $NetBSD: Makefile,v 1.15 2016/03/05 11:28:50 jperkin Exp $
 #
 
 DISTNAME=	re-alpine-2.02
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=re-alpine/}
 EXTRACT_SUFX=	.tar.bz2
@@ -36,12 +36,10 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 CONFIGURE_ARGS+= --without-pthread
 .endif
 
-.if ${OPSYS} == "MirBSD"
-SUBST_CLASSES+=			mirbsd
+SUBST_CLASSES.MirBSD+=		mirbsd
 SUBST_STAGE.mirbsd=		pre-configure
 SUBST_FILES.mirbsd=		configure
 SUBST_SED.mirbsd=		-e 's,\*-\*-openbsd,*-*-mirbsd,g'
-.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/alpine/alpine ${DESTDIR}${PREFIX}/bin/alpine

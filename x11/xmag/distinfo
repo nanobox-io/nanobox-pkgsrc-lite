@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.5 2013/01/21 13:19:53 wiz Exp $
+$NetBSD: distinfo,v 1.7 2015/11/04 03:29:09 agc Exp $
 
-SHA1 (xmag-1.0.5.tar.bz2) = a5055999e61bd03d7741e534a776d9e1388a8cc8
-RMD160 (xmag-1.0.5.tar.bz2) = c8cd594b4a77f91e500079cf603b07d2750faf26
-Size (xmag-1.0.5.tar.bz2) = 136976 bytes
+SHA1 (xmag-1.0.6.tar.bz2) = 77c4b23765a1a30afde46a6e57afd77f20d58185
+RMD160 (xmag-1.0.6.tar.bz2) = 83f18c5edbc13efba09930acea6cc657744922c9
+SHA512 (xmag-1.0.6.tar.bz2) = 98f3c8e0c58f31cd4f1736ba9c5cd68dba3b2e2de6191988de8ae3e91b1d310803461840189ad56be45ee57c9ca05a2c63544a49b02ce6f79f2ebc14c59613de
+Size (xmag-1.0.6.tar.bz2) = 143112 bytes

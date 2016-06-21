@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.82 2014/05/05 00:48:18 ryoon Exp $
+# $NetBSD: Makefile,v 1.84 2016/02/26 09:41:05 jperkin Exp $
 
 DISTNAME=	gnome-keyring-2.32.1
-PKGREVISION=	18
+PKGREVISION=	19
 CATEGORIES=	security gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-keyring/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -25,10 +25,7 @@ CFLAGS.HPUX+=		-DMAP_ANON=MAP_ANONYMOUS
 #
 CFLAGS.NetBSD+=		-DNO_STATIC_MODULES
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	ac_cv_header_security_pam_modules_h=yes
-.endif
+CONFIGURE_ENV.SunOS+=	ac_cv_header_security_pam_modules_h=yes
 
 .include "../../mk/dlopen.buildlink3.mk"
 

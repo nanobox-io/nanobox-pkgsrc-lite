@@ -1,17 +1,14 @@
-# $NetBSD: Makefile,v 1.2 2015/03/21 19:25:23 joerg Exp $
+# $NetBSD: Makefile,v 1.4 2015/12/30 14:54:34 leot Exp $
 
-VERSION=	0.9.3
-DISTNAME=	ConfigArgParse-${VERSION}
-PKGNAME=	${PYPKGPREFIX}-configargparse-${VERSION}
+DISTNAME=	ConfigArgParse-0.10.0
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	devel
-MASTER_SITES=	https://pypi.python.org/packages/source/C/ConfigArgParse/
+MASTER_SITES=	${MASTER_SITE_PYPI}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/bw2/ConfigArgParse
 COMMENT=	Argparse-like with config files or environment variables support
 LICENSE=	mit
-
-PYTHON_VERSIONS_INCOMPATIBLE=	26
 
 USE_LANGUAGES=	# none
 

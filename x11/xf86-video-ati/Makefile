@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/02/21 11:45:35 tnn Exp $
+# $NetBSD: Makefile,v 1.37 2016/02/26 11:27:18 jperkin Exp $
 
-DISTNAME=	xf86-video-ati-7.5.0
-PKGREVISION=	1
+DISTNAME=	xf86-video-ati-7.6.1
+PKGREVISION=	3
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=driver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,8 +11,6 @@ HOMEPAGE=	http://xorg.freedesktop.org/
 COMMENT=	Modular Xorg ATI Radeon video driver
 
 CONFIGURE_ARGS+=	--enable-dri
-# not packaged yet as of 20140125
-CONFIGURE_ARGS+=	--disable-glamor
 
 CONFLICTS+=	xf86-video-ati6-[0-9]*
 
@@ -20,16 +18,14 @@ USE_LIBTOOL=	YES
 GNU_CONFIGURE=	YES
 USE_TOOLS+=	gmake pkg-config
 
-.include "../../mk/bsd.prefs.mk"
+CONFIGURE_ARGS+=	--enable-glamor
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	DRIVER_MAN_SUFFIX=4
-.endif
+CONFIGURE_ENV.SunOS+=	DRIVER_MAN_SUFFIX=4
 
+BUILDLINK_API_DEPENDS.modular-xorg-server+=	modular-xorg-server>=1.18.1
 .include "../../x11/modular-xorg-server/buildlink3.mk"
 
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../x11/fontsproto/buildlink3.mk"
 .include "../../x11/glproto/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libdrm+=	libdrm>=2.4.58

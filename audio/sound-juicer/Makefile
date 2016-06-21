@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.77 2014/11/21 23:22:18 mef Exp $
+# $NetBSD: Makefile,v 1.82 2016/03/05 11:28:05 jperkin Exp $
 #
 
-DISTNAME=		sound-juicer-2.28.2
-PKGREVISION=		38
+DISTNAME=		sound-juicer-2.32.0
+PKGREVISION=		2
 CATEGORIES=		audio
 MASTER_SITES=		http://www.burtonini.com/computing/ \
-			${MASTER_SITE_GNOME:=sources/sound-juicer/2.28/}
+			${MASTER_SITE_GNOME:=sources/sound-juicer/2.32/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.burtonini.com/computing/
@@ -13,7 +13,7 @@ COMMENT=		CD ripping tool
 
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
-USE_TOOLS+=		gmake pkg-config intltool msgfmt
+USE_TOOLS+=		gmake pkg-config intltool msgfmt msgmerge xgettext
 USE_LANGUAGES=		c c++
 
 CONFIGURE_ENV+=		GCONF_SCHEMA_FILE_DIR="${PREFIX}/share/gconf/schemas/"

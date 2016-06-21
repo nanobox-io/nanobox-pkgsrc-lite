@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.55 2015/02/21 23:35:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.63 2016/04/11 17:06:03 jperkin Exp $
 
-DISTNAME=	kde-runtime-${_KDE_VERSION}
-PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	2
+DISTNAME=	kde-runtime-15.12.0
+PKGNAME=	${DISTNAME:S/-1/4-1/}
+PKGREVISION=	1
 CATEGORIES=	x11
 COMMENT=	Runtime requirements for the KDE integrated X11 desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
@@ -18,7 +19,8 @@ DEPENDS+=	oxygen-icons-[0-9]*:../../graphics/oxygen-icons
 
 USE_TOOLS+=		gmake
 
-LDFLAGS.SunOS+=	-lsocket
+CFLAGS.SunOS+=	-DPORTMAP
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"

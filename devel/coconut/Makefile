@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.61 2014/05/05 00:47:43 ryoon Exp $
+# $NetBSD: Makefile,v 1.64 2015/12/26 23:35:46 dholland Exp $
 #
 
 DISTNAME=	coconut-0.3.0
-PKGREVISION=	40
+PKGREVISION=	41
 CATEGORIES=	devel
 MASTER_SITES=	# ${MASTER_SITE_SOURCEFORGE:=coconut-lib/}
 
@@ -18,6 +18,13 @@ GNU_CONFIGURE=	YES
 CPPFLAGS+=	-I${PREFIX}/include/libxml2/libxml -DGL_GLEXT_LEGACY
 MAKE_ENV+=	AM_MAKEFLAGS="am__depfiles_maybe="
 
+SUBST_CLASSES+=	g_memmove
+SUBST_MESSAGE.g_memmove=	Eliminating g_memmove.
+SUBST_STAGE.g_memmove=		pre-configure
+SUBST_FILES.g_memmove=		coconut/cmemalloc.m coconut/cstack.m \
+				coconut/cset.m
+SUBST_SED.g_memmove=		-e s,g_memmove,memmove,g
+
 .include "../../graphics/gtkglext/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
@@ -31,6 +38,6 @@ pre-configure:
 	cd ${WRKSRC} &&							\
 	${CP} configure configure.old &&				\
 	${SED} < configure.old > configure				\
-	's|^\(INCLUDE_DIR_LIST=\).*|\1"${PREFIX}/include ${X11PREFIX}/include"|'
+	's|^\(INCLUDE_DIR_LIST=\).*|\1"${PREFIX}/include ${X11BASE}/include"|'
 
 .include "../../mk/bsd.pkg.mk"

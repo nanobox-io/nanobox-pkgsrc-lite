@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/10/07 16:47:34 adam Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/05 11:29:17 jperkin Exp $
 
 DISTNAME=	pdfmod-0.9.1
-PKGREVISION=	2
+PKGREVISION=	7
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pdfmod/0.9/}
 EXTRACT_SUFX=	.tar.bz2
@@ -19,8 +19,14 @@ REPLACE_SH=		icon-theme-installer
 
 INSTALLATION_DIRS+=	lib/pdfmod
 
+SUBST_CLASSES+=		fix-mcs
+SUBST_STAGE.fix-mcs=	post-patch
+SUBST_MESSAGE.fix-mcs=	Fix compiler name
+SUBST_FILES.fix-mcs=	configure
+SUBST_SED.fix-mcs=	-e 's,gmcs,mcs,'
+
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../lang/mono2/buildlink3.mk"
+.include "../../lang/mono/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/gnome-doc-utils/buildlink3.mk"
 .include "../../x11/hyena/buildlink3.mk"

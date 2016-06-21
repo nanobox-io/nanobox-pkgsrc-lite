@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.23 2015/03/15 20:13:24 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.25 2015/06/29 11:06:48 ryoon Exp $
 #
 
 DISTNAME=		scim-sinhala-0.1.0
-PKGREVISION=		20
+PKGREVISION=		21
 CATEGORIES=		inputmethod
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE_JP:=scim-imengine/16666/}
+MASTER_SITES=		${MASTER_SITE_OSDN:=scim-imengine/16666/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://scim-imengine.sourceforge.jp/
+HOMEPAGE=		http://osdn.jp/projects/scim-imengine/
 COMMENT=		SCIM IMEngine module for Sinhala
 LICENSE=		gnu-gpl-v2
 

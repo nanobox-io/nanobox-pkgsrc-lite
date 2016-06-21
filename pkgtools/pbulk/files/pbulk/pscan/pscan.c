@@ -1,4 +1,4 @@
-/* $NetBSD: pscan.c,v 1.8 2012/11/23 12:13:35 joerg Exp $ */
+/* $NetBSD: pscan.c,v 1.9 2015/11/03 19:06:48 joerg Exp $ */
 
 /*-
  * Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -51,7 +51,6 @@
 #include "pscan.h"
 
 int verbosity;
-int limited_scan;
 
 static const char *bmake_path;
 static const char *output_file;
@@ -75,7 +74,7 @@ main(int argc, char **argv)
 {
 	const char *client_port = NULL, *last_scan = NULL, *master_port = NULL;
 	const char *start_script = NULL;
-	int ch;
+	int ch, limited_scan;
 	struct sigaction sa;
 
 	setprogname("pbulk-scan");
@@ -151,10 +150,12 @@ main(int argc, char **argv)
 	else
 		read_limited_list();
 
-	if (master_port != NULL)
-		master_mode(master_port, start_script);
-	else
-		standalone_mode();
+	if (has_job()) {
+		if (master_port != NULL)
+			master_mode(master_port, start_script);
+		else
+			standalone_mode();
+	}
 
 	write_jobs(output_file);
 
@@ -208,7 +209,6 @@ find_full_tree(void)
 	char *cat_path;
 	char *buf, *buf_orig, *cat, *cat_orig;
 	size_t buf_len, cat_len;
-	int count, i;
 
 	buf = read_from_child(pkgsrc_tree, bmake_path, extract_subdir);
 
@@ -223,13 +223,11 @@ find_full_tree(void)
 			break;
 
 		/*
-		* Check for SUBDIR including a '/', if so we assume it has
-		* been passed as part of SPECIFIC_PKGS or USER_ADDITIONAL_PKGS
-		* and should be added as a package path directly.
-		*/
-		for (count = i = 0; i < cat_len; i++)
-			count += (cat[i] == '/');
-		if (count) {
+		 * Check for SUBDIR including a '/', if so then it has been
+		 * passed via USER_ADDITIONAL_PKGS from the top-level Makefile,
+		 * and should be added as a package path directly.
+		 */
+		if (memchr(cat, '/', cat_len) != NULL) {
 			add_job_pkgpath(cat, cat_len);
 			cat += cat_len;
 			continue;

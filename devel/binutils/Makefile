@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.68 2015/03/20 22:46:09 joerg Exp $
+# $NetBSD: Makefile,v 1.72 2016/02/03 19:56:34 jperkin Exp $
 
-DISTNAME=	binutils-2.24
-PKGREVISION=	3
+DISTNAME=	binutils-2.26
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
@@ -21,6 +21,7 @@ REPLACE_LOCALEDIR_PATTERNS+=	Make-in
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+USE_TOOLS+=		gmake
 
 # PR pkg/48504, ksh is sufficient for NetBSD 5.2 and NetBSD 6.1
 .include "../../mk/bsd.prefs.mk"
@@ -33,8 +34,11 @@ CONFIG_SHELL=		ksh
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-lib-path='/lib:/usr/lib'
 CONFIGURE_ARGS+=	--program-prefix=g
-CONFIGURE_ARGS+=	--without-zlib
 BINUTILS_PREFIX=	${PREFIX}/${MACHINE_GNU_PLATFORM}
+
+# Joyent changes to avoid pulling in unwanted dependencies.
+CONFIGURE_ARGS+=		--without-zlib
+OVERRIDE_DIRDEPTH.depcomp=	-1
 
 PLIST_SRC=	${PKGDIR}/PLIST.common
 PLIST_SRC+=	${WRKDIR}/PLIST_DYNAMIC
@@ -45,7 +49,7 @@ INSTALLATION_DIRS=	${PKGGNUDIR}bin ${PKGGNUDIR}${PKGMANDIR}/man1
 
 # gprof (XXX: and others?) cannot be built on all platforms
 #
-PLIST_VARS+=	gprof ld gold
+PLIST_VARS+=	gprof ld gold SunOS
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -57,6 +61,10 @@ EXTRA_FILES+=	gprof
 .if ${OPSYS} != SunOS
 PLIST.ld=	yes
 EXTRA_FILES+=	ld
+.endif
+
+.if ${OPSYS} == SunOS
+PLIST.SunOS=	yes
 .endif
 
 .if ${OPSYS} == DragonFly \

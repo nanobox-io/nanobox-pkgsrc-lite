@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.32 2014/10/19 22:27:45 alnsn Exp $
+# $NetBSD: Makefile,v 1.34 2016/02/25 13:19:47 jperkin Exp $
 #
 
 DISTNAME=		stratagus-2.1-src
 PKGNAME=		${DISTNAME:S/-src//}
-PKGREVISION=		20
+PKGREVISION=		21
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=stratagus/}
 
@@ -25,12 +25,9 @@ CONFIGURE_ARGS+=	--with-flac --with-mad --with-lua=${BUILDLINK_PREFIX.lua}
 CPPFLAGS+=		-I${BUILDLINK_PREFIX.lua}/${LUA_INCDIR}
 INSTALLATION_DIRS=	bin
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "DragonFly"
-X_LDFLAGS=	${X11_LDFLAGS} -lX11
-.else
-X_LDFLAGS=	${X11_LDFLAGS}
-.endif
+OPSYSVARS+=		X_LDFLAGS
+X_LDFLAGS.DragonFly=	${X11_LDFLAGS} -lX11
+X_LDFLAGS.*=		${X11_LDFLAGS}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/stratagus ${DESTDIR}${PREFIX}/bin

@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.51 2013/05/16 05:22:02 richard Exp $
+# $NetBSD: buildlink3.mk,v 1.54 2015/09/27 21:58:03 tnn Exp $
 
 BUILDLINK_TREE+=	MesaLib
 
@@ -11,8 +11,16 @@ BUILDLINK_PKGSRCDIR.MesaLib?=	../../graphics/MesaLib
 
 .include "../../mk/bsd.fast.prefs.mk"
 
+.if ${X11_TYPE} == "modular"
+BUILDLINK_ABI_DEPENDS.MesaLib+=	MesaLib>=10.5.3
+# This is needed to avoid linking conflicting libstdc++ versions
+.if defined(USE_LANGUAGES) && !empty(USE_LANGUAGES:Mc++)
+GCC_REQD+=	4.2
+.endif
+.endif
+
 # See <http://developer.apple.com/qa/qa2007/qa1567.html>.
-.if !empty(MACHINE_PLATFORM:MDarwin-[9].*-*)
+.if ${X11_TYPE} == "native" && !empty(MACHINE_PLATFORM:MDarwin-[9].*-*)
 BUILDLINK_LDFLAGS.MesaLib+=	-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
 .endif
 
@@ -25,6 +33,13 @@ PKG_BUILD_OPTIONS.MesaLib+=	dri
 
 .if !empty(PKG_BUILD_OPTIONS.MesaLib:Mdri)
 .  include "../../graphics/MesaLib/dri.mk"
+.endif
+
+.if	${X11_TYPE} == "modular" && !empty(PKG_BUILD_OPTIONS.MesaLib:Mdri) ||	\
+	${X11_TYPE} == "native"  && exists(${X11BASE}/include/EGL/egl.h)
+MESALIB_SUPPORTS_EGL=	yes
+.else
+MESALIB_SUPPORTS_EGL=	no
 .endif
 
 .if !empty(MACHINE_PLATFORM:MNetBSD-[12].*)

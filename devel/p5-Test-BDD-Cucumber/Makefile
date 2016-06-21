@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2014/12/25 05:36:56 schmonz Exp $
+# $NetBSD: Makefile,v 1.22 2016/02/25 18:27:52 schmonz Exp $
 
-DISTNAME=		Test-BDD-Cucumber-0.32
+DISTNAME=		Test-BDD-Cucumber-0.48
 PKGNAME=		p5-${DISTNAME}
 CATEGORIES=		devel perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Test/}
@@ -11,10 +11,10 @@ COMMENT=		Feature-complete Cucumber-style testing in Perl
 LICENSE=		${PERL5_LICENSE}
 
 DEPENDS+=		p5-Clone-[0-9]*:../../devel/p5-Clone
+DEPENDS+=		p5-Devel-Refcount-[0-9]*:../../devel/p5-Devel-Refcount
 DEPENDS+=		p5-File-Find-Rule-[0-9]*:../../devel/p5-File-Find-Rule
 DEPENDS+=		p5-File-Slurp>=9999.16:../../devel/p5-File-Slurp
-DEPENDS+=		p5-FindBin-libs-[0-9]*:../../devel/p5-FindBin-libs
-DEPENDS+=		p5-JSON-MaybeXS-[0-9]*:../../converters/p5-JSON-MaybeXS
+DEPENDS+=		p5-JSON-MaybeXS>=1.001000:../../converters/p5-JSON-MaybeXS
 DEPENDS+=		p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
 DEPENDS+=		p5-Module-Runtime-[0-9]*:../../devel/p5-Module-Runtime
 DEPENDS+=		p5-Moose-[0-9]*:../../devel/p5-Moose

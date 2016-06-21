@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.69 2015/02/08 16:52:46 gdt Exp $
+# $NetBSD: Makefile,v 1.74 2016/02/27 01:33:04 gdt Exp $
 
-DISTNAME=	Trac-1.0.4
+DISTNAME=	Trac-1.0.10
 PKGNAME=	${DISTNAME:tl}
-PKGREVISION=	1
 CATEGORIES=	devel www
 MASTER_SITES=	http://ftp.edgewall.org/pub/trac/ \
 		ftp://ftp.edgewall.org/pub/trac/
@@ -47,7 +46,7 @@ PYDISTUTILSPKG=	YES
 PY_PATCHPLIST=	YES
 REPLACE_PYTHON=	contrib/cgi-bin/trac.* contrib/*.py contrib/*-hook
 REPLACE_PYTHON+=	trac/tests/functional/*.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.0
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.0
 
 .include "../../lang/python/application.mk"
 

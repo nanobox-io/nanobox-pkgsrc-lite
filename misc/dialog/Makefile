@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.72 2015/03/01 15:14:49 wiz Exp $
+# $NetBSD: Makefile,v 1.80 2016/02/14 11:03:21 wiz Exp $
 
-DISTNAME=	dialog-1.2-20150225
+DISTNAME=	dialog-1.3-20160209
 PKGNAME=	${DISTNAME:C/-2/.2/}
 CATEGORIES=	misc
 MASTER_SITES=	ftp://invisible-island.net/dialog/
@@ -17,8 +17,6 @@ USE_LIBTOOL=	yes
 USE_MULTIARCH=	bin lib
 CONFIGURE_ARGS+=	--with-libtool
 
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-* NetBSD-1.6[A-P]-*
-
 INSTALLATION_DIRS=	bin${BINARCHSUFFIX} ${PKGMANDIR}/man1
 
 SUBST_CLASSES+=		rpath
@@ -26,6 +24,12 @@ SUBST_FILES.rpath=	dialog-config.in
 SUBST_MESSAGE.rpath=	Fixing rpath in dialog-config
 SUBST_SED.rpath=	-e 's;-L\(.\);${_COMPILER_RPATH_FLAG}\1\{libdir\}${LIBARCHSUFFIX} -L\1;'
 SUBST_STAGE.rpath=	pre-configure
+
+.include "../../mk/bsd.prefs.mk"
+# curses from NetBSD 5 and earlier will coredump when displaying shadows
+.if !empty(MACHINE_PLATFORM:MNetBSD-[0-5]*)
+CONFIGURE_ARGS+=	--disable-widec
+.endif
 
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

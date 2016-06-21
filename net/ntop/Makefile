@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.92 2014/05/17 16:10:48 wiz Exp $
+# $NetBSD: Makefile,v 1.95 2016/03/05 11:29:09 jperkin Exp $
 
 DISTNAME=	ntop-4.1.0
-PKGREVISION=	22
+PKGREVISION=	24
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ntop/}
 
@@ -29,12 +29,6 @@ BUILDLINK_API_DEPENDS.libpcap+=	libpcap>=0.8.3
 .include "../../mk/pthread.buildlink3.mk"
 .if defined(PTHREAD_TYPE) && ${PTHREAD_TYPE} == "none"
 CONFIGURE_ARGS+=	--disable-mt
-.endif
-
-.if ${OPSYS} == "Darwin"
-# This package uses "-flat_namespace -undefined suppress" and exports
-# symbols from the executable that get stripped unless we set this:
-INSTALL_UNSTRIPPED=	yes
 .endif
 
 .if (${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[0-4].*))

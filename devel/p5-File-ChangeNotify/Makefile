@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2015/01/31 01:08:16 mef Exp $
+# $NetBSD: Makefile,v 1.23 2015/07/12 18:56:12 wiz Exp $
 
 DISTNAME=	File-ChangeNotify-0.24
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=File/}
 
@@ -10,7 +11,7 @@ HOMEPAGE=	http://search.cpan.org/dist/File-ChangeNotify/
 COMMENT=	Watch for changes to files, cross-platform style
 LICENSE=	artistic-2.0
 
-BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.88}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.88}:../../devel/p5-Test-Simple
 DEPENDS+=	p5-Moose>=2:../../devel/p5-Moose
 DEPENDS+=	p5-MooseX-Params-Validate>=0.08:../../devel/p5-MooseX-Params-Validate
 DEPENDS+=	p5-MooseX-SemiAffordanceAccessor-[0-9]*:../../devel/p5-MooseX-SemiAffordanceAccessor

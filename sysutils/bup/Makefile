@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.19 2014/09/06 21:29:45 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2016/03/09 23:53:17 wiz Exp $
 
-DISTNAME=	bup-0.26
+DISTNAME=	bup-0.27
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	# https://github.com/bup/bup/releases/
-# doc tarball: switch to "man" branch before downloading
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${DISTNAME:S/bup/bup-man/}${EXTRACT_SUFX}
+# doc: switch to "man" branch before downloading
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${DISTNAME:S/bup/bup-man/}.zip
 
-MAINTAINER=	wiz@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://github.com/bup/bup
 COMMENT=	Highly efficient file backup system based on the git packfile format
 LICENSE=	gnu-gpl-v2
@@ -16,9 +17,9 @@ DEPENDS+=	${PYPKGPREFIX}-readline-[0-9]*:../../devel/py-readline
 DEPENDS+=	${PYPKGPREFIX}-tornado-[0-9]*:../../www/py-tornado
 DEPENDS+=	git-base-[0-9]*:../../devel/git-base
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-fuse-bindings
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-fuse-bindings
 
-DOCDIR=		${WRKDIR}/bup-0.26
+DOCDIR=		${WRKDIR}/bup-man
 
 TEST_TARGET=	test
 
@@ -37,6 +38,7 @@ REPLACE_PYTHON+=	cmd/fsck-cmd.py
 REPLACE_PYTHON+=	cmd/ftp-cmd.py
 REPLACE_PYTHON+=	cmd/fuse-cmd.py
 REPLACE_PYTHON+=	cmd/help-cmd.py
+REPLACE_PYTHON+=	cmd/import-duplicity-cmd.py
 REPLACE_PYTHON+=	cmd/index-cmd.py
 REPLACE_PYTHON+=	cmd/init-cmd.py
 REPLACE_PYTHON+=	cmd/join-cmd.py

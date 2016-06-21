@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2014/05/29 23:37:12 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2015/07/12 18:56:27 wiz Exp $
 
 DISTNAME=	smokeping-2.6.7
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	http://oss.oetiker.ch/smokeping/pub/
 
@@ -16,10 +16,12 @@ CONFIGURE_ARGS+=	--with-htdocs-dir=${PREFIX}/share/httpd/htdocs
 
 DEPENDS+=	rrdtool>=1.0:../../databases/rrdtool
 DEPENDS+=	fping>=2.4b2:../../net/fping
-DEPENDS+=	{perl>=5.8.0,p5-Digest-MD5>=2.20}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.8.0,p5-Digest-MD5>=2.20}:../../security/p5-Digest-MD5
 DEPENDS+=	p5-Digest-HMAC>=1.03:../../security/p5-Digest-HMAC
 DEPENDS+=	p5-libwww>=5.64:../../www/p5-libwww
 DEPENDS+=	p5-FCGI>=0.74:../../www/p5-FCGI
+DEPENDS+=	p5-CGI>=4.20:../../www/p5-CGI
+DEPENDS+=	p5-CGI-Fast>=2.09:../../www/p5-CGI-Fast
 DEPENDS+=	p5-Config-Grammar>=1.10:../../devel/p5-Config-Grammar
 
 USE_TOOLS+=	pax gmake perl:run

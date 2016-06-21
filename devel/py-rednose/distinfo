@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.1 2014/12/06 03:12:25 rodent Exp $
+$NetBSD: distinfo,v 1.3 2015/11/03 03:29:15 agc Exp $
 
-SHA1 (rednose-0.4.1.tar.gz) = 117ab4cf02becf6b12e4d31a6e33dfd313772f0e
-RMD160 (rednose-0.4.1.tar.gz) = 9729cc91bd4bca71269f759628d02ff6af4cf1e7
-Size (rednose-0.4.1.tar.gz) = 5888 bytes
+SHA1 (rednose-0.4.3.tar.gz) = abbc003ddfe29c25618e49c26813111779a73819
+RMD160 (rednose-0.4.3.tar.gz) = 2ba236886ddd180f5e875aa406f51571cc5a5991
+SHA512 (rednose-0.4.3.tar.gz) = e0169599f251cd90a2906e489b870e7d10322a82253a3a814bc71aa257bea34bd5eb833b637dbae3128f8f37df79929aa4d6331e246654c83eb16118d637182a
+Size (rednose-0.4.3.tar.gz) = 6046 bytes

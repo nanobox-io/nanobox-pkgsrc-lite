@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2014/11/03 12:42:45 ryoon Exp $
+# $NetBSD: Makefile,v 1.17 2015/11/25 12:50:00 jperkin Exp $
 #
 
-DISTNAME=	OmegaT_3.1.7_Beta_Source
+DISTNAME=	OmegaT_3.5_01_Beta_Source
 PKGNAME=	${DISTNAME:S/OmegaT_/OmegaT-/:S/_Source//:S/_Beta//:S/_/./g}
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=omegat/}
@@ -20,9 +20,6 @@ USE_JAVA2=	yes
 BUILD_DEPENDS+=	apache-ant-[0-9]*:../../devel/apache-ant
 
 USE_TOOLS+=	pax
-
-FIND_PREFIX:=	ANTDIR=apache-ant
-.include "../../mk/find-prefix.mk"
 
 SUBST_CLASSES+=			fix-omegat
 SUBST_STAGE.fix-omegat=		pre-configure
@@ -50,7 +47,7 @@ pre-patch:
 do-build:
 	cd ${WRKSRC} \
 	&& env ${MAKE_ENV} \
-		${ANTDIR}/bin/ant jar release
+		${LOCALBASE}/bin/ant jar release
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/dist/*txt \
@@ -61,9 +58,11 @@ do-install:
 		${DESTDIR}${PREFIX}/${OMEGATDIR}
 	cd ${WRKSRC}/dist/docs && pax -rw -pmp * \
 		${DESTDIR}${PREFIX}/${OMEGATDOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/dist/images/* \
+	cd ${WRKSRC}/dist/images && pax -rw -pmp * \
 		${DESTDIR}${PREFIX}/${OMEGATDOCDIR}/images
-	${INSTALL_DATA} ${WRKSRC}/dist/lib/* \
+	${INSTALL_DATA} ${WRKSRC}/dist/lib/*.txt \
+		${DESTDIR}${PREFIX}/${OMEGATDIR}/lib
+	${INSTALL_DATA} ${WRKSRC}/dist/lib/*.jar \
 		${DESTDIR}${PREFIX}/${OMEGATDIR}/lib
 	${INSTALL_DATA} ${FILESDIR}/omegat.prefs \
 		${DESTDIR}${PREFIX}/${OMEGATDIR}

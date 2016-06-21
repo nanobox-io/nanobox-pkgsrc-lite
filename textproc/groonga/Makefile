@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.54 2015/03/15 19:42:33 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.59 2016/03/29 21:59:21 joerg Exp $
 #
 
 DISTNAME=	groonga-4.1.1
+PKGREVISION=	4
 CATEGORIES=	textproc
 MASTER_SITES=	http://packages.groonga.org/source/groonga/
 
@@ -10,8 +11,6 @@ HOMEPAGE=	http://groonga.org/
 COMMENT=	Fulltext search engine and column store
 LICENSE=	gnu-lgpl-v2.1
 
-RUBY_VERSION_SUPPORTED=	21 200 193
-.include "../../lang/ruby/rubyversion.mk"
 DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 
 GNU_CONFIGURE=	yes
@@ -35,6 +34,7 @@ PKG_SYSCONFSUBDIR=	${PKGBASE}
 
 BUILD_DEFS+=		VARBASE
 
+INSTALL_DIRS=		${BUILD_DIRS} ${WRKSRC}/vendor/onigmo-source
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples
 
 CONF_FILES+=		share/examples/${PKGBASE}/groonga.conf \
@@ -53,8 +53,8 @@ REPLACE_RUBY+=	data/munin/groonga_n_records_
 REPLACE_RUBY+=	data/munin/groonga_query_performance_
 REPLACE_RUBY+=	data/munin/groonga_status_
 REPLACE_RUBY+=	data/munin/groonga_throughput_
-.include "../../lang/ruby/replace.mk"
 
+.include "../../lang/ruby/replace.mk"
 .include "../../devel/editline/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

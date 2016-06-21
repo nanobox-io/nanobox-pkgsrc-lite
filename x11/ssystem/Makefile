@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2012/10/29 05:06:52 asau Exp $
+# $NetBSD: Makefile,v 1.29 2015/07/04 16:18:42 joerg Exp $
 #
 
 DISTNAME=	ssystem-1.6
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	x11 graphics
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 
@@ -13,7 +13,6 @@ COMMENT=	Solar System Flyby Simulator
 MAKE_JOBS_SAFE=		no
 
 USE_TOOLS+=	flex bison
-USE_X11BASE=	yes
 
 MAKE_FILE=	Makefile.FreeBSD
 

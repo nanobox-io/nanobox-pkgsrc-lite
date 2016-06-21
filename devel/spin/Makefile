@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3.20.1 2015/04/18 22:13:47 tron Exp $
+# $NetBSD: Makefile,v 1.4 2015/04/18 20:41:10 joerg Exp $
 
 DISTNAME=	spin525
 PKGNAME=	spin-5.2.5

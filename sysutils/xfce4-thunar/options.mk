@@ -1,14 +1,12 @@
-# $NetBSD: options.mk,v 1.1 2008/12/09 10:36:24 ahoka Exp $
+# $NetBSD: options.mk,v 1.3 2015/07/08 21:15:21 youri Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.xfce4-thunar
-PKG_SUPPORTED_OPTIONS=	hal
-PKG_SUGGESTED_OPTIONS=	hal
+PKG_SUPPORTED_OPTIONS=	gvfs
+PKG_SUGGESTED_OPTIONS=  gvfs
 
 .include "../../mk/bsd.options.mk"
 
-.if !empty(PKG_OPTIONS:Mhal)
-.include "../../sysutils/hal/buildlink3.mk"
-CONFIGURE_ARGS+=	--enable-hal
-.else
-CONFIGURE_ARGS+=	--disable-hal
+# for trash support, and remote filesystems
+.if !empty(PKG_OPTIONS:Mgvfs)
+DEPENDS+=	gvfs-[0-9]*:../../sysutils/gvfs
 .endif

@@ -1,42 +1,50 @@
-# $NetBSD: Makefile,v 1.93 2014/05/31 15:56:26 wiz Exp $
+# $NetBSD: Makefile,v 1.96 2016/04/04 17:33:10 joerg Exp $
 
-DISTNAME=	fontforge_full-20120731-b
-PKGNAME=	${DISTNAME:S/_full//:S/-b//}
-PKGREVISION=	10
+DISTNAME=	fontforge-20150824
 CATEGORIES=	fonts editors
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fontforge/}
-EXTRACT_SUFX=	.tar.bz2
+PKGREVISION=	1
+MASTER_SITES=	${MASTER_SITE_GITHUB:=fontforge/}
+GITHUB_PROJECT=	fontforge
+GITHUB_RELEASE=	20150824
 
 MAINTAINER=	adam@NetBSD.org
-HOMEPAGE=	http://fontforge.sourceforge.net/
+HOMEPAGE=	http://fontforge.github.io/
 COMMENT=	Postscript font editor
 LICENSE=	modified-bsd
-
-WRKSRC=			${WRKDIR}/${DISTNAME:S/_full//}
 
 USE_LANGUAGES=		c
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake msgfmt
+USE_TOOLS+=		gmake msgfmt pkg-config
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--without-freetype-src
-CONFIGURE_ARGS+=	--without-python
 
-MAKE_ENV+=		PKGLOCALEDIR=${PKGLOCALEDIR}
-LDFLAGS.SunOS+=		-lrt
+PKGCONFIG_OVERRIDE_STAGE=	post-configure
+PKGCONFIG_OVERRIDE+=		libfontforge.pc
+PKGCONFIG_OVERRIDE+=		libfontforgeexe.pc
 
-BROKEN_GETTEXT_DETECTION=	yes
+CHECK_PORTABILITY_SKIP+=osx/FontForge.app/Contents/MacOS/*
+CHECK_INTERPRETER_SKIP+=share/fontforge/python/collab/*
+CHECK_INTERPRETER_SKIP+=share/fontforge/python/gdraw/*
+CHECK_INTERPRETER_SKIP+=share/fontforge/python/simple/*
+
+PY_PATCHPLIST=		yes
 
 .include "options.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../databases/shared-mime-info/mimedb.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../devel/libltdl/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
+.include "../../lang/python/application.mk"
+.include "../../lang/python/extension.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../graphics/giflib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.57 2014/12/01 12:43:43 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2016/02/14 08:39:47 ryoon Exp $
 
-DISTNAME=	p7zip_9.20.1_src_all
-PKGNAME=	p7zip-9.20.1
-PKGREVISION=	2
+DISTNAME=	p7zip_15.09_src_all
+PKGNAME=	p7zip-15.09
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=p7zip/}
 EXTRACT_SUFX=	.tar.bz2
@@ -21,7 +21,7 @@ PTHREAD_OPTS+=		require
 PLIST_VARS=		dll
 
 # compiles, but does not recognize any archives as supported
-DYNAMIC_7Z=		YES
+DYNAMIC_7Z?=		NO
 .if !empty(DYNAMIC_7Z:MYES)
 BUILD_TARGET=		all2
 PLIST.dll=		yes
@@ -48,7 +48,7 @@ SUBST_SED.lib+=		-e "s,getenv(.P7ZIP_HOME_DIR.),\"${PREFIX}/lib/\","
 SUBST_STAGE.lib=	post-patch
 
 .include "../../mk/dlopen.buildlink3.mk"
-BUILDLINK_TRANSFORM+=	opt:-ldl:${BUILDLINK_LDADD.dl:M*}
+BUILDLINK_TRANSFORM+=	opt:-ldl:${BUILDLINK_LDADD.dl:Q}
 
 .include "../../mk/endian.mk"
 
@@ -71,11 +71,11 @@ do-install:
 .endif
 	${INSTALL_DATA} ${WRKSRC}/README \
 		${DESTDIR}${PREFIX}/share/doc/p7zip
-	${INSTALL_DATA} ${WRKSRC}/DOCS/MANUAL/*.* \
+	${INSTALL_DATA} ${WRKSRC}/DOC/MANUAL/cmdline/*.* \
 		${DESTDIR}${PREFIX}/share/doc/p7zip
-	${INSTALL_DATA} ${WRKSRC}/DOCS/MANUAL/commands/*.* \
+	${INSTALL_DATA} ${WRKSRC}/DOC/MANUAL/cmdline/commands/*.* \
 		${DESTDIR}${PREFIX}/share/doc/p7zip/commands
-	${INSTALL_DATA} ${WRKSRC}/DOCS/MANUAL/switches/*.* \
+	${INSTALL_DATA} ${WRKSRC}/DOC/MANUAL/cmdline/switches/*.* \
 		${DESTDIR}${PREFIX}/share/doc/p7zip/switches
 	${INSTALL_MAN} ${WRKSRC}/man1/7z.1 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1

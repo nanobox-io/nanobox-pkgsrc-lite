@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2014/05/29 23:37:18 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2015/11/25 12:53:09 jperkin Exp $
 
 DISTNAME=	tetex
-PKGNAME=	tex-${DISTNAME}-3.0.32132
-PKGREVISION=	1
-TEXLIVE_REV=	32132
+PKGNAME=	tex-${DISTNAME}-3.0.38001
+TEXLIVE_REV=	38001
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Supplementary files for updmap
@@ -19,25 +18,21 @@ USE_TOOLS+=	perl:run sh:run
 
 FILES_SUBST+=	UPDMAP_SYS=${PREFIX}/bin/updmap-sys
 
-EVAL_PREFIX+=	DIALOG_PREFIX=dialog
-EVAL_PREFIX+=	KPATHSEA_PREFIX=kpathsea
-EVAL_PREFIX+=	TEXCONFIG_PREFIX=tex-texconfig
-
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Setting paths to commands.
 SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	bin/fmtutil bin/fmtutil-sys bin/kpsetool bin/kpsewhere \
 			bin/texconfig-dialog bin/texconfig-sys bin/texlinks \
 			bin/updmap bin/updmap-sys
-SUBST_SED.paths+=	-e 's,@DIALOG@,${DIALOG_PREFIX}/bin/dialog,g'
+SUBST_SED.paths+=	-e 's,@DIALOG@,${LOCALBASE}/bin/dialog,g'
 SUBST_SED.paths+=	-e 's,@FMTUTIL@,${PREFIX}/bin/fmtutil,g'
-SUBST_SED.paths+=	-e 's,@KPSEWHICH@,${KPATHSEA_PREFIX}/bin/kpsewhich,g'
-SUBST_SED.paths+=	-e 's,@TEXCONFIG@,${TEXCONFIG_PREFIX}/bin/texconfig,g'
+SUBST_SED.paths+=	-e 's,@KPSEWHICH@,${LOCALBASE}/bin/kpsewhich,g'
+SUBST_SED.paths+=	-e 's,@TEXCONFIG@,${LOCALBASE}/bin/texconfig,g'
 SUBST_SED.paths+=	-e 's,@UPDMAP@,${PREFIX}/bin/updmap,g'
 
-REPLACE_PERL=	bin/updmap
+REPLACE_PERL=	bin/updmap bin/fmtutil texmf-dist/scripts/texlive/mktexlsr.pl
 REPLACE_SH=	bin/allcm bin/allneeded bin/dvi2fax bin/dvired \
-		bin/fmtutil-sys bin/fmtutil bin/kpsetool bin/kpsewhere \
+		bin/fmtutil-sys bin/kpsetool bin/kpsewhere \
 		bin/texconfig-dialog bin/texconfig-sys bin/texlinks \
 		bin/updmap-sys
 
@@ -53,17 +48,18 @@ TEX_TEXMF_DIRS+=	${PKG_SYSCONFDIR} ${PREFIX}/share/texmf-dist
 
 post-extract:
 	${MKDIR} ${WRKSRC}/bin
-.for script in fmtutil-sys.sh fmtutil.sh texconfig-dialog.sh \
+.for script in fmtutil-sys.sh texconfig-dialog.sh \
 		texconfig-sys.sh texlinks.sh
 	${MV} ${WRKSRC}/texmf-dist/scripts/texlive/${script} \
 		${WRKSRC}/bin/${script:S/.sh//}
 .endfor
 .for script in allcm.sh allneeded.sh dvi2fax.sh dvired.sh kpsetool.sh \
-		kpsewhere.sh updmap-sys.sh updmap.pl
+		kpsewhere.sh updmap-sys.sh updmap.pl fmtutil.pl
 	${MV} ${WRKSRC}/texmf-dist/scripts/texlive/${script} \
 		${WRKSRC}/bin/${script:S/.pl//:S/.sh//}
 .endfor
-	${RMDIR} -p ${WRKSRC}/texmf-dist/scripts/texlive 2>/dev/null || ${TRUE}
+#	${MV} ${WRKSRC}/texmf-dist/scripts/texlive/mktexlsr.pl ${WRKSRC}/bin
+#	${RMDIR} -p ${WRKSRC}/texmf-dist/scripts/texlive 2>/dev/null || ${TRUE}
 
 post-install:
 	${LN} -sf allcm ${DESTDIR}${PREFIX}/bin/allec

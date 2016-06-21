@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.45 2014/05/29 23:36:45 wiz Exp $
+# $NetBSD: Makefile,v 1.48 2016/03/05 11:28:46 jperkin Exp $
 
 DISTNAME=	courier-${COURIER_VERSION}
 PKGNAME=	${DISTNAME:S/-/-mta-/}
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=courier/}
 EXTRACT_SUFX=	.tar.bz2
@@ -28,9 +28,7 @@ PLIST_SRC+=		${PKGDIR}/PLIST
 .include "pkginstall.mk"
 .include "options.mk"
 
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ARGS+=	ac_cv_path_REHASH=${FALSE:Q}
-.endif
+CONFIGURE_ARGS.NetBSD+=	ac_cv_path_REHASH=${FALSE:Q}
 
 USERGROUP_PHASE=	configure
 

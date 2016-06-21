@@ -1,9 +1,9 @@
-# $NetBSD: Makefile.common,v 1.42 2015/02/07 10:13:59 adam Exp $
+# $NetBSD: Makefile.common,v 1.50 2016/02/27 13:41:53 adam Exp $
 #
 # used by databases/mysql55-client/Makefile
 # used by databases/mysql55-server/Makefile
 
-DISTNAME=	mysql-5.5.42
+DISTNAME=	mysql-5.5.48
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_MYSQL:=MySQL-5.5/}
 
@@ -42,9 +42,7 @@ PKG_GROUPS_VARS+=	MYSQL_GROUP
 
 CONFIG_SHELL=		${TOOLS_PATH.bash}
 
-.if ${OPSYS} == "IRIX"
-CFLAGS+=		-DIRIX5 -DNEEDS_BSTRING_H
-.endif
+CFLAGS.IRIX+=		-DIRIX5 -DNEEDS_BSTRING_H
 
 BUILD_DEFS+=		VARBASE
 
@@ -101,10 +99,8 @@ CXXFLAGS+=		-fPIC -DPIC
 
 # force HAVE_CURSES_H on Solaris since the configure script is broken
 # and does not properly detect this, breaking the build later on.
-.if ${OPSYS} == "SunOS"
-CFLAGS+=		-DHAVE_CURSES_H
-CXXFLAGS+=		-DHAVE_CURSES_H
-.endif
+CFLAGS.SunOS+=		-DHAVE_CURSES_H
+CXXFLAGS.SunOS+=	-DHAVE_CURSES_H
 
 # SCO OpenServer 5.0.7/3.2's readdir_r has 2 arguments and return struct dirent.
 .if ${OS_VARIANT} == "SCOOSR5"
@@ -129,6 +125,13 @@ SUBST_FILES.scr=	scripts/mysql_install_db.sh scripts/mysqld_safe.sh \
 SUBST_SED.scr=		-e "s,chown,${CHOWN},g"
 SUBST_SED.scr+=		-e "s,/bin/sh,${RCD_SCRIPTS_SHELL},g"
 SUBST_MESSAGE.scr=	Fixing scripts.
+
+SUBST_CLASSES+=		fixpaths
+SUBST_STAGE.fixpaths=	post-install
+SUBST_FILES.fixpaths=	${DESTDIR}${PREFIX}/bin/mysqlbug
+SUBST_FILES.fixpaths+=	${DESTDIR}${PREFIX}/share/doc/mysql/INFO_BIN
+SUBST_SED.fixpaths=	-e "s,${WRAPPER_BINDIR}/gcc,${CCPATH},g"
+SUBST_SED.fixpaths+=	-e "s,${WRAPPER_BINDIR}/g++,${CXXPATH},g"
 
 .include "../../mk/readline.buildlink3.mk"
 

@@ -1,19 +1,17 @@
-# $NetBSD: Makefile,v 1.203 2015/03/31 10:59:43 martin Exp $
+# $NetBSD: Makefile,v 1.247 2016/03/19 22:57:50 ryoon Exp $
 
 FIREFOX_VER=	${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=	36.0
-MOZ_BRANCH_MINOR=	.4
+MOZ_BRANCH=	45.0
+MOZ_BRANCH_MINOR=	.1
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	firefox-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
-PKGREVISION=	1
 CATEGORIES=	www
-MASTER_SITES=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
+MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
-WRKSRC=		${WRKDIR}/mozilla-release
-#WRKSRC=		${WRKDIR}/mozilla-beta
+WRKSRC=		${WRKDIR}/${DISTNAME:S/.source//}
 
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	http://www.mozilla.com/en-US/firefox/
@@ -23,9 +21,6 @@ LICENSE=	mpl-1.1
 MOZILLA_DIR=	# empty
 
 # Note: when updating remember to conditionalise about-background.png in PLIST
-# XXX Firefox 21.0's firefox/xulrunner separation is not working.
-#CONFIGURE_ARGS+=	--with-libxul-sdk
-#CONFIGURE_ARGS+=	--with-system-libxul
 CONFIGURE_ARGS+=	--enable-application=browser
 
 # workround for link of libxul.so etc.
@@ -34,13 +29,9 @@ LDFLAGS.SunOS+=		-lm
 
 ALL_ENV+=		MOZILLA_PKG_NAME=firefox
 
-.include "../../mk/bsd.prefs.mk"
-
 # Avoid ld "invalid section index" errors.
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-fdata-sections
-BUILDLINK_TRANSFORM+=	rm:-ffunction-sections
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	rm:-fdata-sections
+BUILDLINK_TRANSFORM.SunOS+=	rm:-ffunction-sections
 
 LDFLAGS.DragonFly=	-lplc4 -lnspr4
 LDFLAGS.FreeBSD=	-lplc4 -lnspr4
@@ -65,7 +56,7 @@ MOZILLA_NAME=	Browser
 SUBST_CLASSES+=		sys-dic
 SUBST_STAGE.sys-dic=	pre-configure
 SUBST_MESSAGE.sys-dic=	Reference to system hunspell dictionaries.
-SUBST_FILES.sys-dic=	extensions/spellcheck/hunspell/src/mozHunspell.cpp
+SUBST_FILES.sys-dic=	extensions/spellcheck/hunspell/glue/mozHunspell.cpp
 SUBST_VARS.sys-dic=	PREFIX
 
 pre-configure:

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.17 2015/01/16 09:30:51 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2015/12/05 21:25:40 adam Exp $
 
-DISTNAME=	reposurgeon-3.19
+DISTNAME=	reposurgeon-3.29
 CATEGORIES=	devel scm
 MASTER_SITES=	http://www.catb.org/~esr/reposurgeon/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.catb.org/~esr/reposurgeon/
@@ -12,12 +13,15 @@ LICENSE=	modified-bsd
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
 
+USE_TOOLS+=	gmake
 USE_LANGUAGES=	# none
 MAKE_FLAGS+=	prefix=${PREFIX}
 MAKE_FLAGS+=	mandir=${PKGMANDIR}
 
 REPLACE_PYTHON=	repodiffer reposurgeon
-REPLACE_SH=	repopuller
+REPLACE_SH=	repotool
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # 3.26 uses commands module, which is deprecated in python-3.x
 
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"

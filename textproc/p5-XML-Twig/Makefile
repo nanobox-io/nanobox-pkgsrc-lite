@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2014/10/09 14:07:06 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2015/10/30 13:26:52 wen Exp $
 #
 
-DISTNAME=	XML-Twig-3.48
+DISTNAME=	XML-Twig-3.49
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=XML/}

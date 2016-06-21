@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2014/05/29 23:37:42 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2015/07/12 18:56:31 wiz Exp $
 
 DISTNAME=	Text-FindIndent-0.10
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Text/}
 
@@ -11,7 +11,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Text-FindIndent/
 COMMENT=	Heuristically determine the indent style
 LICENSE=	${PERL5_LICENSE}
 
-BUILD_DEPENDS+= {perl>=5.10.1,p5-Test-Simple>=0.80}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+= {perl>=5.10.1,p5-Test-Simple>=0.80}:../../devel/p5-Test-Simple
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Text/FindIndent/.packlist

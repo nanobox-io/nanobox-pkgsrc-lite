@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2015/02/15 12:50:53 ryoon Exp $
+# $NetBSD: Makefile,v 1.24 2015/09/08 11:57:50 jperkin Exp $
 #
 
 DISTNAME=	vifm-0.7.8
+PKGREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=vifm/}
 EXTRACT_SUFX=	.tar.bz2
@@ -12,9 +13,6 @@ COMMENT=	Ncurses based file manager with vi like keybindings
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake perl
-
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-*
-INCOMPAT_CURSES+=	NetBSD-1.6[A-Z]-* NetBSD-1.6Z[A-C]*-*
 
 ppre-configure:
 	@${SED} -e "s/cfg.use_screen = 0/cfg.use_screen = 1/" \

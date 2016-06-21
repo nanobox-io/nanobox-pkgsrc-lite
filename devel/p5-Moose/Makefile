@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.81 2014/12/08 08:30:14 wen Exp $
+# $NetBSD: Makefile,v 1.90 2016/02/17 14:24:04 wen Exp $
 
-DISTNAME=	Moose-2.1403
+DISTNAME=	Moose-2.1605
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Test/}
@@ -14,22 +14,24 @@ DEPENDS+=	p5-Class-Load>=0.09:../../devel/p5-Class-Load
 DEPENDS+=	p5-Class-Load-XS>=0.01:../../devel/p5-Class-Load-XS
 DEPENDS+=	p5-Data-OptList>=0.107:../../devel/p5-Data-OptList
 DEPENDS+=	p5-Devel-GlobalDestruction>=0:../../devel/p5-Devel-GlobalDestruction
-DEPENDS+=	p5-Devel-OverloadInfo>=0:../../devel/p5-Devel-OverloadInfo
+DEPENDS+=	p5-Devel-OverloadInfo>=0.004:../../devel/p5-Devel-OverloadInfo
 DEPENDS+=	p5-Devel-StackTrace>=1.33:../../devel/p5-Devel-StackTrace
 DEPENDS+=	p5-Dist-CheckConflicts>=0.02:../../devel/p5-Dist-CheckConflicts
 DEPENDS+=	p5-Eval-Closure>=0.04:../../devel/p5-Eval-Closure #XXX
 DEPENDS+=	p5-List-MoreUtils>=0.28:../../devel/p5-List-MoreUtils
 DEPENDS+=	p5-Module-Runtime>=0.014:../../devel/p5-Module-Runtime
-DEPENDS+=	p5-Module-Runtime-Conflicts>=0.001:../../devel/p5-Module-Runtime-Conflicts
+DEPENDS+=	p5-Module-Runtime-Conflicts>=0.002:../../devel/p5-Module-Runtime-Conflicts
 DEPENDS+=	p5-MRO-Compat>=0.05:../../devel/p5-MRO-Compat
 DEPENDS+=	p5-Package-DeprecationManager>=0.11:../../devel/p5-Package-DeprecationManager
 DEPENDS+=	p5-Package-Stash>=0.32:../../devel/p5-Package-Stash
 DEPENDS+=	p5-Package-Stash-XS>=0.24:../../devel/p5-Package-Stash-XS
 DEPENDS+=	p5-Params-Util>=1.00:../../devel/p5-Params-Util
 DEPENDS+=	p5-Sub-Exporter>=0.980:../../devel/p5-Sub-Exporter
+DEPENDS+=	p5-Sub-Identify>=0:../../devel/p5-Sub-Identify
 DEPENDS+=	p5-Sub-Name>=0.05:../../devel/p5-Sub-Name
 DEPENDS+=	p5-Task-Weaken-[0-9]*:../../devel/p5-Task-Weaken
 DEPENDS+=	p5-Try-Tiny>=0.02:../../devel/p5-Try-Tiny
+#DEPENDS+=	{perl>=5.19.5,p5-Scalar-List-Utils>=1.35}:../../devel/p5-Scalar-List-Utils
 # Note: Moose can take advantage of PartialDump, but as PartialDump depends
 # on Moose, we cannot add it to DEPENDS
 
@@ -71,6 +73,10 @@ BUILD_DEPENDS+=	p5-URI-[0-9]*:../../www/p5-URI
 #BUILD_DEPENDS+=	p5-Test-Pod-[0-9]*:../../devel/p5-Test-Pod # xt/author/pod.t
 #BUILD_DEPENDS+=	p5-URI-[0-9]*:../../www/p5-URI
 #BUILD_DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww
+# for make test
+BUILD_DEPENDS+=		p5-Module-Metadata>=1.000023:../../devel/p5-Module-Metadata
+BUILD_DEPENDS+=		p5-Test-DependentModules-[0-9]*:../../devel/p5-Test-DependentModules
+
 
 USE_LANGUAGES=		c
 USE_TOOLS+=		gmake

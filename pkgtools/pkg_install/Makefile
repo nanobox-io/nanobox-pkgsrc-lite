@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.206 2015/01/22 09:19:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.217 2016/03/05 11:29:15 jperkin Exp $
 
 # Notes to package maintainers:
 #
@@ -7,6 +7,7 @@
 # change in the pkg_* tools that pkgsrc relies on for proper operation.
 
 PKGNAME=		pkg_install-${VERSION}
+PKGREVISION=		1
 CATEGORIES=		pkgtools
 
 MAINTAINER=		agc@NetBSD.org
@@ -76,7 +77,7 @@ CPPFLAGS+=		-D_FILE_OFFSET_BITS=64
 
 CPPFLAGS+=		-DDEF_UMASK=${DEF_UMASK}
 
-MAKE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
+MAKE_ENV+=		PKGSRC_MACHINE_ARCH=${MACHINE_ARCH}
 MAKE_ENV+=		OPSYS=${OPSYS}
 MAKE_ENV+=		CATMAN_SECTION_SUFFIX=${CATMAN_SECTION_SUFFIX:Q}
 MAKE_ENV+=		MANINSTALL=${MANINSTALL:Q}
@@ -107,6 +108,7 @@ VERSION!=		${AWK} '/PKGTOOLS_VERSION/ {print $$3}' \
 BUILDLINK_API_DEPENDS.libarchive+=	libarchive>=2.8.0
 
 .include "../../archivers/bzip2/builtin.mk"
+.include "../../archivers/xz/builtin.mk"
 .include "../../archivers/libarchive/builtin.mk"
 .include "../../devel/zlib/builtin.mk"
 .include "../../security/openssl/builtin.mk"
@@ -145,36 +147,42 @@ LDFLAGS+=	-L${WRKDIR}/libarchive/.libs
 # Until we support pkgsrc openssl at bootstrap time, disable it completely
 # if asked to avoid the builtin.
 .  if empty(USE_BUILTIN.openssl:M[Yy][Ee][Ss])
-LIBARCHIVE_CONFIGURE_ARGS=	--without-openssl
+LIBARCHIVE_CONFIGURE_ARGS+=	--without-openssl
+.  endif
+
+# Only use XZ if we actually have builtin support for it. Some systems
+# install the header, but without usable library or prefer to not use
+# the system version, so give them some control.
+.  if empty(USE_BUILTIN.xz:M[Yy][Ee][Ss])
+LIBARCHIVE_CONFIGURE_ARGS+=	--without-lzma
 .  endif
 
 LIBARCHIVE_LIBS=	${SED} -n -e 's/^Libs.private://p' \
     ${WRKDIR}/libarchive/build/pkgconfig/libarchive.pc 2>/dev/null || echo
 LIBS+=		${LIBARCHIVE_LIBS:sh}
 
-CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.guess
-CONFIG_SUB_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.sub
+CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.guess \
+			${WRKSRC}/config.guess
+CONFIG_SUB_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.sub \
+			${WRKSRC}/config.sub
 
-.  if ${OPSYS} == "Cygwin"
-CPPFLAGS+=	-DLIBARCHIVE_STATIC
-.  endif
+CPPFLAGS.Cygwin+=	-DLIBARCHIVE_STATIC
 
-.  if ${OPSYS} == "Darwin"
 # Make sure that the linker used our static library instead of the
 # (outdated) dynamic library "/usr/lib/libarchive.dylib".
-LDFLAGS+=	-Wl,-search_paths_first
-.  endif
+LDFLAGS.Darwin+=	-Wl,-search_paths_first
 
-.  if ${OPSYS} == "SunOS"
 # workaround for pkg/45491
-CONFIGURE_ENV+=	ac_cv_header_ext2fs_ext2_fs_h=no
-.  endif
+CONFIGURE_ENV.SunOS+=	ac_cv_header_ext2fs_ext2_fs_h=no
 
 # Hack to make sure that the libarchive version is replaced
 pre-configure: config-guess-override config-sub-override
 .endif
 CPPFLAGS+=	-I${WRKDIR}/libfetch
 LDFLAGS+=	-L${WRKDIR}/libfetch
+# Avoid duplicate and conflicting headers, pull in any we need
+# directly with <netpgpgverify/*.h>
+CPPFLAGS+=	-I${WRKDIR}
 LDFLAGS+=	-L${WRKDIR}/netpgpverify
 
 CONFIGURE_ENV+=	LIBS=${LIBS:Q}
@@ -206,20 +214,20 @@ pre-configure:
 		--disable-bsdcpio --disable-bsdtar --disable-shared	\
 		--disable-dependency-tracking --without-expat		\
 		--without-iconv --without-lzo2 --without-nettle		\
-		--without-xml2	\
+		--without-lzmadec --without-lzma --without-xml2		\
 		${LIBARCHIVE_CONFIGURE_ARGS}
 	cd ${WRKDIR}/libarchive && ${BUILD_MAKE_CMD}
 .endif
-	cd ${WRKDIR}/libfetch && ${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV}	\
+	cd ${WRKDIR}/libfetch && ${TOUCH} fetch.cat3 &&			\
+		${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV}			\
 		${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_MAKE_FLAGS}	\
 			-f ${MAKE_FILE} depend all
 	cd ${WRKDIR}/netpgpverify &&					\
 	${SED} -e '/zlib/d' Makefile.lib.in >Makefile.in &&		\
-	./configure && ${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV}		\
-		${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_MAKE_FLAGS}	\
-			-f ${MAKE_FILE} all
-	# netpgp headers conflict with ours, just copy the one we need.
-	${CP} ${WRKDIR}/netpgpverify/verify.h ${WRKSRC}/lib
+	${RM} -f bzlib.h zlib.h &&					\
+	${CONFIG_SHELL} ${CONFIG_SHELL_FLAGS} ./configure &&		\
+	${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV} ${MAKE_PROGRAM}		\
+		${MAKE_FLAGS} ${BUILD_MAKE_FLAGS} -f ${MAKE_FILE} all
 
 # XXX Reverse the order that update does things since
 # XXX we need pkg_delete built before we can deinstall.

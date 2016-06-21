@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2015/03/01 11:46:26 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2015/07/12 18:56:22 wiz Exp $
 
 DISTNAME=	Image-Size-3.300
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	graphics perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Image/}
 
@@ -10,9 +11,9 @@ HOMEPAGE=	http://search.cpan.org/dist/Image-Size/
 COMMENT=	Read the dimensions of an image in several popular formats
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.9.3,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress	# Compress::Zlib
+#DEPENDS+=	{perl>=5.9.3,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress	# Compress::Zlib
 
-BUILD_DEPENDS+=	{perl>=5.10.0,p5-Test-Simple>=0.80}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.10.0,p5-Test-Simple>=0.80}:../../devel/p5-Test-Simple
 
 PERL5_PACKLIST=		auto/Image/Size/.packlist
 

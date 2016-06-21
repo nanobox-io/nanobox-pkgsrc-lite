@@ -1,18 +1,16 @@
-# $NetBSD: Makefile,v 1.9 2014/03/26 13:26:45 taca Exp $
+# $NetBSD: Makefile,v 1.11 2015/06/29 11:06:48 ryoon Exp $
 
 DISTNAME=	howm-1.4.1
 CATEGORIES=	misc
-MASTER_SITES=	http://howm.sourceforge.jp/a/
+MASTER_SITES=	http://howm.osdn.jp/a/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://howm.sourceforge.jp/
+HOMEPAGE=	http://howm.osdn.jp/
 COMMENT=	Write fragmentarily and read collectively
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	${RUBY_PKGPREFIX}-migemo-[0-9]*:../../textproc/migemo
 DEPENDS+=	${EMACS_PKGNAME_PREFIX}migemo-elisp-[0-9]*:../../textproc/migemo-elisp
-
-RUBY_VERSION_SUPPORTED= 21 200 193
 
 GNU_CONFIGURE=	yes
 

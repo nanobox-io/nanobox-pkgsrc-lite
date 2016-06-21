@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2014/10/20 20:08:09 joerg Exp $
+# $NetBSD: Makefile,v 1.6 2016/03/05 11:29:47 jperkin Exp $
 
 DISTNAME=	PyQwt-5.2.0
 PKGNAME=	${PYPKGPREFIX}-qwt-qt4-${DISTNAME:S/PyQwt-//}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyqwt/}
 
@@ -21,7 +21,7 @@ PLIST_SUBST+=	PYSITELIB=${PYSITELIB}
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 # Following line rescues from 'Unresolved dependency with pbulk'
-PYTHON_VERSIONS_INCOMPATIBLE=   33 34 # py-Numeric
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-Numeric
 
 REPLACE_PYTHON+=qt4lib/PyQt4/Qwt5/grace.py
 REPLACE_PYTHON+=qt4lib/PyQt4/Qwt5/qplt.py

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.30 2012/10/23 10:24:11 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2015/07/04 16:18:40 joerg Exp $
 #
 
 DISTNAME=	asclock-gtk-2.1.10beta
@@ -13,7 +13,6 @@ COMMENT=	Dockable clock and calendar with themes for GTK+
 NO_SRC_ON_FTP=	Already in MASTER_SITE_LOCAL
 
 WRKSRC=		${WRKDIR}/asclock-gtk
-USE_X11BASE=	yes
 
 PLIST_SRC=	${PKGDIR}/PLIST \
 		${PKGDIR}/PLIST.themes
@@ -23,7 +22,8 @@ BUILD_TARGET=	asclock
 INSTALLATION_DIRS=	bin share/asclock-gtk share/doc/asclock-gtk
 
 pre-configure:
-	cd ${WRKSRC}; ${LN} -sf themes/classic default_theme
+	${LN} -sf themes/classic ${WRKSRC}/default_theme
+	${MKDIR} ${WRKSRC}/.gtk
 
 pre-install:
 	${RM} -f ${WRKSRC}/themes/Freeamp/Makefile*

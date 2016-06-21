@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2014/10/09 13:44:55 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/05 11:29:23 jperkin Exp $
 
 DISTNAME=	Crypt-SSLeay-0.72
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	2
 CATEGORIES=	security perl5 www
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Crypt/}
 
@@ -21,7 +22,7 @@ MAKE_ENV+=		PERL_MM_USE_DEFAULT=1
 MAKE_PARAMS+=		--lib=${SSLBASE}
 
 post-extract:
-	chmod -x ${WRKSRC}/lib/Net/SSL.pm
+	chmod a-x ${WRKSRC}/lib/Net/SSL.pm
 
 .include "../../lang/perl5/module.mk"
 .include "../../security/openssl/buildlink3.mk"

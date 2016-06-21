@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.73 2015/01/23 06:52:03 obache Exp $
+# $NetBSD: Makefile,v 1.83 2016/03/08 15:05:04 wiz Exp $
 
-DISTNAME=	CGI-4.13
+DISTNAME=	CGI-4.27
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES+=	${MASTER_SITE_PERL_CPAN:=CGI/}
@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v2 OR artistic-2.0
 DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 BUILD_DEPENDS+=	p5-Test-Warn-[0-9]*:../../devel/p5-Test-Warn
+BUILD_DEPENDS+=	p5-Test-NoWarnings-[0-9]*:../../devel/p5-Test-NoWarnings
 
 USE_LANGUAGES=		# empty
 USE_TOOLS+=		perl
@@ -23,14 +24,10 @@ REPLACE_PERL+=		examples/*.cgi
 HTMLDIR=		${PREFIX}/share/doc/p5-CGI
 INSTALLATION_DIRS=	${HTMLDIR}/examples
 
-post-build:
-	cd ${WRKSRC}/examples && chmod +x *.cgi && perl make_links.pl
-
 post-install:
 	cd ${WRKSRC}/examples && \
-	${INSTALL_DATA} *.gif *.html *.txt *.xbm \
-		${DESTDIR}${HTMLDIR}/examples && \
-	${INSTALL_SCRIPT} *.cgi ${DESTDIR}${HTMLDIR}/examples
+	${INSTALL_DATA} *.gif ${DESTDIR}${HTMLDIR}/examples && \
+	${INSTALL_SCRIPT} *.cgi *.pl ${DESTDIR}${HTMLDIR}/examples
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

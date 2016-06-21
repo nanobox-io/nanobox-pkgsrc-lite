@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.62 2015/01/23 15:07:53 joerg Exp $
+# $NetBSD: Makefile,v 1.67 2016/03/03 13:28:22 wiz Exp $
 
-DISTNAME=	pari-2.3.5
-PKGREVISION=	15
+DISTNAME=	pari-2.7.5
 CATEGORIES=	math
 MASTER_SITES=	http://pari.math.u-bordeaux.fr/pub/pari/unix/
 
@@ -14,7 +13,7 @@ MAKE_JOBS_SAFE=	no
 
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
-USE_TOOLS+=		perl:run
+USE_TOOLS+=		gmake perl:run
 USE_LANGUAGES+=		c c++
 HAS_CONFIGURE=		yes
 CONFIGURE_ENV+=		LIBARCHSUFFIX=${LIBARCHSUFFIX}
@@ -30,6 +29,8 @@ CONFIGURE_ARGS+=	--share-prefix=${PREFIX}/share
 MULTIARCH_DIRS.lib=	# manually specified in PLIST
 
 REPLACE_PERL+=		src/desc/PARI/822.pm
+REPLACE_PERL+=		doc/gphelp
+REPLACE_PERL+=		misc/tex2mail
 
 BUILD_TARGET=		all
 TEST_TARGET=		test-compat bench
@@ -46,6 +47,8 @@ SUBST_STAGE.fix-wrap=	post-build
 SUBST_MESSAGE.fix-wrap=	Removing TOOLS_DIR references
 SUBST_FILES.fix-wrap=	*/pari.cfg
 SUBST_SED.fix-wrap=	-e "s,${TOOLS_DIR}/bin/,,g"
+
+pre-install: replace-interpreter
 
 .include "options.mk"
 

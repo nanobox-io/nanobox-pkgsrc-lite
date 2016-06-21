@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.47 2015/01/17 14:36:12 prlw1 Exp $
+# $NetBSD: Makefile,v 1.53 2015/10/10 01:58:09 ryoon Exp $
 #
 
-DISTNAME=	geeqie-1.1
-PKGREVISION=	22
+DISTNAME=	geeqie-1.2.2
+PKGREVISION=	3
+EXTRACT_SUFX=	.tar.xz
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=geeqie/}
+MASTER_SITES=	http://www.geeqie.org/
 
 MAINTAINER=	gdt@NetBSD.org
-HOMEPAGE=	http://geeqie.sourceforge.net/
+HOMEPAGE=	http://www.geeqie.org/
 COMMENT=	Image viewer
 LICENSE=	gnu-gpl-v2
 
@@ -29,7 +30,7 @@ post-build:
 .include "options.mk"
 
 .include "../../graphics/exiv2/buildlink3.mk"
-.include "../../graphics/lcms/buildlink3.mk"
+.include "../../graphics/lcms2/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/gnome-doc-utils/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

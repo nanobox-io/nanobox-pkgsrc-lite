@@ -1,4 +1,4 @@
-# $NetBSD: ocaml.mk,v 1.3 2014/10/27 11:58:36 jaapb Exp $
+# $NetBSD: ocaml.mk,v 1.6 2016/03/04 15:19:42 jaapb Exp $
 #
 # This Makefile fragment handles the common variables used by OCaml packages.
 #
@@ -16,6 +16,8 @@
 # package uses findlib infrastructure
 # OCAML_USE_OASIS [implies OCAML_USE_FINDLIB]
 # package uses oasis infrastructure
+# OCAML_USE_OASIS_DYNRUN [implies OCAML_USE_OASIS]
+# package uses oasis.dynrun
 # OCAML_USE_OPAM
 # package uses OPAM
 # OASIS_BUILD_ARGS
@@ -34,6 +36,7 @@ _VARGROUPS+=	ocaml
 _PKG_VARS.ocaml=	\
 	OCAML_USE_FINDLIB \
 	OCAML_USE_OASIS \
+	OCAML_USE_OASIS_DYNRUN \
 	OCAML_USE_OPAM \
 	OCAML_BUILD_ARGS
 _DEF_VARS.ocaml=	\
@@ -41,13 +44,14 @@ _DEF_VARS.ocaml=	\
 _SYS_VARS.ocaml=	\
 	OCAML_SITELIBDIR
 
-PKGNAME?=	ocaml-${DISTNAME}
-
 # Default value of OCAML_USE_FINDLIB
 OCAML_USE_FINDLIB?=	no
 
 # Default value of OCAML_USE_OASIS
 OCAML_USE_OASIS?=	no
+
+# Default value of OCAML_USE_OASIS_DYNRUN
+OCAML_USE_OASIS_DYNRUN?=	no
 
 # Default value of OCAML_USE_OPAM
 OCAML_USE_OPAM?= no
@@ -62,6 +66,14 @@ OASIS_BUILD_ARGS?=	# empty
 OCAML_USE_OPT_COMPILER?=	yes
 .else
 OCAML_USE_OPT_COMPILER?=	no
+.endif
+
+#
+# Configure stuff for OASIS_DYNRUN
+#
+.if ${OCAML_USE_OASIS_DYNRUN} == "yes"
+.include "../../devel/ocaml-oasis/buildlink3.mk"
+OCAML_USE_OASIS=	yes
 .endif
 
 #
@@ -85,6 +97,10 @@ OCAML_SITELIBDIR=	lib/ocaml/site-lib
 MAKE_ENV+=	OCAML_SITELIBDIR="${OCAML_SITELIBDIR}"
 PLIST_SUBST+=	OCAML_SITELIB="${OCAML_SITELIBDIR}"
 
+PRINT_PLIST_AWK+=	{ gsub(/${OCAML_SITELIBDIR:S|/|\\/|g}/, \
+			"$${OCAML_SITELIB}"); \
+			print; next; }
+
 .if ${OCAML_USE_FINDLIB} == "yes"
 .include "../../devel/ocaml-findlib/buildlink3.mk"
 INSTALLATION_DIRS+=	${OCAML_SITELIBDIR}
@@ -107,20 +123,29 @@ PLIST.ocaml-opt=	yes
 # OASIS targets
 #
 .if ${OCAML_USE_OASIS} == "yes"
+.if ${OCAML_USE_OASIS_DYNRUN} == "yes"
+pre-configure:
+	${RUN} cd ${WRKSRC} && ocamlfind ocamlc -linkpkg -package oasis.dynrun -o setup setup.ml && ${RM} setup.cmo setup.cmi
+
+OASIS_EXEC=./setup
+.else
+OASIS_EXEC=ocaml setup.ml
+.endif
+
 # Redefine configure target
 do-configure:
 	${RUN} cd ${WRKSRC} && \
-		${SETENV} ${CONFIGURE_ENV} ocaml setup.ml -configure ${CONFIGURE_ARGS}
+		${SETENV} ${CONFIGURE_ENV} ${OASIS_EXEC} -configure ${CONFIGURE_ARGS}
 
 # Redefine build target
 do-build:
 	${RUN} cd ${WRKSRC} && \
-		${SETENV} ${MAKE_ENV} ocaml setup.ml -build ${OASIS_BUILD_ARGS}
+		${SETENV} ${MAKE_ENV} ${OASIS_EXEC} -build ${OASIS_BUILD_ARGS}
 
 # Redefine install target
 do-install:
 	${RUN} cd ${WRKSRC} && \
-		ocaml setup.ml -install
+		${OASIS_EXEC} -install
 .endif
 
 # Add dependency to ocaml.

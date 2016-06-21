@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.66 2015/01/03 18:43:48 spz Exp $
+# $NetBSD: Makefile,v 1.69 2016/02/25 10:15:45 jperkin Exp $
 
-DISTNAME=	libsndfile-1.0.25
-PKGREVISION=	2
+DISTNAME=	libsndfile-1.0.26
 CATEGORIES=	audio
 MASTER_SITES=	http://www.mega-nerd.com/libsndfile/files/
 
@@ -22,13 +21,11 @@ CONFIGURE_ENV+=		ac_cv_c_struct_hack=yes
 
 TEST_TARGET=		check
 
-.include "../../mk/bsd.prefs.mk"
-
 .include "options.mk"
 
-.if ${OPSYS} == "Darwin"
-BUILDLINK_PASSTHRU_DIRS+=	/Developer
-.endif
+OPSYSVARS+=		BUILDLINK_PASSTHRU_DIRS
+
+BUILDLINK_PASSTHRU_DIRS.Darwin+=	/Developer
 
 .if !empty(PKGSRC_COMPILER:Msunpro)
 CXXFLAGS+=		-features=extensions

@@ -1,0 +1,34 @@
+$NetBSD: patch-configure,v 1.4 2015/11/27 14:57:35 jperkin Exp $
+
+Shell portability.
+Disable flock.
+
+--- configure.orig	2015-11-02 10:39:48.000000000 +0000
++++ configure
+@@ -20352,7 +20352,7 @@ else
+ fi
+ 
+ 
+-if test "x$enable_libmount_force_mountinfo" == xyes; then :
++if test "x$enable_libmount_force_mountinfo" = xyes; then :
+ 
+ 
+ $as_echo "#define USE_LIBMOUNT_FORCE_MOUNTINFO 1" >>confdefs.h
+@@ -24071,7 +24071,7 @@ fi
+   fi
+ else
+ 
+-  build_flock=yes
++  build_flock=no
+   enable_flock=yes
+ fi
+ 
+@@ -27616,7 +27616,7 @@ else
+ fi
+ 
+ 
+-if test "x$enable_usrdir_path" == xyes; then :
++if test "x$enable_usrdir_path" = xyes; then :
+ 
+ 
+ $as_echo "#define USE_USRDIR_PATHS_ONLY 1" >>confdefs.h

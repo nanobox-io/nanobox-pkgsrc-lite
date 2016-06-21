@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.32 2015/03/24 14:34:57 ryoon Exp $
+# $NetBSD: Makefile,v 1.34 2016/02/25 12:50:49 jperkin Exp $
 #
 
 ETVER=				0.9.4
 DISTNAME=			aranym_1.0.2.orig
 PKGNAME=			${DISTNAME:S/_/-/:S/.orig//}
+PKGREVISION=			1
 CATEGORIES=			emulators
 MASTER_SITES=			${MASTER_SITE_SOURCEFORGE:=aranym/}
 SITES.emutos-512k-${ETVER}.zip=	${MASTER_SITE_SOURCEFORGE:=emutos/}
@@ -43,9 +44,7 @@ SUBST_MESSAGE.paths=	Fixing hardcoded paths.
 .include "options.mk"
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	--enable-nfpci
-.endif
+CONFIGURE_ARGS.Linux+=	--enable-nfpci
 
 .if !empty(MACHINE_PLATFORM:MLinux-*-i386)
 CONFIGURE_ARGS+=	--enable-jit-compiler

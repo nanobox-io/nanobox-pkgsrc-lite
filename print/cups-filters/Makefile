@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.18 2015/03/15 20:53:39 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2016/03/05 11:29:16 jperkin Exp $
 
-DISTNAME=	cups-filters-1.0.67
+DISTNAME=	cups-filters-1.8.2
+PKGREVISION=	1
 CATEGORIES=	print
 MASTER_SITES=	http://openprinting.org/download/cups-filters/
 EXTRACT_SUFX=	.tar.xz
@@ -8,28 +9,42 @@ EXTRACT_SUFX=	.tar.xz
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters
 COMMENT=	Backends, filters, and other software for cups
-#LICENSE=	# TODO: (see mk/license.mk)
+LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND mit
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	bash:run pkg-config
+USE_TOOLS+=	bash:run pkg-config gmake
 USE_LANGUAGES=	c c++
 
-CONFLICTS+=	cups<1.6
+BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 
 PKGCONFIG_OVERRIDE+=	libcupsfilters.pc.in
 PKGCONFIG_OVERRIDE+=	libfontembed.pc.in
 
-REPLACE_BASH+=	filter/textonly
+CONFLICTS+=	cups<1.6
 
+REPLACE_BASH+=	filter/textonly
+REPLACE_BASH+=	filter/braille/drivers/generic/brftoembosser.in
+REPLACE_BASH+=	filter/braille/drivers/index/imageubrltoindexv3.in
+REPLACE_BASH+=	filter/braille/drivers/index/imageubrltoindexv4.in
+REPLACE_BASH+=	filter/braille/drivers/index/textbrftoindexv3.in
+REPLACE_BASH+=	filter/braille/filters/imagetobrf.in
+REPLACE_BASH+=	filter/braille/filters/texttobrf.in
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${INIT_SYSTEM} == "rc.d"
 CONFIGURE_ARGS+=	--with-rcdir=${PREFIX}/share/examples/rc.d
 CONFIGURE_ARGS+=	--with-rclevels=""
+.endif
+CONFIGURE_ARGS+=	--disable-ldap
+CONFIGURE_ARGS+=	--with-shell=${TOOLS_PATH.bash}
 
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples/cups-filters
 
-CONF_FILES=		${PREFIX}/share/examples/cups-filters/fonts/conf.d/99pdftoopvp.conf ${PKG_SYSCONFDIR}/fonts/conf.d/99pdftoopvp.conf
-CONF_FILES=		${PREFIX}/share/examples/cups-filters/cups-browsed.conf ${PKG_SYSCONFDIR}/cups/cups-browsed.conf
+CONF_FILES=		${PREFIX}/share/examples/cups-filters/fonts/conf.d/99pdftoopvp.conf ${PKG_SYSCONFDIR}/fontconfig/conf.d/99pdftoopvp.conf
+CONF_FILES+=		${PREFIX}/share/examples/cups-filters/cups-browsed.conf ${PKG_SYSCONFDIR}/cups/cups-browsed.conf
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/etc/cups/cups-browsed.conf ${DESTDIR}${PREFIX}/share/examples/cups-filters/cups-browsed.conf

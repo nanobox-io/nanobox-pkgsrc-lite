@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.8 2014/10/07 16:47:20 adam Exp $
+# $NetBSD: Makefile,v 1.12 2015/10/10 01:58:02 ryoon Exp $
 
-DISTNAME=	libDatabase-0.0.0
-PKGNAME=	deforaos-libdatabase-0.0.0
-PKGREVISION=	6
+DISTNAME=	libDatabase-0.0.1
+PKGNAME=	deforaos-libdatabase-0.0.1
+PKGREVISION=	1
 CATEGORIES=	databases
-MASTER_SITES=	http://www.defora.org/os/download/download/4287/
+MASTER_SITES=	http://www.defora.org/os/download/download/4373/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -14,6 +14,8 @@ LICENSE=	gnu-gpl-v3
 
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	PREFIX=${PREFIX}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 
 .include "../../devel/deforaos-libsystem/buildlink3.mk"
 .include "../../mk/pgsql.buildlink3.mk" # this one defines PGSQL_VERSION among others

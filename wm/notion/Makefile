@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.20 2014/10/19 22:27:48 alnsn Exp $
+# $NetBSD: Makefile,v 1.22 2016/02/26 10:38:36 jperkin Exp $
 
-DISTNAME=	notion-3-2014052800-src
-PKGNAME=	${DISTNAME:S/3-/3./:S/-src//}
-PKGREVISION=	2
+DISTNAME=	notion-3-2015061300
+PKGNAME=	${DISTNAME:S/3-/3./}
 CATEGORIES=	wm
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=notion/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GITHUB:=raboof/}
+GITHUB_TAG=	${DISTNAME:S/notion-//}
 
 MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://notion.sourceforge.net/
@@ -18,6 +17,8 @@ CONFLICTS=	ion3-[0-9]*
 WRKSRC=		${WRKDIR}/${DISTNAME:S/-src//}
 USE_LANGUAGES=	c99
 USE_TOOLS+=	gmake msgfmt pax pkg-config
+
+LUA_VERSIONS_INCOMPATIBLE=	53
 
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	EXAMPLEDIR=${PREFIX}/share/examples/notion
@@ -62,14 +63,10 @@ INSTALLATION_DIRS=	${EGDIR}
 CONF_FILES+=	${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 .endfor
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
 # Abuse buildlink to add required libraries.
-BUILDLINK_TRANSFORM+=	opt:-Wl,--as-needed:-lsocket
-BUILDLINK_TRANSFORM+=	rm:-Wl,-whole-archive
-BUILDLINK_TRANSFORM+=	rm:-Wl,-no-whole-archive
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	opt:-Wl,--as-needed:-lsocket
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,-whole-archive
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,-no-whole-archive
 
 post-install:
 	cd ${WRKSRC} && pax -rw contrib ${DESTDIR}${EGDIR}

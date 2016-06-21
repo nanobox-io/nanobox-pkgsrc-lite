@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.8 2015/02/04 01:52:41 mef Exp $
+# $NetBSD: Makefile,v 1.10 2016/02/25 16:20:50 jperkin Exp $
 #
 
-DISTNAME=	balance-3.56
+DISTNAME=	balance-3.57
 CATEGORIES=	net
 MASTER_SITES=	http://www.inlab.de/
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	wiedi@frubar.net
 HOMEPAGE=	http://www.inlab.de/balance.html
 COMMENT=	TCP loadbalancer with roundrobin and failover
 LICENSE=	gnu-gpl-v2
@@ -13,10 +13,7 @@ LICENSE=	gnu-gpl-v2
 BUILD_DEFS+=	VARBASE
 MAKE_ENV+=	VARBASE=${VARBASE}
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-MAKE_ENV+=	LIBRARIES="-lsocket -lnsl"
-.endif
+MAKE_ENV.SunOS+=	LIBRARIES="-lsocket -lnsl"
 
 OWN_DIRS_PERMS=	${VARBASE}/run/balance \
 		${ROOT_USER} ${ROOT_GROUP} 0750

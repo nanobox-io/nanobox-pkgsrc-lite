@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.94 2014/05/05 00:47:39 ryoon Exp $
+# $NetBSD: Makefile,v 1.99 2016/02/25 10:15:46 jperkin Exp $
 
 DISTNAME=	TiMidity++-2.14.0
 PKGNAME=	${DISTNAME:S/TiMidity++/timidity/}
-PKGREVISION=	12
+PKGREVISION=	16
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=timidity/}
 EXTRACT_SUFX=	.tar.bz2
@@ -27,9 +27,7 @@ CONFIGURE_ARGS+=	--enable-network
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	--enable-alsaseq
-.endif
+CONFIGURE_ARGS.Linux+=	--enable-alsaseq
 
 SUBST_CLASSES+=		confdir
 SUBST_MESSAGE.confdir=	Configuring to use PKG_SYSCONFDIR.

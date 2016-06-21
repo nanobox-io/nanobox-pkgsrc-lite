@@ -1,8 +1,28 @@
-$NetBSD: patch-cmake_FindPhononInternal.cmake,v 1.1 2013/11/13 22:51:06 joerg Exp $
+$NetBSD: patch-cmake_FindPhononInternal.cmake,v 1.3 2016/03/01 08:54:42 markd Exp $
 
---- cmake/FindPhononInternal.cmake.orig	2013-11-13 13:44:42.000000000 +0000
+Disable Darwin section, creates unusable libraries.
+_include_dirs fix for qt-5.4.2
+
+--- cmake/FindPhononInternal.cmake.orig	2014-12-04 09:30:26.000000000 +0000
 +++ cmake/FindPhononInternal.cmake
-@@ -320,16 +320,16 @@ if (CMAKE_COMPILER_IS_GNUCXX)
+@@ -199,14 +199,14 @@ set(INSTALL_TARGETS_DEFAULT_ARGS RUNTIME
+                                  ARCHIVE DESTINATION "${LIB_INSTALL_DIR}" COMPONENT Devel)
+ 
+ # on the Mac support an extra install directory for application bundles
+-if(APPLE)
++if(notAPPLE)
+     set(INSTALL_TARGETS_DEFAULT_ARGS ${INSTALL_TARGETS_DEFAULT_ARGS}
+                                      BUNDLE DESTINATION "${BUNDLE_INSTALL_DIR}")
+     set(CMAKE_SHARED_MODULE_CREATE_C_FLAGS   "${CMAKE_SHARED_MODULE_CREATE_C_FLAGS}   -flat_namespace -undefined dynamic_lookup")
+     set(CMAKE_SHARED_MODULE_CREATE_CXX_FLAGS "${CMAKE_SHARED_MODULE_CREATE_CXX_FLAGS} -flat_namespace -undefined dynamic_lookup")
+ 
+    set(CMAKE_INSTALL_NAME_DIR ${LIB_INSTALL_DIR})
+-endif(APPLE)
++endif(notAPPLE)
+ 
+ # RPATH Handling
+ 
+@@ -324,16 +324,16 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     # Select flags.
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g -DNDEBUG -DQT_NO_DEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE        "-O2 -DNDEBUG -DQT_NO_DEBUG")
@@ -22,3 +42,12 @@ $NetBSD: patch-cmake_FindPhononInternal.cmake,v 1.1 2013/11/13 22:51:06 joerg Ex
     # As of Qt 4.6.x we need to override the new exception macros if we want compile with -fno-exceptions
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -Wundef -Wcast-align -Wchar-subscripts -Wall -W -Wpointer-arith -Wformat-security -fno-exceptions -DQT_NO_EXCEPTIONS -fno-check-new -fno-common")
  
+@@ -409,7 +409,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
+       file(WRITE "${_source_file}" "${_source}")
+       set(_include_dirs "-DINCLUDE_DIRECTORIES:STRING=${QT_INCLUDES}")
+ 
+-      try_compile(_compile_result ${CMAKE_BINARY_DIR} ${_source_file} CMAKE_FLAGS "${_include_dirs}" OUTPUT_VARIABLE _compile_output_var)
++      try_compile(_compile_result ${CMAKE_BINARY_DIR} ${_source_file} CMAKE_FLAGS "${CMAKE_CXX_FLAGS}" COMPILE_DEFINITIONS "${_include_dirs}" OUTPUT_VARIABLE _compile_output_var)
+ 
+       if(NOT _compile_result)
+          message("${_compile_output_var}")

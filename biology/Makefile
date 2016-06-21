@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.37 2014/02/20 11:44:51 fhajny Exp $
+# $NetBSD: Makefile,v 1.40 2015/10/14 17:13:44 leot Exp $
 #
 
 COMMENT=	Software for the biological sciences
@@ -7,12 +7,15 @@ SUBDIR+=	arka
 SUBDIR+=	azara
 SUBDIR+=	bioperl
 SUBDIR+=	bodr
+SUBDIR+=	bwa
+SUBDIR+=	cdhit
 SUBDIR+=	chemical-mime-data
 SUBDIR+=	chemtool
 SUBDIR+=	clustalw
 SUBDIR+=	coalesce
 SUBDIR+=	fastDNAml
 SUBDIR+=	fluctuate
+SUBDIR+=	gabedit
 SUBDIR+=	genesplicer
 SUBDIR+=	glimmer
 SUBDIR+=	gnome-chemistry-utils

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2014/05/29 23:36:25 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2015/07/12 18:56:20 wiz Exp $
 #
 
 DISTNAME=	Tie-RefHash-Weak-0.09
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Tie/}
 
@@ -15,7 +15,7 @@ USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/Tie/RefHash/Weak/.packlist
 
 DEPENDS+=	p5-Task-Weaken-[0-9]*:../../devel/p5-Task-Weaken
-DEPENDS+=	{perl>=5.9.4,p5-Tie-RefHash>=1.34}:../../devel/p5-Tie-RefHash
+#DEPENDS+=	{perl>=5.9.4,p5-Tie-RefHash>=1.34}:../../devel/p5-Tie-RefHash
 DEPENDS+=	p5-Variable-Magic-[0-9]*:../../devel/p5-Variable-Magic
 
 .include "../../lang/perl5/module.mk"

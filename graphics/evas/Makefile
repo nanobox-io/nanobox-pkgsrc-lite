@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2014/03/22 20:15:20 spz Exp $
+# $NetBSD: Makefile,v 1.22 2016/03/05 11:27:48 jperkin Exp $
 
-PKGREVISION=	2
+PKGREVISION=	3
 
 COMMENT=	Enlightened Canvas Library
 
@@ -29,7 +29,15 @@ PLIST_SRC+=	PLIST.cserve
 PLIST_SRC+=	PLIST.cserve
 .endif
 
-CPPFLAGS.SunOS+=	-std=gnu99 -D_XOPEN_SOURCE=600
+.if ${OPSYS} == "Darwin"
+PLIST_SRC+=	PLIST.Darwin
+.endif
+
+# Explicitly select cserve, avoids epoll/inotify.
+CONFIGURE_ARGS.SunOS+=	--enable-evas-cserve
+CONFIGURE_ARGS.SunOS+=	--disable-evas-cserve2
+
+LIBS.SunOS+=	-lsocket
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/AUTHORS ${WRKSRC}/COPYING \

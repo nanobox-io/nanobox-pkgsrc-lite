@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2014/08/07 03:03:32 obache Exp $
+# $NetBSD: Makefile,v 1.9 2016/03/05 11:28:43 jperkin Exp $
 
 PKGNAME=	uim-${DISTNAME}
-
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX} uim-mozc-334.tar.xz
-SITES.uim-mozc-334.tar.xz=	${MASTER_SITE_SOURCEFORGE:=pnsft-aur/}
+PKGREVISION=	2
 
 CONFLICTS+=	ibus-mozc<=1.13.1651.102
 
@@ -21,8 +19,8 @@ SUBST_FILES.mozc_tool=		scm/mozc-custom.scm
 SUBST_SED.mozc_tool=		-e 's,/usr/lib/mozc/mozc_tool,${PREFIX}/libexec/mozc_tool,g'
 
 post-extract:
-	mv ${WRKDIR}/uim-mozc-334/uim ${WRKSRC}/unix
-	mv ${WRKDIR}/uim-mozc-334/scm ${WRKSRC}
+	mv ${WRKDIR}/${UIM_MOZC}/uim ${WRKSRC}/unix
+	mv ${WRKDIR}/${UIM_MOZC}/scm ${WRKSRC}
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \

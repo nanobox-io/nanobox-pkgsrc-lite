@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2015/03/12 14:10:28 tnn Exp $
+# $NetBSD: Makefile,v 1.19 2016/03/04 08:58:58 wiz Exp $
 
-DISTNAME=	redis-2.8.18
+DISTNAME=	redis-3.0.7
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 
@@ -11,6 +11,7 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c99
 USE_TOOLS+=		gmake pax
+DIST_SUBDIR=	redis-3.0.7v2
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -46,7 +47,7 @@ FILES_SUBST+=		REDIS_GROUP=${REDIS_GROUP}
 FILES_SUBST+=		REDIS_DATADIR=${REDIS_DATADIR}
 
 SUBST_CLASSES+=		fix-paths
-SUBST_STAGE.fix-paths=	post-patch
+SUBST_STAGE.fix-paths=	pre-configure
 SUBST_MESSAGE.fix-paths= Fixing paths.
 SUBST_FILES.fix-paths=	redis.conf
 SUBST_VARS.fix-paths=	REDIS_DATADIR REDIS_LOGDIR REDIS_PIDDIR

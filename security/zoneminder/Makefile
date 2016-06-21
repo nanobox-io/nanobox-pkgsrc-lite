@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13.6.1 2015/04/24 16:07:10 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.25 2016/03/05 11:29:27 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/ZoneMinder-/zoneminder-/}
 DISTNAME=	ZoneMinder-1.28.1
-PKGREVISION=	2
+PKGREVISION=	6
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ZoneMinder/}
 GITHUB_PROJECT=	ZoneMinder
@@ -19,6 +19,8 @@ EXTRACT_USING=  gtar
 
 DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 
+PHP_VERSIONS_ACCEPTED=	55 56
+
 PKG_OPTIONS_VAR=	PKG_OPTIONS.zoneminder
 PKG_SUPPORTED_OPTIONS=	apache
 PKG_SUGGESTED_OPTIONS=	apache
@@ -27,7 +29,10 @@ PKG_SUGGESTED_OPTIONS=	apache
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
-USE_TOOLS+=	aclocal autoconf autoheader automake gmake perl
+USE_TOOLS+=	aclocal autoconf autoheader automake gmake perl pkg-config
+
+# Make sure p5-DBD-{mysql,percona}* matches the mysql.bl3 above
+BUILD_DEPENDS+=	p5-DBD-${MYSQL_PKG_PREFIX}-[0-9]*:../../databases/p5-DBD-mysql
 
 # MIME::Entity is needed from p5-MIME-tools
 # LWP::UserAgent is needed from p5-libwww
@@ -38,7 +43,7 @@ DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
 DEPENDS+=	p5-MIME-Lite-[0-9]*:../../mail/p5-MIME-Lite
 DEPENDS+=	p5-MIME-tools-[0-9]*:../../mail/p5-MIME-tools
 DEPENDS+=	p5-PHP-Serialization-[0-9]*:../../devel/p5-PHP-Serialization
-DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
+#DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
 DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
@@ -192,6 +197,10 @@ PLIST_VARS+=		rcd
 
 .if ${INIT_SYSTEM} == "rc.d"
 PLIST.rcd=		yes
+.endif
+
+.if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
+LIBS+=		-lexecinfo
 .endif
 
 post-extract:

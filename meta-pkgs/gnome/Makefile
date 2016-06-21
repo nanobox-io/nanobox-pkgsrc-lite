@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.132 2014/12/01 11:54:21 jmcneill Exp $
+# $NetBSD: Makefile,v 1.134 2015/12/05 21:25:49 adam Exp $
 
 DISTNAME=	gnome-2.26.2
 PKGREVISION=	5
@@ -11,7 +11,7 @@ COMMENT=	Meta-package for the GNOME desktop
 
 META_PACKAGE=	yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-ORBit via py-gnome2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-ORBit via py-gnome2
 
 .include "../../lang/python/pyversion.mk"
 
@@ -111,7 +111,7 @@ DEPENDS+=	libgtop>=2.26.1:../../sysutils/libgtop
 DEPENDS+=	libgweather>=2.26.1:../../devel/libgweather
 DEPENDS+=	liboobs>=2.22.0:../../sysutils/liboobs
 DEPENDS+=	librsvg>=2.26.0:../../graphics/librsvg
-DEPENDS+=	libsoup24>=2.26.2:../../net/libsoup24
+DEPENDS+=	libsoup>=2.26.2:../../net/libsoup
 DEPENDS+=	libwnck>=2.26.1:../../devel/libwnck
 DEPENDS+=	metacity>=2.26.0:../../wm/metacity
 .if ${X11_TYPE} != "native" || exists(${X11BASE}/lib/pkgconfig/xtst.pc)

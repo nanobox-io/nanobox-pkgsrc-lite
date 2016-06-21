@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2014/08/09 21:57:14 wiz Exp $
+# $NetBSD: Makefile,v 1.3 2015/12/11 11:35:24 wiz Exp $
 
 DISTNAME=	be-1.1.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/be/bugs-everywhere/}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://download.bugseverywhere.org/releases/
 
@@ -20,10 +21,11 @@ DEPENDS+=	${PYPKGPREFIX}-cherrypy-[0-9]*:../../www/py-cherrypy
 
 USE_LANGUAGES=	# none
 
-EGG_NAME=			bugs_everywhere-${PKGVERSION}
+EGG_NAME=			bugs_everywhere-${PKGVERSION_NOREV}
 PLIST_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not ported yet as of 1.1.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not ported yet as of 1.1.1
 REPLACE_PYTHON+=		libbe/version.py
+FILES_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	cd ${DESTDIR}${PREFIX}/bin && mv be be${PYVERSSUFFIX}

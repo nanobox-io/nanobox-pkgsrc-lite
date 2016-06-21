@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.74 2014/05/29 23:37:55 wiz Exp $
+# $NetBSD: Makefile,v 1.78 2016/04/14 10:47:12 jperkin Exp $
 
 DISTNAME=	wmakerconf-2.11
-PKGREVISION=	38
+PKGREVISION=	40
 CATEGORIES=	x11 wm windowmaker
 MASTER_SITES=	http://starplot.org/wmakerconf/
 
@@ -11,7 +11,6 @@ COMMENT=	Gtk+ based configuration tool for Window Maker
 LICENSE=	gnu-gpl-v2
 
 USE_PKGLOCALEDIR=	yes
-USE_X11BASE=		yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gzip tar perl:run pkg-config msgfmt
 
@@ -27,6 +26,8 @@ CONFIGURE_ENV+=		tar=${TOOLS_TAR:Q}
 
 REPLACE_PERL+=		scripts/*.pl.in
 USE_TOOLS+=		perl:run
+
+LDFLAGS.SunOS+=		-lX11
 
 post-extract:
 	${MV} ${WRKSRC}/data/WMWmakerconf ${WRKSRC}/data/WMWmakerconf.in

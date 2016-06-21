@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2012/10/23 19:51:07 asau Exp $
+# $NetBSD: Makefile,v 1.10 2015/08/20 13:38:25 jperkin Exp $
 #
 
 DISTNAME=	htop-1.0.1
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=htop/}
 
@@ -19,13 +20,9 @@ ONLY_FOR_PLATFORM=     Linux-*-* FreeBSD-*-* NetBSD-*-*
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "SunOS"
-. if exists(/system/lxproc)
+.if ${OPSYS} == "SunOS" && exists(/system/lxproc)
 ONLY_FOR_PLATFORM+=	SunOS-*-*
 CONFIGURE_ARGS+=	--with-proc=/system/lxproc
-. else
-PKG_FAIL_REASON+=	"lxproc must be mounted at /system/lxproc for package to build on SmartOS"
-. endif
 .endif
 
 CONFIGURE_ENV+=		ac_cv_file__proc_stat=yes ac_cv_file__proc_meminfo=yes

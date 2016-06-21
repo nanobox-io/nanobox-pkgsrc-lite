@@ -1,14 +1,15 @@
-$NetBSD: distinfo,v 1.112 2015/03/19 22:11:22 tron Exp $
+$NetBSD: distinfo,v 1.122 2016/05/03 14:51:16 jperkin Exp $
 
-SHA1 (openssl-1.0.2a.tar.gz) = 46ecd325b8e587fa491f6bb02ad4a9fb9f382f5f
-RMD160 (openssl-1.0.2a.tar.gz) = 2974a0a8cc469d85a5391a64aa0a2b2c5b00acfa
-Size (openssl-1.0.2a.tar.gz) = 5262089 bytes
-SHA1 (patch-Configure) = d57986a34cd88a27c5d94df5a3cc3e2c12bf8bbe
-SHA1 (patch-Makefile.org) = 7b957a6170961c6f7325d04c29653ae1ae07a23c
-SHA1 (patch-Makefile.shared) = 709283ba4bb4bd568e289fe111b8dea319968328
-SHA1 (patch-apps_Makefile) = 7c05b5578a520991058f75a703fc9bc96591390b
-SHA1 (patch-config) = ac8ced00cfa7d31b84afb08aedc38102fd777824
-SHA1 (patch-crypto_bn_bn__prime.pl) = c07e8ccba319e4260af46e714c3be56f70579fa6
-SHA1 (patch-crypto_des_Makefile) = 6c67c81ba7054647e1138165d9280c8db82b8498
-SHA1 (patch-engines_ccgost_Makefile) = 8834074c74abab604ef1ba7959750c22c0ffb6e7
-SHA1 (patch-tools_Makefile) = 6ce1ee06c560dff3337d5a804405243aee18c05a
+SHA1 (openssl-1.0.2h.tar.gz) = 577585f5f5d299c44dd3c993d3c0ac7a219e4949
+RMD160 (openssl-1.0.2h.tar.gz) = b7ab97d34582b7467929bbcd2bb8fbc4d19ac05e
+SHA512 (openssl-1.0.2h.tar.gz) = 780601f6f3f32f42b6d7bbc4c593db39a3575f9db80294a10a68b2b0bb79448d9bd529ca700b9977354cbdfc65887c76af0aa7b90d3ee421f74ab53e6f15c303
+Size (openssl-1.0.2h.tar.gz) = 5274412 bytes
+SHA1 (patch-Configure) = bebb9c435914b89ab9d5afabceb7d95903d4b56a
+SHA1 (patch-Makefile.org) = b990414c1e6707831e6d193dc95796aef2761ef1
+SHA1 (patch-Makefile.shared) = d317004d6ade167fc3b6e533bb8a1e93657188b2
+SHA1 (patch-apps_Makefile) = 60e786f07b4c005535de824ba7695e7296652148
+SHA1 (patch-config) = 345cadece3bdf0ef0a273a6c9ba6d0cbb1026a31
+SHA1 (patch-crypto_bn_bn__prime.pl) = a516f3709a862d85e659d466e895419b1e0a94c8
+SHA1 (patch-crypto_des_Makefile) = 7a23f9883ff6c93ec0e5d08e1332cc95de8cdba2
+SHA1 (patch-engines_ccgost_Makefile) = 5ff1e2705f6cb46075d5e005af9e804bb81d65e5
+SHA1 (patch-tools_Makefile) = 7f751fd1ecd01c4ee95eb53727f17530a9796f4a

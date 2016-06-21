@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2014/11/12 20:30:55 bsiegert Exp $
+# $NetBSD: Makefile,v 1.39 2016/03/05 11:28:45 jperkin Exp $
 #
 
 DISTNAME=	alpine-2.11
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	http://patches.freeiz.com/alpine/release/src/
 EXTRACT_SUFX=	.tar.xz
@@ -19,6 +19,7 @@ CONFIGURE_ARGS+= --with-ssl-include-dir=${SSLBASE}/include
 CONFIGURE_ARGS+= --with-ssl-lib-dir=${SSLBASE}/lib
 CONFIGURE_ARGS+= --with-system-pinerc=${PKG_SYSCONFDIR}/pine.conf
 CONFIGURE_ARGS+= --with-system-fixed-pinerc=${PKG_SYSCONFDIR}/pine.conf.fixed
+CONFIGURE_ARGS+= --with-passfile=.pine-passfile
 # disabled, for Web Alpine Support
 CONFIGURE_ARGS+=	--without-tcl
 
@@ -33,15 +34,13 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 CONFIGURE_ARGS+= --without-pthread
 .endif
 
-.if ${OPSYS} == "Darwin"
 # mach/mach.h defines panic, differently.
-SUBST_CLASSES+=	panic
+SUBST_CLASSES.Darwin+=	panic
 SUBST_STAGE.panic=	pre-configure
 SUBST_MESSAGE.panic=	Renaming the panic function
 SUBST_FILES.panic=	*/*.c
 SUBST_FILES.panic+=	pith/util.h
 SUBST_SED.panic+=	-e 's,panic(,Panic(,g'
-.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/alpine/alpine ${DESTDIR}${PREFIX}/bin/alpine

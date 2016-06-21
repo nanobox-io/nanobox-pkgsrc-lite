@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.29 2015/02/26 16:05:11 tnn Exp $
+# $NetBSD: Makefile,v 1.33 2015/12/29 04:54:34 dholland Exp $
 
 DISTNAME=	arj-3.10.22
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=arj/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://arj.sourceforge.net/
 COMMENT=	Open-source ARJ archiver
+LICENSE=	gnu-gpl-v2
 
 MAKE_JOBS_SAFE=		no
 
@@ -29,6 +30,8 @@ pre-configure:
 	cd ${WRKSRC}/gnu && autoconf
 
 INSTALLATION_DIRS+=	${ARJ_DOCSDIR}
+
+BROKEN_ON_PLATFORM=	${LP64PLATFORMS}
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/COPYING ${WRKSRC}/doc/debug.txt 	\

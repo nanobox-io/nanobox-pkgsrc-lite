@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.97 2014/12/06 03:20:41 rodent Exp $
+# $NetBSD: Makefile,v 1.103 2016/02/14 07:55:55 ryoon Exp $
 #
 
 COMMENT=	Communication utilities
@@ -6,7 +6,7 @@ COMMENT=	Communication utilities
 SUBDIR+=	asterisk
 SUBDIR+=	asterisk-sounds-de-x9media
 SUBDIR+=	asterisk-sounds-native
-SUBDIR+=	asterisk10
+SUBDIR+=	asterisk13
 SUBDIR+=	asterisk18
 SUBDIR+=	binkd
 SUBDIR+=	birda
@@ -29,6 +29,7 @@ SUBDIR+=	jpilot
 SUBDIR+=	jpilot-syncmal
 SUBDIR+=	kermit
 SUBDIR+=	kyopon
+SUBDIR+=	libhidapi
 SUBDIR+=	libmal
 SUBDIR+=	libopensync
 SUBDIR+=	libopensync-plugin-evolution2
@@ -60,6 +61,7 @@ SUBDIR+=	p5-Device-SerialPort
 SUBDIR+=	p5-Device-XBee-API
 SUBDIR+=	p5-SMS-Send
 SUBDIR+=	p5-pilot-link
+SUBDIR+=	picocom
 SUBDIR+=	pilot-link
 SUBDIR+=	pilot-link-libs
 SUBDIR+=	pilotmgr
@@ -73,6 +75,7 @@ SUBDIR+=	ruby-termios
 SUBDIR+=	scmxx
 SUBDIR+=	snooper
 SUBDIR+=	spandsp
+SUBDIR+=	srtp
 SUBDIR+=	synce-librapi2
 SUBDIR+=	synce-libsynce
 SUBDIR+=	synce-rra
@@ -80,6 +83,7 @@ SUBDIR+=	synce-serial
 SUBDIR+=	tilp2
 SUBDIR+=	tkhylafax
 SUBDIR+=	tn3270
+SUBDIR+=	xfce4-modemlights-plugin
 SUBDIR+=	xisp
 SUBDIR+=	xtel
 

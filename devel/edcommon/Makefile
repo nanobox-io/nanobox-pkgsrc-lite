@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2014/10/07 16:47:22 adam Exp $
+# $NetBSD: Makefile,v 1.25 2015/10/10 01:58:04 ryoon Exp $
 #
 
 DISTNAME=	edcommon-32-s
 PKGNAME=	${DISTNAME:S/-s$//}
-PKGREVISION=	12
+PKGREVISION=	14
 CATEGORIES=	devel gnustep
 MASTER_SITES=	http://www.mulle-kybernetik.com/software/EDFrameworks/Downloads/
 

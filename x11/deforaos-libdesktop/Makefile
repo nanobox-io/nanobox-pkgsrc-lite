@@ -1,22 +1,36 @@
-# $NetBSD: Makefile,v 1.14 2014/05/05 00:48:27 ryoon Exp $
+# $NetBSD: Makefile,v 1.22 2016/02/22 11:52:39 khorben Exp $
 #
 
-DISTNAME=	libDesktop-0.1.0
-PKGNAME=	deforaos-libdesktop-0.1.0
-PKGREVISION=	3
+DISTNAME=	libDesktop-0.2.1
+PKGNAME=	deforaos-libdesktop-0.2.1
+PKGREVISION=	1
 CATEGORIES=	x11
-MASTER_SITES=	http://www.defora.org/os/download/download/4318/
+MASTER_SITES=	http://www.defora.org/os/download/download/4394/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
 COMMENT=	DeforaOS desktop library
 
-LICENSE=	gnu-gpl-v3
+LICENSE=	2-clause-bsd
 
 USE_TOOLS+=	pkg-config
 
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	PREFIX=${PREFIX}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
+AUTO_MKDIRS=	yes
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${PKGMANDIR} != "share/man"
+post-install:
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/widget.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/widget.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/man1/widget.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/widget.1
+	${RMDIR} ${DESTDIR}${PREFIX}/share/man/html1
+	${RMDIR} ${DESTDIR}${PREFIX}/share/man/man1
+	${RMDIR} ${DESTDIR}${PREFIX}/share/man
+.endif
 
 .include "../../devel/deforaos-libsystem/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gtk-doc+=	gtk-doc>=1.20

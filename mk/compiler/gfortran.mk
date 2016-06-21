@@ -1,4 +1,4 @@
-# $NetBSD: gfortran.mk,v 1.5 2015/01/27 04:53:46 dbj Exp $
+# $NetBSD: gfortran.mk,v 1.8 2015/11/25 13:05:47 jperkin Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -68,8 +68,7 @@ _USE_GFORTRAN=	YES
 .endif
 
 .if !empty(_USE_GFORTRAN:M[yY][eE][sS])
-EVAL_PREFIX+=		_GFORTRANBASE=gfortran
-_GFORTRANBASE_DEFAULT=	${LOCALBASE}/gcc48
+_GFORTRANBASE=	${LOCALBASE}/gcc48
 FC=		gfortran
 
 _GFORTRAN_DIR=	${WRKDIR}/.gfortran
@@ -90,6 +89,7 @@ PREPEND_PATH+=	${_GFORTRAN_DIR}/bin
 .  endif
 
 # Add the dependency on gfortran.
+BUILDLINK_DEPMETHOD.gcc48=	full
 .  include "../../lang/gcc48/buildlink3.mk"
 
 .  if defined(GFORTRAN_DIR) && !empty(GFORTRAN_DIR)

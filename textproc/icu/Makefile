@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.96 2015/03/06 14:43:15 spz Exp $
+# $NetBSD: Makefile,v 1.103 2016/02/13 20:41:58 bsiegert Exp $
 
-DISTNAME=	icu4c-54_1-src
+DISTNAME=	icu4c-56_1-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	http://download.icu-project.org/files/icu4c/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tgz
@@ -32,7 +32,7 @@ CONFIGURE_ARGS+=	--disable-threads
 
 # from ICU_CHECK_MH_FRAG in source/acinclude.m4
 .if ${OPSYS} == "SunOS"
-.  if !empty(CC_VERSION:Mgcc*)
+.  if ${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc"
 PLIST_SUBST+=		MH_NAME=mh-solaris-gcc
 .  else
 PLIST_SUBST+=		MH_NAME=mh-solaris
@@ -57,7 +57,7 @@ PLIST_SUBST+=		MH_NAME=mh-linux-va
 PLIST_SUBST+=		MH_NAME=mh-linux
 .elif ${OPSYS} == "Cygwin"
 PLIST_SUBST+=		MH_NAME=mh-cygwin
-.elif !empty(OPSYS:M*BSD*) || ${OPSYS} == "DragonFly"
+.elif !empty(OPSYS:M*BSD*) || ${OPSYS} == "DragonFly" || ${OPSYS} == "Bitrig"
 PLIST_SUBST+=		MH_NAME=mh-bsd-gcc
 .elif ${OPSYS} == "AIX"
 .  if !empty(CC_VERSION:Mgcc*)
@@ -91,7 +91,7 @@ PLIST_SUBST+=		MH_NAME=mh-qnx
 PLIST_SUBST+=		MH_NAME=mh-unknown
 .endif
 
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "Cygwin"
+.if ${OPSYS} == "Cygwin"
 INSTALL_UNSTRIPPED=	yes
 .endif
 

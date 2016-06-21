@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.361 2015/03/14 17:37:19 sevan Exp $
+# $NetBSD: bsd.prefs.mk,v 1.382 2016/03/17 16:02:23 jperkin Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -27,7 +27,7 @@
 #	directory. Typical values look like editors/emacs or
 #	misc/openoffice-bin.
 #
-# Keywords: mk.conf user
+# Keywords: mk.conf user platform
 #
 
 .if !defined(BSD_PKG_MK)
@@ -94,6 +94,7 @@ GNU_ARCH.aarch64eb?=	aarch64_be
 GNU_ARCH.coldfire?=	m5407
 GNU_ARCH.arm26?=	arm
 GNU_ARCH.arm32?=	arm
+GNU_ARCH.amd64?=	x86_64
 GNU_ARCH.earm?=		arm
 GNU_ARCH.earmhf?=	arm
 GNU_ARCH.earmeb?=	armeb
@@ -127,13 +128,6 @@ MACHINE_GNU_ARCH?=		${GNU_ARCH.${MACHINE_ARCH}:U${MACHINE_ARCH}}
 LOWER_OPSYS?=		netbsd
 
 .elif ${OPSYS} == "AIX"
-LOWER_ARCH!=		_cpuid=`/usr/sbin/lsdev -C -c processor -S available | sed 1q | awk '{ print $$1 }'`; \
-			if /usr/sbin/lsattr -El $$_cpuid | grep ' POWER' >/dev/null 2>&1; then \
-				echo rs6000; \
-			else \
-				echo powerpc; \
-			fi
-MACHINE_ARCH?=		${LOWER_ARCH}
 .  if exists(/usr/bin/oslevel)
 _OS_VERSION!=		/usr/bin/oslevel
 .  else
@@ -147,65 +141,32 @@ LOWER_VENDOR?=		ibm
 .elif ${OPSYS} == "BSDOS"
 LOWER_OPSYS?=		bsdi
 
+.elif ${OPSYS} == "Bitrig"
+LOWER_OPSYS?= 		bitrig
+LOWER_VENDOR?= 		unknown
+
 .elif ${OPSYS} == "Cygwin"
 LOWER_OPSYS?=		cygwin
 LOWER_VENDOR?=		pc
-.  if !defined(LOWER_ARCH)
-LOWER_ARCH!=		${UNAME} -m | sed -e 's/i.86/i386/'
-.  endif # !defined(LOWER_ARCH)
 _OS_VERSION!=		${UNAME} -r
 OS_VERSION=		${_OS_VERSION:C/\(.*\)//}
 OS_VARIANT!=		${UNAME} -s
 
 .elif ${OPSYS} == "Darwin"
 LOWER_OPSYS?=		darwin
-.if empty(OS_VERSION:M[1-9].*.*)
-# Automatically select the ABI under Mac OS X Snow Leopard. We don't
-# use this at the moment because too many third party programs don't
-# work with it.
-#
-# _SYSCTL_HW_OPTIONAL_X86_64!=	/usr/sbin/sysctl -n hw.optional.x86_64
-# .  if ${_SYSCTL_HW_OPTIONAL_X86_64} == "1"
-# ABI=			64
-# .else
-# ABI=			32
-#.  endif
-ABI=			32
-LOWER_ARCH.32=		i386
-LOWER_ARCH.64=		x86_64
-LOWER_ARCH=		${LOWER_ARCH.${ABI}}
-.else
-LOWER_ARCH!=		${UNAME} -p
-.endif
-MACHINE_ARCH=		${LOWER_ARCH}
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
 LOWER_OPSYS_VERSUFFIX=	${LOWER_OS_VERSION:C/([0-9]*).*/\1/}
 LOWER_VENDOR?=		apple
 
 .elif ${OPSYS} == "DragonFly"
 OS_VERSION:=		${OS_VERSION:C/-.*$//}
 LOWER_OPSYS?=		dragonfly
-LOWER_ARCH!=		${UNAME} -p
-.  if ${LOWER_ARCH} == "amd64"
-MACHINE_ARCH=		x86_64
-.  else
-MACHINE_ARCH=		${LOWER_ARCH}
-.  endif
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
 LOWER_VENDOR?=		pc
 
 .elif ${OPSYS} == "FreeBSD"
 OS_VERSION:=		${OS_VERSION:C/-.*$//}
 LOWER_OPSYS?=		freebsd
-LOWER_ARCH!=		${UNAME} -p
-.  if ${LOWER_ARCH} == "amd64"
-MACHINE_ARCH=		x86_64
-.  else
-MACHINE_ARCH=		${LOWER_ARCH}
-.  endif
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
 LOWER_OPSYS_VERSUFFIX=	${LOWER_OS_VERSION:C/([0-9]*).*/\1/}
-.  if ${LOWER_ARCH} == "i386"
+.  if ${MACHINE_ARCH} == "i386"
 LOWER_VENDOR?=		pc
 .  endif
 LOWER_VENDOR?=		unknown
@@ -236,13 +197,9 @@ OS_VERSION=		3.0
 LOWER_OPSYS?=		mirbsd
 LOWER_OS_VERSION=	${OS_VERSION}
 LOWER_OPSYS_VERSUFFIX=	${OS_VERSION}
-LOWER_ARCH!=		arch -s
 LOWER_VENDOR?=		unknown
-MACHINE_ARCH=		${LOWER_ARCH}
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
 
 .elif !empty(OPSYS:MIRIX*)
-LOWER_ARCH!=		${UNAME} -p
 LOWER_OPSYS?=		irix
 LOWER_OPSYS_VERSUFFIX?=	${OS_VERSION}
 LOWER_VENDOR?=		sgi
@@ -250,11 +207,6 @@ LOWER_VENDOR?=		sgi
 .elif ${OPSYS} == "Linux"
 OS_VERSION:=		${OS_VERSION:C/-.*$//}
 LOWER_OPSYS?=		linux
-.  if !defined(LOWER_ARCH)
-LOWER_ARCH!=		${UNAME} -m | sed -e 's/i.86/i386/' -e 's/ppc/powerpc/'
-.  endif # !defined(LOWER_ARCH)
-MACHINE_ARCH=		${LOWER_ARCH}
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
 .  if exists(/etc/debian_version)
 LOWER_VENDOR?=		debian
 .  elif exists(/etc/mandrake-release)
@@ -265,15 +217,19 @@ LOWER_VENDOR?=		redhat
 LOWER_VENDOR?=		slackware
 .  elif exists(/etc/ssdlinux_version)
 LOWER_VENDOR?=		ssd
-.  elif ${LOWER_ARCH} == "i386"
+.  elif ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 LOWER_VENDOR?=          pc
 .  endif
 LOWER_VENDOR?=          unknown
+.  if !defined(HOST_MACHINE_ARCH)
+HOST_MACHINE_ARCH!=	${UNAME} -m
+MAKEFLAGS+=		HOST_MACHINE_ARCH=${HOST_MACHINE_ARCH:Q}
+.  endif
+
+.elif ${OPSYS} == "OpenBSD"
+LOWER_OPSYS?= 		openbsd
 
 .elif ${OPSYS} == "OSF1"
-LOWER_ARCH!=		${UNAME} -p
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
-MACHINE_ARCH?=		${LOWER_ARCH}
 OS_VERSION:=		${OS_VERSION:C/^V//}
 LOWER_OPSYS?=		osf1
 LOWER_OPSYS_VERSUFFIX?=	${OS_VERSION}
@@ -281,41 +237,32 @@ LOWER_VENDOR?=		dec
 
 .elif ${OPSYS} == "HPUX"
 OS_VERSION:=		${OS_VERSION:C/^B.//}
-.if ${MACHINE_ARCH} == "9000"
-MACHINE_ARCH=		hppa
-.endif
 LOWER_OPSYS?=		hpux
 LOWER_OPSYS_VERSUFFIX?=	${OS_VERSION}
 LOWER_VENDOR?=		hp
 
 .elif ${OPSYS} == "SunOS"
-ABI?=			32
-.  if ${MACHINE_ARCH} == "sparc"
-SPARC_TARGET_ARCH?=	sparcv7
-.  elif ${MACHINE_ARCH} == "sun4"
-MACHINE_ARCH=		sparc
-SPARC_TARGET_ARCH?=	sparcv7
-.  elif ${MACHINE_ARCH} == "i86pc" || ${MACHINE_ARCH} == "i86xpv" || ${MACHINE_ARCH} == "i386"
-LOWER_ARCH.32=		i386
-LOWER_ARCH.64=		x86_64
-LOWER_ARCH=		${LOWER_ARCH.${ABI}}
-MACHINE_ARCH=		${LOWER_ARCH}
-.  elif ${MACHINE_ARCH} == "unknown"
-.    if !defined(LOWER_ARCH)
-LOWER_ARCH!=		${UNAME} -p
-.    endif	# !defined(LOWER_ARCH)
-MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
-.  endif
 LOWER_VENDOR?=		sun
 LOWER_OPSYS?=		solaris
 LOWER_OPSYS_VERSUFFIX=	2.${OS_VERSION:C/5.//}
+# XXX: Required for multiarch, there's no good workaround.  Building bmake as
+# USE_MULTIARCH=bin and setting _MAKE accordingly still results in failures.
+MACHINE_ARCH.32=	i386
+MACHINE_ARCH.64=	x86_64
+MACHINE_ARCH=		${MACHINE_ARCH.${ABI}}
 _UNAME_V!=		${UNAME} -v
 .  if !empty(_UNAME_V:Mjoyent_*)
 OS_VARIANT=		SmartOS
-.  elif !empty(_UNAME_V:Mpagoda-*)
-OS_VARIANT=		SmartOS
+LOWER_VARIANT_VERSION=	${_UNAME_V:C/joyent_//}
+.  elif !empty(_UNAME_V:Mpagoda_*)
+OS_VARIANT=     SmartOS
+LOWER_VARIANT_VERSION=  ${_UNAME_V:C/pagoda_//}
 .  elif !empty(_UNAME_V:Momnios-*)
 OS_VARIANT=		OmniOS
+LOWER_VARIANT_VERSION!=	/usr/bin/awk '{ print $$3; exit 0; }' /etc/release
+.  else
+OS_VARIANT=		Solaris
+LOWER_VARIANT_VERSION=	${_UNAME_V}
 .  endif
 
 .elif ${OPSYS} == "SCO_SV"
@@ -347,12 +294,8 @@ LOWER_OS_VERSION:=	${OS_VERSION:tl}
 MAKEFLAGS+=		LOWER_OPSYS=${LOWER_OPSYS:Q}
 
 LOWER_VENDOR?=			# empty ("arch--opsys")
-LOWER_ARCH?=			${MACHINE_GNU_ARCH}
-# Expand now as MACHINE_ARCH can be overriden in mk.conf and
-# LOWER_ARCH is typically derived from it.
-NATIVE_LOWER_ARCH:=		${LOWER_ARCH}
-NATIVE_MACHINE_ARCH:=		${MACHINE_ARCH}
 
+NATIVE_MACHINE_ARCH:=		${MACHINE_ARCH}
 NATIVE_MACHINE_PLATFORM?=	${OPSYS}-${OS_VERSION}-${NATIVE_MACHINE_ARCH}
 MACHINE_PLATFORM?=		${OPSYS}-${OS_VERSION}-${MACHINE_ARCH}
 NATIVE_MACHINE_GNU_PLATFORM?=	${NATIVE_MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${NATIVE_APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}${NATIVE_APPEND_ABI}
@@ -379,28 +322,6 @@ PKGPATH?=		${.CURDIR:C|.*/([^/]*/[^/]*)$|\1|}
 # Load the settings from MAKECONF, which is /etc/mk.conf by default.
 .include <bsd.own.mk>
 
-# /usr/share/mk/bsd.own.mk on NetBSD 1.3 does not define OBJECT_FMT
-.if !empty(MACHINE_PLATFORM:MNetBSD-1.3*)
-.  if ${MACHINE_ARCH} == "alpha" || \
-      ${MACHINE_ARCH} == "mipsel" || ${MACHINE_ARCH} == "mipseb" || \
-      ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64"
-OBJECT_FMT?=		ELF
-.  else
-OBJECT_FMT?=		a.out
-.  endif
-# override what bootstrap-pkgsrc sets, which isn't right for NetBSD
-# 1.4.
-# XXX other ELF platforms in 1.4 need to be added to here.
-.elif !empty(MACHINE_PLATFORM:MNetBSD-1.4*)
-.  if ${MACHINE_ARCH} == "alpha" || \
-      ${MACHINE_ARCH} == "mipsel" || ${MACHINE_ARCH} == "mipseb" || \
-      ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64"
-OBJECT_FMT=		ELF
-.  else
-OBJECT_FMT=		a.out
-.  endif
-.endif
-
 .if ${OPSYS} == "OpenBSD"
 .  if defined(ELF_TOOLCHAIN) && ${ELF_TOOLCHAIN} == "yes"
 OBJECT_FMT?=	ELF
@@ -414,14 +335,19 @@ OBJECT_FMT=	ELF
 .elif ${OPSYS} == "MirBSD"
 OBJECT_FMT=	ELF
 MKPROFILE=	no
+.elif ${OPSYS} == "Linux"
+OBJECT_FMT=	ELF
 .elif ${OPSYS} == "AIX"
 OBJECT_FMT=	XCOFF
 .elif ${OPSYS} == "OSF1"
 OBJECT_FMT=	ECOFF
 .elif ${OPSYS} == "HPUX"
-.  if ${MACHINE_ARCH} == "ia64" || (defined(ABI) && ${ABI} == "64")
+.  if ${MACHINE_ARCH} == "ia64"
 OBJECT_FMT=	ELF
-.  else
+.  elif ${MACHINE_ARCH} == "hppa64"
+# it is ELF but for most purposes behaves like SOM (.sl suffix, ...)
+OBJECT_FMT=	SOM
+.  else # hppa
 OBJECT_FMT=	SOM
 .  endif
 .elif ${OPSYS} == "Cygwin"
@@ -479,6 +405,8 @@ DISTFILES=		# none
 PLIST_SRC=		# none
 CHECK_PERMS=		no
 USE_LANGUAGES=		# empty
+WRKSRC=			${WRKDIR}
+
 do-patch:
 	@${DO_NADA}
 do-install:
@@ -524,6 +452,7 @@ _MAKE_CLEAN_AS_ROOT=	no
 _MAKE_INSTALL_AS_ROOT=	no
 .  endif
 .else
+PKG_FAIL_REASON+=	"USE_DESTDIR=no is no longer supported."
 DESTDIR=
 .endif
 
@@ -646,8 +575,6 @@ CROSSBASE?=	${LOCALBASE}/cross
 X11BASE=		${LOCALBASE}
 .endif
 
-X11PREFIX=		${LOCALBASE}
-
 # Default directory for font encodings
 .if ${X11_TYPE} == "modular"
 X11_ENCODINGSDIR?=	${X11BASE}/share/fonts/X11/encodings
@@ -694,12 +621,6 @@ COMPILER_RPATH_FLAG?=	${_COMPILER_RPATH_FLAG}
 COMPILER_INCLUDE_DIRS?=	${_OPSYS_INCLUDE_DIRS:U/usr/include}
 COMPILER_LIB_DIRS?=	${_OPSYS_LIB_DIRS:U/usr/lib${LIBABISUFFIX} /lib${LIBABISUFFIX}}
 SYSTEM_DEFAULT_RPATH?=	${_OPSYS_SYSTEM_RPATH:U/usr/lib}
-
-# WHOLE_ARCHIVE_FLAG and NO_WHOLE_ARCHIVE_FLAG publically export the
-# linker flags to extract all symbols from a static archive.
-#
-WHOLE_ARCHIVE_FLAG?=	${_OPSYS_WHOLE_ARCHIVE_FLAG}
-NO_WHOLE_ARCHIVE_FLAG?=	${_OPSYS_NO_WHOLE_ARCHIVE_FLAG}
 
 USE_TOOLS?=	# empty
 
@@ -793,6 +714,37 @@ PREPEND_PATH+=		${LOCALBASE}/bin
 INIT_SYSTEM?=		rc.d
 _BUILD_DEFS+=		INIT_SYSTEM
 
+_PKGSRC_MKPIE=	no
+.if (${PKGSRC_MKPIE:tl} == "yes") && \
+    (${_OPSYS_SUPPORTS_MKPIE:Uno} == "yes")
+_PKGSRC_MKPIE=	yes
+.endif
+
+_PKGSRC_USE_FORTIFY=	no
+.if (${PKGSRC_USE_FORTIFY:tl} == "yes") && \
+    (${_OPSYS_SUPPORTS_FORTIFY:Uno} == "yes")
+_PKGSRC_USE_FORTIFY=	yes
+.endif
+
+_PKGSRC_USE_RELRO=	no
+.if (${PKGSRC_USE_RELRO:tl} == "yes") && \
+    (${_OPSYS_SUPPORTS_RELRO:Uno} == "yes")
+_PKGSRC_USE_RELRO=	yes
+.endif
+
+_PKGSRC_USE_SSP=	no
+.if (${PKGSRC_USE_SSP:tl} != "no") && \
+    (${_OPSYS_SUPPORTS_SSP:Uno} == "yes")
+_PKGSRC_USE_SSP=	yes
+.endif
+
+# Enable cwrappers if requested unless we're building the wrappers themselves.
+.if ${USE_CWRAPPERS:tl} != "no" && empty(PKGPATH:Mpkgtools/cwrappers)
+_USE_CWRAPPERS=		yes
+.else
+_USE_CWRAPPERS=		no
+.endif
+
 # Wrapper framework definitions
 .include "wrapper/wrapper-defs.mk"
 
@@ -823,13 +775,13 @@ _SYS_VARS.dirs=		WRKDIR DESTDIR PKG_SYSCONFBASEDIR
 
 # List of 64bit operating systems with sizeof(int) != sizeof(void *).
 # This can be used with BROKEN_ON_PLATFORM for software that is not
-# 64bit clean. The "amd64" case is for OpenBSD.
+# 64bit clean.
 #
 # Keywords: BROKEN_ON_PLATFORM 64bit
 #
 LP64PLATFORMS=		*-*-aarch64 *-*-aarch64eb *-*-alpha *-*-ia64 \
 			*-*-mips64eb *-*-mips64el *-*-powerpc64 *-*-riscv64 \
-			*-*-sparc64 *-*-x86_64 *-*-amd64
+			*-*-sparc64 *-*-x86_64
 
 # Lists of big-endian and little-endian platforms, to be used with
 # BROKEN_ON_PLATFORM.
@@ -839,7 +791,7 @@ LP64PLATFORMS=		*-*-aarch64 *-*-aarch64eb *-*-alpha *-*-ia64 \
 _BIGENDIANCPUS=		coldfire hppa m68000 m68k mips64eb mipseb or1k \
 			powerpc powerpc64 sh3eb sparc sparc64
 _LITTLEENDIANCPUS=	alpha i386 ia64 mips64el mipsel riscv32 riscv64 \
-			sh3el vax x86_64 amd64
+			sh3el vax x86_64
 
 # piles of ARM variants
 _ARMCPUS+=		arm earm earmhf earmv4 earmv5 earmv6 earmv6hf

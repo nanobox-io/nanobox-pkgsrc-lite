@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2015/03/10 16:26:09 taca Exp $
+# $NetBSD: Makefile,v 1.22 2015/09/27 06:41:06 taca Exp $
 #
 
 DISTNAME=	wxruby-2.0.1
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	x11
 MASTER_SITES=	# http://rubyforge.org/frs/download.php/63379/
 
@@ -12,8 +12,6 @@ COMMENT=	Cross-platform GUI library for creating desktop applications
 LICENSE=	mit
 
 BUILD_DEPENDS+=	${RUBY_PKGPREFIX}-redcloth>=4.2.0:../../textproc/ruby-redcloth
-
-RUBY_VERSION_SUPPORTED= 193
 
 BUILD_TARGET=		default html_docs
 USE_RAKE=		YES

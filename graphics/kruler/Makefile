@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2014/11/13 20:06:29 markd Exp $
+# $NetBSD: Makefile,v 1.29 2016/03/05 11:28:39 jperkin Exp $
 
 DISTNAME=	kruler-${_KDE_VERSION}
+PKGREVISION=	3
 CATEGORIES=	graphics
 COMMENT=	KDE screen ruler
 

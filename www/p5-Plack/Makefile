@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.33 2014/10/24 12:05:33 wen Exp $
+# $NetBSD: Makefile,v 1.39 2015/12/09 13:52:45 wen Exp $
 
-DISTNAME=	Plack-1.0033
+DISTNAME=	Plack-1.0039
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Plack/}
@@ -17,15 +17,17 @@ DEPENDS+=	p5-URI>=1.59:../../www/p5-URI
 DEPENDS+=	p5-File-ShareDir>=1.00:../../devel/p5-File-ShareDir
 DEPENDS+=	p5-File-ShareDir-Install>=0.04:../../devel/p5-File-ShareDir-Install
 DEPENDS+=	p5-Try-Tiny-[0-9]*:../../devel/p5-Try-Tiny
-DEPENDS+=	{perl>=5.10.1,p5-parent-[0-9]*}:../../devel/p5-parent
+#DEPENDS+=	{perl>=5.10.1,p5-parent-[0-9]*}:../../devel/p5-parent
 DEPENDS+=	p5-Devel-StackTrace>=1.23:../../devel/p5-Devel-StackTrace
 DEPENDS+=	p5-Devel-StackTrace-AsHTML>=0.11:../../devel/p5-Devel-StackTrace-AsHTML
 DEPENDS+=	p5-Filesys-Notify-Simple-[0-9]*:../../devel/p5-Filesys-Notify-Simple
 DEPENDS+=	p5-Hash-MultiValue>=0.05:../../devel/p5-Hash-MultiValue
 DEPENDS+=	p5-HTTP-Body>=1.06:../../www/p5-HTTP-Body
-DEPENDS+=	p5-Test-TCP>=0.11:../../net/p5-Test-TCP
+DEPENDS+=	p5-Test-TCP>=2.00:../../net/p5-Test-TCP
 DEPENDS+=	p5-Stream-Buffered>=0.02:../../devel/p5-Stream-Buffered
 DEPENDS+=	p5-Apache-LogFormat-Compiler>=0.12:../../www/p5-Apache-LogFormat-Compiler
+DEPENDS+=	p5-Cookie-Baker>=0.05:../../www/p5-Cookie-Baker
+DEPENDS+=	p5-HTTP-Headers-Fast>=0.18:../../www/p5-HTTP-Headers-Fast
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST= auto/Plack/.packlist

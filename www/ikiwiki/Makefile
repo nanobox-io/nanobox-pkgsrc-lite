@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.132 2015/03/30 11:32:49 schmonz Exp $
+# $NetBSD: Makefile,v 1.138 2016/03/06 19:30:06 schmonz Exp $
 #
 
-DISTNAME=		ikiwiki_3.20150329
+DISTNAME=		ikiwiki_3.20160121
 PKGNAME=		${DISTNAME:S/_/-/}
 CATEGORIES=		www textproc
 MASTER_SITES=		${MASTER_SITE_DEBIAN:=pool/main/i/ikiwiki/}
@@ -34,14 +34,11 @@ DEPENDS+=		p5-File-MimeInfo-[0-9]*:../../devel/p5-File-MimeInfo
 DEPENDS+=		p5-gettext-[0-9]*:../../devel/p5-gettext
 DEPENDS+=		p5-YAML-LibYAML-[0-9]*:../../textproc/p5-YAML-LibYAML
 
-WRKSRC=			${WRKDIR}/${PKGBASE}
+WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 PERL5_PACKLIST=		auto/IkiWiki/.packlist
 USE_LANGUAGES=		c
 USE_TOOLS+=		gmake msgfmt perl:run xgettext
 
-REPLACE_PERL+=		IkiWiki/Plugin/calendar.pm
-# find . -type f -print | \
-# perl -ne 'open(F, "<$_"); $l=<F>; print if $l =~ m|^#!/usr/bin/perl|'
 REPLACE_PYTHON+=	plugins/proxy.py plugins/pythondemo plugins/rst
 
 BUILD_TARGET=		extra_build all
@@ -61,6 +58,11 @@ CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 #SPECIAL_PERMS+=		${PREFIX}/bin/ikiwiki-update-wikilist ...
 
 TEST_TARGET=		test
+
+maintainer-find-default-perl-shebangs-not-substed:
+	cd ${WRKSRC} && \
+	find . -type f -print | \
+	perl -ne 'open(F, "<$$_"); $$l=<F>; print if $$l =~ m|^#!/usr/bin/perl|'
 
 .include "options.mk"
 

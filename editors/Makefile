@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.167 2014/12/06 20:41:36 prlw1 Exp $
+# $NetBSD: Makefile,v 1.171 2016/03/12 12:05:37 tnn Exp $
 #
 
 COMMENT=	Editors
@@ -6,7 +6,6 @@ COMMENT=	Editors
 SUBDIR+=	OmegaT
 SUBDIR+=	Sigil
 SUBDIR+=	TeXmacs
-SUBDIR+=	TeXmacs-devel
 SUBDIR+=	abiword
 SUBDIR+=	abiword-plugins
 SUBDIR+=	beav
@@ -54,6 +53,7 @@ SUBDIR+=	gobby
 SUBDIR+=	gtranslator
 SUBDIR+=	gummi
 SUBDIR+=	heme
+SUBDIR+=	hexcurse
 SUBDIR+=	hexedit
 SUBDIR+=	hnb
 SUBDIR+=	javascript-mode
@@ -136,6 +136,7 @@ SUBDIR+=	ted-pl
 SUBDIR+=	ted-pt
 SUBDIR+=	ted-sv
 SUBDIR+=	texmaker
+SUBDIR+=	texstudio
 SUBDIR+=	texworks
 SUBDIR+=	tomboy
 SUBDIR+=	tweak
@@ -162,6 +163,7 @@ SUBDIR+=	xjed
 SUBDIR+=	xournal
 SUBDIR+=	xvile
 SUBDIR+=	xwpe
+SUBDIR+=	yed
 SUBDIR+=	yudit
 SUBDIR+=	zile
 SUBDIR+=	zim

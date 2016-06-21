@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2015/03/14 13:56:49 tnn Exp $
+# $NetBSD: Makefile,v 1.25 2016/02/26 10:24:11 jperkin Exp $
 
 DISTNAME=		cdbkup-1.0
-PKGREVISION=		10
+PKGREVISION=		11
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=cdbkup/}
 
@@ -29,9 +29,7 @@ CDBKUP_SNARDIR?=	/var/db/${PKGBASE}
 CDBKUP_DUMPGRP?=	operator
 .endif
 
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ENV+=		MOUNT=/sbin/mount UMOUNT=/sbin/umount
-.endif
+CONFIGURE_ENV.NetBSD+=	MOUNT=/sbin/mount UMOUNT=/sbin/umount
 
 CONFIGURE_ARGS+=	--with-snardir=${CDBKUP_SNARDIR:Q} \
 			--with-dumpgrp=${CDBKUP_DUMPGRP:Q}

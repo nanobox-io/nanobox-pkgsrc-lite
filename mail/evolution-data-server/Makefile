@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.148 2014/10/07 16:47:12 adam Exp $
+# $NetBSD: Makefile,v 1.157 2016/03/05 11:28:48 jperkin Exp $
 
 DISTNAME=	evolution-data-server-2.32.3
-PKGREVISION=	33
+PKGREVISION=	39
 CATEGORIES=	mail gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-data-server/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -35,9 +35,7 @@ LIBS+=		-lsemaphore
 BUILDLINK_TRANSFORM+=   rm:-Wl,--no-undefined
 .endif
 
-.if ${OPSYS} == "Darwin"
-CPPFLAGS+=	-DBIND_8_COMPAT
-.endif
+CPPFLAGS.Darwin+=	-DBIND_8_COMPAT
 
 .if !empty(PKGSRC_COMPILER:Msunpro)
 CFLAGS.SunOS+=	-D__FUNCTION__=__func__
@@ -73,9 +71,10 @@ BUILDLINK_TRANSFORM+=	rm:-ldl
 .include "../../devel/libgweather/buildlink3.mk"
 .include "../../devel/nss/buildlink3.mk"
 .include "../../lang/python/application.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../net/ORBit2/buildlink3.mk"
-.include "../../net/libgdata/buildlink3.mk"
+.include "../../net/libgdata0.6/buildlink3.mk"
+.include "../../security/libgnome-keyring/buildlink3.mk"
 .include "../../textproc/gtk-doc/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libical+=	libical>=0.43

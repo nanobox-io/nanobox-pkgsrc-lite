@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.4 2014/12/10 05:46:00 dholland Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/07 05:53:29 dholland Exp $
 
-DISTNAME=	sys161-1.99.10
+DISTNAME=	sys161-2.0.8
 CATEGORIES=	emulators
-MASTER_SITES=	http://www.eecs.harvard.edu/~dholland/os161/download/
+MASTER_SITES=	http://os161.eecs.harvard.edu/download/
 
 MAINTAINER=	dholland@NetBSD.org
-HOMEPAGE=	http://www.eecs.harvard.edu/~dholland/os161/\#sys161
+HOMEPAGE=	http://os161.eecs.harvard.edu/\#sys161
 COMMENT=	System/161 MIPS emulator
 LICENSE=	modified-bsd
 
 HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--prefix=${DESTDIR}${PREFIX} mipseb
+CONFIGURE_ARGS+=	--destdir=${DESTDIR} --prefix=${PREFIX} mipseb
 
 .include "../../mk/bsd.pkg.mk"

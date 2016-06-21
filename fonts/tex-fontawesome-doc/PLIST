@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2015/08/02 12:43:51 markd Exp $
+share/texmf-dist/doc/fonts/fontawesome/README
+share/texmf-dist/doc/fonts/fontawesome/README.md
+share/texmf-dist/doc/fonts/fontawesome/fontawesome.pdf
+share/texmf-dist/doc/fonts/fontawesome/fontawesome.tex

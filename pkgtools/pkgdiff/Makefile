@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.86 2015/02/03 22:50:27 abs Exp $
+# $NetBSD: Makefile,v 1.90 2016/02/10 16:00:10 wiz Exp $
 
-PKGNAME=	pkgdiff-1.6
+PKGNAME=	pkgdiff-1.8
 CATEGORIES=	pkgtools devel
 
 MAINTAINER=	wiz@NetBSD.org
@@ -26,9 +26,6 @@ DIFF?=		${PREFIX}/bin/gdiff
 .else
 DIFF?=		diff
 .endif
-.if ${OPSYS} == "SunOS"
-MANINSTALL=	catinstall
-.endif
 
 INSTALLATION_DIRS=	bin
 .if !empty(MANINSTALL:Mcatinstall)
@@ -38,11 +35,13 @@ INSTALLATION_DIRS+=	${PKGMANDIR}/cat1
 INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 .endif
 
+PKGDIFF_MAKE?=	${MAKE}
+
 do-build:
 .for f in mkpatches patchdiff
 	${SED}	-e 's|@PREFIX@|${PREFIX}|g'		\
 		-e 's|@PERL5@|${PERL5}|g'		\
-		-e 's|@MAKE@|${MAKE}|g'			\
+		-e 's|@MAKE@|${PKGDIFF_MAKE}|g'		\
 		< ${FILESDIR}/${f}.pl			\
 		> ${WRKSRC}/${f}
 .endfor

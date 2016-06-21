@@ -1,25 +1,35 @@
-# $NetBSD: Makefile,v 1.4 2015/03/09 09:18:03 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2016/02/21 23:54:28 leot Exp $
 
-DISTNAME=	mitmproxy-0.11.3
+DISTNAME=	mitmproxy-0.16
 CATEGORIES=	net
-MASTER_SITES=	http://mitmproxy.org/download/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=mitmproxy/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://mitmproxy.org/
 COMMENT=	Interactive console program for inspecting and editing traffic flows
 LICENSE=	mit
 
-DEPENDS+=	${PYPKGPREFIX}-asn1>=0.1.2:../../security/py-asn1
-DEPENDS+=	${PYPKGPREFIX}-tornado>=4.0.2:../../www/py-tornado
-DEPENDS+=	${PYPKGPREFIX}-Pillow>=2.3.0:../../graphics/py-Pillow
-DEPENDS+=	${PYPKGPREFIX}-lxml>=3.3.6:../../textproc/py-lxml
-DEPENDS+=	${PYPKGPREFIX}-netlib>=0.11:../../net/py-netlib
-DEPENDS+=	${PYPKGPREFIX}-OpenSSL>=0.14:../../security/py-OpenSSL
-DEPENDS+=	${PYPKGPREFIX}-urwid>=1.1:../../devel/py-urwid
-DEPENDS+=	${PYPKGPREFIX}-configargparse>=0.9.3:../../devel/py-configargparse
+DEPENDS+=	${PYPKGPREFIX}-Pillow>=3.1:../../graphics/py-Pillow
+DEPENDS+=	${PYPKGPREFIX}-blinker>=1.4:../../devel/py-blinker
+DEPENDS+=	${PYPKGPREFIX}-certifi>=2015.9.6.2:../../security/py-certifi
+DEPENDS+=	${PYPKGPREFIX}-click>=6.2:../../devel/py-click
+DEPENDS+=	${PYPKGPREFIX}-configargparse>=0.10.0:../../devel/py-configargparse
+DEPENDS+=	${PYPKGPREFIX}-construct>=2.5.2:../../devel/py-construct
+DEPENDS+=	${PYPKGPREFIX}-enum34>=1.0.4:../../devel/py-enum34
+DEPENDS+=	${PYPKGPREFIX}-h2>=2.1.0:../../www/py-h2
+DEPENDS+=	${PYPKGPREFIX}-html2text>=2015.11.4:../../textproc/py-html2text
+DEPENDS+=	${PYPKGPREFIX}-lxml>=3.5.0:../../textproc/py-lxml
+DEPENDS+=	${PYPKGPREFIX}-netlib>=0.15:../../net/py-netlib
+DEPENDS+=	${PYPKGPREFIX}-pyparsing>=2.1:../../devel/py-pyparsing
+DEPENDS+=	${PYPKGPREFIX}-pyperclip>=1.5.22:../../x11/py-pyperclip
+DEPENDS+=	${PYPKGPREFIX}-six>=1.10:../../lang/py-six
+DEPENDS+=	${PYPKGPREFIX}-tornado>=4.3.0:../../www/py-tornado
+DEPENDS+=	${PYPKGPREFIX}-urwid>=1.3.1:../../devel/py-urwid
+DEPENDS+=	${PYPKGPREFIX}-watchdog>=0.8.3:../../sysutils/py-watchdog
 
-USE_LANGUAGES=	# none
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-netlib
+USE_LANGUAGES=			# none
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-netlib
 
 REPLACE_PYTHON=	libmproxy/contrib/*.py libmproxy/contrib/wbxml/*.py
 

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2015/01/28 04:58:05 mef Exp $
+# $NetBSD: Makefile,v 1.15 2015/07/12 18:56:11 wiz Exp $
 
 DISTNAME=	Config-Std-0.901
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/B/BR/BRICKER/}
 
@@ -11,7 +12,7 @@ COMMENT=	Perl 5 module providing a simple configuration-file system
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Class-Std-[0-9]*:../../devel/p5-Class-Std
-DEPENDS+=	{perl>=5.9.0,p5-version-[0-9]*}:../../devel/p5-version
+#DEPENDS+=	{perl>=5.9.0,p5-version-[0-9]*}:../../devel/p5-version
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Config/Std/.packlist

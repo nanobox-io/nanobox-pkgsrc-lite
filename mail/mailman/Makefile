@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.74 2014/12/31 14:09:36 wiz Exp $
+# $NetBSD: Makefile,v 1.77 2015/12/05 21:25:48 adam Exp $
 
-DISTNAME=	mailman-2.1.18-1
-PKGNAME=	mailman-2.1.18.1
-PKGREVISION=	1
+DISTNAME=	mailman-2.1.20
+PKGNAME=	mailman-2.1.20
 CATEGORIES=	mail www
-MASTER_SITES=	http://launchpad.net/mailman/2.1/2.1.18-1/+download/
+MASTER_SITES=	http://launchpad.net/mailman/2.1/2.1.20/+download/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -13,8 +12,6 @@ COMMENT=	The GNU Mailing List Manager
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	${PYPKGPREFIX}-dns-[0-9]*:../../net/py-dns
-
-PKG_DESTDIR_SUPPORT=	destdir
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -71,7 +68,7 @@ RCD_SCRIPTS=		mailman
 INSTALL_TEMPLATES+=	${FILESDIR}/INSTALL
 DEINSTALL_TEMPLATES+=	${FILESDIR}/DEINSTALL
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.1.14.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.1.14.1
 REPLACE_PYTHON+=	Mailman/Archiver/pipermail.py
 REPLACE_PYTHON+=	Mailman/Post.py
 REPLACE_PYTHON+=	bin/msgfmt.py
@@ -100,16 +97,17 @@ SUBST_SED.paths+=	-e 's,@EXECDIR@,${EXECDIR},g'
 SUBST_SED.paths+=	-e 's,@MAILMAN_DATADIR@,${MAILMAN_DATADIR},g'
 SUBST_STAGE.paths=	post-patch
 
+DOCFILELIST=	ACKNOWLEDGMENTS BUGS FAQ INSTALL NEWS README \
+		README-I18N.en README.CONTRIB README.NETSCAPE \
+		README.USERAGENT STYLEGUIDE.txt TODO UPGRADING
+
 # mailman depends a lot on it and will bitch if changed.
 CHECK_PERMS=	no
 
 REPLACE_PYTHON+=	cron/senddigests tests/fblast.py tests/onebounce.py
 
-# for readme.sr:
-# https://bugs.launchpad.net/mailman/+bug/1360616
 post-extract:
 	${CP} ${FILESDIR}/mailman.conf.dist ${WRKDIR}/mailman.conf.dist
-	cd ${WRKSRC} && mv messages/sr/readme.sr messages/sr/README.sr
 
 post-patch:
 	${RM} -f ${WRKSRC}/[A-Z]*.orig
@@ -120,7 +118,7 @@ pre-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${EXECDIR}/support
 
 post-install:
-	cd ${WRKSRC} && for i in [A-IN-U]*; do \
+	cd ${WRKSRC} && for i in ${DOCFILELIST}; do \
 		${INSTALL_DATA} $$i ${DESTDIR}${DOCDIR}/; \
 	done
 	cd ${WRKSRC}/doc && for i in \

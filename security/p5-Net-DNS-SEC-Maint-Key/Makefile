@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2014/10/09 13:44:56 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2015/07/12 18:56:28 wiz Exp $
 #
 
 DISTNAME=		Net-DNS-SEC-Maint-Key-0.013
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		7
+PKGREVISION=		8
 CATEGORIES=		security net perl5
 MASTER_SITES=		http://www.ripe.net/disi/dnssec_maint_tool/
 
@@ -15,7 +15,7 @@ DEPENDS+=		p5-Net-DNS>=0.44:../../net/p5-Net-DNS
 DEPENDS+=		p5-Net-DNS-SEC>=0.12:../../security/p5-Net-DNS-SEC
 DEPENDS+=		p5-IO-LockedFile-[0-9]*:../../devel/p5-IO-LockedFile
 DEPENDS+=		p5-Log-Log4perl-[0-9]*:../../devel/p5-Log-Log4perl
-DEPENDS+=		{perl>=5.17.10,p5-Term-ReadLine>=1.12}:../../devel/p5-Term-ReadLine
+#DEPENDS+=		{perl>=5.17.10,p5-Term-ReadLine>=1.12}:../../devel/p5-Term-ReadLine
 
 PERL5_PACKLIST=		auto/Net/DNS/SEC/Maint/Key/.packlist
 

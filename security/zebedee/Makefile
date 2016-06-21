@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2014/05/29 23:37:26 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2016/03/05 11:29:27 jperkin Exp $
 
 DISTNAME=	zebedee-2.5.3
-PKGREVISION=	9
+PKGREVISION=	11
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=zebedee/}
 
@@ -13,12 +13,8 @@ USE_TOOLS+=		gmake perl tclsh:run
 
 MAKE_ENV+=		PERL5=${PERL5:Q}
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Darwin"
-MAKE_FLAGS+=		OS=macosx
-.else
-MAKE_FLAGS+=		OS=${LOWER_OPSYS:Q}
-.endif
+MAKE_FLAGS.Darwin+=	OS=macosx
+MAKE_FLAGS.*+=		OS=${LOWER_OPSYS:Q}
 
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing tclsh paths.
@@ -35,5 +31,4 @@ PTHREAD_CFLAGS+=  -DHAVE_PTHREADS
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
-
 .include "../../mk/bsd.pkg.mk"

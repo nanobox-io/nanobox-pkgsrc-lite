@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.11 2014/11/23 16:40:10 taca Exp $
+@comment $NetBSD: PLIST,v 1.14 2016/02/25 15:15:57 taca Exp $
 share/doc/drupal/CHANGELOG.txt
 share/doc/drupal/COPYRIGHT.txt
 share/doc/drupal/INSTALL.mysql.txt
@@ -570,6 +570,8 @@ share/drupal/modules/search/tests/search_embedded_form.info
 share/drupal/modules/search/tests/search_embedded_form.module
 share/drupal/modules/search/tests/search_extra_type.info
 share/drupal/modules/search/tests/search_extra_type.module
+share/drupal/modules/search/tests/search_node_tags.info
+share/drupal/modules/search/tests/search_node_tags.module
 share/drupal/modules/shortcut/shortcut-rtl.css
 share/drupal/modules/shortcut/shortcut.admin.css
 share/drupal/modules/shortcut/shortcut.admin.inc
@@ -601,6 +603,7 @@ share/drupal/modules/simpletest/files/html-1.txt
 share/drupal/modules/simpletest/files/html-2.html
 share/drupal/modules/simpletest/files/image-1.png
 share/drupal/modules/simpletest/files/image-2.jpg
+share/drupal/modules/simpletest/files/image-test-transparent-out-of-range.gif
 share/drupal/modules/simpletest/files/image-test.gif
 share/drupal/modules/simpletest/files/image-test.jpg
 share/drupal/modules/simpletest/files/image-test.png
@@ -619,6 +622,7 @@ share/drupal/modules/simpletest/simpletest.js
 share/drupal/modules/simpletest/simpletest.module
 share/drupal/modules/simpletest/simpletest.pages.inc
 share/drupal/modules/simpletest/simpletest.test
+share/drupal/modules/simpletest/src/Tests/PSR4WebTest.php
 share/drupal/modules/simpletest/tests/actions.test
 share/drupal/modules/simpletest/tests/actions_loop_test.info
 share/drupal/modules/simpletest/tests/actions_loop_test.install
@@ -632,6 +636,11 @@ share/drupal/modules/simpletest/tests/batch.test
 share/drupal/modules/simpletest/tests/batch_test.callbacks.inc
 share/drupal/modules/simpletest/tests/batch_test.info
 share/drupal/modules/simpletest/tests/batch_test.module
+share/drupal/modules/simpletest/tests/boot.test
+share/drupal/modules/simpletest/tests/boot_test_1.info
+share/drupal/modules/simpletest/tests/boot_test_1.module
+share/drupal/modules/simpletest/tests/boot_test_2.info
+share/drupal/modules/simpletest/tests/boot_test_2.module
 share/drupal/modules/simpletest/tests/bootstrap.test
 share/drupal/modules/simpletest/tests/cache.test
 share/drupal/modules/simpletest/tests/common.test
@@ -646,6 +655,11 @@ share/drupal/modules/simpletest/tests/database_test.info
 share/drupal/modules/simpletest/tests/database_test.install
 share/drupal/modules/simpletest/tests/database_test.module
 share/drupal/modules/simpletest/tests/database_test.test
+share/drupal/modules/simpletest/tests/drupal_autoload_test/drupal_autoload_test.info
+share/drupal/modules/simpletest/tests/drupal_autoload_test/drupal_autoload_test.module
+share/drupal/modules/simpletest/tests/drupal_autoload_test/drupal_autoload_test_class.inc
+share/drupal/modules/simpletest/tests/drupal_autoload_test/drupal_autoload_test_interface.inc
+share/drupal/modules/simpletest/tests/drupal_autoload_test/drupal_autoload_test_trait.sh
 share/drupal/modules/simpletest/tests/drupal_system_listing_compatible_test/drupal_system_listing_compatible_test.info
 share/drupal/modules/simpletest/tests/drupal_system_listing_compatible_test/drupal_system_listing_compatible_test.module
 share/drupal/modules/simpletest/tests/drupal_system_listing_incompatible_test/drupal_system_listing_incompatible_test.info
@@ -687,6 +701,7 @@ share/drupal/modules/simpletest/tests/menu_test.info
 share/drupal/modules/simpletest/tests/menu_test.module
 share/drupal/modules/simpletest/tests/module.test
 share/drupal/modules/simpletest/tests/module_test.file.inc
+share/drupal/modules/simpletest/tests/module_test.implementations.inc
 share/drupal/modules/simpletest/tests/module_test.info
 share/drupal/modules/simpletest/tests/module_test.install
 share/drupal/modules/simpletest/tests/module_test.module
@@ -699,6 +714,10 @@ share/drupal/modules/simpletest/tests/psr_0_test/lib/Drupal/psr_0_test/Tests/Exa
 share/drupal/modules/simpletest/tests/psr_0_test/lib/Drupal/psr_0_test/Tests/Nested/NestedExampleTest.php
 share/drupal/modules/simpletest/tests/psr_0_test/psr_0_test.info
 share/drupal/modules/simpletest/tests/psr_0_test/psr_0_test.module
+share/drupal/modules/simpletest/tests/psr_4_test/psr_4_test.info
+share/drupal/modules/simpletest/tests/psr_4_test/psr_4_test.module
+share/drupal/modules/simpletest/tests/psr_4_test/src/Tests/ExampleTest.php
+share/drupal/modules/simpletest/tests/psr_4_test/src/Tests/Nested/NestedExampleTest.php
 share/drupal/modules/simpletest/tests/registry.test
 share/drupal/modules/simpletest/tests/requirements1_test.info
 share/drupal/modules/simpletest/tests/requirements1_test.install
@@ -720,6 +739,8 @@ share/drupal/modules/simpletest/tests/system_incompatible_module_version_depende
 share/drupal/modules/simpletest/tests/system_incompatible_module_version_dependencies_test.module
 share/drupal/modules/simpletest/tests/system_incompatible_module_version_test.info
 share/drupal/modules/simpletest/tests/system_incompatible_module_version_test.module
+share/drupal/modules/simpletest/tests/system_project_namespace_test.info
+share/drupal/modules/simpletest/tests/system_project_namespace_test.module
 share/drupal/modules/simpletest/tests/system_test.info
 share/drupal/modules/simpletest/tests/system_test.module
 share/drupal/modules/simpletest/tests/tablesort.test
@@ -840,6 +861,8 @@ share/drupal/modules/system/system.tokens.inc
 share/drupal/modules/system/system.updater.inc
 share/drupal/modules/system/tests/cron_queue_test.info
 share/drupal/modules/system/tests/cron_queue_test.module
+share/drupal/modules/system/tests/system_cron_test.info
+share/drupal/modules/system/tests/system_cron_test.module
 share/drupal/modules/system/theme.api.php
 share/drupal/modules/taxonomy/taxonomy-term.tpl.php
 share/drupal/modules/taxonomy/taxonomy.admin.inc
@@ -931,6 +954,7 @@ share/drupal/modules/user/user.pages.inc
 share/drupal/modules/user/user.permissions.js
 share/drupal/modules/user/user.test
 share/drupal/modules/user/user.tokens.inc
+share/drupal/profiles/README.txt
 share/drupal/profiles/minimal/minimal.info
 share/drupal/profiles/minimal/minimal.install
 share/drupal/profiles/minimal/minimal.profile
@@ -1068,4 +1092,3 @@ share/drupal/update.php
 share/drupal/xmlrpc.php
 share/examples/drupal/default.settings.php
 share/examples/drupal/drupal.conf
-@pkgdir share/drupal/files

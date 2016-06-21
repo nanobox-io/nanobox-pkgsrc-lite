@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2014/05/09 07:36:53 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2016/02/25 10:15:45 jperkin Exp $
 
 DISTNAME=		Csound${CSOUND_VERSION}
 PKGNAME=		csound5-${CSOUND_VERSION}
+PKGREVISION=		1
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=csound/csound5/csound5.19/}
 WRKSRC=			${WRKDIR}/Csound${CSOUND_VERSION}
@@ -26,20 +27,16 @@ SCONS_ARGS+=		buildInterfaces=0
 # Has long files our tar doesn't understand.
 EXTRACT_USING=		gtar
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 5.01
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 5.01
 
 INSTALLATION_DIRS=	bin
 
 CHECK_PORTABILITY_SKIP+=	installer/misc/makedeb.sh
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES+=		strip
+SUBST_CLASSES.SunOS+=	strip
 SUBST_STAGE.strip=	pre-build
 SUBST_FILES.strip=	install.py installer/misc/mkpackage.py
 SUBST_SED.strip=	-e 's/--strip-unneeded//g'
-.endif
 
 do-build:
 	cd ${WRKSRC} && ${TOOLS_PATH.bison} -d -o frontends/beats/beats.tab.c frontends/beats/beats.y

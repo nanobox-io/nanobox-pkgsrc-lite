@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.16 2014/11/13 12:06:45 markd Exp $
+# $NetBSD: Makefile,v 1.20 2016/03/05 11:28:59 jperkin Exp $
 
-DISTNAME=	audiocd-kio-${_KDE_VERSION}
+DISTNAME=	audiocd-kio-15.12.0
+PKGREVISION=	1
 CATEGORIES=	multimedia
 COMMENT=	Kioslave for accessing audio CDs
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

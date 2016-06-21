@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.80 2014/02/12 23:17:37 tron Exp $
+# $NetBSD: Makefile,v 1.83 2016/03/05 11:28:09 jperkin Exp $
 
 DISTNAME=	psi-0.15
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	chat
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=psi/}
 EXTRACT_SUFX=	.tar.bz2
@@ -14,7 +14,7 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=	qca2-ossl>=2.0.0beta3:../../security/qca2-ossl
 
 DIST_SUBDIR=	${DISTNAME}
-DISTFILES=	${DEFAULT_DISTFILES} ${LANG_FILES}
+DISTFILES=	${DEFAULT_DISTFILES}
 
 USE_TOOLS+=	gmake unzip pkg-config
 USE_LANGUAGES=	c c++
@@ -31,8 +31,8 @@ CONFIGURE_ARGS+=	--with-qca-lib=${BUILDLINK_PREFIX.qca2}/lib
 CONFIGURE_ARGS+=	--with-qca-inc=${BUILDLINK_PREFIX.qca2}/include
 
 #
-# a group of scripts that aren't to be installed, and aren't
-# used by the pkgsrc system.  But they all have the non-standard
+# a group of scripts that aren't to be installed, and aren't used
+# by the pkgsrc system.  But they all have the non-standard
 # "==" in them. (silly linux developers thinking [ bash = sh ].
 #
 CHECK_PORTABILITY_SKIP=	    admin/build/devconfig.sh \
@@ -56,7 +56,8 @@ INSTALL_MAKE_FLAGS=	INSTALL_ROOT=${DESTDIR}
 # 	    psi_uk.qm psi_ur_PK.qm psi_vi.qm psi_zh_CN.qm psi_zh_TW.qm
 
 .for f in ${LANG_FILES}
-    SITES.${f}=http://psi-im.org/download/lang/
+DISTFILES+=	${f}
+SITES.${f}=	http://psi-im.org/download/lang/
 .endfor
 
 post-install:

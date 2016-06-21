@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.44 2014/01/02 08:00:32 dholland Exp $
+# $NetBSD: Makefile,v 1.48 2016/02/25 16:30:31 jperkin Exp $
 
 DISTNAME=	nn-6.7.3
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	news
 MASTER_SITES=	ftp://ftp.nndev.org/pub/nn-6.7/
 EXTRACT_SUFX=	.tar.Z
@@ -14,27 +14,21 @@ PKG_SYSCONFSUBDIR=	nntp
 
 TOOL_DEPENDS+=	tradcpp-[0-9]*:../../devel/tradcpp
 
-.include "../../mk/bsd.prefs.mk"
-.include "../../mk/compiler.mk"
+CPPFLAGS.IRIX+=	-DHAVE_TERMIO_H
 
-.if ${OPSYS} == "SunOS"
-SFILE=		s-sunos5.h
-.elif ${OPSYS} == "Linux"
-SFILE=		s-linux.h
-.else
-SFILE=		s-netbsd.h
-.endif
+OPSYSVARS+=	SFILE
+SFILE.SunOS=	s-sunos5.h
+SFILE.Linux=	s-linux.h
+SFILE.*=	s-netbsd.h
+
+.include "../../mk/bsd.prefs.mk"
 
 .if ${MACHINE_ARCH} == "i386"
 MFILE=		m-i80386.h
 .elif ${MACHINE_ARCH} == "mipseb"
 MFILE=         m-mipsel.h
 .else
-MFILE=		m-${LOWER_ARCH}.h
-.endif
-
-.if ${OPSYS} == "IRIX"
-CPPFLAGS+=	-DHAVE_TERMIO_H
+MFILE=		m-${MACHINE_ARCH}.h
 .endif
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man8

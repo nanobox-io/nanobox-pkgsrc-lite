@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.98 2014/12/15 11:46:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.102 2016/02/26 10:32:47 jperkin Exp $
 
 DISTNAME=	libxslt-1.1.28
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	textproc
 MASTER_SITES=	ftp://xmlsoft.org/libxslt/ \
 		http://xmlsoft.org/sources/
@@ -10,6 +10,9 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://xmlsoft.org/XSLT/
 COMMENT=	XSLT parser library from the GNOME project
 LICENSE=	mit # with advertisement clause
+
+BUILD_DEPENDS+=	docbook-xml-[0-9]*:../../textproc/docbook-xml
+BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		bin lib
@@ -23,6 +26,8 @@ PKGCONFIG_OVERRIDE=	libxslt.pc.in
 PKGCONFIG_OVERRIDE+=	libexslt.pc.in
 TEST_TARGET=		check
 
+BUILDLINK_TRANSFORM.SunOS+=	opt:-Wl,./libxslt.syms:-Wl,./libxslt_solaris.syms
+
 .include "../../mk/bsd.prefs.mk"
 .if !empty(MACHINE_PLATFORM:MIRIX-5*)
 CPPFLAGS+=	-Dsocklen_t=int
@@ -30,10 +35,6 @@ CPPFLAGS+=	-Dsocklen_t=int
 
 post-extract:
 	cp ${WRKSRC}/libxslt/libxslt.syms ${WRKSRC}/libxslt/libxslt_solaris.syms
-
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	opt:-Wl,./libxslt.syms:-Wl,./libxslt_solaris.syms
-.endif
 
 BUILDLINK_API_DEPENDS.libxml2+=	libxml2>=2.6.27
 

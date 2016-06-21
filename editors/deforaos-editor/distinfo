@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.2 2014/04/08 02:10:29 khorben Exp $
+$NetBSD: distinfo,v 1.5 2016/02/21 19:12:19 khorben Exp $
 
-SHA1 (Editor-0.3.0.tar.gz) = 326a30cd425f89d96949fb29ccacdf33831ba718
-RMD160 (Editor-0.3.0.tar.gz) = 511c8f593bdd5e63f4cf9530cdf6a7d541f5e041
-Size (Editor-0.3.0.tar.gz) = 33801 bytes
+SHA1 (Editor-0.4.0.tar.gz) = e4e07093369bb2a3d8f2567b8c8134e5494877d1
+RMD160 (Editor-0.4.0.tar.gz) = b20151ab7bebcc1fe6f9941d9ebd1daf2792c0cf
+SHA512 (Editor-0.4.0.tar.gz) = c914c27e665550634830a193136e3ef254d2a151de53a7a3abf2fd61b9898aadfe7e749814063843418291ea7e3304dc8dbeefc5ef4aeb82161ec19a202746a3
+Size (Editor-0.4.0.tar.gz) = 25363 bytes

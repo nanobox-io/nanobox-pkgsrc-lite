@@ -289,27 +289,27 @@ CHECK-ADD)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following groups need to be created for ${PKGNAME}:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following groups need to be created for ${PKGNAME}:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
 		case $groupid in
-		"")	${ECHO} "	$group" ;;
-		*)	${ECHO} "	$group (gid = $groupid)"
-			${ECHO} ""
-			${ECHO} "If you wish to ignore this check and either re-use an existing '$group' group"
-			${ECHO} "or create a new one with a system-assigned gid then set"
-			${ECHO} ""
-			${ECHO} "	PKGINSTALL_IGNORE_UIDGID=yes"
-			${ECHO} ""
-			${ECHO} "in the environment."
+		"")	${ECHO} "	$group" > /dev/null ;;
+		*)	${ECHO} "	$group (gid = $groupid)" > /dev/null
+			${ECHO} "" > /dev/null
+			${ECHO} "If you wish to ignore this check and either re-use an existing '$group' group" > /dev/null
+			${ECHO} "or create a new one with a system-assigned gid then set" > /dev/null
+			${ECHO} "" > /dev/null
+			${ECHO} "	PKGINSTALL_IGNORE_UIDGID=yes" > /dev/null
+			${ECHO} "" > /dev/null
+			${ECHO} "in the environment." > /dev/null
 			;;
 		esac
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -336,29 +336,29 @@ CHECK-ADD)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following users need to be created for ${PKGNAME}:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following users need to be created for ${PKGNAME}:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
 		: ${home:="@PKG_USER_HOME@"}
 		: ${shell:="@PKG_USER_SHELL@"}
 		case $userid in
-		"")	${ECHO} "	$user: $group, $home, $shell" ;;
-		*)	${ECHO} "	$user (uid = $userid): $group, $home, $shell"
-			${ECHO} ""
-			${ECHO} "If you wish to ignore this check and either re-use an existing '$user' user"
-			${ECHO} "or create a new one with a system-assigned uid then set"
-			${ECHO} ""
-			${ECHO} "	PKGINSTALL_IGNORE_UIDGID=yes"
-			${ECHO} ""
-			${ECHO} "in the environment."
+		"")	${ECHO} "	$user: $group, $home, $shell" > /dev/null ;;
+		*)	${ECHO} "	$user (uid = $userid): $group, $home, $shell" > /dev/null
+			${ECHO} "" > /dev/null
+			${ECHO} "If you wish to ignore this check and either re-use an existing '$user' user" > /dev/null
+			${ECHO} "or create a new one with a system-assigned uid then set" > /dev/null
+			${ECHO} "" > /dev/null
+			${ECHO} "	PKGINSTALL_IGNORE_UIDGID=yes" > /dev/null
+			${ECHO} "" > /dev/null
+			${ECHO} "in the environment." > /dev/null
 			;;
 		esac
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -387,13 +387,13 @@ CHECK-REMOVE)
 	done
 	case $existing_users in
 	"")	;;
-	*)	${ECHO} "==========================================================================="
-		${ECHO} "The following users are no longer being used by ${PKGNAME},"
-		${ECHO} "and they can be removed if no other software is using them:"
-		${ECHO} ""
-		${ECHO} "$existing_users" | listwrap 40
-		${ECHO} ""
-		${ECHO} "==========================================================================="
+	*)	${ECHO} "===========================================================================" > /dev/null
+		${ECHO} "The following users are no longer being used by ${PKGNAME}," > /dev/null
+		${ECHO} "and they can be removed if no other software is using them:" > /dev/null
+		${ECHO} "" > /dev/null
+		${ECHO} "$existing_users" | listwrap 40 > /dev/null
+		${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -418,13 +418,13 @@ CHECK-REMOVE)
 	done
 	case $existing_groups in
 	"")	;;
-	*)	${ECHO} "==========================================================================="
-		${ECHO} "The following groups are no longer being used by ${PKGNAME},"
-		${ECHO} "and they can be removed if no other software is using them:"
-		${ECHO} ""
-		${ECHO} "$existing_groups" | listwrap 40
-		${ECHO} ""
-		${ECHO} "==========================================================================="
+	*)	${ECHO} "===========================================================================" > /dev/null
+		${ECHO} "The following groups are no longer being used by ${PKGNAME}," > /dev/null
+		${ECHO} "and they can be removed if no other software is using them:" > /dev/null
+		${ECHO} "" > /dev/null
+		${ECHO} "$existing_groups" | listwrap 40 > /dev/null
+		${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }

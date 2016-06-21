@@ -1,9 +1,11 @@
-$NetBSD: distinfo,v 1.63 2015/01/23 15:06:44 joerg Exp $
+$NetBSD: distinfo,v 1.71 2016/02/19 21:57:42 jperkin Exp $
 
-SHA1 (R-3.1.1.tar.gz) = e974ecc92e49266529e8e791e02a80c75e50b696
-RMD160 (R-3.1.1.tar.gz) = 72e5d7a9ec4dc9c960321e7fc8d939cb59d63c31
-Size (R-3.1.1.tar.gz) = 28606569 bytes
-SHA1 (patch-ac) = 9c6de78be36766ceefa8aafa8a7b5d5af3f83cac
-SHA1 (patch-ad) = b40536fac079e2cc348a020fafac687f2f8b1dfe
+SHA1 (R-3.2.2.tar.gz) = 68c74db1c5a2f2040280a03b8396e4d28a5a7617
+RMD160 (R-3.2.2.tar.gz) = 0e8bf2ecca48f0f2433f6b07f422b7730a76fbb4
+SHA512 (R-3.2.2.tar.gz) = 71ba470875262b9f00fb6970f209788df4dad30e0a28373b824b60d8bc6401afb7786e65387663c6490c7ddcd2bfd7f808a270a3e63238f3d7565d5f93607138
+Size (R-3.2.2.tar.gz) = 29772864 bytes
+SHA1 (patch-ac) = b6fc368714a3c962d343d68dedda2347063b6c83
+SHA1 (patch-ad) = 0a08f293bc1cdc130047868e5d574c2df1f4c6cf
+SHA1 (patch-src_include_GraphicsBase.h) = 5f999e4d124afd38d5c7e18d936942f2c6f27c86
 SHA1 (patch-src_library_stats_src_Makefile.in) = b468becd011fa4828e50f5d13d700825655c89e8
-SHA1 (patch-src_main_character.c) = 29d302b4530bdc3b49afff6b10f94277e1a94b43
+SHA1 (patch-src_main_character.c) = bd6e9b5b633d86c913c98d9d87c66f982d1ca258

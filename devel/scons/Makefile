@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.27 2014/10/07 10:17:28 adam Exp $
+# $NetBSD: Makefile,v 1.31 2015/12/05 21:25:40 adam Exp $
 
-DISTNAME=	scons-2.3.4
+DISTNAME=	scons-2.4.1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=scons/}
 
@@ -11,8 +11,8 @@ LICENSE=	mit
 
 REPLACE_PYTHON+=	script/scons script/scons-time script/sconsign
 
-# not yet ported as of 2.3.0, but progress promised
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+# not yet ported as of 2.4.1, but progress promised
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"

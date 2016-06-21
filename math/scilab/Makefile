@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.95 2015/01/20 14:24:36 jaapb Exp $
+# $NetBSD: Makefile,v 1.100 2015/11/25 12:51:42 jperkin Exp $
 #
 
 DISTNAME=	${SCIBASE}-src
-PKGREVISION=	14
+PKGREVISION=	17
 PKGNAME=	${SCIBASE}
 CATEGORIES=	math
 MASTER_SITES=	http://www.scilab.org/download/4.1/
@@ -21,7 +21,6 @@ WRKSRC=		${WRKDIR}/${SCIBASE}
 BROKEN_ON_PLATFORM+=	${LP64PLATFORMS}
 
 USE_LANGUAGES=		c fortran77
-USE_X11BASE=		yes
 USE_LIBTOOL=		yes
 USE_TOOLS+=		tee
 
@@ -29,12 +28,10 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--without-local-xaw
 CONFIGURE_ARGS+=	--without-java
 
-EVAL_PREFIX+=		TCL_PREFIX=tcl
-EVAL_PREFIX+=		TK_PREFIX=tk
-CONFIGURE_ARGS+=	--with-tcl-library=${TCL_PREFIX}/lib
-CONFIGURE_ARGS+=	--with-tcl-include=${TCL_PREFIX}/include
-CONFIGURE_ARGS+=	--with-tk-library=${TK_PREFIX}/lib
-CONFIGURE_ARGS+=	--with-tk-include=${TK_PREFIX}/include
+CONFIGURE_ARGS+=	--with-tcl-library=${BUILDLINK_PREFIX.tcl}/lib
+CONFIGURE_ARGS+=	--with-tcl-include=${BUILDLINK_PREFIX.tcl}/include
+CONFIGURE_ARGS+=	--with-tk-library=${BUILDLINK_PREFIX.tk}/lib
+CONFIGURE_ARGS+=	--with-tk-include=${BUILDLINK_PREFIX.tk}/include
 CONFIGURE_ENV+=		TCL_CONFIG_SH=${BUILDLINK_PREFIX.tcl}/lib/tclConfig.sh
 CONFIGURE_ENV+=		TK_CONFIG_SH=${BUILDLINK_PREFIX.tk}/lib/tkConfig.sh
 CONFIGURE_ENV+=		CC_LDFLAGS=${X11_LDFLAGS:Q}\ ${COMPILER_RPATH_FLAG:Q}${BUILDLINK_PREFIX.tk:Q}/lib
@@ -150,5 +147,5 @@ CONFIGURE_ARGS+=	--without-ocaml
 .include "../../parallel/pvm3/buildlink3.mk"
 .include "../../textproc/sablotron/buildlink3.mk"
 .include "../../x11/tk/buildlink3.mk"
-.include "../../x11/Xaw3d/buildlink3.mk"
+.include "../../x11/libXaw3d/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

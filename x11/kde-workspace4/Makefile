@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.45 2015/02/27 21:15:48 markd Exp $
+# $NetBSD: Makefile,v 1.53 2016/03/12 11:28:37 ryoon Exp $
 
-DISTNAME=	kde-workspace-4.11.14
+DISTNAME=	kde-workspace-4.11.22
 PKGNAME=	${DISTNAME:S/-4/4-4/}
+PKGREVISION=	3
 CATEGORIES=	x11
 COMMENT=	Base workspace for the KDE 4 integrated X11 desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.08.0/src/}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 4.11.3
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 4.11.3
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
@@ -59,23 +61,16 @@ REPLACE_SH+=		libs/plasmagenericshell/widgetsexplorer/package/Messages.sh
 
 PY_PATCHPLIST=	yes
 
-PLIST_SUBST+=		KDE_VERSION=${_KDE_VERSION}
-
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
-PLIST_VARS+=	utempter noutempter
+PLIST_VARS+=	gles utempter noutempter
 .if ${OPSYS} == "Linux" && exists(/usr/include/utempter.h)
 PLIST.utempter=		yes
 .elif ${OPSYS} == "FreeBSD" && exists(/usr/include/utempter.h)
 PLIST.utempter=		yes
 .else
 PLIST.noutempter=	yes
-.endif
-
-PLIST_VARS+=	gles
-.if ${OPSYS} == "Linux" && exists(/usr/include/GLES2/gl2.h)
-PLIST.gles=		yes
 .endif
 
 .if ${OPSYS} == "Linux"
@@ -129,6 +124,7 @@ post-install:
                 kdmrc > ${WRKDIR}/kdmrc.ad;				\
 	${CP} -f ${WRKDIR}/kdmrc.ad kdmrc
 .endif
+	${RM} ${DESTDIR}${PREFIX}/share/icons/oxygen/*/mimetypes/fonts-package.png
 
 CFLAGS.SunOS+=	-D__EXTENSIONS__ -D__uint16_t=uint16_t
 LDFLAGS.SunOS+=	-lsocket
@@ -140,6 +136,12 @@ BUILDLINK_DEPMETHOD.qt4-tools=	full
 .include "../../lang/python/extension.mk"
 .include "../../devel/libusb/buildlink3.mk"
 .include "../../devel/qjson/buildlink3.mk"
+.include "../../graphics/MesaLib/buildlink3.mk"
+.if ${X11_TYPE} == "modular" && !empty(MESALIB_SUPPORTS_EGL:M[yY][eE][sS])
+PLIST.gles=	yes
+.elif exists(${X11BASE:Q}/include/GLES2/gl2.h)
+PLIST.gles=	yes
+.endif
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/qimageblitz/buildlink3.mk"
 .include "../../security/polkit-qt/buildlink3.mk"

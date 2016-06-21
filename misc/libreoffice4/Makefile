@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.64 2015/03/12 02:59:04 ryoon Exp $
+# $NetBSD: Makefile,v 1.90 2016/03/05 11:28:57 jperkin Exp $
 
-VERREL=		4.4.1
+VERREL=		4.4.7
 VERRC=		2
 VER=		${VERREL}.${VERRC}
 DISTNAME=	libreoffice-${VER}
@@ -69,7 +69,6 @@ MORE_DISTFILES= \
 	ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip \
 	b2371dc7cf4811c9d32146eec913d296-libcmis-0.3.0.tar.gz \
 	c3c1a8ba7452950636e871d25020ce0d-pt-serif-font-1.0000W.tar.gz \
-	46eb0e7f213ad61bd5dee0c494132cb0-libwps-0.2.9.tar.bz2 \
 	db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip \
 	d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip \
 	e7a384790b13c29113e22e596ade9687-LinLibertineG-20120116.zip \
@@ -129,13 +128,13 @@ HAS_CONFIGURE=		yes
 # Do not use /tmp, outside of WRKSRC.
 CONFIGURE_ENV+=		TMPDIR=${WRKSRC}/tmp
 
-.if defined(MAKE_JOBS_SAFE) && !empty(MAKE_JOBS_SAFE:M[nN][oO])
-CONFIGURE_ARGS+=	--with-parallelism=1
-.else
-# --with-parallelism conficts with -jN.
-MAKE_JOBS_SAFE=		no
+MAKE_JOBS_SAFE=		no # --with-parallelism conficts with -jN
+.if !empty(MAKE_JOBS)
 CONFIGURE_ARGS+=	--with-parallelism=${MAKE_JOBS}
+.else
+CONFIGURE_ARGS+=	--with-parallelism=1
 .endif
+
 
 CONFIGURE_ARGS+=	--prefix=${PREFIX}/${PKGNAME_NOREV}
 CONFIGURE_ARGS+=	--disable-ccache
@@ -191,6 +190,7 @@ REPLACE_PERL=	sd/res/webview/editpic.pl
 REPLACE_PERL+=	sd/res/webview/poll.pl
 REPLACE_PERL+=	sd/res/webview/savepic.pl
 REPLACE_PERL+=	sd/res/webview/show.pl
+REPLACE_PERL+=	sd/res/webview/webcast.pl
 
 LO_PROGRAMS=		sbase scalc sdraw simpress smath soffice swriter
 # Base depends on java, we don't install the icon
@@ -227,6 +227,14 @@ post-extract:
 	mkdir ${WRKSRC}/tmp
 #	mkdir ${WRKSRC}/${OBJDIR}
 
+.if !empty(PKG_OPTIONS:Mjava)
+CONFIGURE_ARGS+=	JAVADOC=${TOOLS_DIR}/bin/javadoc
+
+pre-configure:
+	printf '#!/bin/sh\nexec ${PKG_JAVA_HOME}/bin/javadoc -Xdoclint:none "$$@"' > ${TOOLS_DIR}/bin/javadoc
+	${CHMOD} a+x ${TOOLS_DIR}/bin/javadoc
+.endif
+
 do-install:
 	cd ${WRKSRC} && make DESTDIR="${DESTDIR}" PREFIXDIR="${PREFIX}" distro-pack-install
 # make install cleans ${DESTDIR}${PREFIX}/*, so bin etc. are removed.
@@ -255,9 +263,10 @@ do-install:
 .include "../../converters/libvisio/buildlink3.mk"
 .include "../../converters/libwpd/buildlink3.mk"
 .include "../../converters/libwpg/buildlink3.mk"
-.include "../../converters/libwps/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libwps+=	libwps<0.4.0
+.include "../../converters/libwps03/buildlink3.mk"
 .include "../../converters/libmwaw/buildlink3.mk"
-.include "../../converters/orcus/buildlink3.mk"
+.include "../../converters/orcus0.8/buildlink3.mk"
 .include "../../databases/db4/buildlink3.mk"
 .include "../../databases/openldap-client/buildlink3.mk"
 .include "../../databases/shared-mime-info/buildlink3.mk"

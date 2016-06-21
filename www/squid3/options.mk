@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.15 2015/01/22 09:32:49 obache Exp $
+# $NetBSD: options.mk,v 1.17 2016/02/26 10:57:46 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.squid
 PKG_SUPPORTED_OPTIONS=	inet6 snmp ssl squid-backend-aufs squid-backend-diskd \
@@ -11,7 +11,7 @@ PKG_OPTIONS_LEGACY_OPTS+=	diskd:squid-backend-diskd \
 	arp-acl:squid-arp-acl pam-helper:squid-pam-helper carp:squid-carp
 
 PLIST_VARS+=	diskd snmp unlinkd
-PLIST_VARS+=	ba_LDAP ba_NCSA ba_NIS ba_PAM ba_getpwnam
+PLIST_VARS+=	ba_LDAP ba_NCSA ba_PAM ba_getpwnam
 PLIST_VARS+=	da_file da_LDAP
 PLIST_VARS+=	na_sml_lm
 PLIST_VARS+=	ta_kerberos
@@ -42,14 +42,10 @@ PKG_SUPPORTED_OPTIONS+=	squid-pf
 PKG_SUGGESTED_OPTIONS+=	squid-ipf
 .endif
 
-.if ${OPSYS} == "OpenBSD"
-PKG_SUGGESTED_OPTIONS+=	squid-pf
-.endif
+PKG_SUGGESTED_OPTIONS.OpenBSD+=	squid-pf
 
-.if ${OPSYS} == "Darwin"
-PKG_SUPPORTED_OPTIONS+=	squid-ipfw
-PKG_SUGGESTED_OPTIONS+=	squid-ipfw
-.endif
+PKG_SUPPORTED_OPTIONS.Darwin+=	squid-ipfw
+PKG_SUGGESTED_OPTIONS.Darwin+=	squid-ipfw
 
 # limited platform support squid-arp-acl
 .if !empty(OPSYS:MFreeBSD) || !empty(OPSYS:MNetBSD) || !empty(OPSYS:MOpenBSD) || !empty(OPSYS:MLinux) || !empty(OPSYS:MSunOS)
@@ -59,7 +55,8 @@ PKG_SUPPORTED_OPTIONS+=	squid-arp-acl
 .include "../../mk/bsd.options.mk"
 
 SQUID_BACKENDS?=		ufs
-SQUID_BASIC_AUTH_HELPERS?=	NCSA NIS getpwnam
+# Note: NIS helper cannot be build; it requires crypt.h header file.
+SQUID_BASIC_AUTH_HELPERS?=	NCSA getpwnam
 SQUID_DIGEST_AUTH_HELPERS?=	file
 SQUID_NTLM_AUTH_HELPERS?=	fake smb_lm
 SQUID_EXTERNAL_ACL_HELPERS?=	file_userip unix_group

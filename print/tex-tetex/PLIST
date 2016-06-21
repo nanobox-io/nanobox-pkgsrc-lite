@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.8 2013/11/17 17:15:43 minskim Exp $
+@comment $NetBSD: PLIST,v 1.10 2015/07/01 10:49:05 markd Exp $
 bin/allcm
 bin/allec
 bin/allneeded
@@ -47,4 +47,5 @@ share/texmf-dist/fonts/map/dvips/tetex/dvips35.map
 share/texmf-dist/fonts/map/dvips/tetex/mathpple.map
 share/texmf-dist/fonts/map/dvips/tetex/pdftex35.map
 share/texmf-dist/fonts/map/dvips/tetex/ps2pk35.map
+share/texmf-dist/scripts/texlive/mktexlsr.pl
 share/texmf-dist/web2c/updmap.cfg

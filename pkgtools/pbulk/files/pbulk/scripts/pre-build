@@ -1,5 +1,5 @@
 #!@SH@
-# $NetBSD: pre-build,v 1.11 2012/11/23 12:13:35 joerg Exp $
+# $NetBSD: pre-build,v 1.14 2015/09/12 23:04:30 joerg Exp $
 #
 # Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
 # All rights reserved.
@@ -65,8 +65,15 @@ if [ -d "${bulklog}/meta" ]; then
 	sleep 5
 	if [ "${reuse_scan_results}" = yes -a -f "${bulklog}/meta/pscan" ]; then
 		echo "Reusing old scan results"
-		rm -rf "${bulklog}.old"
-		mv "${bulklog}" "${bulklog}.old"
+		rm -rf "${bulklog}.old" 2> /dev/null || true
+		if [ -d "${bulklog}.old" ]; then
+			rm -rf "${bulklog}.old"/* || true
+			find "${bulklog}" -maxdepth 1 -mindepth 1 ! -name meta -exec rm -rf {} \; || true
+			cp -pr "${bulklog}/." "${bulklog}.old/"
+			rm -rf "${bulklog}"/* || true
+		else
+			mv "${bulklog}" "${bulklog}.old"
+		fi
 	else
 		echo "Removing old scan results"
 		rm -rf "${bulklog}"/* || true

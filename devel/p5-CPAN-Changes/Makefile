@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2014/09/06 08:30:06 wen Exp $
+# $NetBSD: Makefile,v 1.5 2015/07/11 09:20:13 wen Exp $
 
-DISTNAME=	CPAN-Changes-0.30
+DISTNAME=	CPAN-Changes-0.400002
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/B/BR/BRICAS/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/H/HA/HAARG/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://metacpan.org/release/CPAN-Changes

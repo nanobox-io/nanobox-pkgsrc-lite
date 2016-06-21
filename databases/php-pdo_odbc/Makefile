@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2013/03/01 10:34:17 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2015/09/06 12:30:34 taca Exp $
 
 MODNAME=		pdo_odbc
 CATEGORIES+=		databases

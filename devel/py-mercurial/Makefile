@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2015/03/31 03:40:24 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/01/03 16:53:30 wiz Exp $
 
 DISTNAME=	mercurial-${VERSION}
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel scm
-MASTER_SITES=	http://mercurial.selenic.com/release/
+MASTER_SITES=	https://mercurial.selenic.com/release/
 
 MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://mercurial.selenic.com/
@@ -14,6 +14,7 @@ LICENSE=	gnu-gpl-v2 OR gnu-gpl-v3 # OR newer
 # http://bz.selenic.com/show_bug.cgi?id=4483
 # http://bz.selenic.com/show_bug.cgi?id=4485
 #BUILD_DEPENDS+=	unzip-[0-9]*:../../archivers/unzip
+DEPENDS+=	${PYPKGPREFIX}-curses-[0-9]*:../../devel/py-curses
 
 USE_TOOLS+=			gmake msgfmt
 

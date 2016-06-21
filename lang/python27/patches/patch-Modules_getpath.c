@@ -1,8 +1,8 @@
-$NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
+$NetBSD: patch-Modules_getpath.c,v 1.3 2015/04/24 03:01:36 rodent Exp $
 
 * from cygport 2.7.3-getpath-exe-extension.patch
 
---- Modules/getpath.c.orig	2014-06-30 02:05:43.000000000 +0000
+--- Modules/getpath.c.orig	2015-12-05 19:47:14.000000000 +0000
 +++ Modules/getpath.c
 @@ -118,7 +118,7 @@
  
@@ -13,7 +13,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
  #endif
  
  #ifndef LANDMARK
-@@ -331,7 +331,7 @@
+@@ -331,7 +331,7 @@ search_for_exec_prefix(char *argv0_path,
          else
              strncpy(exec_prefix, home, MAXPATHLEN);
          joinpath(exec_prefix, lib_python);
@@ -22,7 +22,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
          return 1;
      }
  
-@@ -348,7 +348,7 @@
+@@ -363,7 +363,7 @@ search_for_exec_prefix(char *argv0_path,
      do {
          n = strlen(exec_prefix);
          joinpath(exec_prefix, lib_python);
@@ -31,7 +31,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
          if (isdir(exec_prefix))
              return 1;
          exec_prefix[n] = '\0';
-@@ -358,7 +358,7 @@
+@@ -373,7 +373,7 @@ search_for_exec_prefix(char *argv0_path,
      /* Look at configure's EXEC_PREFIX */
      strncpy(exec_prefix, EXEC_PREFIX, MAXPATHLEN);
      joinpath(exec_prefix, lib_python);
@@ -40,7 +40,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
      if (isdir(exec_prefix))
          return 1;
  
-@@ -381,6 +381,7 @@
+@@ -396,6 +396,7 @@ calculate_path(void)
      char *prog = Py_GetProgramName();
      char argv0_path[MAXPATHLEN+1];
      char zip_path[MAXPATHLEN+1];
@@ -48,7 +48,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
      int pfound, efound; /* 1 if found; -1 if found build directory */
      char *buf;
      size_t bufsz;
-@@ -436,6 +436,28 @@ calculate_path(void)
+@@ -451,6 +452,28 @@ calculate_path(void)
                          if (isxfile(progpath))
                                  break;
  
@@ -77,7 +77,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
                          if (!delim) {
                                  progpath[0] = '\0';
                                  break;
-@@ -538,7 +539,7 @@
+@@ -553,7 +576,7 @@ calculate_path(void)
              fprintf(stderr,
                  "Could not find platform dependent libraries <exec_prefix>\n");
          strncpy(exec_prefix, EXEC_PREFIX, MAXPATHLEN);
@@ -86,7 +86,7 @@ $NetBSD: patch-Modules_getpath.c,v 1.2 2014/11/02 13:31:11 spz Exp $
      }
      /* If we found EXEC_PREFIX do *not* reduce it!  (Yet.) */
  
-@@ -649,6 +650,11 @@
+@@ -664,6 +687,11 @@ calculate_path(void)
          reduce(exec_prefix);
          reduce(exec_prefix);
          reduce(exec_prefix);

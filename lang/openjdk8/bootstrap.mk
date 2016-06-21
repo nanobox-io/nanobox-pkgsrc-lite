@@ -1,4 +1,4 @@
-# $NetBSD: bootstrap.mk,v 1.6 2015/03/06 12:11:54 tnn Exp $
+# $NetBSD: bootstrap.mk,v 1.9 2016/03/03 22:41:21 tnn Exp $
 #
 # This file contains a map of available binary bootstrap toolchains
 # and which kit to use for each supported platform.

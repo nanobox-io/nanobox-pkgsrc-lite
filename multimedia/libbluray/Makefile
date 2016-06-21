@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2015/01/31 21:45:30 adam Exp $
+# $NetBSD: Makefile,v 1.6 2015/12/08 13:21:23 adam Exp $
 
-DISTNAME=	libbluray-0.7.0
+DISTNAME=	libbluray-0.9.2
 CATEGORIES=	multimedia
 MASTER_SITES=	http://download.videolan.org/pub/videolan/libbluray/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2
@@ -13,6 +13,7 @@ LICENSE=	gnu-lgpl-v2.1
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-bdjava
 CONFIGURE_ARGS+=	--disable-optimizations
 PKGCONFIG_OVERRIDE+=	src/libbluray.pc.in
 

@@ -1,11 +1,21 @@
-$NetBSD: patch-configure,v 1.6 2014/10/07 16:09:53 adam Exp $
+$NetBSD: patch-configure,v 1.8 2015/10/09 23:15:34 ryoon Exp $
 
 Portability fix.
 Solaris seems to need -std=c99 with recent pkgsrc so keep it.
+Add support for Bitrig.
 
---- configure.orig	2014-10-03 16:18:36.000000000 +0000
+--- configure.orig	2015-10-08 04:00:24.000000000 +0000
 +++ configure
-@@ -5172,6 +5172,7 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -5174,7 +5174,7 @@ rm -f core conftest.err conftest.$ac_obj
+ 		*-*-cygwin) icu_cv_host_frag=mh-cygwin-msvc ;;
+ 		esac
+ 	fi ;;
+-*-*-*bsd*|*-*-dragonfly*) 	icu_cv_host_frag=mh-bsd-gcc ;;
++*-*-*bsd*|*-*-dragonfly*|*-*-bitrig*) 	icu_cv_host_frag=mh-bsd-gcc ;;
+ *-*-aix*)
+ 	if test "$GCC" = yes; then
+ 		icu_cv_host_frag=mh-aix-gcc
+@@ -5199,6 +5199,7 @@ rm -f core conftest.err conftest.$ac_obj
  *-dec-osf*) icu_cv_host_frag=mh-alpha-osf ;;
  *-*-nto*)	icu_cv_host_frag=mh-qnx ;;
  *-ncr-*)	icu_cv_host_frag=mh-mpras ;;
@@ -13,9 +23,9 @@ Solaris seems to need -std=c99 with recent pkgsrc so keep it.
  *) 		icu_cv_host_frag=mh-unknown ;;
  esac
  
-@@ -5682,6 +5683,29 @@ if test "x$ac_cv_header_elf_h" = "xyes";
-     CONFIG_CPPFLAGS="$CONFIG_CPPFLAGS -DU_HAVE_ELF_H=1";
+@@ -5736,6 +5737,29 @@ if test "x$plugins" = "xtrue"; then
  fi
+ 
  
 +# check if sys/atomic.h is present.
 +for ac_header in sys/atomic.h
@@ -42,8 +52,17 @@ Solaris seems to need -std=c99 with recent pkgsrc so keep it.
 +
  U_ENABLE_DYLOAD=1
  enable=yes
- { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable dynamic loading of plugins" >&5
-@@ -7691,13 +7715,13 @@ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable dynamic loading of plugins. Ignored if plugins disabled." >&5
+@@ -7729,7 +7753,7 @@ ICUDATA_CHAR=$U_ENDIAN_CHAR
+ case "${host}" in
+ 	*-*-solaris*) 	platform=U_SOLARIS ;;
+ 	*-*-linux*|*-*-gnu|*-*-k*bsd*-gnu|*-*-kopensolaris*-gnu)        platform=U_LINUX ;;
+-	*-*-*bsd*|*-*-dragonfly*) 	platform=U_BSD ;;
++	*-*-*bsd*|*-*-dragonfly*|*-*-bitrig*) 	platform=U_BSD ;;
+ 	*-*-aix*) 	platform=U_AIX ;;
+ 	*-*-hpux*) 	platform=U_HPUX ;;
+ 	*-apple-darwin*|*-apple-rhapsody*)	platform=U_DARWIN ;;
+@@ -7765,13 +7789,13 @@ fi
  # Now that we're done using CPPFLAGS etc. for tests, we can change it
  # for build.
  

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.25 2015/01/01 11:10:15 dholland Exp $
+# $NetBSD: Makefile,v 1.27 2016/02/25 15:26:55 jperkin Exp $
 
 DISTNAME=		xlispstat-3-52-20
 PKGNAME=		xlispstat-3.52.20
@@ -13,19 +13,13 @@ COMMENT=		Statistics/X11-based LISP interpreter
 MAKE_JOBS_SAFE=		no
 
 GNU_CONFIGURE=		yes
-USE_X11BASE=		yes
 
 BROKEN_ON_PLATFORM=	*-*-alpha	# core dumps
 
 BUILD_TARGET=		xlispstat
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-MAKE_ENV+=		CPPFLAGS=
-.endif
-
 MAKE_ENV+=		DISPLAY=	# Prevent 'Rejected connection'
+MAKE_ENV.SunOS+=	CPPFLAGS=
 
 BUILDLINK_DEPMETHOD.libXt?=	build
 

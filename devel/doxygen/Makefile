@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.120 2015/03/14 18:21:24 tnn Exp $
+# $NetBSD: Makefile,v 1.123 2016/02/25 12:12:47 jperkin Exp $
 
 DISTNAME=	doxygen-1.8.9.1.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.stack.nl/pub/users/dimitri/ \
 		http://ftp.stack.nl/pub/users/dimitri/
@@ -31,7 +31,7 @@ MAKE_FLAGS+=		MAN1DIR=${PKGMANDIR}/man1
 
 REPLACE_PERL=		tmake/bin/tmake
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.8.6
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.8.6
 
 # Case Insensitive or Case Sensitive File System
 PLIST_VARS+=		ci cs
@@ -69,9 +69,7 @@ PLIST.ci=		yes	# case-insensitive
 PLIST.cs=		yes	# case-sensitive
 .endif
 
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	-platform freebsd-g++
-.endif
+CONFIGURE_ARGS.DragonFly+=	-platform freebsd-g++
 
 LDFLAGS+=		${BUILDLINK_LDADD.iconv}
 

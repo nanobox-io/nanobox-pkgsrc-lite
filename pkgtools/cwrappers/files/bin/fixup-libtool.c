@@ -1,4 +1,4 @@
-/* $NetBSD: fixup-libtool.c,v 1.5 2015/03/18 15:05:36 jperkin Exp $ */
+/* $NetBSD: fixup-libtool.c,v 1.7 2015/04/19 14:30:07 jperkin Exp $ */
 
 /*-
  * Copyright (c) 2009 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -29,10 +29,11 @@
  * SUCH DAMAGE.
  */
 
+#include <nbcompat.h>
+#include <nbcompat/stdio.h>
 #include <sys/stat.h>
-#include <err.h>
+#include <nbcompat/err.h>
 #include <stdint.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -269,7 +270,7 @@ process_variable(FILE *output, const char *lafile, const char *line,
 	if (in_relink) {
 		command = strchr(line, ';');
 		if (command == NULL)
-			goto out;
+			errx(255, "Unrecognizable relink format");
 		++command;
 		fwrite(line, command - line, 1, output);
 		fprintf(output, " %s", exec_path);
@@ -303,7 +304,7 @@ process_variable(FILE *output, const char *lafile, const char *line,
 			break;
 		process_option(&opt, line, len, in_relink);
 	}
-out:
+
 	for (i = 0; i < LIBPATH_HASH; ++i) {
 		while ((arg = TAILQ_FIRST(opt.hashtab + i)) != NULL)
 			argument_unlink(opt.hashtab + i, &arg);

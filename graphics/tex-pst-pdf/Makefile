@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2013/04/24 10:16:08 sbd Exp $
+# $NetBSD: Makefile,v 1.5 2016/01/30 04:05:53 markd Exp $
 
 DISTNAME=	pst-pdf
 PKGNAME=	tex-${DISTNAME}-1.1v
@@ -7,6 +7,7 @@ PKGREVISION=	2
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Make PDF versions of graphics by processing between runs
+LICENSE=	lppl-1.3c
 
 CONFLICTS=	texlive-pdftools<2011
 DEPENDS+=	dvipsk-[0-9]*:../../print/dvipsk
@@ -20,10 +21,6 @@ DEPENDS+=	tex-pstricks-[0-9]*:../../graphics/tex-pstricks
 
 USE_TOOLS+=	gs:run
 
-EVAL_PREFIX+=	DVIPS_PREFIX=dvipsk
-EVAL_PREFIX+=	PS2PDF_PREFIX=ghostscript
-EVAL_PREFIX+=	LATEX_PREFIX=tex-latex-bin
-EVAL_PREFIX+=	PDFCROP_PREFIX=tex-pdfcrop
 USE_TOOLS+=	sed:run sh:run
 
 REPLACE_SH=	bin/ps4pdf
@@ -32,11 +29,11 @@ SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Setting paths to commands.
 SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	bin/ps4pdf
-SUBST_SED.paths+=	-e 's,@DVIPS@,${DVIPS_PREFIX}/bin/dvips,g'
-SUBST_SED.paths+=	-e 's,@LATEX@,${LATEX_PREFIX}/bin/latex,g'
-SUBST_SED.paths+=	-e 's,@PDFCROP@,${PDFCROP_PREFIX}/bin/pdfcrop,g'
-SUBST_SED.paths+=	-e 's,@PDFLATEX@,${LATEX_PREFIX}/bin/pdflatex,g'
-SUBST_SED.paths+=	-e 's,@PS2PDF@,${PS2PDF_PREFIX}/bin/ps2pdf,g'
+SUBST_SED.paths+=	-e 's,@DVIPS@,${LOCALBASE}/bin/dvips,g'
+SUBST_SED.paths+=	-e 's,@LATEX@,${LOCALBASE}/bin/latex,g'
+SUBST_SED.paths+=	-e 's,@PDFCROP@,${LOCALBASE}/bin/pdfcrop,g'
+SUBST_SED.paths+=	-e 's,@PDFLATEX@,${LOCALBASE}/bin/pdflatex,g'
+SUBST_SED.paths+=	-e 's,@PS2PDF@,${LOCALBASE}/bin/ps2pdf,g'
 SUBST_SED.paths+=	-e 's,@SED@,${TOOLS_PATH.sed},g'
 
 INSTALLATION_DIRS+=	bin

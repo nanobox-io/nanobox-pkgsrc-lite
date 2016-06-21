@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2014/08/24 15:30:43 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/01/05 21:36:38 joerg Exp $
 
 DISTNAME=		tuxpaint-config-0.0.13
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=tuxpaint/}
 
@@ -17,6 +17,9 @@ INSTALL_MAKE_FLAGS+=	PREFIX=${DESTDIR}${PREFIX}
 INSTALL_MAKE_FLAGS+=	MAN_PREFIX=${DESTDIR}${PREFIX}/${PKGMANDIR}
 MAKE_FLAGS+=		ARCH_LINKS=-lintl
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
+
+pre-build:
+	${MKDIR} ${WRKSRC}/trans
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../print/libpaper/buildlink3.mk"

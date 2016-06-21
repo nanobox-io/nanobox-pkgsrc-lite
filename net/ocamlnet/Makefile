@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2015/02/11 13:25:25 jaapb Exp $
+# $NetBSD: Makefile,v 1.27 2016/03/05 11:29:09 jperkin Exp $
 #
 
-DISTNAME=		ocamlnet-3.7.7
-PKGNAME=	${DISTNAME} # in order to avoid prefixing with ocaml-
+DISTNAME=		ocamlnet-4.0.4
+PKGREVISION=		1
 CATEGORIES=		net
 MASTER_SITES=		http://download.camlcity.org/download/
 
@@ -14,8 +14,8 @@ LICENSE=		zlib AND gnu-gpl-v2
 MAKE_JOBS_SAFE=	no
 
 HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	-without-nethttpd -without-rpc-auth-dh -disable-tcl \
-	-disable-apache -enable-pcre
+CONFIGURE_ARGS+=	-without-nethttpd -disable-tcl -disable-apache \
+			-enable-pcre -enable-zip
 USE_TOOLS+=		gmake
 BUILD_TARGET=		all
 OCAML_USE_FINDLIB=	yes
@@ -23,7 +23,7 @@ OCAML_USE_FINDLIB=	yes
 .include "../../mk/ocaml.mk"
 .include "../../mk/bsd.prefs.mk"
 
-PLIST_VARS+=		ssl xti
+PLIST_VARS+=		xti
 .if ${OCAML_USE_OPT_COMPILER} == "yes"
 BUILD_TARGET+=		opt
 .endif
@@ -33,4 +33,5 @@ PLIST.xti=		yes
 
 .include "options.mk"
 .include "../../devel/pcre-ocaml/buildlink3.mk"
+.include "../../archivers/ocaml-zip/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

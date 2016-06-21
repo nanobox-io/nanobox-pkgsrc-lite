@@ -1,4 +1,4 @@
-# $NetBSD: HPUX.mk,v 1.23 2013/09/04 15:14:45 jperkin Exp $
+# $NetBSD: HPUX.mk,v 1.26 2016/03/10 16:58:19 jperkin Exp $
 #
 # Variable definitions for the HP-UX operating system.
 
@@ -16,7 +16,7 @@ CPP_PRECOMP_FLAGS?=	# unset
 DEF_UMASK?=		0022
 EXPORT_SYMBOLS_LDFLAGS?=-Wl,-E	# add symbols to the dynamic symbol table
 MOTIF_TYPE_DEFAULT?=	motif	# default 2.0 compatible libs type
-NOLOGIN?=		/etc/nologin
+NOLOGIN?=		/usr/bin/false
 PKG_TOOLS_BIN?=		${LOCALBASE}/sbin
 ROOT_CMD?=		${SU} - root -c
 ROOT_USER?=		root
@@ -26,7 +26,7 @@ ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
 ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
 ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
 
-# Fix broken system headers by using pkgtools/posix_headers
+# Fix broken system headers by using pkgtools/compat_headers
 FIX_SYSTEM_HEADERS?=	yes
 
 _OPSYS_EMULDIR.hpux=	# empty
@@ -49,10 +49,6 @@ _OPSYS_SHLIB_TYPE=	${OBJECT_FMT}	# type of shared lib
 _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-b -V simple -z	# switch to patch(1) for backup suffix
 _USE_RPATH=		yes	# add rpath to LDFLAGS
-
-# flags passed to the linker to extract all symbols from static archives.
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,-tools2-HPUX-fixme
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,-tools3-HPUX-fixme
 
 DEFAULT_SERIAL_DEVICE?=	/dev/tty1p0
 SERIAL_DEVICES?=	/dev/tty0p0 \

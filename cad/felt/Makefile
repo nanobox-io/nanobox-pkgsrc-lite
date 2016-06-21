@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.37 2013/07/15 02:02:18 ryoon Exp $
+# $NetBSD: Makefile,v 1.40 2015/12/29 04:54:37 dholland Exp $
 
 DISTNAME=		felt-3.05.src
 PKGNAME=		felt-3.05
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		cad
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=felt/}
 DISTFILES=		felt-3.05.src.tar.gz felt-3.05.ps.gz
@@ -14,9 +14,15 @@ COMMENT=		Free system for introductory level finite element analysis
 EXTRACT_ONLY=		felt-3.05.src.tar.gz
 
 WRKSRC=			${WRKDIR}/FElt-3.05
-USE_X11BASE=		yes
 USE_TOOLS+=		gzcat
 XAW_TYPE?=		3d
+# does not directly support Xaw3d
+BUILDLINK_TRANSFORM+=	l:Xaw:Xaw3d
+.PHONY: buildlink-Xaw3d-inc-hack
+pre-configure: buildlink-Xaw3d-inc-hack
+
+buildlink-Xaw3d-inc-hack: buildlink-directories
+	cd ${BUILDLINK_DIR}/include/X11 && ln -s Xaw3d Xaw
 
 MAKE_ENV+=		CCOPTS=${CFLAGS:M*:Q}
 MAKE_ENV+=		LDOPTS=${LDFLAGS:M*:Q}

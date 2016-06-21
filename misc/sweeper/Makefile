@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.26 2014/11/13 19:19:08 markd Exp $
+# $NetBSD: Makefile,v 1.30 2016/03/05 11:28:58 jperkin Exp $
 
-DISTNAME=	sweeper-${_KDE_VERSION}
+DISTNAME=	sweeper-15.12.0
+PKGREVISION=	1
 CATEGORIES=	sysutils
 COMMENT=	KDE system cleaner
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

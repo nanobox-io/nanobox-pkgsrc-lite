@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2014/02/12 23:18:02 tron Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/05 11:28:40 jperkin Exp $
 
 DISTNAME=		ncview-1.92d
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=		graphics
 MASTER_SITES=		ftp://cirrus.ucsd.edu/pub/ncview/
 
@@ -12,7 +12,6 @@ COMMENT=		Visual browser for netCDF format files
 MAKE_JOBS_SAFE=		no
 
 GNU_CONFIGURE=		yes
-USE_X11BASE=		yes
 
 CONFIGURE_ARGS+=	--with-netcdf_incdir=${BUILDLINK_PREFIX.netcdf}/include
 CONFIGURE_ARGS+=	--with-netcdf_libdir=${BUILDLINK_PREFIX.netcdf}/lib

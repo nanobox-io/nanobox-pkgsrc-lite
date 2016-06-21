@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2015/02/05 21:02:37 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2016/02/25 12:50:49 jperkin Exp $
 
 DISTNAME=	mupen64plus-libretro-20150204
 PKGNAME=	libretro-mupen64plus-20150204
+PKGREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	http://ftp.NetBSD.org/pub/NetBSD/misc/jmcneill/retroarch/
 EXTRACT_SUFX=	.zip
@@ -23,11 +24,7 @@ SUBST_SED.vc+=		-e 's;/opt/vc;${PREFIX};g'
 
 INSTALLATION_DIRS+=	${PREFIX}/lib/libretro
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-CFLAGS+=	-DHAVE_POSIX_MEMALIGN=1
-.endif
+CFLAGS.NetBSD+=	-DHAVE_POSIX_MEMALIGN=1
 
 .include "options.mk"
 

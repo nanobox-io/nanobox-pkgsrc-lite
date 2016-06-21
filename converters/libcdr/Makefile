@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2015/02/02 11:14:55 adam Exp $
+# $NetBSD: Makefile,v 1.20 2015/12/30 00:18:31 wiz Exp $
 
-DISTNAME=	libcdr-0.1.1
+DISTNAME=	libcdr-0.1.2
 CATEGORIES=	converters
 MASTER_SITES=	http://dev-www.libreoffice.org/src/libcdr/
 EXTRACT_SUFX=	.tar.xz
@@ -22,6 +22,7 @@ PKGCONFIG_OVERRIDE=	libcdr.pc.in
 .include "../../converters/libwpg/buildlink3.mk"
 .include "../../converters/librevenge/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
+.include "../../devel/cppunit/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2015/01/04 09:53:10 dholland Exp $
+# $NetBSD: Makefile,v 1.27 2016/03/15 12:15:26 wiz Exp $
 
 DISTNAME=	tet3.7-unsup.src
 PKGNAME=	tet3-3.7
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	devel
 MASTER_SITES=	http://tetworks.opengroup.org/tet/
 EXTRACT_SUFX=	.tgz
@@ -28,6 +28,8 @@ REPLACE_PERL+=	src/perl/api.pl
 REPLACE_KSH+=	src/scripts/tet_start.sh
 MAKE_FILE=	makefile
 
+INSTALLATION_DIRS=	tet3/bin tet3/lib
+
 .include "../../mk/bsd.prefs.mk"
 
 PLIST_VARS+=	java
@@ -36,10 +38,7 @@ PLIST.java=	yes
 .endif
 
 post-install:
-	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/tet3
-	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/tet3/bin
 	cd ${WRKSRC}/bin && pax -rwpp . ${DESTDIR}${PREFIX}/tet3/bin
-	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/tet3/lib
 	cd ${WRKSRC}/lib && pax -rwpp . ${DESTDIR}${PREFIX}/tet3/lib
 
 PTHREAD_OPTS+=	native	# only native threads make sense

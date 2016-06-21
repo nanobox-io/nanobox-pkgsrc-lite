@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/02/14 04:13:32 markd Exp $
+
+SHA1 (extra-cmake-modules-5.19.0.tar.xz) = 5e5cafe2725f51d4befc37d79f9d05303a3c94b4
+RMD160 (extra-cmake-modules-5.19.0.tar.xz) = 697948609dd825ca449eee53ad1e5e6ada4d61fb
+SHA512 (extra-cmake-modules-5.19.0.tar.xz) = 35797569ee44ac288430710afabda6aff3288c2270b0ef7bfd0ace166f8392799294020be3b0dbf8fae25218ef7296979a26f07c9a99ece6986946f243d4a7f5
+Size (extra-cmake-modules-5.19.0.tar.xz) = 285124 bytes

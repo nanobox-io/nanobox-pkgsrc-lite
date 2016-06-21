@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2014/11/20 07:32:15 mef Exp $
+# $NetBSD: Makefile,v 1.12 2016/03/12 21:53:40 tnn Exp $
 
-DISTNAME=	lzip-1.16
+DISTNAME=	lzip-1.17
 CATEGORIES=	archivers
 MASTER_SITES=	http://download.savannah.gnu.org/releases/lzip/
 
@@ -16,7 +16,7 @@ CONFIGURE_ARGS+=	--infodir=${PREFIX}/${PKGINFODIR}
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
 INFO_FILES=		YES
 
-MAKEFLAGS+=		CXX=${CXX:Q} CPPFLAGS=${CPPFLAGS:Q}
-MAKEFLAGS+=		CXXFLAGS=${CXXFLAGS:Q} LDFLAGS=${LDFLAGS:Q}
+MAKE_FLAGS+=		CXX=${CXX:Q} CPPFLAGS=${CPPFLAGS:Q}
+MAKE_FLAGS+=		CXXFLAGS=${CXXFLAGS:Q} LDFLAGS=${LDFLAGS:Q}
 
 .include "../../mk/bsd.pkg.mk"

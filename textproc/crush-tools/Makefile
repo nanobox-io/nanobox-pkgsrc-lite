@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2014/05/29 23:37:33 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2015/07/12 18:56:29 wiz Exp $
 #
 
 DISTNAME=	crush-tools-2013-04
 PKGNAME=	${DISTNAME:C/-([0-9]+)$/.\1/}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	textproc
 MASTER_SITES=	http://crush-tools.googlecode.com/files/
 
@@ -14,7 +14,7 @@ LICENSE=	apache-2.0
 
 DEPENDS+=	p5-DBI-[0-9]*:../../databases/p5-DBI
 DEPENDS+=	p5-Date-Calc-[0-9]*:../../devel/p5-Date-Calc
-DEPENDS+=	{perl>=5,p5-Getopt-Long-[0-9]*}:../../devel/p5-Getopt-Long
+#DEPENDS+=	{perl>=5,p5-Getopt-Long-[0-9]*}:../../devel/p5-Getopt-Long
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes

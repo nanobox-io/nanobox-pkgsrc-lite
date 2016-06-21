@@ -147,9 +147,9 @@ ADD)
 			case "$f_flags:$_PKG_CONFIG:$_PKG_RCD_SCRIPTS" in
 			*f*:*:*|[!r]:yes:*|[!r][!r]:yes:*|[!r][!r][!r]:yes:*|*r*:yes:yes)
 				if ${TEST} -f "$file"; then
-					${ECHO} "${PKGNAME}: $file already exists"
+					${ECHO} "${PKGNAME}: $file already exists" > /dev/null
 				elif ${TEST} -f "$f_eg" -o -c "$f_eg"; then
-					${ECHO} "${PKGNAME}: copying $f_eg to $file"
+					${ECHO} "${PKGNAME}: copying $f_eg to $file" > /dev/null
 					${CP} $f_eg $file
 					case $f_user in
 					"")	;;
@@ -263,30 +263,30 @@ CHECK-ADD)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following files should be created for ${PKGNAME}:"
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following files should be created for ${PKGNAME}:" > /dev/null
 			;;
 		esac
-		${ECHO} ""
+		${ECHO} "" > /dev/null
 		case $f_mode:$f_user:$f_group in
 		::)
-			${ECHO} "	$file"
+			${ECHO} "	$file" > /dev/null
 			;;
 		[!:]*::)
-			${ECHO} "	$file (m=$f_mode)"
+			${ECHO} "	$file (m=$f_mode)" > /dev/null
 			;;
 		[!:]*:[!:]*:)
-			${ECHO} "	$file (m=$f_mode, o=$f_user)"
+			${ECHO} "	$file (m=$f_mode, o=$f_user)" > /dev/null
 			;;
 		[!:]*:[!:]*:[!:]*)
-			${ECHO} "	$file (m=$f_mode, o=$f_user, g=$f_group)"
+			${ECHO} "	$file (m=$f_mode, o=$f_user, g=$f_group)" > /dev/null
 			;;
 		esac
-		${TEST} ! -f "$f_eg" || ${ECHO} "	    [$f_eg]"
+		${TEST} ! -f "$f_eg" || ${ECHO} "	    [$f_eg]" > /dev/null
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -306,17 +306,17 @@ CHECK-REMOVE)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following files are no longer being used by ${PKGNAME},"
-			${ECHO} "and they can be removed if no other packages are using them:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following files are no longer being used by ${PKGNAME}," > /dev/null
+			${ECHO} "and they can be removed if no other packages are using them:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
-		${ECHO} "	$file"
+		${ECHO} "	$file" > /dev/null
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -374,27 +374,27 @@ CHECK-PERMS)
 		case "$printed_header" in
 		yes)	;;
 		*)	printed_header=yes
-			${ECHO} "==========================================================================="
-			${ECHO} "The following files are used by ${PKGNAME} and have"
-			${ECHO} "the wrong ownership and/or permissions:"
-			${ECHO} ""
+			${ECHO} "===========================================================================" > /dev/null
+			${ECHO} "The following files are used by ${PKGNAME} and have" > /dev/null
+			${ECHO} "the wrong ownership and/or permissions:" > /dev/null
+			${ECHO} "" > /dev/null
 			;;
 		esac
 		case $f_mode:$f_user:$f_group in
 		[!:]*::)
-			${ECHO} "	$file (m=$f_mode)"
+			${ECHO} "	$file (m=$f_mode)" > /dev/null
 			;;
 		[!:]*:[!:]*:)
-			${ECHO} "	$file (m=$f_mode, o=$f_user)"
+			${ECHO} "	$file (m=$f_mode, o=$f_user)" > /dev/null
 			;;
 		[!:]*:[!:]*:[!:]*)
-			${ECHO} "	$file (m=$f_mode, o=$f_user, g=$f_group)"
+			${ECHO} "	$file (m=$f_mode, o=$f_user, g=$f_group)" > /dev/null
 			;;
 		esac
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -403,8 +403,8 @@ CHECK-PERMS)
 	;;
 
 *)
-	${ECHO} "Usage: ./+FILES ADD|REMOVE|PERMS [metadatadir]"
-	${ECHO} "       ./+FILES CHECK-ADD|CHECK-REMOVE|CHECK-PERMS [metadatadir]"
+	${ECHO} "Usage: ./+FILES ADD|REMOVE|PERMS [metadatadir]" > /dev/null
+	${ECHO} "       ./+FILES CHECK-ADD|CHECK-REMOVE|CHECK-PERMS [metadatadir]" > /dev/null
 	;;
 esac
 exit $exitcode

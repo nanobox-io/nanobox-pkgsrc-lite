@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.15 2014/05/29 23:37:16 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2015/07/12 18:56:27 wiz Exp $
 #
 
 DISTNAME=	LaTeX-Table-v1.0.6
 PKGNAME=	p5-${DISTNAME:S/v1/1/}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=LaTeX/}
 
@@ -23,7 +23,7 @@ DEPENDS+=	p5-LaTeX-Driver-[0-9]*:../../print/p5-LaTeX-Driver
 DEPENDS+=	p5-LaTeX-Encode-[0-9]*:../../print/p5-LaTeX-Encode
 DEPENDS+=	p5-Number-Format-[0-9]*:../../textproc/p5-Number-Format
 DEPENDS+=	p5-Text-CSV-[0-9]*:../../textproc/p5-Text-CSV
-DEPENDS+=	{perl>=5.10.1,p5-autodie-[0-9]*}:../../devel/p5-autodie
+#DEPENDS+=	{perl>=5.10.1,p5-autodie-[0-9]*}:../../devel/p5-autodie
 
 PERL5_MODULE_TYPE=	Module::Build
 PERL5_PACKLIST=		auto/LaTeX/Table/.packlist

@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.3 2010/09/14 00:18:16 minskim Exp $
+# $NetBSD: Makefile,v 1.5 2016/01/27 10:53:21 markd Exp $
 
 DISTNAME=	enumitem.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2.2
-TEXLIVE_REV=	15878
+PKGNAME=	tex-${DISTNAME:S/./-/}-3.5.2
+TEXLIVE_REV=	24146
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-enumitem
+LICENSE=	lppl-1.3c
 
 CONFLICTS+=	teTeX-texmf<=3.0nb17
 

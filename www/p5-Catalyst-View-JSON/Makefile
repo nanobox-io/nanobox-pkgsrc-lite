@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2015/01/14 12:32:39 mef Exp $
+# $NetBSD: Makefile,v 1.19 2016/01/17 13:38:12 mef Exp $
 
-DISTNAME=	Catalyst-View-JSON-0.35
+DISTNAME=	Catalyst-View-JSON-0.36
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Catalyst/}

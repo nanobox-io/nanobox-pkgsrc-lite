@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.1 2015/03/09 13:33:18 imil Exp $
+# $NetBSD: Makefile,v 1.3 2015/12/05 05:47:58 taca Exp $
 
 MODNAME=	zendopcache
 PKGMODNAME=	opcache
 CATEGORIES+=	www
-PECL_VERSION=	7.0.4
+PECL_VERSION=	7.0.5
 PECL_LEGACY_VERSION_SCHEME=	yes
 
 HOMEPAGE=	https://github.com/zend-dev/ZendOptimizerPlus
@@ -13,6 +13,7 @@ LICENSE=	php
 
 SUPERSEDES=	${PHP_PKG_PREFIX}-zendoptimizerplus-[0-9]*
 PREV_PKGPATH=	www/zendoptimizerplus
+PHP_VERSIONS_ACCEPTED=	55
 
 REPLACE_BASH=	configure # cheaper than patching configure
 USE_TOOLS+=	bash

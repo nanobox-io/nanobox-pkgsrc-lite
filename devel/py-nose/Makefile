@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/03/15 17:50:58 adam Exp $
+# $NetBSD: Makefile,v 1.12 2015/09/30 13:58:15 jperkin Exp $
 
-DISTNAME=	nose-1.3.4
+DISTNAME=	nose-1.3.7
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	http://pypi.python.org/packages/source/n/nose/
@@ -16,6 +16,11 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_LANGUAGES=	# none
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+
+SUBST_CLASSES+=		manpath
+SUBST_STAGE.manpath=	pre-build
+SUBST_FILES.manpath=	setup.py
+SUBST_VARS.manpath=	PKGMANDIR
 
 post-extract:
 	${MV} ${WRKSRC}/nosetests.1 ${WRKSRC}/nosetests${PYVERSSUFFIX}.1

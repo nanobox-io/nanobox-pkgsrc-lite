@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2015/02/07 15:10:50 mef Exp $
+# $NetBSD: Makefile,v 1.11 2015/09/01 12:36:33 mef Exp $
 #
 
-DISTNAME=	Hash-Util-FieldHash-Compat-0.08
+DISTNAME=	Hash-Util-FieldHash-Compat-0.09
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Hash/}
@@ -19,9 +19,12 @@ PERL5_PACKLIST=	auto/Hash/Util/FieldHash/Compat/.packlist
 # module since version 5.9.4. Thus this module/package does not need
 # any of the two dependencies below.
 #DEPENDS+= p5-Tie-RefHash>=1.38:../../devel/p5-Tie-RefHash
-#DEPENDS+= p5-Tie-RefHash-Weak>=0.08../../devel/p5-Tie-RefHash-Weak
+# ---------------------
+# Data for 2015-06-01
+# Tie::RefHash::Weak was not in CORE (or so I think)
+DEPENDS+= p5-Tie-RefHash-Weak>=0.08:../../devel/p5-Tie-RefHash-Weak
 
-BUILD_DEPENDS+=	p5-Test-use-ok-[0-9]*:../../devel/p5-Test-use-ok
+BUILD_DEPENDS+=	p5-Test-Simple>=1.001010:../../devel/p5-Test-Simple
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

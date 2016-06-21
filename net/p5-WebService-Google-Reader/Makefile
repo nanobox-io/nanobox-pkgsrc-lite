@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2015/03/08 01:40:39 mef Exp $
+# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:26 wiz Exp $
 #
 
 DISTNAME=		WebService-Google-Reader-0.22
 PKGNAME=		p5-${DISTNAME}
+PKGREVISION=		1
 CATEGORIES=		net perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=WebService/}
 
@@ -13,7 +14,7 @@ LICENSE=		${PERL5_LICENSE}
 
 PERL5_PACKLIST=		auto/WebService/Google/Reader/.packlist
 
-BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.82}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.82}:../../devel/p5-Test-Simple
 DEPENDS+=	p5-JSON-XS>=2:../../converters/p5-JSON-XS
 DEPENDS+=	p5-Class-Accessor-[0-9]*:../../devel/p5-Class-Accessor
 DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww

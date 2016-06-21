@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2014/06/10 14:21:37 joerg Exp $
+# $NetBSD: Makefile,v 1.15 2015/12/05 21:25:56 adam Exp $
 
 PKGNAME=		libprelude-python-${VERSION}
-PKGREVISION=		8
+PKGREVISION=		9
 COMMENT=		Python bindings to LibPrelude
 
 .include "../../security/libprelude/Makefile.common"
@@ -15,7 +15,7 @@ BUILD_DIRS=		bindings/low-level/python bindings/python
 PKG_OPTIONS_VAR=	PKG_OPTIONS.libprelude
 PKG_SUPPORTED_OPTIONS=	debug
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.9.24.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 0.9.24.1
 
 .include "../../mk/bsd.options.mk"
 

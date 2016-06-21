@@ -1,16 +1,17 @@
-# $NetBSD: Makefile,v 1.41 2014/12/10 14:02:32 joerg Exp $
+# $NetBSD: Makefile,v 1.44 2016/01/19 04:18:35 dbj Exp $
 #
 
 .include "../../x11/wxGTK28/Makefile.common"
 
 PKGNAME=		${DISTNAME:S/wxGTK/wxGTK28/}
-PKGREVISION=		7
+PKGREVISION=		9
 COMMENT=		GTK-based implementation of the wxWidgets GUI library
 
 BUILD_TARGET=	all
 INSTALL_TARGET=	install
 
-INSTALLATION_DIRS=	${DOCDIR}
+INSTALLATION_DIRS+=	${DOCDIR}
+INSTALLATION_DIRS+=	bin
 
 REPLACE_SH=		wx-config.in wx-config-inplace.in
 
@@ -31,6 +32,11 @@ post-build:
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/docs/licence.txt ${DESTDIR}${DOCDIR}
+	# Create symlinks for now.  Eventually we may want to use ALTERNATIVES
+	${LN} -sf ../libexec/wx-2.8/wxrc ${DESTDIR}${PREFIX}/bin/wxrc
+	${LN} -sf ../libexec/wx-2.8/wxrc-2.8 ${DESTDIR}${PREFIX}/bin/wxrc-2.8
+	${LN} -sf ../libexec/wx-2.8/wx-config ${DESTDIR}${PREFIX}/bin/wx-config
+	${LN} -sf ../libexec/wx-2.8/wx-config ${DESTDIR}${PREFIX}/bin/wx-config-2.8
 
 .include "../../mk/bsd.prefs.mk"
 

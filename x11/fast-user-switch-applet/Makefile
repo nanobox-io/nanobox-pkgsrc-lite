@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.65 2014/10/07 16:47:37 adam Exp $
+# $NetBSD: Makefile,v 1.71 2016/03/05 11:29:40 jperkin Exp $
 #
 
 DISTNAME=	fast-user-switch-applet-2.24.0
-PKGREVISION=	40
+PKGREVISION=	44
 CATEGORIES=	misc gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/fast-user-switch-applet/2.24/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://ignore-your.tv/fusa/
+HOMEPAGE=	http://jcape.name/fusa/
 COMMENT=	Switch between users from the GNOME Panel
 
 DEPENDS+=		gdm>=2.16.0:../../x11/gdm
@@ -21,9 +21,7 @@ USE_X11=		yes
 
 .include "../../mk/bsd.prefs.mk"
 
-EVAL_PREFIX=		PREFIX.gdm
-PREFIX.gdm_DEFAULT=	${PREFIX}
-CONFIGURE_ARGS+=	--with-gdm-setup=${PREFIX.gdm}/sbin/gdmsetup
+CONFIGURE_ARGS+=	--with-gdm-setup=${LOCALBASE}/sbin/gdmsetup
 
 .if defined(PKG_SYSCONFDIR.gdm)
 CONFIGURE_ARGS+=	--with-gdm-config=${PKG_SYSCONFDIR.gdm}/custom.conf

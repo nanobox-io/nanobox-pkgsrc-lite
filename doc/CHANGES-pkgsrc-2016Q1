@@ -1,0 +1,24 @@
+$NetBSD: CHANGES-pkgsrc-2016Q1,v 1.1.2.7 2016/04/27 20:13:46 bsiegert Exp $
+
+Changes to the packages collection and infrastructure on the pkgsrc-2016Q1 branch:
+
+Created pkgsrc-2016Q1 branch [agc Wed Apr  6 17:21:53 UTC 2016]
+
+Pullup ticket #4958 - requested by manu
+net/samba4: security fix
+
+Pullup ticket #4959 - requested by hauke
+sysutils/radmind: bugfix
+
+Pullup ticket #4961 - requested by mrg
+www/bozohttpd: security-update
+
+Pullup ticket #4962 - requested by sevan
+lang/perl5: security fix
+
+Pullup ticket #4963 - requested by he
+x11/pixman: build fix
+
+Pullup ticket #4964 - requested by sevan
+databases/postgresql95: security fix
+

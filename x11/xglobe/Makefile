@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.45 2013/10/09 17:39:24 wiz Exp $
+# $NetBSD: Makefile,v 1.47 2015/07/04 16:18:43 joerg Exp $
 #
 
 DISTNAME=	xglobe-0.5
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	x11
 #
 # The original MASTER_SITE for the program responds "200 OK"
@@ -20,7 +20,6 @@ DIST_SUBDIR=	xglobe
 MAPS=		LE.400.gif Brill.400.gif mggd.gif
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-USE_X11BASE=	YES
 USE_TOOLS+=	gmake
 USE_LANGUAGES=	c++
 

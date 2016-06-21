@@ -1,22 +1,25 @@
-$NetBSD: distinfo,v 1.52 2015/03/06 14:43:15 spz Exp $
+$NetBSD: distinfo,v 1.60 2016/02/13 20:41:58 bsiegert Exp $
 
-SHA1 (icu4c-54_1-src.tgz) = 8c752490bbf31cea26e20246430cee67d48abe34
-RMD160 (icu4c-54_1-src.tgz) = b1440e1a3330b12336742c881863a8de6a6d2235
-Size (icu4c-54_1-src.tgz) = 25485678 bytes
-SHA1 (patch-CVE-2014-7923+7926) = cb5e355c6e5b4860c581a9743706b800d56dadf2
+SHA1 (icu4c-56_1-src.tgz) = e4494ce9425c469f138bb6e1ae06faf7fa0cf3de
+RMD160 (icu4c-56_1-src.tgz) = 1ef7f377283a379654ebb051b7439c2cc6151da0
+SHA512 (icu4c-56_1-src.tgz) = 297fd91ce6c478309ac3d18813f1b3ff39a992584e3bafb79e2e816a516e903af6b86c6318e1104cda0bb29ba7c0414b65c1e83c0ed0e848ce897a06d7678d9a
+Size (icu4c-56_1-src.tgz) = 25721871 bytes
 SHA1 (patch-aa) = fd5c513e75ca17a46be4ed010455bda63731afff
 SHA1 (patch-ab) = 32f0e4c241535e37e4cad9b871ed3d36b4184199
 SHA1 (patch-ac) = e7cee161315321d2580074054d87714b55319886
-SHA1 (patch-acinclude.m4) = ab757e9bf7351e44edd92b96edbffc40acb44dae
+SHA1 (patch-acinclude.m4) = f7de1a16aad0ca77c4bbc457ba76b6171199ce09
 SHA1 (patch-ad) = c2a9469bf896b5f0702d5795c3b1c2b394893663
-SHA1 (patch-af) = 6f41d58f258361e28ce3283e1b46f8a762b7c5dd
-SHA1 (patch-common_putil.cpp) = 3d35bdea709ded1ae5926729fb23995ca8734687
+SHA1 (patch-af) = 07421b669780e5eea5dc455cc39ca9737c0f728a
+SHA1 (patch-common_putil.cpp) = 3058a542bcb2fdfa34b36acf389570990acd0da5
 SHA1 (patch-common_putilimp.h) = a68faa97c2bffeecaca1586e26f5bbe48e71b262
 SHA1 (patch-common_umutex.h) = 096d3e15ef7b84533456af4570ed70747a4ef70c
-SHA1 (patch-common_unicode_platform.h) = 82786dff790782eb07cdc527061de33e771ec63c
+SHA1 (patch-common_unicode_platform.h) = 8b7b8bcf6f5185225a1ca516ac212a495f7b47e8
 SHA1 (patch-common_uposixdefs.h) = 02dedd10282961dec66673069796122b447dac33
 SHA1 (patch-config_icu-config-bottom) = 168b89ee9180d4ae545125866ee91eb004010501
 SHA1 (patch-config_mh-scoosr5) = 47703dcc184f58c0382da3225f849424ab74d472
-SHA1 (patch-configure) = 2d17823ee06693ce382745ce345eca37001a0a7c
-SHA1 (patch-configure.ac) = ea7586eb8131ff53a483b5bd7ca162886e9045f1
-SHA1 (patch-tools-toolutil-pkg_genc.c) = a38dc7f38edd5a4c743f1f1927642b12864735fe
+SHA1 (patch-config_mh-solaris-gcc) = 19f76c27bef22cc3b572e4b67a526d5f1aa077bc
+SHA1 (patch-configure) = 429c0b3eb3f7d0a8cf3d01a9bc359132eebe8cf4
+SHA1 (patch-configure.ac) = b0291cf02351cbad9b0c7340baea9eb81cabb158
+SHA1 (patch-tools-toolutil-pkg_genc.c) = b5a9eb679908d9f579ff095c5389ec1aa8df8e1e
+SHA1 (patch-tools_pkgdata_pkgdata.cpp) = 1c87fcc511f0e6cedbaf01c5164e522c33f19458
+SHA1 (patch-tools_toolutil_flagparser.c) = 08606a67b5e9e1308ef470524576fc000ca1907b

@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.26 2014/11/13 20:06:28 markd Exp $
+# $NetBSD: Makefile,v 1.30 2016/03/05 11:28:39 jperkin Exp $
 
-DISTNAME=	ksaneplugin-${_KDE_VERSION}
+DISTNAME=	ksaneplugin-15.12.0
+PKGREVISION=	1
 CATEGORIES=	graphics
 COMMENT=	SANE Plugin for KDE
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

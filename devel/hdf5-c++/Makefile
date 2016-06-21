@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2013/09/01 09:56:41 adam Exp $
+# $NetBSD: Makefile,v 1.5 2015/11/26 11:25:11 adam Exp $
 
 PKGNAME=	${DISTNAME:S/-/-c++-/}
 COMMENT=	Hierarchical Data Format (new generation) - C++ wrappers
@@ -23,6 +23,7 @@ do-install:
 	  H5DataSpace.h H5DataType.h H5DcreatProp.h H5DxferProp.h H5EnumType.h \
 	  H5Exception.h H5FaccProp.h H5FcreatProp.h H5File.h H5FloatType.h \
 	  H5Group.h H5IdComponent.h H5Include.h H5IntType.h H5Library.h \
+	  H5Location.h \
 	  H5Object.h H5PredType.h H5PropList.h H5StrType.h H5VarLenType.h
 	${INSTALL_DATA} ${WRKSRC}/c++/src/${f} ${DESTDIR}/${PREFIX}/include/
 .endfor
@@ -37,17 +38,17 @@ do-install:
 .endfor
 
 .include "../../devel/hdf5/Makefile.common"
-
 .include "../../devel/hdf5/buildlink3.mk"
-
 # Since the package is build from source code shared with hdf5,
 # same options should be passed:
-.if !empty(PKG_BUILD_OPTIONS.hdf5:Mszip)
-CONFIGURE_ARGS+=	--with-szlib
-.endif
+.include "../../devel/hdf5/options.mk"
 
-.if !empty(PKG_BUILD_OPTIONS.hdf5:Mthreads)
-CONFIGURE_ARGS+=	--enable-threadsafe
-.endif
+#.if !empty(PKG_BUILD_OPTIONS.hdf5:Mszip)
+#CONFIGURE_ARGS+=	--with-szlib
+#.endif
+
+#.if !empty(PKG_BUILD_OPTIONS.hdf5:Mthreads)
+#CONFIGURE_ARGS+=	--enable-threadsafe
+#.endif
 
 .include "../../mk/bsd.pkg.mk"

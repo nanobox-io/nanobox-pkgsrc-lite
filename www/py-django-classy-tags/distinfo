@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.5 2014/04/12 09:00:23 adam Exp $
+$NetBSD: distinfo,v 1.9 2016/03/06 14:18:52 adam Exp $
 
-SHA1 (django-classy-tags-0.5.1.tar.gz) = 4d753ba87580114d703b65447d24fc9a89115143
-RMD160 (django-classy-tags-0.5.1.tar.gz) = 35a76c8862deffae65e8c0f74dc6c4c90f466d23
-Size (django-classy-tags-0.5.1.tar.gz) = 17734 bytes
+SHA1 (django-classy-tags-0.7.2.tar.gz) = 4ee1bf2c3f4b998420ae79ff51bc32305ca08516
+RMD160 (django-classy-tags-0.7.2.tar.gz) = 32bd017edd01821c391f86c96366b8dc3ddc8164
+SHA512 (django-classy-tags-0.7.2.tar.gz) = 2a216a3245302dc2176ae1dd4f5557fed6677e7baab9f059daf66270ee9d8a6b26ee270225e84edcbfd893054c15d65a11fac9f1babc18020c6f7a3ad5c25c4d
+Size (django-classy-tags-0.7.2.tar.gz) = 17630 bytes

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST.common,v 1.12 2014/12/16 08:45:12 chopps Exp $
+@comment $NetBSD: PLIST.common,v 1.14 2015/12/06 18:22:35 adam Exp $
 bin/2to3-${PY_VER_SUFFIX}
 bin/pydoc${PY_VER_SUFFIX}
 bin/python${PY_VER_SUFFIX}
@@ -1437,8 +1437,8 @@ lib/python${PY_VER_SUFFIX}/ensurepip/__init__.pyo
 lib/python${PY_VER_SUFFIX}/ensurepip/__main__.py
 lib/python${PY_VER_SUFFIX}/ensurepip/__main__.pyc
 lib/python${PY_VER_SUFFIX}/ensurepip/__main__.pyo
-lib/python${PY_VER_SUFFIX}/ensurepip/_bundled/pip-1.5.6-py2.py3-none-any.whl
-lib/python${PY_VER_SUFFIX}/ensurepip/_bundled/setuptools-7.0-py2.py3-none-any.whl
+lib/python${PY_VER_SUFFIX}/ensurepip/_bundled/pip-7.1.2-py2.py3-none-any.whl
+lib/python${PY_VER_SUFFIX}/ensurepip/_bundled/setuptools-18.2-py2.py3-none-any.whl
 lib/python${PY_VER_SUFFIX}/ensurepip/_uninstall.py
 lib/python${PY_VER_SUFFIX}/ensurepip/_uninstall.pyc
 lib/python${PY_VER_SUFFIX}/ensurepip/_uninstall.pyo
@@ -1689,6 +1689,10 @@ lib/python${PY_VER_SUFFIX}/idlelib/dynOptionMenuWidget.py
 lib/python${PY_VER_SUFFIX}/idlelib/dynOptionMenuWidget.pyc
 lib/python${PY_VER_SUFFIX}/idlelib/dynOptionMenuWidget.pyo
 lib/python${PY_VER_SUFFIX}/idlelib/extend.txt
+lib/python${PY_VER_SUFFIX}/idlelib/help.html
+lib/python${PY_VER_SUFFIX}/idlelib/help.py
+lib/python${PY_VER_SUFFIX}/idlelib/help.pyc
+lib/python${PY_VER_SUFFIX}/idlelib/help.pyo
 lib/python${PY_VER_SUFFIX}/idlelib/help.txt
 lib/python${PY_VER_SUFFIX}/idlelib/idle.bat
 lib/python${PY_VER_SUFFIX}/idlelib/idle.py
@@ -1738,6 +1742,9 @@ lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_hyperparser.pyo
 lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_idlehistory.py
 lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_idlehistory.pyc
 lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_idlehistory.pyo
+lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_io.py
+lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_io.pyc
+lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_io.pyo
 lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_parenmatch.py
 lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_parenmatch.pyc
 lib/python${PY_VER_SUFFIX}/idlelib/idle_test/test_parenmatch.pyo
@@ -1783,9 +1790,6 @@ lib/python${PY_VER_SUFFIX}/idlelib/run.pyo
 lib/python${PY_VER_SUFFIX}/idlelib/tabbedpages.py
 lib/python${PY_VER_SUFFIX}/idlelib/tabbedpages.pyc
 lib/python${PY_VER_SUFFIX}/idlelib/tabbedpages.pyo
-lib/python${PY_VER_SUFFIX}/idlelib/testcode.py
-lib/python${PY_VER_SUFFIX}/idlelib/testcode.pyc
-lib/python${PY_VER_SUFFIX}/idlelib/testcode.pyo
 lib/python${PY_VER_SUFFIX}/idlelib/textView.py
 lib/python${PY_VER_SUFFIX}/idlelib/textView.pyc
 lib/python${PY_VER_SUFFIX}/idlelib/textView.pyo
@@ -1912,14 +1916,12 @@ lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/_testcapi.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/array.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/audioop.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/binascii.so
-lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/bsddb185.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/bz2.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/cPickle.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/cStringIO.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/cmath.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/crypt.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/datetime.so
-lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/dbm.so
 ${PLIST.dl}lib/python${PY_VER_SUFFIX}/lib-dynload/dl.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/fcntl.so
 lib/python${PY_VER_SUFFIX}/lib-dynload${LIBARCHSUFFIX}/future_builtins.so
@@ -2898,7 +2900,7 @@ lib/python${PY_VER_SUFFIX}/test/decimaltestdata/testall.decTest
 lib/python${PY_VER_SUFFIX}/test/decimaltestdata/tointegral.decTest
 lib/python${PY_VER_SUFFIX}/test/decimaltestdata/tointegralx.decTest
 lib/python${PY_VER_SUFFIX}/test/decimaltestdata/xor.decTest
-lib/python${PY_VER_SUFFIX}/test/dh512.pem
+lib/python${PY_VER_SUFFIX}/test/dh1024.pem
 lib/python${PY_VER_SUFFIX}/test/doctest_aliases.py
 lib/python${PY_VER_SUFFIX}/test/doctest_aliases.pyc
 lib/python${PY_VER_SUFFIX}/test/doctest_aliases.pyo
@@ -4082,6 +4084,9 @@ lib/python${PY_VER_SUFFIX}/test/test_threadsignals.pyo
 lib/python${PY_VER_SUFFIX}/test/test_time.py
 lib/python${PY_VER_SUFFIX}/test/test_time.pyc
 lib/python${PY_VER_SUFFIX}/test/test_time.pyo
+lib/python${PY_VER_SUFFIX}/test/test_timeit.py
+lib/python${PY_VER_SUFFIX}/test/test_timeit.pyc
+lib/python${PY_VER_SUFFIX}/test/test_timeit.pyo
 lib/python${PY_VER_SUFFIX}/test/test_timeout.py
 lib/python${PY_VER_SUFFIX}/test/test_timeout.pyc
 lib/python${PY_VER_SUFFIX}/test/test_timeout.pyo

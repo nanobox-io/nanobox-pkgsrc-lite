@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2014/05/29 23:38:00 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2015/07/12 18:56:33 wiz Exp $
 #
 
 DISTNAME=	CGI-ProgressBar-0.05
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/L/LG/LGODDARD/
 
@@ -12,7 +12,7 @@ HOMEPAGE=	http://search.cpan.org/dist/CGI-ProgressBar/
 COMMENT=	CGI.pm sub-class with a progress bar object
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.8.8,p5-CGI>=3.15}:../../www/p5-CGI
+#DEPENDS+=	{perl>=5.8.8,p5-CGI>=3.15}:../../www/p5-CGI
 
 PERL5_PACKLIST=	auto/CGI/ProgressBar/.packlist
 USE_LANGUAGES=	# none

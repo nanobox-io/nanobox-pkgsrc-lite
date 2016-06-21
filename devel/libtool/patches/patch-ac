@@ -1,4 +1,4 @@
-$NetBSD: patch-ac,v 1.34 2014/12/02 10:56:24 joerg Exp $
+$NetBSD: patch-ac,v 1.35 2015/07/18 16:50:51 joerg Exp $
 
 Add passthrough support for -fstack-protector*
 http://permalink.gmane.org/gmane.comp.gnu.libtool.bugs/7341
@@ -127,3 +127,13 @@ for solaris2 http://gcc.gnu.org/bugzilla/show_bug.cgi?id=59788
  	major=$major_save
  	release=$release_save
  	libname=$libname_save
+@@ -9419,7 +9432,8 @@ dlpreopen='$dlprefiles'
+ 
+ # Directory that this library needs to be installed in:
+ libdir='$install_libdir'"
+-	  if test "$installed" = no && test "$need_relink" = yes; then
++	  if test "$installed" = no && test "$need_relink" = yes && \
++	     test -n "$relink_command"; then
+ 	    $ECHO >> $output "\
+ relink_command=\"$relink_command\""
+ 	  fi

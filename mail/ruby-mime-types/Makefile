@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.9 2015/02/04 15:17:04 taca Exp $
+# $NetBSD: Makefile,v 1.13 2015/12/13 16:44:57 taca Exp $
 
-DISTNAME=	mime-types-2.4.3
+DISTNAME=	mime-types-3.0
 CATEGORIES=	www
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://mime-types.rubyforge.org/
+HOMEPAGE=	https://github.com/mime-types/ruby-mime-types/
 COMMENT=	Definition of MIME types for Ruby
 LICENSE=	ruby-license OR artistic OR gnu-gpl-v2 OR gnu-gpl-v3
 

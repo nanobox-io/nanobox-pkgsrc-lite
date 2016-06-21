@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2015/03/12 13:48:22 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/02/21 10:42:26 wiz Exp $
 
-DISTNAME=	atomicwrites-0.1.4
+DISTNAME=	atomicwrites-0.1.9
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	time
-MASTER_SITES=	https://pypi.python.org/packages/source/a/atomicwrites/
+MASTER_SITES=	${MASTER_SITE_PYPI:=a/atomicwrites/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://pypi.python.org/pypi/atomicwrites/

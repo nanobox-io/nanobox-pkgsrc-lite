@@ -481,13 +481,13 @@ build the packages for himself, which is a time-costly task.
 
 pkgsrc currently contains several thousand packages, including:
 
-  * www/apache - The Apache web server
+  * www/apache24 - The Apache web server
 
   * www/firefox - The Firefox web browser
 
   * meta-pkgs/gnome - The GNOME Desktop Environment
 
-  * meta-pkgs/kde3 - The K Desktop Environment
+  * meta-pkgs/kde4 - The K Desktop Environment
 
 ...just to name a few.
 
@@ -507,9 +507,10 @@ pkgsrc provides the following key features:
   * All packages are installed in a consistent directory tree, including
     binaries, libraries, man pages and other documentation.
 
-  * Package dependencies, including when performing package updates, are
-    handled automatically. The configuration files of various packages are
-    handled automatically during updates, so local changes are preserved.
+  * Tracking of package dependencies automatically, including when performing
+    updates, to ensure required packages are installed. The configuration files
+    of various packages are handled automatically during updates, so local
+    changes are preserved.
 
   * Like NetBSD, pkgsrc is designed with portability in mind and consists of
     highly portable code. This allows the greatest speed of development when
@@ -551,45 +552,50 @@ platforms:
 
 Table 1.1. Platforms supported by pkgsrc
 
-+----------------------------------------------------------------+
-|                  Platform                   |Date Support Added|
-|---------------------------------------------+------------------|
-|NetBSD                                       |     Aug 1997     |
-|---------------------------------------------+------------------|
-|Solaris                                      |     Mar 1999     |
-|---------------------------------------------+------------------|
-|Linux                                        |     Jun 1999     |
-|---------------------------------------------+------------------|
-|Darwin (Mac OS X)                            |     Oct 2001     |
-|---------------------------------------------+------------------|
-|FreeBSD                                      |     Nov 2002     |
-|---------------------------------------------+------------------|
-|OpenBSD                                      |     Nov 2002     |
-|---------------------------------------------+------------------|
-|IRIX                                         |     Dec 2002     |
-|---------------------------------------------+------------------|
-|BSD/OS                                       |     Dec 2003     |
-|---------------------------------------------+------------------|
-|AIX                                          |     Dec 2003     |
-|---------------------------------------------+------------------|
-|Interix (Microsoft Windows Services for Unix)|     Mar 2004     |
-|---------------------------------------------+------------------|
-|DragonFlyBSD                                 |     Oct 2004     |
-|---------------------------------------------+------------------|
-|OSF/1                                        |     Nov 2004     |
-|---------------------------------------------+------------------|
-|HP-UX                                        |     Apr 2007     |
-|---------------------------------------------+------------------|
-|Haiku                                        |     Sep 2010     |
-|---------------------------------------------+------------------|
-|MirBSD                                       |     Jan 2011     |
-|---------------------------------------------+------------------|
-|Minix3                                       |     Nov 2011     |
-|---------------------------------------------+------------------|
-|Cygwin                                       |     Mar 2013     |
-|---------------------------------------------+------------------|
-|GNU/kFreeBSD                                 |     Jul 2013     |
-+----------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+|               Platform               | Date Support  |        Notes         |
+|                                      |     Added     |                      |
+|--------------------------------------+---------------+----------------------|
+|NetBSD                                |   Aug 1997    |                      |
+|--------------------------------------+---------------+----------------------|
+|Solaris                               |   Mar 1999    |README.Solaris        |
+|--------------------------------------+---------------+----------------------|
+|Linux                                 |   Jun 1999    |README.Linux          |
+|--------------------------------------+---------------+----------------------|
+|Darwin (Mac OS X)                     |   Oct 2001    |README.MacOSX         |
+|--------------------------------------+---------------+----------------------|
+|FreeBSD                               |   Nov 2002    |README.FreeBSD        |
+|--------------------------------------+---------------+----------------------|
+|OpenBSD                               |   Nov 2002    |README.OpenBSD        |
+|--------------------------------------+---------------+----------------------|
+|IRIX                                  |   Dec 2002    |README.IRIX           |
+|                                      |               |README.IRIX5.3        |
+|--------------------------------------+---------------+----------------------|
+|BSD/OS                                |   Dec 2003    |                      |
+|--------------------------------------+---------------+----------------------|
+|AIX                                   |   Dec 2003    |README.AIX            |
+|--------------------------------------+---------------+----------------------|
+|Interix (Microsoft Windows Services   |   Mar 2004    |README.Interix        |
+|for Unix)                             |               |                      |
+|--------------------------------------+---------------+----------------------|
+|DragonFlyBSD                          |   Oct 2004    |                      |
+|--------------------------------------+---------------+----------------------|
+|OSF/1                                 |   Nov 2004    |README.OSF1           |
+|--------------------------------------+---------------+----------------------|
+|HP-UX                                 |   Apr 2007    |README.HPUX           |
+|--------------------------------------+---------------+----------------------|
+|Haiku                                 |   Sep 2010    |README.Haiku          |
+|--------------------------------------+---------------+----------------------|
+|MirBSD                                |   Jan 2011    |                      |
+|--------------------------------------+---------------+----------------------|
+|Minix3                                |   Nov 2011    |README.Minix3         |
+|--------------------------------------+---------------+----------------------|
+|Cygwin                                |   Mar 2013    |README.Cygwin         |
+|--------------------------------------+---------------+----------------------|
+|GNU/kFreeBSD                          |   Jul 2013    |README.GNUkFreeBSD    |
+|--------------------------------------+---------------+----------------------|
+|Bitrig                                |   Jun 2014    |README.Bitrig         |
++-----------------------------------------------------------------------------+
 
 
 1.2. Overview
@@ -1052,7 +1058,7 @@ the --unprivileged option, workaround is:
 
 3.3.2. Darwin (Mac OS X)
 
-Darwin 5.x and up are supported.
+Darwin 8.x and up are supported.
 
 Before you start, you need to download and install the Mac OS X Developer Tools
 from Apple's Developer Connection. This requires (free) membership. See http://
@@ -3199,11 +3205,20 @@ If some Python versions are not supported by the software, set the
 PYTHON_VERSIONS_INCOMPATIBLE variable to the Python versions that are not
 supported, e.g.
 
-PYTHON_VERSIONS_INCOMPATIBLE=       26
+PYTHON_VERSIONS_INCOMPATIBLE=       27
 
-If the packaged software is a Python module, include "../../lang/python/
-extension.mk". In this case, the package directory should be called "
-py-software" and PKGNAME should be set to "${PYPKGPREFIX}-${DISTNAME}", e.g.
+If the packaged software is a Python module, include one of ../../lang/python/
+egg.mk, ../../lang/python/distutils.mk, or ../../lang/python/extension.mk.
+
+Most Python packages use either "distutils" or easy-setup/setuptools ("eggs").
+if the packaged software is using setuptools, you only need to include "../../
+lang/python/egg.mk". Otherwise, if the software uses "distutils", include "..
+/../lang/python/distutils.mk". so pkgsrc will use this framework. "distutils"
+uses a script called setup.py, if the "distutils" driver is not called
+setup.py, set the PYSETUP variable to the name of the script.
+
+Either way, the package directory should be called "py-software" and PKGNAME
+should be set to "${PYPKGPREFIX}-${DISTNAME}", e.g.
 
 DISTNAME=   foopymodule-1.2.10
 PKGNAME=    ${PYPKGPREFIX}-${DISTNAME}
@@ -3214,15 +3229,6 @@ variable and set it to the list of files (paths relative to WRKSRC) that must
 be corrected. For example:
 
 REPLACE_PYTHON=   *.py
-
-Most Python packages use either "distutils" or easy-setup ("eggs"). If the
-software uses "distutils", include "../../lang/python/distutils.mk". so pkgsrc
-will use this framework. "distutils" uses a script called setup.py, if the "
-distutils" driver is not called setup.py, set the PYSETUP variable to the name
-of the script.
-
-Otherwise, if the packaged software is egg-aware, you only need to include "..
-/../lang/python/egg.mk".
 
 Some Python modules have separate distributions for Python-2.x and Python-3.x
 support. In pkgsrc this is handled by the versioned_dependencies.mk file. Set
@@ -3798,7 +3804,7 @@ MESSAGE
     MESSAGE_SUBST+=  SOMEVAR="somevalue"
 
     replaces "${SOMEVAR}" with "somevalue" in MESSAGE. By default, substitution
-    is performed for PKGNAME, PKGBASE, PREFIX, LOCALBASE, X11PREFIX, X11BASE,
+    is performed for PKGNAME, PKGBASE, PREFIX, LOCALBASE, X11BASE,
     PKG_SYSCONFDIR, ROOT_GROUP, and ROOT_USER.
 
     You can display a different or additional files by setting the MESSAGE_SRC
@@ -4184,13 +4190,6 @@ targets" for more information on this target.
 
 13.3. Tweaking output of make print-PLIST
 
-If you have used any of the *-dirs packages, as explained in Section 13.9,
-"Sharing directories between packages", you may have noticed that make
-print-PLIST outputs a set of @comments instead of real @dirrm lines. You can
-also do this for specific directories and files, so that the results of that
-command are very close to reality. This helps a lot during the update of
-packages.
-
 The PRINT_PLIST_AWK variable takes a set of AWK patterns and actions that are
 used to filter the output of print-PLIST. You can append any chunk of AWK
 scripting you like to it, but be careful with quoting.
@@ -4199,12 +4198,6 @@ For example, to get all files inside the libdata/foo directory removed from the
 resulting PLIST:
 
 PRINT_PLIST_AWK+=       /^libdata\/foo/ { next; }
-
-
-And to get all the @dirrm lines referring to a specific (shared) directory
-converted to @comments:
-
-PRINT_PLIST_AWK+=       /^@dirrm share\/specific/ { print "@comment " $$0; next; }
 
 
 13.4. Variable substitution in PLIST
@@ -4271,7 +4264,6 @@ man/man1/bar.1
 ${PLIST.foo}bin/foo
 ${PLIST.foo}man/man1/foo.1
 ${PLIST.foo}share/bar/foo.data
-${PLIST.foo}@dirrm share/bar
 
 
 13.5. Man page compression
@@ -5331,33 +5323,13 @@ When choosing which of these variables to use, follow the following rules:
     installed. When looking for standard X11 includes (not those installed by a
     package), use "${X11BASE}".
 
-  * X11-based packages are special in that they may be installed in either
-    X11BASE or LOCALBASE.
+  * X11-based packages using imake must set USE_IMAKE to be installed correctly
+    under LOCALBASE.
 
-    Usually, X11 packages should be installed under LOCALBASE whenever
-    possible. Note that you will need to include ../../mk/x11.buildlink3.mk in
-    them to request the presence of X11 and to get the right compilation flags.
-
-    Even though, there are some packages that cannot be installed under
-    LOCALBASE: those that come with app-defaults files. These packages are
-    special and they must be placed under X11BASE. To accomplish this, set
-    either USE_X11BASE or USE_IMAKE in your package.
-
-    Some notes: If you need to find includes or libraries installed by a pkg
-    that has USE_IMAKE or USE_X11BASE in its pkg Makefile, you need to look in 
-    both ${X11BASE} and ${LOCALBASE}. To force installation of all X11 packages
-    in LOCALBASE, the pkgtools/xpkgwedge package is enabled by default.
-
-  * X11PREFIX should be used to refer to the installed location of an X11
-    package. X11PREFIX will be set to X11BASE if xpkgwedge is not installed,
-    and to LOCALBASE if xpkgwedge is installed.
-
-  * If xpkgwedge is installed, it is possible to have some packages installed
-    in X11BASE and some in LOCALBASE. To determine the prefix of an installed
-    package, the EVAL_PREFIX definition can be used. It takes pairs in the
-    format "DIRNAME=<package>", and the make(1) variable DIRNAME will be set to
-    the prefix of the installed package <package>, or "${X11PREFIX}" if the
-    package is not installed.
+  * To determine the prefix of an installed package, the EVAL_PREFIX definition
+    can be used. It takes pairs in the format "DIRNAME=<package>", and the make
+    (1) variable DIRNAME will be set to the prefix of the installed package
+    <package>, or "${PREFIX}" if the package is not installed.
 
     This is best illustrated by example.
 
@@ -5507,12 +5479,12 @@ ${MASTER_SITE_MOZILLA_ESR}
 ${MASTER_SITE_MYSQL}
 ${MASTER_SITE_NETLIB}
 ${MASTER_SITE_OPENOFFICE}
+${MASTER_SITE_OSDN}
 ${MASTER_SITE_PERL_CPAN}
 ${MASTER_SITE_PGSQL}
 ${MASTER_SITE_RUBYGEMS}
 ${MASTER_SITE_R_CRAN}
 ${MASTER_SITE_SOURCEFORGE}
-${MASTER_SITE_SOURCEFORGE_JP}
 ${MASTER_SITE_SUNSITE}
 ${MASTER_SITE_SUSE}
 ${MASTER_SITE_TEX_CTAN}
@@ -5679,10 +5651,9 @@ module.mk. To set any parameter for Makefile.PL use the MAKE_PARAMS variable
 (e.g., MAKE_PARAMS+=foo=bar
 
 If the program uses an Imakefile for configuration, the appropriate steps can
-be invoked by setting USE_IMAKE to "yes". (If you only want the package
-installed in ${X11PREFIX} but xmkmf not being run, set USE_X11BASE instead.)
-You can add variables to xmkmf's environment by adding them to the SCRIPTS_ENV
-variable.
+be invoked by setting USE_IMAKE to "yes". If you only need xmkmf, add it to
+USE_TOOLS. You can add variables to xmkmf's environment by adding them to the
+SCRIPTS_ENV variable.
 
 If the program uses cmake for configuration, the appropriate steps can be
 invoked by setting USE_CMAKE to "yes". You can add variables to cmake's
@@ -5769,6 +5740,10 @@ INSTALL_MAN_DIR
 
     directories that contain man pages
 
+INSTALL_GAME_DIR
+
+    directories that contain data files for games
+
 INSTALL_PROGRAM
 
     binaries that can be stripped from debugging symbols
@@ -5798,6 +5773,11 @@ INSTALL_MAN
     man pages
 
 Some other variables are:
+
+INSTALL_UNSTRIPPED
+
+    If set to yes, do not run strip(1) when installing binaries. Any debugging
+    sections and symbols present in binaries will be preserved.
 
 INSTALLATION_DIRS
 
@@ -5878,6 +5858,17 @@ bin-install
     (see the BINPKG_SITES variable), and do a make package if no binary package
     is available anywhere. The arguments given to pkg_add can be set via
     BIN_INSTALL_FLAGS e.g., to do verbose operation, etc.
+
+install-clean
+
+    This target removes the state files for the "install" and later phases so
+    that the "install" target may be re-invoked. This can be used after editing
+    the PLIST to install the package without rebuilding it.
+
+build-clean
+
+    This target removes the state files for the "build" and later phases so
+    that the "build" target may be re-invoked.
 
 update
 
@@ -6054,6 +6045,16 @@ show-installed-depends
 
     This target shows which installed packages match the current package's
     DEPENDS. Useful if out of date dependencies are causing build problems.
+
+print-build-depends-list
+
+    This target shows the list of packages that the current package depends on
+    for building.
+
+print-run-depends-list
+
+    This target shows the list of packages that the current package depends on
+    for running.
 
 check-shlibs
 
@@ -6593,16 +6594,6 @@ version numbers recognized by pkg_info(1).
     For security fixes, please update the package vulnerabilities file. See
     Section 19.1.10, "Handling packages with security problems" for more
     information.
-
- 7. If the package depends on either one of two (or more) packages, specify the
-    "pre-req-package-name" as a comma-separated list between curly braces.
-
-    As an example, take a package that depends on the Perl "version" module,
-    which has been part of Perl itself since version 5.10.0. This either/or
-    dependency is expressed as:
-
-    DEPENDS+=       {perl>=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
-
 
 If your package needs files from another package to build, add the relevant
 distribution files to DISTFILES, so they will be extracted automatically. See
@@ -7257,10 +7248,11 @@ this problem you can try to tell the package to disable inlining of functions.
 
 Sometimes packages fail to build because the compiler runs into an operating
 system specific soft limit. With the UNLIMIT_RESOURCES variable pkgsrc can be
-told to unlimit the resources. Currently, the allowed values are "datasize" and
-"stacksize" (or both). Setting this variable is similar to running the shell
-builtin ulimit command to raise the maximum data segment size or maximum stack
-size of a process, respectively, to their hard limits.
+told to unlimit the resources. Currently, the allowed values are any
+combination of "cputime", "datasize", "memorysize", and "stacksize". Setting
+this variable is similar to running the shell builtin ulimit command to raise
+the maximum data segment size or maximum stack size of a process, respectively,
+to their hard limits.
 
 19.6. Fixing problems in the install phase
 
@@ -7306,10 +7298,31 @@ work, the binaries need to be installed setgid and the score files owned by the
 appropriate group and/or owner (traditionally the "games" user/group). Set
 USE_GAMESGROUP to yes to support this. The following variables, documented in
 more detail in mk/defaults/mk.conf, control this behaviour: GAMEDATAMODE,
-GAMEDIRMODE, GAMES_GROUP, GAMEMODE, GAME_USER.
+GAMEDIRMODE, GAMES_GROUP, GAMEMODE, GAME_USER. Other useful variables are:
+GAMEDIR_PERMS, GAMEDATA_PERMS and SETGID_GAMES_PERMS.
+
+An example that illustrates some of the variables described above is games/
+moon-buggy. OWN_DIRS_PERMS is used to properly set directory permissions of the
+directory where the scorefile is saved, REQD_FILES_PERMS is used to create a
+dummy scorefile (mbscore) with the proper permissions and SPECIAL_PERMS is used
+to install setgid the game binary:
+
+USE_GAMESGROUP=         yes
+
+BUILD_DEFS+=            VARBASE
+
+OWN_DIRS_PERMS+=        ${VARBASE}/games/moon-buggy ${GAMEDIR_PERMS}
+REQD_FILES_PERMS+=      /dev/null ${VARBASE}/games/moon-buggy/mbscore ${GAMEDATA_PERMS}
+SPECIAL_PERMS+=         ${PREFIX}/bin/moon-buggy ${SETGID_GAMES_PERMS}
+
+
+Various INSTALL_* variables are also available: INSTALL_GAME to install setgid
+game binaries, INSTALL_GAME_DIR to install game directories that are needed to
+be accessed by setgid games and INSTALL_GAME_DATA to install scorefiles.
 
 A package should therefore never hard code file ownership or access permissions
-but rely on INSTALL_GAME and INSTALL_GAME_DATA to set these correctly.
+but rely on *_PERMS as described above or alternatively on INSTALL_GAME,
+INSTALL_GAME_DATA and INSTALL_GAME_DIR to set these correctly.
 
 19.6.4. Adding DESTDIR support to packages
 
@@ -7789,8 +7802,7 @@ If you want to submit several packages, please send a separate PR for each one,
 it's easier for us to track things that way.
 
 Alternatively, you can also import new packages into pkgsrc-wip ("pkgsrc
-work-in-progress"); see the homepage at http://pkgsrc-wip.sourceforge.net/ for
-details.
+work-in-progress"); see the homepage at http://pkgsrc.org/wip/ for details.
 
 21.3. General notes when adding, updating, or removing packages
 

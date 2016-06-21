@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.44 2015/03/15 16:47:19 hiramatsu Exp $
+# $NetBSD: Makefile.common,v 1.49 2016/01/24 05:03:23 tsutsui Exp $
 #
 # used by devel/ruby-gnome2-atk/Makefile
 # used by devel/ruby-gnome2-gio/Makefile
@@ -10,7 +10,6 @@
 # used by graphics/ruby-gnome2-clutter-gtk/Makefile
 # used by graphics/ruby-gnome2-gdk3/Makefile
 # used by graphics/ruby-gnome2-gdkpixbuf/Makefile
-# used by graphics/ruby-gnome2-goocanvas/Makefile
 # used by graphics/ruby-gnome2-rsvg/Makefile
 # used by multimedia/ruby-gnome2-clutter-gstreamer/Makefile
 # used by multimedia/ruby-gnome2-gstreamer/Makefile
@@ -23,27 +22,10 @@
 # used by x11/ruby-gnome2-gtksourceview3/Makefile
 # used by x11/ruby-gnome2-vte/Makefile
 
-DISTNAME=		ruby-gnome2-all-${VERSION}
 CATEGORIES+=		ruby
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=ruby-gnome2/}
 
-DISTINFO_FILE=		${.CURDIR}/../../meta-pkgs/ruby-gnome2/distinfo
-PATCHDIR=		${.CURDIR}/../../meta-pkgs/ruby-gnome2/patches
-
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://ruby-gnome2.sourceforge.jp/
+MAINTAINER=		tsutsui@NetBSD.org
+HOMEPAGE=		http://ruby-gnome2.osdn.jp/
 LICENSE=		gnu-lgpl-v2.1
 
-VERSION=		2.2.4
-USE_RUBY_EXTCONF?=	yes
-CONFIGURE_ENV+=		RUBYOPT="-Ku"
-RUBY_VERSION_SUPPORTED=	193 200 21
-
-INSTALL_TARGET=		install
-
-.if defined(USE_RUBY_EXTCONF) && empty(USE_RUBY_EXTCONF:M[Nn][Oo])
-CONFIGURE_ARGS+=	--with-pkg-config-dir=${DESTDIR:Q}${PREFIX:Q}/lib/pkgconfig
-.endif
-
-.include "../../lang/ruby/modules.mk"
-.include "../../mk/bsd.pkg.mk"
+VERSION=		3.0.7

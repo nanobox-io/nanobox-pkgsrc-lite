@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.3 2015/01/28 09:50:50 jaapb Exp $
+# $NetBSD: Makefile,v 1.12 2016/03/05 11:27:59 jperkin Exp $
 
 DISTNAME=	lablgtk-2.18.3
-PKGREVISION=	1
+PKGNAME=	ocaml-${DISTNAME}
+PKGREVISION=	7
 CATEGORIES=	x11
-MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1456/
+MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1479/
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://lablgtk.forge.ocamlcore.org/
@@ -11,12 +12,13 @@ COMMENT=	GTK+ 2.x bindings for Objective Caml
 # for installed files; more restrictions on applications/
 LICENSE=	gnu-lgpl-v2
 
+# remove on next update
+DIST_SUBDIR=	lablgtk-2.18.3
+
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--enable-debug
 USE_TOOLS+=		gmake pkg-config
 OCAML_USE_FINDLIB=	yes
-
-# seems to have been forgotten in 2.18.3 release
-WRKSRC=		${WRKDIR}/lablgtk-2.18.2
 
 MAKE_JOBS_SAFE=		no
 BUILD_TARGET=		world
@@ -40,7 +42,7 @@ PLIST.stubs=	yes
 .include "../../mk/ocaml.mk"
 
 .if ${OCAML_USE_OPT_COMPILER} == "yes"
-PLIST.opt=      yes
+PLIST.opt=	yes
 .endif
 
 .include "options.mk"

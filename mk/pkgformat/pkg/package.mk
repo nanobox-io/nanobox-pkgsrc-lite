@@ -1,4 +1,4 @@
-# $NetBSD: package.mk,v 1.9 2015/02/16 10:50:33 jperkin Exp $
+# $NetBSD: package.mk,v 1.13 2016/02/02 08:15:07 rillig Exp $
 
 .if defined(PKG_SUFX)
 WARNINGS+=		"PKG_SUFX is deprecated, please use PKG_COMPRESSION"
@@ -70,30 +70,32 @@ _PKG_ARGS_PACKAGE+=	-u ${REAL_ROOT_USER} -g ${REAL_ROOT_GROUP}
 .endif
 
 ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
-	${RUN} ${MKDIR} ${.TARGET:H}
 	@${STEP_MSG} "Creating binary package ${.TARGET}"
-	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
-	if ${PKG_CREATE} ${_PKG_ARGS_PACKAGE} "$$tmpname"; then		\
-		${MV} -f "$$tmpname" ${.TARGET};			\
-	else								\
+	${RUN} ${MKDIR} ${.TARGET:H}; ${_ULIMIT_CMD}			\
+	tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};		\
+	if ! ${PKG_CREATE} ${_PKG_ARGS_PACKAGE} "$$tmpname"; then	\
 		exitcode=$$?; ${RM} -f "$$tmpname"; exit $$exitcode;	\
 	fi
+.if !empty(SIGN_PACKAGES:U:Mgpg)
+	@${STEP_MSG} "Signing binary package ${.TARGET} (GPG)"
+	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
+	${PKG_ADMIN} gpg-sign-package "$$tmpname" ${.TARGET}
+.elif !empty(SIGN_PACKAGES:U:Mx509)
+	@${STEP_MSG} "Signing binary package ${.TARGET} (X509)"
+	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
+	${PKG_ADMIN} x509-sign-package "$$tmpname" ${.TARGET}		\
+		${X509_KEY} ${X509_CERTIFICATE}
+.else
+	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
+	${MV} -f "$$tmpname" ${.TARGET}
+.endif
 
 .if ${PKGFILE} != ${STAGE_PKGFILE}
 ${PKGFILE}: ${STAGE_PKGFILE}
-	${RUN} ${MKDIR} ${.TARGET:H}
-. if !empty(SIGN_PACKAGES:U:Mgpg)
-	@${STEP_MSG} "Creating signed binary package ${.TARGET} (GPG)"
-	${PKG_ADMIN} gpg-sign-package ${STAGE_PKGFILE} ${PKGFILE}
-. elif !empty(SIGN_PACKAGES:U:Mx509)
-	@${STEP_MSG} "Creating signed binary package ${.TARGET} (X509)"
-	${PKG_ADMIN} x509-sign-package ${STAGE_PKGFILE} ${PKGFILE}	\
-		${X509_KEY} ${X509_CERTIFICATE}
-. else
 	@${STEP_MSG} "Creating binary package ${.TARGET}"
-	${LN} -f ${STAGE_PKGFILE} ${PKGFILE} 2>/dev/null || \
+	${RUN} ${MKDIR} ${.TARGET:H};					\
+	${LN} -f ${STAGE_PKGFILE} ${PKGFILE} 2>/dev/null ||		\
 		${CP} -pf ${STAGE_PKGFILE} ${PKGFILE}
-. endif
 .endif
 
 ######################################################################
@@ -137,8 +139,8 @@ package-links: delete-package-links
 ### the non-primary categories to which the package belongs.
 ###
 delete-package-links:
-	${RUN} ${FIND} ${PACKAGES} -type l -name ${PKGFILE:T} -print	\
-	| ${XARGS} ${RM} -f
+	${RUN} ${FIND} ${PACKAGES}/*/${PKGFILE:T} -type l -print	\
+		2>/dev/null | ${XARGS} ${RM} -f
 
 ######################################################################
 ### tarup (PUBLIC)
@@ -198,7 +200,7 @@ real-package-install:
 
 MAKEFLAGS.su-real-package-install=	PKGNAME_REQD=${PKGNAME_REQD:Q}
 su-real-package-install:
-	@${PHASE_MSG} "Install binary package of "${PKGNAME:Q}
+	@${PHASE_MSG} "Installing binary package of "${PKGNAME:Q}
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 	@${MKDIR} ${_CROSS_DESTDIR}${PREFIX}
 	${PKG_ADD} -m ${MACHINE_ARCH} -I -p ${_CROSS_DESTDIR}${PREFIX} ${STAGE_PKGFILE}

@@ -1,20 +1,17 @@
-# $NetBSD: Makefile,v 1.64 2015/02/19 11:56:18 jperkin Exp $
+# $NetBSD: Makefile,v 1.74 2016/03/05 11:28:43 jperkin Exp $
 
-DISTNAME=		otp_src_${DIST_VERSION_MAJOR}${DIST_VERSION_MINOR:D-${DIST_VERSION_MINOR}}
-PKGREVISION=		4
-PKGNAME=		erlang-${ERLANG_VERSION}
+DISTNAME=		otp_src_${DIST_VERSION_MAJOR}.${DIST_VERSION_MINOR}
+PKGNAME=		${DISTNAME:S/otp_src_/erlang-/}
+PKGREVISION=		1
 CATEGORIES=		lang
 MASTER_SITES=		http://www.erlang.org/download/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.erlang.org/
 COMMENT=		Concurrent functional programming language
-LICENSE=		erlang-public-license
+LICENSE=		apache-2.0
 
 DIST_SUBDIR=		erlang
-WRKSRC=			$(WRKDIR)/otp_src_${DIST_VERSION_MAJOR}
-
-MAKE_JOBS_SAFE=		no
 
 GNU_CONFIGURE=		yes
 USE_GNU_CONFIGURE_HOST=	${USE_CROSS_COMPILE}
@@ -48,15 +45,15 @@ MAKE_ENV+=		DESTDIR=${DESTDIR}
 
 REPLACE_INTERPRETER+=	escript
 REPLACE.escript.old=	.*escript
-REPLACE.escript.new=	${LOCALBASE}/bin/escript
+REPLACE.escript.new=	${PREFIX}/bin/escript
 REPLACE_FILES.escript=	\
-	lib/reltool/examples/display_args \
-	lib/reltool/examples/mnesia_core_dump_viewer \
-	lib/snmp/src/compile/snmpc.src \
+	lib/diameter/bin/diameterc \
 	lib/erl_docgen/priv/bin/codeline_preprocessing.escript \
 	lib/erl_docgen/priv/bin/xml_from_edoc.escript \
+	lib/reltool/examples/display_args \
+	lib/reltool/examples/mnesia_core_dump_viewer \
 	lib/snmp/bin/snmpc \
-	lib/diameter/bin/diameterc
+	lib/snmp/src/compile/snmpc.src
 
 SUBST_CLASSES+=		target
 SUBST_STAGE.target=	post-patch
@@ -70,19 +67,12 @@ REPLACE_PERL+=		make/make_emakefile
 
 SMF_NAME=		epmd
 
-PLIST_SRC=		PLIST
+CONFIGURE_ARGS.DragonFly+=	--disable-sctp
 
-.if exists(${.CURDIR}/PLIST.${OPSYS})
-PLIST_SRC+=	${.CURDIR}/PLIST.${OPSYS}
-.endif
-
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	--disable-sctp
-.endif
 ###
 ### XXX There may be others here.
 ###
-.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "Darwin"
 CONFIGURE_ARGS+=	--enable-kernel-poll
 .endif
 

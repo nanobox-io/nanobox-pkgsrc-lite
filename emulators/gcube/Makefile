@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.21 2014/10/09 14:06:32 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2016/03/09 22:10:13 tnn Exp $
 #
 
 DISTNAME=		gcube-0.4-src
 PKGNAME=		${DISTNAME:S/-src//}
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		emulators
 MASTER_SITES=		http://www.liquidx.org/distfiles/
 EXTRACT_SUFX=		.tar.bz2
@@ -17,6 +17,7 @@ WRKSRC=			${WRKDIR}/0.4
 
 LDFLAGS.DragonFly=	-lm
 LDFLAGS.SunOS+=		-lm
+LDFLAGS.Linux+=		-lm
 
 .include "../../mk/bsd.prefs.mk"
 

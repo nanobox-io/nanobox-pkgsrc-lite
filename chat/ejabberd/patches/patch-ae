@@ -1,11 +1,11 @@
-$NetBSD: patch-ae,v 1.10 2015/01/02 09:14:16 fhajny Exp $
+$NetBSD: patch-ae,v 1.13 2016/01/16 19:28:02 fhajny Exp $
 
 - Default locations.
 - Make it work with NetBSD's flock(1).
 
---- ejabberdctl.template.orig	2014-07-22 16:42:49.000000000 +0100
-+++ ejabberdctl.template	2014-08-21 20:17:35.000000000 +0100
-@@ -67,10 +67,10 @@
+--- ejabberdctl.template.orig	2016-01-12 11:07:58.000000000 +0000
++++ ejabberdctl.template
+@@ -73,10 +73,10 @@ if [ "$EJABBERD_CONFIG_PATH" = "" ] ; th
      EJABBERD_CONFIG_PATH=$ETC_DIR/ejabberd.yml
  fi
  if [ "$LOGS_DIR" = "" ] ; then
@@ -18,30 +18,30 @@ $NetBSD: patch-ae,v 1.10 2015/01/02 09:14:16 fhajny Exp $
  fi
  if [ "$EJABBERD_DOC_PATH" = "" ] ; then
      EJABBERD_DOC_PATH={{docdir}}
-@@ -81,7 +81,7 @@
+@@ -87,7 +87,7 @@ if [ "$ERLANG_NODE_ARG" != "" ] ; then
  fi
  if [ "{{release}}" != "true" ] ; then
      if [ "$EJABBERDDIR" = "" ] ; then
 -        EJABBERDDIR={{libdir}}/ejabberd
-+        EJABBERDDIR={{libdir}}/erlang/lib/@DISTNAME@
++        EJABBERDDIR={{libdir}}/erlang/lib/ejabberd
      fi
-     if [ "$EJABBERD_EBIN_PATH" = "" ] ; then
-         EJABBERD_EBIN_PATH=$EJABBERDDIR/ebin
-@@ -281,7 +281,7 @@
+     if [ "$EJABBERD_PRIV_PATH" = "" ] ; then
+         EJABBERD_PRIV_PATH=$EJABBERDDIR/priv
+@@ -351,7 +351,7 @@ ctl()
      # using flock if available. Expects a linux-style
      # flock that can lock a file descriptor.
      MAXCONNID=100
 -    CONNLOCKDIR={{localstatedir}}/lock/ejabberdctl
 +    CONNLOCKDIR=@EJABBERD_PIDDIR@
-     FLOCK='/usr/bin/flock'
+     FLOCK=/usr/bin/flock
      if [ ! -x "$FLOCK" ] || [ ! -d "$CONNLOCKDIR" ] ; then
-         JOT='/usr/bin/jot'
-@@ -308,7 +308,7 @@
+         JOT=/usr/bin/jot
+@@ -378,7 +378,7 @@ ctl()
              CTL_LOCKFILE="$CONNLOCKDIR/$CTL_CONN"
              (
                  exec 8>"$CTL_LOCKFILE"
 -                if flock --nb 8; then
 +                if flock -x -n 8; then
-                     ctlexec $CTL_CONN $COMMAND
+                     ctlexec $CTL_CONN "$@"
                      ssresult=$?
                      # segregate from possible flock exit(1)

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.36 2014/05/05 00:47:36 ryoon Exp $
+# $NetBSD: Makefile,v 1.39 2016/03/05 11:28:03 jperkin Exp $
 #
 
 DISTNAME=	gimmix-0.5.7.1
-PKGREVISION=	26
+PKGREVISION=	28
 CATEGORIES=	audio
 MASTER_SITES=	http://download.berlios.de/gimmix/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,7 +20,7 @@ USE_TOOLS+=	intltool gmake msgfmt pkg-config
 # fixes broken symbolic link to /usr/share/intltool/Makefile.in.in
 post-extract:
 	rm -f ${WRKSRC}/po/Makefile.in.in
-	ln -s ${TOOLS_PREFIX.intltool:Q}/share/intltool/Makefile.in.in \
+	ln -s ${LOCALBASE}/share/intltool/Makefile.in.in \
 		${WRKSRC}/po/Makefile.in.in
 
 .include "../../x11/gtk2/buildlink3.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.86 2015/03/22 17:32:54 sevan Exp $
+# $NetBSD: Makefile,v 1.88 2016/02/25 15:35:31 jperkin Exp $
 
 DISTNAME=	rpm-4.12.0.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	misc
 MASTER_SITES=	http://rpm.org/releases/rpm-4.12.x/
 EXTRACT_SUFX=	.tar.bz2
@@ -54,18 +54,13 @@ MAKE_FLAGS+=		ROOT=${DESTDIR}
 RPMDIR=			${RPM_DB_PREFIX}/lib/rpm
 FILES_SUBST+=		RPMDIR=${RPMDIR:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
 # The configure script doesn't detect whether libintl.so has any
 # library dependencies.
 #
 BROKEN_GETTEXT_DETECTION=	yes
 
-.if ${OPSYS} == "SunOS"
-CFLAGS+=	-fno-stack-protector
-BUILDLINK_TRANSFORM+=	rm:-fstack-protector
-.endif
-
+BUILDLINK_TRANSFORM.SunOS+=	rm:-fstack-protector
+CFLAGS.SunOS+=			-fno-stack-protector
 
 pre-configure:
 	set -e; cd ${WRKSRC}; \

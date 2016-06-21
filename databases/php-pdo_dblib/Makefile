@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2013/02/22 03:07:44 taca Exp $
+# $NetBSD: Makefile,v 1.22 2016/04/02 09:05:23 taca Exp $
 
 MODNAME=		pdo_dblib
 CATEGORIES+=		databases

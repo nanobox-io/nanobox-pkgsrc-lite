@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.52 2015/01/21 18:15:17 adam Exp $
+# $NetBSD: Makefile,v 1.57 2016/03/08 15:41:32 wiz Exp $
 
-SNAPSHOT_DATE=	20141218
+SNAPSHOT_DATE=	20160307
 
 DISTNAME=	x264-snapshot-${SNAPSHOT_DATE}-2245
 PKGNAME=	x264-devel-${SNAPSHOT_DATE}
@@ -85,6 +85,12 @@ X264_BUILD_THREADS_SUPPORT=	yes
 .else
 X264_BUILD_THREADS_SUPPORT=	${DLOPEN_REQUIRE_PTHREADS}
 .endif
+
+SUBST_CLASSES+=		netbsd
+SUBST_STAGE.netbsd=	pre-configure
+SUBST_MESSAGE.netbsd=	Adding support for NetBSD.
+SUBST_FILES.netbsd=	common/cpu.c
+SUBST_SED.netbsd=	-e 's,SYS_OPENBSD,SYS_OPENBSD || SYS_NETBSD,'
 
 .include "options.mk"
 

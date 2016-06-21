@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.102 2014/05/29 23:37:16 wiz Exp $
+# $NetBSD: Makefile,v 1.107 2016/01/09 00:22:57 wiz Exp $
 
 DISTNAME=	lilypond-2.18.2
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	http://download.linuxaudio.org/lilypond/sources/v2.18/
 
@@ -26,6 +26,7 @@ BUILD_DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 BUILD_DEPENDS+=	ImageMagick-[0-9]*:../../graphics/ImageMagick
 
 DEPENDS+=	tex-cyrillic-[0-9]*:../../print/tex-cyrillic
+DEPENDS+=	tex-lh-[0-9]*:../../fonts/tex-lh
 DEPENDS+=	tex-psnfss-[0-9]*:../../fonts/tex-psnfss
 DEPENDS+=	tex-epsf-[0-9]*:../../print/tex-epsf
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics
@@ -53,10 +54,13 @@ CONFIGURE_ARGS+=	--with-ncsb-dir=${PREFIX}/share/fonts/urw
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
 REPLACE_PYTHON+= scripts/build/yyout2grammar.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.18.0
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.18.0
 PLIST_SUBST+=	PKGVERSION=${PKGVERSION:S/nb${PKGREVISION}//}
 
 # needs FlexLexer.h
+# make sure we use the same version for that file and the flex binary
+FLEX_REQD=		2.6.0
+BUILDLINK_API_DEPENDS.flex+=	flex>=2.6.0
 .include "../../devel/flex/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"

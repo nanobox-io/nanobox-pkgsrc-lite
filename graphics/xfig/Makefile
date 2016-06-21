@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.69 2014/03/18 23:28:20 gdt Exp $
+# $NetBSD: Makefile,v 1.71 2015/10/14 20:17:26 wiz Exp $
 
 DISTNAME=	xfig.3.2.5b.full
 PKGNAME=	xfig-3.2.5b
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mcj/}
 
@@ -21,7 +21,7 @@ XAW_TYPE?=		3d
 
 NO_INSTALL_MANPAGES=	YES	# install.all does install.man
 INSTALL_TARGET=		install install.all
-CFLAGS+=		-I${X11PREFIX}/include/X11
+CFLAGS+=		-I${X11BASE}/include/X11
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -40,6 +40,12 @@ SUBST_FILES.xaw=	Imakefile
 .if defined(XAW_TYPE) && ${XAW_TYPE} == "3d"
 # define XAW3D and XAW3D1_5E
 SUBST_SED.xaw+=		-e 's/.*\(\#define.XAW3D\)/\1/'
+# does not directly support Xaw3d
+.PHONY: buildlink-Xaw3d-inc-hack
+pre-configure: buildlink-Xaw3d-inc-hack
+
+buildlink-Xaw3d-inc-hack: buildlink-directories
+	cd ${BUILDLINK_DIR}/include/X11 && ln -s Xaw3d Xaw
 .elif defined(XAW_TYPE) && ${XAW_TYPE} == "xpm"
 #  define XAW3D, undef XAW3D1_5E
 SUBST_SED.xaw+=		-e 's/.*\(\#define.XAW3D1_5E\)/XCOMM \1/'

@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.23 2015/02/08 16:11:27 wiz Exp $
+$NetBSD: distinfo,v 1.28 2015/12/27 23:49:14 wiz Exp $
 
-SHA1 (global-6.3.4.tar.gz) = 6b73c0b3c7eea025c8004f8d82d836f2021d0c9e
-RMD160 (global-6.3.4.tar.gz) = bdba3f6cc120ef9609ecc1238eb4054196856e98
-Size (global-6.3.4.tar.gz) = 2903088 bytes
-SHA1 (patch-gozilla_Makefile.in) = e769975f79bd1f0501eca00ffcefa5d5ee2e2db3
+SHA1 (global-6.5.2.tar.gz) = 4796d688928bb8b3fb2193f49b1fed7589daedbf
+RMD160 (global-6.5.2.tar.gz) = fb73ff8ed7951ff627b0991b0c7b410ea8a89624
+SHA512 (global-6.5.2.tar.gz) = b2eb71f60622bd74adb3e2d5a5a18e91f30ebb5cdeb9cd7408c3a8ea62a9902f8bb9d7de251e76226d61f61fd719ac60443655a2819ae27cb943bb76f237b58e
+Size (global-6.5.2.tar.gz) = 2924850 bytes

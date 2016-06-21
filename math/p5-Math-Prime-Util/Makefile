@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/09/04 07:09:56 wen Exp $
+# $NetBSD: Makefile,v 1.10 2016/02/14 11:44:19 wen Exp $
 
-DISTNAME=	Math-Prime-Util-0.43
+DISTNAME=	Math-Prime-Util-0.57
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	math perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Math/}

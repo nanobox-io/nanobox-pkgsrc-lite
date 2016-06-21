@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2014/08/11 06:16:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.4 2016/02/25 15:49:44 jperkin Exp $
 
 DISTNAME=		gst-python-1.2.1
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/gst-python/gstreamer1/}
@@ -20,12 +20,7 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN}
 PY_PATCHPLIST=		yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26	# devel/py-gobject3
-
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=		ac_cv_prog_cc_c99=no
-.endif
+CONFIGURE_ENV.SunOS+=	ac_cv_prog_cc_c99=no
 
 BUILDLINK_API_DEPENDS.gstreamer1+=	gstreamer1>=1.2.0
 .include "../../multimedia/gstreamer1/buildlink3.mk"

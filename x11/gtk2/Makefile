@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.266 2015/03/14 00:39:14 prlw1 Exp $
+# $NetBSD: Makefile,v 1.277 2016/03/13 03:32:59 tnn Exp $
 
-DISTNAME=	gtk+-2.24.27
+DISTNAME=	gtk+-2.24.30
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk+/2.24/}
@@ -54,12 +54,10 @@ REQD_DIRS+=		${PREFIX}/libdata/gtk-2.0
 
 BUILD_DIRS=		. demos/gtk-demo
 
-.include "../../mk/bsd.prefs.mk"
-
 # fix for 'only weak aliases are supported on darwin' error
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-visibility
-.endif
+CONFIGURE_ARGS.Darwin+=	--disable-visibility
+
+.include "../../mk/bsd.prefs.mk"
 
 # gtk/Makefile.am hardcodes 'grep -o' so require GNU grep on platforms
 # which do not have it.
@@ -76,7 +74,13 @@ CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
 #SUBST_SED.pthread=	-e 's,__PTHREAD_FLAGS__,${BUILDLINK_LDFLAGS.pthread},g'
 #SUBST_FILES.pthread=	gdk-pixbuf/Makefile.in
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.24.22
+SUBST_CLASSES+=			iconcache
+SUBST_STAGE.iconcache=		pre-configure
+SUBST_MESSAGE.iconcache=	Renaming gtk-icon-cache-update.
+SUBST_SED.iconcache=		-e 's,gtk-update-icon-cache,gtk2-update-icon-cache,g'
+SUBST_FILES.iconcache=		gtk/Makefile.in
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.24.22
 REPLACE_PYTHON=	gtk/gtk-builder-convert
 
 # We remove the module databases during post-install since we create them
@@ -85,9 +89,8 @@ REPLACE_PYTHON=	gtk/gtk-builder-convert
 post-install:
 	${RM} -f ${DESTDIR}${GTK_IMMODULES_DB}
 
-EVAL_PREFIX+=		PREFIX.hicolor=hicolor-icon-theme
-FILES_SUBST+=		GTK_UPDATE_ICON_CACHE="${PREFIX}/bin/gtk-update-icon-cache"
-FILES_SUBST+=		ICON_THEME_DIR="${PREFIX.hicolor}/share/icons/hicolor"
+FILES_SUBST+=		GTK_UPDATE_ICON_CACHE="${PREFIX}/bin/gtk2-update-icon-cache"
+FILES_SUBST+=		ICON_THEME_DIR="${LOCALBASE}/share/icons/hicolor"
 INSTALL_TEMPLATES+=	../../x11/gtk2/files/icon-cache.tmpl
 PRINT_PLIST_AWK+=	/^share\/icons\/hicolor\/icon-theme.cache$$/ { next; }
 

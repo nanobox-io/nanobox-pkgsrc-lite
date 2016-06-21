@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.26 2014/05/05 00:47:37 ryoon Exp $
+# $NetBSD: Makefile,v 1.28 2015/12/29 04:54:35 dholland Exp $
 #
 
 DISTNAME=		libvisual-plugins-0.2.0
 PKGNAME=		libvisual0.2-plugins-0.2.0
-PKGREVISION=		20
+PKGREVISION=		21
 CATEGORIES=		audio graphics
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=libvisual/}
 
@@ -23,8 +23,8 @@ USE_TOOLS+=		pkg-config mkdirhier
 # sigsegfaults in 0.2.0 because of:
 # sorry, but the bug with strtof has come, please report..
 CONFIGURE_ARGS+=	--disable-dancingparticles
-CONFIGURE_ARGS+= 	--x-includes=${X11BASE}/include
-CONFIGURE_ARGS+= 	--x-libraries=${X11BASE}/lib
+CONFIGURE_ARGS+=	--x-includes=${X11BASE}/include
+CONFIGURE_ARGS+=	--x-libraries=${X11BASE}/lib
 
 # install unnecessarily installed files
 post-install:

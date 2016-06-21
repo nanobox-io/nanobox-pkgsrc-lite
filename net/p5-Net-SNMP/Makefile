@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.34 2014/10/09 13:44:52 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2015/07/12 18:56:26 wiz Exp $
 #
 
 DISTNAME=	Net-SNMP-v6.0.1
 PKGNAME=	p5-${DISTNAME:S/v6/6/}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Net/}
 
@@ -14,7 +14,7 @@ LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Crypt-DES>=2.03:../../security/p5-Crypt-DES
 DEPENDS+=	p5-Crypt-Rijndael>=1.02:../../security/p5-Crypt-Rijndael
-DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5>=2.11}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5>=2.11}:../../security/p5-Digest-MD5
 DEPENDS+=	p5-Digest-SHA1>=1.02:../../security/p5-Digest-SHA1
 DEPENDS+=	p5-Digest-HMAC>=1.00:../../security/p5-Digest-HMAC
 DEPENDS+=	p5-Socket6>=0.23:../../net/p5-Socket6

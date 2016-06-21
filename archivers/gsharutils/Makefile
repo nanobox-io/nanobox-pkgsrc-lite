@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2014/10/09 14:05:51 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2015/11/07 19:28:49 dholland Exp $
 
-DISTNAME=	sharutils-4.13.5
+DISTNAME=	sharutils-4.15
 PKGNAME=	g${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_GNU:=sharutils/}
 
@@ -19,7 +20,6 @@ INSTALL_TARGET=		install install-man
 INFO_FILES=		yes
 USE_TOOLS+=		makeinfo msgfmt sh:run
 
-CONFIGURE_ARGS+=	--disable-uucode
 CONFIGURE_ENV+=		SH=${TOOLS_SH}
 
 CONFIGURE_ARGS+=	--program-prefix=g

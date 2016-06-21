@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.5 2015/03/08 23:25:39 joerg Exp $
+# $NetBSD: Makefile,v 1.8 2016/01/22 15:26:25 prlw1 Exp $
 
 DISTNAME=	glmark2-2014.03
+PKGREVISION=	2
 CATEGORIES=	benchmarks
 MASTER_SITES=	${MASTER_SITE_GITHUB:=glmark2/}
-GITHUB_TAG=	499aa81a68fb4c8aac1c80f0d6a4cce05941c4cc
+GITHUB_TAG=	acac90b257a14bd14a1492cd442b79dcaa1c13cf
 
 MAINTAINER=	prlw1@cam.ac.uk
 HOMEPAGE=	https://github.com/glmark2/glmark2
@@ -12,7 +13,7 @@ LICENSE=	gnu-gpl-v3 AND modified-bsd
 
 USE_LANGUAGES=	c c++
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
 
 USE_TOOLS+=	pkg-config
 

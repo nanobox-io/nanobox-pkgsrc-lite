@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.63 2014/11/25 10:07:18 wiz Exp $
+# $NetBSD: Makefile,v 1.74 2016/02/04 12:13:31 wiz Exp $
 
-DISTNAME=		shotwell-0.20.2
+DISTNAME=		shotwell-0.22.0
+PKGREVISION=		3
 CATEGORIES=		graphics
-MASTER_SITES=		https://download.gnome.org/sources/shotwell/0.20/
+MASTER_SITES=		${MASTER_SITE_GNOME:=sources/shotwell/0.22/}
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgrsc-users@NetBSD.org
@@ -13,7 +14,7 @@ LICENSE=		gnu-lgpl-v2.1
 BUILD_DEPENDS+=		gnome-doc-utils-[0-9]*:../../textproc/gnome-doc-utils
 
 HAS_CONFIGURE=		yes
-USE_TOOLS+=		gmake bash pkg-config msgfmt
+USE_TOOLS+=		gmake bash pkg-config m4 msgfmt
 
 CONFIG_SHELL=		bash
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
@@ -31,8 +32,7 @@ REPLACE_SH+=		configure
 .include "../../devel/libgphoto2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
-BUILDLINK_API_DEPENDS.libgexiv2+= libgexiv2>=0.4.1
-.include "../../graphics/libgexiv2/buildlink3.mk"
+.include "../../graphics/gexiv2/buildlink3.mk"
 # 0.13.2 added shared libs
 BUILDLINK_ABI_DEPENDS.libraw+= libraw>=0.13.2
 .include "../../graphics/libraw/buildlink3.mk"
@@ -40,13 +40,14 @@ BUILDLINK_ABI_DEPENDS.libraw+= libraw>=0.13.2
 .include "../../graphics/librsvg/buildlink3.mk"
 BUILDLINK_DEPMETHOD.vala= build
 .include "../../lang/vala/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/json-glib/buildlink3.mk"
-.include "../../www/webkit1-gtk3/buildlink3.mk"
+.include "../../www/webkit24-gtk3/buildlink3.mk"
 .include "../../www/librest07/buildlink3.mk"
+BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.12.2
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/libunique3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

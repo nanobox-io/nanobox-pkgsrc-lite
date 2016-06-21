@@ -1,9 +1,8 @@
-$NetBSD: distinfo,v 1.8 2013/08/16 06:45:12 obache Exp $
+$NetBSD: distinfo,v 1.14 2015/11/04 03:29:05 agc Exp $
 
-SHA1 (exo-0.3.101.tar.bz2) = 74194f58278a2b9d963264806f142e5d6d05336c
-RMD160 (exo-0.3.101.tar.bz2) = 92dfc1e8f0bfa8ca74f151a2283f6988ce703649
-Size (exo-0.3.101.tar.bz2) = 1793815 bytes
-SHA1 (patch-ad) = af08127aad06a5e9d8e8055dff1f55982666d8d9
-SHA1 (patch-ae) = 18a95737a6eaef8697224d4c099625c18be7ddfb
-SHA1 (patch-af) = 86aee9fdf075c2de36deeebbb7594193e92cde95
-SHA1 (patch-exo-mount-notify_main.c) = 99892d72b240e90faa75bc91ae32308aceeb0b17
+SHA1 (exo-0.10.7.tar.bz2) = 1edbd1eeda577ff0a0473145490b33eb8f9c24c4
+RMD160 (exo-0.10.7.tar.bz2) = a7722904640c96aafe69c5599d4bc55b3e52f1be
+SHA512 (exo-0.10.7.tar.bz2) = 5a872e6895595da027f403fb7951922c40481d53242cb4d9c3da2d36690c61dce2fdb34ba0eb39367558a5e3055733af25432d1f3a8f60984b7e2ed997408b60
+Size (exo-0.10.7.tar.bz2) = 1262301 bytes
+SHA1 (patch-af) = 60bcdb551f5c659b8335107ec77203fd9797aabf
+SHA1 (patch-exo-helper_helpers_Thunar.desktop.in.in) = dfeecc4d288f4d014d8ceb2c63b5625bddc40b12

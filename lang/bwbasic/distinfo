@@ -1,8 +1,9 @@
-$NetBSD: distinfo,v 1.10 2012/01/15 15:29:31 ryoon Exp $
+$NetBSD: distinfo,v 1.14 2015/12/29 23:34:44 dholland Exp $
 
-SHA1 (bwbasic-2.50.zip) = 6e8e8af9fa791bff791534d429092b4904609424
-RMD160 (bwbasic-2.50.zip) = bccc94eb3dcbf903fc1535cda67353f7c372d520
-Size (bwbasic-2.50.zip) = 209629 bytes
-SHA1 (patch-aa) = ca4a5d62dc7aebfcace1df368cdc6ffbaa2c60da
-SHA1 (patch-ac) = 99156f6cd267196af2c3ba62ca7e668ebfd38a24
-SHA1 (patch-bwbasic.h) = 52b19a328791da3b53832ca16cc17ff453558048
+SHA1 (bwbasic-3.00.zip) = 89bb9e960bb91339752bb6d9796d93998d9ca3f6
+RMD160 (bwbasic-3.00.zip) = 3d78b2fc3c6a73856b92443c296d71cd5b39208e
+SHA512 (bwbasic-3.00.zip) = 28d43aa272bf75eda822e7629bcf227049cb8d05ad24f7ebe6229871c302a8bc360b8c5cb252248e8285065be8c06b7fa94d53e7c81042078f3bcda281584afe
+Size (bwbasic-3.00.zip) = 2777709 bytes
+SHA1 (patch-aa) = baa2ae3e72dda0146914d57285aba715d93aec60
+SHA1 (patch-ac) = c82d9eb2159faae0ad3f22da525d2a2dd2de4e95
+SHA1 (patch-renum.c) = 458affe1dd9742b54040b9721d2a8a7cfa82956b

@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.2 2015/01/18 15:56:07 wiedi Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/05 11:29:37 jperkin Exp $
 
-DISTNAME=	h2o-0.9.0
+DISTNAME=	h2o-1.2.0
+PKGREVISION=	2
 CATEGORIES=	www
-MASTER_SITES=	-https://github.com/h2o/h2o/archive/v0.9.0${EXTRACT_SUFX}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=h2o/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://github.com/h2o/h2o
@@ -11,6 +13,11 @@ LICENSE=	mit
 
 USE_CMAKE=	yes
 USE_LANGUAGES=	c c++
+
+USE_TOOLS+=	perl:run
+
+EXTRACT_USING=	gtar
+REPLACE_PERL=	share/h2o/start_server
 
 .include "../../textproc/libyaml/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

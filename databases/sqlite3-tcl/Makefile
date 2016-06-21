@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.71 2015/03/02 13:34:16 adam Exp $
+# $NetBSD: Makefile,v 1.79 2016/03/06 09:57:51 adam Exp $
 
-DISTNAME=	sqlite-autoconf-3080803
-PKGNAME=	sqlite3-tcl-3.8.8.3
+DISTNAME=	sqlite-autoconf-${SQLITE3_DISTVERSION}
+PKGNAME=	sqlite3-tcl-${SQLITE3_VERSION}
 CATEGORIES=	databases
-MASTER_SITES=	http://www.hwaci.com/sw/sqlite/2015/ \
-		http://www.sqlite.org/2015/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.sqlite.org/
 COMMENT=	SQL Database Engine in a C Library (TCL extension)
 LICENSE=	public-domain
+
+.include "../../databases/sqlite3/Makefile.version"
 
 WRKSRC=		${WRKDIR}/${DISTNAME}/tea
 
@@ -24,6 +24,15 @@ BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.6.10
 # avoid conflict with lang/tcl
 post-extract:
 	mv ${WRKSRC}/doc/sqlite3.n ${WRKSRC}/doc/sqlite3-tcl.n
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+post-install:
+	install_name_tool -id \
+	    ${PREFIX}/lib/sqlite3/libsqlite${PKGVERSION_NOREV}.dylib \
+	    ${DESTDIR}${PREFIX}/lib/sqlite3/libsqlite${PKGVERSION_NOREV}.dylib
+.endif
 
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../lang/tcl/buildlink3.mk"

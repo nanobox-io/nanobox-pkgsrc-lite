@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2.2.1 2015/04/26 08:36:34 tron Exp $
+# $NetBSD: Makefile,v 1.3 2015/04/19 16:20:42 taca Exp $
 #
 
 DISTNAME=	# empty

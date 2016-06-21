@@ -1,14 +1,28 @@
-$NetBSD: patch-Source_JavaScriptCore_assembler_ARMAssembler.h,v 1.3 2014/11/27 13:47:03 jmcneill Exp $
+$NetBSD: patch-Source_JavaScriptCore_assembler_ARMAssembler.h,v 1.6 2016/01/21 13:42:33 leot Exp $
 
---- Source/JavaScriptCore/assembler/ARMAssembler.h.orig	2014-10-21 08:06:38.000000000 +0000
+--- Source/JavaScriptCore/assembler/ARMAssembler.h.orig	2016-01-20 12:12:59.000000000 +0000
 +++ Source/JavaScriptCore/assembler/ARMAssembler.h
-@@ -1121,6 +1121,9 @@ namespace JSC {
+@@ -29,6 +29,11 @@
+ 
+ #if ENABLE(ASSEMBLER) && CPU(ARM_TRADITIONAL)
+ 
++#if defined(__NetBSD__)
++#include <sys/types.h>
++#include <machine/sysarch.h>
++#endif
++
+ #include "AssemblerBufferWithConstantPool.h"
+ #include "JITCompilationEffort.h"
+ #include <wtf/Assertions.h>
+@@ -1128,6 +1133,11 @@ namespace JSC {
+                 linuxPageFlush(current, current + page);
+ 
              linuxPageFlush(current, end);
- #elif OS(WINCE)
-             CacheRangeFlush(code, size, CACHE_SYNC_ALL);
-+#elif OS(NETBSD)
-+            char* begin = reinterpret_cast<char*>(code);
-+            __builtin___clear_cache(begin, begin + size);
++#elif defined(__NetBSD__)
++            struct arm_sync_icache_args arg;
++            arg.addr = reinterpret_cast<uintptr_t>(code);
++            arg.len = size;
++            sysarch(ARM_SYNC_ICACHE, (void *)&arg);
  #else
  #error "The cacheFlush support is missing on this platform."
  #endif

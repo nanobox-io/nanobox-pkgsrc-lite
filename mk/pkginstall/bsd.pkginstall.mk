@@ -1,4 +1,4 @@
-# $NetBSD: bsd.pkginstall.mk,v 1.62 2015/02/24 09:46:09 wiz Exp $
+# $NetBSD: bsd.pkginstall.mk,v 1.64 2015/11/08 03:21:46 leot Exp $
 #
 # This Makefile fragment is included by bsd.pkg.mk and implements the
 # common INSTALL/DEINSTALL scripts framework.  To use the pkginstall
@@ -404,7 +404,7 @@ su-create-usergroup: ${_INSTALL_USERGROUP_UNPACKER}
 #
 #	SPECIAL_PERMS+=	/path/to/sgidgame ${SETGID_GAMES_PERMS}
 #
-# GAMEDATA_PERMS and GAMEDIR_PERMS are convenience defintiions for files
+# GAMEDATA_PERMS and GAMEDIR_PERMS are convenience definitions for files
 # that are meant to be accessed by things that are setgid games. Because
 # such files should normally be under ${VARBASE}, generally these 
 # definitions should be used roughly as follows:
@@ -1199,12 +1199,13 @@ install-rcd-scripts:	# do nothing
 
 .for _script_ in ${_INSTALL_RCD_SCRIPTS}
 RCD_SCRIPT_SRC.${_script_}?=	${FILESDIR}/${_script_}.sh
-RCD_SCRIPT_WRK.${_script_}?=	${WRKDIR}/${_script_}
+RCD_SCRIPT_WRK.${_script_}?=	${WRKDIR}/.rc.d/${_script_}
 
 .  if !empty(RCD_SCRIPT_SRC.${_script_})
 generate-rcd-scripts: ${RCD_SCRIPT_WRK.${_script_}}
 ${RCD_SCRIPT_WRK.${_script_}}: ${RCD_SCRIPT_SRC.${_script_}}
 	@${STEP_MSG} "Creating ${.TARGET}"
+	${RUN}${MKDIR} ${.TARGET:H}
 	${RUN}${CAT} ${.ALLSRC} | ${SED} ${FILES_SUBST_SED} > ${.TARGET}
 	${RUN}${CHMOD} +x ${.TARGET}
 

@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.50 2015/02/21 23:35:40 ryoon Exp $
+# $NetBSD: Makefile,v 1.70 2016/03/15 14:40:03 mef Exp $
 
-DISTNAME=	fldigi-3.22.05
-PKGREVISION=	1
+DISTNAME=	fldigi-3.23.08
 CATEGORIES=	ham
-MASTER_SITES=	http://www.w1hkj.com/downloads/fldigi/
-LICENSE=	gnu-gpl-v3
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fldigi/}
 
 MAINTAINER=	makoto@ki.nu
-HOMEPAGE=	http://www.w1hkj.com/Fldigi.html
-#HOMEPAGE=	http://lists.berlios.de/mailman/listinfo/fldigi-devel
+HOMEPAGE=	http://www.w1hkj.com/
 COMMENT=	Digital radio modem
+LICENSE=	gnu-gpl-v3
 
 USE_TOOLS+=	gmake pkg-config
 USE_LANGUAGES=	c c++
@@ -42,11 +40,7 @@ SUBST_SED.brag-os=	-e s/@@OS@@/${OPSYS}/
 CHECK_WRKREF_SKIP+=	bin/flarq
 CHECK_WRKREF_SKIP+=	bin/fldigi
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${LOWER_OPSYS} == "netbsd"
-CONFIGURE_ENV+=		ac_cv_header_execinfo_h=no
-.endif
+CONFIGURE_ENV.NetBSD+=	ac_cv_header_execinfo_h=no
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)

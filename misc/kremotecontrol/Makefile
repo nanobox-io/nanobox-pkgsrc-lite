@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.27 2014/11/13 19:19:08 markd Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/05 11:28:56 jperkin Exp $
 
-DISTNAME=	kremotecontrol-${_KDE_VERSION}
+DISTNAME=	kremotecontrol-15.12.0
+PKGREVISION=	1
 CATEGORIES=	misc
 COMMENT=	KDE frontend for your remote controls
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

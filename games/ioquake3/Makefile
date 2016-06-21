@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.3.20.1 2015/04/21 19:07:14 tron Exp $
+# $NetBSD: Makefile,v 1.5 2015/04/25 14:22:56 tnn Exp $
 #
 
 DISTNAME=	ioquake3-1.36
+PKGREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	http://ioquake3.org/files/1.36/
 EXTRACT_SUFX=	.tar.bz2

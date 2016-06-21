@@ -1,4 +1,4 @@
-$NetBSD: patch-src_dict_table.cc,v 1.1.2.3 2015/04/25 19:28:44 bsiegert Exp $
+$NetBSD: patch-src_dict_table.cc,v 1.2 2015/04/21 13:59:31 hiramatsu Exp $
 
 Entries in the output file are generally not correctly aligned,
 so tell the compiler explicitly about this fact and use memcpy

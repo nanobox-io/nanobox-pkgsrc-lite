@@ -1,4 +1,6 @@
-$NetBSD: patch-aa,v 1.4 2012/11/25 21:37:50 shattered Exp $
+$NetBSD: patch-aa,v 1.6 2016/03/30 08:25:56 jperkin Exp $
+
+Use pkgsrc layout.
 
 --- Makefile.orig	2002-11-24 23:14:18.000000000 +0000
 +++ Makefile
@@ -6,8 +8,10 @@ $NetBSD: patch-aa,v 1.4 2012/11/25 21:37:50 shattered Exp $
 -X11PREFIX=/usr/X11R6
 -X11BASE=/usr/X11R6
 -
- INSTALL_BIN=${DESTDIR}${X11PREFIX}/bin
- INSTALL_MAN1=${DESTDIR}${X11PREFIX}/man/man1
+-INSTALL_BIN=${DESTDIR}${X11PREFIX}/bin
+-INSTALL_MAN1=${DESTDIR}${X11PREFIX}/man/man1
++INSTALL_BIN=${DESTDIR}${PREFIX}/bin
++INSTALL_MAN1=${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
  
  INC_PATH=-I${X11BASE}/include
 -LIB_PATH=-L${X11BASE}/lib

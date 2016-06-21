@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2014/08/25 07:49:08 adam Exp $
+# $NetBSD: Makefile,v 1.23 2016/03/16 19:38:52 sevan Exp $
 
+PKGREVISION=	1
 .include "../../devel/git/Makefile.common"
 
 PKGNAME=	git-base-${GIT_VERSION}
@@ -10,7 +11,7 @@ SUPERSEDES+=		scmgit-base-[0-9]*
 
 DEPENDS+=		p5-Error>=0.17015:../../devel/p5-Error
 # for git-send-email
-DEPENDS+=		{perl>=5.13.8,p5-MIME-Base64>=3.13}:../../converters/p5-MIME-Base64
+#DEPENDS+=		{perl>=5.13.8,p5-MIME-Base64>=3.13}:../../converters/p5-MIME-Base64
 DEPENDS+=		p5-Email-Valid>=0.190:../../mail/p5-Email-Valid
 DEPENDS+=		p5-MailTools>=2.11:../../mail/p5-MailTools
 DEPENDS+=		p5-Net-SMTP-SSL>=1.01:../../mail/p5-Net-SMTP-SSL

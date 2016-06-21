@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2014/05/29 23:37:36 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:30 wiz Exp $
 #
 
 DISTNAME=	Lingua-EN-Inflect-Phrase-0.18
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	textproc perl5
 MASTER_SITES=   ${MASTER_SITE_PERL_CPAN:=Lingua/}
 
@@ -18,7 +18,7 @@ DEPENDS+=	p5-Lingua-EN-Inflect-Number-[0-9]*:../../textproc/p5-Lingua-EN-Inflect
 DEPENDS+=	p5-Lingua-EN-Number-IsOrdinal-[0-9]*:../../textproc/p5-Lingua-EN-Number-IsOrdinal
 DEPENDS+=	p5-Lingua-EN-Tagger-[0-9]*:../../textproc/p5-Lingua-EN-Tagger
 
-BUILD_DEPENDS+=	{perl>=5.12.0,p5-Test-Simple>=0.94}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.12.0,p5-Test-Simple>=0.94}:../../devel/p5-Test-Simple
 BUILD_DEPENDS+=	p5-Test-NoWarnings-[0-9]*:../../devel/p5-Test-NoWarnings
 
 USE_LANGUAGES=		# empty

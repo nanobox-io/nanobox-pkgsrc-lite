@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.6 2014/11/30 10:11:31 adam Exp $
+@comment $NetBSD: PLIST,v 1.8 2015/10/18 15:47:10 adam Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -94,9 +94,6 @@ ${PYSITELIB}/PIL/ImageEnhance.pyo
 ${PYSITELIB}/PIL/ImageFile.py
 ${PYSITELIB}/PIL/ImageFile.pyc
 ${PYSITELIB}/PIL/ImageFile.pyo
-${PYSITELIB}/PIL/ImageFileIO.py
-${PYSITELIB}/PIL/ImageFileIO.pyc
-${PYSITELIB}/PIL/ImageFileIO.pyo
 ${PYSITELIB}/PIL/ImageFilter.py
 ${PYSITELIB}/PIL/ImageFilter.pyc
 ${PYSITELIB}/PIL/ImageFilter.pyo
@@ -269,3 +266,6 @@ ${PYSITELIB}/PIL/_util.py
 ${PYSITELIB}/PIL/_util.pyc
 ${PYSITELIB}/PIL/_util.pyo
 ${PYSITELIB}/PIL/_webp.so
+${PYSITELIB}/PIL/features.py
+${PYSITELIB}/PIL/features.pyc
+${PYSITELIB}/PIL/features.pyo

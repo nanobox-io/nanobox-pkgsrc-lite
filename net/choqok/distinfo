@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.2 2014/01/02 19:44:11 jaapb Exp $
+$NetBSD: distinfo,v 1.4 2015/11/04 00:34:55 agc Exp $
 
-SHA1 (choqok-1.4.tar.xz) = b1c7b00208c259ffe9af2d5b79299cdc325b4df3
-RMD160 (choqok-1.4.tar.xz) = 2d394a8f6d91b6deda3eec2c390088d04a6773f9
-Size (choqok-1.4.tar.xz) = 1021228 bytes
+SHA1 (choqok-1.5.tar.xz) = 0c5c37ff3ead1c3f13ba88c91fdd82ee14cfb7df
+RMD160 (choqok-1.5.tar.xz) = 4c6962f1f453c90a4df775769107cafc99b17ca6
+SHA512 (choqok-1.5.tar.xz) = fbb31abedd07ea1c674a7d59b4a18808ca03812ac37c60ea67d2d641668be4a9137e9f4573eda1e19425123601e9536971170e3948c1e5098b220991571a2cf3
+Size (choqok-1.5.tar.xz) = 1068516 bytes

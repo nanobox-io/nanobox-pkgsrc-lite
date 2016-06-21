@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2014/07/16 07:50:06 wen Exp $
+# $NetBSD: Makefile,v 1.16 2016/03/05 07:24:32 wen Exp $
 #
 
-DISTNAME=	MooseX-Types-DateTime-0.10
+DISTNAME=	MooseX-Types-DateTime-0.13
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
@@ -20,7 +20,7 @@ DEPENDS+=	p5-Time-Duration-Parse>=0.06:../../time/p5-Time-Duration-Parse
 DEPENDS+=	p5-namespace-clean>=0.08:../../devel/p5-namespace-clean
 
 BUILD_DEPENDS+=	p5-Test-Exception>=0.27:../../devel/p5-Test-Exception
-BUILD_DEPENDS+=	p5-Test-use-ok>=0.02:../../devel/p5-Test-use-ok
+BUILD_DEPENDS+=	p5-Test-Simple>=1.001010:../../devel/p5-Test-Simple
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/MooseX/Types/DateTime/.packlist

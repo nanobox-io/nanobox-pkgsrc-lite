@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/03/03 03:30:53 obache Exp $
+# $NetBSD: Makefile,v 1.11 2016/03/03 04:41:15 agc Exp $
 
-PKGNAME=	mksandbox-1.3
+PKGNAME=	mksandbox-1.6
 CATEGORIES=	pkgtools
 
 MAINTAINER=	agc@NetBSD.org
@@ -10,6 +10,7 @@ LICENSE=	2-clause-bsd
 
 WRKSRC=		${WRKDIR}
 NO_BUILD=	yes
+NO_CHECKSUM=	yes
 USE_LANGUAGES=	# none
 INSTALLATION_DIRS=	sbin ${PKGMANDIR}/man8
 

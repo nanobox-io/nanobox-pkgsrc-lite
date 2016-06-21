@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.97 2015/03/02 03:53:26 tnn Exp $
+# $NetBSD: Makefile,v 1.108 2016/03/11 09:09:57 tnn Exp $
 
-DISTNAME=	openjdk-1.7.76-20150127
-PKGNAME=	openjdk7-1.7.76
-PKGREVISION=	3
+JDK_MICRO=	80
+DISTNAME=	openjdk-1.7.${JDK_MICRO}-20150609
+PKGNAME=	openjdk7-1.7.${JDK_MICRO}
+PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://openjdk.java.net/
@@ -19,7 +20,7 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk7
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap keytool orbd \
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
 		policytool rmid rmiregistry servertool tnameserv
 
 MAKE_ENV+=		PKGSRC_ZIPEXE=${TOOLS_PATH.zip}
@@ -34,6 +35,7 @@ USE_TOOLS+=		gmake pax unzip:run zip:run # patch
 UNLIMIT_RESOURCES=	datasize stacksize
 WRKSRC=			${WRKDIR}/openjdk
 PLIST_SRC+=		${PLIST_SRC_DFLT}
+CHECK_SHLIBS_SKIP=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libjawt.so
 
 BUILDLINK_PASSTHRU_DIRS+=	${ALT_BOOTDIR}
 PREPEND_PATH+=			${ALT_BOOTDIR}/bin
@@ -47,10 +49,15 @@ MAKE_ENV+=	ALT_COMPILER_PATH=${WRAPPER_DIR}/bin
 MAKE_ENV+=	ALT_PACKAGE_PATH=${PREFIX}
 MAKE_ENV+=	RHINO_JAR=${WRKDIR}/${RHINO}/js.jar
 
+MAKE_ENV+=	BUILDLINK_PREFIX.iconv=${BUILDLINK_PREFIX.iconv:Q}
+MAKE_ENV+=	ZLIB_LIBS="-L${BUILDLINK_PREFIX.zlib}/lib -lz"
+
 MAKE_ENV+=	ALT_PARALLEL_COMPILE_JOBS=${MAKE_JOBS:U1}
 MAKE_ENV+=	HOTSPOT_BUILD_JOBS=${MAKE_JOBS}
+MAKE_ENV+=	USE_PRECOMPILED_HEADER=0
 
 MAKE_ENV+=	HOTSPOT_BUILD_USER=pkgsrc
+MAKE_ENV+=	JDK_MICRO_VERSION="0_${JDK_MICRO}"
 MAKE_ENV+=	NO_DOCS=true
 MAKE_ENV+=	SKIP_COMPARE_IMAGES=true
 
@@ -91,8 +98,7 @@ SUBST_SED.ccspath=	-e 's/UNIXCCS_PATH/UNIXCOMMAND_PATH/g'
 SUBST_SED.ccspath+=	-e 's,/usr/ccs/bin,/usr/bin,g'
 .endif
 
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES+=		mapfix
+SUBST_CLASSES.SunOS+=	mapfix
 SUBST_STAGE.mapfix=	pre-build
 SUBST_FILES.mapfix=	jdk/make/com/sun/java/pack/mapfile-vers
 SUBST_FILES.mapfix+=	jdk/make/java/main/java/mapfile-amd64
@@ -101,11 +107,10 @@ SUBST_SED.mapfix=	-e '/__fsr_init_value/d'
 SUBST_SED.mapfix+=	-e '/__progname/d'
 
 # environ should only be removed from this file (added by patches)
-SUBST_CLASSES+=		mapfix2
+SUBST_CLASSES.SunOS+=	mapfix2
 SUBST_STAGE.mapfix2=	pre-build
 SUBST_FILES.mapfix2=	jdk/make/com/sun/java/pack/mapfile-vers
 SUBST_SED.mapfix2=	-e '/environ/d'
-.endif
 
 CFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 CXXFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
@@ -229,7 +234,7 @@ do-install:
 	ln -s ${LOWER_OPSYS}/jni_md.h					\
 	  ${DESTDIR}${JAVA_HOME}/include/jni_md.h
 
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD"
 TOOLS_PLATFORM.unzip=
 .endif
 
@@ -242,6 +247,7 @@ MAKE_ENV+=	STRIP=${PREFIX}/bin/gstrip
 .endif
 
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 BUILDLINK_DEPMETHOD.cups?=	build

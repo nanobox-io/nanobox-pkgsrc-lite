@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.42 2013/04/06 20:27:21 rodent Exp $
+# $NetBSD: Makefile,v 1.44 2015/07/04 16:18:35 joerg Exp $
 
 DISTNAME=		geomview-1.8.1
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		graphics math
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=geomview/}
 
@@ -13,7 +13,6 @@ MAKE_JOBS_SAFE=		no
 
 USE_TOOLS+=		lex
 USE_LANGUAGES=		c c++
-USE_X11BASE=		yes
 GNU_CONFIGURE=		yes
 
 CONFIGURE_ARGS+=	--without-xforms

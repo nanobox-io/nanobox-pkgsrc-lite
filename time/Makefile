@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.146 2015/03/13 13:29:00 taca Exp $
+# $NetBSD: Makefile,v 1.153 2016/01/03 10:04:17 taca Exp $
 #
 
 COMMENT=	Clocks, calendars, daily planners and other time related applications
@@ -122,17 +122,21 @@ SUBDIR+=	plan
 SUBDIR+=	planner
 SUBDIR+=	polclock
 SUBDIR+=	projclock
+SUBDIR+=	projectlibre
 SUBDIR+=	ptimetracker
 SUBDIR+=	py-arrow
 SUBDIR+=	py-dateutil
 SUBDIR+=	py-goocalendar
 SUBDIR+=	py-icalendar
 SUBDIR+=	py-iso8601
+SUBDIR+=	py-isodate
 SUBDIR+=	py-jdcal
 SUBDIR+=	py-mxDateTime
 SUBDIR+=	py-parsedatetime
 SUBDIR+=	py-pytz
+SUBDIR+=	py-rfc3339
 SUBDIR+=	py-trytond-calendar
+SUBDIR+=	py-trytond-company-work-time
 SUBDIR+=	py-tzlocal
 SUBDIR+=	py-vdirsyncer
 SUBDIR+=	rclock
@@ -143,6 +147,8 @@ SUBDIR+=	rsibreak-kde3
 SUBDIR+=	ruby-hitimes
 SUBDIR+=	ruby-timers
 SUBDIR+=	ruby-tzinfo
+SUBDIR+=	ruby-tzinfo-data
+SUBDIR+=	ruby-tzinfo03
 SUBDIR+=	saytime
 SUBDIR+=	sunclock
 SUBDIR+=	swisswatch

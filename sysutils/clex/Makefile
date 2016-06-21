@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2012/10/23 19:50:55 asau Exp $
+# $NetBSD: Makefile,v 1.8 2016/02/26 10:24:11 jperkin Exp $
 #
 
 DISTNAME=		clex-4.6.4
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		http://www.clex.sk/download/
 
@@ -17,12 +18,8 @@ GNU_CONFIGURE=		yes
 post-extract:
 	cd ${WRKSRC} && ${RM} -f src/*.orig
 
-.include "../../mk/bsd.prefs.mk"
-
 # libtinfo in DragonFly is linked with libncurses
-.if ${OPSYS} == "DragonFly"
-BUILDLINK_TRANSFORM+=	rm:-ltinfo
-.endif
+BUILDLINK_TRANSFORM.DragonFly+=	rm:-ltinfo
 
 .include "../../devel/ncursesw/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

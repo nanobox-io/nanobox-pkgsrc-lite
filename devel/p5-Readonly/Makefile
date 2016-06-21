@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2015/01/06 14:32:05 wen Exp $
+# $NetBSD: Makefile,v 1.14 2016/02/25 00:33:16 wen Exp $
 #
 
-DISTNAME=	Readonly-2.00
+DISTNAME=	Readonly-2.01
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Readonly/}
@@ -15,7 +15,7 @@ LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Readonly/.packlist
-PERL5_MODULE_TYPE=	Module::Build
+PERL5_MODULE_TYPE=	Module::Build::Tiny
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

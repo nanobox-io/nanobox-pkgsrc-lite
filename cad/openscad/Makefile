@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.31 2014/12/01 12:39:16 joerg Exp $
+# $NetBSD: Makefile,v 1.35 2016/03/05 11:28:06 jperkin Exp $
 #
 
 PKGNAME=	openscad-2011.12
 DISTNAME=	openscad-2011.12.src
-PKGREVISION=	21
+PKGREVISION=	24
 CATEGORIES=	cad
-MASTER_SITES=	http://cloud.github.com/downloads/openscad/openscad/
+MASTER_SITES=	https://cloud.github.com/downloads/openscad/openscad/
 
 MAINTAINER=	reinoud@NetBSD.org
 HOMEPAGE=	http://www.openscad.org/

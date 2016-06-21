@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.23.2.1 2015/04/15 19:54:12 bsiegert Exp $
+# $NetBSD: Makefile,v 1.25 2015/04/25 14:20:44 tnn Exp $
 #
 
 DISTNAME=	dgen-sdl-1.32
+PKGREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dgen/}
 

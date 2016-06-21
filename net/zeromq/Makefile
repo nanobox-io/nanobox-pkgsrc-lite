@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2014/11/15 01:59:37 obache Exp $
+# $NetBSD: Makefile,v 1.23 2016/04/05 14:09:26 wiz Exp $
 
-DISTNAME=	zeromq-4.0.5
+DISTNAME=	zeromq-4.1.4
+PKGREVISION=	1
 CATEGORIES=	net devel
 MASTER_SITES=	http://download.zeromq.org/
 
@@ -9,10 +10,11 @@ HOMEPAGE=	http://www.zeromq.org/
 COMMENT=	The ZeroMQ messaging library
 LICENSE=	gnu-lgpl-v3
 
-USE_LANGUAGES=	c c++
-USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config
-GNU_CONFIGURE=	yes
+USE_LANGUAGES=		c c++
+USE_LIBTOOL=		yes
+USE_TOOLS+=		pkg-config
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-libsodium=${BUILDLINK_PREFIX.libsodium}
 
 PKGCONFIG_OVERRIDE+=	src/libzmq.pc.in
 
@@ -28,11 +30,9 @@ CXXFLAGS+=	-std=gnu++0x
 CXXFLAGS+=	-std=gnu++11
 .endif
 
-.include "../../security/libsodium/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-libsodium=${BUILDLINK_PREFIX.libsodium}
-
 .if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 .include "../../devel/libuuid/buildlink3.mk"
 .endif
 
+.include "../../security/libsodium/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2015/03/31 15:48:32 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2016/03/05 11:27:50 jperkin Exp $
 
 PKGNAME=	cgal-3.9
 DISTNAME=	CGAL-3.9
-PKGREVISION=	23
+PKGREVISION=	26
 CATEGORIES=	math
 MASTER_SITES=	https://gforge.inria.fr/frs/download.php/29125/
 
@@ -15,7 +15,7 @@ USE_CMAKE=	yes
 USE_LANGUAGES=	c c++
 
 pre-install:
-	cd ${WRKSRC} && rm -f include/CGAL/Mesh_2/Do_not_refine_edges.h.orig include/CGAL/config.h.orig
+	find ${WRKSRC} -name \*.orig -exec rm {} \;
 
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"

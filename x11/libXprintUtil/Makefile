@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2012/10/29 05:06:35 asau Exp $
+# $NetBSD: Makefile,v 1.5 2016/03/12 09:27:19 tnn Exp $
 #
 
 DISTNAME=		libXprintUtil-1.0.1
@@ -14,6 +14,12 @@ USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
+
+# The configure script insists that it wants a working C++ preprocessor.
+# Regenerating configure with a newer version of autoconf makes the check
+# go away. It is easier to just give it what it wants until upstream fixes
+# this.
+USE_LANGUAGES=		c c++
 
 PKGCONFIG_OVERRIDE+=	xprintutil.pc.in
 

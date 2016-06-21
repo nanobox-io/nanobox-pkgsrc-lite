@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26 2014/12/01 12:39:17 joerg Exp $
+# $NetBSD: Makefile,v 1.28 2015/10/03 12:08:37 bsiegert Exp $
 
 .include "../../graphics/exiv2/Makefile.common"
 

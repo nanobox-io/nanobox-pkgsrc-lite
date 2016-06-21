@@ -1,4 +1,4 @@
-# $NetBSD: check-interpreter.mk,v 1.28 2014/10/12 23:39:17 joerg Exp $
+# $NetBSD: check-interpreter.mk,v 1.31 2016/03/11 21:11:47 dholland Exp $
 #
 # This file checks that after installation, all files of the package
 # that start with a "#!" line will find their interpreter. Files that
@@ -56,12 +56,15 @@ _check-interpreter: error-check .PHONY
 		if [ ! -x "$$file" ]; then				\
 			continue;					\
 		fi;							\
+		if [ -d "$$file" ]; then				\
+			continue;					\
+		fi;							\
 		if [ ! -r "$$file" ]; then				\
 			${DELAYED_WARNING_MSG} "[check-interpreter.mk] File \"${DESTDIR}${PREFIX}/$$file\" cannot be read."; \
 			continue;					\
 		fi;							\
 		${SHCOMMENT} "[$$file]";				\
-		interp=`${SED} -n -e '1s/^#![[:space:]]*\([^[:space:]]*\).*/\1/p' -e '1q' < "$$file"` \
+		interp=`LC_ALL=C ${SED} -n -e '1s/^#![[:space:]]*\([^[:space:]]*\).*/\1/p' -e '1q' < "$$file"` \
 		|| {	${DELAYED_WARNING_MSG} "[check-interpreter.mk] sed(1) failed for \"${DESTDIR}${PREFIX}/$$file\"."; \
 			continue;					\
 		};							\
@@ -74,12 +77,10 @@ _check-interpreter: error-check .PHONY
 			fi;						\
 			continue;;					\
 		esac;							\
-									\
 		case "$$interp" in					\
 		*${PREFIX}/*bin${BINARCHSUFFIX}/*) isainterp="$$interp" ;;	\
 		*) isainterp=`${ECHO} "$$interp" | ${SED} -e "s;${PREFIX}/\(s*\)bin/;${PREFIX}/\1bin${BINARCHSUFFIX}/;"` ;; \
 		esac;							\
-									\
 		if { [ ! -f ${DESTDIR:Q}"$$interp" ] &&			\
 		     [ ! -f ${DESTDIR:Q}"$$isainterp" ]	&&		\
 		     [ ! -f "$$interp" ]; }; then			\

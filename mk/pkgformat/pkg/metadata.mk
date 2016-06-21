@@ -1,4 +1,4 @@
-# $NetBSD: metadata.mk,v 1.11 2015/02/16 10:17:47 jperkin Exp $
+# $NetBSD: metadata.mk,v 1.12 2015/07/04 16:18:38 joerg Exp $
 
 ######################################################################
 ### The targets below are all PRIVATE.
@@ -71,7 +71,7 @@ ${_BUILD_INFO_FILE}: ${_PLIST_NOKEYWORDS}
 					dsolibs = dsolibs (dsolibs ? ":" : "") $$NF;				\
 				}										\
 				/RPATH/ {									\
-					nrpath = split($$NF ":${SYSTEM_DEFAULT_RPATH}:${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}", rpath, ":"); \
+					nrpath = split($$NF ":${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}:${SYSTEM_DEFAULT_RPATH}", rpath, ":"); \
 					nlibs = split(dsolibs, libs, ":");					\
 					for (l = 1; l <= nlibs; l++) {						\
 						for (r = 1; r <= nrpath; r++) {					\
@@ -243,51 +243,50 @@ MESSAGE_SRC_DFLT+=	${PKGDIR}/MESSAGE.${OPSYS}-${MACHINE_ARCH:C/i[3-6]86/i386/g}
 .endif
 MESSAGE_SRC?=	${MESSAGE_SRC_DFLT}
 
-.if !empty(MESSAGE_SRC)
-_MESSAGE_FILE=		${PKG_DB_TMPDIR}/+DISPLAY
-_METADATA_TARGETS+=	${_MESSAGE_FILE}
+# .if !empty(MESSAGE_SRC)
+# _MESSAGE_FILE=		${PKG_DB_TMPDIR}/+DISPLAY
+# _METADATA_TARGETS+=	${_MESSAGE_FILE}
 
 # Set MESSAGE_SUBST to substitute "${variable}" to "value" in MESSAGE
-MESSAGE_SUBST+=	PKGNAME=${PKGNAME}					\
-		PKGBASE=${PKGBASE}					\
-		PREFIX=${PREFIX}					\
-		EMULDIR=${EMULDIR}					\
-		EMULSUBDIR=${EMULSUBDIR}				\
-		LOCALBASE=${LOCALBASE}					\
-		X11PREFIX=${X11PREFIX}					\
-		X11BASE=${X11BASE}					\
-		PKG_SYSCONFDIR=${PKG_SYSCONFDIR}			\
-		ROOT_GROUP=${REAL_ROOT_GROUP}				\
-		ROOT_USER=${REAL_ROOT_USER}
+# MESSAGE_SUBST+=	PKGNAME=${PKGNAME}					\
+# 		PKGBASE=${PKGBASE}					\
+# 		PREFIX=${PREFIX}					\
+# 		EMULDIR=${EMULDIR}					\
+# 		EMULSUBDIR=${EMULSUBDIR}				\
+# 		LOCALBASE=${LOCALBASE}					\
+# 		X11BASE=${X11BASE}					\
+# 		PKG_SYSCONFDIR=${PKG_SYSCONFDIR}			\
+# 		ROOT_GROUP=${REAL_ROOT_GROUP}				\
+# 		ROOT_USER=${REAL_ROOT_USER}
 
-_MESSAGE_SUBST_SED=	${MESSAGE_SUBST:S/=/}!/:S/$/!g/:S/^/ -e s!\\\${/}
+# _MESSAGE_SUBST_SED=	${MESSAGE_SUBST:S/=/}!/:S/$/!g/:S/^/ -e s!\\\${/}
 
-${_MESSAGE_FILE}: ${MESSAGE_SRC}
-	${RUN}${MKDIR} ${.TARGET:H}
-	${RUN}${CAT} ${.ALLSRC} |			\
-		${SED} ${_MESSAGE_SUBST_SED} > ${.TARGET}
+# ${_MESSAGE_FILE}: ${MESSAGE_SRC}
+# 	${RUN}${MKDIR} ${.TARGET:H}
+# 	${RUN}${CAT} ${.ALLSRC} |			\
+# 		${SED} ${_MESSAGE_SUBST_SED} > ${.TARGET}
 
 # Display MESSAGE file and optionally mail the contents to
 # PKGSRC_MESSAGE_RECIPIENTS.
 #
-.PHONY: install-display-message
-_pkgformat-register: install-display-message
-install-display-message: ${_MESSAGE_FILE}
-	@${STEP_MSG} "Please note the following:"
-	@${ECHO_MSG} ""
-	@${CAT} ${_MESSAGE_FILE}
-	@${ECHO_MSG} ""
-.  if !empty(PKGSRC_MESSAGE_RECIPIENTS)
-	${RUN}								\
-	(${ECHO} "The ${PKGNAME} package was installed on `${HOSTNAME_CMD}` at `date`"; \
-	${ECHO} "";							\
-	${ECHO} "Please note the following:";				\
-	${ECHO} "";							\
-	${CAT} ${_MESSAGE_FILE};					\
-	${ECHO} "") |							\
-	${MAIL_CMD} -s"Package ${PKGNAME} installed on `${HOSTNAME_CMD}`" ${PKGSRC_MESSAGE_RECIPIENTS}
-.  endif
-.endif	# MESSAGE_SRC
+# .PHONY: install-display-message
+# _pkgformat-register: install-display-message
+# install-display-message: ${_MESSAGE_FILE}
+# 	@${STEP_MSG} "Please note the following:"
+# 	@${ECHO_MSG} ""
+# 	@${CAT} ${_MESSAGE_FILE}
+# 	@${ECHO_MSG} ""
+# .  if !empty(PKGSRC_MESSAGE_RECIPIENTS)
+# 	${RUN}								\
+# 	(${ECHO} "The ${PKGNAME} package was installed on `${HOSTNAME_CMD}` at `date`"; \
+# 	${ECHO} "";							\
+# 	${ECHO} "Please note the following:";				\
+# 	${ECHO} "";							\
+# 	${CAT} ${_MESSAGE_FILE};					\
+# 	${ECHO} "") |							\
+# 	${MAIL_CMD} -s"Package ${PKGNAME} installed on `${HOSTNAME_CMD}`" ${PKGSRC_MESSAGE_RECIPIENTS}
+# .  endif
+# .endif	# MESSAGE_SRC
 
 ######################################################################
 ###

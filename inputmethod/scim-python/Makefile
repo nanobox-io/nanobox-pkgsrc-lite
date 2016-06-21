@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2015/03/15 17:25:55 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.31 2016/02/26 12:16:38 jperkin Exp $
 
 DISTNAME=	scim-python-0.1.13rc1
-PKGREVISION=	22
+PKGREVISION=	23
 CATEGORIES=	inputmethod python
 MASTER_SITES=	http://scim-python.googlecode.com/files/
 DISTFILES=	${DEFAULT_DISTFILES} ${DBTAR}
@@ -20,8 +20,7 @@ USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		pkg-config msgfmt
 
-OPSYSVARS+=	BUILDLINK_TRANSFORM
-
+BUILDLINK_TRANSFORM.Darwin+=	rm:-Wl,--version-script=./scim.version-script
 BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--version-script=./scim.version-script
 
 # taken from ${WRKSRC}/python/engine/PinYin/Makefile.in
@@ -33,7 +32,7 @@ post-extract:
 	${CP} ${WRKDIR}/py.db ${WRKSRC}/python/engine/PinYin/py.db
 
 PY_PATCHPLIST=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2
 REPLACE_PYTHON+=	python/engine/XingMa/XMCreateDB.py
 
 .include "../../inputmethod/scim/buildlink3.mk"

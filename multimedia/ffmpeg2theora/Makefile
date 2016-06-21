@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/08/21 08:49:56 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2016/03/12 23:02:11 tnn Exp $
 
-DISTNAME=	ffmpeg2theora-0.29
-PKGREVISION=	2
+DISTNAME=	ffmpeg2theora-0.30
 CATEGORIES=	multimedia
 MASTER_SITES=	http://v2v.cc/~j/ffmpeg2theora/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +15,8 @@ BUILD_DEPENDS+=		scons>=1.3.1:../../devel/scons
 
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
 
+# for rintf(3)
+LDFLAGS.Linux+=	-lm
 LDFLAGS.SunOS+=	-lm
 
 SCONS=		${PREFIX}/bin/scons

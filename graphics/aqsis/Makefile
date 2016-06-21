@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.61 2014/11/07 19:39:33 adam Exp $
+# $NetBSD: Makefile,v 1.66 2016/03/05 11:28:36 jperkin Exp $
 #
 
 DISTNAME=		aqsis-1.8.1
-PKGREVISION=		22
+PKGREVISION=		25
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=aqsis/}
 
@@ -15,7 +15,7 @@ USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		pkg-config flex bison
 
-LIBS.SunOS=		-lsocket -lnsl
+LDFLAGS.SunOS=		-lsocket -lnsl
 
 #
 # Insists on being built in a separate directory.
@@ -37,10 +37,7 @@ pre-configure:
 # cmake from issuing -ldl.
 #CMAKE_ARGS+=		-D CMAKE_DL_LIBS:STRING='${DL_LIBS}'
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "NetBSD"
-BUILDLINK_TRANSFORM+=	rm:-ldl
-.endif
+BUILDLINK_TRANSFORM.NetBSD+=	rm:-ldl
 
 #
 # Forcibly reprogram cmake's rpath substitution.

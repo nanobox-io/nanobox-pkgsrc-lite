@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.3 2012/06/03 18:20:49 wiz Exp $
+$NetBSD: distinfo,v 1.5 2015/11/04 03:29:09 agc Exp $
 
-SHA1 (xlsfonts-1.0.4.tar.bz2) = 6fc23537797bb1ae4945efd8c01e675edf4a4c3f
-RMD160 (xlsfonts-1.0.4.tar.bz2) = 69b0ca0dfe0ef7bc73a82ffeee073ea10770617f
-Size (xlsfonts-1.0.4.tar.bz2) = 124533 bytes
+SHA1 (xlsfonts-1.0.5.tar.bz2) = 4631ad287cecd4c8c3301fc10f6001d00d2e06ef
+RMD160 (xlsfonts-1.0.5.tar.bz2) = b5bf1da219165a900d84f811112b0d12c5c88b91
+SHA512 (xlsfonts-1.0.5.tar.bz2) = e20f9efa0fa33980486671abd4ef59a82fd3df033d9c1b24db8c5b2b27ada93f03dba1e3ad586a35f3b7893bef5e8f14186f1914ab3507862cce4e104199a490
+Size (xlsfonts-1.0.5.tar.bz2) = 131072 bytes

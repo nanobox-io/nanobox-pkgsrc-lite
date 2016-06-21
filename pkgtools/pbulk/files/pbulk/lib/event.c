@@ -1,4 +1,4 @@
-/* $NetBSD: event.c,v 1.6 2009/08/23 18:02:04 joerg Exp $ */
+/* $NetBSD: event.c,v 1.7 2015/09/08 13:57:36 joerg Exp $ */
 
 /*-
  * Copyright (c) 2007, 2009 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -40,8 +40,7 @@
 #endif
 #if HAVE_POLL_H
 #include <poll.h>
-#endif
-#if HAVE_SYS_POLL_H
+#elif HAVE_SYS_POLL_H
 #include <sys/poll.h>
 #endif
 #include <nbcompat/time.h>
@@ -345,13 +344,11 @@ loop:
 	if (ret > 0) {
 		iter = poll_list;
 		for (ev = LIST_FIRST(&all_events);
-		    iter < last_iter && ev && (next = LIST_NEXT(ev, ev_link), 1);
+		    ret && iter < last_iter && ev && (next = LIST_NEXT(ev, ev_link), 1);
 		    ev = next, ++iter) {
 			if (iter->revents) {
-				if (!ev->ev_persistent) {
-					--active_events;
-					LIST_REMOVE(ev, ev_link);
-				}
+				if (!ev->ev_persistent)
+					event_del(ev);
 				(*ev->ev_handler)(ev->ev_fd, ev->ev_arg);
 				--ret;
 			}

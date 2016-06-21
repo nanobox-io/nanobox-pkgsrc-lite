@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.43 2013/04/25 13:32:12 ryoon Exp $
+# $NetBSD: Makefile,v 1.45 2016/03/10 19:20:15 jperkin Exp $
 
 # Note: Regen distinfo with PKG_DEFAULT_OPTIONS+=sun-jre-jce
 # Note: Update DOWNLOAD_NAME when you update the JRE version
 
 DISTNAME=	jre-6u45-${DIST_OS}-${DIST_ARCH}
 PKGNAME=	sun-jre6-6.0.45
+PKGREVISION=	1
 MASTER_SITES=	# empty
 
 LICENSE=	sun-jre6-license
@@ -39,7 +40,6 @@ CONF_FILES+=	${JAVA_HOME}/lib/${file}.default ${JAVA_HOME}/lib/${file}
 .endfor
 
 CHECK_FILES_SKIP+=	${JAVA_HOME}/lib/${JAVA_ARCH}/client/classes.jsa
-CHECK_SHLIBS_SUPPORTED=	NO
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.sun-jre6
 PKG_SUPPORTED_OPTIONS=	sun-jre-jce

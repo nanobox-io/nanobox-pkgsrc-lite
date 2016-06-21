@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.99 2015/02/11 10:51:09 adam Exp $
+# $NetBSD: Makefile,v 1.103 2016/03/14 06:08:10 dbj Exp $
 
-DISTNAME=	freetype-2.5.5
+DISTNAME=	freetype-2.6.2
 PKGNAME=	${DISTNAME:S/-/2-/}
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freetype/} \
 		http://download.savannah.gnu.org/releases/freetype/
@@ -40,9 +41,7 @@ CFLAGS+=	-fno-strict-aliasing
 .endif
 
 # tell configure not to use unix-specific version of ftsystem.c on OpenBSD
-.if ${OPSYS} == "OpenBSD"
-CONFIGURE_ENV+=		ac_cv_func_mmap_fixed_mapped=no
-.endif
+CONFIGURE_ENV.OpenBSD+=	ac_cv_func_mmap_fixed_mapped=no
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 CONFIGURE_ENV+=		CC_BUILD=${NATIVE_CC:Q}
@@ -55,5 +54,8 @@ post-configure:
 .endif
 
 .include "../../archivers/bzip2/buildlink3.mk"
+# Avoid creating a fake zlib.pc, because if it does
+# we will add a Requires for it to our .pc file
+CHECK_BUILTIN.zlib:=yes
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,6 @@
 #!@PERL5@
 #
-# $NetBSD: mkpatches.pl,v 1.19 2015/02/03 22:50:27 abs Exp $
+# $NetBSD: mkpatches.pl,v 1.21 2016/02/10 16:00:10 wiz Exp $
 #
 # mkpatches: creates a set of patches patch-aa, patch-ab, ...
 #   in work/.newpatches by looking for *.orig files in and below
@@ -13,7 +13,7 @@
 #   It retains the naming and header (RCS Id and comment) from the
 #   patches directory.
 #
-# Copyright (c) 2000, 2011 by Thomas Klausner <wiz@NetBSD.org>
+# Copyright (c) 2000, 2011, 2015, 2016 by Thomas Klausner <wiz@NetBSD.org>
 #               2004 by Dieter Baron <dillo@NetBSD.org>
 # All rights reserved.
 #
@@ -61,6 +61,18 @@ sub create_patchdir {
     }
 }
 
+sub get_variable {
+    my ($variable) = shift;
+    my ($value);
+
+    $value = `@MAKE@ show-var VARNAME=$variable`;
+    if (${^CHILD_ERROR_NATIVE} == 0) {
+	chomp($value);
+	return $value;
+    }
+    die("error executing \"make show-var VARNAME=$variable\": returned with exit code " . (${^CHILD_ERROR_NATIVE} >> 8));
+}
+    
 # read command line arguments
 
 undef($opt_c);
@@ -95,15 +107,9 @@ if ($opt_d && $opt_D) {
 
 # get some pkgsrc variables
 
-$wrksrc=`@MAKE@ show-var VARNAME=WRKSRC` or 
-    die ("can't find WRKSRC -- wrong dir?");
-chomp($wrksrc);
-$wrkdir=`@MAKE@ show-var VARNAME=WRKDIR` or
-    die ("can't find WRKDIR -- wrong dir?");
-chomp($wrkdir);
-$origpatchdir=`@MAKE@ show-var VARNAME=PATCHDIR` or
-    die ("can't find PATCHDIR -- wrong dir?");
-chomp($origpatchdir);
+$wrksrc = get_variable("WRKSRC");
+$wrkdir = get_variable("WRKDIR");
+$origpatchdir = get_variable("PATCHDIR");
 
 if ($opt_D) {
     $patchdir = "$wrkdir/.newpatches";
@@ -275,4 +281,36 @@ sub make_patch # new old patchfile diff
     open(HANDLE, "> $patchdir/$patchfile");
     print HANDLE $diff;
     close(HANDLE);
+
+    # check if the new patch is basically the same as the old one
+
+    $diff=`diff $patchdir/$patchfile.orig $patchdir/$patchfile`;
+
+    # the following regex try to eliminate uninteresting differences
+    # The general structure of the diffs-to-be-removed is:
+    # 25c25
+    # < --- something.orig 2008-08-08 08:08
+    # ---
+    # > --- something.orig 2008-08-08 18:08
+    #
+    # In particular, remove hunks with:
+    # . NetBSD RCS Id tag differences
+    $diff=~s/^[\d,]+c[\d,]+\n..\$[N]etBSD.*\$\n---\n..\$[N]etBSD.*\$\n//m;
+
+    # . the name of the input file changed
+    #   (if the name of the output file has changed, patches
+    #    won't get matched up anyway)
+    # . time of the input and/or output file changed
+    # . line numbers changed
+    $diff=~s/^[\d,]+c[\d,]+\n(?:.\s---\s(:?\S+).*\n)?(?:.\s\+\+\+\s(\S+).*\n)?(?:.\s@@\s(?:.*)\s@@.*\n)?---\n(?:.\s---\s\S+.*\n)?(?:.\s\+\+\+\s\S+.*\n)?(?:.\s@@\s.*\s@@.*\n)?//m;
+
+    # . only line numbers changed
+    $diff=~s/^[\d,]+c[\d,]+\n.\s@@\s.*\s@@.*\n---\n.\s@@\s.*\s@@.*\n//mg;
+    if ($diff) {
+	# all fine, keep diff
+    } else {
+	# restore previous version to get rid of uninteresting diffs
+	rename "$patchdir/$patchfile.orig", "$patchdir/$patchfile";
+    }
+
 }

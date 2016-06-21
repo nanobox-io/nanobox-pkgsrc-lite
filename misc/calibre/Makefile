@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.96 2015/03/16 22:28:38 wiz Exp $
+# $NetBSD: Makefile,v 1.133 2016/03/05 11:28:53 jperkin Exp $
 
-DISTNAME=	calibre-2.21.0
+DISTNAME=	calibre-2.52.0
 PKGREVISION=	1
 CATEGORIES=	misc
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=calibre/}
+#MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=calibre/}
+MASTER_SITES=	http://download.calibre-ebook.com/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
@@ -13,7 +14,7 @@ COMMENT=	E-book library management application
 LICENSE=	gnu-gpl-v3
 
 #DEPENDS+=	help2man>=1.36.4:../../converters/help2man
-#DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
+DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 DEPENDS+=	xdg-utils>=1.0.2:../../misc/xdg-utils
 #DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 DEPENDS+=	${PYPKGPREFIX}-lxml>=3.2.1:../../textproc/py-lxml
@@ -40,7 +41,7 @@ USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config pax
 PYTHON_VERSIONS_ACCEPTED=	27
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not ported as of 2.1.0; also: py-mechanize, py-beautifulsoup, py-imaging, py-netifaces
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not ported as of 2.1.0; also: py-mechanize, py-beautifulsoup, py-imaging, py-netifaces
 PYDISTUTILSPKG=	yes
 PYSETUPOPTARGS=	# empty
 PYSETUPINSTALLARGS=	--prefix=${PREFIX} --root=${DESTDIR:Q}${PREFIX}

@@ -8,7 +8,7 @@
 #	make clean	Clean up disk to minimum config
 #
 #F77		=
-FFLAGS	        = -O2 -w
+FFLAGS	        = -O2 -w $(PKGSRC_FFLAGS)
 HDRS		= SIZES
 SRCS		:= $(shell ls *.f)
 CSRCS           := $(shell ls *.c) 
@@ -28,7 +28,7 @@ OWNER		= root.bin
 .SUFFIXES:	.o .c
 
 .c.o:
-		$(F77) $(FFLAGS) -c $<
+		$(CC) $(CFLAGS) -c $<
 
 $(MOPAC):     	SIZES $(OBJS) 
 		@echo -n "Loading $@ ... "

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2014/05/29 23:38:19 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2015/10/20 09:40:21 tnn Exp $
 #
 
 DISTNAME=	gtksourceviewmm-3.2.0
-PKGREVISION=	6
+PKGREVISION=	8
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtksourceviewmm/3.2/}
 EXTRACT_SUFX=	.tar.xz
@@ -16,6 +16,7 @@ WRKSRC=		${WRKDIR}/gtksourceviewmm-3.2.0
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake perl pkg-config
 USE_LANGUAGES=	c c++
+CXXFLAGS+=	-std=c++11
 USE_LIBTOOL=	yes
 
 PKGCONFIG_OVERRIDE+=	gtksourceview/gtksourceviewmm-uninstalled.pc.in

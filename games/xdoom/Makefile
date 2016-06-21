@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.51 2015/01/04 03:08:30 dholland Exp $
+# $NetBSD: Makefile,v 1.53 2016/02/25 13:19:47 jperkin Exp $
 
 DISTNAME=	linuxdoom-1.10
 PKGNAME=	xdoom-1.10
@@ -17,7 +17,6 @@ LICENSE=	xdoom-license
 DEPENDS+=	doom1-[0-9]*:../../games/doom1
 
 WRKSRC=		${WRKDIR}
-USE_X11BASE=	yes
 USE_TOOLS+=	gmake gunzip tar unzip
 MAKE_ENV+=	X11BASE=${X11BASE:Q} INSTALL_PREFIX=${PREFIX:Q}
 
@@ -25,9 +24,7 @@ BROKEN_ON_PLATFORM=	${LP64PLATFORMS}
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Linux"
-CFLAGS+=	-DLINUX
-.endif
+CFLAGS.Linux+=	-DLINUX
 
 .include "../../mk/endian.mk"
 

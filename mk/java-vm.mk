@@ -1,4 +1,4 @@
-# $NetBSD: java-vm.mk,v 1.101 2015/03/06 18:28:45 szptvlfn Exp $
+# $NetBSD: java-vm.mk,v 1.105 2016/03/12 06:27:17 tnn Exp $
 #
 # This Makefile fragment handles Java dependencies and make variables,
 # and is meant to be included by packages that require Java either at
@@ -10,7 +10,7 @@
 #	The JVM that should be used if nothing particular is specified.
 #
 #	Possible values: kaffe openjdk7 openjdk8
-#		sun-jdk6 sun-jdk7
+#		sun-jdk6 sun-jdk7 oracle-jdk8
 #	Default value: (platform-dependent)
 #
 # Package-settable variables:
@@ -70,7 +70,7 @@ PKG_JVMS_ACCEPTED?=	${_PKG_JVMS}
 
 # This is a list of all of the JDKs that may be used.
 #
-_PKG_JVMS.8=		openjdk8
+_PKG_JVMS.8=		openjdk8 oracle-jdk8
 _PKG_JVMS.7=		${_PKG_JVMS.8} openjdk7 sun-jdk7
 _PKG_JVMS.6=		${_PKG_JVMS.7} sun-jdk6 jdk16
 _PKG_JVMS.1.5=		${_PKG_JVMS.6} jdk15
@@ -96,21 +96,22 @@ _PKG_JVM_DEFAULT=	${PKG_JVM_DEFAULT}
 .if !defined(_PKG_JVM_DEFAULT)
 .  if   !empty(MACHINE_PLATFORM:MNetBSD-[56789].*-i386) || \
         !empty(MACHINE_PLATFORM:MNetBSD-[56789].*-x86_64)
-_PKG_JVM_DEFAULT?=	openjdk7
+_PKG_JVM_DEFAULT?=	openjdk8
 .  elif !empty(MACHINE_PLATFORM:MNetBSD-[789].*-sparc64) || \
 	!empty(MACHINE_PLATFORM:MNetBSD-[789].*-earmv[67]hf)
 _PKG_JVM_DEFAULT?=	openjdk8
-.  elif !empty(MACHINE_PLATFORM:MNetBSD-*-i386) || \
-        !empty(MACHINE_PLATFORM:MLinux-*-i[3456]86) || \
-        !empty(MACHINE_PLATFORM:MLinux-*-x86_64)
+.  elif !empty(MACHINE_PLATFORM:MNetBSD-[1234].*-i386)
 _PKG_JVM_DEFAULT?=	sun-jdk6
+.  elif !empty(MACHINE_PLATFORM:MLinux-*-i[3456]86) || \
+        !empty(MACHINE_PLATFORM:MLinux-*-x86_64)
+_PKG_JVM_DEFAULT?=	oracle-jdk8
 .  elif !empty(MACHINE_PLATFORM:MDarwin-*-*)
 _PKG_JVM_DEFAULT?=	sun-jdk6
 .  elif !empty(MACHINE_PLATFORM:MSunOS-5.11-i386) || \
         !empty(MACHINE_PLATFORM:MSunOS-5.11-x86_64)
-_PKG_JVM_DEFAULT?=	openjdk7
+_PKG_JVM_DEFAULT?=	openjdk8
 .  elif !empty(MACHINE_PLATFORM:MDragonFly-*-*)
-_PKG_JVM_DEFAULT?=	openjdk7
+_PKG_JVM_DEFAULT?=	openjdk8
 .  else
 _PKG_JVM_DEFAULT?=	kaffe
 .  endif
@@ -161,6 +162,15 @@ _ONLY_FOR_PLATFORMS.sun-jdk7= \
 	NetBSD-[6-9]*-i386 NetBSD-[6-9]*-x86_64 \
 	SunOS-5.11-i386 \
 	SunOS-5.11-x86_64
+_ONLY_FOR_PLATFORMS.oracle-jdk8= \
+	Darwin-9.*-i386 Darwin-9.*-x86_64 \
+	Darwin-[1-9][0-9].*-i386 Darwin-[1-9][0-9].*-x86_64 \
+	DragonFly-*-i386 \
+	FreeBSD-6.*-i386 \
+	Linux-*-i[3-6]86 \
+	Linux-*-x86_64 \
+	NetBSD-[6-9]*-i386 NetBSD-[6-9]*-x86_64 \
+	SunOS-5.11-x86_64
 
 # Set ONLY_FOR_PLATFORM based on accepted JVMs
 .for _jvm_ in ${PKG_JVMS_ACCEPTED}
@@ -181,6 +191,7 @@ _JAVA_PKGBASE.openjdk7=		openjdk7
 _JAVA_PKGBASE.openjdk8=		openjdk8
 _JAVA_PKGBASE.sun-jdk6=		sun-jre6
 _JAVA_PKGBASE.sun-jdk7=		sun-jre7
+_JAVA_PKGBASE.oracle-jdk8=	oracle-jre8
 
 # The following is copied from the respective JVM Makefiles.
 _JAVA_NAME.kaffe=		kaffe
@@ -188,6 +199,7 @@ _JAVA_NAME.openjdk7=		openjdk7
 _JAVA_NAME.openjdk8=		openjdk8
 _JAVA_NAME.sun-jdk6=		sun6
 _JAVA_NAME.sun-jdk7=		sun7
+_JAVA_NAME.oracle-jdk8=		oracle8
 
 # Mark the acceptable JVMs and check which JVM packages are installed.
 .for _jvm_ in ${_PKG_JVMS_ACCEPTED}
@@ -242,43 +254,45 @@ BUILDLINK_API_DEPENDS.sun-jdk6?=	sun-jdk6-[0-9]*
 BUILDLINK_API_DEPENDS.sun-jre6?=	sun-jre6-[0-9]*
 BUILDLINK_API_DEPENDS.sun-jdk7?=	sun-jdk7-[0-9]*
 BUILDLINK_API_DEPENDS.sun-jre7?=	sun-jre7-[0-9]*
+BUILDLINK_API_DEPENDS.oracle-jdk8?=	oracle-jdk8-[0-9]*
+BUILDLINK_API_DEPENDS.oracle-jre8?=	oracle-jre8-[0-9]*
 
 _JRE.kaffe=		kaffe
 _JRE.openjdk7=		openjdk7
 _JRE.openjdk8=		openjdk8
 _JRE.sun-jdk6=		sun-jre6
 _JRE.sun-jdk7=		sun-jre7
+_JRE.oracle-jdk8=	oracle-jre8
 
 _JAVA_BASE_CLASSES=	classes.zip
 
 .if ${_PKG_JVM} == "kaffe"
 _JDK_PKGSRCDIR=		../../lang/kaffe
 _JRE_PKGSRCDIR=		${_JDK_PKGSRCDIR}
-_JAVA_HOME_DEFAULT=	${LOCALBASE}/java/kaffe
+_JAVA_HOME=		${LOCALBASE}/java/kaffe
 .elif ${_PKG_JVM} == "openjdk7"
 _JDK_PKGSRCDIR=		../../lang/openjdk7
 _JRE_PKGSRCDIR=		${_JDK_PKGSRCDIR}
-_JAVA_HOME_DEFAULT=	${LOCALBASE}/java/openjdk7
+_JAVA_HOME=		${LOCALBASE}/java/openjdk7
 .elif ${_PKG_JVM} == "openjdk8"
 _JDK_PKGSRCDIR=		../../lang/openjdk8
 _JRE_PKGSRCDIR=		${_JDK_PKGSRCDIR}
-_JAVA_HOME_DEFAULT=	${LOCALBASE}/java/openjdk8
+_JAVA_HOME=		${LOCALBASE}/java/openjdk8
 .elif ${_PKG_JVM} == "sun-jdk6"
 _JDK_PKGSRCDIR=		../../joyent/sun-jdk6
 _JRE_PKGSRCDIR=		../../joyent/sun-jre6
-_JAVA_HOME_DEFAULT=	${LOCALBASE}/java/sun6
+_JAVA_HOME=		${LOCALBASE}/java/sun-6
 UNLIMIT_RESOURCES+=	datasize
 .elif ${_PKG_JVM} == "sun-jdk7"
 _JDK_PKGSRCDIR=		../../lang/sun-jdk7
 _JRE_PKGSRCDIR=		../../lang/sun-jre7
-_JAVA_HOME_DEFAULT=	${LOCALBASE}/java/sun-7
+_JAVA_HOME=		${LOCALBASE}/java/sun-7
 UNLIMIT_RESOURCES+=	datasize
-.endif
-
-.if defined(_JAVA_HOME_DEFAULT)
-_JAVA_HOME=		${_JAVA_HOME_DEFAULT}
-.else
-EVAL_PREFIX+=		_JAVA_HOME=${_JAVA_PKGBASE.${_PKG_JVM}}
+.elif ${_PKG_JVM} == "oracle-jdk8"
+_JDK_PKGSRCDIR=		../../lang/oracle-jdk8
+_JRE_PKGSRCDIR=		../../lang/oracle-jre8
+_JAVA_HOME=		${LOCALBASE}/java/oracle-8
+UNLIMIT_RESOURCES+=	datasize
 .endif
 
 # If we are not using Java for building, then we need a run-time dependency on

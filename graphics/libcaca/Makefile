@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2015/02/23 18:28:52 joerg Exp $
+# $NetBSD: Makefile,v 1.35 2016/02/25 13:37:47 jperkin Exp $
 
 DISTNAME=	libcaca-0.99.beta18
 PKGNAME=	${DISTNAME:S/beta//}
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	http://caca.zoy.org/files/libcaca/
 
@@ -15,7 +16,6 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		pkg-config
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-* NetBSD-1.6[A-Q]-*
 PKGCONFIG_OVERRIDE+=	caca/caca.pc.in
 
 CHECK_FILES_SKIP+=	${PREFIX}/lib/libcucul.*
@@ -27,11 +27,7 @@ CONFIG_SUB_OVERRIDE+=	.auto/config.sub
 
 CONFIGURE_ARGS+=	--disable-doc
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Linux"
-LDFLAGS+=	-ldl
-.endif
+LDFLAGS.Linux+=	-ldl
 LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "../../mk/bsd.pkg.mk"

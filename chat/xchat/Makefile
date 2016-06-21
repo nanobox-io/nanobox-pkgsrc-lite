@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.94 2014/05/29 23:35:19 wiz Exp $
+# $NetBSD: Makefile,v 1.99 2016/03/05 11:28:10 jperkin Exp $
 
 .include "Makefile.common"
 
 PKGNAME=	${DISTNAME}
-PKGREVISION=	24
-OWNER=		tron@NetBSD.org
+PKGREVISION=	27
+MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	X11 (X Window System) IRC client, using the GTK2 toolkit
 
 CONFLICTS=		xchat-gnome-[0-9]*
@@ -28,8 +28,6 @@ BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.20.0
 .include "../../x11/gtk2/buildlink3.mk"
 
 .if ${OPSYS} == "Darwin"
-INSTALL_UNSTRIPPED=	YES
-
 .  if empty(PKG_BUILD_OPTIONS.gtk2:Mquartz)
 CONFIGURE_ARGS+=	--enable-xft
 LDFLAGS.Darwin+=	-L${PREFIX}/lib -lX11

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.49 2014/10/09 14:05:55 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2015/11/02 22:36:55 tnn Exp $
 
 DISTNAME=	SDL_mixer-1.2.12
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	audio
 MASTER_SITES=	http://www.libsdl.org/projects/SDL_mixer/release/
 
@@ -17,6 +17,8 @@ USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	SDL_mixer.pc.in
+
+CONFIGURE_ARGS+=	--disable-smpegtest
 
 .include "../../mk/bsd.prefs.mk"
 

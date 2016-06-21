@@ -1,18 +1,15 @@
-# $NetBSD: Makefile,v 1.15 2015/01/06 14:51:33 jperkin Exp $
+# $NetBSD: Makefile,v 1.24 2016/02/20 02:28:14 khorben Exp $
 #
 
-DISTNAME=	Panel-0.3.1
-PKGNAME=	deforaos-panel-0.3.1
+DISTNAME=	Panel-0.3.6
+PKGNAME=	deforaos-panel-0.3.6
 PKGREVISION=	1
 CATEGORIES=	x11
-MASTER_SITES=	http://www.defora.org/os/download/download/4338/
+MASTER_SITES=	http://www.defora.org/os/download/download/4417/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
 COMMENT=	DeforaOS desktop panel
-
-# panel vs libPanel
-MAKE_JOBS_SAFE=	no
 
 LICENSE=	gnu-gpl-v3
 
@@ -24,6 +21,8 @@ BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	PREFIX=${PREFIX}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 AUTO_MKDIRS=	yes
 
 LDFLAGS.SunOS+=	-lsocket
@@ -54,5 +53,4 @@ post-install:
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../x11/deforaos-libdesktop/buildlink3.mk"
 .include "../../sysutils/deforaos-browser/buildlink3.mk"
-.include "../../multimedia/deforaos-player/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

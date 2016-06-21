@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.58 2014/02/12 23:17:33 tron Exp $
-#
+# $NetBSD: Makefile,v 1.61 2016/03/05 11:28:04 jperkin Exp $
 
-DISTNAME=		icecast-2.3.3
-PKGREVISION=		2
-CATEGORIES=		audio
-MASTER_SITES=		http://downloads.xiph.org/releases/icecast/
+DISTNAME=	icecast-2.4.3
+PKGREVISION=	1
+CATEGORIES=	audio
+MASTER_SITES=	http://downloads.xiph.org/releases/icecast/
 
-MAINTAINER=		kim@tac.nyc.ny.us
-HOMEPAGE=		http://www.icecast.org/
-COMMENT=		Live streaming audio server
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.icecast.org/
+COMMENT=	Live streaming audio server
+LICENSE=	gnu-gpl-v2
 
-USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 PTHREAD_AUTO_VARS=	yes
 
@@ -24,7 +24,7 @@ ICECAST_LOGDIR?=	${ICECAST_CHROOTDIR}/log
 
 ICECAST_USER?=		icecast
 ICECAST_GROUP?=		icecast
-PKG_USERS_VARS+=	ICECAST_USER
+PKG_USERS_VARS=		ICECAST_USER
 PKG_GROUPS_VARS+=	ICECAST_GROUP
 
 PKG_GROUPS=		${ICECAST_GROUP}
@@ -36,7 +36,7 @@ CONF_FILES=		${EGDIR}/icecast.xml ${PKG_SYSCONFDIR}/icecast.xml
 OWN_DIRS_PERMS=		${ICECAST_CHROOTDIR} ${ICECAST_USER} ${ICECAST_GROUP} 770
 OWN_DIRS_PERMS+=	${ICECAST_LOGDIR} ${ICECAST_USER} ${ICECAST_GROUP} 770
 
-post-extract:
+pre-configure:
 	${MV} ${WRKSRC}/conf/icecast.xml.in ${WRKSRC}/conf/icecast.fixme
 
 post-install:

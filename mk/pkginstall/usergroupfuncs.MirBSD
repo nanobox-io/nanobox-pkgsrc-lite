@@ -100,7 +100,7 @@ adduser()
 		userid=$(first_free_uid)
 	fi
 
-	${ECHO} "${PKGNAME}: Creating user \`\`$user'' ($userid)"
+	${ECHO} "${PKGNAME}: Creating user \`\`$user'' ($userid)" > /dev/null
 	set -e
 	P=$(mktemp /etc/pwd.tmp.XXXXXXXXXX)
 	trap 'rm -f $P; exit 1' 1 2 3 5 13 15
@@ -131,7 +131,7 @@ addgroup()
 		groupid=$(first_free_gid)
 	fi
 
-	${ECHO} "${PKGNAME}: Creating group \`\`$group'' ($groupid)"
+	${ECHO} "${PKGNAME}: Creating group \`\`$group'' ($groupid)" > /dev/null
 	set -e
 	T=$(mktemp /etc/pwd.tmp.XXXXXXXXXX)
 	trap 'rm -f $T; exit 1' 1 2 3 5 13 15

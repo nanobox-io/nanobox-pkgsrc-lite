@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2014/10/09 14:07:09 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2015/07/12 18:56:32 wiz Exp $
 #
 
 DISTNAME=	checkbot-1.79
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	www net perl5
 MASTER_SITES=	http://degraaff.org/checkbot/
 
@@ -11,7 +11,7 @@ HOMEPAGE=	http://degraaff.org/checkbot/
 COMMENT=	Verify links on a set of HTML pages
 
 DEPENDS+=	p5-MailTools>=1.03:../../mail/p5-MailTools
-DEPENDS+=	{perl>=5.10,p5-Net-[0-9]*}:../../net/p5-Net
+#DEPENDS+=	{perl>=5.10,p5-Net-[0-9]*}:../../net/p5-Net
 DEPENDS+=	p5-Time-Duration-[0-9]*:../../time/p5-Time-Duration
 DEPENDS+=	p5-URI>=1.10:../../www/p5-URI
 DEPENDS+=	p5-libwww>=5.76:../../www/p5-libwww

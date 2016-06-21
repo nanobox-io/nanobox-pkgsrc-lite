@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2015/03/14 21:03:48 tnn Exp $
+# $NetBSD: Makefile,v 1.12 2016/03/22 22:51:13 khorben Exp $
 #
 # The CUPS author is very good about taking back changes into the main
 # CUPS distribution.  The correct place to send patches or bug-fixes is:
@@ -8,8 +8,12 @@ DISTNAME=	cups-${DIST_VERS}-source
 PKGNAME=	cups-${DIST_VERS:S/-/./g}
 BASE_VERS=	1.5.4
 DIST_VERS=	${BASE_VERS}
+PKGREVISION=	15
 
-PKGREVISION=	12
+# Fix for https://www.cups.org/str.php?L4609
+PATCH_SITES=	http://www.cups.org/strfiles.php/3482/
+PATCHFILES=	str4609-1.5.patch
+
 CATEGORIES=	print
 MASTER_SITES=	http://ftp.easysw.com/pub/cups/${BASE_VERS}/ \
 		ftp://ftp.easysw.com/pub/cups/${BASE_VERS}/ \
@@ -52,6 +56,7 @@ CONFIGURE_ARGS+=	--enable-openssl
 CONFIGURE_ARGS+=	--enable-bannertops
 CONFIGURE_ARGS+=	--enable-texttops
 CONFIGURE_ARGS+=	--with-manext=bsd
+CONFIGURE_ARGS+=	--without-bundledir
 CONFIGURE_ARGS+=	--without-icondir
 CONFIGURE_ARGS+=	--without-menudir
 CONFIGURE_ARGS+=	--without-perl
@@ -68,23 +73,24 @@ CONFIGURE_ENV+=		DSOFLAGS=${LDFLAGS:M*:Q}
 .include "options.mk"
 
 .if ${OPSYS} == "SunOS"
-LIBS_SSP =		-lssp_nonshared -lssp
+LIBS_SSP=		-lssp_nonshared -lssp
 CONFIGURE_ENV+=		LIBS_SSP=${LIBS_SSP:M*:Q}
+# Explicitly disable epoll on illumos, it is provided for Linux compat only.
 CONFIGURE_ENV+=		ac_cv_func_epoll_create=no
 .endif
 LIBS+=			${BUILDLINK_LDADD.iconv}
 
-PLIST_VARS+=		notmac
-.if ${OPSYS} != "Darwin"
+PLIST_VARS+=		mac notmac
+.if ${OPSYS} == "Darwin"
+PLIST.mac=		yes
+.else
 PLIST.notmac=		yes
 .endif
 
 # Avoid the following error when compiling with clang.
 # /usr/local/bin/ld: /usr/lib/crt1.o: relocation R_X86_64_32 against `_DYNAMIC'
 # can not be used when making a shared object; recompile with -fPIC
-.if ${OPSYS} == "FreeBSD"
-BUILDLINK_TRANSFORM+=	rm:-Wl,-pie
-.endif
+BUILDLINK_TRANSFORM.FreeBSD+=	rm:-Wl,-pie
 
 # CUPS_USER		user to run filter and CGI programs as
 # CUPS_GROUP		group to run filter and CGI programs as
@@ -179,13 +185,14 @@ post-install:
 	${INSTALL_DATA} ${WRKDIR}/cups.pam ${DESTDIR}${EGDIR}
 .endif
 .if !empty(PKG_OPTIONS:Mdnssd)
-	${LN} -s ${DESTDIR}${PREFIX}/libexec/cups/backend/dnssd ${DESTDIR}${PREFIX}/libexec/cups/backend/mdns
+	${LN} -fs ${DESTDIR}${PREFIX}/libexec/cups/backend/dnssd ${DESTDIR}${PREFIX}/libexec/cups/backend/mdns
 .endif
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../print/libpaper/buildlink3.mk"

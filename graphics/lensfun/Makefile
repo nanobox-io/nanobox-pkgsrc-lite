@@ -1,52 +1,23 @@
-# $NetBSD: Makefile,v 1.28 2014/12/19 08:38:03 mef Exp $
+# $NetBSD: Makefile,v 1.31 2015/12/27 12:31:53 adam Exp $
 
-DISTNAME=	lensfun-0.2.8
-PKGREVISION=	1
+DISTNAME=	lensfun-0.3.2
 CATEGORIES=	graphics
-MASTER_SITES=	http://download.berlios.de/lensfun/
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=lensfun/}
-EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	gdt@NetBSD.org
-HOMEPAGE=	http://lensfun.berlios.de/
+HOMEPAGE=	http://lensfun.sourceforge.net/
 COMMENT=	Library for rectifying defects introduced by photographic equipment
 LICENSE=	gnu-lgpl-v3
 
-# But, the build system looks for makedep, not makedepend.
-# Defer, because cmake is coming.
-BUILD_DEPENDS+=	makedepend-[0-9]*:../../devel/makedepend
-
+USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake pkg-config gsed
-HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib
-CONFIGURE_ARGS+=	--prefix=${PREFIX}
-CONFIGURE_ARGS+=	--vectorization=
-MAKE_FILE=		GNUmakefile
 
-CONFIG_SHELL=		${PYTHONBIN}
-PYTHON_FOR_BUILD_ONLY=	yes
-REPLACE_PYTHON=		configure
-PKGCONFIG_OVERRIDE=	libs/lensfun/lensfun.pc.in
+REPLACE_SH=		apps/g-lensfun-update-data
+REPLACE_PYTHON+=	apps/lensfun-add-adapter
+REPLACE_PYTHON+=	apps/lensfun-update-data
 
 .include "../../mk/bsd.prefs.mk"
-
-# Starting in 0.2.6, the library is misinstalled as liblensfun.so,
-# with no .0 variant.  Manually fix it, because that's easier than
-# understanding the build, and upstream is moving to cmake anyway.
-post-install:
-.if ${OPSYS} == "Darwin"
-	${MV} ${DESTDIR}${PREFIX}/lib/liblensfun.dylib.${PKGVERSION_NOREV} \
-		${DESTDIR}${PREFIX}/lib/liblensfun.${PKGVERSION_NOREV}.dylib
-	install_name_tool -id \
-		${PREFIX}/lib/liblensfun.${PKGVERSION_NOREV}.dylib \
-		${DESTDIR}${PREFIX}/lib/liblensfun.${PKGVERSION_NOREV}.dylib
-	${RM} ${DESTDIR}${PREFIX}/lib/liblensfun.dylib*
-	${LN} -s liblensfun.${PKGVERSION_NOREV}.dylib \
-		${DESTDIR}${PREFIX}/lib/liblensfun.0.dylib
-	${LN} -s liblensfun.${PKGVERSION_NOREV}.dylib \
-		${DESTDIR}${PREFIX}/lib/liblensfun.dylib
-.endif
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

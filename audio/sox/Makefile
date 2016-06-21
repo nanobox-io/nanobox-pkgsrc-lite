@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.61 2015/03/14 22:56:00 tnn Exp $
+# $NetBSD: Makefile,v 1.63 2016/02/02 06:12:10 dbj Exp $
 
 DISTNAME=	sox-14.4.2
+PKGREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sox/}
 

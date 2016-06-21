@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2014/05/29 23:37:25 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2015/07/13 09:53:55 wiz Exp $
 
 DISTNAME=	pcsc-perl-1.4.13
-PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGNAME=	p5-${DISTNAME:S/-perl//}
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	http://ludovic.rousseau.free.fr/softwares/pcsc-perl/
 EXTRACT_SUFX=	.tar.bz2

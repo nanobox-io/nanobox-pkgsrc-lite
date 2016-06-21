@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2015/01/14 21:45:13 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/03/05 11:28:47 jperkin Exp $
 
 DISTNAME=		dovecot-antispam-plugin-20130429
-PKGREVISION=		1
+PKGREVISION=		3
 CATEGORIES=		mail
 MASTER_SITES=		http://olgeni.olgeni.com/~olgeni/distfiles/ \
 			http://distcache.FreeBSD.org/local-distfiles/olgeni/
@@ -18,13 +18,9 @@ USE_TOOLS+=		aclocal autoheader automake autoconf gmake gawk gsed
 AUTOCONF_REQD=		2.54
 GNU_CONFIGURE=		yes
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-SUFX=			bundle
-.else
-SUFX=			so
-.endif
+OPSYSVARS+=		SUFX
+SUFX.Darwin=		bundle
+SUFX.*=			so
 
 PLIST_SUBST+=		SUFX=${SUFX:Q}
 

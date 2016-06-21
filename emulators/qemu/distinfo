@@ -1,17 +1,19 @@
-$NetBSD: distinfo,v 1.102 2015/03/13 09:09:12 ryoon Exp $
+$NetBSD: distinfo,v 1.114 2016/03/24 15:21:10 khorben Exp $
 
-SHA1 (qemu-2.2.1.tar.bz2) = 4d1cefc9861fb90979497e8c0bffd223103aa240
-RMD160 (qemu-2.2.1.tar.bz2) = 53430a4cc637f6579cce2e29cb72f3af292c793b
-Size (qemu-2.2.1.tar.bz2) = 24483500 bytes
-SHA1 (patch-configure) = 2d0d2549056c9f53a932b236ed4d69a5ee58a856
+SHA1 (qemu-2.5.0.tar.bz2) = ed6c02a267f9edf98058743f0f76a25743a0dfe7
+RMD160 (qemu-2.5.0.tar.bz2) = 51007a50ddbeae1ba2c986e0cb0b110efeae2dc9
+SHA512 (qemu-2.5.0.tar.bz2) = 12153f94cc7f834fd6a85f25690c36f2331d88d414426fb8b9ac20a34e6f9222b1eda30b727674af583580fae90dfd6d0614a905dce1567d94cd049d426b9dd3
+Size (qemu-2.5.0.tar.bz2) = 25464996 bytes
+SHA1 (patch-Makefile.objs) = 81274d0dde593a8379428df1f974d6c50a65dd92
+SHA1 (patch-configure) = 668aff0a22a5800993645a4b40899e7694803ee6
+SHA1 (patch-default-configs_pci.mak) = 09567d0d56cdee3d72ae93c0609dee7ca749ef18
 SHA1 (patch-ef) = 6e57de87f91067e8a9a1388c91133a31b3582b3a
-SHA1 (patch-et) = 036e1a254ce40df635dfb6107d2707879467e127
+SHA1 (patch-et) = e9b850ac5985cbe934b541acbfdb330cce421d50
 SHA1 (patch-hw_display_omap__dss.c) = 6b13242f28e32346bc70548c216c578d98fd3420
 SHA1 (patch-hw_net_etraxfs__eth.c) = e5dd1661d60dbcd27b332403e0843500ba9544bc
 SHA1 (patch-hw_net_xilinx__axienet.c) = ebcd2676d64ce6f31e4a8c976d4fdf530ad5e8b7
 SHA1 (patch-hw_ppc_mac__newworld.c) = 9a0ec3ba0b6da2879fdaba6a7937fb16a02685f5
 SHA1 (patch-hw_ppc_mac__oldworld.c) = 46322c77c87be6d517c43466325c344db99cd463
-SHA1 (patch-memory.c) = 14df9c835ca318fc79a8d3a46bb94d2f229277cc
+SHA1 (patch-memory.c) = f5193fb86a6fad5864477dafc4651d3d51147cc8
 SHA1 (patch-slirp_tcp__subr.c) = cfc8289384fa987289e32b64532c13a83a890820
-SHA1 (patch-tests_Makefile) = 81fe639ce1b04302f53024343fdf1f6fd5d5fedb
-SHA1 (patch-user-exec.c) = 9090d368b31c70a81af4e8b08d0267c597ff248e
+SHA1 (patch-tests_Makefile) = bd8997ea00eea05489335020ccae0e33dbcb84f9

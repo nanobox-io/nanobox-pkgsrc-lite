@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2014/04/20 13:16:28 imil Exp $
+# $NetBSD: Makefile,v 1.14 2016/03/30 08:23:33 jperkin Exp $
 
-DISTNAME=	ipython-2.0.0
+DISTNAME=	ipython-3.2.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	devel lang
 MASTER_SITES=	https://pypi.python.org/packages/source/i/ipython/
 
@@ -11,18 +10,29 @@ HOMEPAGE=	http://ipython.org/
 COMMENT=	Interactive computing environment for Python
 LICENSE=	modified-bsd
 
-DEPENDS+=	${PYPKGPREFIX}-readline-[0-9]*:../../devel/py-readline
+DEPENDS+=	${PYPKGPREFIX}-jinja2-[0-9]*:../../textproc/py-jinja2
 DEPENDS+=	${PYPKGPREFIX}-pexpect-[0-9]*:../../devel/py-pexpect
+DEPENDS+=	${PYPKGPREFIX}-pygments-[0-9]*:../../textproc/py-pygments
+DEPENDS+=	${PYPKGPREFIX}-readline-[0-9]*:../../devel/py-readline
+DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
 DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
+DEPENDS+=	${PYPKGPREFIX}-tornado-[0-9]*:../../www/py-tornado
 DEPENDS+=	${PYPKGPREFIX}-zmq>=14.0.1:../../net/py-zmq
-
-PYTHON_SELF_CONFLICT=	yes
-# requires Python >= 2.7.2 or >= 3.3.0
-PYTHON_VERSIONS_INCOMPATIBLE=	26
 
 USE_LANGUAGES=	# none
 
+PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+FILES_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+
 REPLACE_PYTHON=	*/*/*.py */*/*/*.py
+
+post-install:
+	mv ${DESTDIR}${PREFIX}/bin/iptest ${DESTDIR}${PREFIX}/bin/iptest${PYVERSSUFFIX}
+	for f in ipcluster ipcontroller ipengine ipython ; \
+	do \
+		mv ${DESTDIR}${PREFIX}/bin/$$f ${DESTDIR}${PREFIX}/bin/$${f}${PYVERSSUFFIX}; \
+		mv ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/$${f}.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/$${f}${PYVERSSUFFIX}.1; \
+	done
 
 .include "../../lang/python/distutils.mk"
 .include "../../lang/python/application.mk"

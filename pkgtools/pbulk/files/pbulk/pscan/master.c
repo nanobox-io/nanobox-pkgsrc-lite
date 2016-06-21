@@ -1,4 +1,4 @@
-/* $NetBSD: master.c,v 1.8 2013/01/14 14:33:28 jperkin Exp $ */
+/* $NetBSD: master.c,v 1.11 2015/12/07 16:52:40 joerg Exp $ */
 
 /*-
  * Copyright (c) 2007, 2009 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -40,7 +40,6 @@
 #include <nbcompat/time.h>
 #include <sys/wait.h>
 #include <nbcompat/err.h>
-#include <fcntl.h>
 #include <signal.h>
 #include <fcntl.h>
 #include <nbcompat/stdlib.h>
@@ -54,8 +53,6 @@
 
 static int clients_started;
 static LIST_HEAD(, scan_peer) active_peers, inactive_peers;
-static struct event listen_event;
-static int listen_event_socket;
 static struct signal_event child_event;
 static pid_t child_pid;
 
@@ -71,6 +68,11 @@ struct scan_peer {
 };
 
 static void	assign_job(struct scan_peer *);
+
+static void
+do_nothing(void *arg)
+{
+}
 
 static void
 kill_peer(void *arg)
@@ -155,10 +157,17 @@ shutdown_master(void)
 	struct timeval tv;
 	struct scan_peer *peer;
 
-	event_del(&listen_event);
-	(void)close(listen_event_socket);
-	LIST_FOREACH(peer, &inactive_peers, peer_link)
-		(void)shutdown(peer->fd, SHUT_RDWR);
+	shutdown_listeners();
+
+	LIST_FOREACH(peer, &inactive_peers, peer_link) {
+		uint16_t net_job_len = htons(0);
+		(void)memcpy(peer->tmp_buf, &net_job_len, 2);
+
+		deferred_write(peer->fd, peer->tmp_buf, 2, peer, do_nothing,
+		    kill_peer);
+	}
+
+	/* Give clients a second to close connections to prevent TIME_WAIT. */
 	tv.tv_sec = 1;
 	tv.tv_usec = 0;
 	event_loopexit(&tv);
@@ -196,12 +205,9 @@ static void
 listen_handler(int sock, void *arg)
 {
 	struct scan_peer *peer;
-	struct sockaddr_in src;
-	socklen_t src_len;
 	int fd;
 
-	src_len = sizeof(src);
-	if ((fd = accept(sock, (struct sockaddr *)&src, &src_len)) == -1) {
+	if ((fd = accept(sock, NULL, 0)) == -1) {
 		warn("Could not accept connection");
 		return;
 	}
@@ -244,33 +250,13 @@ child_handler(struct signal_event *ev)
 void
 master_mode(const char *master_port, const char *start_script)
 {
-	struct sockaddr_in dst;
-	int fd;
-	int sockopt = 1;
-
 	LIST_INIT(&active_peers);
 	LIST_INIT(&inactive_peers);
 
 	event_init();
 
-	if (parse_sockaddr_in(master_port, &dst))
-		errx(1, "Could not parse addr/port");
-
-	fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (fd == -1)
-		err(1, "Could not create socket");	
-	if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
-		err(1, "Could not set close-on-exec flag");
-	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &sockopt,
-	    sizeof(sockopt)) == -1)
-		err(1, "Could not set SO_REUSEADDR");
-	if (bind(fd, (struct sockaddr *)&dst, sizeof(dst)) == -1)
-		err(1, "Could not bind socket");
-	if (listen(fd, 5) == -1)
-		err(1, "Could not listen on socket");
-
-	event_add(&listen_event, fd, 0, 1, listen_handler, NULL);
-	listen_event_socket = fd;
+	if (listen_sockaddr(master_port, listen_handler))
+		errx(1, "Could not create listen socket for %s", master_port);
 
 	if (start_script) {
 		signal_add(&child_event, SIGCHLD, child_handler);
@@ -286,6 +272,4 @@ master_mode(const char *master_port, const char *start_script)
 	}
 
 	event_dispatch();
-
-	(void)close(fd);
 }

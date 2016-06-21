@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2015/02/26 06:23:06 adam Exp $
+# $NetBSD: Makefile,v 1.15 2016/03/05 11:28:44 jperkin Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python34-${PY_DISTVERSION}
+PKGREVISION=	3
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -12,8 +13,8 @@ LICENSE=	python-software-foundation
 
 CONFLICTS+=	python-[0-9]*
 
-PLIST_AWK+=	-f ${PKGSRCDIR}/lang/python/plist-python.awk
-PLIST_AWK_ENV+=	PYTHON_SOABI="cpython-34"
+PLIST_AWK+=		-f ${PKGSRCDIR}/lang/python/plist-python.awk
+PLIST_AWK_ENV+=		PYVERS=34
 PRINT_PLIST_AWK+=	/^[^@]/ && /[^\/]+\.py[co]$$/ {
 PRINT_PLIST_AWK+=	gsub(/__pycache__\//, "")
 PRINT_PLIST_AWK+=	gsub(/\.cpython-34/, "")}
@@ -44,8 +45,8 @@ PTHREAD_OPTS+=	require
 # http://bugs.python.org/issue13241
 .if !empty(MACHINE_PLATFORM:MDarwin-10.*)
 PKGSRC_COMPILER=	clang
-CC=			clang
-CXX=			clang++
+PKG_CC=			clang
+PKG_CXX=		clang++
 .endif
 
 # fdatasync()
@@ -76,11 +77,6 @@ PLIST_VARS+=	oss
 PLIST.oss=	yes
 .endif
 
-# Make sure python modules can link correctly
-.if ${OPSYS} == "Darwin"
-INSTALL_UNSTRIPPED=	yes
-.endif
-
 # For Xcode 5 and up, we need to search the SDK path for headers, otherwise
 # certain modules will not be built.
 .if ${OPSYS} == "Darwin" && exists(${OSX_SDK_PATH:Q}/usr/include)
@@ -95,7 +91,7 @@ PLIST.no-nis=	yes
 PLIST.nis=	yes
 .  endif
 .else
-.  include "../../mk/bdb.buildlink3.mk"
+#.  include "../../mk/bdb.buildlink3.mk"
 MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
 MAKE_ENV+=	PY_BDB_INCDIRS=${BUILDLINK_INCDIRS.${BDB_TYPE}:S,^,${BDBBASE}/,:Q}
 MAKE_ENV+=	PY_BDB_LIBDIRS=${BDBBASE}/lib
@@ -139,6 +135,10 @@ SUBST_FILES.sslbase=	setup.py
 SUBST_VARS.sslbase=	SSLBASE
 
 CHECK_INTERPRETER_SKIP=	lib/python${PY_VER_SUFFIX}/venv/scripts/posix/pydoc
+
+# Harmless PKG_CONFIG_LIBDIR references to BUILDLINK_DIR
+CHECK_WRKREF_SKIP+=	lib/python3.4/_sysconfigdata.py
+CHECK_WRKREF_SKIP+=	lib/python3.4/config-3.4/Makefile
 
 SUBST_CLASSES+=		vars
 SUBST_MESSAGE.vars=	Substituting multiarch vars.

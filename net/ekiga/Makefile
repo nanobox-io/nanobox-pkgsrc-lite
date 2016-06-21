@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.62 2014/10/07 16:47:32 adam Exp $
+# $NetBSD: Makefile,v 1.68 2016/03/27 16:56:49 riastradh Exp $
 #
 
 DISTNAME=		ekiga-3.2.6
-PKGREVISION=		44
+PKGREVISION=		48
 CATEGORIES=		net comms
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/ekiga/3.2/}
 EXTRACT_SUFX=		.tar.bz2
@@ -26,6 +26,8 @@ CONFIGURE_ARGS+=	--enable-gstreamer
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
+CXXFLAGS+=		-std=c++11
+GCC_REQD+=		4.7
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)

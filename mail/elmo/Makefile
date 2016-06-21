@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2014/05/29 23:36:45 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2016/03/05 11:28:47 jperkin Exp $
 #
 
 DISTNAME=		elmo-1.3.2
-PKGREVISION=		11
+PKGREVISION=		14
 CATEGORIES=		mail
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=elmo/}
 

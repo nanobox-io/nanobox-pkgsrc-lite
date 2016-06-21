@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.16 2015/02/17 01:55:12 rodent Exp $
+# $NetBSD: Makefile,v 1.19 2016/02/25 16:20:52 jperkin Exp $
 
 .include "../../net/powerdns/Makefile.backend"
 
@@ -9,11 +9,7 @@ CONFIGURE_ARGS+=	--with-dynmodules="gpgsql"
 CONFIGURE_ARGS+=	--with-pgsql-lib=${BUILDLINK_PREFIX.${PGSQL_TYPE}}/lib
 CONFIGURE_ARGS+=	--with-pgsql-includes=${BUILDLINK_PREFIX.${PGSQL_TYPE}}/include
 
-.include "../../mk/bsd.fast.prefs.mk"
-
-.if ${OPSYS} == "OpenBSD"
-BUILDLINK_TRANSFORM+=	rm:-lcrypt
-.endif
+BUILDLINK_TRANSFORM.OpenBSD+=	rm:-lcrypt
 
 .include "../../mk/pgsql.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

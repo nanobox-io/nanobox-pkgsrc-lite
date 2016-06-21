@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/11/05 13:35:34 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2015/08/09 06:41:27 markd Exp $
 
 DISTNAME=	csquotes
-PKGNAME=	tex-${DISTNAME}-5.1d
-TEXLIVE_REV=	24393
+PKGNAME=	tex-${DISTNAME}-5.1f
+TEXLIVE_REV=	37891
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/csquotes
 COMMENT=	Context sensitive quotation facilities
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-etoolbox-[0-9]*:../../devel/tex-etoolbox
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics

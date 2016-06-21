@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.72 2015/01/31 12:08:55 wiz Exp $
+# $NetBSD: Makefile,v 1.76 2016/02/25 08:27:04 jperkin Exp $
 
 DISTNAME=		hal-0.5.14
-PKGREVISION=		15
+PKGREVISION=		17
 CATEGORIES=		sysutils
 MASTER_SITES=		http://hal.freedesktop.org/releases/
 EXTRACT_SUFX=		.tar.bz2
@@ -10,6 +10,8 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://hal.freedesktop.org/
 COMMENT=		FreeDesktop hardware abstraction layer
 LICENSE=		gnu-gpl-v2
+
+DEPENDS+=		pciids-[0-9]*:../../misc/pciids
 
 BUILD_DEFS+=		VARBASE PKG_SYSCONFBASE
 
@@ -73,9 +75,8 @@ PLIST_SRC=		PLIST
 
 CFLAGS.SunOS+=		-Du_int32_t=uint32_t
 
-.if ${OPSYS} == "Darwin"
-BUILDLINK_TRANSFORM+=	rm:-Wl,--as-needed
-.endif
+BUILDLINK_TRANSFORM.Darwin+=	rm:-Wl,--as-needed
+BUILDLINK_TRANSFORM.SunOS+=	opt:-Wl,--as-needed:-Wl,-zignore
 
 REPLACE_INTERPRETER+=	bash
 REPLACE.bash.old=	/bin/bash
@@ -91,15 +92,17 @@ CONFIGURE_ARGS+=	--with-hal-group=${HAL_GROUP}
 CONFIGURE_ARGS+=	--disable-pmu
 
 RCD_SCRIPTS=		hal
+SMF_METHODS=		hal
 
 .if ${HAL_GROUP} != "operator"
 PKG_GROUPS=		${HAL_GROUP}
 .endif
 PKG_USERS=		${HAL_USER}:${HAL_GROUP}
-PKG_HOME.haldaemon=	${VARBASE}/run/hal
+PKG_HOME.haldaemon=	${VARBASE}/run/hald
 
 FILES_SUBST+=		HAL_USER=${HAL_USER}
 FILES_SUBST+=		HAL_GROUP=${HAL_GROUP}
+FILES_SUBST+=		PKG_HOME.haldaemon=${PKG_HOME.haldaemon}
 
 PLIST_SUBST+=		PKG_SYSCONFDIR=${PKG_SYSCONFDIR}
 
@@ -114,7 +117,6 @@ pre-configure:
 
 .include "../../devel/GConf/schemas.mk"
 .include "../../devel/glib2/buildlink3.mk"
-.include "../../misc/pciids/buildlink3.mk"
 .include "../../misc/usbids/buildlink3.mk"
 .include "../../security/policykit/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"

@@ -1,4 +1,4 @@
-/*	$NetBSD: gpgsig.c,v 1.3 2009/08/02 17:56:45 joerg Exp $	*/
+/*	$NetBSD: gpgsig.c,v 1.4 2015/09/01 12:14:06 jperkin Exp $	*/
 #if HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -7,7 +7,7 @@
 #include <sys/cdefs.h>
 #endif
 
-__RCSID("$NetBSD: gpgsig.c,v 1.3 2009/08/02 17:56:45 joerg Exp $");
+__RCSID("$NetBSD: gpgsig.c,v 1.4 2015/09/01 12:14:06 jperkin Exp $");
 
 /*-
  * Copyright (c) 2008 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -51,7 +51,7 @@ __RCSID("$NetBSD: gpgsig.c,v 1.3 2009/08/02 17:56:45 joerg Exp $");
 #endif
 
 #include "lib.h"
-#include "verify.h"
+#include "netpgpverify/verify.h"
 
 int
 gpg_verify(const char *content, size_t len, const char *keyring,

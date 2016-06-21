@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.76 2014/05/05 00:48:22 ryoon Exp $
+# $NetBSD: Makefile,v 1.79 2016/03/05 11:29:31 jperkin Exp $
 #
 
 DISTNAME=	rox-filer-2.10
 PKGNAME=	rox-2.10
-PKGREVISION=	25
+PKGREVISION=	27
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=rox/}
 EXTRACT_SUFX=	.tar.bz2
@@ -44,6 +44,7 @@ CONFIGURE_DIRS=		ROX-Filer/src
 CONFIGURE_SCRIPT=	./configure.tmp
 LIBS.SunOS+=		-lm
 LDFLAGS.DragonFly+=	-lm
+LIBS.Linux+=		-ldl -lm
 
 post-patch:
 	${MV} ${WRKSRC}/ROX-Filer/src/configure ${WRKSRC}/ROX-Filer/src/${CONFIGURE_SCRIPT}
@@ -66,6 +67,7 @@ do-install:
 
 BUILDLINK_DEPMETHOD.libXt?=	build
 
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../databases/shared-mime-info/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../devel/libglade/buildlink3.mk"

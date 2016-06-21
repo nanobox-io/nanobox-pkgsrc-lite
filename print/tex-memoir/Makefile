@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.6 2011/05/14 22:11:08 minskim Exp $
+# $NetBSD: Makefile,v 1.9 2015/08/09 09:43:36 markd Exp $
 
 DISTNAME=	memoir
-PKGNAME=	tex-${DISTNAME}-3.6gpl6.0g
-TEXLIVE_REV=	21638
+PKGNAME=	tex-${DISTNAME}-3.7e
+TEXLIVE_REV=	37809
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/memoir
 COMMENT=	Typeset fiction, non-fiction and mathematical books
+LICENSE=	lppl-1.3c
 
 CONFLICTS+=	teTeX-texmf<=3.0nb17
 DEPENDS+=	tex-ifxetex>=0.6:../../print/tex-ifxetex

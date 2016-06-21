@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.179 2015/03/25 19:55:58 wiz Exp $
+# $NetBSD: Makefile,v 1.187 2016/02/24 02:30:34 khorben Exp $
 #
 
 COMMENT=	Communication programs
@@ -25,6 +25,7 @@ SUBDIR+=	emech
 SUBDIR+=	empathy
 SUBDIR+=	epic4
 SUBDIR+=	epic4-doc
+SUBDIR+=	farstream
 SUBDIR+=	finch
 SUBDIR+=	fisg
 SUBDIR+=	gajim
@@ -41,6 +42,7 @@ SUBDIR+=	i2cbd
 SUBDIR+=	icb
 SUBDIR+=	icbirc
 SUBDIR+=	icqlib
+SUBDIR+=	ii
 SUBDIR+=	iip
 SUBDIR+=	inspircd
 SUBDIR+=	inspircd12
@@ -60,6 +62,17 @@ SUBDIR+=	kgb-bot
 SUBDIR+=	kmess
 SUBDIR+=	konversation
 SUBDIR+=	konversation-kde3
+SUBDIR+=	ktp-accounts-kcm
+SUBDIR+=	ktp-approver
+SUBDIR+=	ktp-auth-handler
+SUBDIR+=	ktp-common-internals
+SUBDIR+=	ktp-contact-list
+SUBDIR+=	ktp-contact-runner
+SUBDIR+=	ktp-desktop-applets
+SUBDIR+=	ktp-filetransfer-handler
+SUBDIR+=	ktp-kded-integration-module
+SUBDIR+=	ktp-send-file
+SUBDIR+=	ktp-text-ui
 SUBDIR+=	libfolks
 SUBDIR+=	libirc
 SUBDIR+=	libmsn
@@ -110,13 +123,17 @@ SUBDIR+=	sirc
 SUBDIR+=	smirk
 SUBDIR+=	spectrum
 SUBDIR+=	swift
+SUBDIR+=	telegram-purple
 SUBDIR+=	telepathy-farsight
+SUBDIR+=	telepathy-farstream
 SUBDIR+=	telepathy-gabble
 SUBDIR+=	telepathy-glib
+SUBDIR+=	telepathy-haze
 SUBDIR+=	telepathy-idle
 SUBDIR+=	telepathy-logger
 SUBDIR+=	telepathy-mission-control
 SUBDIR+=	telepathy-mission-control5
+SUBDIR+=	telepathy-qt
 SUBDIR+=	tik
 SUBDIR+=	tirc
 SUBDIR+=	tkabber

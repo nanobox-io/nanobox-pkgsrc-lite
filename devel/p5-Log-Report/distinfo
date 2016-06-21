@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.5 2014/10/02 11:46:41 wen Exp $
+$NetBSD: distinfo,v 1.8 2015/11/28 14:34:45 wen Exp $
 
-SHA1 (Log-Report-1.05.tar.gz) = 7c098c644a6bea4112474223a4992d1803026483
-RMD160 (Log-Report-1.05.tar.gz) = 16bc63a7d34de02dab91f2beded52c0fc7811d64
-Size (Log-Report-1.05.tar.gz) = 71643 bytes
+SHA1 (Log-Report-1.09.tar.gz) = 9bca7f39ae95325da5da12b1411a90344a67515e
+RMD160 (Log-Report-1.09.tar.gz) = f3ebd736559809675e9638d9ae616a78226f8cf9
+SHA512 (Log-Report-1.09.tar.gz) = cd3c3916b62493858644a174d0aabf3f3c15753273020db0d5eb939462ac07a6308ceda7e3e3eb7ee4a74492378ada0256c449619c3ec4a0d27be9914d220947
+Size (Log-Report-1.09.tar.gz) = 84061 bytes

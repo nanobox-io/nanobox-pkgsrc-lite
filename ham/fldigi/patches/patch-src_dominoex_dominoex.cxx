@@ -1,12 +1,12 @@
-$NetBSD: patch-src_dominoex_dominoex.cxx,v 1.3 2014/09/05 07:29:28 mef Exp $
+$NetBSD: patch-src_dominoex_dominoex.cxx,v 1.6 2015/10/11 03:59:56 mef Exp $
 
-Avoid implicit conversions to bool for streams.
-Require C++11 for Clang and prefer std version over tr1 when in C++11
-mode.
+(cvs log says)
+date: 2015-04-28 08:51:52 +0900;  author: joerg;  state: Exp;  lines: +3 -7;  commitid: 2iTQbBPEdUwBShjy;
+Deal with C++11 user defined string literals. Add missing includes.
 
---- src/dominoex/dominoex.cxx.orig	2013-05-03 14:18:53.000000000 +0000
+--- src/dominoex/dominoex.cxx.orig	2015-04-27 23:30:32.000000000 +0000
 +++ src/dominoex/dominoex.cxx
-@@ -64,7 +64,7 @@ void dominoex::tx_init(SoundBase *sc)
+@@ -63,7 +63,7 @@ void dominoex::tx_init(SoundBase *sc)
  
  	strSecXmtText = progdefaults.secText;
  	if (strSecXmtText.length() == 0)

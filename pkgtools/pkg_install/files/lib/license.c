@@ -1,4 +1,4 @@
-/*	$NetBSD: license.c,v 1.38 2014/05/15 09:59:09 wiz Exp $	*/
+/*	$NetBSD: license.c,v 1.45 2016/02/10 10:50:18 wiz Exp $	*/
 
 /*-
  * Copyright (c) 2009 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -57,14 +57,16 @@ const char *default_acceptable_licenses =
     "cpl-1.0 "
     "epl-v1.0 "
     "eupl-v1.1 "
+    "gfsl "
     "gnu-fdl-v1.1 gnu-fdl-v1.2 gnu-fdl-v1.3 "
     "gnu-gpl-v1 "
     "gnu-gpl-v2 gnu-lgpl-v2 gnu-lgpl-v2.1 "
     "gnu-gpl-v3 gnu-lgpl-v3 "
     "ibm-public-license-1.0 "
+    "info-zip "
     "ipafont "
     "isc "
-    "lppl-1.3c "
+    "lppl-1.0 lppl-1.2 lppl-1.3c "
     "lucent "
     "miros "
     "mit "
@@ -73,6 +75,7 @@ const char *default_acceptable_licenses =
     "ofl-v1.0 ofl-v1.1 "
     "openssl "
     "original-bsd modified-bsd 2-clause-bsd "
+    "paratype "
     "php "
     "png-license "
     "postgresql-license "
@@ -82,9 +85,11 @@ const char *default_acceptable_licenses =
     "sgi-free-software-b-v2.0 "
     "sleepycat-public "
     "unlicense "
+    "vera-ttf-license "
+    "w3c "
     "x11 "
     "zlib "
-    "zpl";
+    "zpl-2.0 zpl-2.1";
 
 #ifdef DEBUG
 static size_t hash_collisions;

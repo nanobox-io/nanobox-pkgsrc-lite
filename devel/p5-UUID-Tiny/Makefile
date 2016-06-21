@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2014/05/29 23:36:26 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:21 wiz Exp $
 #
 
 DISTNAME=	UUID-Tiny-1.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=UUID/}
 
@@ -15,7 +15,7 @@ LICENSE=	${PERL5_LICENSE}
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/UUID/Tiny/.packlist
 
-DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
 DEPENDS+=	p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1
 
 .include "../../lang/perl5/module.mk"

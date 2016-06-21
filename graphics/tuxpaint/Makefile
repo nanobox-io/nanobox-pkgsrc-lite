@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.82 2014/09/24 22:00:06 wiz Exp $
+# $NetBSD: Makefile,v 1.85 2016/02/25 13:37:48 jperkin Exp $
 
 DISTNAME=	tuxpaint-0.9.22
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tuxpaint/}
 
@@ -38,11 +39,7 @@ CONF_FILES=		${EGDIR}/tuxpaint.conf ${PKG_SYSCONFDIR}/tuxpaint.conf
 INSTALL_MAKE_FLAGS+=	PKG_ROOT=${DESTDIR}
 INSTALL_MAKE_FLAGS+=	CONFDIR=${DESTDIR}${PREFIX}/share/examples/tuxpaint
 
-.include "../../mk/bsd.fast.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-CPPFLAGS+=		-DHAVE_STRCASESTR
-.endif
+CPPFLAGS.NetBSD+=	-DHAVE_STRCASESTR
 
 # this uses iconv and png functions directly, so link against them
 # explicitly.
@@ -51,6 +48,9 @@ LIBS+=			-liconv
 LIBS+=			-lpng
 LIBS.SunOS+=		-lsocket -lnsl
 LDFLAGS.SunOS+=		-lsocket
+
+pre-build:
+	${MKDIR} ${WRKSRC}/trans
 
 post-install:
 	${RM} -f ${DESTDIR}${PREFIX}/share/tuxpaint/fonts/locale/zh_tw_docs/maketuxfont.py

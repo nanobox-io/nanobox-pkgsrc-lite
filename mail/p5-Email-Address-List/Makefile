@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2014/07/06 06:27:59 ryoon Exp $
+# $NetBSD: Makefile,v 1.6 2015/07/12 18:56:23 wiz Exp $
 
 DISTNAME=	Email-Address-List-0.05
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Email/}
 
@@ -11,7 +12,7 @@ COMMENT=	RFC close address list parsing
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Email-Address>=0:../../mail/p5-Email-Address
-DEPENDS+=	{perl>=5.8.9,p5-ExtUtils-MakeMaker>=6.36}:../../devel/p5-ExtUtils-MakeMaker
+#DEPENDS+=	{perl>=5.8.9,p5-ExtUtils-MakeMaker>=6.36}:../../devel/p5-ExtUtils-MakeMaker
 DEPENDS+=	p5-JSON>=0:../../converters/p5-JSON
 
 PERL5_PACKLIST=	auto/Email/Address/List/.packlist

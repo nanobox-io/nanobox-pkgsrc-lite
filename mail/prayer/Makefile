@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.54 2014/12/15 11:46:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.57 2016/03/05 11:28:50 jperkin Exp $
 
 DISTNAME=	prayer-1.3.4
-PKGREVISION=	8
+PKGREVISION=	10
 CATEGORIES=	mail www
 MASTER_SITES=	ftp://ftp.csx.cam.ac.uk/pub/software/email/prayer/
 
@@ -54,12 +54,8 @@ OWN_DIRS_PERMS+=${VAR_PREFIX} ${PRAYER_USER} ${PRAYER_GROUP} 0750
 FILES_SUBST+=	OPSYS=${OPSYS}
 FILES_SUBST+=	VAR_PREFIX=${VAR_PREFIX:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	opt:-lutil:"-lsocket -lnsl"
-BUILDLINK_TRANSFORM+=	rm:-lcom_err # XXX: handle pkgsrc krb
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	opt:-lutil:"-lsocket -lnsl"
+BUILDLINK_TRANSFORM.SunOS+=	rm:-lcom_err # XXX: handle pkgsrc krb
 
 post-patch:
 	${FIND} ${WRKSRC} -name CVS -type d -print | ${SORT} -r | \

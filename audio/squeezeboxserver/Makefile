@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2014/08/18 06:05:14 mrg Exp $
+# $NetBSD: Makefile,v 1.22 2015/07/12 18:56:07 wiz Exp $
 
 # To the poor soul who wants to update this package:
 #
@@ -43,7 +43,7 @@
 
 DISTNAME=	${PRODUCT:tl:S/_v/-/}-noCPAN
 PKGNAME=	${DISTNAME:S/-noCPAN//}
-PKGREVISION=	12
+PKGREVISION=	13
 CATEGORIES=	audio
 MASTER_SITES=	http://downloads.slimdevices.com/${PRODUCT}/
 
@@ -68,6 +68,9 @@ LICENSE=	squeezeboxserver-license
 MYSQL_VERSIONS_ACCEPTED=	55
 .include "../../mk/mysql.buildlink3.mk"
 
+# Make sure p5-DBD-{mysql,percona}* matches the mysql.bl3 above
+BUILD_DEPENDS+=	p5-DBD-${MYSQL_PKG_PREFIX}-[0-9]*:../../databases/p5-DBD-mysql
+
 # Audio converters
 DEPENDS+=	wavpack-[0-9]*:../../audio/wavpack
 DEPENDS+=	sox-[0-9]*:../../audio/sox
@@ -77,7 +80,7 @@ DEPENDS+=	faad2-[0-9]*:../../audio/faad2
 # Perl modules with native code
 DEPENDS+=	p5-Audio-Scan>=0.84:../../audio/p5-Audio-Scan
 DEPENDS+=	p5-Class-XSAccessor>=1.05:../../devel/p5-Class-XSAccessor
-DEPENDS+=	{perl>=5.10.0,p5-Compress-Raw-Zlib-[0-9]*}:../../devel/p5-Compress-Raw-Zlib
+#DEPENDS+=	{perl>=5.10.0,p5-Compress-Raw-Zlib-[0-9]*}:../../devel/p5-Compress-Raw-Zlib
 DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
 DEPENDS+=	p5-DBI>=1.608:../../databases/p5-DBI
 DEPENDS+=	p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1

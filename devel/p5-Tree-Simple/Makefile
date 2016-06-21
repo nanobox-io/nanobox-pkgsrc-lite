@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2014/10/09 14:06:29 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2015/07/12 18:56:20 wiz Exp $
 #
 
-DISTNAME=	Tree-Simple-1.23
+DISTNAME=	Tree-Simple-1.25
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -13,7 +13,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Tree-Simple/
 COMMENT=	Simple extension to manipulate tree objects
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.10,p5-Scalar-List-Utils>=1.18}:../../devel/p5-Scalar-List-Utils
+#DEPENDS+=	{perl>=5.10,p5-Scalar-List-Utils>=1.18}:../../devel/p5-Scalar-List-Utils
 BUILD_DEPENDS+=	p5-Test-Exception>=0.20:../../devel/p5-Test-Exception
 BUILD_DEPENDS+=	p5-Test-Version>=1.002003:../../devel/p5-Test-Version
 

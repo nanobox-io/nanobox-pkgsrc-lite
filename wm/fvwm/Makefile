@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2015/03/15 01:02:42 tnn Exp $
+# $NetBSD: Makefile,v 1.33 2015/11/25 12:53:55 jperkin Exp $
 
 DISTNAME=	fvwm-${FVWM_VER}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	x11 wm
 MASTER_SITES=	ftp://ftp.fvwm.org/pub/fvwm/version-2/ \
 		http://www.fvwm.org/generated/icon_download/
@@ -18,7 +18,6 @@ CONFLICTS=	fvwm1-[0-9]* fvwm2-[0-9]* metisse-[0-9]* xpmroot-[0-9]*
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
 FVWM_VER=	2.6.5
 
-USE_X11BASE=		YES
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		perl:run tar
 
@@ -28,11 +27,10 @@ INSTALLATION_DIRS+=	lib/X11/fvwm2
 INSTALLATION_DIRS+=	lib/X11/fvwm2/pixmaps
 INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 
-EVAL_PREFIX+=		XPMDIR=xpm
 CONFIGURE_ARGS+=	--without-gnome
 CONFIGURE_ARGS+=	--sysconfdir=${PREFIX:Q}/lib/X11/fvwm2
 CONFIGURE_ARGS+=	--libexecdir=${PREFIX:Q}/lib/X11
-CONFIGURE_ARGS+=	--with-xpm-includes=${XPMDIR:Q}/include
+CONFIGURE_ARGS+=	--with-xpm-includes=${BUILDLINK_PREFIX.libXpm:Q}/include
 CONFIGURE_ARGS+=	--with-imagepath=${PREFIX:Q}/lib/X11/fvwm2/pixmaps:${X11BASE:Q}/include/X11/bitmaps:${X11BASE:Q}/include/X11/pixmaps
 
 # We don't want to have CPP from the buildlink directory

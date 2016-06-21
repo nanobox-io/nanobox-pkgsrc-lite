@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.59 2014/08/21 15:52:00 jperkin Exp $
+# $NetBSD: Makefile,v 1.61 2015/12/23 12:44:20 joerg Exp $
 
 DISTNAME=		wdm-1.28
 PKGREVISION=		18
@@ -9,8 +9,7 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://voins.program.ru/wdm/
 COMMENT=		WINGs display manager
 
-USE_TOOLS+=		msgfmt
-USE_X11BASE=		YES
+USE_TOOLS+=		msgfmt pkg-config
 USE_PKGLOCALEDIR=	YES
 GNU_CONFIGURE=		YES
 

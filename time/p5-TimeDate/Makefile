@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.29 2014/10/09 14:07:08 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/03 19:42:30 shattered Exp $
 #
 
 DISTNAME=	TimeDate-2.30
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Date/}
 
@@ -18,7 +18,7 @@ PERL5_PACKLIST=		auto/Date/Parse/.packlist
 post-extract:
 	cd ${WRKSRC};							\
 	for f in Russian_cp1251.pm Russian_koi8r.pm Turkish.pm; do	\
-	chmod -x lib/Date/Language/$${f};				\
+	chmod a-x lib/Date/Language/$${f};				\
 	done
 
 .include "../../lang/perl5/module.mk"

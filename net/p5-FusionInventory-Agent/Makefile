@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2014/05/29 23:37:05 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2016/04/01 12:07:30 jperkin Exp $
 #
 
 DISTNAME=	FusionInventory-Agent-2.2.7
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/F/FU/FUSINV/}
 
@@ -34,10 +34,12 @@ DEPENDS+=	p5-Test-Exception-[0-9]*:../../devel/p5-Test-Exception
 DEPENDS+=	p5-Test-MockModule-[0-9]*:../../devel/p5-Test-MockModule
 DEPENDS+=	p5-YAML-[0-9]*:../../textproc/p5-YAML
 
+PERL5_PACKLIST= auto/FusionInventory/Agent/.packlist
+
 PERL5_MODULE_TYPE=	Module::Install::Bundled
 
 MAKE_PARAMS+=	PREFIX=${PREFIX} LOCALSTATEDIR=${VARBASE}/fusioninventory
-MAKE_PARAMS+=	SYSCONFDIR=${PKG_SYSCONFDIR}
+MAKE_PARAMS+=	SYSCONFDIR=${PKG_SYSCONFDIR} PKGMANDIR=${PKGMANDIR}
 
 REPLACE_PERL+=	memconf
 

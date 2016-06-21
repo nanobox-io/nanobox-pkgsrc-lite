@@ -1,8 +1,8 @@
-$NetBSD: patch-Source_JavaScriptCore_assembler_MacroAssemblerARM.cpp,v 1.2 2014/08/03 22:30:05 wiz Exp $
+$NetBSD: patch-Source_JavaScriptCore_assembler_MacroAssemblerARM.cpp,v 1.5 2016/01/21 13:42:33 leot Exp $
 
---- Source/JavaScriptCore/assembler/MacroAssemblerARM.cpp.orig	2014-03-19 11:10:05.000000000 +0000
+--- Source/JavaScriptCore/assembler/MacroAssemblerARM.cpp.orig	2016-01-20 12:12:59.000000000 +0000
 +++ Source/JavaScriptCore/assembler/MacroAssemblerARM.cpp
-@@ -42,6 +42,8 @@
+@@ -38,6 +38,8 @@
  #include <unistd.h>
  #include <elf.h>
  #include <asm/hwcap.h>
@@ -11,10 +11,11 @@ $NetBSD: patch-Source_JavaScriptCore_assembler_MacroAssemblerARM.cpp,v 1.2 2014/
  #endif
  
  namespace JSC {
-@@ -62,6 +64,16 @@ static bool isVFPPresent()
+@@ -57,6 +59,16 @@ static bool isVFPPresent()
+         close(fd);
      }
  #endif // OS(LINUX)
- 
++ 
 +#if OS(NETBSD)
 +    size_t len;
 +    int flag;
@@ -24,7 +25,6 @@ $NetBSD: patch-Source_JavaScriptCore_assembler_MacroAssemblerARM.cpp,v 1.2 2014/
 +        return flag == 1;
 +    }
 +#endif // OS(NETBSD)
-+
- #if (COMPILER(GCC) && defined(__VFP_FP__))
+ 
+ #if (COMPILER(GCC_OR_CLANG) && defined(__VFP_FP__))
      return true;
- #else

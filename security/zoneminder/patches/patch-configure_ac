@@ -1,4 +1,4 @@
-$NetBSD: patch-configure_ac,v 1.2.18.1 2015/04/24 16:07:10 hiramatsu Exp $
+$NetBSD: patch-configure_ac,v 1.4 2015/04/07 12:54:36 dsainty Exp $
 
 Recognise lower-case "netbsd" as BSD.
 

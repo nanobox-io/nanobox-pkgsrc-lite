@@ -1,4 +1,4 @@
-# $NetBSD: NetBSD.mk,v 1.40 2014/09/02 16:13:27 gdt Exp $
+# $NetBSD: NetBSD.mk,v 1.48 2016/03/11 23:54:09 khorben Exp $
 #
 # Variable definitions for the NetBSD operating system.
 
@@ -13,14 +13,8 @@ PS?=		/bin/ps
 SU?=		/usr/bin/su
 TYPE?=		type				# Shell builtin
 
-.if exists(/usr/sbin/user)
 USERADD?=	/usr/sbin/useradd
 GROUPADD?=	/usr/sbin/groupadd
-.else
-USERADD?=	${LOCALBASE}/sbin/useradd
-GROUPADD?=	${LOCALBASE}/sbin/groupadd
-_USER_DEPENDS=	user>=20000313:../../sysutils/user
-.endif
 
 CPP_PRECOMP_FLAGS?=	# unset
 DEF_UMASK?=		0022
@@ -40,6 +34,7 @@ ROOT_GROUP?=	wheel
 ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
 ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
 ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
+ULIMIT_CMD_cputime?=	ulimit -t `ulimit -H -t`
 
 # Native X11 is only supported on NetBSD-5 and later.
 # On NetBSD-5, native X11 has enough issues that we default
@@ -80,11 +75,6 @@ _OPSYS_SHLIB_TYPE=	ELF/a.out	# shared lib type
 _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-V simple --suffix # switch to patch(1) for backup suffix
 _USE_RPATH=		yes	# add rpath to LDFLAGS
-
-# flags passed to the linker to extract all symbols from static archives.
-# this is GNU ld.
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
 
 # for programs which use dlopen()
 # not necessary since 1.6 (shared libs are linked against libgcc_pic)
@@ -131,6 +121,29 @@ FFLAGS+=	-mieee
 # check for kqueue(2) support, added in NetBSD-1.6J
 .if exists(/usr/include/sys/event.h)
 PKG_HAVE_KQUEUE=	# defined
+.endif
+
+# Register support for FORTIFY (with GCC)
+_OPSYS_SUPPORTS_FORTIFY=yes
+
+# Register support for PIE on supported architectures (with GCC)
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_MKPIE=	yes
+.endif
+
+# Register support for RELRO on supported architectures (with GCC)
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_RELRO=	yes
+.endif
+
+# Register support for SSP on most architectures (with GCC)
+.if (${MACHINE_ARCH} != "alpha") && \
+    (${MACHINE_ARCH} != "hppa") && \
+    (${MACHINE_ARCH} != "ia64") && \
+    (${MACHINE_ARCH} != "mips")
+_OPSYS_SUPPORTS_SSP=	yes
 .endif
 
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk

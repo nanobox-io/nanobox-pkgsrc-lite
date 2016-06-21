@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/03/15 20:03:24 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/05 09:40:53 ryoon Exp $
 
-DISTNAME=	corebird-0.9
+DISTNAME=	corebird-1.2
 CATEGORIES=	net
 MASTER_SITES=	-https://github.com/baedert/corebird/archive/${PKGVERSION_NOREV}${EXTRACT_SUFX}
 
@@ -24,7 +24,7 @@ TEST_TARGET=	check
 .include "../../www/librest07/buildlink3.mk"
 .include "../../textproc/json-glib/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../devel/libgee/buildlink3.mk"
 BUILDLINK_DEPMETHOD.vala=	build
 .include "../../lang/vala/buildlink3.mk"

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.6 2015/03/01 15:52:48 taca Exp $
+# $NetBSD: Makefile,v 1.8 2015/09/26 15:02:59 taca Exp $
 
-DISTNAME=	rgl-0.5.0
+DISTNAME=	rgl-0.5.1
 CATEGORIES=	devel
 
 MAINTAINER=	minskim@NetBSD.org
-HOMEPAGE=	http://rgl.rubyforge.org/
+HOMEPAGE=	https://github.com/monora/rgl
 COMMENT=	Framework for graph data structures and algorithms
 
 DEPENDS+=	${RUBY_PKGPREFIX}-algorithms>=0.5.0:../../devel/ruby-algorithms

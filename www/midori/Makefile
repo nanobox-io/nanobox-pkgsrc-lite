@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.76 2014/12/02 10:07:23 snj Exp $
+# $NetBSD: Makefile,v 1.88 2016/02/04 12:13:31 wiz Exp $
 
-DISTNAME=	midori_0.5.9_all_
+DISTNAME=	midori_0.5.11_all_
 PKGNAME=	${DISTNAME:S/_all_//:S/_/-/}
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	http://midori-browser.org/downloads/
 
@@ -41,18 +42,19 @@ CONF_FILES+=	${EGDIR}/extensions/adblock/config \
 
 CONFIGURE_ENV=	VALAC=${VALAC}
 
+.include "options.mk"
+
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/gnome-icon-theme/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 #.include "../../security/gnome-keyring/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../www/webkit-gtk/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
-.include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/libXScrnSaver/buildlink3.mk"
 BUILDLINK_DEPMETHOD.vala= build
 .include "../../lang/vala/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

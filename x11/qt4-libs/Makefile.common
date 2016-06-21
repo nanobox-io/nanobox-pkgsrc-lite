@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.38 2014/08/28 10:58:19 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.41 2016/02/25 08:27:05 jperkin Exp $
 # used by x11/qt4-docs/Makefile
 # used by x11/qt4-libs/Makefile
 # used by x11/qt4-mng/Makefile
@@ -43,7 +43,7 @@ CONFIGURE_ARGS+=	-plugindir "${QTPREFIX}/plugins${LIBARCHSUFFIX}"
 CONFIGURE_ARGS+=	-importdir "${QTPREFIX}/imports${LIBARCHSUFFIX}"
 CONFIGURE_ARGS+=	${CFLAGS:M-I*} ${LDFLAGS:M-L*} ${LDFLAGS:M-l*}
 CONFIGURE_ARGS+=	-opensource -confirm-license
-OPSYSVARS+=		CONFIGURE_ARGS
+CONFIGURE_ARGS+=	-sysconfdir "${PKG_SYSCONFDIR}/xdg"
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -148,7 +148,6 @@ CXXFLAGS+=		-DQ_INLINE_TEMPLATES=inline
 pre-configure:
 	sed	-e 's:@LOCALBASE@:${LOCALBASE}:g' \
 		-e 's:@X11BASE@:${X11BASE}:g' \
-		-e 's:@X11PREFIX@:${X11PREFIX}:g' \
 		-e 's:@LIBTOOL@:${LIBTOOL:Q}:g' \
 		-e 's:@CC@:${CC:Q}:g' \
 		-e 's:@CXX@:${CXX:Q}:g' \

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.78 2014/05/29 23:37:14 wiz Exp $
+# $NetBSD: Makefile,v 1.80 2015/09/23 12:02:50 joerg Exp $
 
 DISTNAME=	mpich-3.0.4
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	parallel
 MASTER_SITES=	http://www.mpich.org/static/tarballs/${PKGVERSION_NOREV}/
 
@@ -15,6 +15,8 @@ DEPENDS+=	bash-[0-9]*:../../shells/bash
 #MPI_PREFIX=		${LOCALBASE}/${MPI_SUBPREFIX}
 MPI_PREFIX=		${LOCALBASE}
 INSTALLATION_PREFIX=	${MPI_PREFIX}
+
+OVERRIDE_DIRDEPTH=	3
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes

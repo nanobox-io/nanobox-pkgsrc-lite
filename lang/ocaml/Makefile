@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.94 2015/03/11 22:37:18 tnn Exp $
+# $NetBSD: Makefile,v 1.102 2016/02/29 13:53:58 jperkin Exp $
 
 .include "Makefile.common"
 
+PKGREVISION=		3
+
 #CONFIGURE_ARGS+=	-no-tk
-CONFIGURE_ARGS+=	-cc ${CC}
+#CONFIGURE_ARGS+=	-cc ${CC}
 CONFIGURE_ENV+=		disable_x11=yes
 
 BUILD_TARGET=		world
@@ -36,8 +38,6 @@ PLIST_SRC+=	${PKGDIR}/PLIST.opt
       empty(MACHINE_PLATFORM:MSunOS-*-i386) && \
       empty(MACHINE_PLATFORM:MSunOS-*-x86_64) && \
       empty(MACHINE_PLATFORM:MNetBSD-*-powerpc) && \
-      empty(MACHINE_PLATFORM:MNetBSD-*-x86_64) && \
-      empty(MACHINE_PLATFORM:MFreeBSD-*-x86_64) && \
       empty(MACHINE_PLATFORM:MNetBSD-*-arm) && \
       empty(MACHINE_PLATFORM:MNetBSD-*-sparc)
 PLIST_SRC+=	${PKGDIR}/PLIST.prof
@@ -51,7 +51,8 @@ PLIST_SRC+=	${PKGDIR}/PLIST.prof
       !empty(MACHINE_PLATFORM:MFreeBSD-*-*) || \
       !empty(MACHINE_PLATFORM:MDragonFly-*-*) || \
       !empty(MACHINE_PLATFORM:MNetBSD-*-*) || \
-      !empty(MACHINE_PLATFORM:MDarwin-*-x86_64)
+      !empty(MACHINE_PLATFORM:MDarwin-*-*) || \
+      !empty(MACHINE_PLATFORM:MSunOS-*-*)
 PLIST_SRC+=	${PKGDIR}/PLIST.natdynlink
 .  endif
 .endif
@@ -70,11 +71,9 @@ PLIST_SRC+=	${PKGDIR}/PLIST
 INSTALL_MAKE_FLAGS+=	SHELL=${SH:Q}
 .endif
 
-.if ${OPSYS} == "NetBSD"
-EXTRA_RT_LIBS=	-lcurses
-.else
-EXTRA_RT_LIBS=
-.endif
+OPSYSVARS+=		EXTRA_RT_LIBS
+EXTRA_RT_LIBS.NetBSD=	-lcurses
+EXTRA_RT_LIBS.*=
 
 SUBST_CLASSES+=		extra-rt-libs
 SUBST_FILES.extra-rt-libs=	bytecomp/bytelink.ml
@@ -83,6 +82,14 @@ SUBST_STAGE.extra-rt-libs=	pre-configure
 
 do-test:
 	cd ${WRKSRC}/testsuite && ${MAKE_PROGRAM} all
+
+post-install:
+	${INSTALL_MAN_DIR} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+	set -e ; cd ${DESTDIR}${PREFIX}/lib/ocaml/${PKGMANDIR}/man1;	\
+	for m in *; do							\
+	  ln -s ${PREFIX}/lib/ocaml/${PKGMANDIR}/man1/$$m		\
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/$$m;		\
+	done
 
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2014/08/17 19:05:50 joerg Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/05 11:28:49 jperkin Exp $
 
 VERSION=	5.3.3p1
 DISTNAME=	opensmtpd-${VERSION}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	mail net
 MASTER_SITES=	http://www.opensmtpd.org/archives/
 
@@ -13,6 +13,7 @@ LICENSE=	isc AND modified-bsd AND 2-clause-bsd
 
 CONFLICTS+=	courier-mta-[0-9]* fastforward>=0.51nb2 sendmail-[0-9]*
 CONFLICTS+=	esmtp>=1.2 nullmailer-[0-9]* postfix-[0-9]*
+BROKEN_FOR_PLATFORM+=	OpenBSD-*-*
 
 BUILD_DEFS+=	VARBASE
 
@@ -61,6 +62,7 @@ post-install:
 	${INSTALL_DATA} ${WRKDIR}/mailer.conf \
 		${DESTDIR}${EXAMPLEDIR}/mailer.conf
 
+.include "../../databases/db/buildlink3.mk"
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

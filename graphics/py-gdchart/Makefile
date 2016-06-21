@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.38 2014/05/09 07:37:07 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2015/12/05 21:25:45 adam Exp $
 
 DISTNAME=	gdchart-py-0.6
 PKGNAME=	${PYPKGPREFIX}-gdchart-0.6
-PKGREVISION=	16
+PKGREVISION=	18
 CATEGORIES=	graphics python
 MASTER_SITES=	http://www.nullcube.com/software/pygdchart.html
 
@@ -21,7 +21,7 @@ MODULE_FILES=	chart.py gdchart.so
 EXAMPLE_FILES=	test.html test.py CHANGES
 EXAMPLE_DIR=	${PREFIX}/share/examples/${PYPKGPREFIX}-gdchart
 PY_PATCHPLIST=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.6
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 0.6
 
 INSTALLATION_DIRS=	${PYSITELIB:S/^${PREFIX}\///}
 

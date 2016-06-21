@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.8 2014/10/09 14:06:53 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/03/13 16:53:30 wiz Exp $
 
-DISTNAME=		Crypt-ECB-1.45
+DISTNAME=		Crypt-ECB-2.10
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		5
 CATEGORIES=		security perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Crypt/}
 
-MAINTAINER=		dsainty@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://search.cpan.org/dist/Crypt-ECB/
 COMMENT=		Perl5 Electronic Codebook mode for various crypto algorithms
 

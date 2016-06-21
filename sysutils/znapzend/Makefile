@@ -1,22 +1,25 @@
-# $NetBSD: Makefile,v 1.3 2015/01/17 18:53:48 wiedi Exp $
+# $NetBSD: Makefile,v 1.9 2016/03/17 00:26:16 wiedi Exp $
 
-VERSION=	0.14.0
-DISTNAME=	v${VERSION}
-PKGNAME=	znapzend-${VERSION}
+DISTNAME=	znapzend-0.15.3
 CATEGORIES=	sysutils
-MASTER_SITES=	https://github.com/oetiker/znapzend/archive/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=oetiker/}
 
 MAINTAINER=	wiedi@frubar.net
 HOMEPAGE=	https://github.com/oetiker/znapzend/
 COMMENT=	ZFS send/receive backup system
 LICENSE=	gnu-gpl-v3
 
-WRKSRC=		${WRKDIR}/znapzend-${VERSION}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
+
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	# none
 USE_TOOLS+=	perl gmake
 
-DEPENDS+=	p5-Mojolicious>=5.08:../../www/p5-Mojolicious
-DEPENDS+=	p5-Mojo-IOLoop-ForkCall>=0.12:../../devel/p5-Mojo-IOLoop-ForkCall
+TEST_TARGET=	test
+
+DEPENDS+=	p5-Mojolicious>=6.46:../../www/p5-Mojolicious
+DEPENDS+=	p5-Mojo-IOLoop-ForkCall>=0.17:../../devel/p5-Mojo-IOLoop-ForkCall
+DEPENDS+=	p5-Test-Harness>=3.35:../../devel/p5-Test-Harness
+
 
 .include "../../mk/bsd.pkg.mk"

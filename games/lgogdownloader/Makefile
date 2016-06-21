@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2015/01/10 20:25:57 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/03/13 08:49:31 wiz Exp $
 
-DISTNAME=	lgogdownloader-2.20
+DISTNAME=	lgogdownloader-2.27
 CATEGORIES=	games
 MASTER_SITES=	http://sites.google.com/site/gogdownloader/
 
@@ -11,20 +11,16 @@ COMMENT=	Download games from GOG
 
 BUILD_DEPENDS+=	help2man-[0-9]*:../../converters/help2man
 
-#WRKSRC=		${WRKDIR}/lgogdownloader
 USE_LANGUAGES=	c++
-USE_TOOLS+=	gmake gunzip
-
-MAKE_FLAGS+=	PREFIX=${PREFIX}
-MAKE_FLAGS+=	MANPREFIX=${PREFIX}
-MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
-
-SUBST_CLASSES+=		json
-SUBST_SED.json+=	-e 's,jsoncpp/json/json.h,json/json.h,'
-SUBST_FILES.json+=	include/downloader.h include/gamedetails.h include/gamefile.h
-SUBST_FILES.json+=	src/api.cpp src/downloader.cpp src/util.cpp
-SUBST_STAGE.json=	post-configure
-SUBST_MESSAGE.json=	Fixing path to jsoncpp headers.
+USE_CMAKE=	yes
+USE_TOOLS+=	pkg-config
+CMAKE_ARGS+=	-DPC_JSONCPP_FOUND:BOOL=1
+CMAKE_ARGS+=	-DPC_JSONCPP_INCLUDEDIRS:PATH=${BUILDLINK_PREFIX.jsoncpp}/include/json
+CMAKE_ARGS+=	-DPC_JSONCPP_LIBRARY_DIRS:PATH=${BUILDLINK_PREFIX.jsoncpp}/lib
+CMAKE_ARGS+=	-DPC_TINYXML_FOUND:BOOL=1
+CMAKE_ARGS+=	-DPC_TINYXML_LIBRARY_DIRS:PATH=${BUILDLINK_PREFIX.tinyxml}/lib
+# for man page
+CMAKE_ARGS+=	-DINSTALL_SHARE_DIR:PATH=${PREFIX}
 
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../security/liboauth/buildlink3.mk"

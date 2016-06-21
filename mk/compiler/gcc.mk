@@ -1,4 +1,4 @@
-# $NetBSD: gcc.mk,v 1.155 2015/02/04 14:11:50 jperkin Exp $
+# $NetBSD: gcc.mk,v 1.166 2016/03/11 23:54:09 khorben Exp $
 #
 # This is the compiler definition for the GNU Compiler Collection.
 #
@@ -67,7 +67,7 @@ _DEF_VARS.gcc=	\
 	PKG_CC PKG_CPP PKG_CXX PKG_FC \
 	PKG_ADA PKG_GMK PKG_GLK PKG_GDB PKG_CHP PKG_GLK PKG_GNT PKG_PRP \
 	_CC _COMPILER_RPATH_FLAG _COMPILER_STRIP_VARS \
-	_GCCBINDIR _GCC_ARCHDIR _GCC_BIN_PREFIX _GCC_CC \
+	_GCCBINDIR _GCC_ARCHDIR _GCC_BIN_PREFIX _GCC_CC _GCC_CFLAGS \
 	_GCC_CPP _GCC_CXX _GCC_DEPENDENCY _GCC_DEPENDS \
 	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
 	_GCC_PKGBASE _GCC_PKGSRCDIR _GCC_PKG_SATISFIES_DEP \
@@ -105,7 +105,7 @@ GCC_REQD+=	20120614
 
 # _GCC_DIST_VERSION is the highest version of GCC installed by the pkgsrc
 # without the PKGREVISIONs.
-_GCC_DIST_NAME:=	gcc49
+_GCC_DIST_NAME:=	gcc5
 .include "../../lang/${_GCC_DIST_NAME}/version.mk"
 _GCC_DIST_VERSION:=	${${_GCC_DIST_NAME:tu}_DIST_VERSION}
 
@@ -137,6 +137,9 @@ _GCC48_PATTERNS= 4.8 4.8.*
 
 # _GCC49_PATTERNS matches N s.t. 4.9 <= N < 4.10.
 _GCC49_PATTERNS= 4.9 4.9.*
+
+# _GCC5_PATTERNS matches N s.t. 5.0 <= N < 6.
+_GCC5_PATTERNS= 5.*
 
 # _GCC_AUX_PATTERNS matches 8-digit date YYYYMMDD*
 _GCC_AUX_PATTERNS= 20[1-2][0-9][0-1][0-9][0-3][0-9]*
@@ -278,6 +281,12 @@ _NEED_GCC49?=	no
 _NEED_GCC49=	yes
 .  endif
 .endfor
+_NEED_GCC5?=	no
+.for _pattern_ in ${_GCC5_PATTERNS}
+.  if !empty(_GCC_REQD:M${_pattern_})
+_NEED_GCC5=	yes
+.  endif
+.endfor
 _NEED_GCC_AUX?=	no
 .for _pattern_ in ${_GCC_AUX_PATTERNS}
 .  if !empty(_GCC_REQD:M${_pattern_})
@@ -289,8 +298,9 @@ _NEED_NEWER_GCC=NO
     !empty(_NEED_GCC34:M[nN][oO]) && !empty(_NEED_GCC44:M[nN][oO]) && \
     !empty(_NEED_GCC45:M[nN][oO]) && !empty(_NEED_GCC46:M[nN][oO]) && \
     !empty(_NEED_GCC47:M[nN][oO]) && !empty(_NEED_GCC48:M[nN][oO]) && \
-    !empty(_NEED_GCC49:M[nN][oO]) && !empty(_NEED_GCC_AUX:M[nN][oO])
-_NEED_GCC49=	yes
+    !empty(_NEED_GCC49:M[nN][oO]) && !empty(_NEED_GCC5:M[nN][oO]) && \
+    !empty(_NEED_GCC_AUX:M[nN][oO])
+_NEED_GCC5=	yes
 .endif
 
 # Assume by default that GCC will only provide a C compiler.
@@ -313,6 +323,8 @@ LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
 LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
 .elif !empty(_NEED_GCC49:M[yY][eE][sS])
 LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
+.elif !empty(_NEED_GCC5:M[yY][eE][sS])
+LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
 .elif !empty(_NEED_GCC_AUX:M[yY][eE][sS])
 LANGUAGES.gcc=	c c++ fortran fortran77 objc ada
 .endif
@@ -326,6 +338,55 @@ _WRAP_EXTRA_ARGS.CC+=	-std=gnu99
 CWRAPPERS_APPEND.cc+=	-std=gnu99
 .endif
 
+.if ${OPSYS} == "NetBSD"
+_FORTIFY_CFLAGS.gcc=	-D_FORTIFY_SOURCE=2
+_MKPIE_CFLAGS.gcc=	-fPIC
+# XXX for executables it should be:
+#_MKPIE_CFLAGS.gcc=	-fPIE
+# XXX for libraries a sink wrapper around gcc is required and used instead
+#_MKPIE_LDFLAGS.gcc=	-pie
+_RELRO_LDFLAGS.gcc=	-Wl,-z,relro -Wl,-z,now
+.endif
+
+.if ${OPSYS} == "SunOS"
+_FORTIFY_CFLAGS.gcc=	-D_FORTIFY_SOURCE=2
+.endif
+
+.if ${_PKGSRC_MKPIE} == "yes"
+_GCC_CFLAGS+=		${_MKPIE_CFLAGS.gcc}
+_GCC_LDFLAGS+=		${_MKPIE_LDFLAGS.gcc}
+CWRAPPERS_APPEND.cc+=	${_MKPIE_CFLAGS.gcc}
+# XXX this differs for libraries and executables
+# CWRAPPERS_APPEND.ld+=	${_MKPIE_LDFLAGS.gcc}
+.endif
+
+.if ${_PKGSRC_USE_FORTIFY} == "yes"
+_GCC_CFLAGS+=		${_FORTIFY_CFLAGS.gcc}
+CWRAPPERS_APPEND.cc+=	${_FORTIFY_CFLAGS.gcc}
+.endif
+
+.if ${_PKGSRC_USE_RELRO} == "yes"
+_GCC_LDFLAGS+=		${_RELRO_LDFLAGS.gcc}
+CWRAPPERS_APPEND.ld+=	${_RELRO_LDFLAGS.gcc}
+.endif
+ 
+# The user can choose the level of stack smashing protection.
+.if ${PKGSRC_USE_SSP} == "all"
+_SSP_CFLAGS=		-fstack-protector-all
+.elif ${PKGSRC_USE_SSP} == "strong"
+_SSP_CFLAGS=		-fstack-protector-strong
+.else
+_SSP_CFLAGS=		-fstack-protector
+.endif
+
+.if ${_PKGSRC_USE_SSP} == "yes"
+_WRAP_EXTRA_ARGS.CC+=	${_SSP_CFLAGS}
+_WRAP_EXTRA_ARGS.CXX+=	${_SSP_CFLAGS}
+CWRAPPERS_APPEND.cc+=	${_SSP_CFLAGS}
+CWRAPPERS_APPEND.cxx+=	${_SSP_CFLAGS}
+CWRAPPERS_APPEND.f77+=	${_SSP_CFLAGS}
+.endif
+
 # GCC has this annoying behaviour where it advocates in a multi-line
 # banner the use of "#include" over "#import" when including headers.
 # This generates a huge number of warnings when building practically all
@@ -336,18 +397,20 @@ CWRAPPERS_APPEND.cc+=	-std=gnu99
 CFLAGS+=	-Wno-import
 .endif
 
+CFLAGS+=	${_GCC_CFLAGS}
+
 .if !empty(_NEED_GCC2:M[yY][eE][sS])
 #
-# We require gcc-2.x in the lang/gcc directory.
+# We require gcc-2.x in the lang/gcc2 directory.
 #
-_GCC_PKGBASE=		gcc
-.  if !empty(PKGPATH:Mlang/gcc)
+_GCC_PKGBASE=		gcc2
+.  if !empty(PKGPATH:Mlang/gcc2)
 _IGNORE_GCC=		yes
 MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc
-_GCC_DEPENDENCY=	gcc>=${_GCC_REQD}:../../lang/gcc
+_GCC_PKGSRCDIR=		../../lang/gcc2
+_GCC_DEPENDENCY=	gcc2>=${_GCC_REQD}:../../lang/gcc2
 .    if !empty(_LANGUAGES.gcc:Mc++) || \
         !empty(_LANGUAGES.gcc:Mfortran77) || \
         !empty(_LANGUAGES.gcc:Mobjc)
@@ -496,6 +559,27 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc49
 _GCC_DEPENDENCY=	gcc49>=${_GCC_REQD}:../../lang/gcc49
+.    if !empty(_LANGUAGES.gcc:Mc++) || \
+        !empty(_LANGUAGES.gcc:Mfortran) || \
+        !empty(_LANGUAGES.gcc:Mfortran77) || \
+        !empty(_LANGUAGES.gcc:Mgo) || \
+        !empty(_LANGUAGES.gcc:Mobjc) || \
+        !empty(_LANGUAGES.gcc:Mobj-c++)
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+.elif !empty(_NEED_GCC5:M[yY][eE][sS])
+#
+# We require gcc-5.x in the lang/gcc5-* directory.
+#
+_GCC_PKGBASE=		gcc5
+.  if !empty(PKGPATH:Mlang/gcc5)
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc5
+_GCC_DEPENDENCY=	gcc5>=${_GCC_REQD}:../../lang/gcc5
 .    if !empty(_LANGUAGES.gcc:Mc++) || \
         !empty(_LANGUAGES.gcc:Mfortran) || \
         !empty(_LANGUAGES.gcc:Mfortran77) || \
@@ -684,8 +768,9 @@ _GCC_LDFLAGS=	# empty
 .  for _dir_ in ${_GCC_LIBDIRS:N*not_found*}
 _GCC_LDFLAGS+=	-L${_dir_} ${COMPILER_RPATH_FLAG}${_dir_}
 .  endfor
-LDFLAGS+=	${_GCC_LDFLAGS}
 .endif
+
+LDFLAGS+=	${_GCC_LDFLAGS}
 
 # Point the variables that specify the compiler to the installed
 # GCC executables.
@@ -792,9 +877,19 @@ _COMPILER_STRIP_VARS+=	${_GCC_VARS}
 IMAKEOPTS+=	-DHasGcc2=YES -DHasGcc2ForCplusplus=YES
 .endif
 
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
-_COMPILER_ABI_FLAG.32=  -m32
-_COMPILER_ABI_FLAG.64=  -m64
+.if ${OPSYS} == "AIX"
+# On AIX the GCC toolchain recognizes -maix32 and -maix64,
+# -m32 or -m64 are not recognized.
+_COMPILER_ABI_FLAG.32=	-maix32
+_COMPILER_ABI_FLAG.64=	-maix64
+# On HP-UX the GCC toolchain must be specifically targeted to an ABI,
+# -m32 or -m64 are not recognized.
+.elif ${OPSYS} == "HPUX"
+_COMPILER_ABI_FLAG.32=	# empty
+_COMPILER_ABI_FLAG.64=	# empty
+.else
+_COMPILER_ABI_FLAG.32=	-m32
+_COMPILER_ABI_FLAG.64=	-m64
 .endif
 
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
@@ -840,6 +935,8 @@ PREPEND_PATH+=	${_GCC_DIR}/bin
 .      include "../../lang/gcc48-libs/buildlink3.mk"
 .    elif !empty(CC_VERSION:Mgcc-4.9*)
 .      include "../../lang/gcc49-libs/buildlink3.mk"
+.    elif !empty(CC_VERSION:Mgcc-5.*)
+.      include "../../lang/gcc5-libs/buildlink3.mk"
 .    else
 PKG_FAIL_REASON=	"No USE_PKGSRC_GCC_RUNTIME support for ${CC_VERSION}"
 .    endif

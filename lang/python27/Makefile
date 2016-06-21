@@ -1,15 +1,17 @@
-# $NetBSD: Makefile,v 1.48 2015/03/03 17:19:58 snj Exp $
+# $NetBSD: Makefile,v 1.57 2016/03/05 11:28:44 jperkin Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python27-${PY_DISTVERSION}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.python.org/
 COMMENT=	Interpreted, interactive, object-oriented programming language
 LICENSE=	python-software-foundation
+
+DEPENDS=	mozilla-rootcerts>=1.0.20150804nb1:../../security/mozilla-rootcerts
 
 CONFLICTS+=	python-[0-9]*
 
@@ -32,6 +34,10 @@ LDFLAGS+=		-L${WRKSRC}
 
 # $RANDOM usage there is fine
 CHECK_PORTABILITY_SKIP=	Tools/faqwiz/move-faqwiz.sh
+
+# Harmless PKG_CONFIG_LIBDIR references to BUILDLINK_DIR
+CHECK_WRKREF_SKIP+=	lib/python2.7/_sysconfigdata.py
+CHECK_WRKREF_SKIP+=	lib/python2.7/config/Makefile
 
 USE_LANGUAGES=		c c++
 
@@ -88,9 +94,9 @@ PY_PLATNAME=	${LOWER_OPSYS}${OS_VERSION:C/\..*//}
 .endif
 PLIST_SUBST+=	PY_PLATNAME=${PY_PLATNAME:Q}
 
-.if (${MACHINE_ARCH} == "alpha") || (${MACHINE_ARCH} == "amd64") || \
-    (${MACHINE_ARCH} == "sparc64") || (${MACHINE_ARCH} == "x86_64") || \
-    (${MACHINE_ARCH} == "powerpc64") || (defined(ABI) && ${ABI} == "64")
+.if (${MACHINE_ARCH} == "alpha") || (${MACHINE_ARCH} == "sparc64") || \
+    (${MACHINE_ARCH} == "x86_64") || (${MACHINE_ARCH} == "powerpc64") || \
+    (defined(ABI) && ${ABI} == "64")
 IS_64BIT_PLATFORM?=	yes
 .else
 IS_64BIT_PLATFORM?=	no
@@ -106,11 +112,6 @@ PLIST.dl=	yes
 PLIST_VARS+=	extra-so
 .if !empty(IS_64BIT_PLATFORM:M[nN][oO])
 PLIST.extra-so=	yes
-.endif
-
-# Make sure python modules can link correctly
-.if ${OPSYS} == "Darwin"
-INSTALL_UNSTRIPPED=	yes
 .endif
 
 # For Xcode 5 we need to search the SDK path for headers, otherwise certain
@@ -137,17 +138,15 @@ PLIST.no-nis=	yes
 .  endif
 .endif
 
-# .include "../../mk/bdb.buildlink3.mk"
+#.include "../../mk/bdb.buildlink3.mk"
 MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
 .if empty(BDB_LIBS)
 BUILDLINK_TRANSFORM+=	rm:-ldb
 .endif
 CFLAGS+=	-DHAVE_DB_185_H
 
-.if ${OPSYS} == "OSF1"
 # configure complains about buggy getaddrinfo()
-CONFIGURE_ARGS+=	--disable-ipv6
-.endif
+CONFIGURE_ARGS.OSF1+=	--disable-ipv6
 
 .if defined(BUILDLINK_TRANSFORM)
 MAKE_ENV+=	PY_BDB_TRANSFORM=${BUILDLINK_TRANSFORM:Q}
@@ -164,6 +163,12 @@ REPLACE.py27.new=	${PREFIX}/bin/python${PY_VER_SUFFIX}
 REPLACE_FILES.py27=	Lib/*.py Lib/*/*.py Lib/*/*/*.py
 REPLACE_FILES.py27+=	Lib/*/*/*/*.py
 
+SUBST_CLASSES+=		libffi
+SUBST_MESSAGE.libffi=	Fixing libffi include path on Darwin.
+SUBST_STAGE.libffi=	pre-configure
+SUBST_FILES.libffi=	setup.py
+SUBST_SED.libffi=	-e 's,/usr/include/ffi,${BUILDLINK_PREFIX.libffi}/include,'
+
 SUBST_CLASSES+=		findlib
 SUBST_MESSAGE.findlib=	Fixing find_library_file on Darwin.
 SUBST_STAGE.findlib=	pre-configure
@@ -175,6 +180,12 @@ SUBST_MESSAGE.sslbase=	Fixing find-file for openssl with SSLBASE.
 SUBST_STAGE.sslbase=	pre-configure
 SUBST_FILES.sslbase=	setup.py
 SUBST_VARS.sslbase=	SSLBASE
+
+SUBST_CLASSES+=		cacert
+SUBST_MESSAGE.cacert=	Configuring location of default CA certificate file.
+SUBST_STAGE.cacert=	pre-configure
+SUBST_FILES.cacert=	Modules/_ssl.c
+SUBST_SED.cacert=	-e 's,@PREFIX@,${PREFIX},'
 
 SUBST_CLASSES+=		vars
 SUBST_MESSAGE.vars=	Substituting multiarch vars.

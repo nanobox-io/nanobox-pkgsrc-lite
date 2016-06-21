@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.49 2014/05/29 23:37:02 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2015/07/12 18:56:25 wiz Exp $
 
 DISTNAME=	clive-2.3.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net multimedia www
 MASTER_SITES=	http://clive.googlecode.com/files/
 
@@ -15,7 +15,7 @@ DEPENDS+=	libquvi-scripts>=0.4.0:../../net/libquvi-scripts
 DEPENDS+=	curl-[0-9]*:../../www/curl
 DEPENDS+=	p5-JSON-XS>=2.3:../../converters/p5-JSON-XS
 DEPENDS+=	p5-Getopt-ArgvFile>=1.11:../../devel/p5-Getopt-ArgvFile
-DEPENDS+=	{perl>=5.10.1,p5-version>=0.77}:../../devel/p5-version
+#DEPENDS+=	{perl>=5.10.1,p5-version>=0.77}:../../devel/p5-version
 
 PERL5_PACKLIST=		auto/clive/.packlist
 INSTALLATION_DIRS=	share/examples/clive

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2014/07/12 12:24:29 obache Exp $
+# $NetBSD: Makefile,v 1.9 2016/03/02 22:59:00 ryoon Exp $
 
 .include "../../inputmethod/ibus/Makefile.common"
 
@@ -39,7 +39,7 @@ CONFIGURE_ARGS+=		--disable-gconf
 CONFIGURE_ARGS+=		--enable-python-library
 CONFIGURE_ENV+=			PYTHON2=${PYTHONBIN}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26 33 34 # py-gtk2, py-gobject3
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2, py-gobject3
 
 .include "../../devel/py-gobject3/buildlink3.mk"
 PY_PATCHPLIST=	yes
@@ -47,4 +47,5 @@ PY_PATCHPLIST=	yes
 BUILDLINK_API_DEPENDS.py-dbus+=	${PYPKGPREFIX}-dbus>=0.83.0
 .include "../../sysutils/py-dbus/buildlink3.mk"
 .include "../../textproc/iso-codes/buildlink3.mk"
+.include "../../x11/libX11/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

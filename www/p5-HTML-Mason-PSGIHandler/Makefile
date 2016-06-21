@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2014/05/29 23:38:06 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2015/07/12 18:56:35 wiz Exp $
 #
 
 DISTNAME=	HTML-Mason-PSGIHandler-0.53
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=HTML/}
 
@@ -13,7 +13,7 @@ COMMENT=	PSGI handler for HTML::Mason
 LICENSE=	${PERL5_LICENSE}
 
 BUILD_DEPENDS+=	p5-Plack-[0-9]*:../../www/p5-Plack
-BUILD_DEPENDS+=	{perl>=5.6.2,p5-Test-Simple-[0-9]*}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.6.2,p5-Test-Simple-[0-9]*}:../../devel/p5-Test-Simple
 
 DEPENDS+=	p5-CGI-PSGI-[0-9]*:../../www/p5-CGI-PSGI
 DEPENDS+=	p5-HTML-Mason-[0-9]*:../../www/p5-HTML-Mason

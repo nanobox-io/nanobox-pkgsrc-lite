@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2014/08/01 15:55:07 fhajny Exp $
+# $NetBSD: Makefile,v 1.15 2016/03/10 10:29:53 fhajny Exp $
 #
 
-DISTNAME=	percona-toolkit-2.2.9
+DISTNAME=	percona-toolkit-2.2.17
 CATEGORIES=	databases
-MASTER_SITES=	http://www.percona.com/downloads/percona-toolkit/${PKGVERSION_NOREV}/
+MASTER_SITES=	http://www.percona.com/downloads/percona-toolkit/${PKGVERSION_NOREV}/tarball/
 
 MAINTAINER=	msporleder@gmail.com
 HOMEPAGE=	http://www.percona.com/software/percona-toolkit/
@@ -21,7 +21,7 @@ CHECK_INTERPRETER_SKIP+=	*pt-sift
 CHECK_INTERPRETER_SKIP+=	*pt-stalk
 
 DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
-DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
+#DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
 
 PERL5_PACKLIST=	auto/percona-toolkit/.packlist
 

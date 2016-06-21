@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.55 2014/05/29 23:37:04 wiz Exp $
+# $NetBSD: Makefile,v 1.63 2016/02/09 10:12:53 bouyer Exp $
 #
 
-DISTNAME=		nagios-3.5.1
+DISTNAME=		nagios-4.0.8
 PKGNAME=		${DISTNAME:S/-/-base-/}
-PKGREVISION=		2
+PKGREVISION=		5
 CATEGORIES=		net sysutils
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX}
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=nagios/}
@@ -14,6 +14,8 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.nagios.org/
 COMMENT=		Network monitor
 LICENSE=		gnu-gpl-v2
+
+PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../mk/bsd.prefs.mk"
 .include "../../net/nagios-base/Makefile.common"
@@ -76,14 +78,15 @@ OWN_DIRS_PERMS+=${NAGIOSDIR}/archives ${NAGIOS_USER} ${NAGIOS_GROUP} 0775
 OWN_DIRS_PERMS+=${NAGIOSDIR}/rw ${NAGIOS_USER} ${NAGIOSCMD_GROUP} 0775
 OWN_DIRS_PERMS+=${NAGIOSDIR}/checkresults ${NAGIOS_USER} ${NAGIOSCMD_GROUP} 0775
 
+SPECIAL_PERMS+=	${DESTDIR}/${PREFIX}/share/nagios/jsonquery.html ${NAGIOS_USER} ${NAGIOSCMD_GROUP} 0644
+SPECIAL_PERMS+=	${DESTDIR}/${PREFIX}/share/nagios/rss-corefeed.html ${NAGIOS_USER} ${NAGIOSCMD_GROUP} 0644
+SPECIAL_PERMS+=	${DESTDIR}/${PREFIX}/share/nagios/rss-newsfeed.html ${NAGIOS_USER} ${NAGIOSCMD_GROUP} 0644
+
 SUBST_CLASSES+=		files
 SUBST_STAGE.files=	post-build
 SUBST_FILES.files=	nagios.conf.dist
 SUBST_SED.files=	-e "s|@PREFIX@|${PREFIX}|g"
 SUBST_MESSAGE.files=	Fixing configuration files.
-
-post-extract:
-	${MV} ${WRKDIR}/nagios ${WRKSRC}
 
 pre-build:
 	${CP} ${FILESDIR}/nagios.conf.dist ${WRKSRC}/nagios.conf.dist
@@ -98,7 +101,12 @@ post-install:
 	    ${DESTDIR}/${PREFIX}/share/nagios/images/logos/
 	${INSTALL_DATA} ${WRKDIR}/netbsd40.png \
 	    ${DESTDIR}/${PREFIX}/share/nagios/images/logos/
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/share/nagios/jsonquery.html
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/share/nagios/rss-corefeed.html
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/share/nagios/rss-newsfeed.html
 
+.include "../../mk/dlopen.buildlink3.mk"
+.include "../../devel/libltdl/buildlink3.mk"
 .include "../../graphics/gd/buildlink3.mk"
 .include "../../lang/php/phpversion.mk"
 .include "${PHPPKGSRCDIR}/buildlink3.mk"

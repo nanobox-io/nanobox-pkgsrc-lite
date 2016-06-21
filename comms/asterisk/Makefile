@@ -1,21 +1,24 @@
-# $NetBSD: Makefile,v 1.119 2015/03/15 22:26:26 jnemeth Exp $
+# $NetBSD: Makefile,v 1.135 2016/03/05 11:28:10 jperkin Exp $
 #
 # NOTE: when updating this package, there are two places that sound
 #       tarballs need to be checked
 
-DISTNAME=	asterisk-11.15.1
-DIST_SUBDIR=	${PKGNAME_NOREV}
-DISTFILES=	${DEFAULT_DISTFILES}
-EXTRACT_ONLY=	${DISTNAME}.tar.gz
+DISTNAME=	asterisk-11.21.1
+PKGREVISION=	1
 CATEGORIES=	comms net audio
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/ \
 		http://downloads.asterisk.org/pub/telephony/sounds/releases/
+DIST_SUBDIR=	${PKGNAME_NOREV}
+DISTFILES=	${DEFAULT_DISTFILES}
 
+COMMENT=	The Asterisk Software PBX
 OWNER=		jnemeth@NetBSD.org
 HOMEPAGE=	http://www.asterisk.org/
-COMMENT=	The Asterisk Software PBX
 LICENSE=	gnu-gpl-v2
+
+EXTRACT_ONLY=	${DISTNAME}.tar.gz
+
 MAKE_JOBS_SAFE=	NO
 
 # known to have issues on i386, block the package until the bug is fixed
@@ -37,8 +40,15 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--without-gtk2
 # XXX remove when lang/lua gets builtin.mk
 CONFIGURE_ARGS+=	--without-lua
-#JMN doesn't build properly on NetBSD, remove when -current is fixed
+
+.if (${OPSYS} == "NetBSD" && \
+    (empty(OS_VERSION:M6.99.[4-9]?) && empty(OS_VERSION:M[7-9].*)))
 CONFIGURE_ARGS+=	--without-srtp
+.else
+CONFIGURE_ARGS+=	--with-srtp
+PLIST.srtp=		YES
+.include "../../comms/srtp/buildlink3.mk"
+.endif
 
 INSTALL_TARGET=		install samples
 INSTALLATION_DIRS+=	lib/pkgconfig share/doc/${PKGBASE}
@@ -47,17 +57,17 @@ INSTALLATION_DIRS+=	${ASTDATADIR}/sounds/en ${ASTDATADIR}/moh
 
 BUILD_DEFS+=		VARBASE
 
-ASTERISK_USER?=		asterisk
-ASTERISK_GROUP?=	asterisk
-PKG_GROUPS=		${ASTERISK_GROUP}
-PKG_USERS=		${ASTERISK_USER}:${ASTERISK_GROUP}
+ASTERISK_USER?=			asterisk
+ASTERISK_GROUP?=		asterisk
+PKG_GROUPS=			${ASTERISK_GROUP}
+PKG_USERS=			${ASTERISK_USER}:${ASTERISK_GROUP}
 PKG_GECOS.${ASTERISK_USER}=	Asterisk PBX
-PKG_GROUPS_VARS=	ASTERISK_GROUP
-PKG_USERS_VARS=		ASTERISK_USER
-FILES_SUBST+=		ASTERISK_USER=${ASTERISK_USER}
-FILES_SUBST+=		ASTERISK_GROUP=${ASTERISK_GROUP}
-MESSAGE_SUBST+=		ASTERISK_USER=${ASTERISK_USER}
-MESSAGE_SUBST+=		ASTERISK_GROUP=${ASTERISK_GROUP}
+PKG_GROUPS_VARS=		ASTERISK_GROUP
+PKG_USERS_VARS=			ASTERISK_USER
+FILES_SUBST+=			ASTERISK_USER=${ASTERISK_USER}
+FILES_SUBST+=			ASTERISK_GROUP=${ASTERISK_GROUP}
+MESSAGE_SUBST+=			ASTERISK_USER=${ASTERISK_USER}
+MESSAGE_SUBST+=			ASTERISK_GROUP=${ASTERISK_GROUP}
 
 # Various path settings for Asterisk
 PKG_SYSCONFSUBDIR=	asterisk
@@ -100,17 +110,23 @@ BUILDLINK_TRANSFORM+=	rm:-march=i386
 .endif
 
 PLIST_VARS+=	kqueue
-.if exists(/usr/include/sys/event.h)
+.for dir in ${COMPILER_INCLUDE_DIRS}
+.  if exists(${dir}/sys/event.h)
 PLIST.kqueue=	yes
-.endif
+.  endif
+.endfor
 
 PLIST_VARS+=	mgcp
 # NOSIGPIPE is a temp variable, since PLIST.mgcp MUST remain undefined
 # if the grep fails
-NOSIGPIPE!=	${GREP} SO_NOSIGPIPE /usr/include/sys/socket.h || echo ""
-.if ${NOSIGPIPE} != ""
-PLIST.mgcp= yes
-.endif
+.for dir in ${COMPILER_INCLUDE_DIRS}
+.  if (exists(${dir}/sys/socket.h))
+NOSIGPIPE!=	${GREP} SO_NOSIGPIPE ${dir}/sys/socket.h || echo ""
+.    if ${NOSIGPIPE} != ""
+PLIST.mgcp=	yes
+.    endif
+.  endif
+.endfor
 
 .include "options.mk"
 
@@ -136,19 +152,17 @@ SUBST_SED.configs+=	-e "s|/usr/local/man|${ASTMANDIR}|"
 SUBST_SED.configs+=	-e "s|/usr/local|${PREFIX}|"
 SUBST_SED.configs+=	-e "s|/var|${VARBASE}|"
 
-.if (${OPSYS} == "NetBSD")
 # XXX gross hack, remove when atomics properly implemented
-SUBST_CLASSES+=		atomics
+SUBST_CLASSES.NetBSD+=	atomics
 SUBST_STAGE.atomics=	post-configure
 SUBST_FILES.atomics=	include/asterisk/autoconfig.h
 SUBST_SED.atomics=	-e "s|^\#define HAVE_GCC_ATOMICS 1|\#undef HAVE_GCC_ATOMICS|"
 
 # XXX gross hack, IP_PKTINFO in NetBSD isn't compatible with anything else
-SUBST_CLASSES+=		pktinfo
+SUBST_CLASSES.NetBSD+=	pktinfo
 SUBST_STAGE.pktinfo=	post-configure
 SUBST_FILES.pktinfo=	include/asterisk/autoconfig.h
 SUBST_SED.pktinfo=	-e "s|^\#define HAVE_PKTINFO 1|\#undef HAVE_PKTINFO|"
-.endif
 
 RCD_SCRIPTS=		asterisk
 OWN_DIRS_PERMS+=	${ASTDBDIR} ${ASTERISK_USER} ${ASTERISK_GROUP} 0755
@@ -177,8 +191,9 @@ CONF_FILES_PERMS=	# empty
 CONF_FILES_PERMS+=	${ASTEXAMPLEDIR}/${f:Q} ${PKG_SYSCONFDIR}/${f:Q} ${ASTERISK_USER} ${ASTERISK_GROUP} 0644
 .endfor
 
+.if !empty(PKG_OPTIONS:Masterisk-config)
 # if we put all the files in $CONF_FILES, the message is _way_ too long.
-.for f in acl.conf adsi.conf agents.conf alarmreceiver.conf alsa.conf	\
+.  for f in acl.conf adsi.conf agents.conf alarmreceiver.conf alsa.conf	\
 	amd.conf app_mysql.conf asterisk.adsi calendar.conf ccss.conf	\
 	cdr.conf cdr_adaptive_odbc.conf cdr_custom.conf			\
 	cdr_manager.conf cdr_mysql.conf cdr_odbc.conf cdr_pgsql.conf	\
@@ -203,18 +218,23 @@ CONF_FILES_PERMS+=	${ASTEXAMPLEDIR}/${f:Q} ${PKG_SYSCONFDIR}/${f:Q} ${ASTERISK_U
 	smdi.conf telcordia-1.adsi udptl.conf unistim.conf users.conf	\
 	voicemail.conf vpb.conf xmpp.conf
 CONF_FILES_PERMS+=		${ASTEXAMPLEDIR}/${f:Q} ${PKG_SYSCONFDIR}/${f:Q} ${ASTERISK_USER} ${ASTERISK_GROUP} 0644
-.endfor
+.  endfor
+.endif
 
 PTHREAD_OPTS+=	require native
 
-.if (${OPSYS} == "Darwin" && exists(/usr/include/sys/poll.h))
 post-patch:
+.if ${OPSYS} == "Darwin"
+.  for dir in ${COMPILER_INCLUDE_DIRS}
+.    if exists(${dir}/sys/poll.h)
 	${ECHO} "#include <sys/poll.h>" > ${WRKSRC}/include/asterisk/poll-compat.h
+.    endif
+.  endfor
 .endif
 
 post-install:
 # check sounds directory for current versions when upgrading package
-	${TAR} xzf ${WRKSRC}/sounds/asterisk-core-sounds-en-gsm-1.4.26.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
+	${TAR} xzf ${WRKSRC}/sounds/asterisk-core-sounds-en-gsm-1.4.27.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
 	${TAR} xzf ${WRKSRC}/sounds/asterisk-moh-opsound-wav-2.03.tar.gz -C ${DESTDIR}${ASTDATADIR}/moh
 	${TAR} xzf ${DISTDIR}/${DIST_SUBDIR}/asterisk-extra-sounds-en-gsm-1.4.15.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
 	${INSTALL_DATA} ${WRKSRC}/BUGS ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}

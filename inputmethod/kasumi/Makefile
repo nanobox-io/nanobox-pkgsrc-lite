@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.26 2014/05/05 00:48:03 ryoon Exp $
+# $NetBSD: Makefile,v 1.28 2015/06/29 11:06:47 ryoon Exp $
 
 DISTNAME=	kasumi-2.5
-PKGREVISION=	19
+PKGREVISION=	20
 CATEGORIES=	inputmethod japanese
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=kasumi/41436/}
+MASTER_SITES=	${MASTER_SITE_OSDN:=kasumi/41436/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://kasumi.sourceforge.jp/
+HOMEPAGE=	http://kasumi.osdn.jp/
 COMMENT=	Dictionary management tool for anthy
 LICENSE=	gnu-gpl-v2
 

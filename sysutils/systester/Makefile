@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/08/09 15:56:33 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/03/05 11:29:32 jperkin Exp $
 
 DISTNAME=	systester-1.5.1
+PKGREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=systester/}
 
@@ -14,12 +15,8 @@ USE_LANGUAGES=	c c++
 
 MAKE_FLAGS+=	INSTALL_ROOT=${DESTDIR:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
 # ftime()
-LDFLAGS+=	-lcompat
-.endif
+LDFLAGS.NetBSD+=	-lcompat
 
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../x11/qt4-libs/buildlink3.mk"

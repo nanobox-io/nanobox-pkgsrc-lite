@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.233 2014/11/22 03:04:31 wiz Exp $
+# $NetBSD: Makefile,v 1.236.2.1 2016/04/20 19:27:05 bsiegert Exp $
 
 .include "license.mk"
 .include "Makefile.common"
 
+PKGREVISION=	1
 COMMENT=	Practical Extraction and Report Language
 
 CONFLICTS+=	perl-base-[0-9]* perl-thread-[0-9]*
@@ -92,6 +93,7 @@ SUPERSEDES+=	p5-experimental<=0.007
 
 # XXX: requires that gcc use an external perl to avoid circular dependencies
 USE_GCC_RUNTIME=	yes
+USE_LANGUAGES=		c c99
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -197,6 +199,7 @@ SUBST_VARS.policysh+=	FALSE
 # dependencies.  If this isn't defined, then use the perl defaults for the
 # particular operating system.
 #
+LIBSWANTED.Bitrig=	m crypt
 LIBSWANTED.Cygwin=	m crypt dl
 LIBSWANTED.Darwin=	m c
 LIBSWANTED.DragonFly=	m crypt
@@ -220,6 +223,7 @@ SUBST_VARS.policysh+=	LIBSWANTED
 # If this isn't defined, then use the perl defaults for the particular
 # operating system.
 #
+SYSLIBPATH.Bitrig=	/usr/lib
 SYSLIBPATH.Cygwin=	/usr/lib
 SYSLIBPATH.Darwin=	/usr/lib
 SYSLIBPATH.DragonFly=	/usr/lib
@@ -281,8 +285,7 @@ SUBST_SED.cpprun=	-e "s/cpprun=''/cpprun='cc -E'/"
 #
 SUBST_CLASSES+=		dirmode
 SUBST_STAGE.dirmode=	post-patch
-SUBST_FILES.dirmode=	installhtml install_lib.pl	\
-			dist/ExtUtils-Install/lib/ExtUtils/Install.pm
+SUBST_FILES.dirmode=	installhtml install_lib.pl
 SUBST_SED.dirmode=	-e "s/755/${PKGDIRMODE}/g;/umask(/d"
 
 post-extract:

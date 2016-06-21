@@ -2,7 +2,7 @@ $NetBSD$
 
 Support multiarch.
 
---- Lib/distutils/sysconfig.py.orig	2013-04-06 14:02:26.000000000 +0000
+--- Lib/distutils/sysconfig.py.orig	2015-12-05 19:46:57.000000000 +0000
 +++ Lib/distutils/sysconfig.py
 @@ -124,7 +124,10 @@ def get_python_lib(plat_specific=0, stan
          if standard_lib:
@@ -16,7 +16,7 @@ Support multiarch.
  
      elif os.name == "nt":
          if standard_lib:
-@@ -237,7 +240,10 @@ def get_makefile_filename():
+@@ -244,7 +247,10 @@ def get_makefile_filename():
      if python_build:
          return os.path.join(project_base, "Makefile")
      lib_dir = get_python_lib(plat_specific=1, standard_lib=1)

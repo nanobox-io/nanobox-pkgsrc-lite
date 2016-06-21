@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/10/01 09:04:32 adam Exp $
+# $NetBSD: Makefile,v 1.18 2016/02/25 17:52:45 jperkin Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-agpl/}
+PKGREVISION=	1
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ghostscript/} \
 		http://downloads.ghostscript.com/public/
@@ -64,9 +65,7 @@ SUBST_MESSAGE.resdir=	Fixing resource directory path
 SUBST_FILES.resdir=	Resource/Init/gs_res.ps
 SUBST_SED.resdir=	-e "s|/Resource/|${GS_RESOURCEDIR}/|g"
 
-.if ${OPSYS} == "HPUX"
-CONFIGURE_ENV+=		ac_cv_func_fopen64=no
-.endif
+CONFIGURE_ENV.HPUX+=	ac_cv_func_fopen64=no
 
 # On Linux-*-x86_64, there was an error message:
 # gp_unix.o: relocation R_X86_64_32 against `a local symbol' can not be
@@ -77,9 +76,7 @@ CFLAGS+=		-fPIC
 
 # Interim IRIX build fix, the real problem is that fontconfig.pc doesn't
 # require linking against libiconv when it should do so.
-.if ${OPSYS} == "IRIX"
-BUILDLINK_TRANSFORM+=	l:fontconfig:fontconfig:iconv
-.endif
+BUILDLINK_TRANSFORM.IRIX+=	l:fontconfig:fontconfig:iconv
 
 CONFIGURE_ENV+=	LPLIBDIR=${PREFIX}/lib
 
@@ -99,7 +96,7 @@ post-extract:
 #  To allow outside customization, rename cidfmap
 #	 (if you look at inside of the file, it is logically empty)
 .if !empty(PKG_OPTIONS:Mdisable-compile-inits)
-	(cd  ${WRKSRC}/Resource/Init/; ${MV} cidfmap cidfmap.dist)
+	(cd ${WRKSRC}/Resource/Init/; ${MV} cidfmap cidfmap.dist)
 .endif
 
 post-install:

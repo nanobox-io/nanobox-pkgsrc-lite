@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/10/09 14:06:28 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2015/07/12 18:56:19 wiz Exp $
 
 DISTNAME=	Test-Distribution-2.00
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Test/}
 
@@ -15,7 +15,7 @@ COMMENT=	Perl5 module testing all modules of a distribution
 #DEPENDS+=	{perl>=5.6.2,p5-Test-Simple>=0.45}:../../devel/p5-Test-Simple
 
 DEPENDS+=	p5-File-Find-Rule>=0.03:../../devel/p5-File-Find-Rule
-DEPENDS+=	{perl>=5.16.0,p5-Module-CoreList>=1.93}:../../devel/p5-Module-CoreList
+#DEPENDS+=	{perl>=5.16.0,p5-Module-CoreList>=1.93}:../../devel/p5-Module-CoreList
 DEPENDS+=	p5-Test-Pod>=0.95:../../devel/p5-Test-Pod
 DEPENDS+=	p5-Test-Pod-Coverage-[0-9]*:../../devel/p5-Test-Pod-Coverage
 DEPENDS+=	p5-Pod-Coverage>=0.17:../../textproc/p5-Pod-Coverage

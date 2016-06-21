@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2015/03/04 08:50:55 wiz Exp $
+# $NetBSD: Makefile,v 1.85 2016/02/25 13:37:47 jperkin Exp $
 
-DISTNAME=	librsvg-2.40.8
+DISTNAME=	librsvg-2.40.9
+PKGREVISION=	2
 CATEGORIES=	graphics gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/librsvg/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -15,11 +16,11 @@ MAKE_JOBS_SAFE=	NO
 
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
-USE_TOOLS+=		pkg-config
+USE_TOOLS+=		pkg-config gmake
 USE_LANGUAGES+=		c c++
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-tools
-CONFIGURE_ARGS+=	--disable-introspection
+CONFIGURE_ARGS+=	--enable-introspection
 CONFIGURE_ARGS+=	--enable-Bsymbolic=auto
 
 PKGCONFIG_OVERRIDE=	librsvg.pc.in
@@ -29,15 +30,15 @@ TEST_TARGET=		check
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.2.0
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.24.0
 
-.include "../../mk/bsd.prefs.mk"
+CONFIGURE_ARGS.Darwin+=	--disable-Bsymbolic
 
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-Bsymbolic
-.endif
-
+BUILDLINK_DEPMETHOD.gobject-introspection+=	build
+.include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
+BUILDLINK_DEPMETHOD.cairo-gobject+=	build
+.include "../../graphics/cairo-gobject/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libcroco+=	libcroco>=0.6.1

@@ -60,9 +60,9 @@ date '+BUILD_END_ISO=%Y-%m-%d %H:%M' >> ${loc}/status
 
 echo "Building pkg_summary..."
 cd ${packages}/All
-find ${packages}/pkginfo -name "*.pkginfo" 2>/dev/null \
-  | sort | xargs cat | ${gzip} -c > pkg_summary.gz
+sed -e 's,^,../pkginfo/,' -e 's/$/.pkginfo/' < ${loc}/success | sort | xargs cat 2>/dev/null | ${gzip} -c > pkg_summary.gz
 ${gzip} -dc < pkg_summary.gz | ${bzip2} -c > pkg_summary.bz2
+${gzip} -dc < pkg_summary.gz | ${xz} -zc > pkg_summary.xz
 
 if [ "${checksum_packages}" != "no" ] && \
    [ "${checksum_packages}" != "NO" ]; then
@@ -71,6 +71,7 @@ if [ "${checksum_packages}" != "no" ] && \
 	{
 		${digest} SHA512 All/pkg_summary.bz2
 		${digest} SHA512 All/pkg_summary.gz
-		find checksums -name "*.sha512" 2>/dev/null | xargs cat
+		${digest} SHA512 All/pkg_summary.xz
+		sed -e 's,^,checksums/,' -e 's/$/.sha512/' < ${loc}/success | xargs cat 2>/dev/null
 	} | sort | ${bzip2} -c > SHA512.bz2
 fi

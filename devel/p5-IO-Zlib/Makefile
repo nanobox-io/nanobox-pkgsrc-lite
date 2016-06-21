@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2014/10/09 14:06:20 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2015/07/12 18:56:14 wiz Exp $
 
 DISTNAME=		IO-Zlib-1.10
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		devel perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=IO/}
 
@@ -11,7 +11,7 @@ HOMEPAGE=		http://search.cpan.org/dist/IO-Zlib/
 COMMENT=		Perl5 IO:: style interface to Compress::Zlib
 LICENSE=		${PERL5_LICENSE}
 
-DEPENDS+=		{perl>=5.9.3,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress	# Compress::Zlib>=2
+#DEPENDS+=		{perl>=5.9.3,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress	# Compress::Zlib>=2
 
 USE_LANGUAGES=		# empty
 

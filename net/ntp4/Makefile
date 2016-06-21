@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.84.2.1 2015/04/21 21:44:22 tron Exp $
+# $NetBSD: Makefile,v 1.91 2016/03/05 11:29:09 jperkin Exp $
 #
 
-DISTNAME=	ntp-4.2.8p2
+DISTNAME=	ntp-4.2.8p5
 PKGNAME=	${DISTNAME:S/-dev-/-/}
+PKGREVISION=	1
 CATEGORIES=	net time
 MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/
 
@@ -22,17 +23,18 @@ CONFIGURE_ENV+=	  PATH_PERL=${PERL5}
 
 OVERRIDE_DIRDEPTH=	4
 
-DOCDIR=		${DESTDIR}${PREFIX}/share/doc/ntp
-EXAMPLESDIR=	${DESTDIR}${PREFIX}/share/examples/ntp4
-ALL_NTP_DOCS=	${DOCDIR} ${EXAMPLESDIR}
+DOCS+=		COPYRIGHT ChangeLog NEWS README* TODO
+DOCDIR=		share/doc/ntp
+EXAMPLESDIR=	share/examples/ntp4
+ALL_NTP_DOCS=	${DESTDIR}${PREFIX}/${DOCDIR} ${DESTDIR}${PREFIX}/${EXAMPLESDIR}
+
+INSTALLATION_DIRS=	${DOCDIR} ${EXAMPLESDIR}
 
 RCD_SCRIPTS=	ntpd ntpdate
 
 post-install:
-	${MKDIR} ${DOCDIR}
-	${MKDIR} ${EXAMPLESDIR}
-	cd ${WRKSRC}/html && pax -rw -pm . ${DOCDIR}
-	cd ${WRKSRC}/conf && pax -rw -pm . ${EXAMPLESDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${DESTDIR}${PREFIX}/${DOCDIR}
+	cd ${WRKSRC}/conf && pax -rw -pm . ${DESTDIR}${PREFIX}/${EXAMPLESDIR}
 	${CHOWN} -R ${SHAREOWN}:${SHAREGRP} ${ALL_NTP_DOCS}
 	${FIND} ${ALL_NTP_DOCS} -type d -print | ${XARGS} ${CHMOD} ${PKGDIRMODE}
 	${FIND} ${ALL_NTP_DOCS} -type f -print | ${XARGS} ${CHMOD} ${SHAREMODE}

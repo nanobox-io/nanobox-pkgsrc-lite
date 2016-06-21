@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.12 2014/05/29 23:37:17 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2016/01/27 10:00:26 markd Exp $
 
 DISTNAME=	oberdiek
-PKGNAME=	tex-${DISTNAME}-2013
+PKGNAME=	tex-${DISTNAME}-2014
 PKGREVISION=	1
-TEXLIVE_REV=	30469
+TEXLIVE_REV=	33322
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Bundle of packages submitted by Heiko Oberdiek
+LICENSE=	lppl-1.3c
 
 CONFLICTS+=	teTeX-texmf<=3.0nb13
 CONFLICTS+=	texlive-pdftools<2011

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2014/10/09 14:06:18 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2015/07/12 18:56:13 wiz Exp $
 
 DISTNAME=	File-Flat-1.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=File/}
 
@@ -13,7 +13,7 @@ LICENSE=	${PERL5_LICENSE}
 
 BUILD_DEPENDS+=	p5-Test-ClassAPI>=1.02:../../devel/p5-Test-ClassAPI
 DEPENDS+=	p5-File-Remove>=0.21:../../sysutils/p5-File-Remove
-DEPENDS+=	{perl>=5.6.2,p5-File-Temp>=0.14}:../../devel/p5-File-Temp
+#DEPENDS+=	{perl>=5.6.2,p5-File-Temp>=0.14}:../../devel/p5-File-Temp
 DEPENDS+=	p5-File-Copy-Recursive>=0.28:../../sysutils/p5-File-Copy-Recursive
 DEPENDS+=	p5-prefork>=0.02:../../devel/p5-prefork
 

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2015/01/17 14:28:51 prlw1 Exp $
+# $NetBSD: Makefile,v 1.13 2015/10/29 22:55:01 prlw1 Exp $
 
-DISTNAME=	cogl-1.18.2
-PKGREVISION=	1
+DISTNAME=	cogl-1.22.0
 CATEGORIES=	graphics gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/cogl/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -18,7 +17,7 @@ CONFLICTS+=	clutter<1.8
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
-USE_TOOLS+=		gmake pkg-config msgfmt
+USE_TOOLS+=		gmake gsed pkg-config msgfmt
 USE_PKGLOCALEDIR=	yes
 
 PKGCONFIG_OVERRIDE+=	cogl-gles2/cogl-gles2-experimental.pc.in

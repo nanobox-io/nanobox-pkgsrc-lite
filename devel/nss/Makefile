@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.92 2015/01/28 21:12:09 ryoon Exp $
+# $NetBSD: Makefile,v 1.111 2016/03/15 03:12:06 ryoon Exp $
 
 DISTNAME=		nss-${NSS_RELEASE:S/.0$//}
-NSS_RELEASE=		3.17.4
+NSS_RELEASE=		3.22.3
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_RELEASE:S/.0$//:S/./_/g}_RTM/src/}
 
@@ -18,20 +18,26 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}configure
 USE_GCC_RUNTIME=	yes
 USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake perl pax pkg-config
+MAKE_JOBS_SAFE=		no
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin"
-SUBST_CLASSES+=			exec_path
+SUBST_CLASSES.Darwin+=		exec_path
 SUBST_STAGE.exec_path=		pre-configure
 SUBST_MESSAGE.exec_path=	Fixing @executable_path
 SUBST_FILES.exec_path=		nss/coreconf/Darwin.mk
 SUBST_SED.exec_path=		-e 's,@executable_path,${PREFIX}/lib${LIBARCHSUFFIX}/nss,g'
-.endif
 
-.if ${OPSYS} == "Linux"
-MAKE_ENV+=	FREEBL_NO_DEPEND=0
-.endif
+SUBST_CLASSES+=			zlib
+SUBST_STAGE.zlib=		pre-configure
+SUBST_MESSAGE.zlib=		Use ZLIB_LIBS from environment
+SUBST_FILES.zlib=		nss/coreconf/*.mk
+SUBST_SED.zlib=			-e 's,^ZLIB_LIBS,\#ZLIB_LIBS,g'
+
+BUILDLINK_TRANSFORM+=	rm:-Werror
+BUILDLINK_TRANSFORM+=	rm:-ansi
+
+MAKE_ENV.Linux+=	FREEBL_NO_DEPEND=0
 
 .if ${OBJECT_FMT} == "ELF"
 SO_SUFFIX=		so
@@ -42,7 +48,7 @@ SO_SUFFIX=		so.1.0
 .endif
 PLIST_SUBST+=		SO_SUFFIX=${SO_SUFFIX:Q}
 
-.if ${OPSYS} == "SunOS" && !empty(PKGSRC_COMPILER:Mgcc)
+.if ${OPSYS} == "SunOS" && (${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc")
 MAKE_ENV+=	NS_USE_GCC=YES
 .endif
 
@@ -56,15 +62,20 @@ MAKE_ENV+=	BUILD_OPT=1
 #MAKE_ENV+=	OPTIMIZER=${CFLAGS:Q}
 MAKE_ENV+=	INCLUDES=-I${BUILDLINK_PREFIX.nspr}/include/nspr
 MAKE_ENV+=	NSS_USE_SYSTEM_SQLITE=1
-MAKE_ENV+=	EXTRA_SHARED_LIBS="-Wl,-R${BUILDLINK_PREFIX.nspr}/lib${LIBARCHSUFFIX}/nspr -Wl,-R,${PREFIX}/lib${LIBARCHSUFFIX}/nss -L${BUILDLINK_PREFIX.nspr}/lib${LIBARCHSUFFIX}/nspr -lplc4 -lplds4 -lnspr4"
+MAKE_ENV+=	ZLIB_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.zlib}/lib${LIBARCHSUFFIX} -L${BUILDLINK_PREFIX.zlib}/lib${LIBARCHSUFFIX} -lz"
+MAKE_ENV+=	USE_SYSTEM_ZLIB=1
+MAKE_ENV+=	EXTRA_SHARED_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.nspr}/lib${LIBARCHSUFFIX}/nspr ${COMPILER_RPATH_FLAG}${PREFIX}/lib${LIBARCHSUFFIX}/nss -L${BUILDLINK_PREFIX.nspr}/lib${LIBARCHSUFFIX}/nspr -lplc4 -lplds4 -lnspr4"
+MAKE_ENV+=	NSS_DISABLE_GTESTS=yes
+.include "../../mk/compiler.mk"
+.if !empty(CC_VERSION:Mgcc-4.[0-7]*)
+CFLAGS+=	-DNSS_NO_GCC48
+.endif
 
 post-extract:
 	find ${WRKSRC} -type f | xargs ${CHMOD} 644
 	find ${WRKSRC} -type d | xargs ${CHMOD} 755
 
-do-build:
-	cd ${WRKSRC}/nss && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} all
-
+BUILD_DIRS=		nss
 INSTALLATION_DIRS=	include/nss lib${LIBARCHSUFFIX}/nss lib${LIBARCHSUFFIX}/pkgconfig
 DIST=	${WRKSRC}/dist
 
@@ -78,7 +89,7 @@ do-install:
 	{ ${ECHO} "Name: NSS"; \
 	  ${ECHO} "Description: Mozilla Network Security Services"; \
 	  ${ECHO} "Version: ${NSS_RELEASE}"; \
-	  ${ECHO} "Requires: nspr >= 4.10.3"; \
+	  ${ECHO} "Requires: nspr >= 4.11.0"; \
 	  ${ECHO} "Cflags: -I${PREFIX}/include/nss/nss -I${PREFIX}/include/nss"; \
 	  ${ECHO} "Libs: -L${PREFIX}/lib${LIBARCHSUFFIX}/nss" \
 	      "${COMPILER_RPATH_FLAG}${PREFIX}/lib${LIBARCHSUFFIX}/nss" \

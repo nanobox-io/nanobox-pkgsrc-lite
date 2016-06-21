@@ -1,7 +1,8 @@
-@comment $NetBSD: PLIST,v 1.5 2014/10/08 10:32:40 prlw1 Exp $
+@comment $NetBSD: PLIST,v 1.7 2016/01/20 09:32:28 prlw1 Exp $
 bin/gnome-help
 bin/yelp
 include/libyelp/yelp-bookmarks.h
+include/libyelp/yelp-common-types.h
 include/libyelp/yelp-docbook-document.h
 include/libyelp/yelp-document.h
 include/libyelp/yelp-help-list.h
@@ -15,9 +16,12 @@ include/libyelp/yelp-sqlite-storage.h
 include/libyelp/yelp-storage.h
 include/libyelp/yelp-transform.h
 include/libyelp/yelp-types.h
+include/libyelp/yelp-uri-builder.h
 include/libyelp/yelp-uri.h
 include/libyelp/yelp-view.h
 lib/libyelp.la
+lib/yelp/libyelpcommon.la
+lib/yelp/web-extensions/libyelpwebextension.la
 share/applications/yelp.desktop
 share/glib-2.0/schemas/org.gnome.yelp.gschema.xml
 share/gtk-doc/html/libyelp/YelpDocument.html
@@ -170,8 +174,6 @@ share/yelp/icons/hicolor/16x16/status/yelp-page-task.png
 share/yelp/icons/hicolor/16x16/status/yelp-page-tip.png
 share/yelp/icons/hicolor/16x16/status/yelp-page-ui.png
 share/yelp/icons/hicolor/16x16/status/yelp-page-video.png
-share/yelp/icons/hicolor/scalable/actions/yelp-bookmark-add-symbolic.svg
-share/yelp/icons/hicolor/scalable/actions/yelp-bookmark-remove-symbolic.svg
 share/yelp/icons/hicolor/scalable/status/yelp-page-problem-symbolic.svg
 share/yelp/icons/hicolor/scalable/status/yelp-page-search-symbolic.svg
 share/yelp/icons/hicolor/scalable/status/yelp-page-symbolic.svg

@@ -1,4 +1,4 @@
-$NetBSD: patch-acinclude.m4,v 1.1.2.2 2015/04/18 21:55:54 tron Exp $
+$NetBSD: patch-acinclude.m4,v 1.1 2015/04/14 14:23:14 joerg Exp $
 
 --- acinclude.m4.orig	2015-04-10 14:47:05.000000000 +0000
 +++ acinclude.m4

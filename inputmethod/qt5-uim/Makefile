@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.8 2015/01/25 13:10:19 joerg Exp $
+# $NetBSD: Makefile,v 1.13 2016/03/05 11:28:42 jperkin Exp $
 
 .include "../../x11/qt5/Makefile.common"
 
 DISTNAME=	uim-1.8.6
 PKGNAME=	qt5-${DISTNAME}
-PKGREVISION=	6
+PKGREVISION=	10
 CATEGORIES=	x11
 MASTER_SITES=	http://uim.googlecode.com/files/
 EXTRACT_SUFX=	.tar.bz2
@@ -26,8 +26,6 @@ USE_LANGUAGES=	c c++
 PKGCONFIG_OVERRIDE+=	uim.pc.in
 
 CONFIGURE_ENV+=		QMAKE5=${QTPREFIX}/bin/qmake
-
-OPSYSVARS+=		CONFIGURE_ENV
 CONFIGURE_ENV.SunOS+=	ac_cv_func_strcasecmp=yes
 
 CONFIGURE_ARGS+=	--with-qt5-immodule

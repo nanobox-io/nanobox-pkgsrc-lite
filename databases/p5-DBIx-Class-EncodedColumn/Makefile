@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2014/12/07 22:12:54 mef Exp $
+# $NetBSD: Makefile,v 1.15 2015/07/12 18:56:08 wiz Exp $
 
 DISTNAME=	DBIx-Class-EncodedColumn-0.00013
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
 
@@ -14,11 +15,11 @@ DEPENDS+=	p5-DBIx-Class>=0.06002:../../databases/p5-DBIx-Class
 DEPENDS+=	p5-Sub-Name>=0.04:../../devel/p5-Sub-Name
 
 # Feature: Digest::MD5 support
-DEPENDS+=	{perl>=5.7.3,p5-Digest-[0-9]*}:../../security/p5-Digest
-DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.7.3,p5-Digest-[0-9]*}:../../security/p5-Digest
+#DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
 
 # Feature: Digest::SHA support
-DEPENDS+=	{perl>=5.10.0,p5-Digest-SHA-[0-9]*}:../../security/p5-Digest-SHA
+#DEPENDS+=	{perl>=5.10.0,p5-Digest-SHA-[0-9]*}:../../security/p5-Digest-SHA
 
 # Feature: Blowfish support
 DEPENDS+=	p5-Crypt-Eksblowfish-[0-9]*:../../security/p5-Crypt-Eksblowfish

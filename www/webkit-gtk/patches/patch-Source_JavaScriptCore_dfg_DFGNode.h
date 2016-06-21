@@ -1,9 +1,9 @@
-$NetBSD: patch-Source_JavaScriptCore_dfg_DFGNode.h,v 1.2 2014/08/03 22:30:05 wiz Exp $
+$NetBSD: patch-Source_JavaScriptCore_dfg_DFGNode.h,v 1.5 2016/01/21 13:42:33 leot Exp $
 
---- Source/JavaScriptCore/dfg/DFGNode.h.orig	2014-04-14 06:40:44.000000000 +0000
+--- Source/JavaScriptCore/dfg/DFGNode.h.orig	2016-01-20 12:12:59.000000000 +0000
 +++ Source/JavaScriptCore/dfg/DFGNode.h
-@@ -146,7 +146,7 @@ struct SwitchData {
- struct OpInfo {
+@@ -221,7 +221,7 @@ struct OpInfo {
+     OpInfo() : m_value(0) { }
      explicit OpInfo(int32_t value) : m_value(static_cast<uintptr_t>(value)) { }
      explicit OpInfo(uint32_t value) : m_value(static_cast<uintptr_t>(value)) { }
 -#if OS(DARWIN) || USE(JSVALUE64)

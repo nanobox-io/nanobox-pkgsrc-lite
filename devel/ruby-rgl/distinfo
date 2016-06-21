@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.4 2015/02/02 13:00:07 taca Exp $
+$NetBSD: distinfo,v 1.6 2015/11/03 03:29:28 agc Exp $
 
-SHA1 (rgl-0.5.0.gem) = 4bd42d7dab7158b7f2ae9f83a9b51ab8e949793d
-RMD160 (rgl-0.5.0.gem) = 7b02a70a87dd4c8ab92ff8336366b235de3421af
-Size (rgl-0.5.0.gem) = 235008 bytes
+SHA1 (rgl-0.5.1.gem) = 37d3b83cc2bf0bdc2bafe6ea6bfb755dab22cc38
+RMD160 (rgl-0.5.1.gem) = 2122d5f8e6a200beaa94c37203d88b99c11698bf
+SHA512 (rgl-0.5.1.gem) = 4b966358535f12f12652d8a501592cfda6ff18c5a3e177aca2a1a5a3d9444366356e26a66acba60f2e3f94977bf6b9845c27ae317f377ab66125fe8b9fb09edd
+Size (rgl-0.5.1.gem) = 235520 bytes

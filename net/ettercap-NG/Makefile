@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2014/02/12 23:18:20 tron Exp $
+# $NetBSD: Makefile,v 1.25 2016/04/03 12:44:54 joerg Exp $
 
 DISTNAME=	ettercap-NG-0.7.3
-PKGREVISION=	10
+PKGREVISION=	13
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ettercap/}
 
@@ -16,12 +16,15 @@ CONFLICTS=	ettercap-[0-9]*
 
 BUILDLINK_API_DEPENDS.libpcap+=	libpcap>=0.8.1
 
+.include "../../mk/bsd.prefs.mk"
+
 GNU_CONFIGURE=		YES
 PTHREAD_OPTS+=		require
 USE_LIBTOOL=		YES
 USE_NCURSES=		YES # ncurses.h menu.h panel.h form.h
 USE_OLD_DES_API=	YES
 CPPFLAGS+=		-L${BUILDLINK_PREFIX.libnet11}/lib/libnet11
+CPPFLAGS+=		-L${PREFIX}/lib
 
 CONFIGURE_ARGS+=	--with-libnet=${BUILDLINK_PREFIX.libnet11}
 CONFIGURE_ARGS+=	--with-libpcap=${BUILDLINK_PREFIX.libpcap}
@@ -37,12 +40,6 @@ SUBST_FILES.conf=	configure
 SUBST_SED.conf+=	-e "s|@@LN_INC@@|${BUILDLINK_PREFIX.libnet11}/include/libnet11|g"
 SUBST_SED.conf+=	-e "s|@@LN_LIB@@|${BUILDLINK_PREFIX.libnet11}/lib/libnet11|g"
 SUBST_MESSAGE.conf=	Fixing configuration script.
-
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-INSTALL_UNSTRIPPED=	YES
-.endif
 
 CONF_FILES=	${PREFIX}/share/examples/ettercap-NG/etter.conf \
 		${PKG_SYSCONFDIR}/etter.conf

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.31 2015/01/04 12:26:36 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2016/02/10 07:33:27 wiz Exp $
 
-DISTNAME=	Scalar-List-Utils-1.41
+DISTNAME=	Scalar-List-Utils-1.43
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel misc perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/P/PE/PEVANS/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Scalar/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://metacpan.org/release/Scalar-List-Utils

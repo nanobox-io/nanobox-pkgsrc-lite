@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.2 2010/09/14 00:18:09 minskim Exp $
+# $NetBSD: Makefile,v 1.4 2016/01/30 03:26:09 markd Exp $
 
 DISTNAME=	cancel
-PKGNAME=	tex-${DISTNAME}-2.0
-TEXLIVE_REV=	17124
+PKGNAME=	tex-${DISTNAME}-2.2
+TEXLIVE_REV=	32508
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	LaTeX package to place lines through maths formulae
+LICENSE=	public-domain
 
 CONFLICTS+=	tex-ltxmisc<2009
 

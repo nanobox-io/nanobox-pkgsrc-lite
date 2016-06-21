@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2015/03/15 17:20:19 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.9 2015/12/30 14:39:12 taca Exp $
 #
 
 DISTNAME=	rabbiter-2.0.1
+PKGREVISION=	1
 CATEGORIES=	net ruby
 MASTER_SITES=	${MASTER_SITE_RUBYGEMS}
 EXTRACT_SUFX=	.gem
@@ -12,12 +13,10 @@ COMMENT=	Twitter client for Rabbit
 LICENSE=	gnu-gpl-v2 # or later
 
 DEPENDS+=	${RUBY_PKGPREFIX}-rabbit>=2.0.0:../../graphics/rabbit
-DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gio>=1.1.4:../../devel/ruby-gnome2-gio
 DEPENDS+=	${RUBY_PKGPREFIX}-twitter_oauth-[0-9]*:../../security/ruby-twitter_oauth
 DEPENDS+=	${RUBY_PKGPREFIX}-twitter-stream>=0.1.16:../../net/ruby-twitter-stream
-CONFLICTS+=	${RUBY_PKGPREFIX}-rabbit<2.0.0
 
-RUBY_VERSION_SUPPORTED=	193 200 21
+CONFLICTS+=	${RUBY_PKGPREFIX}-rabbit<2.0.0
 
 USE_RUBY_SETUP=		yes
 USE_RUBY_SETUP_PKG=	yes

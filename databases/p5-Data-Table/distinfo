@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.6 2014/12/12 04:43:16 mef Exp $
+$NetBSD: distinfo,v 1.9 2016/03/04 12:59:07 wen Exp $
 
-SHA1 (Data-Table-1.70.tar.gz) = 41f17874a9d2df90b9a1771b859a25225d5c476a
-RMD160 (Data-Table-1.70.tar.gz) = 4e78d9088b8ff288a37bbc7fd2465d87dddb2e1b
-Size (Data-Table-1.70.tar.gz) = 67218 bytes
+SHA1 (Data-Table-1.73.tar.gz) = c03eebcc6d31f409ee83dc039ab64168a2a0a1a2
+RMD160 (Data-Table-1.73.tar.gz) = 99d8a629f85734ed7f478ef4a81010291f9c9ae1
+SHA512 (Data-Table-1.73.tar.gz) = ef7d49404f01270388131bd5157617101ef49656387decefa3d3a5447ad4123697320a92e16b154ecc0969a688a0ad414f8c2ca61a5bebafa7a8e7c8b3a92d11
+Size (Data-Table-1.73.tar.gz) = 76347 bytes

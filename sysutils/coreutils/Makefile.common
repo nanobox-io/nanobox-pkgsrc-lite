@@ -1,8 +1,8 @@
-# $NetBSD: Makefile.common,v 1.9 2015/01/29 21:58:34 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.15 2016/02/26 10:24:11 jperkin Exp $
 # used by sysutils/coreutils/Makefile
 # used by misc/gnuls/Makefile
 
-DISTNAME=	coreutils-8.22
+DISTNAME=	coreutils-8.25
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GNU:=coreutils/}
 EXTRACT_SUFX=	.tar.xz
@@ -21,26 +21,32 @@ GNU_CONFIGURE=		YES
 USE_TOOLS+=		msgfmt msgmerge perl xgettext
 USE_PKGLOCALEDIR=	YES
 
+# --- man/chroot.1 ---
+#   GEN      man/chroot.1
+# help2man: can't get `--help' info from chroot.td/chroot
+# Try `--no-discard-stderr' if option outputs to stderr
+# *** [man/chroot.1] Error code 127
+MAKE_JOBS_SAFE=		NO
+
 TEST_TARGET=		check
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Interix"
-CONFIGURE_ENV+=		ac_list_mounted_fs=found
+# Otherwise configure aborts when ran by root
+CONFIGURE_ENV+=		FORCE_UNSAFE_CONFIGURE=yes
+
+CONFIGURE_ENV.Interix+=	ac_list_mounted_fs=found
+
+CONFIGURE_ENV.DragonFly+= 	gl_cv_search_pthread_join=-lpthread
+
+# Various tests rely on GCC's -O2 behaviour (e.g. -D__NO_INLINE__) and
+# without it we run into undefined symbol issues.
+.if ${OPSYS} == "Darwin" && ${PKGSRC_COMPILER} == "gcc"
+CFLAGS+=		-O2
 .endif
 
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ENV+= 	gl_cv_search_pthread_join=-lpthread
-.endif
-
-.if ${OPSYS} == "Linux"
-CONFIGURE_ENV+=		FORCE_UNSAFE_CONFIGURE=1
-.endif
-
-# Explicitly disable inotify support whilst it is Linux-specific.
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=		ac_cv_func_inotify_init=no
-.endif
+# Explicitly disable inotify support whilst it is Linux-specific.
+CONFIGURE_ENV.SunOS+=	ac_cv_func_inotify_init=no
 
 .if !empty(MACHINE_PLATFORM:MDarwin-[9].*-*)
 CONFIGURE_ENV+=		ac_cv_header_sys_acl_h=no jm_cv_func_svid_putenv=yes

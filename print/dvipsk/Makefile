@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2013/11/17 16:54:41 minskim Exp $
+# $NetBSD: Makefile,v 1.14 2015/11/25 12:53:09 jperkin Exp $
 
-DISTNAME=	texlive-20130530-source
-PKGNAME=	dvipsk-5.993
+DISTNAME=	texlive-20150521-source
+PKGNAME=	dvipsk-5.995
 CATEGORIES=	print
-MASTER_SITES=	${MASTER_SITE_TEX_CTAN:=systems/texlive/Source/}
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -21,11 +21,10 @@ EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 GNU_CONFIGURE=	yes
 INFO_FILES=	yes
 USE_LIBTOOL=	yes
+USE_TOOLS+=	pkg-config
 CONFIGURE_DIRS=	texk/dvipsk
 
-CONFIGURE_ARGS+=	--with-system-kpathsea \
-		--with-kpathsea-includes=${BUILDLINK_PREFIX.kpathsea}/include \
-		--with-kpathsea-libdir=${BUILDLINK_PREFIX.kpathsea}/lib
+CONFIGURE_ARGS+=	--with-system-kpathsea
 
 PKG_SYSCONFSUBDIR=	texmf
 
@@ -42,21 +41,18 @@ INSTALLATION_DIRS+=	share/examples/dvipsk
 TEX_TEXMF_DIRS+=	${PKG_SYSCONFDIR}
 TEX_TEXMF_DIRS+=	${PREFIX}/share/texmf-dist
 
-FIND_PREFIX:=	TEX_DVIPS_PREFIX=tex-dvips \
-		TEXCONFIG_PREFIX=tex-texconfig
-.include "../../mk/find-prefix.mk"
-
+BUILDLINK_API_DEPENDS.kpathsea+= kpathsea>=6.2.1
 .include "../../print/kpathsea/buildlink3.mk"
 .include "../../print/kpathsea/texmf.mk"
 
 post-build:
 	${MKDIR} -p ${WRKSRC}/texk/dvipsk/texmf-dist/dvips/config
-	${CP} ${TEX_DVIPS_PREFIX}/share/texmf-dist/dvips/config/config.ps \
+	${CP} ${LOCALBASE}/share/texmf-dist/dvips/config/config.ps \
 		${WRKSRC}/texk/dvipsk/texmf-dist/dvips/config
-	env TEXMFCONFIG=${TEX_DVIPS_PREFIX}/share/texmf-dist \
+	env TEXMFCONFIG=${LOCALBASE}/share/texmf-dist \
 		TFC_TEXMFCONFIG=${WRKSRC}/texk/dvipsk/texmf \
 		configPsFile=${WRKSRC}/texk/dvipsk/texmf-dist/dvips/config/config.ps \
-		${TEXCONFIG_PREFIX}/bin/texconfig dvips paper ${LOWER_PAPERSIZE}
+		${LOCALBASE}/bin/texconfig dvips paper ${LOWER_PAPERSIZE}
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/texk/dvipsk/texmf-dist/dvips/config/config.ps \

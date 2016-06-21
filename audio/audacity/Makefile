@@ -1,28 +1,39 @@
-# $NetBSD: Makefile,v 1.88 2014/05/05 00:47:35 ryoon Exp $
+# $NetBSD: Makefile,v 1.100 2015/11/18 14:19:47 ryoon Exp $
 
-DISTNAME=		audacity-src-1.2.6
-PKGREVISION=		26
-PKGNAME=		${DISTNAME:S/-src-/-/}
+DISTNAME=		audacity-minsrc-2.1.0
+PKGNAME=		${DISTNAME:S/-minsrc//1}
+PKGREVISION=		8
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=audacity/}
+EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://audacity.sourceforge.net/
+HOMEPAGE=		http://audacityteam.org/
 COMMENT=		Audio editor
-
-MAKE_JOBS_SAFE=		no
+LICENSE=		gnu-gpl-v2 # AND cc-by-v3.0-license
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		autoconf gmake msgfmt pkg-config zip:run
+USE_TOOLS+=		automake autoreconf
+USE_TOOLS+=		gmake intltool msgfmt msgmerge pkg-config
+USE_TOOLS+=		xgettext zip:run
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--without-xaudio
-CONFIGURE_ARGS+=	--with-id3=system
+CONFIGURE_ARGS+=	--enable-nyquist=yes
+CONFIGURE_ARGS+=	--with-expat=system
+CONFIGURE_ARGS+=	--with-ffmpeg=system
+CONFIGURE_ARGS+=	--with-id3tag=system
+CONFIGURE_ARGS+=	--with-libflac=system
 CONFIGURE_ARGS+=	--with-libmad=system
+CONFIGURE_ARGS+=	--with-libsamplerate=system
 CONFIGURE_ARGS+=	--with-libsndfile=system
-CONFIGURE_ARGS+=	--with-portaudio=system
+CONFIGURE_ARGS+=	--with-lv2=system
+CONFIGURE_ARGS+=	--with-midi=local
+CONFIGURE_ARGS+=	--with-portaudio=local
+CONFIGURE_ARGS+=	--with-sbsms=system
+CONFIGURE_ARGS+=	--with-soundtouch=system
+CONFIGURE_ARGS+=	--with-twolame=system
 CONFIGURE_ARGS+=	--with-vorbis=system
-CONFIGURE_ENV+=		WX_CONFIG=${LOCALBASE}/bin/wx24-config
+CONFIGURE_ARGS+=	--without-xaudio
 
 CONFIG_GUESS_OVERRIDE=		\
 	config.guess */config.guess */*/config.guess */*/*/config.guess
@@ -30,21 +41,40 @@ CONFIG_SUB_OVERRIDE=		\
 	config.sub */config.sub */*/config.sub */*/*/config.sub
 
 PTHREAD_AUTO_VARS=	yes
+BUILDLINK_TRANSFORM+=	opt:-ldl:${BUILDLINK_LDADD.dl:M*}
 
+# regen Makefile.in to avoid being built as shared libraries
+pre-configure:
+	cd ${WRKSRC}/lib-src/FileDialog && ${PKGSRC_SETENV} autoreconf -fiv
+	cd ${WRKSRC}/lib-src/portaudio-v19 && ${PKGSRC_SETENV} autoreconf -fiv
+	cd ${WRKSRC}/lib-src/portmixer && ${PKGSRC_SETENV} autoreconf -fiv
+	cd ${WRKSRC}/lib-src/lib-widget-extra && autoreconf -fiv
+
+.include "options.mk"
+
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../multimedia/libogg/buildlink3.mk"
+.include "../../audio/lilv/buildlink3.mk"
+.include "../../audio/lv2/buildlink3.mk"
+.include "../../audio/soundtouch/buildlink3.mk"
+BUILDLINK_API_DEPENDS.twolame+=	twolame>=0.3.9
+.include "../../audio/twolame/buildlink3.mk"
 .include "../../audio/lame/buildlink3.mk"
 .include "../../audio/libid3tag/buildlink3.mk"
 .include "../../audio/libmad/buildlink3.mk"
+.include "../../audio/libsbsms/buildlink3.mk"
+.include "../../audio/libsamplerate/buildlink3.mk"
 .include "../../audio/libsndfile/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
-.include "../../audio/portaudio/buildlink3.mk"
+#.include "../../audio/portaudio-devel/buildlink3.mk" # Needs Pa_GetStreamHostApiType
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../x11/wxGTK24/buildlink3.mk"
-
+BUILDLINK_API_DEPENDS.flac+=	flac>=1.3.0
+.include "../../audio/flac/buildlink3.mk"
+.include "../../multimedia/ffmpeg1/buildlink3.mk"
+.include "../../textproc/expat/buildlink3.mk"
+.include "../../x11/wxGTK30/buildlink3.mk"
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
-
-# XXX Internal compiler error with -O2
-.if ${MACHINE_ARCH} == "alpha"
-CFLAGS+=	-O
-.endif

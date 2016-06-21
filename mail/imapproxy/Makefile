@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.15 2015/01/18 15:57:10 wiedi Exp $
+# $NetBSD: Makefile,v 1.17 2016/03/05 11:28:48 jperkin Exp $
 #
 
 DISTNAME=	up-imapproxy-1.2.7
 PKGNAME=	imapproxy-1.2.7
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	http://www.imapproxy.org/downloads/
 

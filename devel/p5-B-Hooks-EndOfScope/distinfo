@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.11 2015/02/05 13:46:50 mef Exp $
+$NetBSD: distinfo,v 1.13 2015/11/03 03:27:57 agc Exp $
 
-SHA1 (B-Hooks-EndOfScope-0.14.tar.gz) = d3dc07382a4154bc3b5a3d03a66617cdf74c030e
-RMD160 (B-Hooks-EndOfScope-0.14.tar.gz) = dd8cb732696cd7c2ec65648326a9276f3e9f0b0f
-Size (B-Hooks-EndOfScope-0.14.tar.gz) = 30083 bytes
+SHA1 (B-Hooks-EndOfScope-0.15.tar.gz) = 58a507d943d23b7dbcf7610d3c8db3732973e1de
+RMD160 (B-Hooks-EndOfScope-0.15.tar.gz) = bc21478528b53cfd9b3e1748d6bcaf58844f7820
+SHA512 (B-Hooks-EndOfScope-0.15.tar.gz) = 67d95a15de0c6308ebac03304b9199077c6ead943221275a45f547396caabd2981bbbc4994924cb01e699c0b0fe02818a614f9fe4a3f7927381e16a635470ff2
+Size (B-Hooks-EndOfScope-0.15.tar.gz) = 30331 bytes

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.104 2014/08/22 11:24:26 wiz Exp $
+# $NetBSD: Makefile,v 1.107 2016/03/05 11:27:52 jperkin Exp $
 
 DISTNAME=	kdenetwork-${_KDE_VERSION}
-PKGREVISION=	34
+PKGREVISION=	36
 CATEGORIES=	net
 COMMENT=	Network modules for the KDE integrated X11 desktop
 
@@ -25,13 +25,8 @@ CONFIGURE_ARGS+=	--disable-meanwhile
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ENV+=		ac_cv_header_net_if_ppp_h=yes
-.endif
-
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=		ac_cv_sys_file_offset_bits=no
-.endif
+CONFIGURE_ENV.NetBSD+=	ac_cv_header_net_if_ppp_h=yes
+CONFIGURE_ENV.SunOS+=	ac_cv_sys_file_offset_bits=no
 
 .if ${X11_TYPE} != "native"
 .include "../../x11/libXScrnSaver/buildlink3.mk"

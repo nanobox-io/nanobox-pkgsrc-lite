@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.135 2015/03/13 09:09:12 ryoon Exp $
+# $NetBSD: Makefile,v 1.148 2015/12/21 12:10:22 ryoon Exp $
 
-DISTNAME=	qemu-2.2.1
+DISTNAME=	qemu-2.5.0
 CATEGORIES=	emulators
 MASTER_SITES=	http://wiki.qemu.org/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -37,15 +37,11 @@ CONFIGURE_ARGS+=	--enable-curses
 #HF#CONFIGURE_ARGS+=	--disable-fdt			# HF: build on OS X
 CONFIGURE_ENV+=		mansuffix=/${PKGMANDIR}
 
-CONF_FILES=		${EGDIR}/target-x86_64.conf \
-			${PKG_SYSCONFDIR}/target-x86_64.conf
-EGDIR=			${PREFIX}/share/examples/qemu
-INSTALL_MAKE_FLAGS=	egdir=${EGDIR}
 PKG_SYSCONFSUBDIR=	qemu
 
 REPLACE_PERL+=		scripts/texi2pod.pl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported yet as of 1.7.0
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported yet as of 1.7.0
 
 BUILDLINK_PASSTHRU_DIRS+= /usr/lib
 BUILDLINK_PASSTHRU_RPATHDIRS+= /usr/lib
@@ -54,7 +50,7 @@ INSTALLATION_DIRS=	${PKGMANDIR}/man1 share/doc/qemu
 
 UE_ARCHS+=		alpha arm armeb cris i386 m68k microblaze mips mipsel
 UE_ARCHS+=		or32 ppc ppc64 ppc64abi32 sh4 sh4eb sparc sparc32plus
-UE_ARCHS+=		sparc64 x86_64 microblazeel s390x tricore unicore32
+UE_ARCHS+=		sparc64 x86_64 microblazeel s390x unicore32
 
 .if ${OPSYS} == "NetBSD"
 .  if (!empty(OS_VERSION:M5.99.*) || !empty(OS_VERSION:M[6-9].*))
@@ -84,7 +80,7 @@ PLIST.nbd=		YES
 CONFIGURE_ARGS+=	--disable-coroutine-pool
 .endif
 
-PLIST_VARS+=		${UE_ARCHS} nbd
+PLIST_VARS+=		${UE_ARCHS} nbd ivshmem
 .for _var_ in ${USER_EMUL}
 PLIST.${_var_}=		YES
 .endfor
@@ -101,6 +97,7 @@ post-install:
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/extension.mk"
+.include "../../security/libgcrypt/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

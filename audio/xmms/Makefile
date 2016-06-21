@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.77 2012/10/02 23:48:14 asau Exp $
+# $NetBSD: Makefile,v 1.79 2015/09/07 12:02:07 jperkin Exp $
 #
 
 .include "Makefile.common"
 
-PKGREVISION=	4
+PKGREVISION=	5
 
 USE_TOOLS+=	msgfmt
 
@@ -11,9 +11,7 @@ CONFIGURE_ARGS+=	--disable-esd
 
 PLIST_VARS+=		cdaudio
 
-.if ${OPSYS} == "Darwin"
-_INSTALL_UNSTRIPPED=	yes
-.else
+.if ${OPSYS} != "Darwin"
 PLIST.cdaudio=		yes
 .endif
 

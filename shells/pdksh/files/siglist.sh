@@ -23,7 +23,15 @@ CPP="${1-cc -E}"
 	{ QwErTy .signal = SIG\1 , .name = "\1", .mess = "\2" },\
 #endif/') > $in
 $CPP $in  > $out
-sed -n 's/{ QwErTy/{/p' < $out | awk '{print NR, $0}' | sort -k 5n -k 1n |
+awk '/{ QwErTy/ {
+        line = $0;
+        while (line !~ /}/) {
+                getline tmp;
+                if (tmp !~ "^#") line = (line tmp);
+        }
+        print line;
+}' < $out | sed -n 's/{ QwErTy/{/p' | awk '{print NR, $0}' | sort -k 5n -k 1n |
+
     sed 's/^[0-9]* //' |
     awk 'BEGIN { last=0; nsigs=0; }
 	{

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.15.18.1 2015/04/25 20:08:04 bsiegert Exp $
+# $NetBSD: Makefile,v 1.16 2015/04/18 20:40:46 joerg Exp $
 #
 
 DISTNAME=		rsltcsrc

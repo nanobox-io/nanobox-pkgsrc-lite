@@ -103,7 +103,7 @@ adduser()
 	: ${shell:="@PKG_USER_SHELL@"}
 
 	if ${TEST} -n "${PW}" -a -x "${PW}"; then
-		${ECHO} "${PKGNAME}: Creating user \`\`$user''"
+		${ECHO} "${PKGNAME}: Creating user \`\`$user''" > /dev/null
 		case $userid in
 		"")
 			${PW} useradd					\
@@ -132,7 +132,7 @@ addgroup()
 	PW="@PW@"
 
 	if ${TEST} -n "${PW}" -a -x "${PW}"; then
-		${ECHO} "${PKGNAME}: Creating group \`\`$group''"
+		${ECHO} "${PKGNAME}: Creating group \`\`$group''" > /dev/null
 		case $groupid in
 		"")	${PW} groupadd $group ;;
 		*)	${PW} groupadd $group -g $groupid ;;

@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/11/05 15:44:38 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2015/08/09 07:33:36 markd Exp $
 
 DISTNAME=	l3kernel
-PKGNAME=	tex-${DISTNAME}-0.2900
-TEXLIVE_REV=	24256
+PKGNAME=	tex-${DISTNAME}-0.5700
+TEXLIVE_REV=	37997
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/l3kernel
 COMMENT=	LaTeX3 programming conventions
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-booktabs-[0-9]*:../../print/tex-booktabs
 DEPENDS+=	tex-colortbl-[0-9]*:../../print/tex-colortbl

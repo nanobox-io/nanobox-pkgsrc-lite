@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.73 2014/12/30 15:13:19 wiz Exp $
+# $NetBSD: Makefile,v 1.75 2016/03/05 11:28:50 jperkin Exp $
 #
 
 DISTNAME=		${PKGNAME_NOREV}
 PKGNAME=		qmail-1.03
-PKGREVISION=		19
+PKGREVISION=		20
 CATEGORIES=		mail
 MASTER_SITES=		http://qmail.org/
 
@@ -133,11 +133,9 @@ SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0711
 SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0700
 .endfor
 
-.if ${OPSYS} == "Darwin"
-DARWINSUFX=		.doc
-.else
-DARWINSUFX=		# empty
-.endif
+OPSYSVARS+=		DARWINSUFX
+DARWINSUFX.Darwin=	.doc
+DARWINSUFX.*=		# empty
 
 post-extract: post-extract-viruscan
 	${CP} ${FILESDIR}/README.pkgsrc ${WRKSRC}

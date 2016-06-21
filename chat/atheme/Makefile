@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2014/02/12 23:17:35 tron Exp $
+# $NetBSD: Makefile,v 1.13 2016/03/05 11:28:06 jperkin Exp $
 #
 
 DISTNAME=	atheme-services-3.0.4
 PKGNAME=	${DISTNAME:S/-services//}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	chat
 MASTER_SITES=	http://distfiles.atheme.org/
 EXTRACT_SUFX=	.tbz2
@@ -37,6 +37,13 @@ FILES_SUBST+=		ATHEME_USER=${ATHEME_USER}
 FILES_SUBST+=		ATHEME_GROUP=${ATHEME_GROUP}
 
 .include "options.mk"
+
+.include "../../mk/bsd.prefs.mk"
+
+PLIST_VARS+=		posixcrypt
+.if ${OPSYS} != "Darwin"
+PLIST.posixcrypt=	yes
+.endif
 
 CFLAGS.SunOS+=		-Dfaultcode_t=foo_faultcode_t -Dboolean_t=foo_boolean_t
 

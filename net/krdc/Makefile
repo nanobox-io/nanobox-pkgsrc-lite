@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.9 2014/11/13 11:50:26 markd Exp $
+# $NetBSD: Makefile,v 1.14 2016/03/05 11:29:06 jperkin Exp $
 
-DISTNAME=	krdc-${_KDE_VERSION}
+DISTNAME=	krdc-15.12.0
+PKGREVISION=	1
 CATEGORIES=	net
 COMMENT=	KDE remote desktop client
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

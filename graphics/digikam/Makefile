@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.117 2014/11/15 21:15:18 markd Exp $
+# $NetBSD: Makefile,v 1.123 2016/03/29 22:01:39 joerg Exp $
 
-DISTNAME=	digikam-4.4.0
+DISTNAME=	digikam-4.13.0
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_KDE:=digikam/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,15 +17,17 @@ DEPENDS+=	qt4-sqlite3-[0-9]*:../../x11/qt4-sqlite3
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
 
-REPLACE_PERL=	core/utilities/scripts/digitaglinktree/digitaglinktree
+REPLACE_PERL=	core/data/scripts/digitaglinktree/digitaglinktree
 CMAKE_ARGS+=    -DMYSQLD_PATH:PATH=${BUILDLINK_PREFIX.mysql-server}/libexec
-CMAKE_ARGS+=	-DDIGIKAMSC_USE_PRIVATE_KDEGRAPHICS:BOOL=OFF
+CMAKE_ARGS+=	-DENABLE_OPENCV3:BOOL=ON
 USE_TOOLS+=	gawk msgfmt perl:run pkg-config
+
+CXXFLAGS.NetBSD+=	-D_KERNTYPES
 
 .include "options.mk"
 
 post-patch:
-	rm ${WRKSRC}/po/*/libkgeomap.po ${WRKSRC}/po/*/kipiplug* ${WRKSRC}/po/*/libkipi*
+	rm ${WRKSRC}/po/*/kipiplug* ${WRKSRC}/po/*/libkipi*
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 .include "../../databases/mysql55-server/buildlink3.mk"

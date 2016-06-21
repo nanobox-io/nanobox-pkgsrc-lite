@@ -509,13 +509,13 @@ packages for himself, which is a time-costly task.</p>
 <p>pkgsrc currently contains several thousand packages,
       including:</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/www/apache/README.html" target="_top"><code class="filename">www/apache</code></a> - The Apache
+<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/www/apache24/README.html" target="_top"><code class="filename">www/apache24</code></a> - The Apache
 	  web server</p></li>
 <li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/www/firefox/README.html" target="_top"><code class="filename">www/firefox</code></a> - The Firefox
 	  web browser</p></li>
 <li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/meta-pkgs/gnome/README.html" target="_top"><code class="filename">meta-pkgs/gnome</code></a> - The GNOME
 	  Desktop Environment</p></li>
-<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/meta-pkgs/kde3/README.html" target="_top"><code class="filename">meta-pkgs/kde3</code></a> - The K
+<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/meta-pkgs/kde4/README.html" target="_top"><code class="filename">meta-pkgs/kde4</code></a> - The K
 	  Desktop Environment</p></li>
 </ul></div>
 <p>...just to name a few.</p>
@@ -538,10 +538,10 @@ pkgsrc provides the following key features:
 <li class="listitem"><p>All packages are installed in a consistent directory tree,
   including binaries, libraries, man pages and other
   documentation.</p></li>
-<li class="listitem"><p>Package dependencies, including when performing package updates,
-  are handled automatically. The configuration files of various
-  packages are handled automatically during updates, so local changes
-  are preserved.</p></li>
+<li class="listitem"><p>Tracking of package dependencies automatically, including when
+  performing updates, to ensure required packages are installed. The
+  configuration files of various packages are handled automatically during
+  updates, so local changes are preserved.</p></li>
 <li class="listitem"><p>Like NetBSD, pkgsrc is designed with portability in mind and
   consists of highly portable code. This allows the greatest speed of
   development when porting to a new platform. This portability also
@@ -584,27 +584,32 @@ minutes!</p>
       grown a lot, and now supports the following platforms:</p>
 <div class="table">
 <a name="supported-platforms"></a><p class="title"><b>Table 1.1. Platforms supported by pkgsrc</b></p>
-<div class="table-contents"><table summary="Platforms supported by pkgsrc" border="1">
+<div class="table-contents"><table class="table" summary="Platforms supported by pkgsrc" border="1">
 <colgroup>
+<col>
 <col>
 <col>
 </colgroup>
 <thead><tr>
 <th>Platform</th>
 <th>Date Support Added</th>
+<th>Notes</th>
 </tr></thead>
 <tbody>
 <tr>
 <td><a class="ulink" href="http://www.NetBSD.org/" target="_top">NetBSD</a></td>
 <td align="center">Aug 1997</td>
+<td class="auto-generated"> </td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://wwws.sun.com/software/solaris/" target="_top">Solaris</a></td>
 <td align="center">Mar 1999</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Solaris" target="_top">README.Solaris</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.kernel.org/" target="_top">Linux</a></td>
 <td align="center">Jun 1999</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Linux" target="_top">README.Linux</a></td>
 </tr>
 <tr>
 <td>
@@ -612,26 +617,35 @@ minutes!</p>
           (<a class="ulink" href="http://developer.apple.com/macosx/" target="_top">Mac OS X</a>)
         </td>
 <td align="center">Oct 2001</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.MacOSX" target="_top">README.MacOSX</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.freebsd.org/" target="_top">FreeBSD</a></td>
 <td align="center">Nov 2002</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.FreeBSD" target="_top">README.FreeBSD</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.openbsd.org/" target="_top">OpenBSD</a></td>
 <td align="center">Nov 2002</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.OpenBSD" target="_top">README.OpenBSD</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.sgi.com/software/irix/" target="_top">IRIX</a></td>
 <td align="center">Dec 2002</td>
+<td>
+	<a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.IRIX" target="_top">README.IRIX</a>
+	<a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.IRIX5.3" target="_top">README.IRIX5.3</a>
+	</td>
 </tr>
 <tr>
 <td>BSD/OS</td>
 <td align="center">Dec 2003</td>
+<td class="auto-generated"> </td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www-1.ibm.com/servers/aix/" target="_top">AIX</a></td>
 <td align="center">Dec 2003</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.AIX" target="_top">README.AIX</a></td>
 </tr>
 <tr>
 <td>
@@ -639,38 +653,52 @@ minutes!</p>
           (Microsoft Windows Services for Unix)
         </td>
 <td align="center">Mar 2004</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Interix" target="_top">README.Interix</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.dragonflybsd.org/" target="_top">DragonFlyBSD</a></td>
 <td align="center">Oct 2004</td>
+<td class="auto-generated"> </td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.tru64.org/" target="_top">OSF/1</a></td>
 <td align="center">Nov 2004</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.OSF1" target="_top">README.OSF1</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.hp.com/products1/unix/" target="_top">HP-UX</a></td>
 <td align="center">Apr 2007</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.HPUX" target="_top">README.HPUX</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.haiku-os.org/" target="_top">Haiku</a></td>
 <td align="center">Sep 2010</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Haiku" target="_top">README.Haiku</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.mirbsd.org/" target="_top">MirBSD</a></td>
 <td align="center">Jan 2011</td>
+<td class="auto-generated"> </td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.minix3.org/" target="_top">Minix3</a></td>
 <td align="center">Nov 2011</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Minix3" target="_top">README.Minix3</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://cygwin.com/" target="_top">Cygwin</a></td>
 <td align="center">Mar 2013</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Cygwin" target="_top">README.Cygwin</a></td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.debian.org/ports/kfreebsd-gnu/" target="_top">GNU/kFreeBSD</a></td>
 <td align="center">Jul 2013</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.GNUkFreeBSD" target="_top">README.GNUkFreeBSD</a></td>
+</tr>
+<tr>
+<td><a class="ulink" href="http://www.bitrig.org/" target="_top">Bitrig</a></td>
+<td align="center">Jun 2014</td>
+<td><a class="ulink" href="http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/bootstrap/README.Bitrig" target="_top">README.Bitrig</a></td>
 </tr>
 </tbody>
 </table></div>
@@ -1184,7 +1212,7 @@ release -d
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="darwin"></a>3.3.2. Darwin (Mac OS X)</h3></div></div></div>
-<p>Darwin 5.x and up are supported.</p>
+<p>Darwin 8.x and up are supported.</p>
 <p>Before you start, you need to download and install
       the Mac OS X Developer Tools from Apple's Developer Connection.
       This requires (free) membership. See
@@ -3659,12 +3687,25 @@ If some Python versions are not supported by the software, set the
 that are not supported, e.g.
 </p>
 <pre class="programlisting">
-PYTHON_VERSIONS_INCOMPATIBLE=       26
+PYTHON_VERSIONS_INCOMPATIBLE=       27
 </pre>
 <p>
-If the packaged software is a Python module, include
-<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/extension.mk</code></span>&#8221;</span>.
-In this case, the package directory should be called
+If the packaged software is a Python module, include one of
+<code class="filename">../../lang/python/egg.mk</code>,
+<code class="filename">../../lang/python/distutils.mk</code>, or
+<code class="filename">../../lang/python/extension.mk</code>.</p>
+<p>Most Python packages use either <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> or
+easy-setup/setuptools (<span class="quote">&#8220;<span class="quote">eggs</span>&#8221;</span>).
+if the packaged software is using setuptools, you only need
+to include <span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/egg.mk</code></span>&#8221;</span>.
+Otherwise, if the software uses <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span>, include 
+<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/distutils.mk</code></span>&#8221;</span>.
+so pkgsrc will use this framework.
+<span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> uses a script called <code class="filename">setup.py</code>,
+if the <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> driver is not called
+<code class="filename">setup.py</code>, set the <code class="varname">PYSETUP</code> variable
+to the name of the script.</p>
+<p>Either way, the package directory should be called
 <span class="quote">&#8220;<span class="quote">py-software</span>&#8221;</span> and <code class="varname">PKGNAME</code> should be set to
 <span class="quote">&#8220;<span class="quote">${PYPKGPREFIX}-${DISTNAME}</span>&#8221;</span>, e.g.
 </p>
@@ -3682,18 +3723,6 @@ For example:
 <pre class="programlisting">
 REPLACE_PYTHON=   *.py
 </pre>
-<p>Most Python packages use either <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> or
-easy-setup (<span class="quote">&#8220;<span class="quote">eggs</span>&#8221;</span>).
-If the software uses <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span>, include 
-<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/distutils.mk</code></span>&#8221;</span>.
-so pkgsrc will use this framework.
-<span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> uses a script called <code class="filename">setup.py</code>,
-if the <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> driver is not called
-<code class="filename">setup.py</code>, set the <code class="varname">PYSETUP</code> variable
-to the name of the script.</p>
-<p>Otherwise, if the packaged software is egg-aware, you only need
-to include
-<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/egg.mk</code></span>&#8221;</span>.</p>
 <p>Some Python modules have separate distributions for Python-2.x
 and Python-3.x support. In pkgsrc this is handled by the
 <code class="filename">versioned_dependencies.mk</code> file. Set
@@ -4254,7 +4283,7 @@ PATCHDIR= ${.CURDIR}/../xemacs/patches
 <p>Some typical examples:</p>
 <div class="table">
 <a name="patch-examples"></a><p class="title"><b>Table 11.1. Patching examples</b></p>
-<div class="table-contents"><table summary="Patching examples" border="1">
+<div class="table-contents"><table class="table" summary="Patching examples" border="1">
 <colgroup>
 <col>
 <col>
@@ -4437,8 +4466,7 @@ MESSAGE_SUBST+=  SOMEVAR="somevalue"
 	    <code class="filename">MESSAGE</code>.  By default, substitution is
 	    performed for <code class="varname">PKGNAME</code>,
 	    <code class="varname">PKGBASE</code>, <code class="varname">PREFIX</code>,
-	    <code class="varname">LOCALBASE</code>, <code class="varname">X11PREFIX</code>,
-	    <code class="varname">X11BASE</code>,
+	    <code class="varname">LOCALBASE</code>, <code class="varname">X11BASE</code>,
 	    <code class="varname">PKG_SYSCONFDIR</code>,
 	    <code class="varname">ROOT_GROUP</code>, and
 	    <code class="varname">ROOT_USER</code>.</p>
@@ -4910,14 +4938,6 @@ VAR:=   ${VAR:N${_othervar_:C/-//}}
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="print-PLIST"></a>13.3. Tweaking output of <span class="command"><strong>make print-PLIST</strong></span>
 </h2></div></div></div>
-<p>If you have used any of the *-dirs packages, as explained in
-    <a class="xref" href="#faq.common-dirs" title="13.9. Sharing directories between packages">Section 13.9, &#8220;Sharing directories between packages&#8221;</a>, you may have noticed that
-    <span class="command"><strong>make print-PLIST</strong></span> outputs a set of
-    <code class="varname">@comment</code>s instead of real
-    <code class="varname">@dirrm</code> lines.  You can also do this for
-    specific directories and files, so that the results of that
-    command are very close to reality. This helps <span class="emphasis"><em>a
-    lot</em></span> during the update of packages.</p>
 <p>The <code class="varname">PRINT_PLIST_AWK</code> variable takes a set
     of AWK patterns and actions that are used to filter the output of
     print-PLIST.  You can <span class="emphasis"><em>append</em></span> any chunk of AWK
@@ -4927,12 +4947,6 @@ VAR:=   ${VAR:N${_othervar_:C/-//}}
     resulting PLIST:</p>
 <pre class="programlisting">
 PRINT_PLIST_AWK+=       /^libdata\/foo/ { next; }
-    </pre>
-<p>And to get all the <code class="varname">@dirrm</code> lines referring
-    to a specific (shared) directory converted to
-    <code class="varname">@comment</code>s:</p>
-<pre class="programlisting">
-PRINT_PLIST_AWK+=       /^@dirrm share\/specific/ { print "@comment " $$0; next; }
     </pre>
 </div>
 <div class="sect1">
@@ -5015,7 +5029,6 @@ man/man1/bar.1
 ${PLIST.foo}bin/foo
 ${PLIST.foo}man/man1/foo.1
 ${PLIST.foo}share/bar/foo.data
-${PLIST.foo}@dirrm share/bar
     </pre>
 </div>
 <div class="sect1">
@@ -6320,48 +6333,17 @@ details.</p>
 	distribution (from xsrc, etc.) is installed. When looking for
 	<span class="emphasis"><em>standard</em></span> X11 includes (not those
 	installed by a package), use <span class="quote">&#8220;<span class="quote">${X11BASE}</span>&#8221;</span>.</p></li>
+<li class="listitem"><p>X11-based packages using imake must set
+	<code class="varname">USE_IMAKE</code> to be installed correctly under
+	<code class="varname">LOCALBASE</code>.</p></li>
 <li class="listitem">
-<p>X11-based packages are special in that they may be
-	installed in either <code class="varname">X11BASE</code> or
-	<code class="varname">LOCALBASE</code>.</p>
-<p>Usually, X11 packages should be installed under
-	<code class="varname">LOCALBASE</code> whenever possible.  Note that you
-	will need to include
-	<code class="filename">../../mk/x11.buildlink3.mk</code> in them to
-	request the presence of X11 and to get the right compilation
-	flags.</p>
-<p>Even though, there are some packages that cannot be installed
-	under <code class="varname">LOCALBASE</code>: those that come with app-defaults
-	files. These packages are special and they must be placed under
-	<code class="varname">X11BASE</code>. To accomplish this, set either
-	<code class="varname">USE_X11BASE</code> or <code class="varname">USE_IMAKE</code> in
-	your package.</p>
-<p>Some notes: If you need
-	to find includes or libraries installed by a pkg that has
-	<code class="varname">USE_IMAKE</code> or <code class="varname">USE_X11BASE</code> in
-	its pkg <code class="filename">Makefile</code>, you need to look in
-	<span class="emphasis"><em>both</em></span> <code class="filename">${X11BASE}</code> and
-	<code class="filename">${LOCALBASE}</code>. To force installation of
-	all X11 packages in <code class="varname">LOCALBASE</code>, the
-	<a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/xpkgwedge/README.html" target="_top"><code class="filename">pkgtools/xpkgwedge</code></a> package
-	is enabled by default.</p>
-</li>
-<li class="listitem"><p><code class="varname">X11PREFIX</code> should be used to refer to
-	the installed location of an X11
-	package. <code class="varname">X11PREFIX</code> will be set to
-	<code class="varname">X11BASE</code> if xpkgwedge is not installed, and
-	to <code class="varname">LOCALBASE</code> if xpkgwedge is
-	installed.</p></li>
-<li class="listitem">
-<p>If xpkgwedge is installed, it is possible to have some
-	packages installed in <code class="varname">X11BASE</code> and some in
-	<code class="varname">LOCALBASE</code>.  To determine the prefix of an
+<p>To determine the prefix of an
 	installed package, the <code class="varname">EVAL_PREFIX</code>
 	definition can be used. It takes pairs in the format
 	<span class="quote">&#8220;<span class="quote">DIRNAME=&lt;package&gt;</span>&#8221;</span>, and the <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?make+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a>
 	variable <code class="varname">DIRNAME</code> will be set to the prefix
 	of the installed package &lt;package&gt;, or
-	<span class="quote">&#8220;<span class="quote">${X11PREFIX}</span>&#8221;</span> if the package is not
+	<span class="quote">&#8220;<span class="quote">${PREFIX}</span>&#8221;</span> if the package is not
 	installed.</p>
 <p>This is best illustrated by example.</p>
 <p>The following lines are taken from
@@ -6538,12 +6520,12 @@ ${MASTER_SITE_MOZILLA_ESR}
 ${MASTER_SITE_MYSQL}
 ${MASTER_SITE_NETLIB}
 ${MASTER_SITE_OPENOFFICE}
+${MASTER_SITE_OSDN}
 ${MASTER_SITE_PERL_CPAN}
 ${MASTER_SITE_PGSQL}
 ${MASTER_SITE_RUBYGEMS}
 ${MASTER_SITE_R_CRAN}
 ${MASTER_SITE_SOURCEFORGE}
-${MASTER_SITE_SOURCEFORGE_JP}
 ${MASTER_SITE_SUNSITE}
 ${MASTER_SITE_SUSE}
 ${MASTER_SITE_TEX_CTAN}
@@ -6760,10 +6742,8 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 <p>If the program uses an <code class="filename">Imakefile</code>
     for configuration, the appropriate steps can be invoked by
     setting <code class="varname">USE_IMAKE</code> to
-    <span class="quote">&#8220;<span class="quote">yes</span>&#8221;</span>. (If you only want the package installed in
-    <code class="varname">${X11PREFIX}</code> but xmkmf not being run, set
-    <code class="varname">USE_X11BASE</code> instead.)  You can add variables to
-    xmkmf's environment by adding them to the
+    <span class="quote">&#8220;<span class="quote">yes</span>&#8221;</span>.  If you only need xmkmf, add it to <code class="varname">USE_TOOLS</code>.
+    You can add variables to xmkmf's environment by adding them to the
     <code class="varname">SCRIPTS_ENV</code> variable.</p>
 <p>If the program uses <code class="filename">cmake</code>
     for configuration, the appropriate steps can be invoked by
@@ -6867,6 +6847,9 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 <dt><span class="term"><code class="varname">INSTALL_MAN_DIR</code></span></dt>
 <dd><p>directories that contain man
       pages</p></dd>
+<dt><span class="term"><code class="varname">INSTALL_GAME_DIR</code></span></dt>
+<dd><p>directories that contain data files for games
+      </p></dd>
 <dt><span class="term"><code class="varname">INSTALL_PROGRAM</code></span></dt>
 <dd><p>binaries that can be stripped from debugging
       symbols</p></dd>
@@ -6889,6 +6872,11 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 </dl></div>
 <p>Some other variables are:</p>
 <div class="variablelist"><dl class="variablelist">
+<dt><span class="term"><code class="varname">INSTALL_UNSTRIPPED</code></span></dt>
+<dd><p>If set to <code class="literal">yes</code>, do not run <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?strip+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">strip</span>(1)</span></a>
+      when installing binaries. Any debugging sections and symbols present in
+      binaries will be preserved.
+      </p></dd>
 <dt><span class="term"><code class="varname">INSTALLATION_DIRS</code></span></dt>
 <dd><p>A list of directories relative to
       <code class="varname">PREFIX</code> that are created by pkgsrc at the
@@ -6990,6 +6978,14 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 	  <span class="command"><strong>pkg_add</strong></span> can be set via
 	  <code class="varname">BIN_INSTALL_FLAGS</code> e.g., to do verbose
 	  operation, etc.</p></dd>
+<dt><span class="term">install-clean</span></dt>
+<dd><p>This target removes the state files for the "install" and later
+	  phases so that the "install" target may be re-invoked. This can be
+	  used after editing the PLIST to install the package without
+	  rebuilding it.</p></dd>
+<dt><span class="term">build-clean</span></dt>
+<dd><p>This target removes the state files for the "build" and later
+	  phases so that the "build" target may be re-invoked.</p></dd>
 <dt><span class="term">update</span></dt>
 <dd>
 <p>This target causes the current package to be
@@ -7214,6 +7210,12 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 	  the current package's <code class="varname">DEPENDS</code>. Useful
 	  if out of date dependencies are causing build
 	  problems.</p></dd>
+<dt><span class="term">print-build-depends-list</span></dt>
+<dd><p>This target shows the list of packages that the current package
+	    depends on for building.</p></dd>
+<dt><span class="term">print-run-depends-list</span></dt>
+<dd><p>This target shows the list of packages that the current package
+	    depends on for running.</p></dd>
 <dt><span class="term">check-shlibs</span></dt>
 <dd><p>After a package is installed, check all its
 	  binaries and (on ELF platforms) shared libraries to see
@@ -7362,7 +7364,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="tools.questions"></a>18.4. Questions regarding the tools</h2></div></div></div>
 <div class="qandaset">
-<a name="idm73164880"></a><dl>
+<a name="idm76828792"></a><dl>
 <dt>18.4.1. <a href="#tools.new">How do I add a new tool?</a>
 </dt>
 <dt>18.4.2. <a href="#tools.listall">How do I get a list of all available
@@ -7381,7 +7383,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.new"></a><a name="idm73164496"></a><p><b>18.4.1.</b></p>
+<a name="tools.new"></a><a name="idm76828408"></a><p><b>18.4.1.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I add a new tool?</p></td>
 </tr>
@@ -7391,7 +7393,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.listall"></a><a name="idm73163472"></a><p><b>18.4.2.</b></p>
+<a name="tools.listall"></a><a name="idm76827384"></a><p><b>18.4.2.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I get a list of all available
 	tools?</p></td>
@@ -7402,7 +7404,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.used"></a><a name="idm73162448"></a><p><b>18.4.3.</b></p>
+<a name="tools.used"></a><a name="idm76826360"></a><p><b>18.4.3.</b></p>
 </td>
 <td align="left" valign="top"><p>How can I get a list of all the tools that a
 	package is using while being built? I want to know whether it
@@ -7865,18 +7867,6 @@ DEPENDS+=       ImageMagick&gt;=6.0:../../graphics/ImageMagick
 <p>For security fixes, please update the package
 	vulnerabilities file. See <a class="xref" href="#security-handling" title="19.1.10. Handling packages with security problems">Section 19.1.10, &#8220;Handling packages with security problems&#8221;</a> for more
 	information.</p>
-</li>
-<li class="listitem">
-<p>If the package depends on either one of two (or more)
-	packages, specify the <span class="quote">&#8220;<span class="quote">pre-req-package-name</span>&#8221;</span> as a
-	comma-separated list between curly braces.</p>
-<p>As an example, take a package that depends on the Perl
-	<span class="quote">&#8220;<span class="quote">version</span>&#8221;</span> module, which has been part of Perl
-	itself since version 5.10.0. This either/or dependency is
-	expressed as:</p>
-<pre class="programlisting">
-DEPENDS+=	{perl&gt;=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
-	</pre>
 </li>
 </ol></div>
 <p>If your package needs files from another package to build,
@@ -8612,7 +8602,7 @@ SunPro C++  __SUNPRO_CC (0x580 for Sun C++ 5.8)
 	link to a shared library it needs. The following functions are
 	known to cause this error message over and over.</p>
 <div class="informaltable">
-<a name="undefined-reference-functions"></a><table border="1">
+<a name="undefined-reference-functions"></a><table class="informaltable" border="1">
 <colgroup>
 <col>
 <col>
@@ -8699,8 +8689,9 @@ of functions.</p>
 <p>Sometimes packages fail to build because the compiler runs
     into an operating system specific soft limit.  With the
     <code class="varname">UNLIMIT_RESOURCES</code> variable pkgsrc can be told
-    to unlimit the resources.  Currently, the allowed values are
-    <span class="quote">&#8220;<span class="quote">datasize</span>&#8221;</span> and <span class="quote">&#8220;<span class="quote">stacksize</span>&#8221;</span> (or both).
+    to unlimit the resources.  Currently, the allowed values are any combination of
+    <span class="quote">&#8220;<span class="quote">cputime</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">datasize</span>&#8221;</span>,
+    <span class="quote">&#8220;<span class="quote">memorysize</span>&#8221;</span>, and <span class="quote">&#8220;<span class="quote">stacksize</span>&#8221;</span>.
     Setting this variable is similar to running the shell builtin
     <span class="command"><strong>ulimit</strong></span> command to raise the maximum data
     segment size or maximum stack size of a process, respectively, to
@@ -8768,11 +8759,36 @@ ${INSTALL_DATA_DIR} ${PREFIX}/dir2
     <code class="filename">mk/defaults/mk.conf</code>, control this
     behaviour: <code class="varname">GAMEDATAMODE</code>,
     <code class="varname">GAMEDIRMODE</code>, <code class="varname">GAMES_GROUP</code>,
-    <code class="varname">GAMEMODE</code>, <code class="varname">GAME_USER</code>.</p>
+    <code class="varname">GAMEMODE</code>, <code class="varname">GAME_USER</code>.
+    Other useful variables are: <code class="varname">GAMEDIR_PERMS</code>,
+    <code class="varname">GAMEDATA_PERMS</code> and
+    <code class="varname">SETGID_GAMES_PERMS</code>.</p>
+<p>An example that illustrates some of the variables described above is
+    <code class="filename">games/moon-buggy</code>. <code class="varname">OWN_DIRS_PERMS</code> is
+    used to properly set directory permissions of the directory where the
+    scorefile is saved, <code class="varname">REQD_FILES_PERMS</code> is used to create a
+    dummy scorefile (<code class="filename">mbscore</code>) with the proper permissions
+    and <code class="varname">SPECIAL_PERMS</code> is used to install setgid the game
+    binary:</p>
+<pre class="programlisting">
+USE_GAMESGROUP=		yes
+
+BUILD_DEFS+=		VARBASE
+
+OWN_DIRS_PERMS+=	${VARBASE}/games/moon-buggy ${GAMEDIR_PERMS}
+REQD_FILES_PERMS+=	/dev/null ${VARBASE}/games/moon-buggy/mbscore ${GAMEDATA_PERMS}
+SPECIAL_PERMS+=		${PREFIX}/bin/moon-buggy ${SETGID_GAMES_PERMS}
+    </pre>
+<p>Various <code class="varname">INSTALL_*</code> variables are also available:
+    <code class="varname">INSTALL_GAME</code> to install setgid game binaries,
+    <code class="varname">INSTALL_GAME_DIR</code> to install game directories that are
+    needed to be accessed by setgid games and
+    <code class="varname">INSTALL_GAME_DATA</code> to install scorefiles.</p>
 <p>A package should therefore never hard code file ownership or
-    access permissions but rely on <code class="varname">INSTALL_GAME</code> and
-    <code class="varname">INSTALL_GAME_DATA</code> to set these
-    correctly.</p>
+    access permissions but rely on <code class="varname">*_PERMS</code> as described above
+    or alternatively on <code class="varname">INSTALL_GAME</code>,
+    <code class="varname">INSTALL_GAME_DATA</code> and
+    <code class="varname">INSTALL_GAME_DIR</code> to set these correctly.</p>
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
@@ -9376,7 +9392,7 @@ builds)</i></a>.</p>
 	that way.</p>
 <p>Alternatively, you can also import new packages into
 	pkgsrc-wip (<span class="quote">&#8220;<span class="quote">pkgsrc work-in-progress</span>&#8221;</span>); see the
-	homepage at <a class="ulink" href="http://pkgsrc-wip.sourceforge.net/" target="_top">http://pkgsrc-wip.sourceforge.net/</a>
+	homepage at <a class="ulink" href="http://pkgsrc.org/wip/" target="_top">http://pkgsrc.org/wip/</a>
 	for details.</p>
 </div>
 <div class="sect1">
@@ -9549,7 +9565,7 @@ place.</p></li>
 	and if you still don't have the answer, ask on the
 	<code class="literal">pkgsrc-users</code> mailing list.</p>
 <div class="qandaset">
-<a name="idm72614864"></a><dl>
+<a name="idm78353784"></a><dl>
 <dt>22.1. <a href="#devfaq.makeflags">What is the difference between
 	MAKEFLAGS, .MAKEFLAGS and
 	MAKE_FLAGS?</a>
@@ -9594,7 +9610,7 @@ do?</a>
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.makeflags"></a><a name="idm72614480"></a><p><b>22.1.</b></p>
+<a name="devfaq.makeflags"></a><a name="idm78353400"></a><p><b>22.1.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">MAKEFLAGS</code>, <code class="varname">.MAKEFLAGS</code> and
@@ -9610,7 +9626,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.make"></a><a name="idm72610384"></a><p><b>22.2.</b></p>
+<a name="devfaq.make"></a><a name="idm78349432"></a><p><b>22.2.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">MAKE</code>, <code class="varname">GMAKE</code> and
@@ -9628,7 +9644,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.cc"></a><a name="idm72606032"></a><p><b>22.3.</b></p>
+<a name="devfaq.cc"></a><a name="idm78344952"></a><p><b>22.3.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">CC</code>, <code class="varname">PKG_CC</code> and
@@ -9646,7 +9662,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.bl3flags"></a><a name="idm72601808"></a><p><b>22.4.</b></p>
+<a name="devfaq.bl3flags"></a><a name="idm78340856"></a><p><b>22.4.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">BUILDLINK_LDFLAGS</code>,
@@ -9659,7 +9675,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.bl3prefix"></a><a name="idm72599632"></a><p><b>22.5.</b></p>
+<a name="devfaq.bl3prefix"></a><a name="idm78338552"></a><p><b>22.5.</b></p>
 </td>
 <td align="left" valign="top"><p>Why does <span class="command"><strong>make show-var
 	VARNAME=BUILDLINK_PREFIX.<em class="replaceable"><code>foo</code></em></strong></span>
@@ -9675,7 +9691,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.master_sites"></a><a name="idm72596560"></a><p><b>22.6.</b></p>
+<a name="devfaq.master_sites"></a><a name="idm78335480"></a><p><b>22.6.</b></p>
 </td>
 <td align="left" valign="top"><p>What does
 	<code class="literal">${MASTER_SITE_SOURCEFORGE:=package/}</code> mean? I
@@ -9699,7 +9715,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.mailinglists"></a><a name="idm74677456"></a><p><b>22.7.</b></p>
+<a name="devfaq.mailinglists"></a><a name="idm78327416"></a><p><b>22.7.</b></p>
 </td>
 <td align="left" valign="top"><p>Which mailing lists are there for package
 	developers?</p></td>
@@ -9724,7 +9740,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.documentation"></a><a name="idm74673616"></a><p><b>22.8.</b></p>
+<a name="devfaq.documentation"></a><a name="idm78323704"></a><p><b>22.8.</b></p>
 </td>
 <td align="left" valign="top"><p>Where is the pkgsrc
 	documentation?</p></td>
@@ -9772,7 +9788,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.too-much-time"></a><a name="idm74667088"></a><p><b>22.9.</b></p>
+<a name="devfaq.too-much-time"></a><a name="idm78317176"></a><p><b>22.9.</b></p>
 </td>
 <td align="left" valign="top"><p>I have a little time to kill.  What shall I
 do?</p></td>
@@ -9943,7 +9959,7 @@ solution is given.  After applying the solution be sure to
 <span class="command"><strong>make print-PLIST</strong></span> and ensure it is correct.</p>
 <div class="table">
 <a name="plist-handling"></a><p class="title"><b>Table 23.1. PLIST handling for GNOME packages</b></p>
-<div class="table-contents"><table summary="PLIST handling for GNOME packages" border="1">
+<div class="table-contents"><table class="table" summary="PLIST handling for GNOME packages" border="1">
 <colgroup>
 <col>
 <col>

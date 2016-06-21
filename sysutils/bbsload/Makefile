@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.15 2012/10/23 19:50:52 asau Exp $
+# $NetBSD: Makefile,v 1.18 2016/03/01 20:09:29 joerg Exp $
 #
 
 DISTNAME=	bbsload-0.2.6
@@ -12,15 +12,12 @@ COMMENT=	Small (in dimensions) tool to display the average load
 
 GNU_CONFIGURE=		YES
 USE_LANGUAGES=		c c++
-USE_X11BASE=		YES
+
+CPPFLAGS.NetBSD+=	-D_KERNTYPES
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man1
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "DragonFly"
-MAKE_ENV+=	LIBS.pkgsrc=-lkinfo
-.endif
+MAKE_ENV.DragonFly+=	LIBS.pkgsrc=-lkinfo
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/bbsload.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/bbsload.1

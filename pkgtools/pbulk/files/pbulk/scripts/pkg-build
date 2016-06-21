@@ -1,5 +1,5 @@
 #!@SH@
-# $NetBSD: pkg-build,v 1.25 2012/11/23 12:13:35 joerg Exp $
+# $NetBSD: pkg-build,v 1.28 2015/10/15 11:47:47 joerg Exp $
 #
 # Copyright (c) 2007, 2008 Joerg Sonnenberger <joerg@NetBSD.org>.
 # All rights reserved.
@@ -38,6 +38,15 @@ if [ "${config_version}" != "@PBULK_CONFIG_VERSION@" ]; then
 	exit 1
 fi
 
+default_sync_package() {
+	mkdir -p ${packages}/All
+	cp "$1" "${packages}/All/${pkgname}${pkg_sufx}"
+	for cat in $3; do
+		mkdir -p ${packages}/$cat
+		ln -fs ../All/${pkgname}${pkg_sufx} ${packages}/$cat/${pkgname}${pkg_sufx}
+	done
+}
+
 logpkgtime() {
 	stop_time=`date '+%s'`
 	build_time=`expr ${stop_time} - ${start_time}`
@@ -48,6 +57,7 @@ logpkgtime() {
 cleanup() {
 	logpkgtime
 	if [ -n "${local_bulklog}" ]; then
+		mkdir -p ${bulklog}
 		mv ${logpkgdir} ${bulklog}/${pkgname}
 	fi
 	if [ "$keep_wrkdir" = yes ]; then
@@ -61,7 +71,8 @@ cleanup() {
 		fi
 		${tar} -czf ${bulklog}/${pkgname}/prefix.tar.gz ${cur_destdir}${prefix}
 	fi
-	${make} clean >> ${bulklog}/${pkgname}/clean.log 2>&1 || true
+	${make} clean > /dev/null 2>&1 || true
+	${sync_buildlog} ${bulklog} ${pkgname}
 	exit 1
 }
 
@@ -72,12 +83,11 @@ run_make() {
 	local run_cmd
 	run_cmd=$1
 	shift
-	${run_cmd} ${make} $1 \
+	${run_cmd} ${make} "$@" \
 		BATCH=1 \
 		DEPENDS_TARGET=/nonexistent \
 		${MAKE_FLAGS} \
 		WRKLOG=${logpkgdir}/work.log
-
 }
 
 run_usergroup() {
@@ -106,6 +116,9 @@ while read build_info_line; do
 	DEPENDS=*)
 		dependencies=${build_info_line#DEPENDS=}
 		;;
+	CATEGORIES=*)
+		categories=${build_info_line#CATEGORIES=}
+		;;
 	MULTI_VERSION=*)
 		MAKE_FLAGS=${build_info_line#MULTI_VERSION=}
 		;;
@@ -123,6 +136,12 @@ while read build_info_line; do
 		;;
 	esac
 done
+
+if [ "$use_unprivileged_checksum" != "no" ]; then
+	run_checksum=run_su
+else
+	run_checksum=run_direct
+fi
 
 # Sometimes writing logs to NFS can cause issues, support writing to a local
 # bulklog directory before moving to NFS at the end.
@@ -148,6 +167,7 @@ destdir)
 esac
 
 if [ `@ID@ -u` -ne 0 ]; then
+	run_checksum=run_direct
 	run_build=run_direct
 	run_install=run_direct
 fi
@@ -159,23 +179,47 @@ if [ ${ret} -eq 0 ]; then
 	@PREFIX@/libexec/pbulk/client-clean
 	opsys=`cd ${pkgsrc}/pkgtools/pkg_install && ${make} show-var VARNAME=OPSYS`
 	opver=`cd ${pkgsrc}/pkgtools/pkg_install && ${make} show-var VARNAME=OS_VERSION`
+	# Check if it is an OS with variants where we would rather use the
+	# variant name and version rather than common name and version
+	case "$opsys" in
+	SunOS | Cygwin | SCO_SV)
+		opvar=`cd ${pkgsrc}/pkgtools/pkg_install && ${make} show-var VARNAME=OS_VARIANT`
+		case "$opsys" in
+		Cygwin | SCO_SV)
+			opsys=$opvar
+			;;
+		SunOS)
+			if [ -n "$opvar" ]; then
+				opsys=$opvar
+				opver=`cd ${pkgsrc}/pkgtools/pkg_install && ${make} show-var VARNAME=LOWER_VARIANT_VERSION`
+			fi
+			;;
+		esac
+		;;
+	esac
 	platform=`cd ${pkgsrc}/pkgtools/pkg_install && ${make} show-var VARNAME=MACHINE_ARCH`
 	compiler=`cd ${pkgsrc}/pkgtools/pkg_install && ${make} show-var VARNAME=PKGSRC_COMPILER`
 
 	echo "COMPILER=${compiler}" >> ${loc}/status
 	echo "PLATFORM=${opsys} ${opver}/${platform}" >> ${loc}/status
+
+	if [ -s ${pkgsrc}/README.push ]; then
+		echo "DESCRIPTION=`head -1 ${pkgsrc}/README.push`" >> ${loc}/status
+	fi
 fi
 
 ${pkg_up_to_date_script} ${pkgname} ${dependencies} && exit 0
 
 # Ensure we start with a clean passwd/group.
-for file in group passwd shadow user_attr; do
-	if [ -f ${loc}/${file} ]; then
-		cp -p ${loc}/${file} /etc/${file}
-	else
-		cp -p /etc/${file} ${loc}/${file}
-	fi
-done
+if [ `uname` != "Darwin" ]; then
+	for file in group passwd shadow user_attr; do
+		if [ -f ${loc}/${file} ]; then
+			cp -p ${loc}/${file} /etc/${file}
+		elif [ -f /etc/${file} ]; then
+			cp -p /etc/${file} ${loc}/${file}
+		fi
+	done
+fi
 
 set -e
 
@@ -185,6 +229,11 @@ set -e
 rm -rf ${bulklog}/${pkgname}
 mkdir -p ${logpkgdir}
 rm -f ${logpkgdir}/*
+
+# Ensure we log any failures from this script itself, otherwise it is very
+# difficult to debug.
+exec >${logpkgdir}/pkg-build.log 2>&1
+set -x
 
 if [ "$use_destdir" = "destdir" -o "$use_destdir" = "user-destdir" ]; then
 	touch ${logpkgdir}/work.log
@@ -228,29 +277,27 @@ if [ ! -z "$dependencies" ]; then
 	${pkg_add_cmd} $dependencies > ${logpkgdir}/depends.log 2>&1 || cleanup
 fi
 # Build package, create a separate log file for each major phase
-run_make run_direct checksum > ${logpkgdir}/checksum.log 2>&1 || cleanup
+run_make ${run_checksum} checksum > ${logpkgdir}/checksum.log 2>&1 || cleanup
 run_usergroup configure > ${logpkgdir}/configure.log 2>&1 || cleanup
 run_make ${run_build} configure >> ${logpkgdir}/configure.log 2>&1 || cleanup
-run_usergroup build > ${logpkgdir}/build.log 2>&1 || cleanup
+run_usergroup build> ${logpkgdir}/build.log 2>&1 || cleanup
 run_make ${run_build} all >> ${logpkgdir}/build.log 2>&1 || cleanup
 run_usergroup install > ${logpkgdir}/install.log 2>&1 || cleanup
 run_make ${run_install} stage-install >> ${logpkgdir}/install.log 2>&1 || cleanup
-run_make run_direct package > ${logpkgdir}/package.log 2>&1 || cleanup
+run_make run_direct stage-package-create > ${logpkgdir}/package.log 2>&1 || cleanup
+
+pkgfile=$(run_make run_direct show-var VARNAME=STAGE_PKGFILE)
 
 # When using DESTDIR build, add the package once to test install rules.
 # This is not done for potential bootstrap packages as they might already
 # be installed.
 if [ "${use_destdir}" != "no" ] && \
    [ -z "${is_bootstrap}" ]; then
-	if ! ${pkg_add_cmd} ${pkgname} \
+	if ! ${pkg_add_cmd} ${pkgfile} \
 	    >> ${logpkgdir}/package.log 2>&1; then
-		run_make run_direct package-clean
 		cleanup
 	fi
 fi
-
-# Clean build area
-${make} clean > ${logpkgdir}/clean.log 2>&1 || cleanup
 
 # Test uninstall rules. This is not for cross-compiling as the install script
 # is not run in that case anyway. This is also not done for packages marked as
@@ -262,7 +309,12 @@ fi
 
 # Comment the following out if you want to test all deinstall scripts.
 # This is quite expensive and mostly redundant, so it is disabled by default.
-#${pkg_delete} -r \* > /dev/null 2>&1 || true
+#${pkg_delete} -r \* > /dev/null 2>&1 || cleanup
+
+${sync_package} ${pkgfile} ${pkgname} "${categories}" || cleanup
+
+# Clean build area
+${make} clean > ${logpkgdir}/clean.log 2>&1 || cleanup
 
 # Save build runtime
 logpkgtime
@@ -274,10 +326,10 @@ if [ -z "${restricted}" ]; then
 	mkdir -p ${packages}/checksums ${packages}/pkginfo
 	(
 		cd ${packages}
-		${digest} SHA512 All/${pkgname}.tgz \
-		    > ${packages}/checksums/${pkgname}.sha512
-		${pkg_info} -X All/${pkgname}.tgz \
-		    > ${packages}/pkginfo/${pkgname}.pkginfo 2>/dev/null
+		${digest} SHA512 All/${pkgname}${pkg_sufx} \
+		    > ${packages}/checksums/${pkgname}.sha512 || cleanup
+		${pkg_info} -X All/${pkgname}${pkg_sufx} \
+		    > ${packages}/pkginfo/${pkgname}.pkginfo || cleanup
 	)
 fi
 

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/12/11 15:01:54 imil Exp $
+# $NetBSD: Makefile,v 1.14 2015/07/12 18:56:29 wiz Exp $
 #
 
 PKGNAME=	shelldap-1.3.0
+PKGREVISION=	1
 DISTNAME=	ceb8bd75e05b
 CATEGORIES=	sysutils
 MASTER_SITES=	http://code.martini.nu/shelldap/archive/
@@ -14,7 +15,7 @@ LICENSE=	modified-bsd
 
 DEPENDS+=	p5-YAML-Syck>=1.15:../../textproc/p5-YAML-Syck
 DEPENDS+=	p5-Term-Shell>=0.02:../../devel/p5-Term-Shell
-DEPENDS+=	{perl>=5.13.6,p5-Digest-MD5>=2.51}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.13.6,p5-Digest-MD5>=2.51}:../../security/p5-Digest-MD5
 DEPENDS+=	p5-Algorithm-Diff>=1.1902:../../devel/p5-Algorithm-Diff
 DEPENDS+=	p5-perl-ldap>=0.40.01:../../databases/p5-perl-ldap
 DEPENDS+=	p5-Term-ReadLine>=1.20:../../devel/p5-Term-ReadLine

@@ -1,4 +1,4 @@
-$NetBSD: patch-src_zm__timer.h,v 1.1.18.1 2015/04/24 16:07:10 hiramatsu Exp $
+$NetBSD: patch-src_zm__timer.h,v 1.3 2015/04/10 02:58:49 dsainty Exp $
 
 Fix build with Clang.
 

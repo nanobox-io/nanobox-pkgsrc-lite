@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.17 2014/10/29 05:21:55 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.19 2016/02/06 12:10:32 jaapb Exp $
 #
 
 DISTNAME=		ocaml-mysql-1.1.2
-PKGNAME=	${DISTNAME} # to avoid prefixing with ocaml-
+PKGREVISION=	1
 CATEGORIES=		databases
 MASTER_SITES=		http://forge.ocamlcore.org/frs/download.php/1308/
 

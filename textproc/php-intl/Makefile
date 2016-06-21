@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.17 2015/03/20 16:33:28 taca Exp $
+# $NetBSD: Makefile,v 1.21 2016/01/08 03:31:21 taca Exp $
 
 MODNAME=		intl
 CATEGORIES+=		textproc

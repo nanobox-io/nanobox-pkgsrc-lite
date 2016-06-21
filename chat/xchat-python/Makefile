@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.26 2014/05/29 23:35:19 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2015/12/05 21:25:31 adam Exp $
 
 .include "../../chat/xchat/Makefile.common"
 
 PKGNAME=		${DISTNAME:S/-/-python-/}
-PKGREVISION=		8
-OWNER=			tron@NetBSD.org
+PKGREVISION=		9
+MAINTAINER=		pkgsrc-users@NetBSD.org
 
 COMMENT=		Python scripting plugin for XChat
 
@@ -28,7 +28,7 @@ SUBST_FILES.libutil=	configure
 SUBST_SED.libutil=	-e 's/ -lutil//g'
 .endif
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.8.8
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.8.8
 
 .include "../../lang/python/application.mk"
 .include "../../mk/pthread.buildlink3.mk"

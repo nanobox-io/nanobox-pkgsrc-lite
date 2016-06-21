@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2014/06/28 04:41:55 markd Exp $
+# $NetBSD: Makefile,v 1.9 2016/03/05 11:29:09 jperkin Exp $
 
 DISTNAME=	netatalk-3.0.8
 PKGNAME=        ${DISTNAME:C/-/30-/}
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=netatalk/}
 EXTRACT_SUFX=	.tar.bz2
@@ -48,6 +48,8 @@ CONFIGURE_ARGS+=	--localstatedir=${VARBASE}/db
 CONFIGURE_ARGS+=	--with-uams-path=${PREFIX}/libexec/netatalk/uams
 CONFIGURE_ARGS+=	--with-bdb=${BUILDLINK_PREFIX.db5}
 CONFIGURE_ARGS+=	--with-ssl-dir=${BUILDLINK_PREFIX.openssl}
+CONFIGURE_ARGS+=	--with-libevent-header=${BUILDLINK_PREFIX.libevent}/include
+CONFIGURE_ARGS+=	--with-libevent-lib=${BUILDLINK_PREFIX.libevent}/lib
 CONFIGURE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
 
 # Upstream bug, was supposed to be fixed in 3.0.8?
@@ -70,6 +72,8 @@ PLIST_VARS+=		ea
 PLIST.ea=		yes
 .endif
 
+CONFIGURE_ARGS.NetBSD+=	--without-dtrace
+
 .include "options.mk"
 
 INSTALLATION_DIRS=	libexec/psffilters etc/netatalk
@@ -82,6 +86,8 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/config/pam/netatalk ${DESTDIR}${EGDIR}/netatalk.pam
 .endif
 
+BUILDLINK_API_DEPENDS.libevent+=	libevent>=2
+.include "../../devel/libevent/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

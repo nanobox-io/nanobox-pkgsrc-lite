@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.3 2014/06/02 00:07:40 rodent Exp $
+# $NetBSD: Makefile,v 1.5 2016/02/16 13:41:15 leot Exp $
 
-DISTNAME=		pyparsing-2.0.2
-PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
-CATEGORIES=		devel python
+DISTNAME=	pyparsing-2.1.0
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyparsing/pyparsing/${DISTNAME}/}
-MASTER_SITES+=	https://pypi.python.org/packages/source/p/pyparsing/
+MASTER_SITES+=	${MASTER_SITE_PYPI}
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://sourceforge.net/projects/pyparsing
-COMMENT=		Pyparsing module for Python
-LICENSE=      	mit
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://pyparsing.wikispaces.com/
+COMMENT=	Pyparsing module for Python
+LICENSE=	mit
 
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2014/05/29 23:38:02 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2015/07/12 18:56:34 wiz Exp $
 
 DISTNAME=	Catalyst-Plugin-Authentication-0.10023
 PKGNAME=	p5-${DISTNAME}0
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Catalyst/}
 
@@ -20,7 +20,7 @@ BUILD_DEPENDS+= p5-Catalyst-Plugin-Session-State-Cookie-[0-9]*:../../www/p5-Cata
 BUILD_DEPENDS+= p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1
 BUILD_DEPENDS+= p5-Moose>=2:../../devel/p5-Moose
 BUILD_DEPENDS+= p5-Test-Exception-[0-9]*:../../devel/p5-Test-Exception
-BUILD_DEPENDS+= {perl>=5.10.1,p5-Test-Simple>=0.88}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+= {perl>=5.10.1,p5-Test-Simple>=0.88}:../../devel/p5-Test-Simple
 BUILD_DEPENDS+= p5-Test-WWW-Mechanize-Catalyst>=0.50:../../www/p5-Test-WWW-Mechanize-Catalyst
 
 #PERL5_MODULE_TYPE=	Module::Install::Bundled

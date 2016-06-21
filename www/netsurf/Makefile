@@ -1,44 +1,34 @@
-# $NetBSD: Makefile,v 1.40 2014/05/29 23:37:58 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.50 2016/03/05 11:29:38 jperkin Exp $
 
-DISTNAME=	netsurf-1.2-src
-PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	32
+DISTNAME=	netsurf-all-3.4
+PKGNAME=	${DISTNAME:S/-all//}
+PKGREVISION=	1
 CATEGORIES=	www
-MASTER_SITES=	http://www.netsurf-browser.org/downloads/releases/
+MASTER_SITES=	http://download.netsurf-browser.org/netsurf/releases/source-full/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.netsurf-browser.org/
 COMMENT=	Web browser for RISC OS and UNIX-like platforms
+LICENSE=	gnu-gpl-v2 AND mit
 
 BUILD_DEPENDS+=	lemon>=1.0:../../devel/lemon
 BUILD_DEPENDS+=	re2c>=0.12:../../devel/re2c
+BUILD_DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 
-# current codebase needs strndup
-NOT_FOR_PLATFORM=	NetBSD-[0-3]*-*
+BUILD_TARGET=	build
+USE_TOOLS+=	bison flex gmake perl:build pax pkg-config
 
-WRKSRC=		${WRKDIR}/netsurf
-
-USE_TOOLS+=	gmake perl:build pax pkg-config
+# Avoid possible problems with shells that defines HOST
+MAKE_ENV+=	BUILD="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
+MAKE_ENV+=	HOST="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
 
 INSTALLATION_DIRS+=	share/netsurf bin
 
-# needed for netsurf-1.2 and gtk2-2.20 -- remove on next update!
-BUILDLINK_TRANSFORM+=	rm:-DG_DISABLE_DEPRECATED
-BUILDLINK_TRANSFORM+=	rm:-DGDK_DISABLE_DEPRECATED
-BUILDLINK_TRANSFORM+=	rm:-DGDK_PIXBUF_DISABLE_DEPRECATED
-BUILDLINK_TRANSFORM+=	rm:-DGTK_DISABLE_DEPRECATED
-
-post-extract:
-	find ${WRKSRC}/!NetSurf -type f | xargs chmod a-x
-
-do-install:
-	cd ${WRKSRC} && pax -rw !NetSurf ${DESTDIR}${PREFIX}/share/netsurf/
-	cd ${WRKSRC} && pax -rw gtk/res ${DESTDIR}${PREFIX}/share/netsurf/
-	${INSTALL_PROGRAM} ${WRKSRC}/nsgtk ${DESTDIR}${PREFIX}/share/netsurf/nsgtk
-	${INSTALL_SCRIPT} ${WRKSRC}/netsurf ${DESTDIR}${PREFIX}/bin/netsurf
+BUILDLINK_TRANSFORM+=	rm:-Werror
+CFLAGS.NetBSD+=		-D_NETBSD_SOURCE	# needed for strcasestr(3) and strndup(3)
 
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../devel/gperf/buildlink3.mk"
 .include "../../devel/libglade/buildlink3.mk"
 .include "../../graphics/librsvg/buildlink3.mk"
 .include "../../graphics/lcms/buildlink3.mk"

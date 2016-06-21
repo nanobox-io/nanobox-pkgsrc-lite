@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.10 2014/11/14 08:03:30 markd Exp $
+# $NetBSD: Makefile,v 1.14 2016/03/05 11:28:22 jperkin Exp $
 
-DISTNAME=	kde-dev-utils-${_KDE_VERSION}
+DISTNAME=	kde-dev-utils-15.12.0
+PKGREVISION=	1
 CATEGORIES=	devel
 COMMENT=	Small utilities for developers using KDE/Qt libs/frameworks
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

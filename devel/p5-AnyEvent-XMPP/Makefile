@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.8 2014/07/29 03:44:21 wen Exp $
+# $NetBSD: Makefile,v 1.10 2015/07/12 18:56:09 wiz Exp $
 #
 
 DISTNAME=	AnyEvent-XMPP-0.55
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/M/MS/MSTPLBG/
 
@@ -17,7 +18,7 @@ DEPENDS+=	p5-Digest-SHA1>=0:../../security/p5-Digest-SHA1
 DEPENDS+=	p5-MIME-Base64>=0:../../converters/p5-MIME-Base64
 DEPENDS+=	p5-Net-LibIDN>=0:../../net/p5-Net-LibIDN
 DEPENDS+=	p5-Object-Event>=0.7:../../devel/p5-Object-Event
-DEPENDS+=	{perl>=5.14.0,p5-Time-Local>=0}:../../time/p5-Time-Local
+#DEPENDS+=	{perl>=5.14.0,p5-Time-Local>=0}:../../time/p5-Time-Local
 DEPENDS+=	p5-XML-Writer>=0:../../textproc/p5-XML-Writer
 
 PERL5_PACKLIST=	auto/AnyEvent/XMPP/.packlist

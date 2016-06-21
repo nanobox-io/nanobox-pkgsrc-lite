@@ -1,6 +1,8 @@
-# $NetBSD: fetch.mk,v 1.64 2014/10/07 07:27:18 tron Exp $
+# $NetBSD: fetch.mk,v 1.68 2016/01/06 07:38:25 dholland Exp $
 
+.if empty(INTERACTIVE_STAGE:Mfetch) && empty(FETCH_MESSAGE:U)
 _MASTER_SITE_BACKUP=	${MASTER_SITE_BACKUP:=${DIST_SUBDIR}${DIST_SUBDIR:D/}}
+.endif
 _MASTER_SITE_OVERRIDE=	${MASTER_SITE_OVERRIDE:=${DIST_SUBDIR}${DIST_SUBDIR:D/}}
 
 # Where to put distfiles that don't have any other master site
@@ -115,7 +117,10 @@ post-fetch:
 ${DISTDIR}/${_file_}:
 	@${DO_NADA}
 .  else
-${DISTDIR}/${_file_}: fetch-check-interactive do-fetch-file error-check
+.    if empty(IGNORE_INTERACTIVE_FETCH:Uno:M[yY][eE][sS])
+${DISTDIR}/${_file_}: fetch-check-interactive
+.    endif
+${DISTDIR}/${_file_}: do-fetch-file error-check
 .  endif
 .endfor
 
@@ -255,13 +260,16 @@ _FETCH_CMD=	${PKGSRC_SETENV} CHECKSUM=${_CHECKSUM_CMD:Q}	\
 
 _FETCH_ARGS+=	${PKG_VERBOSE:D-v}
 .if exists(${DISTINFO_FILE})
-_FETCH_ARGS+=	${FAILOVER_FETCH:D-c} -f ${DISTINFO_FILE:Q}
+_FETCH_ARGS+=	${FAILOVER_FETCH:D-c} -f ${DISTINFO_FILE:tA:Q}
 .endif
 .if !empty(PKG_RESUME_TRANSFERS:M[yY][eE][sS])
 _FETCH_ARGS+=	-r
 .endif
 .if defined(DIST_SUBDIR) && !empty(DIST_SUBDIR)
 _FETCH_ARGS+=	-d ${DIST_SUBDIR}
+.endif
+.if defined(POST_FETCH_HOOK) && !empty(POST_FETCH_HOOK)
+_FETCH_ARGS+=	-p ${POST_FETCH_HOOK:Q}
 .endif
 
 .PHONY: do-fetch-file

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.61 2015/03/12 12:43:22 tnn Exp $
+# $NetBSD: Makefile,v 1.85 2016/04/01 10:50:27 jperkin Exp $
 
-VERSION_DATE=	2015.02.26.2
+VERSION_DATE=	2016.03.06
 DISTNAME=	youtube-dl-${VERSION_DATE}
-PKGNAME=	youtube-dl-${VERSION_DATE:S/.//S/.//}
+PKGNAME=	youtube-dl-${VERSION_DATE:S/.//g}
 CATEGORIES=	net
 MASTER_SITES=	http://youtube-dl.org/downloads/${VERSION_DATE}/
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	leot@NetBSD.org
 HOMEPAGE=	http://rg3.github.io/youtube-dl/
 COMMENT=	Download videos from youtube.com
 LICENSE=	public-domain
@@ -18,22 +18,13 @@ LICENSE=	public-domain
 # the version you are going to commit.
 
 USE_LANGUAGES=	# none
-NO_BUILD=	yes
+EGG_NAME=	youtube_dl-${VERSION_DATE:S/.0/./g}
 WRKSRC=		${WRKDIR}/youtube-dl
-USE_TOOLS+=	gmake
 
-MAKE_FLAGS+=	PREFIX=${PREFIX:Q} MANDIR=${PREFIX:Q}/${PKGMANDIR:Q} \
-		BASHCOMPDIR=${PREFIX:Q}/share/bash-completion/completions
-INSTALLATION_DIRS=	share/youtube-dl
-CHECK_INTERPRETER_SKIP=	share/youtube-dl/youtube-dl
+SUBST_CLASSES+=		pkgmandir
+SUBST_STAGE.pkgmandir=	pre-configure
+SUBST_FILES.pkgmandir=	setup.py
+SUBST_VARS.pkgmandir=	PKGMANDIR
 
-post-patch:
-	${ECHO} '#!/bin/sh' > ${WRKSRC}/youtube-dl.sh
-	${ECHO} 'exec ${PYTHONBIN} ${PREFIX}/share/youtube-dl/youtube-dl "$$@"' >> ${WRKSRC}/youtube-dl.sh
-
-post-install:
-	mv ${DESTDIR}${PREFIX}/bin/youtube-dl ${DESTDIR}${PREFIX}/share/youtube-dl
-	${INSTALL_SCRIPT} ${WRKSRC}/youtube-dl.sh ${DESTDIR}${PREFIX}/bin/youtube-dl
-
-.include "../../lang/python/application.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

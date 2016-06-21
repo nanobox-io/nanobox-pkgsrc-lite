@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.1 2014/05/22 12:50:47 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2016/03/05 11:28:19 jperkin Exp $
 
 COMMENT=		Ruby extension for SQL Relay
+PKGREVISION=		1
 
 .include "../../databases/sqlrelay/Makefile.common"
 
 CONFIGURE_ARGS+=	ac_cv_prog_RUBY=${RUBY}
 CONFIGURE_ARGS+=	--with-ruby-site-arch-dir=${PREFIX}/${RUBY_VENDORARCHLIB}
-CONFIGURE_ARGS+=	--with-ruby-site-lib-dir=${PREFIX}/${RUBY_VENDORLIB}
 
 BUILD_DIRS=		src/api/ruby
 

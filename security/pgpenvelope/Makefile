@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2014/05/29 23:37:25 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2015/07/12 18:56:29 wiz Exp $
 #
 
 DISTNAME=		pgpenvelope-2.10.2
-PKGREVISION=		11
+PKGREVISION=		12
 CATEGORIES=		security mail
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=pgpenvelope/}
 
@@ -15,7 +15,7 @@ DEPENDS+=		p5-Class-MakeMethods>=1.010:../../devel/p5-Class-MakeMethods
 DEPENDS+=		p5-GnuPG-Interface>=0.34nb2:../../security/p5-GnuPG-Interface
 DEPENDS+=		p5-String-Approx>=3.13:../../textproc/p5-String-Approx
 DEPENDS+=		p5-Term-ReadKey>=2.14:../../devel/p5-Term-ReadKey
-DEPENDS+=		{perl>=5.8.1,p5-Term-ReadLine>=1.01}:../../devel/p5-Term-ReadLine
+#DEPENDS+=		{perl>=5.8.1,p5-Term-ReadLine>=1.01}:../../devel/p5-Term-ReadLine
 
 PERL5_PACKLIST=		auto/pgpenvelope/.packlist
 

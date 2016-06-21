@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.3 2012/10/21 22:47:28 wiz Exp $
+$NetBSD: distinfo,v 1.6 2015/11/15 05:07:55 wen Exp $
 
-SHA1 (Package-DeprecationManager-0.13.tar.gz) = 6fe1dc4e09e738c560ba0526e08ce382d3facdc7
-RMD160 (Package-DeprecationManager-0.13.tar.gz) = 51a5e3ce08cea1a9d3bd19105d9edb8e2da8fc86
-Size (Package-DeprecationManager-0.13.tar.gz) = 10961 bytes
+SHA1 (Package-DeprecationManager-0.15.tar.gz) = da0677961c625592d1c718c985bacdb95584ada4
+RMD160 (Package-DeprecationManager-0.15.tar.gz) = 715eb12e13a477f9042c1c2f06cac3fcc4db15e2
+SHA512 (Package-DeprecationManager-0.15.tar.gz) = 644aae95e7124f91dab9ab71e20679a310df869dc970ee3b180d8274657226d9ad91c79d56222f6b30ad026e92f4d86609b8933ce3fc1298247da15f4a5c542b
+Size (Package-DeprecationManager-0.15.tar.gz) = 23626 bytes

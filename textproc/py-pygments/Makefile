@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2015/03/15 20:13:24 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.22 2016/01/17 16:03:13 wiz Exp $
 
-DISTNAME=	Pygments-2.0.1
-PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
+DISTNAME=	Pygments-2.0.2
 PKGREVISION=	1
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	textproc python
 MASTER_SITES=	http://pypi.python.org/packages/source/P/Pygments/
 
@@ -11,16 +11,14 @@ HOMEPAGE=	http://pygments.org/
 COMMENT=	Python syntax highlighter
 LICENSE=	2-clause-bsd
 
-USE_LANGUAGES=		#none
+# test dependencies
+BUILD_DEPENDS+=	${PYPKGPREFIX}-nose-[0-9]*:../../devel/py-nose
+# can't depend on sphinx since sphinx depends on pygments
+#BUILD_DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
+
+USE_LANGUAGES=		# none
 PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 FILES_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
-
-.include "../../mk/bsd.prefs.mk"
-
-.if !empty(PKGSRC_RUN_TEST:M[yY][eE][sS])
-BUILD_DEPENDS+=	${PYPKGPREFIX}-nose-[0-9]*:../../devel/py-nose
-TEST_TARGET=	test
-.endif
 
 post-install:
 	@if [ -f ${DESTDIR}${PREFIX}/bin/pygmentize ]; then \

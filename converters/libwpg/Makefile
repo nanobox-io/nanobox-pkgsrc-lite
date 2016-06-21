@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2014/07/22 10:58:04 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2016/03/08 19:00:14 ryoon Exp $
 
-DISTNAME=	libwpg-0.3.0
+DISTNAME=	libwpg-0.3.1
 CATEGORIES=	converters graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libwpg/}
 EXTRACT_SUFX=	.tar.bz2
@@ -19,13 +19,16 @@ PKGCONFIG_OVERRIDE+=	libwpg.pc.in
 
 REPLACE_PERL=		src/conv/svg/wpg2svgbatch.pl
 
+.include "../../converters/libwpd/buildlink3.mk"
+.include "../../converters/librevenge/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+
+# Include all buildlink3.mk before compiler.mk, as the buildlink dependencies
+# may alter the compiler selection.
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 BUILDLINK_TRANSFORM+=	rm:-Werror
 .endif
 
-.include "../../converters/libwpd/buildlink3.mk"
-.include "../../converters/librevenge/buildlink3.mk"
-.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

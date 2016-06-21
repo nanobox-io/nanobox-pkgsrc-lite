@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.34 2014/05/09 07:37:14 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2016/03/05 11:29:09 jperkin Exp $
 
-VERSION=	0.9.9
-DISTNAME=	nagstamon_${VERSION}
-PKGNAME=	${DISTNAME:S/_/-/}
-PKGREVISION=	14
+VERSION=	1.0.1
+DISTNAME=	Nagstamon-${VERSION}
+PKGNAME=	${DISTNAME:S/N/n/}
+PKGREVISION=	1
+#PKGREVISION=	14
 CATEGORIES=	net python
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=nagstamon/}
+MASTER_SITES=	https://nagstamon.ifw-dresden.de/files-nagstamon/stable/
 
 MAINTAINER=	imil@gcu.info
 HOMEPAGE=	http://nagstamon.ifw-dresden.de/
@@ -25,7 +26,7 @@ INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 REPLACE_PYTHON=		${WRKSRC}/*.py
 REPLACE_PYTHON+=	${WRKSRC}/Nagstamon/Server/Multisite.py
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-libxslt, py-ORBit via py-gnome2, py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-libxslt, py-ORBit via py-gnome2, py-gtk2
 
 SUBST_CLASSES+=		mandir
 SUBST_STAGE.mandir=	pre-configure

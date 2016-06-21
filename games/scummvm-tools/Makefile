@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.30 2015/03/02 19:59:06 joerg Exp $
+# $NetBSD: Makefile,v 1.33 2016/03/25 21:13:31 joerg Exp $
 #
 
 DISTNAME=		scummvm-tools-1.4.0
-PKGREVISION=		18
+PKGREVISION=		20
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scummvm/}
 EXTRACT_SUFX=		.tar.bz2
@@ -18,8 +18,6 @@ HAS_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 
 INSTALLATION_DIRS=	bin
-
-MAKE_ENV+=	CLANG_NO_OPT=${CLANG_NO_VALUE_PROPAGATION_PASS:Q}
 
 .include "../../audio/flac/buildlink3.mk"
 .include "../../audio/libmad/buildlink3.mk"

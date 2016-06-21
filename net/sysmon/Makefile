@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2015/03/15 18:23:46 tnn Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/05 11:29:12 jperkin Exp $
 #
 
 DISTNAME=		sysmon-0.92.2
-PKGREVISION=		2
+PKGREVISION=		4
 CATEGORIES=		net
 MASTER_SITES=		ftp://puck.nether.net/pub/jared/
 

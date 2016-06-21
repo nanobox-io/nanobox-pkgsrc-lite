@@ -63,7 +63,7 @@ while read file f_mode f_user f_group; do
 		filemsg="$file (o=$f_user, g=$f_group, m=$f_mode)"
 		;;
 	esac
-	${ECHO} "${PKGNAME}: setting permissions on $filemsg"
+	${ECHO} "${PKGNAME}: setting permissions on $filemsg" > /dev/null
 	case $f_user in
 	"")	;;
 	*)	${CHOWN} $f_user $file ;;

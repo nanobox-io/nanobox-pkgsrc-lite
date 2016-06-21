@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2014/10/09 14:06:12 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/07/30 12:16:36 wen Exp $
 
-DISTNAME=	Class-Accessor-Lite-0.06
+DISTNAME=	Class-Accessor-Lite-0.08
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Class/}
 

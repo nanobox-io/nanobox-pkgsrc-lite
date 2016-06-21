@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2015/03/12 00:27:07 mef Exp $
+# $NetBSD: Makefile,v 1.8 2016/02/20 11:40:30 jperkin Exp $
 
-DISTNAME=	capstone-3.0.2
+DISTNAME=	capstone-3.0.4
+PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	http://www.capstone-engine.org/download/${PKGVERSION}/
-EXTRACT_SUFX=	.tgz
+MASTER_SITES=	${MASTER_SITE_GITHUB:=aquynh/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.capstone-engine.org/
@@ -15,5 +15,7 @@ PKGCONFIG_OVERRIDE_STAGE=	post-build
 USE_TOOLS+=	gmake
 # succeeds after 'make install'
 TEST_TARGET=	check
+
+ALL_ENV+=	USE_GENERIC_LIBDATADIR=yes
 
 .include "../../mk/bsd.pkg.mk"

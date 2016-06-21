@@ -2,9 +2,9 @@ $NetBSD$
 
 Support multiarch site-packages.
 
---- Lib/site.py.orig	Thu Sep 27 11:40:46 2012
-+++ Lib/site.py	Thu Sep 27 11:44:21 2012
-@@ -300,9 +300,13 @@
+--- Lib/site.py.orig	2015-12-05 19:47:02.000000000 +0000
++++ Lib/site.py
+@@ -288,9 +288,13 @@ def getsitepackages():
          if sys.platform in ('os2emx', 'riscos'):
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
          elif os.sep == '/':

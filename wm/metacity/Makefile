@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.113 2014/05/27 11:45:22 prlw1 Exp $
+# $NetBSD: Makefile,v 1.115 2016/02/26 10:38:36 jperkin Exp $
 
 DISTNAME=	metacity-2.34.13
+PKGREVISION=	1
 CATEGORIES=	wm x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/metacity/2.34/}
 EXTRACT_SUFX=	.tar.xz
@@ -29,10 +30,8 @@ CONFIGURE_ARGS+=	--disable-xinerama
 CONFIGURE_ARGS+=	--disable-compositor
 .endif
 
-CFLAGS.SunOS+=		-std=c99 -D__EXTENSIONS__
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-ansi
-.endif
+CFLAGS.SunOS+=			-std=c99 -D__EXTENSIONS__
+BUILDLINK_TRANSFORM.SunOS+=	rm:-ansi
 
 BUILD_DEPENDS+=		itstool-[0-9]*:../../textproc/itstool
 

@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.1 2015/02/27 12:11:20 gdt Exp $
+# $NetBSD: Makefile,v 1.6 2016/03/05 11:28:25 jperkin Exp $
 
-DISTNAME=	radare2-0.9.8
+.include "Makefile.common"
+
+DISTNAME=	radare2-${RADARE2_VERSION}
+PKGREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	http://www.radare.org/get/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.radare.org/
 COMMENT=	Reverse engineering framework
 LICENSE=	gnu-gpl-v3
 
@@ -16,7 +17,7 @@ CONFIGURE_ARGS+=	--with-sysmagic
 CONFIGURE_ARGS+=	--with-syscapstone
 CONFIGURE_ARGS+=	--with-syszip
 PKGCONFIG_OVERRIDE+=	pkgcfg/*.pc*
-USE_TOOLS+=	gmake
+USE_TOOLS+=	gmake pkg-config
 
 .include "options.mk"
 

@@ -1,17 +1,18 @@
-# $NetBSD: Makefile,v 1.67 2015/03/15 21:06:29 wiz Exp $
+# $NetBSD: Makefile,v 1.91 2016/03/03 13:01:11 wiz Exp $
 
-EGG_VERSION=		14.2
-DISTNAME=		setuptools-${EGG_VERSION}
-PKGNAME=		${PYPKGPREFIX}-setuptools-${EGG_VERSION}
+DISTNAME=		setuptools-20.2.2
+PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=		devel python
-MASTER_SITES=		https://pypi.python.org/packages/source/s/setuptools/
+MASTER_SITES=		${MASTER_SITE_PYPI:=s/setuptools/}
 
 MAINTAINER=		joerg@NetBSD.org
 HOMEPAGE=		https://pypi.python.org/pypi/setuptools
 COMMENT=		New Python packaging system
-LICENSE=		python-software-foundation OR zpl
+LICENSE=		python-software-foundation OR zpl-2.0
 
 DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
+# not sure if this would introduce a dependency cycle
+#BUILD_DEPENDS+=		${PYPKGPREFIX}-test-runner-[0-9]*:../../devel/py-test-runner
 
 PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 PLIST_SUBST+=		EGG_INFODIR=${EGG_NAME}-py${PYVERSSUFFIX}.egg-info

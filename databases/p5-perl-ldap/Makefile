@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.50 2015/02/13 13:24:53 mef Exp $
+# $NetBSD: Makefile,v 1.53 2016/03/03 19:42:29 shattered Exp $
 
 DISTNAME=	perl-ldap-0.63
-PKGREVISION=	1
+PKGREVISION=	2
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	databases net devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=LWP/}
@@ -16,7 +16,7 @@ BUILD_DEFS+=	IPV6_READY
 DEPENDS+=	p5-Convert-ASN1>=0.07:../../textproc/p5-Convert-ASN1
 DEPENDS+=	p5-IO-Socket-SSL>=0.81:../../security/p5-IO-Socket-SSL
 DEPENDS+=	p5-Text-Soundex-[0-9]*:../../textproc/p5-Text-Soundex
-DEPENDS+=	{perl>=5.8.0,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
+#DEPENDS+=	{perl>=5.8.0,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
 DEPENDS+=	p5-URI>=1.10:../../www/p5-URI
 DEPENDS+=	p5-XML-SAX-Writer-[0-9]*:../../textproc/p5-XML-SAX-Writer
 
@@ -30,7 +30,7 @@ PKG_SUGGESTED_OPTIONS=	inet6
 
 .if !empty(PKG_OPTIONS:Msasl)
 DEPENDS+=	p5-Authen-SASL>=2.00:../../security/p5-Authen-SASL
-DEPENDS+=	{perl>=5.8.0,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.8.0,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
 .endif
 
 .if !empty(PKG_OPTIONS:Minet6)
@@ -40,7 +40,7 @@ DEPENDS+=	p5-IO-Socket-INET6-[0-9]*:../../net/p5-IO-Socket-INET6
 PERL5_PACKLIST=		auto/Net/LDAP/.packlist
 
 post-extract:
-	chmod -x ${WRKSRC}/lib/Net/LDAP/DSML.pm
+	chmod a-x ${WRKSRC}/lib/Net/LDAP/DSML.pm
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

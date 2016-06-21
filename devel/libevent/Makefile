@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.47 2015/03/14 17:43:57 tnn Exp $
+# $NetBSD: Makefile,v 1.50 2016/03/05 11:27:45 jperkin Exp $
 
+PKGREVISION= 1
 .include "../../devel/libevent/Makefile.common"
 
 PKGNAME=	libevent-${LIBEVENT_VERSION}
@@ -28,9 +29,8 @@ CPPFLAGS.SunOS+=	-D__EXTENSIONS__
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=		ac_cv_func_epoll_ctl=no
-.endif
+# Explicitly disable epoll on illumos, provided for Linux compat only.
+CONFIGURE_ENV.SunOS+=	ac_cv_func_epoll_ctl=no
 
 .if !empty(MACHINE_PLATFORM:MHPUX-11.11-*)
 CONFIGURE_ENV+=		ac_cv_func_strtoll=yes

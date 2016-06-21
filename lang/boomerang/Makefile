@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.7 2015/01/20 14:24:36 jaapb Exp $
+# $NetBSD: Makefile,v 1.10 2015/08/07 11:20:34 jaapb Exp $
 #
 
 DISTNAME=	boomerang-0.2-source
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	lang
 MASTER_SITES=	http://www.seas.upenn.edu/~harmony/download/
 
@@ -20,7 +20,8 @@ BUILD_DEPENDS+=	tex-pgf-[0-9]*:../../print/tex-pgf
 BUILD_DEPENDS+=	tex-ms-[0-9]*:../../print/tex-ms
 BUILD_DEPENDS+=	tex-amscls-[0-9]*:../../print/tex-amscls
 BUILD_DEPENDS+=	tex-preprint-[0-9]*:../../print/tex-preprint
-BUILD_DEPENDS+=	teTeX-texmf-[0-9]*:../../print/teTeX3-texmf
+BUILD_DEPENDS+=	tex-natbib-[0-9]*:../../print/tex-natbib
+BUILD_DEPENDS+=	tex-psnfss-[0-9]*:../../fonts/tex-psnfss
 BUILD_DEPENDS+=	ocaml-findlib-[0-9]*:../../devel/ocaml-findlib
 
 WRKSRC=			${WRKDIR}/boomerang-20090902

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.89 2015/02/11 12:35:42 wiz Exp $
+# $NetBSD: Makefile,v 1.93 2015/11/13 22:13:43 wiz Exp $
 
 DISTNAME=	unzip60
 PKGNAME=	unzip-6.0
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	archivers
 MASTER_SITES=	ftp://ftp.info-zip.org/pub/infozip/src/
 EXTRACT_SUFX=	.tgz
@@ -32,7 +32,9 @@ CPPFLAGS+=	-DBSD
      ${OPSYS} == "OpenBSD"  || \
      ${OPSYS} == "Cygwin"  || \
     (${OPSYS} == "Darwin" && !empty(OS_VERSION:M[01234678].*))) || \
-     ${OS_VARIANT} == "SCOOSR5"
+     ${OS_VARIANT} == "SCOOSR5" || \
+     ${OPSYS} == "Linux"  || \
+     ${OPSYS} == "Bitrig"
 CPPFLAGS+=	-DNO_LCHMOD
 .endif
 CPPFLAGS+=	-DUNIX -Dunix -DUSE_UNSHRINK -I.

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2015/03/15 18:22:11 tnn Exp $
+# $NetBSD: Makefile,v 1.20 2016/03/03 13:26:00 jperkin Exp $
 
 VERSION=	4.0.4.28
 DISTNAME=	tacacs-F${VERSION}
 PKGNAME=	tacacs-${VERSION}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	net security
 MASTER_SITES+=	ftp://ftp.shrubbery.net/pub/tac_plus/
 
@@ -19,13 +19,10 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	perl:run flex bison
 
 CONFIGURE_ARGS+=	ac_cv_path_PERLV_PATH=${TOOLS_PATH.perl}
-#CONFIGURE_ARGS+=--enable-debug
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-MAKE_FLAGS+=	OS=-DSOLARIS OSLIBS="-lsocket -lnsl"
-.endif
+MAKE_FLAGS.SunOS+=	OS=-DSOLARIS OSLIBS="-lsocket -lnsl"
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man8 sbin
 
+.include "../../security/tcp_wrappers/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

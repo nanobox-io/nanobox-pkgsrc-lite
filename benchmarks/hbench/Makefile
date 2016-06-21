@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.53 2014/10/09 14:05:59 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2016/02/25 11:09:50 jperkin Exp $
 
 DISTNAME=		hbench-OS-1.1
 PKGNAME=		hbench-1.1
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		benchmarks
 MASTER_SITES=		http://www.eecs.harvard.edu/vino/perf/hbench/
 
@@ -28,9 +28,8 @@ GET_OS_CMD=		${PKGSRCDIR:Q}/mk/gnu-config/config.guess | ${SED} -e 's/^[^-]*-[^-
 PLIST_SUBST+=		PLATFORM=${GET_OS_CMD:sh:Q}-${GET_ARCH_CMD:sh:Q}
 
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-static
-.endif
+
+BUILDLINK_TRANSFORM.SunOS+=	rm:-static
 
 HB_HOSTNAME!=		${UNAME} -n
 HB_SHORTNAME=		${HB_HOSTNAME:C/\..*//}

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2013/07/06 22:31:53 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2016/02/25 12:12:47 jperkin Exp $
 
 DISTNAME=	allegro-4.4.2
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=alleg/}
 
@@ -17,15 +17,11 @@ USE_LANGUAGES=	c c++
 INFO_FILES=	yes
 CMAKE_ARGS+=	-DINFODIR=${PKGINFODIR:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		ossmidi
+SUBST_CLASSES.NetBSD+=	ossmidi
 SUBST_STAGE.ossmidi=	pre-configure
 SUBST_MESSAGE.ossmidi=	NetBSD's OSS midi emulation is non-existent.
 SUBST_FILES.ossmidi=	CMakeLists.txt
 SUBST_SED.ossmidi=	-e 's/ALLEGRO_WITH_OSSMIDI 1/ALLEGRO_WITH_OSSMIDI 0/'
-.endif
 
 PKGCONFIG_OVERRIDE+=	misc/logg.pc.in
 PKGCONFIG_OVERRIDE+=	misc/loadpng.pc.in

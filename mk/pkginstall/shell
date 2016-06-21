@@ -82,7 +82,7 @@ ADD)
 		   ${GREP} "^$shell" $shelldb >/dev/null; then
 			:
 		else
-			${ECHO} "${PKGNAME}: adding $shell to $shelldb"
+			${ECHO} "${PKGNAME}: adding $shell to $shelldb" > /dev/null
                 	${TOUCH} $shelldb
                 	${CP} $shelldb $shelldb.pkgsrc."$$"
 			{ ${CAT} $shelldb.pkgsrc."$$"; ${ECHO} "$shell"; } > $shelldb
@@ -110,7 +110,7 @@ REMOVE)
 		shelldb="/etc/shells"
 		if ${TEST} -f "$shelldb" && \
 		   ${GREP} "^$shell" $shelldb >/dev/null; then
-			${ECHO} "${PKGNAME}: removing $shell from $shelldb"
+			${ECHO} "${PKGNAME}: removing $shell from $shelldb" > /dev/null
                 	${TOUCH} $shelldb
                 	${CP} $shelldb $shelldb.pkgsrc."$$"
 			{ ${GREP} -v "^$shell" $shelldb.pkgsrc."$$" || ${TRUE}; } > $shelldb
@@ -140,17 +140,17 @@ CHECK-ADD)
 			case "$printed_header" in
 			yes)	;;
 			*)	printed_header=yes
-				${ECHO} "==========================================================================="
-				${ECHO} "The following lines can be added to $shelldb:"
-				${ECHO} ""
+				${ECHO} "===========================================================================" > /dev/null
+				${ECHO} "The following lines can be added to $shelldb:" > /dev/null
+				${ECHO} "" > /dev/null
 				;;
 			esac
-			${ECHO} "	$shell"
+			${ECHO} "	$shell" > /dev/null
 		fi
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -176,17 +176,17 @@ CHECK-REMOVE)
 			case "$printed_header" in
 			yes)	;;
 			*)	printed_header=yes
-				${ECHO} "==========================================================================="
-				${ECHO} "The following lines can be removed from $shelldb:"
-				${ECHO} ""
+				${ECHO} "===========================================================================" > /dev/null
+				${ECHO} "The following lines can be removed from $shelldb:" > /dev/null
+				${ECHO} "" > /dev/null
 				;;
 			esac
-			${ECHO} "	$shell"
+			${ECHO} "	$shell" > /dev/null
 		fi
 	done
 	case "$printed_header" in
-	yes)	${ECHO} ""
-		${ECHO} "==========================================================================="
+	yes)	${ECHO} "" > /dev/null
+		${ECHO} "===========================================================================" > /dev/null
 		exit 1
 		;;
 	esac; }
@@ -194,8 +194,8 @@ CHECK-REMOVE)
 	;;
 
 *)
-	${ECHO} "Usage: ./+SHELL ADD|REMOVE [metadatadir]"
-	${ECHO} "       ./+SHELL CHECK-ADD|CHECK-REMOVE [metadatadir]"
+	${ECHO} "Usage: ./+SHELL ADD|REMOVE [metadatadir]" > /dev/null
+	${ECHO} "       ./+SHELL CHECK-ADD|CHECK-REMOVE [metadatadir]" > /dev/null
 	;;
 esac
 exit $exitcode

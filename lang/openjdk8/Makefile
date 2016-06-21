@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2015/03/05 16:35:49 tnn Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/28 10:43:25 ryoon Exp $
 
-DISTNAME=	openjdk-1.8.31-20150207
-PKGNAME=	openjdk8-1.8.31
-PKGREVISION=	4
+DISTNAME=	openjdk-1.8.77-20160328
+PKGNAME=	openjdk8-1.8.77
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
 EXTRACT_SUFX=	.tar.xz
@@ -20,7 +19,7 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk8
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap keytool orbd \
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
 		policytool rmid rmiregistry servertool tnameserv
 
 BUILD_DEPENDS+=		mozilla-rootcerts>=1.0.20140820nb2:../../security/mozilla-rootcerts
@@ -30,18 +29,25 @@ CONFIGURE_SCRIPT=	common/autoconf/configure
 CONFIG_SHELL=		bash
 CONFIG_SUB_OVERRIDE+=	common/autoconf/build-aux/config.sub
 CONFIG_GUESS_OVERRIDE+=	common/autoconf/build-aux/config.guess
+CONFIG_SUB_OVERRIDE+=	common/autoconf/build-aux/autoconf-config.sub
 CONFIG_GUESS_OVERRIDE+=	common/autoconf/build-aux/autoconf-config.guess
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		bash gmake pax pkg-config unzip:run zip:run
 UNLIMIT_RESOURCES=	datasize stacksize
 WRKSRC=			${WRKDIR}/openjdk
 PLIST_SRC+=		${PLIST_SRC_DFLT}
+CHECK_SHLIBS_SKIP=	java/openjdk8/jre/lib/${LIBDIR_ARCH}/libinstrument.so
 
 BUILDLINK_PASSTHRU_DIRS+=	${ALT_BOOTDIR}
 PREPEND_PATH+=			${ALT_BOOTDIR}/bin
 
+CONFIGURE_ARGS+=	--disable-option-checking # for --with-libiconv-prefix
+CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
+CONFIGURE_ARGS+=	--build=${MACHINE_GNU_PLATFORM:Q}
+CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM:Q}
 CONFIGURE_ARGS+=	--with-boot-jdk=${ALT_BOOTDIR}
 CONFIGURE_ARGS+=	--with-zlib=system
+MAKEFLAGS+=		LIBZ="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.zlib}/lib -L${BUILDLINK_PREFIX.zlib}/lib -lz"
 CONFIGURE_ARGS+=	--with-giflib=bundled
 CONFIGURE_ARGS+=	--with-cups=${BUILDLINK_PREFIX.cups}
 CONFIGURE_ARGS+=	--with-freetype-lib=${BUILDLINK_PREFIX.freetype2}/lib
@@ -50,9 +56,10 @@ CONFIGURE_ARGS+=	--disable-freetype-bundling
 CONFIGURE_ARGS+=	--with-jobs=${MAKE_JOBS:U1}
 CONFIGURE_ARGS+=	--with-num-cores=${MAKE_JOBS:U1}
 CONFIGURE_ARGS+=	--with-memory-size=768
+CONFIGURE_ARGS+=	--disable-precompiled-headers
 CONFIGURE_ARGS+=	--disable-ccache
 CONFIGURE_ARGS+=	--with-user-release-suffix=pkgsrc_${PKGVERSION}
-CONFIGURE_ARGS+=	--with-update-version=u${PKGVERSION_NOREV:S/1.8.//}
+CONFIGURE_ARGS+=	--with-update-version=${PKGVERSION_NOREV:S/1.8.//}
 
 CHECK_PORTABILITY_SKIP+=	hotspot/test/runtime/*/*.sh
 
@@ -70,7 +77,7 @@ MAKE_ENV+=	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 BUILDLINK_PASSTHRU_RPATHDIRS+=	${PREFIX}/java/openjdk8/jre/lib/${LIBDIR_ARCH}
 
 PLIST_SUBST+=	ARCH=${LIBDIR_ARCH}
-PLIST_SUBST+=	LOWER_OPSYS=${LOWER_OPSYS}
+PLIST_SUBST+=	LOWER_OPSYS=${LOWER_OPSYS:S/sunos/solaris/}
 
 .include "../../mk/compiler.mk"
 
@@ -81,6 +88,11 @@ SUBST_VARS.libpath=	PREFIX
 
 CFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 CXXFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
+
+.if ${OPSYS} == "SunOS" && !empty(PKGSRC_COMPILER:Mgcc)
+MAKE_ENV+=	USE_GCC=1
+MAKE_ENV+=	ARCH_DATA_MODEL=${ABI:Q}
+.endif
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-return-type
@@ -124,8 +136,13 @@ SUBST_FILES.fontpaths+=		jdk/src/solaris/native/sun/awt/fontpath.c
 SUBST_SED.fontpaths=		-e 's|@PREFIX@|${PREFIX}|g'
 SUBST_SED.fontpaths+=		-e 's|@BUILDLINK_PREFIX.fontconfig@|${BUILDLINK_PREFIX.fontconfig}|g'
 
+PLIST_VARS+=	i386
+.if ${MACHINE_ARCH} == "i386"
+PLIST.i386=	yes
+.endif
+
 PLIST_VARS+=	sctp
-.if ${OPSYS} == "FreeBSD"
+.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "SunOS"
 PLIST.sctp=	yes
 .endif
 
@@ -191,11 +208,18 @@ do-install:
 	${INSTALL_DATA} ${WRKDIR}/cacerts.out				\
 	  ${DESTDIR}${JAVA_HOME}/jre/lib/security/cacerts
 	rm -f ${DESTDIR}${JAVA_HOME}/include/jni_md.h
-	ln -s ${LOWER_OPSYS}/jni_md.h					\
+	ln -s ${LOWER_OPSYS:S/sunos/solaris/}/jni_md.h					\
 	  ${DESTDIR}${JAVA_HOME}/include/jni_md.h
 
 .if ${OPSYS} == "NetBSD"
 TOOLS_PLATFORM.unzip=
+.endif
+
+# Include binutils for objcopy and GNU strip on SmartOS
+.if ${OS_VARIANT} == "SmartOS"
+.include "../../devel/binutils/buildlink3.mk"
+BUILDLINK_DEPMETHOD.binutils?=	build
+MAKE_ENV+=	STRIP=${PREFIX}/bin/gstrip
 .endif
 
 # disabled the ALSA support for now on BSDs via patch

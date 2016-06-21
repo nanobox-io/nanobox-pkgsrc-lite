@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.188 2015/03/17 14:08:01 tnn Exp $
+# $NetBSD: Makefile,v 1.192 2016/03/05 11:27:59 jperkin Exp $
 
 DISTNAME=	kdebase-${_KDE_VERSION}
-PKGREVISION=	37
+PKGREVISION=	39
 CATEGORIES=	x11
 COMMENT=	Base modules for the KDE 3 integrated X11 desktop
 
@@ -34,7 +34,7 @@ CONFIGURE_ARGS+=	--with-ldap="${BUILDLINK_PREFIX.openldap-client}"
 CONFIGURE_ARGS+=	--with-ssl-dir="${BUILDLINK_PREFIX.openssl}"
 CONFIGURE_ARGS+=	--without-java
 CONFIGURE_ENV+=		kde_cv_defines_imake_version=8 \
-			kde_cv_defines_imake="XBINDIR=${X11PREFIX:Q}/bin XLIBDIR=${X11PREFIX:Q}/lib" \
+			kde_cv_defines_imake="XBINDIR=${X11BASE:Q}/bin XLIBDIR=${X11BASE:Q}/lib" \
 			XMKMF=${TRUE}
 
 REPLACE_PERL+=		kcontrol/keys/convertShortcuts.pl \
@@ -194,12 +194,10 @@ post-install:
 CONFIGURE_ENV+= ac_cv_func_getutxent='no'
 .endif
 
-.if ${OPSYS} == "NetBSD"
 # We always use pkg-config for detecting the fontconfig version, since there
 # may exist an old version of fontconfig-config on systems that have been
 # updated from NetBSD 1.x.
-CONFIGURE_ENV+= kde_cv_path_fontconfig_config='NONE'
-.endif
+CONFIGURE_ENV.NetBSD+=	kde_cv_path_fontconfig_config='NONE'
 
 .include "../../meta-pkgs/kde3/kde3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

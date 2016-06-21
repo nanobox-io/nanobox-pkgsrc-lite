@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2015/03/08 15:52:51 taca Exp $
+# $NetBSD: Makefile,v 1.21 2016/03/05 11:28:44 jperkin Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
+PKGREVISION=	1
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -13,8 +14,8 @@ LICENSE=	${RUBY_LICENSE}
 
 RUBY_VERSION_SUPPORTED=	21
 
-USE_LANGUAGES=		c
-USE_TOOLS+=		pax yacc
+USE_LANGUAGES=		c c99
+USE_TOOLS+=		pax yacc pkg-config
 GNU_CONFIGURE=		yes
 TEST_TARGET=		test
 CONFIGURE_ARGS+=	--enable-shared
@@ -23,13 +24,20 @@ WRKSRC=			${RUBY_WRKSRC}
 MAKE_DIRS=		${RUBY_SITEARCHLIB} ${RUBY_VENDORARCHLIB}
 
 #
-# Don't refrect pkgsrc's INSTALL macro since Ruby expect it could
+# Don't reference pkgsrc's INSTALL macro since Ruby expect it could
 # execute by unprivileged user.
 #
 CONFIGURE_ENV+=		INSTALL="${INSTALL} ${COPY}" \
 			INSTALL_DATA= INSTALL_PROGRAM= INSTALL_SCRIPT=
 
+CONFIGURE_ENV+= 	ac_cv_prog_PKG_CONFIG=""
+
 .include "../../mk/compiler.mk"
+
+# /usr/bin/dtrace is not DTrace.
+.if ${OPSYS} == "Linux" && exists(/usr/bin/dtrace)
+CONFIGURE_ARGS+=	--disable-dtrace
+.endif
 
 .if !empty(PKGSRC_COMPILER:Msunpro)
 LIBS.SunOS+=	-B static -lsunmath -B dynamic -lm
@@ -39,15 +47,10 @@ CONFIGURE_ENV+=	LDSHARED="${CC} -G"
 LIBS.SunOS+=	-lm
 .endif
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	OBJCOPY=:
-CONFIGURE_ENV+=	ac_cv_prog_PKG_CONFIG=""
-.endif
+CONFIGURE_ENV.SunOS+=	OBJCOPY=:
 
-.if ${OPSYS} == "MirBSD"
 # if present, an unsupported sysconf call is used
-CONFIGURE_ENV+=	ac_cv_func_getgrnam_r=no
-.endif
+CONFIGURE_ENV.MirBSD+=	ac_cv_func_getgrnam_r=no
 
 # bmake doesn't like the codesign/POSTLINK constructs for Darwin.
 .if ${OPSYS} == "Cygwin" || ${OPSYS} == "Darwin"

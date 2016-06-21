@@ -1,4 +1,4 @@
-# $NetBSD: hacks.mk,v 1.14 2014/12/15 11:46:35 jperkin Exp $
+# $NetBSD: hacks.mk,v 1.18 2015/10/15 00:15:52 mrg Exp $
 
 .if !defined(PERL5_HACKS_MK)
 PERL5_HACKS_MK=	defined
@@ -26,16 +26,6 @@ PKG_HACKS+=	sparc64-codegen
 CFLAGS+=	-DDEBUGGING -g -msoft-quad-float -O2
 .    endif
 .  endif
-.endif
-
-### [Sun Nov 14 02:35:50 EST 2004 : jlam]
-### On PowerPC, building with optimisation with GCC causes an "attempt
-### to free unreference scalar".  Remove optimisation flags as a
-### workaround until GCC is fixed.
-###
-.if !empty(CC_VERSION:Mgcc*) && !empty(MACHINE_PLATFORM:MNetBSD-*-powerpc)
-PKG_HACKS+=		powerpc-codegen
-BUILDLINK_TRANSFORM+=	rm:-O[0-9]*
 .endif
 
 ### [Mon May 9 15:35:44 UTC 2005 : jlam]
@@ -73,6 +63,29 @@ BUILDLINK_TRANSFORM+=	opt:-O[0-9]*:-Os
 PKG_HACKS+=		alpha-optimisation
 #BUILDLINK_TRANSFORM+=  opt:-O[2-9]*:-O2 -fno-tree-ter
 CFLAGS+=-fno-tree-ter
+.endif
+
+### [Thu May 14 23:17:20 JST 2015 : ryoon]
+### Force to use /usr/sfw/lib/amd64/libgcc_s.co.1 instead.
+.if !empty(MACHINE_PLATFORM:MSunOS-5.10-x86_64)
+.  if !empty(CC_VERSION:Mgcc-3.4.3)
+BUILDLINK_PASSTHRU_RPATHDIRS+=	/usr/sfw/lib/amd64
+LDFLAGS+=	${COMPILER_RPATH_FLAG}/usr/sfw/lib/amd64
+.  endif
+.endif
+
+### [Thu Aug  6 14:43:56 PDT 2015 : mrg]
+### On NetBSD/{mips,vax,sparc64}, the -freorder-blocks option in -O2
+### causes opmini.c to be miscompiled, and perl build fails.
+###
+.if !empty(CC_VERSION:Mgcc-4.5.*) && ${OPSYS} == "NetBSD"
+.  if (${MACHINE_ARCH} == "vax" ||	\
+       ${MACHINE_CPU} == "mips" ||	\
+       ${MACHINE_ARCH} == "sparc" ||	\
+       ${MACHINE_ARCH} == "sparc64")
+PKG_HACKS+=	gcc-4.5-codegen
+CFLAGS+=	-fno-reorder-blocks
+.  endif
 .endif
 
 .endif  # PERL5_HACKS_MK

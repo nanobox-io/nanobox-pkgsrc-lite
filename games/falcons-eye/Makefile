@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.42 2011/05/26 12:51:22 obache Exp $
+# $NetBSD: Makefile,v 1.44 2016/02/25 13:19:47 jperkin Exp $
 #
 
 DISTNAME=		nethack_source_331_jtp_193
 PKGNAME=		falcons-eye-1.9.3
-PKGREVISION=		14
+PKGREVISION=		15
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=falconseye/}
 EXTRACT_SUFX=		.zip
@@ -39,17 +39,13 @@ SUBST_FILES.paths+=	sys/unix/nethack.sh
 SUBST_SED.paths=	-e "s,XXXPREFIXXXX,${PREFIX},g"
 SUBST_SED.paths+=	-e "s,@GZIP_PROGRAM@,${GZIP_CMD:M*gzip},g"
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		unixconf
+SUBST_CLASSES.NetBSD+=	unixconf
 SUBST_MESSAGE.unixconf=	Configuring to use NetBSD presets.
 SUBST_STAGE.unixconf=	post-patch
 SUBST_FILES.unixconf=	include/unixconf.h
 SUBST_SED.unixconf=	-e 's,^\/\* \#define BSD 1 \*\/,\#define BSD 1,'
 SUBST_SED.unixconf+=	-e 's,^\#define SYSV,\/\* \#define SYSV \*\/,'
 SUBST_SED.unixconf+=	-e 's,^\#define LINUX,\/\* \#define LINUX \*\/,'
-.endif
 
 EGDIR=			${PREFIX}/share/examples/falcons-eye
 SHAREDIR=		${PREFIX}/share/falcons-eye-dir

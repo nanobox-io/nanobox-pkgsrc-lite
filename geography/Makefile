@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.49 2015/02/16 21:11:07 plunky Exp $
+# $NetBSD: Makefile,v 1.59 2015/11/27 17:52:35 adam Exp $
 #
 
 COMMENT=	Software for geographical-related uses
@@ -22,19 +22,26 @@ SUBDIR+=	gpsdrive
 SUBDIR+=	gpspoint
 SUBDIR+=	gpsutils
 SUBDIR+=	kplex
+SUBDIR+=	libchamplain012
 SUBDIR+=	libchamplain04
 SUBDIR+=	libchamplain06
 SUBDIR+=	libchamplain08
 SUBDIR+=	libdrg
 SUBDIR+=	libgeotiff
+SUBDIR+=	libmemphis02
 SUBDIR+=	libnova
+SUBDIR+=	libspatialite
 SUBDIR+=	mapserver
 SUBDIR+=	merkaartor
 SUBDIR+=	opencpn
 SUBDIR+=	opencpn-plugin-gshhs
 SUBDIR+=	opencpn-plugin-weather_routing
+SUBDIR+=	osm-gps-map
+SUBDIR+=	osm2pgsql
 SUBDIR+=	p5-Geo-Coordinates-UTM
 SUBDIR+=	p5-Geo-Distance
+SUBDIR+=	p5-Geo-Ellipsoid
+SUBDIR+=	p5-Geo-Gpx
 SUBDIR+=	p5-Geo-Mercator
 SUBDIR+=	p5-Geo-ShapeFile
 SUBDIR+=	p5-Geo-Weather
@@ -44,6 +51,7 @@ SUBDIR+=	proj-doc
 SUBDIR+=	proj-swig
 SUBDIR+=	py-geojson
 SUBDIR+=	py-google-maps-services-python
+SUBDIR+=	py-obspy
 SUBDIR+=	py-proj
 SUBDIR+=	py-pycountry
 SUBDIR+=	py-trytond-country
@@ -52,6 +60,7 @@ SUBDIR+=	qlandkartegt
 SUBDIR+=	qlandkartegt-garmindev
 SUBDIR+=	qlandkartem
 SUBDIR+=	shapelib
+SUBDIR+=	spatialindex
 SUBDIR+=	tex-pst-geo
 SUBDIR+=	tex-pst-geo-doc
 SUBDIR+=	viking

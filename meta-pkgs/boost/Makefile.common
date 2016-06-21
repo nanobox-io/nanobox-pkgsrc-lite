@@ -1,15 +1,15 @@
-# $NetBSD: Makefile.common,v 1.49 2014/12/15 11:46:35 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.57 2016/01/25 09:51:07 jperkin Exp $
 #
 # used by devel/boost-build/Makefile
 # used by devel/boost-docs/Makefile
 # used by devel/boost-jam/Makefile
 # used by devel/boost-headers/Makefile
 # used by devel/boost-libs/Makefile
-# used by devel/boost-python/Makefile
+# used by devel/py-boost/Makefile
 
 BOOST_PACKAGE?=		undefined
 BOOST_COMMENT?=		undefined
-BOOST_VERSION=		1.57.0
+BOOST_VERSION=		1.60.0
 BOOST_SHORT_VERSION=	${BOOST_VERSION:S/./_/:C/\..*$//}
 
 DISTNAME=		boost_${BOOST_VERSION:S/./_/g}
@@ -43,6 +43,8 @@ USE_MULTIARCH=		lib
 .    if ${MACHINE_ARCH} != "sparc64"
 GCC_REQD+=		4.6
 .    endif
+.  elif ${LOWER_VENDOR} == "redhat"
+GCC_REQD+=		4.4
 .  else
 GCC_REQD+=		4.5
 .  endif
@@ -59,7 +61,8 @@ SUBST_CLASSES+=		darwin
 SUBST_STAGE.darwin=	pre-configure
 SUBST_MESSAGE.darwin=	Fixing install_name for Darwin.
 SUBST_FILES.darwin=	tools/build/src/tools/*darwin.jam
-SUBST_SED.darwin=	-e 's,-install_name ",-install_name "${PREFIX}/lib/,g'
+SUBST_SED.darwin=	-e 's,-install_name "@rpath,-install_name "${PREFIX}/lib,g'
+SUBST_SED.darwin+=	-e 's,-install_name "\$$,-install_name "${PREFIX}/lib/\$$,g'
 
 # On SunOS, extract using pkgsrc nbtar to avoid warnings from native gtar.
 .  if ${OPSYS} == "SunOS"
@@ -74,10 +77,11 @@ BUILDLINK_TRANSFORM+=	opt:-D_XOPEN_SOURCE=500:-D_XOPEN_SOURCE=600
 # Prevent using a pkgsrc libtool in OS X because the darwin toolset needs
 # the native libtool from /Developer/usr/bin or /usr/bin.
 post-wrapper:
+	${RM} -f ${WRAPPER_BINDIR}/libtool
 .    if exists(/Developer/usr/bin/libtool)
-	ln -s /Developer/usr/bin/libtool ${WRAPPER_BINDIR}/libtool
+	${LN} -s /Developer/usr/bin/libtool ${WRAPPER_BINDIR}/libtool
 .    else
-	ln -s /usr/bin/libtool ${WRAPPER_BINDIR}/libtool
+	${LN} -s /usr/bin/libtool ${WRAPPER_BINDIR}/libtool
 .    endif
 .  endif
 

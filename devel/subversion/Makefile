@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.57 2014/08/13 09:08:55 adam Exp $
+# $NetBSD: Makefile,v 1.59 2015/09/05 14:10:59 adam Exp $
 
 PKGNAME=	subversion-${SVNVER}
 COMMENT=	Version control system, meta-package
@@ -24,5 +24,4 @@ CATEGORIES+=	meta-pkgs
 .include "../../lang/python/pyversion.mk"
 .include "../../lang/ruby/rubyversion.mk"
 .include "../../mk/apache.mk"
-
 .include "../../mk/bsd.pkg.mk"

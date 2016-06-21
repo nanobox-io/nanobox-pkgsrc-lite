@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.61 2014/05/29 23:35:17 wiz Exp $
+# $NetBSD: Makefile,v 1.64 2015/11/25 12:48:18 jperkin Exp $
 #
 
 DISTNAME=	gwave2-20090213
 PKGNAME=	${DISTNAME:S/gwave2/gwave/}
-PKGREVISION=	17
+PKGREVISION=	19
 CATEGORIES=	cad
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gwave/}
 
@@ -18,8 +18,7 @@ GNU_CONFIGURE=	YES
 USE_LIBTOOL=	yes
 USE_TOOLS+=	perl pkg-config
 
-EVAL_PREFIX+=	GRAPHDIR=plotutils
-CONFIGURE_ENV+=	GRAPH=${GRAPHDIR}/bin/graph
+CONFIGURE_ENV+=	GRAPH=${BUILDLINK_PREFIX.plotutils}/bin/graph
 
 LDFLAGS.DragonFly=	-lX11
 LDFLAGS.SunOS+=		-lX11

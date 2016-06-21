@@ -1,32 +1,126 @@
-$NetBSD: patch-cgi_cmd.c,v 1.2 2014/04/15 10:16:47 obache Exp $
+$NetBSD: patch-cgi_cmd.c,v 1.5 2016/02/07 21:52:06 bouyer Exp $
 
-* Fix off-by-one vulnerabilities, ref. http://secunia.com/advisories/55976/
-* Fix CVE-2014-1878
+Fix build in SunOS.
+64bit time_t workaround.
 
---- cgi/cmd.c.orig	2013-08-30 17:46:14.000000000 +0000
-+++ cgi/cmd.c
-@@ -321,7 +321,6 @@ int process_cgivars(void) {
- 
- 		/* do some basic length checking on the variable identifier to prevent buffer overflows */
- 		if(strlen(variables[x]) >= MAX_INPUT_BUFFER - 1) {
--			x++;
- 			continue;
- 			}
- 
-@@ -1923,14 +1922,14 @@ static int cmd_submitf(int id, const cha
+--- cgi/cmd.c.orig	2014-08-12 17:00:01.000000000 +0200
++++ cgi/cmd.c	2016-02-07 22:41:29.000000000 +0100
+@@ -1403,7 +1403,7 @@
+ 	service *temp_service;
+ 	host *temp_host;
+ 	hostgroup *temp_hostgroup;
+-	comment *temp_comment;
++	my_comment *temp_comment;
+ 	scheduled_downtime *temp_downtime;
+ 	servicegroup *temp_servicegroup = NULL;
+ 	contact *temp_contact = NULL;
+@@ -1906,7 +1906,7 @@
+ 	if(!command_name || (strlen(command_name) > 6 && !memcmp("CHANGE", command_name, 6)))
  		return ERROR;
  
- 	len = snprintf(cmd, sizeof(cmd) - 1, "[%lu] %s;", time(NULL), command);
--	if(len < 0)
-+	if(len < 0 || len >= sizeof(cmd))
+-	len = snprintf(cmd, sizeof(cmd), "[%lu] %s;", time(NULL), command_name);
++	len = snprintf(cmd, sizeof(cmd), "[%lu] %s;", (unsigned long)time(NULL), command_name);
+ 	if(len < 0 || len >= sizeof(cmd))
  		return ERROR;
  
- 	if(fmt) {
- 		va_start(ap, fmt);
- 		len2 = vsnprintf(&cmd[len], sizeof(cmd) - len - 1, fmt, ap);
- 		va_end(ap);
--		if(len2 < 0)
-+		if(len2 < 0 || len2 >= sizeof(cmd) - len)
- 			return ERROR;
- 		}
+@@ -2032,25 +2032,25 @@
+ 			break;
  
+ 		case CMD_DELAY_HOST_NOTIFICATION:
+-			result = cmd_submitf(cmd, "%s;%lu", host_name, notification_time);
++			result = cmd_submitf(cmd, "%s;%lu", host_name, (unsigned long)notification_time);
+ 			break;
+ 
+ 		case CMD_DELAY_SVC_NOTIFICATION:
+-			result = cmd_submitf(cmd, "%s;%s;%lu", host_name, service_desc, notification_time);
++			result = cmd_submitf(cmd, "%s;%s;%lu", host_name, service_desc, (unsigned long)notification_time);
+ 			break;
+ 
+ 		case CMD_SCHEDULE_SVC_CHECK:
+ 		case CMD_SCHEDULE_FORCED_SVC_CHECK:
+ 			if(force_check == TRUE)
+ 				cmd = CMD_SCHEDULE_FORCED_SVC_CHECK;
+-			result = cmd_submitf(cmd, "%s;%s;%lu", host_name, service_desc, start_time);
++			result = cmd_submitf(cmd, "%s;%s;%lu", host_name, service_desc, (unsigned long)start_time);
+ 			break;
+ 
+ 		case CMD_DISABLE_NOTIFICATIONS:
+ 		case CMD_ENABLE_NOTIFICATIONS:
+ 		case CMD_SHUTDOWN_PROCESS:
+ 		case CMD_RESTART_PROCESS:
+-			result = cmd_submitf(cmd, "%lu", scheduled_time);
++			result = cmd_submitf(cmd, "%lu", (unsigned long)scheduled_time);
+ 			break;
+ 
+ 		case CMD_ENABLE_HOST_SVC_CHECKS:
+@@ -2065,7 +2065,7 @@
+ 		case CMD_SCHEDULE_HOST_SVC_CHECKS:
+ 			if(force_check == TRUE)
+ 				cmd = CMD_SCHEDULE_FORCED_HOST_SVC_CHECKS;
+-			result = cmd_submitf(cmd, "%s;%lu", host_name, scheduled_time);
++			result = cmd_submitf(cmd, "%s;%lu", host_name, (unsigned long)scheduled_time);
+ 			break;
+ 
+ 		case CMD_ENABLE_HOST_NOTIFICATIONS:
+@@ -2106,15 +2106,15 @@
+ 			else if(child_options == 2)
+ 				cmd = CMD_SCHEDULE_AND_PROPAGATE_HOST_DOWNTIME;
+ 
+-			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;%lu;%lu;%s;%s", host_name, start_time, end_time, fixed, triggered_by, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;%lu;%lu;%s;%s", host_name, (unsigned long)start_time, (unsigned long)end_time, fixed, triggered_by, duration, comment_author, comment_data);
+ 			break;
+ 
+ 		case CMD_SCHEDULE_HOST_SVC_DOWNTIME:
+-			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;%lu;%lu;%s;%s", host_name, start_time, end_time, fixed, triggered_by, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;%lu;%lu;%s;%s", host_name, (unsigned long)start_time, (unsigned long)end_time, fixed, triggered_by, duration, comment_author, comment_data);
+ 			break;
+ 
+ 		case CMD_SCHEDULE_SVC_DOWNTIME:
+-			result = cmd_submitf(cmd, "%s;%s;%lu;%lu;%d;%lu;%lu;%s;%s", host_name, service_desc, start_time, end_time, fixed, triggered_by, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%s;%lu;%lu;%d;%lu;%lu;%s;%s", host_name, service_desc, (unsigned long)start_time, (unsigned long)end_time, fixed, triggered_by, duration, comment_author, comment_data);
+ 			break;
+ 
+ 		case CMD_DEL_HOST_DOWNTIME:
+@@ -2125,7 +2125,7 @@
+ 		case CMD_SCHEDULE_HOST_CHECK:
+ 			if(force_check == TRUE)
+ 				cmd = CMD_SCHEDULE_FORCED_HOST_CHECK;
+-			result = cmd_submitf(cmd, "%s;%lu", host_name, start_time);
++			result = cmd_submitf(cmd, "%s;%lu", host_name, (unsigned long)start_time);
+ 			break;
+ 
+ 		case CMD_SEND_CUSTOM_HOST_NOTIFICATION:
+@@ -2163,13 +2163,13 @@
+ 			break;
+ 
+ 		case CMD_SCHEDULE_HOSTGROUP_HOST_DOWNTIME:
+-			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", hostgroup_name, start_time, end_time, fixed, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", hostgroup_name, (unsigned long)start_time, (unsigned long)end_time, fixed, duration, comment_author, comment_data);
+ 			break;
+ 
+ 		case CMD_SCHEDULE_HOSTGROUP_SVC_DOWNTIME:
+-			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", hostgroup_name, start_time, end_time, fixed, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", hostgroup_name, (unsigned long)start_time, (unsigned long)end_time, fixed, duration, comment_author, comment_data);
+ 			if(affect_host_and_services == TRUE)
+-				result |= cmd_submitf(CMD_SCHEDULE_HOSTGROUP_HOST_DOWNTIME, "%s;%lu;%lu;%d;0;%lu;%s;%s", hostgroup_name, start_time, end_time, fixed, duration, comment_author, comment_data);
++				result |= cmd_submitf(CMD_SCHEDULE_HOSTGROUP_HOST_DOWNTIME, "%s;%lu;%lu;%d;0;%lu;%s;%s", hostgroup_name, (unsigned long)start_time, (unsigned long)end_time, fixed, duration, comment_author, comment_data);
+ 			break;
+ 
+ 
+@@ -2199,13 +2199,13 @@
+ 			break;
+ 
+ 		case CMD_SCHEDULE_SERVICEGROUP_HOST_DOWNTIME:
+-			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", servicegroup_name, start_time, end_time, fixed, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", servicegroup_name, (unsigned long)start_time, (unsigned long)end_time, fixed, duration, comment_author, comment_data);
+ 			break;
+ 
+ 		case CMD_SCHEDULE_SERVICEGROUP_SVC_DOWNTIME:
+-			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", servicegroup_name, start_time, end_time, fixed, duration, comment_author, comment_data);
++			result = cmd_submitf(cmd, "%s;%lu;%lu;%d;0;%lu;%s;%s", servicegroup_name, (unsigned long)start_time, (unsigned long)end_time, fixed, duration, comment_author, comment_data);
+ 			if(affect_host_and_services == TRUE)
+-				result |= cmd_submitf(CMD_SCHEDULE_SERVICEGROUP_HOST_DOWNTIME, "%s;%lu;%lu;%d;0;%lu;%s;%s", servicegroup_name, start_time, end_time, fixed, duration, comment_author, comment_data);
++				result |= cmd_submitf(CMD_SCHEDULE_SERVICEGROUP_HOST_DOWNTIME, "%s;%lu;%lu;%d;0;%lu;%s;%s", servicegroup_name, (unsigned long)start_time, (unsigned long)end_time, fixed, duration, comment_author, comment_data);
+ 			break;
+ 
+ 		default:

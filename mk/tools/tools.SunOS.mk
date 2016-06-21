@@ -1,4 +1,4 @@
-# $NetBSD: tools.SunOS.mk,v 1.47 2015/02/01 08:48:56 obache Exp $
+# $NetBSD: tools.SunOS.mk,v 1.49 2015/09/25 01:57:56 richard Exp $
 #
 # System-supplied tools for the Solaris operating system.
 #
@@ -134,6 +134,11 @@ TOOLS_PLATFORM.install?=	/usr/bin/ginstall
 TOOLS_PLATFORM.install?=	/usr/ucb/install
 .endif
 TOOLS_PLATFORM.ksh?=		/bin/ksh
+.if exists(/usr/bin/ld)
+TOOLS_PLATFORM.ld?=		/usr/bin/ld
+.elif exists(/usr/ccs/bin/ld)
+TOOLS_PLATFORM.ld?=		/usr/ccs/bin/ld
+.endif
 TOOLS_PLATFORM.ln?=		/usr/bin/ln
 TOOLS_PLATFORM.ls?=		/usr/bin/ls
 TOOLS_PLATFORM.m4?=		/usr/ccs/bin/m4
@@ -164,9 +169,6 @@ TOOLS_PLATFORM.openssl?=	/usr/bin/openssl
 #TOOLS_PLATFORM.perl?=		/usr/bin/perl
 #TOOLS_PLATFORM.pod2man?=	/usr/perl5/bin/pod2man
 #.endif
-.if ${OS_VERSION} == "5.11" && exists(/usr/bin/pkg-config)
-TOOLS_PLATFORM.pkg-config?=	/usr/bin/pkg-config
-.endif
 TOOLS_PLATFORM.printf?=		/bin/printf
 TOOLS_PLATFORM.pwd?=		/bin/pwd
 .if exists(/usr/gnu/bin/readelf)

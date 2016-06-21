@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.5 2011/01/12 17:07:10 minskim Exp $
+# $NetBSD: Makefile,v 1.7 2016/01/27 10:42:26 markd Exp $
 
 DISTNAME=	fixme
-PKGNAME=	tex-${DISTNAME}-4.1
-TEXLIVE_REV=	16169
+PKGNAME=	tex-${DISTNAME}-4.2
+TEXLIVE_REV=	29362
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Insert "fixme" notes into draft documents
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-changebar-[0-9]*:../../print/tex-changebar
 DEPENDS+=	tex-graphics>=1.0onb1:../../print/tex-graphics

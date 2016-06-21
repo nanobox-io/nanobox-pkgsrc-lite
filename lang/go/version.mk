@@ -1,8 +1,9 @@
-# $NetBSD: version.mk,v 1.5 2015/02/22 13:14:09 mspo Exp $
+# $NetBSD: version.mk,v 1.12 2016/02/23 20:12:25 bsiegert Exp $
 
 .include "../../mk/bsd.prefs.mk"
 
-GO_VERSION=	1.4.2
+GO_VERSION=	1.6
+GO14_VERSION=	1.4.3
 
 ONLY_FOR_PLATFORM=	*-*-i386 *-*-x86_64 *-*-evbarm
 NOT_FOR_PLATFORM=	SunOS-*-i386
@@ -18,8 +19,3 @@ GOCHAR=		5
 .endif
 PLIST_SUBST+=	GO_PLATFORM=${LOWER_OPSYS:Q}_${GOARCH:Q} GOARCH=${GOARCH:Q}
 PLIST_SUBST+=	GOCHAR=${GOCHAR:Q}
-
-PRINT_PLIST_AWK+=	{if ($$0 ~ /\/$(LOWER_OPSYS)_$(GOARCH)\//) {sub(/\/$(LOWER_OPSYS)_$(GOARCH)\//,"/$${GO_PLATFORM}/", $$0);}}
-PRINT_PLIST_AWK+=	{if ($$0 ~ /$(GOARCH)/) {sub(/$(GOARCH)/,"$${GOARCH}", $$0);}}
-PRINT_PLIST_AWK+=	{if ($$0 ~ /\/$(GOCHAR)[acgl]$$/) {sub(/\/$(GOCHAR)/,"/$${GOCHAR}", $$0);}}
-

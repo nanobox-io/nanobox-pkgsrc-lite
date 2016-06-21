@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2014/05/29 23:36:29 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2015/10/15 14:19:54 tnn Exp $
 
 DISTNAME=	pangomm-2.34.0
-PKGREVISION=	8
+PKGREVISION=	10
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pangomm/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -14,6 +14,7 @@ LICENSE=	gnu-lgpl-v2.1
 CONFLICTS+=		gtkmm<=2.13.5
 
 USE_LANGUAGES=		c c++
+CXXFLAGS+=		-std=c++11
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config perl:run

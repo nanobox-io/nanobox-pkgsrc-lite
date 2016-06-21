@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.63 2014/10/07 16:47:25 adam Exp $
+# $NetBSD: Makefile,v 1.69 2016/03/05 11:28:28 jperkin Exp $
 #
 
 DISTNAME=		tomboy-1.2.1
-PKGREVISION=		39
+PKGREVISION=		44
 CATEGORIES=		editors misc
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/tomboy/1.2/}
 
@@ -11,15 +11,21 @@ HOMEPAGE=		http://www.gnome.org/projects/tomboy
 COMMENT=		Gnome desktop note application
 LICENSE=		gnu-lgpl-v2.1
 
-GNU_CONFIGURE=  yes
-USE_LIBTOOL=    yes
-USE_TOOLS+=     gmake intltool pkg-config bash:run msgfmt
+GNU_CONFIGURE=	yes
+USE_LIBTOOL=	yes
+USE_TOOLS+=	gmake intltool pkg-config bash:run msgfmt
 
 GCONF_SCHEMAS=	tomboy.schemas
 
 PKGCONFIG_OVERRIDE+=	data/tomboy-addins.pc.in
 
 REPLACE_BASH+=		Tomboy/tomboy.in Tomboy/tomboy-panel.in
+
+SUBST_CLASSES+=		fix-mcs
+SUBST_STAGE.fix-mcs=	post-patch
+SUBST_MESSAGE.fix-mcs=	Fix compiler name
+SUBST_FILES.fix-mcs=	configure
+SUBST_SED.fix-mcs=	-e 's,gmcs,mcs,'
 
 # until update to 1.4.x [GNOME-2.32]
 BUILDLINK_TRANSFORM+=	rm:-DGDK_DISABLE_DEPRECATED
@@ -28,7 +34,7 @@ BUILDLINK_TRANSFORM+=	rm:-DGDK_DISABLE_DEPRECATED
 BUILDLINK_API_DEPENDS.mono-addins+=	mono-addins>=0.3.1
 .include "../../devel/mono-addins/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../lang/mono2/buildlink3.mk"
+.include "../../lang/mono/buildlink3.mk"
 # evolution needs gmime-sharp
 #.include "../../mail/evolution/buildlink3.mk"
 #.include "../../mail/gmime-sharp/buildlink3.mk"

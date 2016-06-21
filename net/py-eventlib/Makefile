@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/04/01 10:45:34 joerg Exp $
-#
+# $NetBSD: Makefile,v 1.7 2015/12/05 21:25:53 adam Exp $
 
 DISTNAME=	eventlib-0.1.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -21,7 +20,7 @@ USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-PYTHON_VERSIONS_INCOMPATIBLE=	26 33 34
+PYTHON_VERSIONS_INCOMPATIBLE+=	33 34 35	# not yet ported as of 0.1.5
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/eventlib \

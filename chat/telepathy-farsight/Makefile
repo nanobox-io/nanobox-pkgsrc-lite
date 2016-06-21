@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.39 2014/05/09 07:36:55 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2015/12/14 14:00:28 jaapb Exp $
 
-DISTNAME=	telepathy-farsight-0.0.16
-PKGREVISION=	21
+DISTNAME=	telepathy-farsight-0.0.19
 CATEGORIES=	chat multimedia
 MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-farsight/
 
@@ -19,7 +18,7 @@ CFLAGS.SunOS+=	-std=c99 -D_XOPEN_SOURCE=600
 PKGCONFIG_OVERRIDE+=	telepathy-farsight/telepathy-farsight.pc.in
 
 PY_PATCHPLIST=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2, py-gstreamer0.10
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2, py-gstreamer0.10
 
 .include "../../lang/python/extension.mk"
 

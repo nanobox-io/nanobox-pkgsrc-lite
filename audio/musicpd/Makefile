@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.104 2015/02/21 23:35:39 ryoon Exp $
+# $NetBSD: Makefile,v 1.116 2016/03/05 11:28:05 jperkin Exp $
 
-DISTNAME=		mpd-0.19.9
+DISTNAME=		mpd-0.19.13
 PKGNAME=		${DISTNAME:S/mpd/musicpd/}
 PKGREVISION=		1
 CATEGORIES=		audio
@@ -24,10 +24,7 @@ USE_LANGUAGES=		c c++
 GCC_REQD=		4.6
 
 # MacOS X audio output is no longer enabled by default.
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--enable-osx
-.endif
+CONFIGURE_ARGS.Darwin+=	--enable-osx
 
 CPPFLAGS.SunOS+=	-std=gnu99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 

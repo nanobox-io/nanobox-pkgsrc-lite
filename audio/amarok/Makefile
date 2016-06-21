@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.151 2014/11/30 02:00:16 markd Exp $
+# $NetBSD: Makefile,v 1.160 2016/03/05 11:28:02 jperkin Exp $
 
 DISTNAME=	amarok-${VERS}
 VERS=		2.8.0
-PKGREVISION=	12
+PKGREVISION=	19
 CATEGORIES=	audio multimedia
-MASTER_SITES=	ftp://ftp.kde.org/pub/kde/stable/amarok/${VERS}/src/
+MASTER_SITES=	${MASTER_SITE_KDE:=amarok/${VERS}/src/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

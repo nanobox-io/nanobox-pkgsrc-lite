@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2014/11/07 19:39:29 adam Exp $
+# $NetBSD: Makefile,v 1.17 2016/03/03 19:42:29 shattered Exp $
 #
 
 DISTNAME=	vera++-1.1.1
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	devel
 MASTER_SITES=	http://www.inspirel.com/vera/files/
 
@@ -30,7 +30,7 @@ MAKE_FLAGS+=	TCLINCLUDE_DIR=${BUILDLINK_PREFIX.tcl}/include
 INSTALLATION_DIRS=	bin share/doc/vera++ share/vera++
 
 post-extract:
-	cd ${WRKSRC} && find . -type f -exec chmod -x {} \;
+	cd ${WRKSRC} && find . -type f -exec chmod a-x {} \;
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/vera++ ${DESTDIR}${PREFIX}/bin/vera++

@@ -1,12 +1,12 @@
-# $NetBSD: buildlink3.mk,v 1.1 2015/02/07 13:18:14 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.5 2016/03/05 11:28:01 jperkin Exp $
 
 BUILDLINK_TREE+=	qt5-qtwebchannel
 
 .if !defined(QT5_QTWEBCHANNEL_BUILDLINK3_MK)
 QT5_QTWEBCHANNEL_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.qt5-qtwebchannel+=	qt5-qtwebchannel>=5.4.0
-BUILDLINK_ABI_DEPENDS.qt5-qtwebchannel+=	qt5-qtwebchannel>=5.4.0
+BUILDLINK_API_DEPENDS.qt5-qtwebchannel+=	qt5-qtwebchannel>=5.5.1
+BUILDLINK_ABI_DEPENDS.qt5-qtwebchannel+=	qt5-qtwebchannel>=5.5.1nb2
 BUILDLINK_PKGSRCDIR.qt5-qtwebchannel?=	../../x11/qt5-qtwebchannel
 
 BUILDLINK_INCDIRS.qt5-qtwebchannel+=	qt5/include

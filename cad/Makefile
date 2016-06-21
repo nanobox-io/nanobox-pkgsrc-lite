@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.81 2015/03/06 23:57:26 tnn Exp $
+# $NetBSD: Makefile,v 1.84 2016/03/15 15:19:03 mef Exp $
 #
 
 COMMENT=	CAD tools
@@ -35,7 +35,10 @@ SUBDIR+=	gtkwave
 SUBDIR+=	gwave
 SUBDIR+=	kicad
 SUBDIR+=	kicad-doc
+SUBDIR+=	kicad-footprints
+SUBDIR+=	kicad-i18n
 SUBDIR+=	kicad-lib
+SUBDIR+=	klayout
 SUBDIR+=	librecad
 SUBDIR+=	libwcalc
 SUBDIR+=	magic
@@ -46,6 +49,7 @@ SUBDIR+=	nelma
 SUBDIR+=	ng-spice
 SUBDIR+=	ntesla
 SUBDIR+=	openscad
+SUBDIR+=	p5-gds2
 SUBDIR+=	pcb
 SUBDIR+=	py-MyHDL
 SUBDIR+=	py-simpy

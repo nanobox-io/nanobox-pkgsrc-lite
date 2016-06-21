@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2014/09/05 07:15:41 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2015/10/08 12:46:08 fhajny Exp $
 #
 
 RSYSLOG_MOD=	gnutls

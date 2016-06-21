@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2014/09/05 21:13:20 prlw1 Exp $
+# $NetBSD: Makefile,v 1.12 2016/02/26 10:24:12 jperkin Exp $
 
+PKGREVISION= 1
 .include "../../devel/glib2/Makefile.common"
 
 PKGNAME:=	${PKGNAME:S/glib2/gio-fam/}
@@ -19,12 +20,8 @@ CONFIGURE_ARGS+=	--enable-fam
 BUILD_DIRS=		gio/fam
 INSTALL_DIRS=		${BUILD_DIRS}
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "IRIX"
-MAKE_FLAGS+=		FAM_LIBS="-lfam -lC"
-BUILDLINK_TRANSFORM+=	l:fam:fam:C
-.endif
+MAKE_FLAGS.IRIX+=		FAM_LIBS="-lfam -lC"
+BUILDLINK_TRANSFORM.IRIX+=	l:fam:fam:C
 
 .include "../../devel/glib2/modules.mk"
 .include "../../mk/fam.buildlink3.mk"

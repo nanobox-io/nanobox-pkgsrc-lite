@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.204 2015/03/19 22:11:22 tron Exp $
+# $NetBSD: Makefile,v 1.223 2016/05/03 14:51:16 jperkin Exp $
 
-DISTNAME=	openssl-1.0.2a
+DISTNAME=	openssl-1.0.2h
 CATEGORIES=	security
-MASTER_SITES=	http://www.openssl.org/source/
+MASTER_SITES=	https://www.openssl.org/source/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.openssl.org/
+HOMEPAGE=	https://www.openssl.org/
 COMMENT=	Secure Socket Layer and cryptographic library
 LICENSE=	openssl
 
@@ -13,7 +13,7 @@ CONFLICTS=	SSLeay-[0-9]* ssleay-[0-9]*
 
 CRYPTO=		yes
 
-BUILD_DEPENDS+=	{p5-Perl4-CoreLibs-[0-9]*,perl<5.16}:../../devel/p5-Perl4-CoreLibs
+BUILD_DEPENDS+=	p5-Perl4-CoreLibs-[0-9]*:../../devel/p5-Perl4-CoreLibs
 
 USE_GCC_RUNTIME=	yes
 
@@ -22,6 +22,7 @@ USE_GCC_RUNTIME=	yes
 
 USE_MULTIARCH=		bin lib
 USE_TOOLS+=		fgrep gmake perl
+BUILD_TARGET=		depend all
 TEST_TARGET=		tests
 MAKE_JOBS_SAFE=		no
 
@@ -33,9 +34,17 @@ CONFIGURE_ARGS+=	--openssldir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--libdir=lib${LIBARCHSUFFIX}
 CONFIGURE_ARGS+=	shared no-fips
 
+# Avoid dependency on 'makedepend' on platforms where the default CC is set
+# to 'cc' not 'gcc' in boostrap-mk-files.  OpenSSL only supports the latter.
+.if ${PKGSRC_COMPILER} == "gcc" && ${CC} == "cc"
+CC=			gcc
+.endif
+
 .if ${OPSYS} == "SunOS"
 .  if ${MACHINE_ARCH} == "sparc"
-OPENSSL_MACHINE_ARCH=	${SPARC_TARGET_ARCH}
+OPENSSL_MACHINE_ARCH=	sparcv7
+.  elif ${MACHINE_ARCH} == "sparc64"
+OPENSSL_MACHINE_ARCH=	sparcv9
 .  elif ${MACHINE_ARCH} == "i386"
 OPENSSL_MACHINE_ARCH=	x86
 .  elif ${MACHINE_ARCH} == "x86_64"
@@ -45,7 +54,7 @@ OPENSSL_MACHINE_ARCH=	${MACHINE_ARCH}
 # back to ./config's autodetection if not.
 .  if defined(OPENSSL_MACHINE_ARCH) && !empty(OPENSSL_MACHINE_ARCH)
 CONFIGURE_SCRIPT=	./Configure
-.    if !empty(CC_VERSION:Mgcc*)
+.    if ${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc"
 CONFIGURE_ARGS+=	solaris${${ABI}==64:?64:}-${OPENSSL_MACHINE_ARCH}-gcc
 .    else
 CONFIGURE_ARGS+=	solaris${${ABI}==64:?64:}-${OPENSSL_MACHINE_ARCH}-cc
@@ -53,7 +62,7 @@ CONFIGURE_ARGS+=	solaris${${ABI}==64:?64:}-${OPENSSL_MACHINE_ARCH}-cc
 .  endif
 .elif ${OPSYS} == "IRIX"
 CONFIGURE_ARGS+=	no-asm
-.  if ${ABI} == "64"
+.  if defined(ABI) && ${ABI} == "64"
 CONFIGURE_SCRIPT=	./Configure
 .    if !empty(CC_VERSION:Mgcc*)
 CONFIGURE_ARGS+=	irix64-mips4-gcc
@@ -108,8 +117,8 @@ SUBST_FILES.soname=	Makefile.shared
 SUBST_SED.soname=	-e 's/-Wl,-soname=/-Wl,-h,/g'
 .elif ${OPSYS} == "HPUX"
 CONFIGURE_SCRIPT=	./Configure
-.  if ${ABI} == "64"
-.    if ${MACHINE_ARCH} == "hppa"
+.  if defined(ABI) && ${ABI} == "64"
+.    if ${MACHINE_ARCH} == "hppa64"
 CONFIGURE_ARGS+=	hpux64-parisc2-${CC}
 .    else
 CONFIGURE_ARGS+=	hpux64-ia64-${CC}
@@ -125,6 +134,9 @@ CONFIGURE_ARGS+=	hpux-ia64-${CC}
 .  if ${MACHINE_ARCH} == "powerpc64"
 CONFIGURE_SCRIPT=	./Configure
 CONFIGURE_ARGS+=	linux-ppc64
+.  elif ${MACHINE_ARCH} == "i386"
+CONFIGURE_SCRIPT=	./Configure
+CONFIGURE_ARGS+=	linux-elf
 .  endif
 .elif ${OS_VARIANT} == "SCOOSR5"
 # SIGILL in _sha1_block_data_order_ssse3().

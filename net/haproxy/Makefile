@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2015/03/14 20:36:23 rodent Exp $
+# $NetBSD: Makefile,v 1.26 2016/03/14 09:23:31 fhajny Exp $
 
-DISTNAME=	haproxy-1.5.11
+DISTNAME=	haproxy-1.6.4
 CATEGORIES=	net www
-MASTER_SITES=	http://haproxy.1wt.eu/download/1.5/src/
+MASTER_SITES=	http://www.haproxy.org/download/1.6/src/
 
 MAINTAINER=	morr@NetBSD.org
 HOMEPAGE=	http://haproxy.1wt.eu/
@@ -20,9 +20,8 @@ INSTALL_MAKE_FLAGS+=	MANDIR=${PREFIX}/${PKGMANDIR}
 
 RCD_SCRIPTS=		haproxy
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
+DOCDIR=			${PREFIX}/share/doc/${PKGBASE}
 INSTALLATION_DIRS+=	${EGDIR}
-
-CONF_FILES+=		${EGDIR}/haproxy.cfg ${PKG_SYSCONFDIR}/haproxy.cfg
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -53,7 +52,9 @@ TARGET=generic
 LIBS.SunOS+=		-lxnet
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/examples/haproxy.cfg ${DESTDIR}${EGDIR}/
+	${INSTALL_DATA} ${WRKSRC}/doc/architecture.txt ${DESTDIR}${DOCDIR}/
+	${INSTALL_DATA} ${WRKSRC}/doc/configuration.txt ${DESTDIR}${DOCDIR}/
+	${INSTALL_DATA} ${WRKSRC}/examples/*.cfg ${DESTDIR}${EGDIR}/
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

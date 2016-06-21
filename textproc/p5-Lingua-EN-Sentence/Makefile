@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.13 2014/10/09 14:07:03 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2015/09/07 03:45:36 mef Exp $
 
-DISTNAME=	Lingua-EN-Sentence-0.25
+DISTNAME=	Lingua-EN-Sentence-0.29
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Lingua/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Lingua-EN-Sentence/
 COMMENT=	Perl module for splitting English text into sentences
+LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=	# empty
 

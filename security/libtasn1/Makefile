@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.63 2015/03/29 13:10:49 wiz Exp $
+# $NetBSD: Makefile,v 1.65 2016/02/26 09:41:05 jperkin Exp $
 
-DISTNAME=	libtasn1-4.4
+DISTNAME=	libtasn1-4.5
 CATEGORIES=	security devel
 MASTER_SITES=	${MASTER_SITE_GNU:=libtasn1/}
 
@@ -20,13 +20,9 @@ CONFIGURE_ARGS+=	--with-packager="pkgsrc"
 CONFIGURE_ARGS+=	--with-packager-version="${PKGVERSION}"
 CONFIGURE_ARGS+=	--with-packager-bug-reports="http://gnats.NetBSD.org/"
 
-.include "../../mk/bsd.prefs.mk"
-
 # Mac OS X has no prototype for getopt_long and no declaration for
 # struct option, so ignore getopt_long() even though the test succeeds.
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ENV+=		ac_cv_func_getopt_long=no
-CFLAGS+=	-fno-common
-.endif
+CONFIGURE_ENV.Darwin+=	ac_cv_func_getopt_long=no
+CFLAGS.Darwin+=		-fno-common
 
 .include "../../mk/bsd.pkg.mk"

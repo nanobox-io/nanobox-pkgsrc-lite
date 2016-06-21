@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2014/12/31 13:57:25 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2015/10/10 01:58:02 ryoon Exp $
 
 DISTNAME=	apsw-3.8.4.2-r1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/-r/pl/}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	databases
 MASTER_SITES=	https://github.com/rogerbinns/apsw/releases/download/${DISTNAME:C/^[^-]*-//1}/
 EXTRACT_SUFX=	.zip

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.63.8.1 2015/04/14 19:04:38 bsiegert Exp $
+# $NetBSD: Makefile,v 1.70 2016/02/26 10:24:11 jperkin Exp $
 
 .include "../../sysutils/coreutils/Makefile.common"
 
-PKGREVISION=		2
 CONFIGURE_ARGS+=	--without-gmp
 
 CONFLICTS=	fileutils-[0-9]* gnuls-[0-9]* linuxls-[0-9]* sh-utils-[0-9]* textutils-[0-9]*
@@ -29,10 +28,17 @@ USE_GCC_RUNTIME=	yes
 
 .include "../../mk/compiler.mk"
 
-.if ${OBJECT_FMT} == "ELF" && \
+.if (${OBJECT_FMT} == "ELF" || ${OBJECT_FMT} == "Mach-O") && \
     (!empty(PKGSRC_COMPILER:Mgcc) || !empty(PKGSRC_COMPILER:Mclang))
 PLIST.stdbuf=		yes
 .endif
+
+# Ensure libstdbuf.so has a valid library name otherwise REQUIRES will
+# record the relative path of the object output file.
+SUBST_CLASSES.Darwin+=	libname
+SUBST_STAGE.libname=	pre-configure
+SUBST_FILES.libname=	Makefile.in
+SUBST_SED.libname=	-e '/^src_libstdbuf_so_LDFLAGS/s,$$, -install_name ${PREFIX}/libexec/coreutils/glibstdbuf.so,'
 
 PROGS=	[ base64 basename cat chcon chgrp chmod chown chroot cksum comm \
 	cp csplit cut date dd df dir dircolors dirname du hostid echo env \

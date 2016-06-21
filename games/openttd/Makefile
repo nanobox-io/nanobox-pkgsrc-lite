@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.55 2014/12/20 21:52:38 ryoon Exp $
+# $NetBSD: Makefile,v 1.62 2016/02/25 13:19:47 jperkin Exp $
 
-DISTNAME=	openttd-1.4.4-source
+DISTNAME=	openttd-1.5.3-source
 PKGNAME=	${DISTNAME:S/-source//}
 CATEGORIES=	games x11
 MASTER_SITES=	http://binaries.openttd.org/releases/${PKGVERSION_NOREV}/
@@ -35,11 +35,9 @@ CONFIGURE_ARGS+=	--with-lzo2=${BUILDLINK_PREFIX.lzo}/lib
 
 .include "../../mk/bsd.prefs.mk"
 
-.if (${OPSYS} == "DragonFly")
-CONFIGURE_ARGS+=	--os=FREEBSD
-.endif
+CONFIGURE_ARGS.DragonFly+=	--os=FREEBSD
 
-.if (${OPSYS} == "Darwin")
+.if ${OPSYS} == "Darwin"
 CONFIGURE_ARGS+=	--disable-cocoa-quickdraw
 CONFIGURE_ARGS+=	--with-cocoa
 CONFIGURE_ARGS+=	--without-application-bundle
@@ -53,6 +51,7 @@ CONFIGURE_ARGS+=	--without-osx-sysroot
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/icu/buildlink3.mk"

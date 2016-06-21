@@ -1,7 +1,9 @@
-$NetBSD: distinfo,v 1.80 2014/05/27 01:57:14 taca Exp $
+$NetBSD: distinfo,v 1.85 2016/01/27 18:56:31 szptvlfn Exp $
 
-SHA1 (sylpheed-3.4.1.tar.bz2) = 000f7c8b0aee188004b63b446792af04a2b71f12
-RMD160 (sylpheed-3.4.1.tar.bz2) = 2ba464e3442ee1f754f151968e588d387b90b4fb
-Size (sylpheed-3.4.1.tar.bz2) = 3473101 bytes
+SHA1 (sylpheed-3.5.0.tar.bz2) = 80e34d79b1f4ffcc6aaa73347d9553cde7d26ce3
+RMD160 (sylpheed-3.5.0.tar.bz2) = c63a8f0cb5f73c828f60298541812cfe73807ac6
+SHA512 (sylpheed-3.5.0.tar.bz2) = fa2803c41a935089989d93cd78ef0dd04d5c0117283f37b82f3d5e76eb753d38960ce3cc122936883cb3057e834acaa03b1a565cd31202331527d07a24e8d5b0
+Size (sylpheed-3.5.0.tar.bz2) = 3519735 bytes
 SHA1 (patch-aa) = f7c6b53c173ca18f9e5e832aec38dd2455242f9c
+SHA1 (patch-configure) = 29644169674c7537ba94a1c479e0da5a8e6a082e
 SHA1 (patch-macosx_bundle_launcher.sh) = abfdb54b3400ee00e0c1e99fb5037a1a3c1e2a66

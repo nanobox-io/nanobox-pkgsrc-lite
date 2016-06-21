@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2015/03/15 21:13:03 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2016/03/08 15:17:14 wiz Exp $
 
-DISTNAME=		tortoisehg-3.3.2
+DISTNAME=		tortoisehg-3.7.2
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=		devel python
 MASTER_SITES=		http://bitbucket.org/tortoisehg/targz/downloads/
@@ -12,17 +12,12 @@ LICENSE=		gnu-gpl-v2
 
 REPLACE_PYTHON+=	thg
 
-BUILD_DEPENDS+=	${PYPKGPREFIX}-sphinx>=1.2.3nb1:../../textproc/py-sphinx
+BUILD_DEPENDS+=	${PYPKGPREFIX}-sphinx>=1.3.4nb1:../../textproc/py-sphinx
 DEPENDS+=	${PYPKGPREFIX}-iniparse>=0.4:../../textproc/py-iniparse
 DEPENDS+=	${PYPKGPREFIX}-pygments>=1.6:../../textproc/py-pygments
 DEPENDS+=	${PYPKGPREFIX}-mercurial>=2.8.1:../../devel/py-mercurial
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-iniparse, py-mercurial
-
-pre-configure:
-		${RUN} ${SED} -e 's:@PREFIX@:${PREFIX}:g' \
-			${FILESDIR}/config.py > \
-			${WRKSRC}/tortoisehg/util/config.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-iniparse, py-mercurial
 
 thg_icon=		/share/pixmaps/tortoisehg/icons/thg_logo.ico
 SUBST_CLASSES+=		df

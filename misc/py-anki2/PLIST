@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.11 2014/10/01 11:41:11 wiz Exp $
+@comment $NetBSD: PLIST,v 1.13 2015/10/21 08:31:03 wiz Exp $
 bin/anki
 man/man1/anki.1
 share/anki/LICENSE
@@ -312,6 +312,7 @@ share/anki/locale/gu/LC_MESSAGES/anki.mo
 share/anki/locale/he/LC_MESSAGES/anki.mo
 share/anki/locale/hr/LC_MESSAGES/anki.mo
 share/anki/locale/hu/LC_MESSAGES/anki.mo
+share/anki/locale/ia/LC_MESSAGES/anki.mo
 share/anki/locale/it/LC_MESSAGES/anki.mo
 share/anki/locale/ja/LC_MESSAGES/anki.mo
 share/anki/locale/km/LC_MESSAGES/anki.mo
@@ -353,6 +354,7 @@ share/anki/locale/qt_zh_CN.qm
 share/anki/locale/qt_zh_TW.qm
 share/anki/locale/ro/LC_MESSAGES/anki.mo
 share/anki/locale/ru/LC_MESSAGES/anki.mo
+share/anki/locale/sco/LC_MESSAGES/anki.mo
 share/anki/locale/sk/LC_MESSAGES/anki.mo
 share/anki/locale/sl/LC_MESSAGES/anki.mo
 share/anki/locale/sr/LC_MESSAGES/anki.mo

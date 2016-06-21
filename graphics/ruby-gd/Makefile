@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.42 2013/09/04 12:31:26 obache Exp $
+# $NetBSD: Makefile,v 1.45 2015/11/18 14:19:50 ryoon Exp $
 
 DISTNAME=	ruby-gd-0.8.0
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/ruby-//}
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	graphics
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://rubyforge.org/projects/ruby-gd/
+HOMEPAGE=	# http://rubyforge.org/projects/ruby-gd/
 COMMENT=	Ruby extension to drive the GD library
 LICENSE=	ruby-license
 

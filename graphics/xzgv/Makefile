@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.63 2014/05/05 00:48:01 ryoon Exp $
+# $NetBSD: Makefile,v 1.65 2015/07/04 16:18:36 joerg Exp $
 #
 
 DISTNAME=	xzgv-0.9.1
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=xzgv/}
 
@@ -11,7 +11,6 @@ HOMEPAGE=	http://sourceforge.net/projects/xzgv
 COMMENT=	Image viewer
 LICENSE=	gnu-gpl-v2
 
-USE_X11BASE=		yes
 USE_TOOLS+=		gmake makeinfo pkg-config gawk
 INFO_FILES=		yes
 INSTALLATION_DIRS=	bin ${PKGINFODIR} ${PKGMANDIR}/man1

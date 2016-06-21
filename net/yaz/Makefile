@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.58 2014/10/07 16:47:13 adam Exp $
+# $NetBSD: Makefile,v 1.62 2016/03/05 11:27:53 jperkin Exp $
 #
 
 DISTNAME=	yaz-4.1.6
-PKGREVISION=	14
+PKGREVISION=	17
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.indexdata.dk/pub/yaz/
 
@@ -10,6 +10,11 @@ MAINTAINER=	phil@NetBSD.org
 HOMEPAGE=	https://www.indexdata.com/yaz/
 COMMENT=	C/C++ toolkit for the development of Z39.50v3/SRW clients and servers
 LICENSE=	modified-bsd
+
+#In file included from marcdisp.c:24:
+#In file included from ../include/yaz/marcdisp.h:42:
+#../include/yaz/z-opac.h:37:2: error: unknown type name 'Z_External'
+MAKE_JOBS_SAFE=	no
 
 GNU_CONFIGURE=	YES
 USE_LIBTOOL=	YES

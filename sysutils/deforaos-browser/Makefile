@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.14 2014/05/05 00:48:19 ryoon Exp $
+# $NetBSD: Makefile,v 1.21 2016/02/20 02:28:14 khorben Exp $
 #
 
-DISTNAME=	Browser-0.4.13
-PKGNAME=	deforaos-browser-0.4.13
+DISTNAME=	Browser-0.5.0
+PKGNAME=	deforaos-browser-0.5.0
 PKGREVISION=	1
 CATEGORIES=	sysutils
-MASTER_SITES=	http://www.defora.org/os/download/download/4310/
+MASTER_SITES=	http://www.defora.org/os/download/download/4418/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -21,12 +21,23 @@ BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	PREFIX=${PREFIX}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 AUTO_MKDIRS=	yes
 
 .include "../../mk/bsd.prefs.mk"
 
 .if ${PKGMANDIR} != "share/man"
 post-install:
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/browser.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/browser.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/copy.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/copy.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/delete.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/delete.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/desktop.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/desktop.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/desktopctl.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/desktopctl.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/move.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/move.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/open.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/open.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/properties.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/properties.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/view.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/view.html
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/browser.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/browser.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/copy.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/copy.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/delete.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/delete.1
@@ -36,6 +47,7 @@ post-install:
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/open.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/open.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/properties.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/properties.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/view.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/view.1
+	${RMDIR} ${DESTDIR}${PREFIX}/share/man/html1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man/man1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man
 .endif

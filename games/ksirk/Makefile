@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2014/11/14 08:49:40 markd Exp $
+# $NetBSD: Makefile,v 1.19 2016/03/05 11:28:34 jperkin Exp $
 
 DISTNAME=	ksirk-${_KDE_VERSION}
+PKGREVISION=	3
 CATEGORIES=	games
 COMMENT=	a computerized version of a well known strategy game
 

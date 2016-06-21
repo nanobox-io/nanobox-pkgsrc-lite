@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2015/03/14 07:42:22 taca Exp $
+# $NetBSD: Makefile,v 1.11 2016/02/01 13:49:57 taca Exp $
 
 DISTNAME=	railties-${RUBY_RAILS_VERSION}
-PKGREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -19,7 +18,7 @@ RUBY_RAILS_SUPPORTED=	32
 RUBY_RAILS_STRICT_DEP=	yes
 RUBY_RDOC_REQD=		3.4
 USE_RAKE=		RUN
-OVERRIDE_GEMSPEC+=	rack-ssl>=1.3.2
+OVERRIDE_GEMSPEC+=	rack-ssl>=1.3.2 rdoc>=3.4
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9 2014/02/20 19:15:14 schmonz Exp $
+@comment $NetBSD: PLIST,v 1.11 2016/01/13 20:59:15 schmonz Exp $
 bin/copydatabase
 bin/delve
 bin/quest
@@ -48,6 +48,7 @@ include/xapian/weight.h
 lib/cmake/xapian/xapian-config-version.cmake
 lib/cmake/xapian/xapian-config.cmake
 lib/libxapian.la
+lib/pkgconfig/xapian-core.pc
 man/man1/copydatabase.1
 man/man1/delve.1
 man/man1/quest.1
@@ -438,10 +439,6 @@ share/doc/xapian-core/matcherdesign.html
 share/doc/xapian-core/overview.html
 share/doc/xapian-core/postingsource.html
 share/doc/xapian-core/queryparser.html
-share/doc/xapian-core/quickstart.html
-share/doc/xapian-core/quickstartexpand.cc.html
-share/doc/xapian-core/quickstartindex.cc.html
-share/doc/xapian-core/quickstartsearch.cc.html
 share/doc/xapian-core/remote.html
 share/doc/xapian-core/remote_protocol.html
 share/doc/xapian-core/replication.html

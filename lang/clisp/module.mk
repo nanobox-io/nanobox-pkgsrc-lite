@@ -1,4 +1,4 @@
-# $NetBSD: module.mk,v 1.6 2015/01/04 03:19:45 dholland Exp $
+# $NetBSD: module.mk,v 1.8 2016/03/01 22:11:18 asau Exp $
 
 # Used variables:
 # CLISP_MODULE - name of module and subdirectory in "modules"

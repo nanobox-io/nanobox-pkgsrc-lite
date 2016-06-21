@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.34 2015/03/22 09:48:51 bsiegert Exp $
+# $NetBSD: Makefile,v 1.37 2016/03/05 15:44:36 bsiegert Exp $
 
-DISTNAME=		file-5.22
+DISTNAME=		file-5.25
 CATEGORIES=		sysutils
 MASTER_SITES=		ftp://ftp.astron.com/pub/file/
 
@@ -31,9 +31,7 @@ BUILDLINK_TRANSFORM+=	opt:-Wextra:-W
 BUILDLINK_TRANSFORM+=  rm:-Wunused-parameter
 .endif
 
-.if ${LOWER_OPSYS} == "aix"
-CFLAGS+=	-D_LINUX_SOURCE_COMPAT
-.endif
+CFLAGS.AIX+=	-D_LINUX_SOURCE_COMPAT
 
 .include "../../devel/zlib/buildlink3.mk"
 

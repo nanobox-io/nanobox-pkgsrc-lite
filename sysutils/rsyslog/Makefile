@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2015/01/16 16:58:28 fhajny Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/14 11:12:22 tnn Exp $
 #
 
 BUILDLINK_DEPMETHOD.libestr=	full
@@ -9,7 +9,7 @@ BUILDLINK_DEPMETHOD.libuuid=	full
 
 COMMENT=		The enhanced syslogd for Unix
 
-CONFIGURE_ARGS+=	--disable-testbench --enable-cached-man-pages		\
+CONFIGURE_ARGS+=	--disable-testbench					\
 			--enable-diagtools --enable-usertools --enable-uuid	\
 			--enable-imdiag --enable-imfile	--enable-impstats	\
 			--enable-mail --enable-mmjsonparse --enable-mmnormalize	\
@@ -19,6 +19,7 @@ PLIST_VARS+=		klog solaris
 
 .if ${OPSYS} == "SunOS"
 CONFIGURE_ARGS+=	--enable-imsolaris --disable-klog
+# Explicitly disable epoll/inotify on illumos, provided for Linux compat only.
 CONFIGURE_ENV+=		ac_cv_func_epoll_create=no
 CONFIGURE_ENV+=		ac_cv_func_epoll_create1=no
 CONFIGURE_ENV+=		ac_cv_func_inotify_init=no
@@ -28,6 +29,11 @@ RSYSLOG_SYSMOD=		imsolaris
 CONFIGURE_ARGS+=	--disable-imsolaris --enable-klog
 PLIST.klog=		yes
 RSYSLOG_SYSMOD=		imklog
+.endif
+
+# needs to be able to do compare-and-swap on time_t (cmpxchg8b)
+.if ${MACHINE_ARCH} == "i386"
+CFLAGS+=		-march=i586
 .endif
 
 BUILD_DEFS+=		VARBASE RSYSLOG_PIDDIR RSYSLOG_WRKDIR
@@ -53,6 +59,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/platform/redhat/rsyslog.conf			\
 		${DESTDIR}${EGDIR}/rsyslog.conf
 
-BUILDLINK_ABI_DEPENDS.liblognorm+=	liblognorm>=1.0.2
+BUILDLINK_API_DEPENDS.liblognorm+=	liblognorm>=1.1.2
 .include "../../sysutils/liblognorm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

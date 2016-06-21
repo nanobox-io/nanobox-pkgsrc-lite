@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.29 2015/01/17 14:36:12 prlw1 Exp $
+# $NetBSD: Makefile,v 1.33 2015/10/10 01:57:52 ryoon Exp $
 #
 
 DISTNAME=	libchamplain-0.8.3
 PKGNAME=	libchamplain08-0.8.3
-PKGREVISION=	27
+PKGREVISION=	30
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libchamplain/0.8/}
 EXTRACT_SUFX=	.tar.bz2
@@ -30,5 +30,5 @@ PKGCONFIG_OVERRIDE+=	champlain.pc.in
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../graphics/clutter-gtk0.10/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.43 2014/09/10 13:20:16 fhajny Exp $
+# $NetBSD: Makefile,v 1.46 2015/10/12 11:10:34 fhajny Exp $
 
-DISTNAME=	postgrey-1.35
+DISTNAME=	postgrey-1.36
 PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://postgrey.schweikert.ch/pub/
@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=	p5-BerkeleyDB-[0-9]*:../../databases/p5-BerkeleyDB
 DEPENDS+=	p5-IO-Multiplex-[0-9]*:../../devel/p5-IO-Multiplex
 DEPENDS+=	p5-Net-Server-[0-9]*:../../net/p5-Net-Server
+DEPENDS+=	p5-NetAddr-IP-[0-9]*:../../net/p5-NetAddr-IP
 
 BDB_ACCEPTED=		db4 db5
 NO_CONFIGURE=		yes
@@ -25,7 +26,7 @@ POSTGREY_USER?=		postgrey
 POSTGREY_GROUP?=	postgrey
 POSTGREY_DBDIR?=	${VARBASE}/db/${PKGBASE}
 
-PKG_SYSCONFSUBDIR?=	postfix
+PKG_SYSCONFSUBDIR=	postfix
 
 DOCDIR=			share/doc/${PKGBASE}
 EGDIR=			share/examples/${PKGBASE}

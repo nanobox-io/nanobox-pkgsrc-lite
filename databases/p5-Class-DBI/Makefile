@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2014/10/09 13:44:34 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2015/07/12 18:56:07 wiz Exp $
 
 DISTNAME=	Class-DBI-v3.0.17
 PKGNAME=	p5-${DISTNAME:S:-v:-:}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/T/TM/TMTM/}
 
@@ -14,7 +14,7 @@ DEPENDS+=	p5-Class-Accessor>=0.18:../../devel/p5-Class-Accessor
 DEPENDS+=	p5-Class-Data-Inheritable>=0.02:../../devel/p5-Class-Data-Inheritable
 DEPENDS+=	p5-Class-Trigger>=0.07:../../devel/p5-Class-Trigger
 DEPENDS+=	p5-Clone-[0-9]*:../../devel/p5-Clone
-DEPENDS+=	{perl>=5.6.1,p5-File-Temp>=0.12}:../../devel/p5-File-Temp
+#DEPENDS+=	{perl>=5.6.1,p5-File-Temp>=0.12}:../../devel/p5-File-Temp
 DEPENDS+=	p5-Ima-DBI>=0.33:../../databases/p5-Ima-DBI
 #DEPENDS+=	p5-Storable>=2.04:../../devel/p5-Storable
 DEPENDS+=	p5-UNIVERSAL-moniker>=0.06:../../devel/p5-UNIVERSAL-moniker

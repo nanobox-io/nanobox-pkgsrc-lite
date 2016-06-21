@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.44 2014/11/22 15:58:44 adam Exp $
+$NetBSD: distinfo,v 1.47 2016/03/06 11:47:49 adam Exp $
 
-SHA1 (tk8.6.3-src.tar.gz) = 244ddc0f64cc3d429c9d86135d0bbe2cf06c9360
-RMD160 (tk8.6.3-src.tar.gz) = 5d816981def3f81c2c99a243c6ce099db5e5c3ab
-Size (tk8.6.3-src.tar.gz) = 4258339 bytes
-SHA1 (patch-unix_Makefile.in) = c131148173dd7fd5a0d6fea2169c608d10798c4a
-SHA1 (patch-unix_configure) = 97139ed28a2cb8528da5c53cfcbc8f8fb43670f6
+SHA1 (tk8.6.5-src.tar.gz) = e63f9e46cfd4ea37799554b003958b54b51dc347
+RMD160 (tk8.6.5-src.tar.gz) = dc34fe23e2aa018dfe70d082d99793a48b37aa84
+SHA512 (tk8.6.5-src.tar.gz) = 9acf2ef993a566a7cdd1efe21dc896b09125c65d86df53ab5a78542b21d3f031e9f9d72b81738705636c268b5ce72934c483eb087d5c0114f913c9075db9a3b1
+Size (tk8.6.5-src.tar.gz) = 4417393 bytes
+SHA1 (patch-unix_Makefile.in) = 63e9b6ffb4b0b586a797e3cc7376e30e6eb42a8d
+SHA1 (patch-unix_configure) = 05d47c85f889d53f326c7a64223e435411744771

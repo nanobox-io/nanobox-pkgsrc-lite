@@ -1,15 +1,15 @@
-$NetBSD: patch-libavutil_opencl.c,v 1.1 2015/03/08 08:10:13 adam Exp $
+$NetBSD: patch-libavutil_opencl.c,v 1.3 2016/01/16 17:04:33 leot Exp $
 
 Fix undeclared identifier error.
 
---- libavutil/opencl.c.orig	2015-03-08 07:52:00.000000000 +0000
+--- libavutil/opencl.c.orig	2016-01-15 16:58:37.000000000 +0000
 +++ libavutil/opencl.c
-@@ -611,7 +611,7 @@ void av_opencl_uninit(void)
-         }
-         opencl_ctx.context = NULL;
-     }
+@@ -457,7 +457,7 @@ cl_program av_opencl_compile(const char 
+     cl_program program = NULL;
+ 
+     LOCK_OPENCL;
 -    for (i = 0; i < opencl_ctx.kernel_code_count; i++) {
 +    for (int i = 0; i < opencl_ctx.kernel_code_count; i++) {
-         opencl_ctx.kernel_code[i].is_compiled = 0;
-     }
-     free_device_list(&opencl_ctx.device_list);
+         // identify a program using a unique name within the kernel source
+         ptr = av_stristr(opencl_ctx.kernel_code[i].kernel_string, program_name);
+         if (ptr && !opencl_ctx.kernel_code[i].is_compiled) {

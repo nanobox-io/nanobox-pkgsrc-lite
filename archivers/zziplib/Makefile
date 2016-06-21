@@ -19,6 +19,8 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 CONFIGURE_ARGS+=	--disable-builddir
 
+CFLAGS+=	-std=gnu89
+
 BUILD_DIRS=	zzip zzipwrap bins
 
 TEST_TARGET=		check

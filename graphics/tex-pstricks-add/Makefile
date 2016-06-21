@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/03/18 21:45:03 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2016/01/30 04:05:53 markd Exp $
 
 DISTNAME=	pstricks-add
-PKGNAME=	tex-${DISTNAME}-3.51
-TEXLIVE_REV=	21290
+PKGNAME=	tex-${DISTNAME}-3.77
+TEXLIVE_REV=	35772
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Collection of add-ons and bugfixes for PSTricks
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-multido-[0-9]*:../../devel/tex-multido
 DEPENDS+=	tex-pst-3d-[0-9]*:../../graphics/tex-pst-3d

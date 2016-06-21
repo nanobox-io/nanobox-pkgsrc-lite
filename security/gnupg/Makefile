@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.128 2015/02/28 00:13:25 wiz Exp $
+# $NetBSD: Makefile,v 1.133 2016/03/05 11:29:20 jperkin Exp $
 
-DISTNAME=	gnupg-1.4.19
+DISTNAME=	gnupg-1.4.20
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/gnupg/ \
 		http://gd.tuwien.ac.at/privacy/gnupg/gnupg/ \
-		ftp://ftp.jyu.fi/pub/crypt/gcrypt/gnupg/ \
 		ftp://ftp.ring.gr.jp/pub/net/gnupg/gnupg/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	wiz@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnupg.org/
 COMMENT=	GNU Privacy Guard, public-Key encryption and digital signatures
 LICENSE=	gnu-gpl-v3

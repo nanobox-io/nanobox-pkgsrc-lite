@@ -1,10 +1,12 @@
-# $NetBSD: Makefile,v 1.48 2014/05/05 00:48:37 ryoon Exp $
+# $NetBSD: Makefile,v 1.52 2015/07/07 19:55:28 youri Exp $
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
-DISTNAME=		xfce4-session-${XFCE4_VERSION}
-PKGREVISION=		21
+DISTNAME=		xfce4-session-4.12.1
 CATEGORIES=		x11
+MASTER_SITES+=		http://archive.xfce.org/src/xfce/xfce4-session/4.12/
+
+HOMEPAGE=		http://docs.xfce.org/xfce/xfce4-session/start
 COMMENT=		Xfce session manager
 
 PKGCONFIG_OVERRIDE+=	libxfsm/xfce4-session-2.0.pc.in
@@ -16,30 +18,36 @@ CONFIGURE_ARGS+=	ICEAUTH=${TOOLS_PATH.iceauth}
 
 USE_TOOLS+=		iceauth:run
 
+SUBST_CLASSES+=		xflock4
+SUBST_STAGE.xflock4=	pre-build
+SUBST_MESSAGE.xflock4=	Updating path in xflock4
+SUBST_FILES.xflock4=	scripts/xflock4
+SUBST_SED.xflock4=	-e 's,/bin:/usr/bin,${PREFIX}/bin,g'
+
 EGDIR=			${XFCE4_EGBASE}
 PKG_SYSCONFSUBDIR=	xdg
 
 MAKE_DIRS+=	${PKG_SYSCONFDIR} ${PKG_SYSCONFDIR}/autostart
-MAKE_DIRS+=	${PREFIX}/include/xfce4 ${PREFIX}/lib/xfce4
 MAKE_DIRS+=	${EGDIR} ${EGDIR}/autostart ${EGDIR}/xfconf
 MAKE_DIRS+=	${EGDIR}/xfconf/xfce-perchannel-xml
-MAKE_DIRS+=	${EGDIR}/share/themes/Default
-MAKE_DIRS+=	${PREFIX}/share/xfce4 ${PREFIX}/share/xfce4/doc
-MAKE_DIRS+=	${PREFIX}/share/xfce4/doc/C ${PREFIX}/share/xfce4/doc/C/images
-MAKE_DIRS+=	${PREFIX}/share/xfce4/doc/fr ${PREFIX}/share/xfce4/doc/fr/images
 
+CONF_FILES=	${EGDIR}/autostart/xscreensaver.desktop \
+		${PKG_SYSCONFDIR}/autostart/xscreensaver.desktop
 CONF_FILES=	${EGDIR}/xfconf/xfce-perchannel-xml/xfce4-session.xml \
-	${PKG_SYSCONFDIR}/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
-CONF_FILES+=	${EGDIR}/autostart/xfce4-tips-autostart.desktop \
-		${PKG_SYSCONFDIR}/autostart/xfce4-tips-autostart.desktop
+		${PKG_SYSCONFDIR}/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+CONF_FILES+=	${EGDIR}/Xft.xrdb \
+		${PKG_SYSCONFDIR}/xfce4/Xft.xrdb
+CONF_FILES+=	${EGDIR}/xinitrc \
+		${PKG_SYSCONFDIR}/xfce4/xinitrc
+
+.if !empty(Darwin-*-*)
+.include "../../sysutils/consolekit/buildlink3.mk"
+.endif
 
 .include "../../devel/libglade/buildlink3.mk"
 .include "../../devel/libwnck/buildlink3.mk"
-.include "../../devel/xfconf/buildlink3.mk"
-.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../sysutils/dbus/buildlink3.mk"
-.include "../../sysutils/dbus-glib/buildlink3.mk"
+.include "../../security/policykit/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
-.include "../../x11/libxfce4gui/buildlink3.mk"
-.include "../../x11/libxfce4util/buildlink3.mk"
+.include "../../x11/libxfce4ui/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

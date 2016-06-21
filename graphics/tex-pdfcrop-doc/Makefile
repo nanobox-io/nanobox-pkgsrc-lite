@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/10/27 18:05:55 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2016/01/30 04:05:50 markd Exp $
 
 DISTNAME=	pdfcrop.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-1.32
-TEXLIVE_REV=	23499
+PKGNAME=	tex-${DISTNAME:S/./-/}-1.37
+TEXLIVE_REV=	29348
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-pdfcrop
+LICENSE=	lppl-1.3c
 
 TEX_TEXMF_DIRS=	texmf-dist
 

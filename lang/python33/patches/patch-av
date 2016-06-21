@@ -1,9 +1,9 @@
-$NetBSD: patch-av,v 1.1 2012/12/10 03:15:49 tsarna Exp $
+$NetBSD: patch-av,v 1.2 2015/04/24 03:24:32 rodent Exp $
 
 Support multiarch.
 
---- Lib/distutils/command/install.py.orig	2012-04-11 06:54:02.000000000 +0000
-+++ Lib/distutils/command/install.py	2012-12-13 15:21:18.968115706 +0000
+--- Lib/distutils/command/install.py.orig	2014-10-12 07:03:52.000000000 +0000
++++ Lib/distutils/command/install.py
 @@ -44,8 +44,8 @@
  
  INSTALL_SCHEMES = {
@@ -34,7 +34,7 @@ Support multiarch.
                             }
  
          if HAS_USER_SITE:
-@@ -676,5 +681,6 @@
+@@ -676,5 +676,6 @@ class install(Command):
                      ('install_headers', has_headers),
                      ('install_scripts', has_scripts),
                      ('install_data',    has_data),

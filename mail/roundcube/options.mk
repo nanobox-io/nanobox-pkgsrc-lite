@@ -1,13 +1,13 @@
-# $NetBSD: options.mk,v 1.8 2013/06/15 16:08:09 taca Exp $
+# $NetBSD: options.mk,v 1.14 2015/10/29 15:54:20 prlw1 Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.roundcube
 
-PKG_OPTIONS_REQUIRED_GROUPS=	db converters
+PKG_OPTIONS_REQUIRED_GROUPS=	db webserver
 PKG_OPTIONS_GROUP.db=		mysql pgsql sqlite
-PKG_OPTIONS_GROUP.converters=	iconv multibyte
+PKG_OPTIONS_GROUP.webserver=	apache nginx
 
-PKG_SUPPORTED_OPTIONS=		ldap sockets gd
-PKG_SUGGESTED_OPTIONS=		mysql iconv sockets gd
+PKG_SUPPORTED_OPTIONS=		ldap iconv sockets gd
+PKG_SUGGESTED_OPTIONS=		mysql iconv sockets gd apache
 
 .include "../../mk/bsd.options.mk"
 
@@ -40,10 +40,24 @@ DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=4.3.1:../../converters/php-iconv
 .endif
 
 ###
-### Use mbstring.
+### Use apache web server
 ###
-.if !empty(PKG_OPTIONS:Mmultibyte)
-DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=4.3.1:../../converters/php-mbstring
+.if !empty(PKG_OPTIONS:Mapache)
+WWW_USER?=              ${APACHE_USER}
+WWW_GROUP?=             ${APACHE_GROUP}
+BUILD_DEFS+=		APACHE_USER APACHE_GROUP
+WWW_CONF_FILE?=		apache.conf
+.include "../../mk/apache.mk"
+.endif
+
+###
+### Use nginx web server
+###
+.if !empty(PKG_OPTIONS:Mnginx)
+DEPENDS+=	nginx-[0-9]*:../../www/nginx
+WWW_USER?=		nginx
+WWW_GROUP?=		nginx
+WWW_CONF_FILE?=		nginx.conf
 .endif
 
 ###
@@ -51,6 +65,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=4.3.1:../../converters/php-mbstring
 ###
 .if !empty(PKG_OPTIONS:Mldap)
 DEPENDS+=	${PHP_PKG_PREFIX}-ldap>=4.3.1:../../databases/php-ldap
+DEPENDS+=	${PHP_PKG_PREFIX}-pear-Net_LDAP3-[0-9]*:../../net/pear-Net_LDAP3
 .endif
 
 ###

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2014/12/03 07:33:25 wen Exp $
+# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:14 wiz Exp $
 
 DISTNAME=	Method-Signatures-20141021
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/B/BA/BAREFOOT/}
 #MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Method/}
@@ -16,7 +17,7 @@ DEPENDS+=	p5-Const-Fast>=0.006:../../devel/p5-Const-Fast
 DEPENDS+=	p5-Data-Alias>=1.08:../../devel/p5-Data-Alias
 DEPENDS+=	p5-Devel-BeginLift>=0.001001:../../devel/p5-Devel-BeginLift
 DEPENDS+=	p5-Devel-Declare>=0.006002:../../devel/p5-Devel-Declare
-DEPENDS+=	{perl>=5.19.11,p5-experimental>=0.005}:../../devel/p5-experimental
+#DEPENDS+=	{perl>=5.19.11,p5-experimental>=0.005}:../../devel/p5-experimental
 DEPENDS+=	p5-PPI>=1.203:../../devel/p5-PPI
 DEPENDS+=	p5-Mouse>=0.64:../../devel/p5-Mouse
 DEPENDS+=	p5-Sub-Name>=0.03:../../devel/p5-Sub-Name

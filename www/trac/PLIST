@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.24 2015/01/18 13:32:00 gdt Exp $
+@comment $NetBSD: PLIST,v 1.26 2016/02/27 01:33:04 gdt Exp $
 bin/trac-admin
 bin/tracd
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
@@ -615,9 +615,6 @@ ${PYSITELIB}/trac/versioncontrol/web_ui/changeset.pyo
 ${PYSITELIB}/trac/versioncontrol/web_ui/log.py
 ${PYSITELIB}/trac/versioncontrol/web_ui/log.pyc
 ${PYSITELIB}/trac/versioncontrol/web_ui/log.pyo
-${PYSITELIB}/trac/versioncontrol/web_ui/main.py
-${PYSITELIB}/trac/versioncontrol/web_ui/main.pyc
-${PYSITELIB}/trac/versioncontrol/web_ui/main.pyo
 ${PYSITELIB}/trac/versioncontrol/web_ui/util.py
 ${PYSITELIB}/trac/versioncontrol/web_ui/util.pyc
 ${PYSITELIB}/trac/versioncontrol/web_ui/util.pyo
@@ -676,6 +673,7 @@ ${PYSITELIB}/trac/wiki/default-pages/InterWiki
 ${PYSITELIB}/trac/wiki/default-pages/PageTemplates
 ${PYSITELIB}/trac/wiki/default-pages/RecentChanges
 ${PYSITELIB}/trac/wiki/default-pages/SandBox
+${PYSITELIB}/trac/wiki/default-pages/TicketQuery
 ${PYSITELIB}/trac/wiki/default-pages/TitleIndex
 ${PYSITELIB}/trac/wiki/default-pages/TracAccessibility
 ${PYSITELIB}/trac/wiki/default-pages/TracAdmin
@@ -683,6 +681,7 @@ ${PYSITELIB}/trac/wiki/default-pages/TracBackup
 ${PYSITELIB}/trac/wiki/default-pages/TracBatchModify
 ${PYSITELIB}/trac/wiki/default-pages/TracBrowser
 ${PYSITELIB}/trac/wiki/default-pages/TracCgi
+${PYSITELIB}/trac/wiki/default-pages/TracChangeLog
 ${PYSITELIB}/trac/wiki/default-pages/TracChangeset
 ${PYSITELIB}/trac/wiki/default-pages/TracEnvironment
 ${PYSITELIB}/trac/wiki/default-pages/TracFastCgi
@@ -819,6 +818,7 @@ ${PYSITELIB}/tracopt/versioncontrol/svn/svn_prop.pyo
 libexec/trac/trac.cgi
 libexec/trac/trac.fcgi
 share/examples/trac/README
+share/examples/trac/appveyor.ps1
 share/examples/trac/bugzilla2trac.py
 share/examples/trac/cgi-bin/trac.cgi
 share/examples/trac/cgi-bin/trac.fcgi
@@ -835,6 +835,7 @@ share/examples/trac/sourceforge2trac.py
 share/examples/trac/trac-pre-commit-hook
 share/examples/trac/trac-svn-hook
 share/examples/trac/trac-svn-post-commit-hook.cmd
+share/examples/trac/wiki2rst.py
 share/examples/trac/workflow/README
 share/examples/trac/workflow/enterprise-workflow.ini
 share/examples/trac/workflow/migrate_original_to_basic.py

@@ -1,12 +1,14 @@
-# $NetBSD: Makefile,v 1.2 2011/11/06 08:43:30 minskim Exp $
+# $NetBSD: Makefile,v 1.4 2015/08/09 06:14:08 markd Exp $
 
 DISTNAME=	norasi-c90
-PKGNAME=	tex-${DISTNAME}-2011
-PKGREVISION=	1
-TEXLIVE_REV=	15878
+PKGNAME=	tex-${DISTNAME}-2015
+TEXLIVE_REV=	37675
 
 MAINTAINER=	minskim@NetBSD.org
-COMMENT=	TeX support (from CJK) for the norasi font in thailatex
+HOMEPAGE=	ttp://ctan.org/pkg/norasi-c90
+COMMENT=	TeX support (from CJK) for the norasi font
+
+DEPENDS+=	tex-fonts-tlwg>=0.6.1:../../fonts/tex-fonts-tlwg
 
 TEX_MAP_FILES+=	norasi-c90.map
 

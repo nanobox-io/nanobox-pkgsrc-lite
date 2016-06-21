@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.29 2014/10/09 14:06:16 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2015/08/20 13:47:46 mef Exp $
 
-DISTNAME=	Event-1.21
+DISTNAME=	Event-1.24
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/J/JP/JPRIT/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/ET/ETJ/}
 
 MAINTAINER=	rhaen@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Event/

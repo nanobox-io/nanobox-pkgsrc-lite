@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.106 2014/11/15 20:59:33 markd Exp $
+# $NetBSD: Makefile,v 1.110 2016/03/05 11:28:39 jperkin Exp $
 #
 
-PKGNAME=	kipi-plugins-4.4.0
-DISTNAME=	digikam-4.4.0
+PKGNAME=	kipi-plugins-4.13.0
+PKGREVISION=	1
+DISTNAME=	digikam-4.13.0
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_KDE:=digikam/}
 EXTRACT_SUFX=	.tar.bz2
@@ -19,15 +20,17 @@ DEPENDS+=	xdg-utils-[0-9]*:../../misc/xdg-utils
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		msgfmt pkg-config bison
+CMAKE_ARGS+=		-DENABLE_OPENCV3:BOOL=ON
 
 WRKSRC=			${WRKDIR}/${DISTNAME}/extra/kipi-plugins
 
 post-patch:
 	${ECHO} "FIND_PACKAGE(Msgfmt REQUIRED)" >> ${WRKSRC}/CMakeLists.txt
 	${ECHO} "FIND_PACKAGE(Gettext REQUIRED)" >> ${WRKSRC}/CMakeLists.txt
+	${ECHO} "set_property(GLOBAL PROPERTY ALLOW_DUPLICATE_CUSTOM_TARGETS 1)" >> ${WRKSRC}/CMakeLists.txt
 	${ECHO} "ADD_SUBDIRECTORY(po)" >> ${WRKSRC}/CMakeLists.txt
 	ln -s ../../po ${WRKSRC}/po
-	rm ${WRKSRC}/po/*/digikam.po ${WRKSRC}/po/*/libkgeomap.po ${WRKSRC}/po/*/libkipi.po
+	rm ${WRKSRC}/po/*/digikam.po ${WRKSRC}/po/*/libkipi.po
 
 SUBST_CLASSES+=		xdg
 SUBST_SED.xdg=		-e "s,/usr/bin/env xdg-open,${PREFIX}/bin/xdg-open,"

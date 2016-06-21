@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.57 2013/10/09 17:39:09 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2016/02/25 13:19:47 jperkin Exp $
 #
 
 DISTNAME=	xarchon-0.60
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	games x11
 MASTER_SITES=	http://xarchon.seul.org/ \
 		ftp://xarchon.seul.org/pub/xarchon/
@@ -15,12 +15,7 @@ USE_TOOLS+=	gmake
 GNU_CONFIGURE=	YES
 USE_LANGUAGES=	c c++
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	CC=${CC:Q}
-.endif
-
+CONFIGURE_ENV.SunOS+=	CC=${CC:Q}
 LDFLAGS.DragonFly=	-lX11
 LIBS.SunOS+=		-lX11 -lsocket -lnsl
 

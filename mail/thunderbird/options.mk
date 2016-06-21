@@ -1,18 +1,15 @@
-# $NetBSD: options.mk,v 1.15 2014/09/11 13:47:46 joerg Exp $
+# $NetBSD: options.mk,v 1.18 2016/02/25 15:00:51 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.thunderbird
 PKG_SUPPORTED_OPTIONS=	alsa debug mozilla-jemalloc gnome \
 			official-mozilla-branding pulseaudio \
-			mozilla-lightning mozilla-enigmail
+			mozilla-lightning
 PKG_SUGGESTED_OPTIONS=	mozilla-lightning
 
 PLIST_VARS+=		branding nobranding debug gnome jemalloc
 
-.if ${OPSYS} == "Linux"
-PKG_SUGGESTED_OPTIONS+=	alsa mozilla-jemalloc
-.else
-PKG_SUGGESTED_OPTIONS+=	pulseaudio
-.endif
+PKG_SUGGESTED_OPTIONS.Linux+=	alsa mozilla-jemalloc
+PKG_SUGGESTED_OPTIONS.*+=	pulseaudio
 
 .include "../../mk/bsd.options.mk"
 
@@ -60,14 +57,10 @@ CONFIGURE_ARGS+=	--disable-pulseaudio
 .if !empty(PKG_OPTIONS:Mmozilla-lightning)
 CONFIGURE_ARGS+=	--enable-calendar
 PLIST_SRC+=		PLIST.lightning
-XPI_FILES+=		${WRKSRC}/${OBJDIR}/mozilla/dist/xpi-stage/gdata-provider.xpi
-XPI_FILES+=		${WRKSRC}/${OBJDIR}/mozilla/dist/xpi-stage/lightning.xpi
+XPI_FILES+=		${WRKSRC}/${OBJDIR}/dist/xpi-stage/gdata-provider.xpi
+XPI_FILES+=		${WRKSRC}/${OBJDIR}/dist/xpi-stage/lightning.xpi
 .else
 CONFIGURE_ARGS+=	--disable-calendar
-.endif
-
-.if !empty(PKG_OPTIONS:Mmozilla-enigmail) || make(distinfo)
-.include "enigmail.mk"
 .endif
 
 .if !empty(PKG_OPTIONS:Mofficial-mozilla-branding)

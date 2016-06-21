@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.114 2014/10/07 16:47:14 adam Exp $
+# $NetBSD: Makefile,v 1.119 2016/03/09 06:01:09 tnn Exp $
 
 DISTNAME=	heimdal-1.5.3
-PKGREVISION=	8
+PKGREVISION=	11
 CATEGORIES=	security
 MASTER_SITES=	http://www.h5l.org/dist/src/
 
@@ -55,7 +55,6 @@ CFLAGS.Darwin+=		-DBIND_8_COMPAT
 
 # Though Solaris has a <vis.h> header, it does something very unrelated
 # to the BSD <vis.h> header.
-OPSYSVARS+=		CONFIGURE_ENV
 CONFIGURE_ENV.SunOS+=	ac_cv_header_vis_h=no
 
 .include "../../mk/readline.buildlink3.mk"
@@ -76,6 +75,8 @@ PLIST.glob=	yes
 .if ${OPSYS} == "Linux"
 PLIST.vis=	yes
 PLIST.glob=	yes
+# Without this I get undefined references to pthread_getspecific
+PTHREAD_AUTO_VARS=	yes
 .endif
 
 PLIST_VARS+=		afskauth hcrypto

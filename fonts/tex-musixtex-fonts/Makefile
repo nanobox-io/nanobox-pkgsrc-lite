@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.1 2013/12/04 02:18:42 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2015/08/09 06:14:08 markd Exp $
 
 DISTNAME=	musixtex-fonts
-PKGNAME=	tex-${DISTNAME}-2013
-TEXLIVE_REV=	28934
+PKGNAME=	tex-${DISTNAME}-2015
+TEXLIVE_REV=	37762
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/musixtex-fonts
 COMMENT=	Fonts used by MusixTeX
 LICENSE=	gnu-gpl-v2
 

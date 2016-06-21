@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.2 2011/03/16 17:41:37 minskim Exp $
+# $NetBSD: Makefile,v 1.5 2015/08/02 12:09:44 markd Exp $
 
 DISTNAME=	eso-pic
-PKGNAME=	tex-${DISTNAME}-2.0c
-PKGREVISION=	1
-TEXLIVE_REV=	21515
+PKGNAME=	tex-${DISTNAME}-2.0g
+TEXLIVE_REV=	37925
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/eso-pic
 COMMENT=	Add picture commands (or backgrounds) to every page
+LICENSE=	lppl-1.2
 
 CONFLICTS=	teTeX-texmf<=3.0nb29
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics

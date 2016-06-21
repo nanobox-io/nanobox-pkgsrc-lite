@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.25 2014/08/17 15:59:07 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2016/03/12 23:07:33 ryoon Exp $
 
-CONSOLEKIT_VER=		0.4.5
+CONSOLEKIT_VER=		0.4.6
 DISTNAME=		ConsoleKit-${CONSOLEKIT_VER}
 PKGNAME=		consolekit-${CONSOLEKIT_VER}
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		http://www.freedesktop.org/software/ConsoleKit/dist/
-EXTRACT_SUFX=		.tar.bz2
+EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freedesktop.org/wiki/Software/ConsoleKit
@@ -15,10 +16,10 @@ LICENSE=	gnu-gpl-v2
 PKG_SYSCONFSUBDIR=	ConsoleKit
 
 EGDIR=		${PREFIX}/share/examples/consolekit
-CONF_FILES+=	${EGDIR}/00-primary.seat ${PKG_SYSCONFDIR}/seats.d/00-primary.seat
+CONF_FILES+=	${EGDIR}/00-primary.seat ${PKG_SYSCONFDIR}/run-seat.d/00-primary.seat
 CONF_FILES+=	${EGDIR}/ConsoleKit.conf ${PKG_SYSCONFBASE}/dbus-1/system.d/ConsoleKit.conf
 
-MAKE_DIRS=	${PKG_SYSCONFDIR}/seats.d
+MAKE_DIRS=	${PKG_SYSCONFDIR}/run-seat.d
 
 BUILD_DEFS+=		VARBASE
 BUILD_DEFS+=		PKG_SYSCONFBASE
@@ -34,6 +35,8 @@ MULTIARCH_SKIP_DIRS.lib=	lib/ConsoleKit
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASE:Q}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
+
+CONFIGURE_ARGS.SunOS+=	--enable-rbac-shutdown=solaris.system.shutdown
 
 # TODO
 #CONFIGURE_ARGS+=	--enable-pam-module
@@ -53,10 +56,6 @@ post-install:
 		${DESTDIR}${PREFIX}/libexec/ck-get-x11-display-device
 	${INSTALL_SCRIPT} ${FILESDIR}/ck-get-x11-server-pid.FreeBSD \
 		${DESTDIR}${PREFIX}/libexec/ck-get-x11-server-pid
-.endif
-
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ARGS+=	--enable-rbac-shutdown=solaris.system.shutdown
 .endif
 
 .include "../../devel/zlib/buildlink3.mk"

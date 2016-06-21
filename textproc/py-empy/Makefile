@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2014/05/09 07:37:22 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2016/04/02 08:28:28 jperkin Exp $
 
 DISTNAME=	empy-3.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -11,7 +11,7 @@ HOMEPAGE=	http://www.alcyone.com/software/empy/
 COMMENT=	Powerful and robust templating system for Python
 LICENSE=	gnu-lgpl-v2.1
 
-INSTALLATION_DIRS=	bin share/doc
+INSTALLATION_DIRS=	bin share/doc/empy
 REPLACE_PYTHON+=        em.py
 
 USE_TOOLS+=		pax
@@ -19,7 +19,7 @@ PYDISTUTILSPKG=		# yes
 PLIST_SUBST+=		PYVERSSUFFIX="${PYVERSSUFFIX}"
 
 PYTHON_SELF_CONFLICT=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
 
 # Fix html path in documentation
 SUBST_CLASSES+=		doc

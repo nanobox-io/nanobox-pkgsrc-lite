@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.19 2015/03/12 15:01:21 jperkin Exp $
+# $NetBSD: Makefile,v 1.21 2015/11/25 12:51:16 jperkin Exp $
 
 GCC_PKGNAME=	gcc48
 .include	"../../lang/${GCC_PKGNAME}/version.mk"
@@ -18,20 +18,18 @@ HOMEPAGE=	http://gcc.gnu.org/
 COMMENT=	The GNU Compiler Collection (GCC) support shared libraries.
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
-USE_TOOLS+=		pax
+USE_TOOLS+=	pax
 
-NO_BUILD=		yes
+NO_BUILD=	yes
+CHECK_SHLIBS=	no
 
 ## Depend on exactly ${GCC48_DIST_VERSION}.
 BUILD_DEPENDS+=		${GCC_PKGNAME}-${GCC48_DIST_VERSION}{,nb[0-9]*}:../../lang/gcc48
 
 .include "../../mk/bsd.prefs.mk"
 
-FIND_PREFIX:=		GCC_PKG_PREFIX=${GCC_PKGNAME}-${GCC48_DIST_VERSION}*
-.include "../../mk/find-prefix.mk"
-
 LIBGCC_SUBPREFIX=	${GCC_PKGNAME}
-LIBGCC_PREFIX=		${GCC_PKG_PREFIX}/${LIBGCC_SUBPREFIX}
+LIBGCC_PREFIX=		${LOCALBASE}/${LIBGCC_SUBPREFIX}
 GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 BUILD_DEFS+=		GCC_TARGET_MACHINE
 

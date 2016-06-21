@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.8 2015/01/20 16:09:15 jaapb Exp $
+# $NetBSD: Makefile,v 1.12 2016/02/17 17:02:30 jaapb Exp $
 #
 
-DISTNAME=	2.5
-PKGNAME=	js_of_ocaml-${DISTNAME}
+GITHUB_PROJECT=	js_of_ocaml
+DISTNAME=	${GITHUB_PROJECT}-2.7
 PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	https://github.com/ocsigen/js_of_ocaml/archive/
-DIST_SUBDIR=	js_of_ocaml
+MASTER_SITES=	${MASTER_SITE_GITHUB:=ocsigen/}
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://ocsigen.org/js_of_ocaml/
@@ -14,6 +13,7 @@ COMMENT=	Compiler of OCaml bytecode to Javascript
 LICENSE=	gnu-lgpl-v2
 
 DEPENDS+=	ocaml-deriving-ocsigen>=0.6:../../devel/ocaml-deriving-ocsigen
+DEPENDS+=	ocaml-ppx_deriving>=3.1:../../devel/ocaml-ppx_deriving
 DEPENDS+=	menhir-[0-9]*:../../devel/menhir
 
 USE_TOOLS=	gmake
@@ -23,10 +23,13 @@ MAKE_ENV=	BINDIR=${DESTDIR}/${PREFIX}/bin DESTDIR=${DESTDIR} OCAML_SITELIBDIR=${
 MAKE_JOBS_SAFE=	no
 
 .include "options.mk"
+.include "../../devel/ocaml-base64/buildlink3.mk"
 .include "../../devel/ocaml-cmdliner/buildlink3.mk"
+.include "../../devel/ocaml-cppo/buildlink3.mk"
 .include "../../devel/ocaml-lwt/buildlink3.mk"
 .include "../../devel/ocaml-optcomp/buildlink3.mk"
 BUILDLINK_API_DEPENDS.ocaml-optcomp+=   ocaml-optcomp>=1.6
+.include "../../devel/ocaml-ppx_tools/buildlink3.mk"
 .include "../../lang/camlp4/buildlink3.mk"
 .include "../../mk/ocaml.mk"
 .include "../../mk/bsd.pkg.mk"

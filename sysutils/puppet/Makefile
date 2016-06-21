@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2014/03/26 14:27:22 taca Exp $
+# $NetBSD: Makefile,v 1.25 2016/03/15 12:45:07 fhajny Exp $
 
-DISTNAME=		puppet-3.1.1
-PKGREVISION=		1
+DISTNAME=		puppet-3.8.6
 CATEGORIES=		sysutils
 #MASTER_SITES=		http://puppetlabs.com/downloads/puppet/
 
@@ -10,16 +9,16 @@ HOMEPAGE=		http://www.puppetlabs.com/
 COMMENT=		Configuration management framework written in Ruby
 LICENSE=		apache-2.0
 
-DEPENDS+=		${RUBY_PKGPREFIX}-facter>=1.6.18:../../sysutils/ruby-facter
-DEPENDS+=		${RUBY_PKGPREFIX}-hiera>=1.0.0:../../databases/ruby-hiera
-DEPENDS+=		${RUBY_PKGPREFIX}-io-console>=0.3:../../devel/ruby-io-console
-DEPENDS+=		${RUBY_PKGPREFIX}-json-pure>=0:../../textproc/ruby-json-pure
-DEPENDS+=		${RUBY_PKGPREFIX}-minitest>=2.5.1:../../devel/ruby-minitest
-DEPENDS+=		${RUBY_PKGPREFIX}-shadow>=2.0.0:../../security/ruby-shadow
+DEPENDS+=	${RUBY_PKGPREFIX}-facter>=1.7.0<3:../../sysutils/ruby-facter
+DEPENDS+=	${RUBY_PKGPREFIX}-hiera>=1.0.0<3:../../databases/ruby-hiera
+DEPENDS+=	${RUBY_PKGPREFIX}-minitest>=2.5.1:../../devel/ruby-minitest
+DEPENDS+=	${RUBY_PKGPREFIX}-shadow>=2.0.0:../../security/ruby-shadow
+# io-console gem is bundled in ruby base package.
 
-RUBY_VERSION_SUPPORTED=	200 193 21
-
-CONFLICTS+=		ruby[1-9][0-9]-puppet-[0-9]* puppet-[0-9]*
+RUBY_VERSION_SUPPORTED=	21
+RUBY_JSON_REQD=		1.7.0
+RUBY_JSON_TYPE=		pure
+RUBYGEM_OPTIONS+=	--format-executable
 
 PKG_SYSCONFSUBDIR=	puppet
 RCD_SCRIPTS=		puppetd puppetmasterd
@@ -34,13 +33,10 @@ SUBST_FILES.prefix+=	lib/puppet/face/module/uninstall.rb
 SUBST_FILES.prefix+=	lib/puppet/face/module/upgrade.rb
 SUBST_FILES.prefix+=	lib/puppet/parser/functions/extlookup.rb
 SUBST_FILES.prefix+=	lib/puppet/reference/configuration.rb
-SUBST_FILES.prefix+=	lib/puppet/defaults.rb lib/puppet/util/run_mode.rb
-SUBST_FILES.prefix+=	bin/puppet ext/rack/manifest.pp
-SUBST_FILES.prefix+=	ext/rack/files/apache2.conf ext/rack/files/config.ru
+SUBST_FILES.prefix+=	lib/puppet/util/run_mode.rb
 SUBST_FILES.prefix+=	ext/solaris/smf/puppetd.xml
 SUBST_FILES.prefix+=	ext/solaris/smf/puppetmasterd.xml
 SUBST_FILES.prefix+=	man/man5/puppet.conf.5
-SUBST_FILES.prefix+=	man/man8/puppet.8
 SUBST_FILES.prefix+=	man/man8/puppet-apply.8
 SUBST_FILES.prefix+=	man/man8/puppet-device.8
 SUBST_FILES.prefix+=	man/man8/puppet-doc.8

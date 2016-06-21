@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.115 2014/05/31 15:56:26 wiz Exp $
+# $NetBSD: Makefile,v 1.119 2016/02/25 12:50:49 jperkin Exp $
 
 DISTNAME=		vice-2.4
-PKGREVISION=		11
+PKGREVISION=		14
 CATEGORIES=		emulators
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=vice-emu/}
 MASTER_SITES+=		ftp://ftp.zimmers.net/pub/cbm/crossplatform/emulators/VICE/
@@ -38,16 +38,9 @@ PLIST_SRC+=		PLIST
 
 .include "options.mk"
 
-.include "../../mk/bsd.prefs.mk"
-
-.if (${OPSYS} == NetBSD)
-CONFIGURE_ARGS+=	--without-oss
-CPPFLAGS+=		-DHAVE_STDINT_H
-.endif
-
-.if (${OPSYS} == DragonFly)
-CPPFLAGS+=		-DHAVE_STDINT_H
-.endif
+CONFIGURE_ARGS.NetBSD+=	--without-oss
+CPPFLAGS.NetBSD+=	-DHAVE_STDINT_H
+CPPFLAGS.DragonFly+=	-DHAVE_STDINT_H
 
 .include "../../mk/readline.buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

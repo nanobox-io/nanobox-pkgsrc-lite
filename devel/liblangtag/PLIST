@@ -1,5 +1,6 @@
-@comment $NetBSD: PLIST,v 1.2 2014/05/07 18:44:07 jaapb Exp $
+@comment $NetBSD: PLIST,v 1.4 2015/11/17 11:55:39 wiz Exp $
 include/liblangtag/langtag.h
+include/liblangtag/lt-config.h
 include/liblangtag/lt-database.h
 include/liblangtag/lt-error.h
 include/liblangtag/lt-ext-module-data.h
@@ -14,6 +15,7 @@ include/liblangtag/lt-lang-db.h
 include/liblangtag/lt-lang.h
 include/liblangtag/lt-list.h
 include/liblangtag/lt-macros.h
+include/liblangtag/lt-messages.h
 include/liblangtag/lt-redundant-db.h
 include/liblangtag/lt-redundant.h
 include/liblangtag/lt-region-db.h
@@ -22,8 +24,10 @@ include/liblangtag/lt-script-db.h
 include/liblangtag/lt-script.h
 include/liblangtag/lt-string.h
 include/liblangtag/lt-tag.h
+include/liblangtag/lt-utils.h
 include/liblangtag/lt-variant-db.h
 include/liblangtag/lt-variant.h
+include/liblangtag/lt-xml.h
 lib/liblangtag.la
 lib/liblangtag/liblangtag-ext-ldml-t.la
 lib/liblangtag/liblangtag-ext-ldml-u.la
@@ -38,6 +42,7 @@ share/gtk-doc/html/liblangtag/deprecated-api-index.html
 share/gtk-doc/html/liblangtag/home.png
 share/gtk-doc/html/liblangtag/index.html
 share/gtk-doc/html/liblangtag/index.sgml
+share/gtk-doc/html/liblangtag/left-insensitive.png
 share/gtk-doc/html/liblangtag/left.png
 share/gtk-doc/html/liblangtag/liblangtag-Container---Extension.html
 share/gtk-doc/html/liblangtag/liblangtag-Container---Extlang.html
@@ -65,8 +70,10 @@ share/gtk-doc/html/liblangtag/liblangtag-Module---Data.html
 share/gtk-doc/html/liblangtag/liblangtag-Strings.html
 share/gtk-doc/html/liblangtag/liblangtag.devhelp2
 share/gtk-doc/html/liblangtag/object-tree.html
+share/gtk-doc/html/liblangtag/right-insensitive.png
 share/gtk-doc/html/liblangtag/right.png
 share/gtk-doc/html/liblangtag/style.css
+share/gtk-doc/html/liblangtag/up-insensitive.png
 share/gtk-doc/html/liblangtag/up.png
 share/liblangtag/common/bcp47/calendar.xml
 share/liblangtag/common/bcp47/collation.xml

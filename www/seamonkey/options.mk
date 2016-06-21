@@ -1,14 +1,13 @@
-# $NetBSD: options.mk,v 1.31 2015/03/17 19:50:42 ryoon Exp $
+# $NetBSD: options.mk,v 1.33 2016/02/26 10:57:46 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.seamonkey
-PKG_SUPPORTED_OPTIONS=	alsa debug mozilla-jemalloc mozilla-enigmail # gnome
+PKG_SUPPORTED_OPTIONS=	alsa debug mozilla-jemalloc # gnome
 PKG_SUPPORTED_OPTIONS+=	mozilla-lightning webrtc mozilla-chatzilla pulseaudio
 
 PLIST_VARS+=	debug gnome jemalloc
 
-.if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
-PKG_SUGGESTED_OPTIONS+=	mozilla-jemalloc
-.endif
+PKG_SUGGESTED_OPTIONS.Linux+=	mozilla-jemalloc
+PKG_SUGGESTED_OPTIONS.SunOS+=	mozilla-jemalloc
 
 # On NetBSD/amd64 6.99.21 libxul.so is invalid when --enable-webrtc is set.
 .if (${OPSYS} == "FreeBSD") || (${OPSYS} == "Linux") || (${OPSYS} == "OpenBSD")
@@ -60,10 +59,6 @@ PLIST.debug=		yes
 .else
 CONFIGURE_ARGS+=	--disable-debug --disable-debug-symbols
 CONFIGURE_ARGS+=	--enable-install-strip
-.endif
-
-.if !empty(PKG_OPTIONS:Mmozilla-enigmail) || make(distinfo)
-.include "enigmail.mk"
 .endif
 
 .if !empty(PKG_OPTIONS:Mmozilla-lightning)

@@ -11,9 +11,7 @@ INSTALLATION_DIRS+=	${PREFIX}/include/php/ext/mbstring/libmbfl/filters
 INSTALLATION_DIRS+=	${PREFIX}/include/php/ext/mbstring/libmbfl/mbfl
 INSTALLATION_DIRS+=	${PREFIX}/include/php/ext/mbstring/libmbfl/nls
 
-.include "../../lang/php/phpversion.mk"
-
-PLIST_SRC+=		${.CURDIR}/PLIST.libmbfl${PKG_PHP_VERSION}
+PLIST_SRC+=		${.CURDIR}/PLIST
 
 CONFIGURE_ARGS+=	--enable-${MODNAME}=shared,${BUILDLINK_DIR}
 

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.38 2015/03/15 17:25:56 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.43 2016/01/04 00:12:17 taca Exp $
 #
 
-DISTNAME=	spreadsheet-1.0.3
+DISTNAME=	spreadsheet-1.1.1
 CATEGORIES=	math
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://spreadsheet.rubyforge.org/
+HOMEPAGE=	http://spreadsheet.ch/
 COMMENT=	Ruby Spreadsheet Library to read and write Spreadsheet Documents
 LICENSE=	gnu-gpl-v3
 

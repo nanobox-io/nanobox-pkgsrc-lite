@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.109 2015/03/21 20:04:39 bsiegert Exp $
+# $NetBSD: Makefile,v 1.115 2016/03/05 11:29:07 jperkin Exp $
 
-DISTNAME=	lftp-4.4.6
-PKGREVISION=	4
+DISTNAME=	lftp-4.6.3a
+PKGREVISION=	2
 CATEGORIES=	net
-MASTER_SITES=	http://ftp.yar.ru/pub/source/lftp/ \
+MASTER_SITES=	http://lftp.yar.ru/ftp/ \
 		ftp://ftp.tuwien.ac.at/infosys/browsers/ftp/lftp/ \
 		ftp://ftp.cs.tu-berlin.de/pub/net/ftp/lftp/ \
 		ftp://ftp.st.ryukoku.ac.jp/pub/network/ftp/lftp/ \
@@ -29,9 +29,6 @@ SHLIBTOOL_OVERRIDE=	# empty
 .include "options.mk"
 
 LDFLAGS.Darwin+=	-flat_namespace
-.if ${OPSYS} == "Darwin"
-INSTALL_UNSTRIPPED=	yes
-.endif
 
 EGDIR=			${PREFIX}/share/examples/lftp
 CONF_FILES=		${EGDIR}/lftp.conf.default ${PKG_SYSCONFDIR}/lftp.conf
@@ -49,5 +46,6 @@ post-install: post-install-perl
 .include "../../devel/gettext-lib/buildlink3.mk"
 # uses _rl_mark_modified_lines
 .include "../../devel/readline/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.83 2015/02/16 14:03:32 taca Exp $
+# $NetBSD: Makefile,v 1.86 2016/03/05 11:28:44 jperkin Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -31,7 +31,7 @@ CONFIGURE_ARGS+= --enable-shared \
 WRKSRC=		${RUBY_WRKSRC}
 
 #
-# Don't refrect pkgsrc's INSTALL macro since Ruby expect it could
+# Don't reference pkgsrc's INSTALL macro since Ruby expect it could
 # execute by unprivileged user.
 #
 CONFIGURE_ENV+=	INSTALL="${INSTALL} ${COPY}" \
@@ -87,9 +87,7 @@ PLIST.io=	yes
 # Work around for ucontext(3). It was broken in older DragonFly
 # versions and is slow in newer ones.
 #
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ENV+=	ac_cv_header_ucontext_h=no
-.endif
+CONFIGURE_ENV.DragonFly+=	ac_cv_header_ucontext_h=no
 
 #
 # work around for getaddrinfo(3)

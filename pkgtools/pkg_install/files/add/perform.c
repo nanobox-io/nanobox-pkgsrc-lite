@@ -1,4 +1,4 @@
-/*	$NetBSD: perform.c,v 1.106 2014/12/30 15:13:20 wiz Exp $	*/
+/*	$NetBSD: perform.c,v 1.108 2015/12/27 12:36:42 joerg Exp $	*/
 #if HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -6,7 +6,7 @@
 #if HAVE_SYS_CDEFS_H
 #include <sys/cdefs.h>
 #endif
-__RCSID("$NetBSD: perform.c,v 1.106 2014/12/30 15:13:20 wiz Exp $");
+__RCSID("$NetBSD: perform.c,v 1.108 2015/12/27 12:36:42 joerg Exp $");
 
 /*-
  * Copyright (c) 2003 Grant Beattie <grant@NetBSD.org>
@@ -149,14 +149,6 @@ static int
 compatible_platform(const char *opsys, const char *host, const char *package)
 {
     int i = 0;
-
-    /*
-     * Ignore version checks for our Darwin packages.  They are backwards
-     * compatible, and thanks to PREFER_PKGSRC are often forward compatible
-     * too.  REQUIRES should weed out any missing library support.
-     */
-    if (strcmp(opsys, "Darwin") == 0)
-	return 1;
 
     /* returns 1 if host and package operating system match */
     if (strcmp(host, package) == 0)
@@ -934,7 +926,7 @@ check_platform(struct pkg_task *pkg)
 	if (OverrideMachine != NULL)
 		effective_arch = OverrideMachine;
 	else
-		effective_arch = MACHINE_ARCH;
+		effective_arch = PKGSRC_MACHINE_ARCH;
 
 	/* If either the OS or arch are different, bomb */
 	if (strcmp(OPSYS_NAME, pkg->buildinfo[BI_OPSYS]) ||
@@ -1286,6 +1278,9 @@ static int check_input(const char *line, size_t len)
 static int
 check_signature(struct pkg_task *pkg, int invalid_sig)
 {
+#ifdef BOOTSTRAP
+	return 0;
+#else
 	char *line;
 	size_t len;
 
@@ -1322,11 +1317,15 @@ check_signature(struct pkg_task *pkg, int invalid_sig)
 	}
 	warnx("Unknown value of configuration variable VERIFIED_INSTALLATION");
 	return 1;
+#endif
 }
 
 static int
 check_vulnerable(struct pkg_task *pkg)
 {
+#ifdef BOOTSTRAP
+	return 0;
+#else
 	static struct pkg_vulnerabilities *pv;
 	int require_check;
 	char *line;
@@ -1365,11 +1364,15 @@ check_vulnerable(struct pkg_task *pkg)
 		return 1;
 	}
 	return 0;
+#endif
 }
 
 static int
 check_license(struct pkg_task *pkg)
 {
+#ifdef BOOTSTRAP
+	return 0;
+#else
 	if (LicenseCheck == 0)
 		return 0;
 
@@ -1393,6 +1396,7 @@ check_license(struct pkg_task *pkg)
 		warnx("Invalid LICENSE for package `%s'", pkg->pkgname);
 		return 1;
 	}
+#endif
 }
 
 /*
@@ -1401,7 +1405,9 @@ check_license(struct pkg_task *pkg)
 static int
 pkg_do(const char *pkgpath, int mark_automatic, int top_level)
 {
+#ifndef BOOTSTRAP
 	char *archive_name;
+#endif
 	int status, invalid_sig;
 	struct pkg_task *pkg;
 
@@ -1409,6 +1415,16 @@ pkg_do(const char *pkgpath, int mark_automatic, int top_level)
 
 	status = -1;
 
+#ifdef BOOTSTRAP
+	pkg->archive = archive_read_new();
+	archive_read_support_compression_all(pkg->archive);
+	archive_read_support_format_all(pkg->archive);
+	if (archive_read_open_filename(pkg->archive, pkgpath, 1024)) {
+		warnx("no pkg found for '%s', sorry.", pkgpath);
+		archive_read_free(pkg->archive);
+		goto clean_find_archive;
+	}
+#else
 	pkg->archive = find_archive(pkgpath, top_level, &archive_name);
 	if (pkg->archive == NULL) {
 		warnx("no pkg found for '%s', sorry.", pkgpath);
@@ -1418,6 +1434,7 @@ pkg_do(const char *pkgpath, int mark_automatic, int top_level)
 	invalid_sig = pkg_verify_signature(archive_name, &pkg->archive, &pkg->entry,
 	    &pkg->pkgname);
 	free(archive_name);
+#endif
 
 	if (pkg->archive == NULL)
 		goto clean_memory;

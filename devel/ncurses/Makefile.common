@@ -1,10 +1,10 @@
-# $NetBSD: Makefile.common,v 1.26 2014/12/15 11:46:34 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.33 2016/03/24 13:28:49 ryoon Exp $
 #
 # used by devel/ncurses/Makefile
 # used by devel/ncursesw/Makefile
 
 DISTNAME=	ncurses-${NC_VERS}
-NC_VERS=	5.9
+NC_VERS=	6.0
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=ncurses/} \
 		ftp://dickey.his.com/ncurses/ \
@@ -39,9 +39,7 @@ SUBST_MESSAGE.rpath=	Fixing rpath in ncurses-config.
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-mixed-case
-.endif
+CONFIGURE_ARGS.Darwin+=	--disable-mixed-case
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 TOOL_DEPENDS+=		ncurses-${NC_VERS}:../../devel/ncurses
@@ -62,21 +60,31 @@ CONFIGURE_ARGS+=	--without-manpage-tbl
 .  endif
 .endif
 
-.if ${OPSYS} == "SunOS"
-USE_LANGUAGES+=	c99
 .include "../../mk/compiler.mk"
-. if !empty(CC_VERSION:Mgcc-4.*)
-#This may yet need to be adapted for systems prior to Solaris 10
-BUILDLINK_TRANSFORM+=	opt:-D_XOPEN_SOURCE=500:-D_POSIX_C_SOURCE=200112L
-BUILDLINK_TRANSFORM+=	rm:-D_XOPEN_SOURCE_EXTENDED
-. endif
+
+# Fix build under FreeBSD 10.2
+.if !empty(PKGSRC_COMPILER:Mclang)
+CONFIGURE_ENV+=		ac_cv_c_compiler_gnu=no
+CONFIGURE_ENV+=		ac_cv_cxx_compiler_gnu=no
+.endif
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ARGS+=	--disable-const
 TERMINFO_SRC=	${WRKSRC}/misc/terminfo.src
 TERMINFODIR=	share/lib/terminfo
 .else
 TERMINFODIR=	share/terminfo
 .endif
 
+.if !empty(CC_VERSION:Mgcc-5.*)
+# Inhibit generation of line markers in the output from the preprocessor
+# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=60723
+CPPFLAGS+=	-P
+.endif
+
 # This prevents tic from writing into ~/.terminfo
 INSTALLATION_DIRS+=	${TERMINFODIR}
 
 PLIST_SUBST+=	TERMINFODIR=${TERMINFODIR}
+
+CHECK_WRKREF_SKIP+=	man/man?/*

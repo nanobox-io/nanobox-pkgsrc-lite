@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.66 2014/05/05 00:47:51 ryoon Exp $
+# $NetBSD: Makefile,v 1.71 2016/03/05 11:28:31 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/-/-client-/}
-PKGREVISION=	10
+PKGREVISION=	3
 COMMENT=	Freeciv client
 
 DEPENDS+=	freeciv-share>=${FC_VERS}:../../games/freeciv-share
@@ -9,10 +9,25 @@ DEPENDS+=	freeciv-share>=${FC_VERS}:../../games/freeciv-share
 CONFLICTS=	freeciv-client-gtk<=1.11.4
 
 USE_TOOLS+=		pkg-config
-CONFIGURE_ARGS+=	--disable-make-data
 CONFIGURE_ARGS+=	--disable-server
 
 .include "../../games/freeciv-share/suppress_installation.mk"
+
+SUBST_CLASSES+=			themesonly
+SUBST_STAGE.themesonly=		pre-configure
+SUBST_FILES.themesonly=		data/Makefile.in
+SUBST_SED.themesonly+=		-e 's|SUBDIRS = icons.*|SUBDIRS = themes|'
+SUBST_SED.themesonly+=		-e 's|^	isotrident trident|DONT_SUBDIRS =|'
+SUBST_SED.themesonly+=		-e 's|install-data-am: install-data-local|install-data-am: \# install-data-local|'
+SUBST_MESSAGE.themesonly=	Suppressing installation of non-gui-relevant data
+
+SUBST_CLASSES+=			themesonly2
+SUBST_STAGE.themesonly2=	post-configure
+SUBST_FILES.themesonly2=	data/Makefile
+SUBST_SED.themesonly2+=		-e 's|SUBDIRS = icons.*|SUBDIRS = themes|'
+SUBST_SED.themesonly2+=		-e 's|^	isotrident trident|DONT_SUBDIRS =|'
+SUBST_MESSAGE.themesonly2=	Suppressing installation of non-gui-relevant data
+
 
 .include "../../games/freeciv-share/Makefile.common"
 

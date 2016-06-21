@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.12 2014/05/28 05:55:22 wiz Exp $
+@comment $NetBSD: PLIST,v 1.14 2016/01/27 06:33:47 wiz Exp $
 share/X11/xkb/compat/README
 share/X11/xkb/compat/accessx
 share/X11/xkb/compat/basic
@@ -43,6 +43,7 @@ share/X11/xkb/geometry/sgi_vndr/indigo
 share/X11/xkb/geometry/sgi_vndr/indy
 share/X11/xkb/geometry/sony
 share/X11/xkb/geometry/sun
+share/X11/xkb/geometry/teck
 share/X11/xkb/geometry/thinkpad
 share/X11/xkb/geometry/typematrix
 share/X11/xkb/geometry/winbook
@@ -57,6 +58,7 @@ share/X11/xkb/keycodes/evdev
 share/X11/xkb/keycodes/fujitsu
 share/X11/xkb/keycodes/hp
 share/X11/xkb/keycodes/ibm
+share/X11/xkb/keycodes/jolla
 share/X11/xkb/keycodes/macintosh
 share/X11/xkb/keycodes/olpc
 share/X11/xkb/keycodes/sgi_vndr/indigo
@@ -144,6 +146,7 @@ share/X11/xkb/symbols/iq
 share/X11/xkb/symbols/ir
 share/X11/xkb/symbols/is
 share/X11/xkb/symbols/it
+share/X11/xkb/symbols/jolla_vndr/sbj
 share/X11/xkb/symbols/jp
 share/X11/xkb/symbols/ke
 share/X11/xkb/symbols/keypad
@@ -252,6 +255,7 @@ share/X11/xkb/symbols/sun_vndr/ua
 share/X11/xkb/symbols/sun_vndr/us
 share/X11/xkb/symbols/sy
 share/X11/xkb/symbols/terminate
+share/X11/xkb/symbols/tg
 share/X11/xkb/symbols/th
 share/X11/xkb/symbols/tj
 share/X11/xkb/symbols/tm

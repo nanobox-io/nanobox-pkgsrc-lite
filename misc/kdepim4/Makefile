@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.70 2014/11/13 19:19:08 markd Exp $
+# $NetBSD: Makefile,v 1.76 2016/03/05 11:28:55 jperkin Exp $
 
-DISTNAME=	kdepim-${_KDE_VERSION}
+DISTNAME=	kdepim-4.14.10
 PKGNAME=	${DISTNAME:S/-4/4-4/}
+PKGREVISION=	2
 CATEGORIES=	misc
 COMMENT=	Personal Information Management tools for the KDE desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.04.3/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
@@ -50,13 +52,14 @@ REPLACE_PERL+= \
 	kresources/kolab/upgrade-resourcetype.pl \
 	libkpgp/kconf_update/kpgp-3.1-upgrade-address-data.pl
 
-PLIST_SUBST+=		KDE_VERSION=${_KDE_VERSION}
-
 SUBST_CLASSES+=		perlfix
 SUBST_STAGE.perlfix=	pre-configure
 SUBST_MESSAGE.perlfix=	Fix perl path in cmake script
-SUBST_FILES.perlfix=	korganizer/ical2vcal.cmake
+SUBST_FILES.perlfix=	korganizer/data/ical2vcal.cmake
 SUBST_SED.perlfix=	-e 's:@PERL@:${PERL5}:g'
+
+post-install:
+	${RM} ${DESTDIR}${PREFIX}/share/icons/oxygen/*/mimetypes/x-mail-distribution-list.png
 
 BUILDLINK_DEPMETHOD.qt4-tools=full
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.146 2014/12/01 08:45:04 wiz Exp $
+# $NetBSD: Makefile,v 1.155 2016/03/05 11:28:38 jperkin Exp $
 
 DISTNAME=	graphviz-2.38.0
-PKGREVISION=	3
+PKGREVISION=	11
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.graphviz.org/pub/graphviz/stable/SOURCES/
 
@@ -17,7 +17,7 @@ PRIVILEGED_STAGES+=	clean
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		lib
-USE_TOOLS+=		automake bison lex pkg-config
+USE_TOOLS+=		automake bison flex pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-java
 CONFIGURE_ARGS+=	--disable-php

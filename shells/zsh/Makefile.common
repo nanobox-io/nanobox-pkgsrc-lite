@@ -1,11 +1,10 @@
-# $NetBSD: Makefile.common,v 1.74 2015/02/02 13:54:59 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.78 2015/09/07 12:02:06 jperkin Exp $
 # used by shells/zsh/Makefile
-# used by shells/zsh-current/Makefile
 
 DISTNAME=	zsh-${ZSH_VERSION}
 CATEGORIES=	shells
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=zsh/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	${ZSH_MAINTAINER}
 HOMEPAGE=	http://zsh.sourceforge.net/
@@ -16,16 +15,11 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-etcdir=${PKG_SYSCONFDIR:Q}
 
 USE_LANGUAGES=		c c99
-USE_TOOLS+=		makeinfo
+USE_TOOLS+=		awk makeinfo
 INFO_FILES=		yes
 TEXINFO_REQD=		4.0
 
 .include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-#CONFIGURE_ENV+=		INSTALL_PROGRAM=${INSTALL_LIB:Q}
-INSTALL_UNSTRIPPED=	yes
-.endif
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS]) && ${OPSYS} == "NetBSD"
 # These can't be detected automagically in cross-builds.
@@ -40,10 +34,11 @@ PLIST_VARS+=	xattr
 PLIST.xattr=	yes
 .endif
 
-# Handle any PKG_OPTIONS that this package might have.
-.sinclude "options.mk"
+PKG_OPTIONS_VAR=		PKG_OPTIONS.zsh
+PKG_SUPPORTED_OPTIONS=		static
 
-BUILD_DEFS+=	ZSH_STATIC
+.include "../../mk/bsd.options.mk"
+
 MAKE_JOBS_SAFE=	no
 INSTALL_TARGET=	install install.info
 PKG_SHELL=	bin/zsh
@@ -107,8 +102,7 @@ PLIST.curses=	yes
 
 # XXXUEBAYASI old make(1) has problems to handle :?true_str:false_str
 #_ZSH_LINKAGE=	${ZSH_STATIC:M[Yy][Ee][Ss]:?static:dynamic}	# static / dynamic
-ZSH_STATIC?=	no
-.if !empty(ZSH_STATIC:M[Yy][Ee][Ss])
+.if !empty(PKG_OPTIONS:Mstatic)
 _ZSH_LINKAGE=	static
 .else
 _ZSH_LINKAGE=	dynamic
@@ -126,6 +120,13 @@ PLIST.dynamic=	yes
 ################################################################################
 
 .undef MANZ
+
+.if ${OPSYS} == "SunOS" || ${OPSYS} == "Interix"
+do-patch:
+	# $ sha1 files/patch-ac
+	# SHA1 (files/patch-ac) = 0ef6928bbb277dfbcd8aff4f6fde9bdf1c3de483
+	${PATCH} -d ${WRKSRC} -i ${FILESDIR}/patch-ac
+.endif
 
 pre-install:
 	cd ${WRKSRC}/Completion; ${FIND} . -name \*.orig -exec ${RM} \{\} \;

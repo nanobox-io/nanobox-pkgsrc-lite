@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2015/02/27 12:18:21 gdt Exp $
+# $NetBSD: Makefile,v 1.5 2015/09/26 23:29:13 gdt Exp $
 
 DISTNAME=		mopher-0.5.3
+PKGREVISION=		1
 CATEGORIES=		mail
 MASTER_SITES=		http://mopher.org/download/
 
@@ -22,8 +23,12 @@ FILES_SUBST+=		MOPHER_HOME=${MOPHER_HOME}
 FILES_SUBST+=		MOPHER_RUN=${MOPHER_RUN}
 FILES_SUBST+=		INSTALL=${INSTALL}
 
-USE_LANGUAGES=		c
 HAS_CONFIGURE=		yes
+
+USE_LANGUAGES=		c
+USE_TOOLS+=		lex
+USE_TOOLS+=		yacc
+
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASE}
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}

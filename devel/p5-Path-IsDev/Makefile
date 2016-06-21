@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2014/10/09 14:06:24 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2015/08/23 00:13:24 mef Exp $
 
 DISTNAME=	Path-IsDev-1.001002
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/K/KE/KENTNL/}
 
@@ -18,6 +19,9 @@ DEPENDS+=	p5-File-HomeDir>0:../../devel/p5-File-HomeDir
 DEPENDS+=	p5-Module-Runtime>0:../../devel/p5-Module-Runtime
 DEPENDS+=	p5-Role-Tiny>0:../../devel/p5-Role-Tiny
 DEPENDS+=	p5-Sub-Exporter>0:../../devel/p5-Sub-Exporter
+
+# for make test
+BUILD_DEPENDS+=	p5-Test-Fatal-[0-9]*:../../devel/p5-Test-Fatal
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.203 2015/03/12 12:35:42 tnn Exp $
+# $NetBSD: Makefile,v 1.206 2016/02/26 11:40:30 jperkin Exp $
 
 DISTNAME=	netpbm-10.68.02
 CATEGORIES=	graphics
 MASTER_SITES=	#
-PKGREVISION=	1
+PKGREVISION=	2
 # manually created from svn checkout of
 # svn checkout http://svn.code.sf.net/p/netpbm/code/advanced netpbm
 # tar --exclude netpbm/.svn/\* -cvzf /archive/distfiles/netpbm-$VERSION.tar.gz netpbm
@@ -52,16 +52,14 @@ SUBST_SED.rgb_txt+=	-e 's,/usr/share/netpbm/rgb.txt,${PREFIX}/share/netpbm/rgb.t
 # only used if NEED_RUNTIME_PATH is set, so set it unconditionally
 MAKE_FLAGS+=	NETPBMLIB_RUNTIME_PATH=${PREFIX}
 
-.if ${OPSYS} == "NetBSD"
-MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
-.elif ${OPSYS} == "Darwin"
-MAKE_FLAGS+=	NETPBMLIBTYPE=dylib
-MAKE_FLAGS+=	NETPBMLIBSUFFIX=dylib
-.elif ${OPSYS} == "SunOS"
-MAKE_FLAGS+=	LDSHLIB=-shared
-MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
-MAKE_FLAGS+=	NETWORKLD="-lsocket -lnsl"
-.elif ${OS_VARIANT} == "SCOOSR5"
+MAKE_FLAGS.NetBSD+=	NEED_RUNTIME_PATH=Y
+MAKE_FLAGS.Darwin+=	NETPBMLIBTYPE=dylib
+MAKE_FLAGS.Darwin+=	NETPBMLIBSUFFIX=dylib
+MAKE_FLAGS.SunOS+=	LDSHLIB=-shared
+MAKE_FLAGS.SunOS+=	NEED_RUNTIME_PATH=Y
+MAKE_FLAGS.SunOS+=	NETWORKLD="-lsocket -lnsl"
+
+.if ${OS_VARIANT} == "SCOOSR5"
 MAKE_FLAGS+=	NETWORKLD="-lsocket -lresolv"
 .endif
 

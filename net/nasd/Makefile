@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2014/05/29 23:37:05 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2016/03/13 07:56:12 dholland Exp $
 
 DISTNAME=		repackaged-${PKGNAME_NOREV}
 PKGNAME=		nasd-1.3
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		net sysutils
 MASTER_SITES=		${MASTER_SITE_LOCAL} # original tar file has some trailing base64 checksums
 
@@ -10,7 +10,8 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.pdl.cmu.edu/NASD/Downloads/NASDcode.html
 COMMENT=		Prototype storage implementation
 
-ONLY_FOR_PLATFORM=	NetBSD-*-* SunOS-*-* Linux-*-*
+BROKEN_EXCEPT_ON_PLATFORM=	OSF1-*-* Linux-*-* FreeBSD-*-* NetBSD-*-* \
+				SunOS-*-* IRIX-*-*
 
 USE_IMAKE=		yes
 USE_TOOLS+=		perl makedepend
@@ -24,7 +25,7 @@ pre-patch:
 	${MKDIR} ${WRKSRC}/common/netbsd
 
 do-configure:
-	cd ${WRKSRC} && ${SETENV} NASD_DESTDIR=${PREFIX}/nasd ./itomf -m ${TOOLS_PATH.makedepend} -x ${X11BASE}/lib/X11/config
+	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} NASD_DESTDIR=${PREFIX}/nasd ./itomf -m ${TOOLS_PATH.makedepend} -x ${X11BASE}/lib/X11/config
 
 .include "../../mk/pthread.buildlink3.mk"
 

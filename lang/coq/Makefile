@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.78 2015/01/20 14:24:36 jaapb Exp $
+# $NetBSD: Makefile,v 1.86 2016/03/05 11:28:43 jperkin Exp $
 #
 
-DISTNAME=	coq-8.4pl4
-PKGNAME=	${DISTNAME} # to avoid prefixing with ocaml-
-PKGREVISION=	3
+DISTNAME=	coq-8.5
+PKGREVISION=	1
 CATEGORIES=	lang math
 MASTER_SITES=	http://coq.inria.fr/distrib/V${PKGVERSION_NOREV}/files/
 
@@ -43,14 +42,6 @@ PLIST.natdynlink=	yes
 .  endif
 .endif
 
-.if ${OPSYS} == "Darwin"
-INSTALL_UNSTRIPPED=	yes
-# See PR# 28772 as the above should work but it appears to be ignored
-# so we set it explicitly below not to stip installed binaries.
-_STRIPFLAG_CC=
-_STRIPFLAG_INSTALL=
-.endif
-
 REPLACE_SH=	configure install.sh
 INSTALL_ENV+=	COQINSTALLPREFIX=${DESTDIR}
 
@@ -59,7 +50,7 @@ PLIST_VARS+=		coqide natdynlink doc
 .include "options.mk"
 
 EGDIR=		${PREFIX}/share/coq/examples
-CONF_FILES=	${EGDIR}/coqide-gtk2rc ${PKG_SYSCONFDIR}/xdg/coq/coqide-gtk2rc
+#CONF_FILES=	{EGDIR}/coqide-gtk2rc ${PKG_SYSCONFDIR}/xdg/coq/coqide-gtk2rc
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../lang/camlp5/buildlink3.mk"

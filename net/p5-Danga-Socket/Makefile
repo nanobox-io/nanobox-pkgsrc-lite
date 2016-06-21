@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2014/05/29 23:37:05 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2015/07/12 18:56:25 wiz Exp $
 #
 
 DISTNAME=	Danga-Socket-1.61
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/B/BR/BRADFITZ/
 
@@ -13,7 +13,7 @@ COMMENT=	Event loop and event-driven async socket base class
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Sys-Syscall>=0:../../devel/p5-Sys-Syscall
-DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes>=0}:../../time/p5-Time-HiRes
+#DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes>=0}:../../time/p5-Time-HiRes
 
 PERL5_PACKLIST=	auto/Danga/Socket/.packlist
 USE_LANGUAGES=	# none

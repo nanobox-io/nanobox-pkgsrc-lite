@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.114 2014/10/07 16:47:29 adam Exp $
+# $NetBSD: Makefile,v 1.120 2016/03/24 16:46:04 khorben Exp $
 
 DISTNAME=	balsa-2.4.14
-PKGREVISION=	11
+PKGREVISION=	16
 CATEGORIES=	mail gnome
 MASTER_SITES=	http://pawsa.fedorapeople.org/balsa/
 EXTRACT_SUFX=	.tar.bz2
@@ -40,6 +40,7 @@ CONF_FILES=	${EGDIR}/balsa.soundlist ${PKG_SYSCONFDIR}/sound/events/balsa.soundl
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../mail/gmime24/buildlink3.mk"
 .include "../../mail/libesmtp/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../net/ORBit2/buildlink3.mk"
 .include "../../security/gpgme/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"

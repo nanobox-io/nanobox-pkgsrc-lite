@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2012/10/08 09:21:07 asau Exp $
+# $NetBSD: Makefile,v 1.20 2016/02/25 15:49:43 jperkin Exp $
 #
 
 DISTNAME=	libmpeg3-1.8-src
@@ -19,17 +19,14 @@ MAKE_ENV+=	USE_MMX=1
 MAKE_ENV+=	USE_CSS=1
 BUILD_DEPENDS+=	nasm-[0-9]*:../../devel/nasm
 .else
-.  if ${OPSYS} == "DragonFly"
-MAKE_ENV+=	USE_MMX=0
-MAKE_ENV+=	USE_CSS=0
-.  endif
+MAKE_ENV.DragonFly+=	USE_MMX=0
+MAKE_ENV.DragonFly+=	USE_CSS=0
 .endif
 
 NO_CONFIGURE=	yes
 USE_TOOLS+=	gmake
 WRKSRC= 	${WRKDIR}/${PKGNAME_NOREV}
 
-ONLY_FOR_COMPILER=	gcc
 PTHREAD_AUTO_VARS=	yes
 PTHREAD_OPTS+=		require
 

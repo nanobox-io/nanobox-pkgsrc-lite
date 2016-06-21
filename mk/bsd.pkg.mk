@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.2011 2015/03/07 21:14:32 tnn Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.2018 2016/03/23 11:50:01 jperkin Exp $
 #
 # This file is in the public domain.
 #
@@ -152,6 +152,9 @@ PKG_FAIL_REASON+='Please unset PKG_PATH before doing pkgsrc work!'
 
 # Allow variables to be set on a per-OS basis
 OPSYSVARS+=	CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LIBS
+OPSYSVARS+=	CMAKE_ARGS CONFIGURE_ARGS CONFIGURE_ENV
+OPSYSVARS+=	BUILDLINK_TRANSFORM SUBST_CLASSES
+OPSYSVARS+=	BUILD_TARGET MAKE_ENV MAKE_FLAGS USE_TOOLS
 .for _var_ in ${OPSYSVARS:O}
 .  if defined(${_var_}.${OPSYS})
 ${_var_}+=	${${_var_}.${OPSYS}}
@@ -380,7 +383,7 @@ _BUILD_DEFS+=		PKG_SYSCONFBASEDIR PKG_SYSCONFDIR
 #
 USE_TOOLS+=								\
 	[ awk basename cat chgrp chmod chown cmp cp cut dirname echo	\
-	egrep env false find grep head hostname id install ln ls	\
+	egrep env false fgrep find grep head hostname id install ln ls	\
 	mkdir mv printf pwd rm rmdir sed sh sort			\
 	tail test touch tr true wc xargs
 
@@ -426,10 +429,11 @@ fake-home: ${FAKEHOMEDIR}
 ${FAKEHOMEDIR}:
 	${RUN} ${MKDIR} ${.TARGET}
 
-.include "wrapper/bsd.wrapper.mk"
-
-.if ${USE_CWRAPPERS:tl} != "no"
+# Use C-based wrappers or legacy shell versions.
+.if ${_USE_CWRAPPERS} == "yes"
 .include "cwrappers.mk"
+.else
+.include "wrapper/bsd.wrapper.mk"
 .endif
 
 .if defined(ABI_DEPENDS) || defined(BUILD_ABI_DEPENDS)
@@ -439,12 +443,6 @@ BUILD_DEPENDS+=		${BUILD_ABI_DEPENDS}
 .  else
 _BUILD_DEFS+=		USE_ABI_DEPENDS
 .  endif
-.endif
-
-# Find out the PREFIX of dependencies where the PREFIX is needed at build time.
-.if defined(EVAL_PREFIX)
-FIND_PREFIX:=	${EVAL_PREFIX}
-.  include "find-prefix.mk"
 .endif
 
 .if !defined(_PATH_ORIG)
@@ -599,7 +597,7 @@ all: ${_PKGSRC_BUILD_TARGETS}
 .endif
 
 .PHONY: makedirs
-makedirs: ${WRKDIR}
+makedirs: ${WRKDIR} ${FAKEHOMEDIR}
 
 ${WRKDIR}:
 .if !defined(KEEP_WRKDIR)

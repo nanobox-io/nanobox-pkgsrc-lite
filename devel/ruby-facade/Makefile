@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.4 2015/02/01 14:02:31 taca Exp $
+# $NetBSD: Makefile,v 1.6 2015/09/25 08:50:45 taca Exp $
 
-DISTNAME=	facade-1.0.6
+DISTNAME=	facade-1.0.7
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://rubyforge.org/projects/shards
+HOMEPAGE=	https://github.com/djberg96/facade
 COMMENT=	Module that helps implement the facade pattern
 LICENSE=	artistic-2.0
 

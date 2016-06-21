@@ -1,6 +1,5 @@
-@comment $NetBSD: PLIST,v 1.17 2013/10/06 16:12:00 wiz Exp $
+@comment $NetBSD: PLIST,v 1.21 2016/03/17 05:35:47 richard Exp $
 bin/info
-bin/infokey
 bin/install-info
 bin/makeinfo
 bin/pdftexi2dvi
@@ -10,10 +9,9 @@ bin/texi2dvi
 bin/texi2pdf
 bin/texindex
 info/info-stnd.info
-info/info.info
 info/texinfo.info
+lib/texinfo/XSParagraph.la
 man/man1/info.1
-man/man1/infokey.1
 man/man1/install-info.1
 man/man1/makeinfo.1
 man/man1/pdftexi2dvi.1
@@ -37,6 +35,7 @@ share/texinfo/Texinfo/Convert/Info.pm
 share/texinfo/Texinfo/Convert/Line.pm
 share/texinfo/Texinfo/Convert/NodeNameNormalization.pm
 share/texinfo/Texinfo/Convert/Paragraph.pm
+share/texinfo/Texinfo/Convert/ParagraphNonXS.pm
 share/texinfo/Texinfo/Convert/PlainTexinfo.pm
 share/texinfo/Texinfo/Convert/Plaintext.pm
 share/texinfo/Texinfo/Convert/Texinfo.pm
@@ -46,8 +45,10 @@ share/texinfo/Texinfo/Convert/Text.pm
 share/texinfo/Texinfo/Convert/TextContent.pm
 share/texinfo/Texinfo/Convert/UnFilled.pm
 share/texinfo/Texinfo/Convert/Unicode.pm
+share/texinfo/Texinfo/Convert/XSParagraph/TestXS.pm
 share/texinfo/Texinfo/Documentlanguages.pm
 share/texinfo/Texinfo/Encoding.pm
+share/texinfo/Texinfo/ModulePath.pm
 share/texinfo/Texinfo/Parser.pm
 share/texinfo/Texinfo/Report.pm
 share/texinfo/Texinfo/Structuring.pm
@@ -57,4 +58,5 @@ share/texinfo/init/chm.pm
 share/texinfo/init/html32.pm
 share/texinfo/init/latex2html.pm
 share/texinfo/init/tex4ht.pm
+share/texinfo/texindex.awk
 share/texinfo/texinfo.dtd

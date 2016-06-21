@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2013/03/04 19:12:22 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.13 2015/11/25 12:54:07 jperkin Exp $
 
-DISTNAME=	w3m-el-snapshot_1.4.483+0.20120614.orig
-PKGNAME=	${EMACS_PKGNAME_PREFIX}${DISTNAME:S/w3m-el-snapshot_/emacs-w3m-/:S/+0//:S/.orig//}
+DISTNAME=	w3m-el-snapshot_1.4.554+0.20150609.orig
+PKGNAME=	${EMACS_PKGNAME_PREFIX}emacs-${DISTNAME:S/-el-snapshot_/-/:S/+0//:S/.orig//}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_DEBIAN:=pool/main/w/w3m-el-snapshot/}
 
@@ -20,15 +20,13 @@ CONFIGURE_ARGS+=	--srcdir=${WRKSRC}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ENV+=		GAMEOWN=${GAMES_USER}
 BUILD_TARGET=
-WRKSRC=			${WRKDIR}/w3m-el-snapshot-1.4.483+0.20120614.orig
-
-EVAL_PREFIX+=	W3M_PREFIX=w3m
+WRKSRC=			${WRKDIR}/${DISTNAME:S/_/-/}
 
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing paths.
 SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	w3m.el
-SUBST_SED.paths=	-e 's|@W3M@|${W3M_PREFIX}/bin/w3m|g'
+SUBST_SED.paths=	-e 's|@W3M@|${LOCALBASE}/bin/w3m|g'
 
 BUILD_DEFS+=		VARBASE
 BUILD_DEFS+=		GAMEDATAMODE

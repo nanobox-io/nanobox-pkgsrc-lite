@@ -1,16 +1,16 @@
-# $NetBSD: Makefile,v 1.4 2014/08/03 22:13:20 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2016/01/24 05:03:24 tsutsui Exp $
+#
 
-PKGNAME=		${RUBY_PKGPREFIX}-gnome2-webkit-gtk-${VERSION}
+DISTNAME=		webkit-gtk-${VERSION}
+PKGNAME=		${RUBY_PKGPREFIX}-gnome2-${DISTNAME}
+PKGREVISION=		1
 COMMENT=		Ruby binding of WebKitGTK+
 CATEGORIES=		www
 
 DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gtk3>=${VERSION}:../../x11/ruby-gnome2-gtk3
 DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gobject-introspection>=${VERSION}:../../devel/ruby-gnome2-gobject-introspection
-DEPENDS+=	webkit-gtk3>=1.10.2nb6:../../www/webkit1-gtk3
-
-RUBY_SETUP_SUBDIRS=	webkit-gtk
-USE_RUBY_EXTCONF=	no
-USE_RUBY_SETUP=		yes
-USE_RUBY_SETUP_PKG=	yes
+DEPENDS+=	webkit24-gtk3>=1.10.2nb6:../../www/webkit24-gtk3
 
 .include "../../meta-pkgs/ruby-gnome2/Makefile.common"
+.include "../../lang/ruby/gem.mk"
+.include "../../mk/bsd.pkg.mk"

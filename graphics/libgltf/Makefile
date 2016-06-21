@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2015/01/06 10:44:38 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2015/08/09 11:17:26 wiz Exp $
 
 DISTNAME=	libgltf-0.0.2
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	http://dev-www.libreoffice.org/src/libgltf/
 EXTRACT_SUFX=	.tar.bz2

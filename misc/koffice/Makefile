@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.168 2015/03/09 09:02:20 wiz Exp $
+# $NetBSD: Makefile,v 1.177 2016/03/22 18:57:04 joerg Exp $
 
 DISTNAME=	koffice-1.6.3
-PKGREVISION=	61
+PKGREVISION=	67
 CATEGORIES=	misc kde
 MASTER_SITES=	${MASTER_SITE_KDE:=koffice-1.6.3/src/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,6 +11,7 @@ HOMEPAGE=	http://www.koffice.org/
 COMMENT=	KDE Office Suite
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
+# moc use is not serialised with all consumers
 MAKE_JOBS_SAFE=		no
 
 PATCH_SITES=	ftp://ftp.kde.org/pub/kde/security_patches/
@@ -43,7 +44,7 @@ REPLACE_PERL+=		tools/scripts/gdb_output_to_text.pl
 REPLACE_PERL+=		tools/thesaurus/extract.pl
 REPLACE_PERL+=		kpresenter/kprconverter.pl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.6.3
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.6.3
 
 # Ensure we export symbols in the linked shared object.
 LDFLAGS+=	${EXPORT_SYMBOLS_LDFLAGS}
@@ -67,7 +68,7 @@ post-install:
 .include "../../graphics/libart/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
-.include "../../print/poppler-qt/buildlink3.mk"
+.include "../../print/poppler016-qt3/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/aspell/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

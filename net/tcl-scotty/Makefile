@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.34 2014/10/09 14:06:48 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2016/01/13 23:54:42 joerg Exp $
 #
 
 DISTNAME=	scotty-${DIST_VERS}
@@ -8,12 +8,12 @@ CATEGORIES=	net tcl
 MASTER_SITES=	ftp://ftp.ibr.cs.tu-bs.de/pub/local/tkined/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.nosuchname.net/scotty/
+HOMEPAGE=	https://www.ibr.cs.tu-bs.de/projects/scotty/
 COMMENT=	Network management extensions to TCL
 
-LICENSE=	2-clause-bsd
+MAKE_JOBS_SAFE=	no
 
-PKG_DESTDIR_SUPPORT= destdir
+LICENSE=	2-clause-bsd
 
 DIST_VERS=	2.1.11
 
@@ -36,6 +36,9 @@ USE_TOOLS+=	lex yacc
 PLIST_SUBST+=	MACHINE="${MACHINE}"
 
 INSTALL_TARGET= tnm-install install-man sinstall
+
+SPECIAL_PERMS+=	bin/ntping ${SETUID_ROOT_PERMS}
+SPECIAL_PERMS+=	bin/straps ${SETUID_ROOT_PERMS}
 
 post-extract:
 	cd ${WRKSRC}/${BUILD_DIRS} && ${RM} -f ../doc/http.n

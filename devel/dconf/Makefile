@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.24 2014/11/10 23:23:17 prlw1 Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/02 22:45:01 ryoon Exp $
 
+PKGREVISION=	4
 .include "Makefile.common"
 
-CONFIGURE_ARGS+= --disable-editor
+CONFIGURE_ARGS+=	--disable-editor
 
 PKGCONFIG_OVERRIDE+=	client/dconf.pc.in dbus-1/dconf-dbus-1.pc.in
 
@@ -12,17 +13,18 @@ PKGCONFIG_OVERRIDE+=	client/dconf.pc.in dbus-1/dconf-dbus-1.pc.in
 BUILDLINK_TRANSFORM+=	rm:-ldl
 .endif
 
-.if ${OPSYS} == "Darwin"
-BUILDLINK_TRANSFORM+=	rm:-Wl,-soname=libdconf-dbus-1.so.0
-BUILDLINK_TRANSFORM+=	rm:-Wl,-soname=libdconf.so.1
-INSTALL_UNSTRIPPED=	yes
-.endif
+SUBST_CLASSES.Darwin+=	libname
+SUBST_STAGE.libname=	pre-configure
+SUBST_FILES.libname=	client/Makefile.in dbus-1/Makefile.in
+SUBST_FILES.libname+=	gsettings/Makefile.in
+SUBST_SED.libname=	-e "s|-Wl,-soname=|-install_name ${PREFIX}/lib/|g"
+SUBST_SED.libname+=	-e "/^libdconfsettings_so_LDFLAGS/s,$$, -install_name ${PREFIX}/lib/gio/modules/libdconfsettings.so,g"
 
 BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
-BUILDLINK_DEPMETHOD.vala= build
+BUILDLINK_DEPMETHOD.vala=	build
 BUILDLINK_API_DEPENDS.vala+=	vala>=0.18.0
 .include "../../lang/vala/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.39.1

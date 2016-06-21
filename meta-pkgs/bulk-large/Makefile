@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.20 2015/02/18 22:29:03 jperkin Exp $
+# $NetBSD: Makefile,v 1.27 2016/03/17 02:47:14 tnn Exp $
 
-DISTNAME=	bulk-large-20150218
+DISTNAME=	bulk-large-20160317
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -14,7 +14,7 @@ RESTRICTED=		Just for test build purpose
 NO_BIN_ON_CDROM=	${RESTRICTED}
 NO_BIN_ON_FTP=		${RESTRICTED}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2
 
 #
 # Note: the primary purpose of this package is to build the most
@@ -43,7 +43,7 @@ BUILD_DEPENDS+=	libgnomeui-[0-9]*:../../devel/libgnomeui
 BUILD_DEPENDS+=	ocaml-[0-9]*:../../lang/ocaml
 BUILD_DEPENDS+=	gst-plugins0.10-base-[0-9]*:../../multimedia/gst-plugins0.10-base
 BUILD_DEPENDS+=	gstreamer0.10-[0-9]*:../../multimedia/gstreamer0.10
-BUILD_DEPENDS+=	libsoup24-[0-9]*:../../net/libsoup24
+BUILD_DEPENDS+=	libsoup-[0-9]*:../../net/libsoup
 BUILD_DEPENDS+=	dbus-[0-9]*:../../sysutils/dbus
 BUILD_DEPENDS+=	dbus-glib-[0-9]*:../../sysutils/dbus-glib
 BUILD_DEPENDS+=	aspell-[0-9]*:../../textproc/aspell
@@ -66,10 +66,10 @@ BUILD_DEPENDS+=	asterisk>=11:../../comms/asterisk
 BUILD_DEPENDS+=	avr-gcc-[0-9]*:../../cross/avr-gcc
 BUILD_DEPENDS+=	avr-libc-[0-9]*:../../cross/avr-libc
 BUILD_DEPENDS+=	avr-gdb-[0-9]*:../../cross/avr-gdb
-BUILD_DEPENDS+=	mysql-client>=5.1<5.5:../../databases/mysql51-client
-BUILD_DEPENDS+=	mysql-server>=5.1<5.5:../../databases/mysql51-server
-BUILD_DEPENDS+=	mysql-client>=5.5:../../databases/mysql55-client
-BUILD_DEPENDS+=	mysql-server>=5.5:../../databases/mysql55-server
+BUILD_DEPENDS+=	mysql-client>=5.5<5.6:../../databases/mysql55-client
+BUILD_DEPENDS+=	mysql-server>=5.5<5.6:../../databases/mysql55-server
+BUILD_DEPENDS+=	mysql-client>=5.6:../../databases/mysql56-client
+BUILD_DEPENDS+=	mysql-server>=5.6:../../databases/mysql56-server
 BUILD_DEPENDS+=	postgresql93-[0-9]*:../../databases/postgresql93
 BUILD_DEPENDS+=	valgrind-[0-9]*:../../devel/valgrind
 BUILD_DEPENDS+=	abiword-[0-9]*:../../editors/abiword
@@ -84,7 +84,7 @@ BUILD_DEPENDS+=	gimp-[0-9]*:../../graphics/gimp
 BUILD_DEPENDS+=	graphviz-[0-9]*:../../graphics/graphviz
 BUILD_DEPENDS+=	claws-mail-[0-9]*:../../mail/claws-mail
 BUILD_DEPENDS+=	evolution-[0-9]*:../../mail/evolution
-BUILD_DEPENDS+=	roundcube-[0-9]*:../../mail/roundcube
+BUILD_DEPENDS+=	${PHP_PKG_PREFIX}-roundcube-[0-9]*:../../mail/roundcube
 BUILD_DEPENDS+=	squirrelmail-[0-9]*:../../mail/squirrelmail
 BUILD_DEPENDS+=	thunderbird-[0-9]*:../../mail/thunderbird
 BUILD_DEPENDS+=	thunderbird-l10n-[0-9]*:../../mail/thunderbird-l10n
@@ -94,8 +94,8 @@ BUILD_DEPENDS+=	zyGrib-[0-9]*:../../misc/zyGrib
 BUILD_DEPENDS+=	mplayer-[0-9]*:../../multimedia/mplayer
 BUILD_DEPENDS+=	xine-ui-[0-9]*:../../multimedia/xine-ui
 BUILD_DEPENDS+=	gstreamer0.10-plugins-[0-9]*:../../meta-pkgs/gstreamer0.10-plugins
-BUILD_DEPENDS+=	cups-[0-9]*:../../print/cups15
-BUILD_DEPENDS+=	evince-[0-9]*:../../print/evince
+BUILD_DEPENDS+=	cups>=1.5<2.0:../../print/cups15
+BUILD_DEPENDS+=	evince>=2<3:../../print/evince
 BUILD_DEPENDS+=	lilypond-[0-9]*:../../print/lilypond
 BUILD_DEPENDS+=	mit-krb5-appl-[0-9]*:../../security/mit-krb5-appl
 BUILD_DEPENDS+=	FlightCrew-[0-9]*:../../textproc/FlightCrew
@@ -113,17 +113,17 @@ BUILD_DEPENDS+=	mit-krb5-[0-9]*:../../security/mit-krb5
 #
 # 4. TeX
 #
-BUILD_DEPENDS+=	tex-collection-fontsrecommended-[0-9]*:../../fonts/tex-collection-fontsrecommended
-BUILD_DEPENDS+=	tex-collection-fontsrecommended-doc-[0-9]*:../../fonts/tex-collection-fontsrecommended-doc
+BUILD_DEPENDS+=	texlive-collection-fontsrecommended-[0-9]*:../../meta-pkgs/texlive-collection-fontsrecommended
+BUILD_DEPENDS+=	texlive-collection-fontsrecommended-doc-[0-9]*:../../meta-pkgs/texlive-collection-fontsrecommended-doc
 BUILD_DEPENDS+=	teTeX-[0-9]*:../../print/teTeX
 BUILD_DEPENDS+=	teTeX-bin>=3:../../print/teTeX3-bin
 BUILD_DEPENDS+=	teTeX-texmf>=3:../../print/teTeX3-texmf
-BUILD_DEPENDS+=	tex-collection-basic-[0-9]*:../../print/tex-collection-basic
-BUILD_DEPENDS+=	tex-collection-basic-doc-[0-9]*:../../print/tex-collection-basic-doc
-BUILD_DEPENDS+=	tex-collection-genericrecommended-[0-9]*:../../print/tex-collection-genericrecommended
-BUILD_DEPENDS+=	tex-collection-genericrecommended-doc-[0-9]*:../../print/tex-collection-genericrecommended-doc
-BUILD_DEPENDS+=	tex-collection-latex-[0-9]*:../../print/tex-collection-latex
-BUILD_DEPENDS+=	tex-collection-latex-doc-[0-9]*:../../print/tex-collection-latex-doc
+BUILD_DEPENDS+=	texlive-collection-basic-[0-9]*:../../meta-pkgs/texlive-collection-basic
+BUILD_DEPENDS+=	texlive-collection-basic-doc-[0-9]*:../../meta-pkgs/texlive-collection-basic-doc
+BUILD_DEPENDS+=	texlive-collection-genericrecommended-[0-9]*:../../meta-pkgs/texlive-collection-genericrecommended
+BUILD_DEPENDS+=	texlive-collection-genericrecommended-doc-[0-9]*:../../meta-pkgs/texlive-collection-genericrecommended-doc
+BUILD_DEPENDS+=	texlive-collection-latex-[0-9]*:../../meta-pkgs/texlive-collection-latex
+BUILD_DEPENDS+=	texlive-collection-latex-doc-[0-9]*:../../meta-pkgs/texlive-collection-latex-doc
 
 #
 # 5. Desktops
@@ -168,6 +168,7 @@ BUILD_DEPENDS+=	bulk-medium-[0-9]*:../../meta-pkgs/bulk-medium
 BUILD_DEPENDS+=	bulk-small-[0-9]*:../../meta-pkgs/bulk-small
 
 PYTHON_FOR_BUILD_ONLY=	yes
+.include "../../lang/php/phpversion.mk" # for PHP_PKG_PREFIX
 .include "../../lang/python/pyversion.mk" # for PYPKGPREFIX
 .include "../../lang/ruby/rubyversion.mk" # for RUBY_PKGPREFIX
 .include "../../mk/bsd.pkg.mk"

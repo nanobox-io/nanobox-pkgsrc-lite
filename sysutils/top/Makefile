@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.41 2015/03/03 00:38:08 pho Exp $
+# $NetBSD: Makefile,v 1.42 2016/02/26 10:24:14 jperkin Exp $
 
 DISTNAME=	top-3.6.1
 PKGREVISION=	1
@@ -11,31 +11,18 @@ COMMENT=	The ubiquitous system monitoring utility
 
 GNU_CONFIGURE=		yes
 
-.include "../../mk/bsd.prefs.mk"
-
-.if defined(ABI) && !empty(ABI:M64)
-TOP_ABI=		64
-.else
-TOP_ABI=		default
-.endif
-
 CONFIGURE_ENV+=		SET_OWNER=${BINOWN}
 CONFIGURE_ENV+=		SET_GROUP=${BINGRP}
 CONFIGURE_ENV+=		SET_MODE=${BINMODE}
-CONFIGURE_ENV+=		ABI=${TOP_ABI}
 
 # ${WRKSRC}/machine/m_macosx.c uses kvm_* interfaces, which have been
 # dropped since Darwin 9.
 BROKEN_ON_PLATFORM+=	Darwin-9.*-*
 BROKEN_ON_PLATFORM+=	Darwin-[1-9][0-9]*-*
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
 # ${WRKSRC}/configure emits an error saying "macosx module
 # unsupported" without this option.
-CONFIGURE_ARGS+=	--with-module=macosx
-.endif
+CONFIGURE_ARGS.Darwin+=	--with-module=macosx
 
 post-extract:
 	${CP} ${FILESDIR}/m_dragonfly.c ${WRKSRC}/machine

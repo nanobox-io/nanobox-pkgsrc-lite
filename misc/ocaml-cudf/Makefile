@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2015/02/11 14:05:18 jaapb Exp $
+# $NetBSD: Makefile,v 1.4 2016/02/06 12:10:33 jaapb Exp $
 
 DISTNAME=	cudf-0.7
-PKGREVISION=	1
+PKGNAME=	ocaml-${DISTNAME}
+PKGREVISION=	2
 CATEGORIES=	misc
 MASTER_SITES=	https://gforge.inria.fr/frs/download.php/file/33593/
 

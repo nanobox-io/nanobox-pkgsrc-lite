@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.41 2014/05/29 23:36:53 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2015/10/01 18:43:27 prlw1 Exp $
 
-DISTNAME=		maxima-5.32.1
+DISTNAME=		maxima-5.37.2
 # On updates, please make sure editors/TeXmacs knows about the new
 # version number.
 # (if needed, patch plugins/maxima/bin/{maxima_detect,tm_maxima})
-PKGREVISION=		3
 CATEGORIES=		math
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=maxima/}
 
@@ -17,12 +16,14 @@ LICENSE=		gnu-gpl-v2
 DEPENDS+=		tk-[0-9]*:../../x11/tk
 
 GNU_CONFIGURE=		yes
-USE_TOOLS+=		makeinfo perl
+USE_TOOLS+=		gmake makeinfo perl
 REPLACE_SH=		doc/misc/grepforvariables.sh
 
 INFO_FILES=		yes
 TEST_TARGET=		check
+PYTHON_FOR_BUILD_ONLY=	yes
 
 .include "options.mk"
 
+.include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"

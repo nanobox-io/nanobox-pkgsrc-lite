@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.75 2015/02/19 13:19:16 wiz Exp $
+# $NetBSD: Makefile,v 1.79 2015/10/04 06:19:52 wiz Exp $
 
-DISTNAME=	DBD-Pg-3.5.1
+DISTNAME=	DBD-Pg-3.5.3
 PKGNAME=	p5-${DISTNAME:C/-Pg-/-postgresql-/}
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBD/}
@@ -10,7 +10,7 @@ HOMEPAGE=	http://search.cpan.org/dist/DBD-Pg/
 COMMENT=	Perl DBI/DBD driver for PostgreSQL databases
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{p5-version-[0-9]*,perl>=5.10.0}:../../devel/p5-version
+#DEPENDS+=	{p5-version-[0-9]*,perl>=5.10.0}:../../devel/p5-version
 DEPENDS+=	p5-DBI>=1.614:../../databases/p5-DBI
 
 USE_MULTIARCH=	lib

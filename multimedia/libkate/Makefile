@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2014/05/05 00:48:11 ryoon Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/09 08:08:32 tnn Exp $
 #
 
 DISTNAME=	libkate-0.4.1
-PKGREVISION=	6
+PKGREVISION=	8
 CATEGORIES=	multimedia
 MASTER_SITES=	http://libkate.googlecode.com/files/
 
@@ -14,6 +14,8 @@ LICENSE=	modified-bsd
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	bison flex pkg-config
+
+CONFIGURE_ENV+=		ac_cv_lib_lex="none needed"
 
 PKGCONFIG_OVERRIDE+=	misc/pkgconfig/oggkate.pc.in
 PKGCONFIG_OVERRIDE+=	misc/pkgconfig/kate.pc.in

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.24.4.1 2015/04/15 19:36:46 bsiegert Exp $
+# $NetBSD: Makefile,v 1.26 2015/11/07 20:18:41 wiz Exp $
 
-DISTNAME=	less-475
+DISTNAME=	less-481
 CATEGORIES=	misc
 MASTER_SITES=	http://www.greenwoodsoftware.com/less/
 

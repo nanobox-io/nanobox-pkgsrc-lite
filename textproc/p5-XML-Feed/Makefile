@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2014/10/09 13:44:59 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2016/02/18 04:19:06 wen Exp $
 
-DISTNAME=		XML-Feed-0.52
+DISTNAME=		XML-Feed-0.53
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		2
 CATEGORIES=		textproc perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=XML/}
 
@@ -16,7 +15,7 @@ DEPENDS+=		p5-DateTime-[0-9]*:../../time/p5-DateTime
 DEPENDS+=		p5-DateTime-Format-Mail-[0-9]*:../../time/p5-DateTime-Format-Mail
 DEPENDS+=		p5-DateTime-Format-W3CDTF-[0-9]*:../../time/p5-DateTime-Format-W3CDTF
 DEPENDS+=		p5-Feed-Find-[0-9]*:../../textproc/p5-Feed-Find
-DEPENDS+=		{perl>=5.10,p5-Scalar-List-Utils-[0-9]*}:../../devel/p5-Scalar-List-Utils
+#DEPENDS+=		{perl>=5.10,p5-Scalar-List-Utils-[0-9]*}:../../devel/p5-Scalar-List-Utils
 DEPENDS+=		p5-Module-Pluggable-[0-9]*:../../devel/p5-Module-Pluggable
 DEPENDS+=		p5-URI-Fetch-[0-9]*:../../www/p5-URI-Fetch
 DEPENDS+=		p5-XML-Atom>=0.38:../../textproc/p5-XML-Atom

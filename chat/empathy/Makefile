@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2014/10/07 16:47:10 adam Exp $
+# $NetBSD: Makefile,v 1.75 2016/03/05 11:28:06 jperkin Exp $
 
 DISTNAME=	empathy-2.34.0
-PKGREVISION=	41
+PKGREVISION=	46
 CATEGORIES=	chat gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/empathy/2.34/}
 
@@ -10,19 +10,24 @@ HOMEPAGE=	http://live.gnome.org/Empathy
 COMMENT=	Gnome instant messenger client
 LICENSE=	gnu-gpl-v2
 
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
+
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gawk gmake gsed intltool msgfmt pkg-config
-USE_TOOLS+=		autoconf
+USE_TOOLS+=		autoconf msgmerge xgettext
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 CONFIGURE_ENV+=	YELL_CFLAGS=-I${WRKSRC}/telepathy-yell
 CONFIGURE_ENV+=	\
   YELL_LIBS="-L${WRKSRC}/telepathy-yell/telepathy-yell -ltelepathy-yell"
 
-# see pkgsrc/security/mozilla-rootcerts
+# see pkgsrc/security/mozilla-rootcerts-openssl
 CONFIGURE_ARGS+=	--with-ca-file=/etc/ssl/certs/ca-certificates.crt
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
+
+# with --nonet, xsltproc needs a helping hand finding some dtds
+XSLTPROC_PATH+=	${LOCALBASE}/share/doc/dbus
 
 # notyet
 #CONFIGURE_ARGS+=	--enable-meego
@@ -48,7 +53,7 @@ BUILDLINK_API_DEPENDS.enchant+=		enchant>=1.2.0
 .include "../../textproc/gnome-doc-utils/buildlink3.mk"
 .include "../../textproc/gtk-doc/buildlink3.mk"
 .include "../../textproc/iso-codes/buildlink3.mk"
-.include "../../textproc/libxslt/buildlink3.mk"
+.include "../../textproc/libxslt/xsltproc-nonet.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../x11/gnome-panel/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gtk2+=		gtk2+>=2.12.0

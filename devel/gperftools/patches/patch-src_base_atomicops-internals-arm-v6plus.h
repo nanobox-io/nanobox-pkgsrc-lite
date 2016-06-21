@@ -1,4 +1,4 @@
-$NetBSD: patch-src_base_atomicops-internals-arm-v6plus.h,v 1.1.2.2 2015/04/18 22:02:11 tron Exp $
+$NetBSD: patch-src_base_atomicops-internals-arm-v6plus.h,v 1.1 2015/04/14 14:40:02 joerg Exp $
 
 --- src/base/atomicops-internals-arm-v6plus.h.orig	2014-12-06 22:51:40.000000000 +0000
 +++ src/base/atomicops-internals-arm-v6plus.h

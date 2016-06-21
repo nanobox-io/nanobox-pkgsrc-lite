@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2014/10/07 16:47:18 adam Exp $
+# $NetBSD: Makefile,v 1.28 2015/12/29 04:54:36 dholland Exp $
 
 DISTNAME=	rhythmbox-3.0.1
-PKGREVISION=	4
+PKGREVISION=	7
 CATEGORIES=	audio gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rhythmbox/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -22,7 +22,7 @@ CONFIGURE_ARGS+=	--disable-browser-plugin
 CONFIGURE_ARGS+=	--with-html-dir=${PREFIX}/share/doc
 CONFIGURE_ARGS+=	--disable-fm-radio
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26 27
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 # option?
 .include "../../net/grilo/buildlink3.mk"
@@ -37,13 +37,13 @@ PYTHON_VERSIONS_INCOMPATIBLE=	26 27
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 # needs introspection support
-BUILDLINK_API_DEPENDS.gstreamer1+=  gstreamer1>=1.0.6
-BUILDLINK_API_DEPENDS.gst-plugins1-base+= gst-plugins1-base>=1.0.6
+BUILDLINK_API_DEPENDS.gstreamer1+=		gstreamer1>=1.0.6
+BUILDLINK_API_DEPENDS.gst-plugins1-base+=	gst-plugins1-base>=1.0.6
 .include "../../multimedia/gstreamer1/buildlink3.mk"
 .include "../../multimedia/gst-plugins1-base/buildlink3.mk"
-BUILDLINK_API_DEPENDS.totem-pl-parser+= totem-pl-parser>=3.2.0
+BUILDLINK_API_DEPENDS.totem-pl-parser+=		totem-pl-parser>=3.2.0
 .include "../../multimedia/totem-pl-parser/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"

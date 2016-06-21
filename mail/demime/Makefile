@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2014/05/29 23:36:45 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2015/07/12 18:56:22 wiz Exp $
 
 DISTNAME=	demime-1.1d
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mail textproc
 MASTER_SITES=	${MASTER_SITE_FREEBSD}
 DISTFILES=	${DISTNAME:S/-/./} \
@@ -11,7 +11,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 #HOMEPAGE=	http://scifi.squawk.com/demime.html
 COMMENT=	Tool to scrub mime from mailing lists
 
-DEPENDS+=	{perl>=5.7.3,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
+#DEPENDS+=	{perl>=5.7.3,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
 DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww
 DEPENDS+=	p5-HTML-Format-[0-9]*:../../www/p5-HTML-Format
 DEPENDS+=	p5-HTML-Tree-[0-9]*:../../www/p5-HTML-Tree

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.18 2014/08/07 03:03:32 obache Exp $
+# $NetBSD: Makefile,v 1.22 2016/03/05 11:28:42 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/mozc-/mozc-tool-/}
+PKGREVISION=	2
 
 INSTALLATION_DIRS+=	libexec
 

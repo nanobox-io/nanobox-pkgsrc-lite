@@ -1,8 +1,8 @@
-# $NetBSD: options.mk,v 1.8 2015/03/31 15:55:44 joerg Exp $
+# $NetBSD: options.mk,v 1.10 2015/09/26 10:16:37 leot Exp $
 #
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.webkit-gtk
-PKG_SUPPORTED_OPTIONS=	debug enchant opengl webkit-jit
+PKG_SUPPORTED_OPTIONS=	enchant opengl webkit-jit
 PKG_SUGGESTED_OPTIONS=	enchant opengl
 
 .include "../../mk/bsd.prefs.mk"
@@ -24,43 +24,26 @@ PKG_SUGGESTED_OPTIONS+= webkit-jit
 # JIT support
 #
 .if !empty(PKG_OPTIONS:Mwebkit-jit)
-CONFIGURE_ARGS+=	--enable-jit
+CMAKE_ARGS+=	-DENABLE_JIT=ON
 .else
-CONFIGURE_ARGS+=	--disable-jit
-.endif
-
-#
-# debug support
-#
-.if !empty(PKG_OPTIONS:Mdebug)
-CONFIGURE_ARGS+=	--enable-debug \
-			--disable-optimizations
-.else
-CONFIGURE_ARGS+=	--disable-debug \
-			--enable-optimizations
+CMAKE_ARGS+=	-DENABLE_JIT=OFF
 .endif
 
 #
 # OpenGL support: enable support for GLX, WebGL and accelerated compositing
 #
-# TODO: should we split them in multiple options?
-#
 .if !empty(PKG_OPTIONS:Mopengl)
-CONFIGURE_ARGS+=	--enable-glx
-CONFIGURE_ARGS+=	--enable-webgl
-CONFIGURE_ARGS+=	--enable-accelerated-compositing
+CMAKE_ARGS+=	-DENABLE_WEBGL=ON
 .else
-CONFIGURE_ARGS+=	--disable-glx
-CONFIGURE_ARGS+=	--disable-webgl
-CONFIGURE_ARGS+=	--disable-accelerated-compositing
+CMAKE_ARGS+=	-DENABLE_WEBGL=OFF
 .endif
 
 #
 # Spellcheck support using enchant
 #
 .if !empty(PKG_OPTIONS:Menchant)
-CONFIGURE_ARGS+=	--enable-spellcheck
+CMAKE_ARGS+=	-DENABLE_SPELLCHECK=ON
 .include "../../textproc/enchant/buildlink3.mk"
 .else
-CONFIGURE_ARGS+=	--disable-spellcheck
+CMAKE_ARGS+=	-DENABLE_SPELLCHECK=OFF
 .endif

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2014/12/30 15:45:04 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2016/03/05 11:28:19 jperkin Exp $
 
 DISTNAME=	qore-sqlite3-module-1.0.1
-PKGREVISION=	4
+PKGREVISION=	7
 CATEGORIES=	databases
 MASTER_SITES=   ${MASTER_SITE_SOURCEFORGE:=qore/}
 

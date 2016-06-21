@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.17 2015/02/27 13:25:09 wen Exp $
+$NetBSD: distinfo,v 1.28 2016/01/23 09:11:02 wen Exp $
 
-SHA1 (Dancer2-0.159001.tar.gz) = 7ee62d666a00281e8de1867bbd62c09a2e176b52
-RMD160 (Dancer2-0.159001.tar.gz) = ad147ece1ce46d6952b9018a144c6c8cc970a6cb
-Size (Dancer2-0.159001.tar.gz) = 310319 bytes
+SHA1 (Dancer2-0.166001.tar.gz) = 605ae15bddc9eab4ae47cfcf84a1f2dd9d0e34c3
+RMD160 (Dancer2-0.166001.tar.gz) = f74c48ce8b5e71bcd605a9d8f7147da2d6d06c9e
+SHA512 (Dancer2-0.166001.tar.gz) = 20fde4c260d78d022579e3b23456e0539a02093d29612d398a262ac6643c3a6d1720673e65aff7740839af96a16730fed042ea3af20488ef646e67764c4ab301
+Size (Dancer2-0.166001.tar.gz) = 324270 bytes

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2015/01/31 13:11:34 mef Exp $
+# $NetBSD: Makefile,v 1.18 2015/07/12 18:56:13 wiz Exp $
 
 DISTNAME=	Getopt-Euclid-0.4.5
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Getopt/}
 
@@ -10,7 +11,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Getopt-Euclid/
 COMMENT=	Perl 5 module to create command-line parser from documentation
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
+#DEPENDS+=	{perl>=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
 
 USE_LANGUAGES=		# empty
 PERL5_MODULE_TYPE=	Module::Build

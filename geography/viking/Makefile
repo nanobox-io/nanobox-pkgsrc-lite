@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.59 2014/11/23 17:17:46 gdt Exp $
+# $NetBSD: Makefile,v 1.65 2016/03/05 11:28:36 jperkin Exp $
 #
 
-VERSION=		1.5.1
+VERSION=		1.6
 DISTNAME=		viking-${VERSION}
+PKGREVISION=		1
 CATEGORIES=		geography
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=viking/}${VERSION}/
 EXTRACT_SUFX=		.tar.bz2
@@ -22,6 +23,8 @@ CONFIGURE_ARGS+=	--disable-magic
 # Perhaps optionize use of gpsd (remove bl3, add this).
 # CONFIGURE_ARGS+=	--disable-realtime-gps-tracking
 
+CONFIGURE_ARGS+=	--disable-mapnik
+
 DEPENDS+=		gpsbabel-[0-9]*:../../geography/gpsbabel
 DEPENDS+=		p5-XML-Parser-[0-9]*:../../textproc/p5-XML-Parser
 REPLACE_PERL=		viking-remote
@@ -30,8 +33,10 @@ USE_TOOLS+=		gmake intltool msgfmt pkg-config
 
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
+.include "../../graphics/gexiv2/buildlink3.mk"
 .include "../../geography/gpsd/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../lang/perl5/buildlink3.mk"

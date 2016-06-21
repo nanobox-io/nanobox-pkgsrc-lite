@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2014/03/14 17:35:36 taca Exp $
+# $NetBSD: Makefile,v 1.11 2015/12/30 04:22:59 taca Exp $
 
 DISTNAME=	amq-client-1.0.4
 CATEGORIES=	net

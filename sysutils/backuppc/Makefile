@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2015/03/01 15:58:04 taca Exp $
+# $NetBSD: Makefile,v 1.6 2016/03/13 01:02:44 tnn Exp $
 
 DISTNAME=	BackupPC-3.3.1
 PKGNAME=	${DISTNAME:tl}
-PKGREVISION=	1
+PKGREVISION=	5
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=backuppc/}
 
@@ -15,6 +15,7 @@ DEPENDS+=	rsync-[0-9]*:../../net/rsync
 DEPENDS+=	samba-[0-9]*:../../net/samba
 DEPENDS+=	par2-[0-9]*:../../archivers/par2
 DEPENDS+=	p5-Archive-Zip-[0-9]*:../../archivers/p5-Archive-Zip
+DEPENDS+=	p5-CGI-[0-9]*:../../www/p5-CGI
 DEPENDS+=	p5-File-Listing-[0-9]*:../../devel/p5-File-Listing
 DEPENDS+=	p5-File-RsyncP-[0-9]*:../../net/p5-File-RsyncP
 

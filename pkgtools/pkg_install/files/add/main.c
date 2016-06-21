@@ -1,4 +1,4 @@
-/*	$NetBSD: main.c,v 1.28 2014/12/30 15:13:20 wiz Exp $	*/
+/*	$NetBSD: main.c,v 1.32 2015/12/27 12:36:42 joerg Exp $	*/
 
 #if HAVE_CONFIG_H
 #include "config.h"
@@ -7,7 +7,7 @@
 #if HAVE_SYS_CDEFS_H
 #include <sys/cdefs.h>
 #endif
-__RCSID("$NetBSD: main.c,v 1.28 2014/12/30 15:13:20 wiz Exp $");
+__RCSID("$NetBSD: main.c,v 1.32 2015/12/27 12:36:42 joerg Exp $");
 
 /*
  *
@@ -32,9 +32,6 @@ __RCSID("$NetBSD: main.c,v 1.28 2014/12/30 15:13:20 wiz Exp $");
 
 #if HAVE_ERR_H
 #include <err.h>
-#endif
-#if HAVE_SYS_PARAM_H
-#include <sys/param.h>
 #endif
 #include "lib.h"
 #include "add.h"
@@ -62,9 +59,9 @@ int	ReplaceSame = 0;
 static void
 usage(void)
 {
-	(void) fprintf(stderr, "%s\n%s\n%s\n%s\n",
+	(void) fprintf(stderr, "%s\n%s\n%s\n",
 	    "usage: pkg_add [-AfhInRuVv] [-C config] [-P destdir] [-K pkg_dbdir]",
-	    "               [-m machine] [-p prefix] [-s verification-type]\n",
+	    "               [-m machine] [-p prefix]",
 	    "               [[ftp|http]://[user[:password]@]host[:port]][/path/]pkg-name ...");
 	exit(1);
 }
@@ -162,7 +159,10 @@ main(int argc, char **argv)
 		free(pkgdbdir);
 	}
 
+#ifndef BOOTSTRAP
 	process_pkg_path();
+#endif
+
 	TAILQ_INIT(&pkgs);
 
 	if (argc == 0) {
@@ -171,6 +171,7 @@ main(int argc, char **argv)
 		usage();
 	}
 
+#ifndef BOOTSTRAP
 	if (strcasecmp(do_license_check, "no") == 0)
 		LicenseCheck = 0;
 	else if (strcasecmp(do_license_check, "yes") == 0)
@@ -183,6 +184,7 @@ main(int argc, char **argv)
 
 	if (LicenseCheck)
 		load_license_lists();
+#endif
 
 	/* Get all the remaining package names, if any */
 	for (; argc > 0; --argc, ++argv) {

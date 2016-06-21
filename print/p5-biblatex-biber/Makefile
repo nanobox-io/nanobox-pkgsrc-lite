@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2015/02/16 17:57:14 nros Exp $
+# $NetBSD: Makefile,v 1.14 2016/03/30 05:33:00 markd Exp $
 
 VER=		1.9
 DISTNAME=	biblatex-biber
 PKGNAME=	p5-biblatex-biber-${VER}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	print
 MASTER_SITES=	http://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/${VER}/
 
@@ -28,7 +28,7 @@ DEPENDS+=		p5-File-Slurp-[0-9]*:../../devel/p5-File-Slurp
 DEPENDS+=		p5-List-AllUtils-[0-9]*:../../devel/p5-List-AllUtils
 DEPENDS+=		p5-Log-Log4perl-[0-9]*:../../devel/p5-Log-Log4perl
 DEPENDS+=		p5-Regexp-Common-[0-9]*:../../textproc/p5-Regexp-Common
-DEPENDS+=		{perl>=5.15.9,p5-Unicode-Collate>=0.89}:../../converters/p5-Unicode-Collate
+#DEPENDS+=		{perl>=5.15.9,p5-Unicode-Collate>=0.89}:../../converters/p5-Unicode-Collate
 DEPENDS+=		p5-XML-LibXML-Simple-[0-9]*:../../textproc/p5-XML-LibXML-Simple
 DEPENDS+=		p5-XML-LibXSLT-[0-9]*:../../textproc/p5-XML-LibXSLT
 DEPENDS+=		p5-XML-Writer-[0-9]*:../../textproc/p5-XML-Writer

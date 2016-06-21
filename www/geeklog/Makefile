@@ -1,22 +1,22 @@
-# $NetBSD: Makefile,v 1.40 2014/07/19 05:19:39 taca Exp $
+# $NetBSD: Makefile,v 1.45 2015/12/13 14:55:35 taca Exp $
 #
 
 DISTNAME=	geeklog-${VER}
-PKGNAME=	geeklog-${VER:C/(sr|-)/./g}
+PKGNAME=	${PHP_PKG_PREFIX}-geeklog-${VER:C/(sr|-)/./g}
 CATEGORIES=	www
 MASTER_SITES=	https://www.geeklog.net/filemgmt/upload_dir/
 
-MAINTAINER=	taca@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://www.geeklog.net/
 COMMENT=	PHP/MySQL based application for managing dynamic web content
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	${APACHE_PKG_PREFIX}-${PHP_PKG_PREFIX}>=4.3.3:../../www/ap-php
-DEPENDS+=	${PHP_PKG_PREFIX}-mysql>=4.3.0:../../databases/php-mysql
+DEPENDS+=	${PHP_PKG_PREFIX}-mysqli>=4.3.0:../../databases/php-mysqli
 
 USE_TOOLS+=	pax
 
-VER=		2.1.0
+VER=		2.1.1
 NO_BUILD=	YES
 
 PKG_GROUPS_VARS+=	APACHE_GROUP
@@ -72,7 +72,6 @@ PKG_SYSCONFSUBDIR?=	geeklog
 SUBST_CLASSES+=		paths
 SUBST_FILES.paths+=	${WRKDIR}/README
 SUBST_FILES.paths+=	${WRKSRC}/emailgeeklogstories
-SUBST_FILES.paths+=	${WRKSRC}/public_html/admin/install/index.php
 SUBST_FILES.paths+=	${WRKDIR}/geeklog.conf
 SUBST_SED.paths+=	-e 's,@GEEKLOG_BASE@,${GEEKLOG_BASE:Q},g'
 SUBST_SED.paths+=	-e 's,@GEEKLOG_PUB@,${GEEKLOG_PUB:Q},g'

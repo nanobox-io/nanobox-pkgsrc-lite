@@ -1,4 +1,4 @@
-$NetBSD: patch-ntp__io.c,v 1.1.14.1 2015/04/15 21:13:51 tron Exp $
+$NetBSD: patch-ntp__io.c,v 1.2 2015/04/13 10:03:21 hannken Exp $
 
 Don't use IP_PKTINFO on NetBSD.
 

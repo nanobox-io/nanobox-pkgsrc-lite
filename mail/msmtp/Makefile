@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.57 2014/05/05 00:48:06 ryoon Exp $
+# $NetBSD: Makefile,v 1.64 2016/03/05 11:28:49 jperkin Exp $
 
-DISTNAME=	msmtp-1.4.32
+DISTNAME=	msmtp-1.6.4
 PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=msmtp/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	bcv@hub3.net
 HOMEPAGE=	http://msmtp.sourceforge.net/
@@ -24,10 +24,7 @@ CONF_FILES=	${EGDIR}/msmtprc-user.example \
 INFO_FILES=	yes
 PLIST_VARS+=	scripts
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Interix"
-CPPFLAGS+=	-D__WINSOCK
-.endif
+CPPFLAGS.Interix+=	-D__WINSOCK
 
 .include "options.mk"
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.17 2014/09/02 09:41:56 pho Exp $
+# $NetBSD: Makefile,v 1.21 2016/02/25 14:42:55 jperkin Exp $
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc45-${GCC_VERSION}
@@ -13,6 +13,7 @@ COMMENT=		GNU Compiler Collection 4.5
 LICENSE=		gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 
 USE_TOOLS+=		awk:run bash:run chmod gmake:run makeinfo sed:run
+GCC_REQD+=		4.4
 
 GCC_VERSION=		4.5.3
 
@@ -78,22 +79,23 @@ CONFIGURE_ARGS+=	--with-ld=${PREFIX}/gnu/bin/ld
 CONFIGURE_ARGS+=	--with-libelf=${PREFIX}
 MAKE_ENV+=		ac_cv_func_clock_gettime=yes
 .endif
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	--disable-libquadmath --disable-libquadmath-support
-.endif
-.if ${OPSYS} == "Darwin"
+
+CONFIGURE_ARGS.Linux+=	--disable-libquadmath --disable-libquadmath-support
+
 # See ${WRKSRC}/libgcc/config/t-slibgcc-darwin: It uses strip(1) to
 # create a stub library, not just to remove symbols, so we must not
 # let strip(1) be a no-op regardless of ${INSTALL_UNSTRIPPED} or the
 # build fails for missing files.
-CONFIGURE_ARGS+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
-.endif
+CONFIGURE_ARGS.Darwin+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
 
 .if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
 CONFIGURE_ARGS+=	--with-dwarf2
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-powerpc)
+.if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-powerpc) \
+ || (!empty(MACHINE_PLATFORM:MLinux-*-x86_64) && \
+      exists(/usr/include/gnu/stubs-64.h) && \
+     !exists(/usr/include/gnu/stubs-32.h))
 CONFIGURE_ARGS+=	--disable-multilib
 .endif
 
@@ -114,7 +116,7 @@ CFLAGS+=		-I${BUILDLINK_DIR}/include
 
 # Somone should fix this so it will match the NetBSD system compiler
 #.if ${OPSYS} == "NetBSD"
-#GCC_PLATFORM=	${LOWER_ARCH}--${LOWER_OPSYS}${APPEND_ELF}
+#GCC_PLATFORM=	${MACHINE_ARCH}--${LOWER_OPSYS}${APPEND_ELF}
 #CONFIGURE_ARGS+=	--host=${GCC_PLATFORM:Q}
 #MAKE_ENV+=		AR=/usr/bin/ar
 #.endif # NetBSD

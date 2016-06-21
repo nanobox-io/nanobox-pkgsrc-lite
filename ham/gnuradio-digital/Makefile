@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2015/01/24 12:22:05 mef Exp $
+# $NetBSD: Makefile,v 1.4 2015/09/01 04:14:54 mef Exp $
 
 PKGNAME=	gnuradio-digital-${VERSION}
 COMMENT=	Digital related algorithms for GNU Radio

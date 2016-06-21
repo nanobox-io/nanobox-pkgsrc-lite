@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2014/11/24 00:08:22 mef Exp $
+# $NetBSD: Makefile,v 1.32 2016/03/05 11:28:06 jperkin Exp $
 #
 
 DISTNAME=	centerim-4.22.10
+PKGREVISION=	4
 CATEGORIES=	chat
 MASTER_SITES=	http://www.centerim.org/download/releases/ \
 		http://transacid.de/centerim/releases/
@@ -24,10 +25,7 @@ REPLACE_PERL+=		misc/cimconv
 REPLACE_PYTHON+=	misc/CenterIMLog2HTML.py
 REPLACE_AWK+=		misc/cimformathistory
 
-INCOMPAT_CURSES+=	NetBSD-1.[45]*-* NetBSD-1.6-* NetBSD-1.6.[1-9]-*
-INCOMPAT_CURSES+=	NetBSD-1.6_*-* NetBSD-1.6.[1-9]_*-* NetBSD-1.6[A-T]-*
-INCOMPAT_CURSES+=	NetBSD-2.*-* NetBSD-3.*-*	# see PR 29060
-INCOMPAT_CURSES+=	NetBSD-4.*-* NetBSD-5.*-*
+INCOMPAT_CURSES+=	NetBSD-[0-5].*-* # see PR 29060
 
 .include "options.mk"
 .include "../../mk/bsd.prefs.mk"
@@ -36,8 +34,7 @@ INCOMPAT_CURSES+=	NetBSD-4.*-* NetBSD-5.*-*
 CPPFLAGS+=		-DAUDIO_PLAYER="\"/usr/bin/audioplay\""
 .else
 DEPENDS+=		sox>=12.17.4:../../audio/sox
-EVAL_PREFIX+=		SOX_PREFIX=sox
-CPPFLAGS+=		-DAUDIO_PLAYER="\"${SOX_PREFIX}/bin/play\""
+CPPFLAGS+=		-DAUDIO_PLAYER="\"${LOCALBASE}/bin/play\""
 .endif
 
 .if !empty(MACHINE_ARCH:Msparc64)

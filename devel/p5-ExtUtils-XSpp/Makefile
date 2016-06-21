@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.15 2015/01/29 12:42:01 mef Exp $
+# $NetBSD: Makefile,v 1.17 2015/07/12 18:56:12 wiz Exp $
 
 DISTNAME=	ExtUtils-XSpp-0.18
 #                                    0.1602               -> 0.16.02
 PKGNAME=	p5-${DISTNAME:C/([0-9].[0-9][0-9])([0-9][0-9])/\1.\2/}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=ExtUtils/}
 
@@ -11,11 +12,11 @@ HOMEPAGE=	http://search.cpan.org/dist/ExtUtils-XSpp/
 COMMENT=	XS for C++
 LICENSE=	${PERL5_LICENSE}
 
-BUILD_DEPENDS+=	{perl>=5.14.1,p5-Module-Build>=0.38000}:../../devel/p5-Module-Build
+#BUILD_DEPENDS+=	{perl>=5.14.1,p5-Module-Build>=0.38000}:../../devel/p5-Module-Build
 BUILD_DEPENDS+=	p5-Test-Base-[0-9]*:../../devel/p5-Test-Base
 BUILD_DEPENDS+=	p5-Test-Differences-[0-9]*:../../devel/p5-Test-Differences
-DEPENDS+=	{perl>=5.14.1,p5-ExtUtils-ParseXS>=2.22.02}:../../devel/p5-ExtUtils-ParseXS
-DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5>=2.0}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.14.1,p5-ExtUtils-ParseXS>=2.22.02}:../../devel/p5-ExtUtils-ParseXS
+#DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5>=2.0}:../../security/p5-Digest-MD5
 
 USE_LANGUAGES=		c
 PERL5_MODULE_TYPE=	Module::Build

@@ -2,10 +2,10 @@ $NetBSD$
 
 Put CMake files in a consistent location.
 
---- CMakeLists.txt.orig	2014-04-11 10:15:26.000000000 +0000
+--- CMakeLists.txt.orig	2015-12-18 15:02:16.000000000 +0000
 +++ CMakeLists.txt
-@@ -317,13 +317,7 @@ else()
-     set(OPENCV_SAMPLES_SRC_INSTALL_PATH    share/OpenCV/samples)
+@@ -388,13 +388,7 @@ else()
+     set(OPENCV_OTHER_INSTALL_PATH   share/OpenCV)
    endif()
    set(OPENCV_INCLUDE_INSTALL_PATH "include")
 -

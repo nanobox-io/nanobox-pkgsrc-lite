@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2015/03/13 16:35:39 tnn Exp $
+# $NetBSD: Makefile,v 1.9 2016/03/09 20:58:24 tnn Exp $
 #
 
-DISTNAME=	3proxy-0.5.3k
-PKGNAME=	${DISTNAME:C/k$/.11/}
-PKGREVISION=	1
+DISTNAME=	3proxy-0.7.1.2
 CATEGORIES=	net
 MASTER_SITES=	http://3proxy.ru/${DISTNAME:S/3proxy-//}/
 EXTRACT_SUFX=	.tgz
@@ -17,8 +15,9 @@ COMMENT=	Multi-protocol proxy
 # number.  3proxy-0.6.* will have a different license.
 LICENSE=	3proxy-0.5-license
 
-WRKSRC=		${WRKDIR}
-MAKE_FILE=	Makefile.unix
+WRKSRC=			${WRKDIR}/${PKGBASE}
+MAKE_FILE=		Makefile.unix
+MAKE_FLAGS+=		LIBS=${BUILDLINK_LDADD.dl:Q}
 
 INSTALLATION_DIRS=	sbin ${PKGMANDIR}/man5 ${PKGMANDIR}/man8
 
@@ -33,5 +32,6 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/man/3proxy.cfg.3 \
 			${DESTDIR}${PREFIX}/${PKGMANDIR}/man5/3proxy.cfg.5
 
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

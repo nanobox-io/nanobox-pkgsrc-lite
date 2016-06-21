@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.102 2014/09/09 08:11:48 adam Exp $
+# $NetBSD: Makefile,v 1.108 2016/03/05 11:27:57 jperkin Exp $
 
-DISTNAME=	httpd-2.2.29
+DISTNAME=	httpd-2.2.31
 PKGNAME=	${DISTNAME:S/httpd/apache/}
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
 		http://archive.apache.org/dist/httpd/ \
@@ -25,11 +26,8 @@ CONFIGURE_ARGS+=	--with-port=80
 CONFIGURE_ARGS+=	--enable-so
 CONFIGURE_ENV+=		perlbin=${PERL5:Q}
 CONFIGURE_ENV+=		ac_cv_path_RSYNC=/nonexistent
-CONFIGURE_ARGS+=	CFLAGS=${APACHE_CUSTOM_CFLAGS:M*:Q}
 
 MULTIARCH_DIRS.lib=	lib share/httpd/build
-
-BUILD_DEFS+=		APACHE_CUSTOM_CFLAGS
 
 # Apache Portable Runtime library configure options
 CONFIGURE_ARGS+=	--with-apr=${BUILDLINK_PREFIX.apr}

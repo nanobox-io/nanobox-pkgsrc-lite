@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2014/10/09 14:06:55 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2016/01/31 05:56:03 mef Exp $
 
-DISTNAME=	String-Random-0.26
+DISTNAME=	String-Random-0.29
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	perl5 security
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=String/}

@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/03/18 21:39:02 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2016/01/30 04:05:52 markd Exp $
 
 DISTNAME=	pst-math
-PKGNAME=	tex-${DISTNAME}-0.61
-TEXLIVE_REV=	20176
+PKGNAME=	tex-${DISTNAME}-0.63
+TEXLIVE_REV=	34786
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Enhancement of PostScript math operators to use with pstricks
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-pstricks-[0-9]*:../../graphics/tex-pstricks
 

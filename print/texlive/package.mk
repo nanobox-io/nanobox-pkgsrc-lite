@@ -1,12 +1,29 @@
-# $NetBSD: package.mk,v 1.22 2013/12/15 06:02:02 dholland Exp $
+# $NetBSD: package.mk,v 1.24 2016/02/01 18:47:23 leot Exp $
 #
 # This Makefile fragment is intended to be included by packages that build
 # TeX Live packages.
+#
+# Note to package developers:
+# 
+#   * When creating/updating a tex package please set TEXLIVE_USE_CTAN (in
+#     order to properly update the distinfo via the "makesum" target) and
+#     set TEXLIVE_REV appropriately if it is possible (as described below).
 #
 # Package-settable variables:
 #
 # REPLACE_TEXLUA
 #	A list of texlua scripts to be installed, relative to ${WRKSRC}.
+#
+# TEXLIVE_IGNORE_PATTERNS
+#	glob patterns for files and directories in ${WRKSRC} that
+#	should not be installed.
+#
+# TEXLIVE_REV
+#	String appended to DIST_SUBDIR (useful because the majority of tex
+#	packages do not have a revision number in the DISTNAME).
+#	To obtain information to be used as TEXLIVE_REV you should use the
+#	value of "revision" line usually available in
+#	${WRKSRC}/tlpkg/tlpobj/${DISTNAME}.tlpobj
 #
 # TEX_FORMATS
 #	See ../../print/tex-tetex/format.mk.
@@ -20,9 +37,8 @@
 # TEX_TEXMF_DIRS
 #	See ../../print/kpathsea/texmf.mk.
 #
-# TEXLIVE_IGNORE_PATTERNS
-#	glob patterns for files and directories in ${WRKSRC} that
-#	should not be installed.
+# Keywords: latex tex texlive
+#
 
 CATEGORIES?=	print
 .if empty(TEXLIVE_USE_CTAN)

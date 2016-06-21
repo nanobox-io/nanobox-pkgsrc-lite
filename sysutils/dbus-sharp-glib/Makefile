@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.4 2014/10/07 16:47:14 adam Exp $
+# $NetBSD: Makefile,v 1.9 2015/10/10 01:57:55 ryoon Exp $
 #
 
 DISTNAME=	dbus-sharp-glib-0.5.0
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	sysutils
-MASTER_SITES=	http://cloud.github.com/downloads/mono/dbus-sharp/
+MASTER_SITES=	https://cloud.github.com/downloads/mono/dbus-sharp/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/mono/dbus-sharp-glib
@@ -16,6 +16,12 @@ USE_LANGUAGES=	# none
 USE_TOOLS+=	gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	dbus-sharp-glib-1.0.pc.in
+
+SUBST_CLASSES+=         fix-mcs
+SUBST_STAGE.fix-mcs=    post-patch
+SUBST_MESSAGE.fix-mcs=  Fix compiler name
+SUBST_FILES.fix-mcs=    configure
+SUBST_SED.fix-mcs=      -e 's,gmcs,mcs,'
 
 .include "../../sysutils/dbus-sharp/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

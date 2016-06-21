@@ -1,22 +1,22 @@
-# $NetBSD: Makefile,v 1.92 2015/03/02 13:34:16 adam Exp $
+# $NetBSD: Makefile,v 1.106 2016/03/21 00:33:16 ryoon Exp $
 
-DISTNAME=	sqlite-autoconf-3080803
-PKGNAME=	sqlite3-3.8.8.3
+DISTNAME=	sqlite-autoconf-${SQLITE3_DISTVERSION}
+PKGNAME=	sqlite3-${SQLITE3_VERSION}
 CATEGORIES=	databases
-MASTER_SITES=	http://www.hwaci.com/sw/sqlite/2015/ \
-		http://www.sqlite.org/2015/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.sqlite.org/
 COMMENT=	SQL Database Engine in a C Library
 LICENSE=	public-domain
 
+.include "../../databases/sqlite3/Makefile.version"
 .include "options.mk"
 
 USE_LIBTOOL=		yes
 USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-static-shell
 
 PKGCONFIG_OVERRIDE+=	sqlite3.pc.in
 
@@ -50,5 +50,15 @@ LDFLAGS.SCO_SV+=	-lpthread
 .endif
 
 .include "../../mk/readline.buildlink3.mk"
+.if ${READLINE_TYPE} == "editline" && ${IS_BUILTIN.editline} == "yes"
+LDFLAGS.NetBSD+=	-ledit
+LDFLAGS.DragonFly+=	-ledit
+LDFLAGS.FreeBSD+=	-ledit
+.else
+LDFLAGS.NetBSD+=	-lreadline
+LDFLAGS.DragonFly+=	-lreadline
+LDFLAGS.FreeBSD+=	-lreadline
+.endif
+
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2014/12/30 15:58:20 wiz Exp $
+# $NetBSD: Makefile,v 1.3 2016/03/05 11:27:49 jperkin Exp $
 
 DISTNAME=	qore-glut-module-0.0.3
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=qore/}
 

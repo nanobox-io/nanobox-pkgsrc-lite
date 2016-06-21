@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.24 2015/03/15 15:29:31 taca Exp $
+# $NetBSD: Makefile,v 1.35 2016/03/20 22:10:50 wiz Exp $
 
-DISTNAME=	bulk-medium-20150315
+DISTNAME=	bulk-medium-20160314
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -10,7 +10,7 @@ COMMENT=	Meta-package for a standard medium-sized limited bulk build
 
 META_PACKAGE=	yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-postgresql, py-matplotlib-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-matplotlib-gtk2
 
 RESTRICTED=		Just for test build purpose
 NO_BIN_ON_CDROM=	${RESTRICTED}
@@ -60,8 +60,8 @@ BUILD_DEPENDS+=	xchat-[0-9]*:../../chat/xchat
 BUILD_DEPENDS+=	xchat-perl-[0-9]*:../../chat/xchat-perl
 BUILD_DEPENDS+=	xchat-python-[0-9]*:../../chat/xchat-python
 BUILD_DEPENDS+=	fribidi-[0-9]*:../../converters/fribidi
-BUILD_DEPENDS+=	mysql-client>=5.1<5.5:../../databases/mysql51-client
-BUILD_DEPENDS+=	mysql-client>=5.5:../../databases/mysql55-client
+BUILD_DEPENDS+=	mysql-client>=5.5<5.6:../../databases/mysql55-client
+BUILD_DEPENDS+=	mysql-client>=5.6:../../databases/mysql56-client
 BUILD_DEPENDS+=	openldap-client-[0-9]*:../../databases/openldap-client
 BUILD_DEPENDS+=	git-[0-9]*:../../devel/git
 BUILD_DEPENDS+=	git-base-[0-9]*:../../devel/git-base
@@ -75,23 +75,22 @@ BUILD_DEPENDS+=	xemacs-packages-[0-9]*:../../editors/xemacs-packages
 BUILD_DEPENDS+=	qemu-[0-9]*:../../emulators/qemu
 BUILD_DEPENDS+=	simh-[0-9]*:../../emulators/simh
 BUILD_DEPENDS+=	tme-[0-9]*:../../emulators/tme
-BUILD_DEPENDS+=	wine-[0-9]*:../../emulators/wine
+BUILD_DEPENDS+=	wine>=1.6<1.7:../../emulators/wine
 BUILD_DEPENDS+=	ImageMagick-[0-9]*:../../graphics/ImageMagick
 BUILD_DEPENDS+=	gnuplot-[0-9]*:../../graphics/gnuplot
 BUILD_DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-[0-9]*:../../graphics/py-matplotlib
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-gtk-[0-9]*:../../graphics/py-matplotlib-gtk2
 BUILD_DEPENDS+=	gawk-[0-9]*:../../lang/gawk
-BUILD_DEPENDS+=	php>=5.4<5.5:../../lang/php54
 BUILD_DEPENDS+=	php>=5.5<5.6:../../lang/php55
+BUILD_DEPENDS+=	php>=5.6<5.7:../../lang/php56
 BUILD_DEPENDS+=	ruby18-base-[0-9]*:../../lang/ruby18-base
-BUILD_DEPENDS+=	ruby193-base-[0-9]*:../../lang/ruby193-base
-BUILD_DEPENDS+=	ruby200-base-[0-9]*:../../lang/ruby200-base
+BUILD_DEPENDS+=	ruby21-base-[0-9]*:../../lang/ruby21-base
+BUILD_DEPENDS+=	ruby22-base-[0-9]*:../../lang/ruby22-base
 BUILD_DEPENDS+=	sun-jdk6-[0-9]*:../../lang/sun-jdk6
 BUILD_DEPENDS+=	sun-jre6-[0-9]*:../../lang/sun-jre6
 BUILD_DEPENDS+=	openjdk7-[0-9]*:../../lang/openjdk7
 BUILD_DEPENDS+=	openjdk8-[0-9]*:../../lang/openjdk8
-BUILD_DEPENDS+=	python26-[0-9]*:../../lang/python26
 BUILD_DEPENDS+=	python33-[0-9]*:../../lang/python33
 BUILD_DEPENDS+=	tcl-[0-9]*:../../lang/tcl
 BUILD_DEPENDS+=	fetchmail-[0-9]*:../../mail/fetchmail
@@ -105,7 +104,7 @@ BUILD_DEPENDS+=	bind>=9.9<9.10:../../net/bind99
 BUILD_DEPENDS+=	bind>=9.10<9.11:../../net/bind910
 BUILD_DEPENDS+=	clive-[0-9]*:../../net/clive
 BUILD_DEPENDS+=	nmap-[0-9]*:../../net/nmap
-BUILD_DEPENDS+=	samba>=3.6:../../net/samba
+BUILD_DEPENDS+=	samba>=4.2:../../net/samba4
 BUILD_DEPENDS+=	wpa_supplicant-[0-9]*:../../net/wpa_supplicant
 BUILD_DEPENDS+=	xymon-[0-9]*:../../net/xymon
 BUILD_DEPENDS+=	xymonclient-[0-9]*:../../net/xymonclient
@@ -116,7 +115,7 @@ BUILD_DEPENDS+=	ghostscript-agpl-[0-9]*:../../print/ghostscript-agpl
 BUILD_DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 BUILD_DEPENDS+=	xpdf-[0-9]*:../../print/xpdf
 BUILD_DEPENDS+=	gnupg-[0-9]*:../../security/gnupg
-BUILD_DEPENDS+=	gnupg2-[0-9]*:../../security/gnupg2
+BUILD_DEPENDS+=	gnupg2>=2.0<2.1:../../security/gnupg2
 BUILD_DEPENDS+=	desktop-file-utils-[0-9]*:../../sysutils/desktop-file-utils
 BUILD_DEPENDS+=	xe-guest-utilities-[0-9]*:../../sysutils/xe-guest-utilities
 BUILD_DEPENDS+=	xenkernel41-[0-9]*:../../sysutils/xenkernel41
@@ -185,7 +184,7 @@ BUILD_DEPENDS+=	boost-[0-9]*:../../meta-pkgs/boost
 BUILD_DEPENDS+=	ffmpeg2-[0-9]*:../../multimedia/ffmpeg2
 BUILD_DEPENDS+=	libogg-[0-9]*:../../multimedia/libogg
 BUILD_DEPENDS+=	libpcap-[0-9]*:../../net/libpcap
-BUILD_DEPENDS+=	libsoup24-[0-9]*:../../net/libsoup24
+BUILD_DEPENDS+=	libsoup-[0-9]*:../../net/libsoup
 BUILD_DEPENDS+=	poppler-[0-9]*:../../print/poppler
 BUILD_DEPENDS+=	poppler-includes-[0-9]*:../../print/poppler-includes
 BUILD_DEPENDS+=	cyrus-sasl-[0-9]*:../../security/cyrus-sasl
@@ -200,7 +199,7 @@ BUILD_DEPENDS+=	tk-[0-9]*:../../x11/tk
 #
 # 4. Linux compat packages
 #
-BUILD_DEPENDS+=	suse>=12.1:../../meta-pkgs/suse121
+BUILD_DEPENDS+=	suse>=13.1:../../meta-pkgs/suse131
 
 #
 # 5. Desktop infrastructure and support services

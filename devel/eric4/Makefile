@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.43 2014/08/22 09:11:59 wiz Exp $
+# $NetBSD: Makefile,v 1.46 2016/03/05 11:28:21 jperkin Exp $
 
 VERS=			4.5.24
 DISTNAME=		eric4-${VERS}
+PKGREVISION=		2
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=eric-ide/}
 
@@ -14,7 +15,7 @@ NO_BUILD=		yes
 EXTRACT_USING=		bsdtar
 
 PY_PATCHPLIST=			yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 4.5.18
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 4.5.18
 
 CONFIGURE_ARGS+=		-b ${PREFIX}/bin
 CONFIGURE_ARGS+=		-d ${PREFIX}/${PYSITELIB}

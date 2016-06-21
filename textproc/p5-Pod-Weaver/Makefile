@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2014/10/09 14:07:04 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:30 wiz Exp $
 
-DISTNAME=	Pod-Weaver-4.006
+DISTNAME=	Pod-Weaver-4.012
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -17,20 +17,19 @@ DEPENDS+=	p5-DateTime-[0-9]*:../../time/p5-DateTime
 DEPENDS+=	p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
 DEPENDS+=	p5-Log-Dispatchouli>=1.100.710:../../devel/p5-Log-Dispatchouli
 DEPENDS+=	p5-Moose-[0-9]*:../../devel/p5-Moose
-DEPENDS+=	p5-Moose-Autobox>=0.10:../../devel/p5-Moose-Autobox
 DEPENDS+=	p5-Params-Util-[0-9]*:../../devel/p5-Params-Util
 DEPENDS+=	p5-Pod-Elemental>=0.100220:../../textproc/p5-Pod-Elemental
 DEPENDS+=	p5-String-Flogger>=1.0:../../textproc/p5-String-Flogger
 DEPENDS+=	p5-String-Formatter>=0.100680:../../textproc/p5-String-Formatter
 DEPENDS+=	p5-String-RewritePrefix-[0-9]*:../../textproc/p5-String-RewritePrefix
-DEPENDS+=	{perl>=5.10.1,p5-Text-Tabs+Wrap-[0-9]*}:../../textproc/p5-Text-Tabs+Wrap
+#DEPENDS+=	{perl>=5.10.1,p5-Text-Tabs+Wrap-[0-9]*}:../../textproc/p5-Text-Tabs+Wrap
 DEPENDS+=	p5-namespace-autoclean-[0-9]*:../../devel/p5-namespace-autoclean
 
-BUILD_DEPENDS+=	{perl>=5.10.1,p5-File-Temp-[0-9]*}:../../devel/p5-File-Temp
+#BUILD_DEPENDS+=	{perl>=5.10.1,p5-File-Temp-[0-9]*}:../../devel/p5-File-Temp
 BUILD_DEPENDS+=	p5-PPI-[0-9]*:../../devel/p5-PPI
 BUILD_DEPENDS+=	p5-Software-License-[0-9]*:../../devel/p5-Software-License
 BUILD_DEPENDS+=	p5-Test-Differences-[0-9]*:../../devel/p5-Test-Differences
-BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.96}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.96}:../../devel/p5-Test-Simple
 
 PERL5_PACKLIST=		auto/Pod/Weaver/.packlist
 
