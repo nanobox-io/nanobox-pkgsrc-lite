@@ -9,15 +9,6 @@ $NetBSD: patch-ak,v 1.19 2016/02/23 11:27:55 wiz Exp $
 
 --- configure.ac.orig	2015-05-13 02:45:52.000000000 +0000
 +++ configure.ac
-@@ -275,7 +275,7 @@                                                                                                                 
-            [],
-	   [with_runtime_libdir=""])
- GLIB_RUNTIME_LIBDIR="$with_runtime_libdir"
--ABS_GLIB_RUNTIME_LIBDIR="`readlink -f $libdir/$with_runtime_libdir`"
-+ABS_GLIB_RUNTIME_LIBDIR=""
- AC_SUBST(GLIB_RUNTIME_LIBDIR)
- AC_SUBST(ABS_GLIB_RUNTIME_LIBDIR)
- AM_CONDITIONAL(HAVE_GLIB_RUNTIME_LIBDIR, [test "x$with_runtime_libdir" != "x"])
 @@ -750,7 +750,7 @@ int main (void)
  AC_MSG_RESULT($g_have_gnuc_visibility)
  AM_CONDITIONAL(HAVE_GNUC_VISIBILITY, [test x$g_have_gnuc_visibility = xyes])

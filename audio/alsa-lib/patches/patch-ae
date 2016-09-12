@@ -1,23 +1,27 @@
-$NetBSD: patch-ae,v 1.7 2016/02/18 15:15:57 wiz Exp $
+$NetBSD: patch-ae,v 1.9 2016/06/03 15:45:44 jperkin Exp $
 
- - Handle endian detection for assorted operating systems.
- - Fix up linuxism.
  - Don't assert GNU ld on Solaris, where it might not be true.
+ - Add endian compat.
 
---- include/local.h.orig	2015-11-09 07:39:18.000000000 +0000
+--- include/local.h.orig	2016-03-31 13:10:39.000000000 +0000
 +++ include/local.h
-@@ -50,8 +50,10 @@
- #include <sys/poll.h>
- #include <sys/types.h>
- #include <errno.h>
-+#if defined(__linux__)
- #include <linux/types.h>
- #include <linux/ioctl.h>
+@@ -43,6 +43,15 @@
+ #ifndef __BIG_ENDIAN
+ #define __BIG_ENDIAN BIG_ENDIAN
+ #endif
++#elif defined(__sun)
++#include <sys/byteorder.h>
++#define __LITTLE_ENDIAN 1234
++#define __BIG_ENDIAN 4321
++#ifdef _BIG_ENDIAN
++#define __BYTE_ORDER __BIG_ENDIAN
++#else
++#define __BYTE_ORDER __LITTLE_ENDIAN
 +#endif
- 
- #ifdef SUPPORT_RESMGR
- #include <resmgr.h>
-@@ -249,7 +251,9 @@ extern snd_lib_error_handler_t snd_err_m
+ #else
+ #error Header defining endianness not defined
+ #endif
+@@ -253,7 +262,9 @@ extern snd_lib_error_handler_t snd_err_m
  
  /*
   */

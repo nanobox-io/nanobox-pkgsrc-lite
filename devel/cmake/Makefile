@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.115 2016/04/04 17:30:31 joerg Exp $
+# $NetBSD: Makefile,v 1.118 2016/04/17 18:45:28 ryoon Exp $
 
-DISTNAME=	cmake-${CMAKE_API}.0
+DISTNAME=	cmake-${CMAKE_API}.2
 CATEGORIES=	devel
-MASTER_SITES=	http://www.cmake.org/files/v${CMAKE_API}/
+MASTER_SITES=	https://cmake.org/files/v${CMAKE_API}/
 
 # When changing this, please update devel/cmake-fedora as well.
 CMAKE_API=	3.5

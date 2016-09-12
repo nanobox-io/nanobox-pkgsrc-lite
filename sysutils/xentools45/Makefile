@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.30 2016/04/04 14:51:59 bad Exp $
+# $NetBSD: Makefile,v 1.34 2016/06/12 18:49:43 abs Exp $
 
-VERSION=	4.5.2
-PKGREVISION=	2
+VERSION=	4.5.3
+PKGREVISION=	1
 VERSION_IPXE=	9a93db3f0947484e30e753bbd61a10b17336e20e
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools45-${VERSION}
-#PKGREVISION=		0
 CATEGORIES=		sysutils
 MASTER_SITES=		http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -162,25 +161,25 @@ pre-build:
 	${CP} -f ${FILESDIR}/locking.sh  ${WRKSRC}/hotplug/NetBSD/
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xenstore-chmod.pod.1 |\
-	    pod2man >${WRKDIR}/xenstore-chmod.1
+	    pod2man -n xenstore-chmod >${WRKDIR}/xenstore-chmod.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xenstore-ls.pod.1 |\
-	    pod2man >${WRKDIR}/xenstore-ls.1
+	    pod2man -n xenstore-ls >${WRKDIR}/xenstore-ls.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xenstore.pod.1 |\
-	    pod2man >${WRKDIR}/xenstore.1
+	    pod2man -n xenstore >${WRKDIR}/xenstore.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xl.cfg.5
+	    pod2man -n xl.cfg >${WRKDIR}/xl.cfg.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.conf.pod.5 |\
-	    pod2man >${WRKDIR}/xl.conf.5
+	    pod2man -n xl.conf >${WRKDIR}/xl.conf.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.pod.1 |\
-	    pod2man >${WRKDIR}/xl.1
+	    pod2man -n xl >${WRKDIR}/xl.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xlcpupool.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xlcpupool.cfg.5
+	    pod2man -n xlcpupool.cfg >${WRKDIR}/xlcpupool.cfg.5
 
 INSTALLATION_DIRS=	${EGDIR} ${PKGMANDIR}/man5
 

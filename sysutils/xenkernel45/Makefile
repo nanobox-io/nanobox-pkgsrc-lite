@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.13 2016/01/08 13:24:29 bouyer Exp $
+# $NetBSD: Makefile,v 1.17.2.1 2016/07/28 13:35:31 spz Exp $
 
-VERSION=	4.5.2
+VERSION=	4.5.3
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xenkernel45-${VERSION}
-#PKGREVISION=	0
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -35,6 +35,9 @@ EXTRA_CFLAGS+=	-Qunused-arguments -no-integrated-as -Wno-error=format \
 		-Wno-error=parentheses-equality -Wno-error=enum-conversion \
 		-Wno-error=unused-function -Wno-error=unused-const-variable \
 		-Wno-error=ignored-attributes -Wno-error=initializer-overrides
+.endif
+.if !empty(PKGSRC_COMPILER:Mgcc) && empty(CC_VERSION:Mgcc-[1-4].*)
+EXTRA_CFLAGS+=	-Wno-error=maybe-uninitialized
 .endif
 
 MAKE_ENV+=	EXTRA_CFLAGS=${EXTRA_CFLAGS:Q}

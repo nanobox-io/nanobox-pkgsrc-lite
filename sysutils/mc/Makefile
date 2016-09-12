@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.101 2015/11/17 11:58:32 wiz Exp $
+# $NetBSD: Makefile,v 1.103 2016/05/18 11:35:50 wiz Exp $
 
-DISTNAME=	mc-4.8.15
+DISTNAME=	mc-4.8.17
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.midnight-commander.org/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -48,7 +48,6 @@ CONFFILES+=	mc.emacs.keymap
 CONFFILES+=	mc.ext
 CONFFILES+=	mc.keymap
 CONFFILES+=	mc.menu
-CONFFILES+=	mc.menu.sr
 CONFFILES+=	mcedit.menu
 CONFFILES+=	sfs.ini
 

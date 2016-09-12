@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2016/03/04 08:58:58 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/06/19 21:28:58 fhajny Exp $
 
-DISTNAME=	redis-3.0.7
+DISTNAME=	redis-3.2.1
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 
@@ -11,7 +11,6 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c99
 USE_TOOLS+=		gmake pax
-DIST_SUBDIR=	redis-3.0.7v2
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -19,7 +18,7 @@ RCD_SCRIPTS+=		redis
 RCD_SCRIPT_SRC.redis=	${FILESDIR}/redis.sh
 
 DOCDIR=			share/doc/redis
-DOCFILES+=		00-RELEASENOTES BUGS COPYING README
+DOCFILES+=		00-RELEASENOTES BUGS COPYING README.md
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 INSTALLATION_DIRS+=	bin ${DOCDIR} ${EGDIR} ${EGDIR}/utils ${EGDIR}/tests
 CONF_FILES=		${EGDIR}/redis.conf.example ${PKG_SYSCONFDIR}/redis.conf

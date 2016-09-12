@@ -295,7 +295,7 @@ CHECK-ADD)
 			;;
 		esac
 		case $groupid in
-		"")	${ECHO} "	$group" > /dev/null ;;
+		"")	${ECHO} "	$group" ;; > /dev/null
 		*)	${ECHO} "	$group (gid = $groupid)" > /dev/null
 			${ECHO} "" > /dev/null
 			${ECHO} "If you wish to ignore this check and either re-use an existing '$group' group" > /dev/null
@@ -344,7 +344,7 @@ CHECK-ADD)
 		: ${home:="@PKG_USER_HOME@"}
 		: ${shell:="@PKG_USER_SHELL@"}
 		case $userid in
-		"")	${ECHO} "	$user: $group, $home, $shell" > /dev/null ;;
+		"")	${ECHO} "	$user: $group, $home, $shell" ;; > /dev/null
 		*)	${ECHO} "	$user (uid = $userid): $group, $home, $shell" > /dev/null
 			${ECHO} "" > /dev/null
 			${ECHO} "If you wish to ignore this check and either re-use an existing '$user' user" > /dev/null

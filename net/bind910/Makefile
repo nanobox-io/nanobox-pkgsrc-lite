@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.18 2016/03/10 00:48:41 taca Exp $
+# $NetBSD: Makefile,v 1.21.2.1 2016/07/20 02:55:36 spz Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
 CATEGORIES=	net
-MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/ \
-		http://ftp.belnet.be/pub/mirror/ftp.isc.org/isc/bind9/${BIND_VERSION}/
+MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.isc.org/software/bind/
@@ -14,7 +13,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.10.3-P4
+BIND_VERSION=	9.10.4-P2
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -57,12 +56,6 @@ FILES_SUBST+=		BIND_GROUP=${BIND_GROUP} \
 			SSLBASE=${SSLBASE}
 MESSAGE_SUBST+=		BIND_DIR=${BIND_DIR} BIND_USER=${BIND_USER}
 DOCDIR=			${DESTDIR}${PREFIX}/share/doc/bind9
-
-# include/isc/ipv6.h is installed on non-ipv6 platforms
-PLIST_VARS+=	inet6
-.if !empty(MISSING_FEATURES:Minet6)
-PLIST.inet6=	yes
-.endif
 
 RCD_SCRIPTS=		lwresd named9
 SMF_METHODS=		named

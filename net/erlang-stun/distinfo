@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2016/04/29 18:20:33 fhajny Exp $
+
+SHA1 (stun-1.0.3.tar.gz) = d176c49dfe8ad368fd7eac003fdd58a38ad7cd1c
+RMD160 (stun-1.0.3.tar.gz) = eb8a68f8921d13e01c62e0514903490e35556eb0
+SHA512 (stun-1.0.3.tar.gz) = c15918f4b1f81477a7834dc5ba837fcd512249bda569cf3ffd3066056e6f1abacfeab3d0dde575402291d841f257a3b33e27d6c76250ae353d77e3fdd87f9786
+Size (stun-1.0.3.tar.gz) = 28646 bytes
+SHA1 (patch-rebar.config) = 3c7b7cb4cf31531633e997929a216b7ae34af2e5

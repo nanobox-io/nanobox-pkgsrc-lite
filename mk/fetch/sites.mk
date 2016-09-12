@@ -1,4 +1,4 @@
-# $NetBSD: sites.mk,v 1.138 2016/02/14 06:55:08 taca Exp $
+# $NetBSD: sites.mk,v 1.144 2016/06/16 18:23:01 mspo Exp $
 #
 # This Makefile fragment defines read-only MASTER_SITE_* variables
 # representing some well-known master distribution sites for software.
@@ -30,6 +30,13 @@ MASTER_SITE_GNUSTEP+=   \
 MASTER_SITE_OSDN+=	\
 	http://jaist.dl.osdn.jp/ \
 	http://iij.dl.osdn.jp/ \
+	http://tcpdiag.dl.osdn.jp/ \
+	http://c3sl.dl.osdn.jp/ \
+	http://cznic.dl.osdn.jp/ \
+	http://onet.dl.osdn.jp/ \
+	http://nchc.dl.osdn.jp/ \
+	http://rwthaachen.dl.osdn.jp/ \
+	http://giganet.dl.osdn.jp/ \
 	http://osdn.dl.osdn.jp/
 
 MASTER_SITE_PERL_CPAN+= \
@@ -98,7 +105,6 @@ MASTER_SITE_SUSE+=	\
 
 MASTER_SITE_MOZILLA_ALL+=   \
 	http://download-origin.cdn.mozilla.net/pub/mozilla.org/ \
-	http://dm-download02.mozilla.org/pub/mozilla.org/ \
 	http://ftp.mozilla.org/pub/mozilla.org/
 
 # see http://www.mozilla.org/mirrors.html
@@ -274,7 +280,7 @@ MASTER_SITE_NETLIB+= \
 	http://www.mirrorservice.org/sites/netlib.bell-labs.com/netlib/
 
 MASTER_SITE_OPENBSD+= \
-	ftp://ftp.OpenBSD.org/pub/OpenBSD/ \
+	http://ftp.OpenBSD.org/pub/OpenBSD/ \
 	ftp://ftp3.usa.openbsd.org/pub/OpenBSD/ \
 	ftp://ftp.jaist.ac.jp/pub/OpenBSD/
 
@@ -282,13 +288,15 @@ MASTER_SITE_RUBYGEMS+= \
 	https://rubygems.org/gems/
 
 MASTER_SITE_PYPI+= \
-	https://pypi.python.org/packages/source/
+	https://files.pythonhosted.org/packages/source/
 
 MASTER_SITE_HASKELL_HACKAGE+=	\
 	http://hackage.haskell.org/package/
 
 # The primary backup site.
 MASTER_SITE_BACKUP?=	\
+	http://cdn.NetBSD.org/pub/pkgsrc/distfiles/ \
+	http://ftp6.NetBSD.org/pub/pkgsrc/distfiles/ \
 	ftp://ftp.fr.NetBSD.org/pub/pkgsrc/distfiles/ \
 	http://ftp.fr.NetBSD.org/pub/pkgsrc/distfiles/ \
 	ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/ \

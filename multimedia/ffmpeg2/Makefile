@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26 2016/03/30 12:46:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.30 2016/06/23 11:25:19 maya Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg2/}
 PKGREVISION=	2
@@ -26,6 +26,9 @@ CONFIGURE_ARGS+=	--host-ld=${NATIVE_CC:Q}
 CONFIGURE_ARGS+=	--target-os=${LOWER_OPSYS}
 .endif
 
+PRINT_PLIST_AWK+=	/html/ { $$0 = "$${PLIST.doc}" $$0 }
+PRINT_PLIST_AWK+=	/opencl/ { $$0 = "$${PLIST.opencl}" $$0 }
+
 TEST_TARGET=	check
 
 post-install:
@@ -49,7 +52,7 @@ CONFIGURE_ARGS+=	--disable-asm
    || !empty(CC_VERSION:Mgcc-4.[01].*) \
    || empty(CC_VERSION:Mgcc*)
 CONFIGURE_ARGS+=	--disable-asm
-.  elif !empty(CC_VERSION:Mgcc-4.*)
+.  elif !empty(CC_VERSION:Mgcc-[456].*)
 CFLAGS+=		-mstackrealign -mpreferred-stack-boundary=4
 .  endif
 .endif

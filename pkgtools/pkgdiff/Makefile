@@ -26,6 +26,9 @@ DIFF?=		${PREFIX}/bin/gdiff
 .else
 DIFF?=		diff
 .endif
+.if ${OPSYS} == "SunOS"
+MANINSTALL=	catinstall
+.endif
 
 INSTALLATION_DIRS=	bin
 .if !empty(MANINSTALL:Mcatinstall)

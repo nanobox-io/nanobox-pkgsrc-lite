@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.429 2016/03/28 12:57:27 kamil Exp $
+# $NetBSD: Makefile,v 1.433 2016/06/30 12:16:47 kamil Exp $
 #
 
 COMMENT=	Programming languages
@@ -32,8 +32,10 @@ SUBDIR+=	classpath-gui
 SUBDIR+=	clisp
 SUBDIR+=	clojure
 SUBDIR+=	coq
+SUBDIR+=	coreclr
 SUBDIR+=	cparser
 SUBDIR+=	cu-prolog
+SUBDIR+=	duktape
 SUBDIR+=	eag
 SUBDIR+=	ecl
 SUBDIR+=	eieio
@@ -42,6 +44,7 @@ SUBDIR+=	elk
 SUBDIR+=	embryo
 SUBDIR+=	erlang
 SUBDIR+=	erlang-doc
+SUBDIR+=	erlang-luerl
 SUBDIR+=	erlang-man
 SUBDIR+=	f2c
 SUBDIR+=	ficl
@@ -110,6 +113,7 @@ SUBDIR+=	konoha
 SUBDIR+=	ksi
 SUBDIR+=	libLLVM
 SUBDIR+=	libLLVM34
+SUBDIR+=	libduktape
 SUBDIR+=	librep
 SUBDIR+=	libtcl-nothread
 SUBDIR+=	libunwind
@@ -217,6 +221,7 @@ SUBDIR+=	smalltalk
 SUBDIR+=	smlnj
 SUBDIR+=	snobol
 SUBDIR+=	spidermonkey
+SUBDIR+=	spidermonkey17
 SUBDIR+=	spl
 SUBDIR+=	squeak
 SUBDIR+=	squeak-vm

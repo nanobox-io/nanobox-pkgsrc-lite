@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.47 2016/01/27 10:31:31 wiz Exp $
+# $NetBSD: Makefile,v 1.52 2016/06/16 04:06:20 markd Exp $
 
-DISTNAME=	texlive-20150521-source
-PKGNAME=	xetex-0.99992
-PKGREVISION=	5
+DISTNAME=	texlive-20160523-source
+PKGNAME=	xetex-0.99996
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -26,7 +25,9 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake lex perl pkg-config yacc
 CONFIGURE_ARGS+=	--disable-aleph --disable-etex --disable-pdftex \
 			--disable-luatex --disable-mf --disable-mf-nowin \
+			--with-x=no \
 			--disable-luajittex \
+			--disable-mflua --disable-mfluajit \
 			--disable-mp --disable-pmp --disable-upmp \
 			--disable-ptex --disable-eptex --disable-uptex --disable-euptex \
 			--disable-web-progs \
@@ -69,9 +70,6 @@ BUILDLINK_API_DEPENDS.kpathsea+= kpathsea>=6.2.1
 .include "../../print/poppler/buildlink3.mk"
 .include "../../print/poppler-includes/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
-
-BUILDLINK_DEPMETHOD.libX11?=	build
-.include "../../x11/libX11/buildlink3.mk"
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/texk/web2c/xetex ${DESTDIR}${PREFIX}/bin

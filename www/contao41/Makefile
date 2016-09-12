@@ -1,12 +1,16 @@
-# $NetBSD: Makefile,v 1.5 2016/03/25 16:03:46 taca Exp $
+# $NetBSD: Makefile,v 1.7.2.1 2016/07/28 17:42:46 spz Exp $
 #
 
 DISTNAME=	contao-${CT_PKGVER}
 PKGNAME=	${PHP_PKG_PREFIX}-contao${CT_VER}-${CT_VERSION}
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=contao/}
 GITHUB_PROJECT=	standard-edition
 GITHUB_RELEASE=	${CT_VERSION}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
+		contao-mediaelement.js-2.21.2.tar.gz
+SITES.contao-mediaelement.js-2.21.2.tar.gz=	${MASTER_SITE_LOCAL}
 
 MAINTAINER=	taca@NetBSD.org
 HOMEPAGE=	https://contao.org/
@@ -24,7 +28,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.4.0:../../www/php-curl
 DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.4.0:../../archivers/php-zlib
 DEPENDS+=	bash>=4.0:../../shells/bash
 
-CT_VERSION=	4.1.2
+CT_VERSION=	4.1.3
 USE_TOOLS=	bash pax
 NO_BUILD=	yes
 
@@ -85,9 +89,8 @@ PKG_USERS_VARS+=	APACHE_USER
 
 pre-configure:
 	${CP} ${FILESDIR}/contao.conf ${WRKDIR}
-
-pre-install:
-	cd ${WRKSRC}; ${RM} -fr files/music_academy templates/music_academy.sql
+	${RM} -fr ${WRKSRC}/assets/mediaelement
+	${CP} -pr ${WRKDIR}/assets/mediaelement ${WRKSRC}/assets
 
 do-install:
 	cd ${WRKSRC}; pax -rw ${WWW_FILES} ${DESTDIR}${PREFIX}/${CT_WEBDIR}

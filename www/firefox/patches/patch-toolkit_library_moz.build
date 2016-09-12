@@ -1,22 +1,18 @@
-$NetBSD: patch-toolkit_library_moz.build,v 1.4 2015/05/12 22:48:54 ryoon Exp $
+$NetBSD: patch-toolkit_library_moz.build,v 1.6 2016/06/16 12:08:21 ryoon Exp $
 
-MOZ_GSTREAMER:
-  GSTREAMER_LIBS are linked to libxul on Darwin, while they are
-  dlopen(3)'ed at runtime on other platforms. The problem is that the
-  toolkit being cocoa isn't relevant at all. It's Darwin that needs
-  the special handling, not Cocoa.
+* Support system libraries
 
---- toolkit/library/moz.build.orig	2015-05-04 00:43:33.000000000 +0000
+--- toolkit/library/moz.build.orig	2016-06-01 04:11:43.000000000 +0000
 +++ toolkit/library/moz.build
-@@ -214,6 +214,7 @@ if CONFIG['OS_ARCH'] == 'Linux' and CONF
+@@ -211,6 +211,7 @@ if CONFIG['OS_ARCH'] == 'Linux' and CONF
      ]
  
  OS_LIBS += CONFIG['MOZ_CAIRO_OSLIBS']
 +OS_LIBS += CONFIG['MOZ_LIBV4L2_LIBS']
  OS_LIBS += CONFIG['MOZ_WEBRTC_X11_LIBS']
+ OS_LIBS += CONFIG['MOZ_SERVO_LIBS']
  
- if CONFIG['MOZ_NATIVE_JPEG']:
-@@ -225,6 +226,30 @@ if CONFIG['MOZ_NATIVE_PNG']:
+@@ -223,6 +224,30 @@ if CONFIG['MOZ_NATIVE_PNG']:
  if CONFIG['MOZ_NATIVE_HUNSPELL']:
      OS_LIBS += CONFIG['MOZ_HUNSPELL_LIBS']
  
@@ -47,29 +43,13 @@ MOZ_GSTREAMER:
  if CONFIG['MOZ_NATIVE_LIBEVENT']:
      OS_LIBS += CONFIG['MOZ_LIBEVENT_LIBS']
  
-@@ -234,8 +259,14 @@ if CONFIG['MOZ_NATIVE_LIBVPX']:
- if not CONFIG['MOZ_TREE_PIXMAN']:
-     OS_LIBS += CONFIG['MOZ_PIXMAN_LIBS']
+@@ -235,6 +260,9 @@ if not CONFIG['MOZ_TREE_PIXMAN']:
+ if CONFIG['MOZ_ALSA']:
+     OS_LIBS += CONFIG['MOZ_ALSA_LIBS']
  
--if CONFIG['MOZ_ALSA']:
--    OS_LIBS += CONFIG['MOZ_ALSA_LIBS']
-+if CONFIG['MOZ_NATIVE_GRAPHITE2']:
-+    OS_LIBS += CONFIG['MOZ_GRAPHITE2_LIBS']
-+
-+if CONFIG['MOZ_NATIVE_HARFBUZZ']:
-+    OS_LIBS += CONFIG['MOZ_HARFBUZZ_LIBS']
-+
 +if CONFIG['MOZ_OSS']:
 +    OS_LIBS += CONFIG['MOZ_OSS_LIBS']
- 
++
  if CONFIG['HAVE_CLOCK_MONOTONIC']:
      OS_LIBS += CONFIG['REALTIME_LIBS']
-@@ -365,7 +396,7 @@ if CONFIG['OS_ARCH'] == 'WINNT':
- if CONFIG['MOZ_ENABLE_QT']:
-     OS_LIBS += CONFIG['XEXT_LIBS']
  
--if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'cocoa' and CONFIG['MOZ_GSTREAMER']:
-+if CONFIG['OS_ARCH'] == 'Darwin' and CONFIG['MOZ_GSTREAMER']:
-     OS_LIBS += CONFIG['GSTREAMER_LIBS']
- 
- if CONFIG['MOZ_WIDGET_TOOLKIT'] == 'windows':

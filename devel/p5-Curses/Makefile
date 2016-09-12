@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.52 2015/08/18 07:31:05 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2016/06/08 19:22:44 wiz Exp $
 
-DISTNAME=	Curses-1.32
+DISTNAME=	Curses-1.34
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Curses/}
-EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Curses/

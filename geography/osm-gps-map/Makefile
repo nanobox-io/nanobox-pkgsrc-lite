@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.2 2015/10/10 01:58:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/09 06:23:40 wiz Exp $
 
 DISTNAME=	osm-gps-map-1.0.2
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_GITHUB:=nzjrs/}
 GITHUB_RELEASE=	1.0.2
 
 MAINTAINER=	rodent@NetBSD.org
-HOMEPAGE=	${MASTER_SITE_GITHUB:=nzjrs/osm-gps-map/}
+HOMEPAGE=	https://github.com/nzjrs/osm-gps-map/
 COMMENT=	Gtk+ Widget for Displaying OpenStreetMap tiles
 LICENSE=	gnu-gpl-v2
 

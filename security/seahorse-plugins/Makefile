@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.59 2016/03/05 11:29:26 jperkin Exp $
+# $NetBSD: Makefile,v 1.61 2016/05/03 11:40:08 prlw1 Exp $
 
 DISTNAME=	seahorse-plugins-2.30.1
-PKGREVISION=	42
+PKGREVISION=	44
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/seahorse-plugins/2.30/}
 EXTRACT_SUFX=	.tar.bz2

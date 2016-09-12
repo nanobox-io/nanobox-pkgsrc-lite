@@ -1,4 +1,4 @@
-# $NetBSD: extension.mk,v 1.41 2015/12/27 21:08:45 wiz Exp $
+# $NetBSD: extension.mk,v 1.47 2016/05/30 10:31:16 wiz Exp $
 
 .include "../../lang/python/pyversion.mk"
 
@@ -24,9 +24,7 @@ PYSETUPARGS?=		#empty
 PYSETUPINSTALLARGS?=	#empty
 PYSETUPOPTARGS?=	-c -O1
 _PYSETUPINSTALLARGS=	${PYSETUPINSTALLARGS} ${PYSETUPOPTARGS} ${_PYSETUPTOOLSINSTALLARGS}
-.if ${_USE_DESTDIR} != "no"
 _PYSETUPINSTALLARGS+=	--root=${DESTDIR:Q}
-.endif
 PY_PATCHPLIST?=		yes
 PYSETUPINSTALLARGS?=	#empty
 PYSETUPTESTTARGET?=	test

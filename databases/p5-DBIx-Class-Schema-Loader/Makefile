@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2016/02/27 07:35:11 wen Exp $
+# $NetBSD: Makefile,v 1.30 2016/06/08 19:22:27 wiz Exp $
 
 DISTNAME=	DBIx-Class-Schema-Loader-0.07045
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
 
@@ -50,6 +51,12 @@ DEPENDS+=	p5-String-ToIdentifier-EN>=0.05:../../textproc/p5-String-ToIdentifier-
 DEPENDS+=	p5-Task-Weaken-[0-9]*:../../devel/p5-Task-Weaken
 DEPENDS+=	p5-Try-Tiny-[0-9]*:../../devel/p5-Try-Tiny
 DEPENDS+=	p5-namespace-clean>=0.23:../../devel/p5-namespace-clean
+
+# for make test
+BUILD_DEPENDS+=	p5-DBD-SQLite2-[0-9]*:../../databases/p5-DBD-SQLite2
+BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
+BUILD_DEPENDS+=	p5-Test-Differences-[0-9]*:../../devel/p5-Test-Differences
+BUILD_DEPENDS+=	p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
 
 # Avoid complaints if we do not have DB2, Oracle, Pg and mysql
 MAKE_ENV+=	DBIC_FEATURE_NOQUESTIONS=1

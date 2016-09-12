@@ -73,4 +73,4 @@ pre-depends-hook:
 .PHONY: fetch-depends
 fetch-depends:
 	@${PHASE_MSG} "Attempting to determine and fetch dependencies"
-#	@../../mk/depends/fetch-depends.sh $$(${PWD_CMD} | ${SED} 's,${PKGSRCDIR},,') ${LOCALBASE}
+	@../../mk/depends/fetch-depends.sh $$(${PWD_CMD} | ${SED} 's,${PKGSRCDIR},,') ${LOCALBASE}

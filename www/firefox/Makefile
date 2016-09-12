@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.247 2016/03/19 22:57:50 ryoon Exp $
+# $NetBSD: Makefile,v 1.258 2016/06/25 22:06:12 pgoyette Exp $
 
 FIREFOX_VER=	${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=	45.0
-MOZ_BRANCH_MINOR=	.1
+MOZ_BRANCH=	47.0
+MOZ_BRANCH_MINOR=	
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	firefox-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
@@ -26,6 +27,10 @@ CONFIGURE_ARGS+=	--enable-application=browser
 # workround for link of libxul.so etc.
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/firefox ${COMPILER_RPATH_FLAG}${PREFIX}/lib
 LDFLAGS.SunOS+=		-lm
+
+NOT_PAX_MPROTECT_SAFE+=	lib/firefox/firefox
+NOT_PAX_MPROTECT_SAFE+=	lib/firefox/firefox-bin
+NOT_PAX_MPROTECT_SAFE+=	lib/firefox/plugin-container
 
 ALL_ENV+=		MOZILLA_PKG_NAME=firefox
 
@@ -60,12 +65,9 @@ SUBST_FILES.sys-dic=	extensions/spellcheck/hunspell/glue/mozHunspell.cpp
 SUBST_VARS.sys-dic=	PREFIX
 
 pre-configure:
-	cd ${WRKSRC} && mkdir ${OBJDIR}
 	cd ${WRKSRC} && autoconf
 	cd ${WRKSRC}/js/src && autoconf
-# XXX Makefile is broken? When libxul is provided from devel/xulrunner,
-# XXX please remove this.
-	mkdir ${WRKSRC}/js/src/.deps
+	cd ${WRKSRC} && mkdir ${OBJDIR}
 
 post-build:
 	${SED} -e 's|@MOZILLA@|${MOZILLA}|g'				\

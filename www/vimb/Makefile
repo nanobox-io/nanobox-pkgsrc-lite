@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2016/02/18 19:06:09 leot Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/01 21:46:22 leot Exp $
 
 DISTNAME=	vimb-2.11
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=fanglingsu/}
 
@@ -26,6 +27,8 @@ SUBST_SED.configmk+=	-e '/_POSIX_SOURCE/ s/-DPOSIX_SOURCE/-DPOSIX_SOURCE=1/'
 EGDIR=		${PREFIX}/share/examples/vimb
 
 MAKE_ENV+=	EXAMPLEDIR="${EGDIR}" MANDIR="${PREFIX}/${PKGMANDIR}"
+
+NOT_PAX_MPROTECT_SAFE+=	bin/vimb
 
 .include "../../net/libsoup/buildlink3.mk"
 .include "../../www/webkit24-gtk/buildlink3.mk"

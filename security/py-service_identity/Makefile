@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2016/02/21 10:47:20 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2016/06/01 12:36:40 wiz Exp $
 
 DISTNAME=	service_identity-16.0.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	security python
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/service_identity/}
 
@@ -12,6 +13,7 @@ LICENSE=	mit
 
 DEPENDS+=	${PYPKGPREFIX}-OpenSSL>=0.12:../../security/py-OpenSSL
 DEPENDS+=	${PYPKGPREFIX}-asn1-modules-[0-9]*:../../security/py-asn1-modules
+DEPENDS+=	${PYPKGPREFIX}-attrs-[0-9]*:../../devel/py-attrs
 DEPENDS+=	${PYPKGPREFIX}-characteristic>=14.0.0:../../devel/py-characteristic
 DEPENDS+=	${PYPKGPREFIX}-idna-[0-9]*:../../www/py-idna
 

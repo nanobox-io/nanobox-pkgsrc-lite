@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.43 2016/01/27 10:31:31 wiz Exp $
+# $NetBSD: Makefile,v 1.50 2016/07/06 09:47:52 jperkin Exp $
 
-DISTNAME=	texlive-20150521-source
-PKGNAME=	luatex-0.80.0
+DISTNAME=	texlive-20160523-source
+PKGNAME=	luatex-0.95
 PKGREVISION=	1
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -14,6 +14,7 @@ LICENSE=	gnu-gpl-v2
 
 EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 			${DISTNAME}/libs/lua52 \
+			${DISTNAME}/libs/luajit \
 			${DISTNAME}/texk/web2c
 
 GNU_CONFIGURE=	yes
@@ -22,6 +23,7 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake lex perl pkg-config yacc
 CONFIGURE_ARGS+=	--disable-aleph --disable-etex --disable-pdftex \
 			--enable-luatex --disable-mf --disable-mf-nowin \
+			--with-x=no \
 			--disable-luajittex \
 			--disable-mp --disable-pmp --disable-upmp \
 			--disable-ptex --disable-eptex --disable-uptex --disable-euptex \
@@ -49,13 +51,14 @@ CONFIGURE_ARGS+=	--with-system-gmp \
 			--with-gmp-libdir=${BUILDLINK_PREFIX.gmp}/lib
 
 CONFIGURE_DIRS=		libs/lua52
+CONFIGURE_DIRS+=	libs/luajit
 CONFIGURE_DIRS+=	texk/web2c
 
 INSTALLATION_DIRS+=	bin lib
 
 SUBST_CLASSES+=		prefix
 SUBST_STAGE.prefix=	post-configure
-SUBST_FILES.prefix=	libs/lua52/lua-5.2.4/src/luaconf.h
+SUBST_FILES.prefix=	libs/lua52/lua52-src/src/luaconf.h
 SUBST_VARS.prefix=	PREFIX
 
 CFLAGS.SunOS+= -std=gnu99 -D_XOPEN_SOURCE_EXTENDED=0
@@ -69,9 +72,11 @@ BUILDLINK_API_DEPENDS.kpathsea+= kpathsea>=6.2.1
 .include "../../print/kpathsea/buildlink3.mk"
 .include "../../print/poppler/buildlink3.mk"
 .include "../../print/poppler-includes/buildlink3.mk"
-BUILDLINK_DEPMETHOD.libX11?=    build
-.include "../../x11/libX11/buildlink3.mk"    
 .include "../../x11/pixman/buildlink3.mk"
+
+pre-configure:
+	# Ensure we generate our patched version
+	${RM} -f libs/luajit/lj_vm_asm.S
 
 do-install:
 	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libs/lua52/libtexlua52.la ${DESTDIR}${PREFIX}/lib

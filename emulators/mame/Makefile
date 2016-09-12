@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.53 2016/03/04 12:47:13 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2016/05/26 09:02:16 wiz Exp $
 
-DISTNAME=	mame-0.171
+DISTNAME=	mame-0.174
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mamedev/}
 GITHUB_TAG=	${DISTNAME:S/-//S/.//}
@@ -8,12 +8,13 @@ GITHUB_TAG=	${DISTNAME:S/-//S/.//}
 MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://www.mamedev.org/
 COMMENT=	Multiple Arcade Machine Emulator
-LICENSE=	mame-license
+LICENSE=	modified-bsd AND gnu-gpl-v2
 
 DOCDIR=			share/doc/mame
 SHAREDIR=		share/mame
 INSTALLATION_DIRS=	bin ${DOCDIR} ${PKGMANDIR}/man1 ${PKGMANDIR}/man6
-INSTALLATION_DIRS+=	${SHAREDIR}/artwork ${SHAREDIR}/hash
+INSTALLATION_DIRS+=	${SHAREDIR}/artwork/bgfx/border_blur
+INSTALLATION_DIRS+=	${SHAREDIR}/artwork/bgfx/chains ${SHAREDIR}/hash
 
 RESTRICTED=		selling is not allowed
 NO_SRC_ON_CDROM=	${RESTRICTED}
@@ -106,13 +107,16 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/mame64 ${DESTDIR}${PREFIX}/bin/mame
 	set -e; \
 	for prg in castool chdman floptool imgtool jedutil ldresample ldverify \
-		nltool pngcmp regrep romcmp split src2html srcclean testkeys unidasm; \
+		nltool nlwav pngcmp regrep romcmp split src2html srcclean unidasm; \
 	do \
 		${INSTALL_PROGRAM} ${WRKSRC}/"$$prg" ${DESTDIR}${PREFIX}/bin; \
 	done
-	${INSTALL_DATA} ${WRKSRC}/src/osd/sdl/man/*.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
-	${INSTALL_DATA} ${WRKSRC}/src/osd/sdl/man/*.6 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man6
-	${INSTALL_DATA} ${WRKSRC}/artwork/* ${DESTDIR}${PREFIX}/${SHAREDIR}/artwork
+	${INSTALL_DATA} ${WRKSRC}/docs/man/*.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+	${INSTALL_DATA} ${WRKSRC}/docs/man/*.6 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man6
+	${INSTALL_DATA} ${WRKSRC}/artwork/LICENSE ${DESTDIR}${PREFIX}/${SHAREDIR}/artwork
+	${INSTALL_DATA} ${WRKSRC}/artwork/*.* ${DESTDIR}${PREFIX}/${SHAREDIR}/artwork
+	${INSTALL_DATA} ${WRKSRC}/artwork/bgfx/border_blur/* ${DESTDIR}${PREFIX}/${SHAREDIR}/artwork/bgfx/border_blur
+	${INSTALL_DATA} ${WRKSRC}/artwork/bgfx/chains/* ${DESTDIR}${PREFIX}/${SHAREDIR}/artwork/bgfx/chains
 	${INSTALL_DATA} ${WRKSRC}/docs/*.txt ${DESTDIR}${PREFIX}/${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/hash/* ${DESTDIR}${PREFIX}/${SHAREDIR}/hash
 

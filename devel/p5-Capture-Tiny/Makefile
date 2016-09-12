@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.24 2015/06/12 10:48:57 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2016/06/08 19:22:38 wiz Exp $
 
-DISTNAME=	Capture-Tiny-0.30
+DISTNAME=	Capture-Tiny-0.42
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

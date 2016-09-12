@@ -17,15 +17,6 @@ $NetBSD: patch-aa,v 1.59 2016/02/23 11:27:55 wiz Exp $
  G_MODULE_BROKEN_RTLD_GLOBAL
  G_MODULE_HAVE_DLERROR
  G_MODULE_LDFLAGS
-@@ -6085,7 +6086,7 @@ else
- fi
- 
- GLIB_RUNTIME_LIBDIR="$with_runtime_libdir"
--ABS_GLIB_RUNTIME_LIBDIR="`readlink -f $libdir/$with_runtime_libdir`"
-+ABS_GLIB_RUNTIME_LIBDIR=""
- 
- 
-  if test "x$with_runtime_libdir" != "x"; then
 @@ -21012,6 +21013,8 @@ else
  # ifdef _MSC_VER
  #  include <malloc.h>

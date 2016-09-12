@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2016/03/30 12:47:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.7 2016/06/23 11:25:48 maya Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg3/}
-PKGREVISION=	3
+PKGREVISION=	2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ffmpeg.mplayerhq.hu/
 COMMENT=	Decoding, encoding and streaming software (v3.x)
@@ -26,6 +26,9 @@ CONFIGURE_ARGS+=	--host-ld=${NATIVE_CC:Q}
 CONFIGURE_ARGS+=	--target-os=${LOWER_OPSYS}
 .endif
 
+PRINT_PLIST_AWK+=	/html/ { $$0 = "$${PLIST.doc}" $$0 }
+PRINT_PLIST_AWK+=	/opencl/ { $$0 = "$${PLIST.opencl}" $$0 }
+
 TEST_TARGET=	check
 
 post-install:
@@ -46,7 +49,7 @@ post-install:
    || !empty(CC_VERSION:Mgcc-4.[01].*) \
    || empty(CC_VERSION:Mgcc*)
 CONFIGURE_ARGS+=	--disable-asm
-.  elif !empty(CC_VERSION:Mgcc-4.*)
+.  elif !empty(CC_VERSION:Mgcc-[456].*)
 CFLAGS+=		-mstackrealign -mpreferred-stack-boundary=4
 .  endif
 .endif

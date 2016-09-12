@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.85.2.1 2016/04/17 08:25:00 spz Exp $
+# $NetBSD: Makefile,v 1.86 2016/04/15 20:59:16 mrg Exp $
 #
 
 DISTNAME=	bozohttpd-20160415

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.57 2016/03/05 11:28:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.60 2016/05/26 04:07:32 dholland Exp $
 
 .include "dist.mk"
 
@@ -69,9 +69,6 @@ PLIST_SRC+=	${.CURDIR}/../../lang/python27/PLIST.${OPSYS}
 PLIST_SRC+=	${.CURDIR}/../../lang/python27/PLIST.common_end
 
 .if ${OPSYS} == "NetBSD"
-.  if !defined(USE_DESTDIR) || empty(USE_DESTDIR:M[Yy][Ee][Ss])
-PRIVILEGED_STAGES+=	clean
-.  endif
 # XXX work around a botched autoconf check which ignores libintl
 CONFIGURE_ENV+=		ac_cv_func_bind_textdomain_codeset=yes
 .endif
@@ -94,8 +91,7 @@ PY_PLATNAME=	${LOWER_OPSYS}${OS_VERSION:C/\..*//}
 .endif
 PLIST_SUBST+=	PY_PLATNAME=${PY_PLATNAME:Q}
 
-.if (${MACHINE_ARCH} == "alpha") || (${MACHINE_ARCH} == "sparc64") || \
-    (${MACHINE_ARCH} == "x86_64") || (${MACHINE_ARCH} == "powerpc64") || \
+.if !empty(LP64PLATFORMS:@.PLAT.@${MACHINE_PLATFORM:M${.PLAT.}}@) || \
     (defined(ABI) && ${ABI} == "64")
 IS_64BIT_PLATFORM?=	yes
 .else

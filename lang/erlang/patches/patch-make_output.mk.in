@@ -1,4 +1,4 @@
-$NetBSD$
+$NetBSD: patch-make_output.mk.in,v 1.1 2016/07/07 15:07:36 jperkin Exp $
 
 Use CC for linking.
 

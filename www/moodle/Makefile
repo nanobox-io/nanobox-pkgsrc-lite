@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.45 2016/01/15 06:50:55 wen Exp $
+# $NetBSD: Makefile,v 1.47 2016/05/25 08:23:58 wen Exp $
 
-DISTNAME=	moodle-3.0.2
+DISTNAME=	moodle-3.1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=moodle/}
 EXTRACT_SUFX=	.tgz

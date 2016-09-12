@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.89 2016/03/18 19:08:39 tez Exp $
+# $NetBSD: Makefile,v 1.91 2016/05/17 10:32:08 fhajny Exp $
 
 DISTNAME=	krb5-1.14.1
 PKGNAME=	mit-${DISTNAME}
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	http://web.mit.edu/kerberos/dist/krb5/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.gz
@@ -58,7 +59,7 @@ PATCH_DIST_ARGS=	-d ${WRKSRC} -p1
 INFO_FILES=		YES
 
 OWN_DIRS_PERMS=		${MIT_KRB5_STATEDIR}/krb5kdc			\
-			${ROOT_USER} ${ROOT_GROUP} 0700
+			${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0700
 RCD_SCRIPTS=		kadmind kdc
 
 INSTALLATION_DIRS=	bin${BINARCHSUFFIX} include/gssapi include/gssrpc ${PKGINFODIR}	\

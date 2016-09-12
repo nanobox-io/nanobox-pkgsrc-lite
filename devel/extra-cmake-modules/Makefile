@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.3 2016/02/14 04:13:32 markd Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/07 17:54:59 joerg Exp $
 
-DISTNAME=	extra-cmake-modules-5.19.0
+DISTNAME=	extra-cmake-modules-5.21.0
+PKGREVISION=	2
 CATEGORIES=	devel kde
-MASTER_SITES=	${MASTER_SITE_KDE:=frameworks/5.19/}
+MASTER_SITES=	${MASTER_SITE_KDE:=frameworks/5.21/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	markd@NetBSD.org
-HOMEPAGE=	http://projects.kde.org/projects/kdesupport/extra-cmake-modules
+HOMEPAGE=	https://community.kde.org/Frameworks
 COMMENT=	Extra modules and scripts for CMake
 LICENSE=	modified-bsd
 
@@ -23,6 +24,7 @@ CMAKE_ARGS+=	-DBUILD_MAN_DOCS=OFF
 
 pre-configure:
 	${MKDIR} ${WRKSRC}/_KDE_build
+	${FIND} ${WRKSRC} -name \*.orig -exec rm {} \;
 
 #.include "../../lang/python/pyversion.mk"
 .include "../../mk/bsd.pkg.mk"

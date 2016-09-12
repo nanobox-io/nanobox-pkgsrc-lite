@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.289 2016/03/05 11:28:50 jperkin Exp $
+# $NetBSD: Makefile,v 1.290 2016/04/11 19:01:56 ryoon Exp $
 
 .include "../../mail/postfix/Makefile.common"
 
 COMMENT=	Postfix SMTP server and tools
-PKGREVISION=	3
+PKGREVISION=	4
 
 CONFLICTS+=	courier-mta-[0-9]* fastforward>=0.51nb2 sendmail-[0-9]*
 CONFLICTS+=	esmtp>=1.2 nullmailer-[0-9]*
 
 USE_TOOLS+=	perl
 
-SPECIAL_PERMS+=	sbin/postdrop postfix maildrop 2555
-SPECIAL_PERMS+=	sbin/postqueue postfix maildrop 2555
+SPECIAL_PERMS+=	sbin/postdrop ${POSTFIX_USER} ${MAILDROP_GROUP} 2555
+SPECIAL_PERMS+=	sbin/postqueue ${POSTFIX_USER} ${MAILDROP_GROUP} 2555
 
 REPLACE_PERL+=	auxiliary/qshape/qshape.pl
 
@@ -32,13 +32,14 @@ PLIST_SRC+=		${PKGDIR}/PLIST
 
 RCD_SCRIPTS=		postfix
 OWN_DIRS+=		${POSTFIX_QUEUE_DIR} ${POSTFIX_QUEUE_DIR}/etc
-OWN_DIRS_PERMS+=	${POSTFIX_DATA_DIR} postfix postfix 0700
+OWN_DIRS_PERMS+=	${POSTFIX_DATA_DIR} ${POSTFIX_USER} ${POSTFIX_GROUP} 0700
 MAKE_DIRS+=		${METADIR}/dynamicmaps.cf.d ${METADIR}/postfix-files.d
 
-PKG_GROUPS?=		postfix maildrop
-PKG_USERS?=		postfix:postfix
-PKG_GECOS.postfix=	Postfix User
-PKG_HOME.postfix=	${POSTFIX_QUEUE_DIR}
+PKG_GROUPS?=		${POSTFIX_GROUP} ${MAILDROP_GROUP}
+PKG_USERS?=		${POSTFIX_USER}:${POSTFIX_GROUP}
+
+PKG_GECOS.${POSTFIX_USER}=	Postfix User
+PKG_HOME.${POSTFIX_USER}=	${POSTFIX_QUEUE_DIR}
 
 CONF_FILES=		# empty
 .for i in main.cf master.cf

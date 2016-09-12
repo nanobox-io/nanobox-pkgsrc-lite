@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.114 2016/03/05 11:28:40 jperkin Exp $
+# $NetBSD: Makefile,v 1.118 2016/06/12 09:44:29 leot Exp $
 
-PKGREVISION= 2
 .include "../../graphics/ImageMagick/Makefile.common"
 
 PKGNAME=	p5-PerlMagick-${DISTVERSION}
@@ -22,8 +21,8 @@ BUILD_DIRS=		${PERL5_CONFIGURE_DIRS}
 
 pre-configure:
 	${RM} ${WRKSRC}/PerlMagick/Magick.pm
-	${LN} -sf ${WRKSRC}/PerlMagick/quantum/quantum.pm ${WRKSRC}/PerlMagick/quantum/Q16.pm
-	${LN} -sf ${WRKSRC}/PerlMagick/quantum/quantum.xs ${WRKSRC}/PerlMagick/quantum/Q16.xs
+	${LN} -sf ${WRKSRC}/PerlMagick/quantum/quantum.pm ${WRKSRC}/PerlMagick/quantum/Q16HDRI.pm
+	${LN} -sf ${WRKSRC}/PerlMagick/quantum/quantum.xs ${WRKSRC}/PerlMagick/quantum/Q16HDRI.xs
 
 post-configure: perl5-configure
 

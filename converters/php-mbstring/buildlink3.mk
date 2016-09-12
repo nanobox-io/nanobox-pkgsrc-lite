@@ -1,4 +1,4 @@
-# $NetBSD$
+# $NetBSD: buildlink3.mk,v 1.1 2016/07/07 13:59:00 jperkin Exp $
 
 BUILDLINK_TREE+=	php-mbstring
 

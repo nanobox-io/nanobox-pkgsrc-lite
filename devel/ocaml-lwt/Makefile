@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2016/03/05 11:28:24 jperkin Exp $
+# $NetBSD: Makefile,v 1.27 2016/06/25 14:18:35 jaapb Exp $
 #
 
-DISTNAME=	lwt-2.5.1
+DISTNAME=	lwt-2.5.2
 PKGNAME=	ocaml-${DISTNAME}
 PKGREVISION=	2
 CATEGORIES=	devel

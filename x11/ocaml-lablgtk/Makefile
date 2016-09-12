@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.12 2016/03/05 11:27:59 jperkin Exp $
+# $NetBSD: Makefile,v 1.17 2016/06/25 14:33:11 jaapb Exp $
 
-DISTNAME=	lablgtk-2.18.3
+DISTNAME=	lablgtk-2.18.4
 PKGNAME=	ocaml-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	2
 CATEGORIES=	x11
-MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1479/
+MASTER_SITES=	https://forge.ocamlcore.org/frs/download.php/1602/
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://lablgtk.forge.ocamlcore.org/
@@ -12,13 +12,11 @@ COMMENT=	GTK+ 2.x bindings for Objective Caml
 # for installed files; more restrictions on applications/
 LICENSE=	gnu-lgpl-v2
 
-# remove on next update
-DIST_SUBDIR=	lablgtk-2.18.3
-
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-debug
 USE_TOOLS+=		gmake pkg-config
 OCAML_USE_FINDLIB=	yes
+OCAML_FINDLIB_DIRS=	lablgtk2
 
 MAKE_JOBS_SAFE=		no
 BUILD_TARGET=		world
@@ -31,7 +29,7 @@ SUPERSEDES=	lablgtk-[0-9]*
 .include "../../mk/bsd.prefs.mk"
 
 # Stub libraries for functions missing from base system.
-PLIST_VARS+=	stubs opt
+PLIST_VARS+=	stubs
 
 .if ${OPSYS} == "Darwin" || ${OPSYS} == "DragonFly" || \
     ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD" || \
@@ -41,12 +39,7 @@ PLIST.stubs=	yes
 
 .include "../../mk/ocaml.mk"
 
-.if ${OCAML_USE_OPT_COMPILER} == "yes"
-PLIST.opt=	yes
-.endif
-
 .include "options.mk"
 
-.include "../../lang/camlp4/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

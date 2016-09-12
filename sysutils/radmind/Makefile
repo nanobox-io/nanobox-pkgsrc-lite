@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.36.2.1 2016/04/15 07:33:22 bsiegert Exp $
+# $NetBSD: Makefile,v 1.37 2016/04/14 11:17:31 hauke Exp $
 #
 
 DISTNAME=	radmind-1.14.1

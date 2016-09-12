@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.29 2015/10/10 01:57:55 ryoon Exp $
+# $NetBSD: Makefile,v 1.32 2016/06/01 13:41:14 joerg Exp $
 #
 
 DISTNAME=	softhsm-1.3.7
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	security
 MASTER_SITES=	http://www.opendnssec.org/files/source/
 
@@ -17,8 +17,8 @@ USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
+CONFIGURE_ARGS+=	--with-botan=${PREFIX}
 
 EGDIR=			${PREFIX}/share/examples/softhsm
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.473 2016/02/25 15:32:11 wiz Exp $
+# $NetBSD: Makefile,v 1.476 2016/04/17 18:27:45 ryoon Exp $
 #
 
 COMMENT=	Electronic mail utilities
@@ -235,6 +235,7 @@ SUBDIR+=	p5-Net-ManageSieve
 SUBDIR+=	p5-Net-SMTP-SSL
 SUBDIR+=	p5-Net-SMTP_auth
 SUBDIR+=	p5-Net-validMX
+SUBDIR+=	p5-Parse-MIME
 SUBDIR+=	p5-Sendmail-AccessDB
 SUBDIR+=	p5-Sendmail-PMilter
 SUBDIR+=	p5-Test-Email
@@ -346,6 +347,8 @@ SUBDIR+=	thunderbird24
 SUBDIR+=	thunderbird24-l10n
 SUBDIR+=	thunderbird31
 SUBDIR+=	thunderbird31-l10n
+SUBDIR+=	thunderbird38
+SUBDIR+=	thunderbird38-l10n
 SUBDIR+=	tmda
 SUBDIR+=	tnef
 SUBDIR+=	tnef2txt

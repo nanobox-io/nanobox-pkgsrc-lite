@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.63 2016/04/02 09:07:40 taca Exp $
+# $NetBSD: Makefile,v 1.65 2016/05/08 23:29:19 taca Exp $
 
-DISTNAME=	squid-3.5.16
+DISTNAME=	squid-3.5.19
 CATEGORIES=	www
 MASTER_SITES=	http://www.squid-cache.org/Versions/v3/${PKGVERSION_NOREV:R}/ \
 		ftp://ftp.squid-cache.org/pub/squid/ \

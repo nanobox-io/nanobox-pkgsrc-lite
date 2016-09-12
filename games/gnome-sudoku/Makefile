@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.6 2016/02/04 12:13:30 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/06/19 14:41:53 prlw1 Exp $
 
-DISTNAME=	gnome-sudoku-3.16.0
-PKGREVISION=	1
-CATEGORIES=	games
+DISTNAME=	gnome-sudoku-3.20.2
+CATEGORIES=	games gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-sudoku/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	prlw1@cam.ac.uk
 HOMEPAGE=	https://wiki.gnome.org/Apps/Sudoku
 COMMENT=	Number grid logic puzzle
-LICENSE=	gnu-gpl-v2
+LICENSE=	gnu-gpl-v3
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
@@ -30,7 +29,7 @@ BUILDLINK_API_DEPENDS.vala+=	vala>=0.27.1.30
 .include "../../lang/vala/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/json-glib/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.15.0
+BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.19.0
 .include "../../x11/gtk3/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

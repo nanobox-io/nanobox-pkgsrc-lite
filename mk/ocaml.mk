@@ -1,4 +1,4 @@
-# $NetBSD: ocaml.mk,v 1.6 2016/03/04 15:19:42 jaapb Exp $
+# $NetBSD: ocaml.mk,v 1.10 2016/06/20 19:44:04 jaapb Exp $
 #
 # This Makefile fragment handles the common variables used by OCaml packages.
 #
@@ -14,6 +14,10 @@
 # Package-settable variables:
 # OCAML_USE_FINDLIB
 # package uses findlib infrastructure
+# OCAML_FINDLIB_DIRS
+# directories under OCAML_SITELIBDIR that this package installs into
+# OCAML_FINDLIB_REGISTER
+# register findlib directories into OCaml ld.conf
 # OCAML_USE_OASIS [implies OCAML_USE_FINDLIB]
 # package uses oasis infrastructure
 # OCAML_USE_OASIS_DYNRUN [implies OCAML_USE_OASIS]
@@ -35,6 +39,8 @@ BUILD_DEFS+=	OCAML_USE_OPT_COMPILER
 _VARGROUPS+=	ocaml
 _PKG_VARS.ocaml=	\
 	OCAML_USE_FINDLIB \
+	OCAML_FINDLIB_DIRS \
+	OCAML_FINDLIB_REGISTER \
 	OCAML_USE_OASIS \
 	OCAML_USE_OASIS_DYNRUN \
 	OCAML_USE_OPAM \
@@ -104,6 +110,8 @@ PRINT_PLIST_AWK+=	{ gsub(/${OCAML_SITELIBDIR:S|/|\\/|g}/, \
 .if ${OCAML_USE_FINDLIB} == "yes"
 .include "../../devel/ocaml-findlib/buildlink3.mk"
 INSTALLATION_DIRS+=	${OCAML_SITELIBDIR}
+OCAML_FINDLIB_DIRS?=	${PKGBASE:S/^ocaml-//}
+OCAML_FINDLIB_REGISTER?=	yes
 .endif
 
 #
@@ -123,6 +131,8 @@ PLIST.ocaml-opt=	yes
 # OASIS targets
 #
 .if ${OCAML_USE_OASIS} == "yes"
+# OASIS uses buildlink
+.include "../../devel/ocamlbuild/buildlink3.mk"
 .if ${OCAML_USE_OASIS_DYNRUN} == "yes"
 pre-configure:
 	${RUN} cd ${WRKSRC} && ocamlfind ocamlc -linkpkg -package oasis.dynrun -o setup setup.ml && ${RM} setup.cmo setup.cmi

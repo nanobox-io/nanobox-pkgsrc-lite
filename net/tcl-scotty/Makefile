@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.37 2016/01/13 23:54:42 joerg Exp $
+# $NetBSD: Makefile,v 1.39 2016/06/02 12:25:47 hauke Exp $
 #
 
 DISTNAME=	scotty-${DIST_VERS}
 PKGNAME=	tcl-scotty-${DIST_VERS}
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	net tcl
 MASTER_SITES=	ftp://ftp.ibr.cs.tu-bs.de/pub/local/tkined/
 
@@ -42,14 +42,14 @@ SPECIAL_PERMS+=	bin/straps ${SETUID_ROOT_PERMS}
 
 post-extract:
 	cd ${WRKSRC}/${BUILD_DIRS} && ${RM} -f ../doc/http.n
-	cd ${WRKSRC}/${BUILD_DIRS} && ${RM} -f ../doc/tkined.1
 
 pre-install:
+	cd ${WRKSRC}/${BUILD_DIRS} && ${RM} -f ../doc/tkined.1
 	cd ${WRKSRC}/${BUILD_DIRS} && ${INSTALL} ../tnm/ntping/ntping.8 ../doc
 
 post-install:
 	cd ${DESTDIR}/${PREFIX}/bin && ${LN} -f -s scotty${DIST_VERS} scotty
-	cd ${DESTDIR}/${PREFIX}/lib/tcl/tnm${DIST_VERS}; \
+	cd ${DESTDIR}/${PREFIX}/lib/tcl/tnm${DIST_VERS}; umask 022; \
 		sed -e 's:${DESTDIR}/::' <pkgIndex.tcl >pkgIndex.tcl.new; \
 		rm -f pkgIndex.tcl; mv pkgIndex.tcl.new pkgIndex.tcl
 

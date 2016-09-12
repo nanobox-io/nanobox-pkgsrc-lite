@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.109 2016/02/03 17:19:18 leot Exp $
+# $NetBSD: Makefile,v 1.114 2016/06/16 20:42:35 leot Exp $
 
-DISTNAME=	webkitgtk-2.10.7
+DISTNAME=	webkitgtk-2.12.3
 PKGNAME=	${DISTNAME:S/webkitgtk/webkit-gtk/}
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://www.webkitgtk.org/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -23,7 +24,8 @@ USE_TOOLS+=	automake bison gmake perl:build pkg-config msgfmt
 
 # GCC >= 4.7 or Clang >= 3.3
 # XXX: Kludge, upstream needs GCC 4.9.0 for IndexedDB support.
-# XXX: patches/patch-Source_cmake_OptionsGTK.cmake disables that to
+# XXX: patches/patch-Source_cmake_OptionsGTK.cmake and
+# XXX: patches/patch-Source_WTF_wtf_Compiler.h disables that to
 # XXX: avoid requiring GCC 4.9.0.
 GCC_REQD+=	4.7
 
@@ -61,8 +63,7 @@ PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.10.2
 .include "../../lang/python/application.mk"
 CMAKE_ARGS+=	-DPYTHON_EXECUTABLE=${PYTHONBIN}
 
-CXXFLAGS.SunOS+=	-D__EXTENSIONS__ -fpermissive
-LDFLAGS.SunOS+=		-lsocket
+CXXFLAGS.SunOS+=	-fpermissive
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)

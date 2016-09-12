@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2016/02/14 10:46:35 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/08 17:49:19 wiz Exp $
 
-DISTNAME=	pytest-runner-2.7
+DISTNAME=	pytest-runner-2.8
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pytest-runner/}

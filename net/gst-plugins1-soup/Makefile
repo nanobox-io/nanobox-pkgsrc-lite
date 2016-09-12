@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2015/11/18 12:04:16 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/06/12 15:58:24 wiz Exp $
 
 GST_PLUGINS1_NAME=	soup
 GST_PLUGINS1_DIRS=	ext/soup

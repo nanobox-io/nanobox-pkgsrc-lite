@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/12/05 21:26:09 adam Exp $
+# $NetBSD: Makefile,v 1.6 2016/05/21 05:55:12 richard Exp $
 
 DISTNAME=	terminator-0.98
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -22,13 +22,10 @@ REPLACE_SH+=	terminator.wrapper
 REPLACE_BASH+=	terminatorlib/pylint.sh
 REPLACE_BASH+=	run_tests
 
-post-install:
-	${RUN}${FIND} \
-		${DESTDIR}${PREFIX}/${PKGMANDIR} \
-		${DESTDIR}${PREFIX}/share/doc \
-		${DESTDIR}${PREFIX}/share/icons \
-		${DESTDIR}${PREFIX}/share/pixmaps \
-			-type f -print | ${XARGS} ${CHMOD} ${SHAREMODE}
+SUBST_CLASSES+=		manpath
+SUBST_STAGE.manpath=	pre-configure
+SUBST_FILES.manpath=	setup.py
+SUBST_VARS.manpath=	PKGMANDIR
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"

@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.2 2016/03/01 20:09:49 joerg Exp $
+# $NetBSD: Makefile,v 1.4 2016/06/09 06:23:40 wiz Exp $
 
 DISTNAME=	sayaka-3.2.0
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=isaki68k/}
 GITHUB_PROJECT=	${DISTNAME:S/-${PKGVERSION_NOREV}//}
 GITHUB_TAG=	${PKGVERSION_NOREV}
 
 MAINTAINER=	tsutsui@NetBSD.org
-HOMEPAGE=	${MASTER_SITES}${GITHUB_PROJECT}
+HOMEPAGE=	https://github.com/isaki68k/sayaka
 COMMENT=	Terminal specific Twitter client
 LICENSE=	modified-bsd
 

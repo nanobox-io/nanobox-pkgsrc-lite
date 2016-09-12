@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.161 2016/03/05 11:27:57 jperkin Exp $
+# $NetBSD: Makefile,v 1.166 2016/05/30 11:42:19 jklos Exp $
 
-DISTNAME=	curl-7.47.1
-PKGREVISION=	1
+DISTNAME=	curl-7.49.1
 CATEGORIES=	www
-MASTER_SITES=	https://curl.haxx.se/download/ \
-		ftp://ftp.sunet.se/pub/www/utilities/curl/
+MASTER_SITES=	https://curl.haxx.se/download/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -32,10 +30,6 @@ INSTALLATION_DIRS=	share/doc/curl
 .if !empty(PKGSRC_RUN_TEST:M[Yy][Ee][Ss])
 TEST_TARGET=		check
 USE_TOOLS+=		perl
-.endif
-
-.if ${_USE_DESTDIR} == "no"
-PRIVILEGED_STAGES+=	clean
 .endif
 
 .include "options.mk"

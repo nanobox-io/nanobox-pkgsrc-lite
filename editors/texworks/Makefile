@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2016/03/05 11:28:28 jperkin Exp $
+# $NetBSD: Makefile,v 1.37 2016/05/22 18:20:47 wiz Exp $
 
 DISTNAME=	texworks-0.4.5-r1281
 PKGNAME=	texworks-0.4.5
-PKGREVISION=	11
+PKGREVISION=	13
 CATEGORIES=	editors
 MASTER_SITES=	http://texworks.googlecode.com/files/
 
@@ -19,10 +19,10 @@ DEPENDS+=	poppler-data>=0.4.5:../../print/poppler-data
 
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
-SUBST_CLASSES+=man
-SUBST_STAGE.man=post-configure
-SUBST_FILES.man=Makefile
-SUBST_SED.man=-e s!/share/man/man1!/man/man1!g
+SUBST_CLASSES+=		man
+SUBST_STAGE.man=	post-configure
+SUBST_FILES.man=	Makefile
+SUBST_SED.man=		-e "s!/share/man/man1!/${PKGMANDIR}/man1!g"
 
 pre-configure:
 	${LN} -sf ${QTDIR}/bin/qmake ${BUILDLINK_DIR}/bin/

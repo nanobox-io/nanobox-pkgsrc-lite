@@ -35,7 +35,9 @@ USE_TOOLS+=		gmake pax unzip:run zip:run # patch
 UNLIMIT_RESOURCES=	datasize stacksize
 WRKSRC=			${WRKDIR}/openjdk
 PLIST_SRC+=		${PLIST_SRC_DFLT}
-CHECK_SHLIBS_SKIP=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libjawt.so
+CHECK_SHLIBS_SKIP+=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libfontmanager.so
+CHECK_SHLIBS_SKIP+=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libjawt.so
+CHECK_SHLIBS_SKIP+=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libsunec.so
 
 BUILDLINK_PASSTHRU_DIRS+=	${ALT_BOOTDIR}
 PREPEND_PATH+=			${ALT_BOOTDIR}/bin

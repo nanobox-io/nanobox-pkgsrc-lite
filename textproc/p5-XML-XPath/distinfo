@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.8 2016/03/09 12:27:43 wen Exp $
+$NetBSD: distinfo,v 1.11 2016/06/07 13:13:34 mef Exp $
 
-SHA1 (XML-XPath-1.34.tar.gz) = 0d5d33450e3e3b422371eef3828919c34c7cc1cf
-RMD160 (XML-XPath-1.34.tar.gz) = a22831d90eeb8bd2dddbfca46de0fc26a748aa59
-SHA512 (XML-XPath-1.34.tar.gz) = 957b3b7252364e8d7e36308ef116e7fec6b2293c6e41744e45cc259159b241ba4fb2db66a39427aaa81cfee64661cad6f0be187e618d9db1866243faa3ea9bc1
-Size (XML-XPath-1.34.tar.gz) = 54430 bytes
+SHA1 (XML-XPath-1.37.tar.gz) = 8cedbb3073e064f6c827697aad5539f26147a4f5
+RMD160 (XML-XPath-1.37.tar.gz) = dd00a60d2d98163fbc9645eba66af82d71d84cdf
+SHA512 (XML-XPath-1.37.tar.gz) = 37531049cb7d029d8777b21368404af17cee32328a6426a6470b43d050dc2bb605ac6cfefd51fe1614fe76bbb9306986a50960ea8e106232c209d9efe8c6dac0
+Size (XML-XPath-1.37.tar.gz) = 54747 bytes

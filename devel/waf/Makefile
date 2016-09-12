@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2016/02/01 11:23:16 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/05/29 21:31:54 wiz Exp $
 
-DISTNAME=	waf-1.8.19
+DISTNAME=	waf-1.8.21
 CATEGORIES=	devel
-MASTER_SITES=	http://ftp.waf.io/pub/release/
+MASTER_SITES=	https://waf.io/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.50 2016/03/05 11:29:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.52 2016/04/18 20:58:24 leot Exp $
 
-DISTNAME=	netsurf-all-3.4
+DISTNAME=	netsurf-all-3.5
 PKGNAME=	${DISTNAME:S/-all//}
-PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://download.netsurf-browser.org/netsurf/releases/source-full/
 
@@ -18,7 +17,15 @@ BUILD_DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 BUILD_TARGET=	build
 USE_TOOLS+=	bison flex gmake perl:build pax pkg-config
 
-# Avoid possible problems with shells that defines HOST
+SUBST_CLASSES+=			ssl-certs
+SUBST_STAGE.ssl-certs=		pre-configure
+SUBST_MESSAGE.ssl-certs=	Fixing hardcoded paths for SSL certs
+SUBST_FILES.ssl-certs=		netsurf/beos/gui.cpp netsurf/gtk/gui.c
+SUBST_FILES.ssl-certs+=		netsurf/test/data/Choices
+SUBST_FILES.ssl-certs+=		netsurf/test/nsoption.c
+SUBST_SED.ssl-certs=		-e 's,/etc/ssl/certs,${SSLCERTS},'
+
+# Avoid possible problems with already often defined HOST
 MAKE_ENV+=	BUILD="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
 MAKE_ENV+=	HOST="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
 

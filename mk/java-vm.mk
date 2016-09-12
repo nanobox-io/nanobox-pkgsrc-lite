@@ -1,4 +1,4 @@
-# $NetBSD: java-vm.mk,v 1.105 2016/03/12 06:27:17 tnn Exp $
+# $NetBSD: java-vm.mk,v 1.107 2016/07/13 14:16:17 jperkin Exp $
 #
 # This Makefile fragment handles Java dependencies and make variables,
 # and is meant to be included by packages that require Java either at
@@ -107,8 +107,9 @@ _PKG_JVM_DEFAULT?=	sun-jdk6
 _PKG_JVM_DEFAULT?=	oracle-jdk8
 .  elif !empty(MACHINE_PLATFORM:MDarwin-*-*)
 _PKG_JVM_DEFAULT?=	sun-jdk6
-.  elif !empty(MACHINE_PLATFORM:MSunOS-5.11-i386) || \
-        !empty(MACHINE_PLATFORM:MSunOS-5.11-x86_64)
+.  elif !empty(MACHINE_PLATFORM:MSunOS-5.11-i386)
+_PKG_JVM_DEFAULT?=	openjdk7
+.  elif !empty(MACHINE_PLATFORM:MSunOS-5.11-x86_64)
 _PKG_JVM_DEFAULT?=	openjdk8
 .  elif !empty(MACHINE_PLATFORM:MDragonFly-*-*)
 _PKG_JVM_DEFAULT?=	openjdk8
@@ -243,7 +244,7 @@ _PKG_JVM=	${_PKG_JVM_FIRSTACCEPTED}
 #
 .if !defined(_PKG_JVM)
 # force an error
-PKG_FAIL_REASON=	"no acceptable JVM found"
+PKG_FAIL_REASON+=	"no acceptable JVM found"
 _PKG_JVM=		"none"
 .endif
 

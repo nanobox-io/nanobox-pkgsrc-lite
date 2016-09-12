@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2016/02/14 04:21:25 markd Exp $
+# $NetBSD: Makefile,v 1.35 2016/04/28 07:17:31 markd Exp $
 
 DISTNAME=	kde4-4.14.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	meta-pkgs x11 kde
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -10,7 +10,7 @@ MAINTAINER=	markd@NetBSD.org
 HOMEPAGE=	http://www.kde.org/
 COMMENT=	"meta-package" for the KDE4 integrated X11 desktop
 
-DEPENDS+=	oxygen-icons-5.19.0{,nb[0-9]*}:../../graphics/oxygen-icons
+DEPENDS+=	oxygen-icons-5.21.0{,nb[0-9]*}:../../graphics/oxygen-icons
 DEPENDS+=	kdelibs4-4.14.15{,nb[0-9]*}:../../x11/kdelibs4
 DEPENDS+=	kdepimlibs4-4.14.10{,nb[0-9]*}:../../misc/kdepimlibs4
 DEPENDS+=	kde-runtime4-15.12.0{,nb[0-9]*}:../../x11/kde-runtime4
@@ -148,6 +148,7 @@ DEPENDS+=	kgpg-15.12.0{,nb[0-9]*}:../../security/kgpg
 DEPENDS+=	superkaramba-15.08.3{,nb[0-9]*}:../../misc/superkaramba
 DEPENDS+=	sweeper-15.12.0{,nb[0-9]*}:../../misc/sweeper
 DEPENDS+=	kdewebdev4-15.12.0{,nb[0-9]*}:../../www/kdewebdev4
+DEPENDS+=	baloo-4.14.3{,nb[0-9]*}:../../sysutils/baloo
 
 META_PACKAGE=	yes
 

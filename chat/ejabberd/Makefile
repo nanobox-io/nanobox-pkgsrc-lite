@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.63 2016/01/18 10:23:18 fhajny Exp $
+# $NetBSD: Makefile,v 1.66 2016/05/17 10:32:06 fhajny Exp $
 
-DISTNAME=	ejabberd-16.01
+DISTNAME=	ejabberd-16.04
 PKGREVISION=	1
 CATEGORIES=	chat
 MASTER_SITES=	http://www.process-one.net/downloads/ejabberd/${PKGVERSION_NOREV}/
@@ -11,29 +11,28 @@ HOMEPAGE=	http://www.ejabberd.im/
 COMMENT=	Free and Open Source distributed fault-tolerant Jabber server
 LICENSE=	gnu-gpl-v2
 
-DEPENDS+=	erlang-cache_tab>=1.0.1:../../devel/erlang-p1_cache_tab
-DEPENDS+=	erlang-goldrush-0.1.*:../../sysutils/erlang-goldrush
-DEPENDS+=	erlang-jiffy>=0.14.5:../../textproc/erlang-jiffy
+DEPENDS+=	erlang-cache_tab>=1.0.2:../../devel/erlang-cache_tab
+DEPENDS+=	erlang-esip>=1.0.4:../../net/erlang-esip
+DEPENDS+=	erlang-ezlib>=1.0.1:../../devel/erlang-ezlib
+DEPENDS+=	erlang-fast_tls>=1.0.3:../../security/erlang-fast_tls
+DEPENDS+=	erlang-fast_xml>=1.1.3:../../textproc/erlang-fast_xml
+DEPENDS+=	erlang-fast_yaml>=1.0.3:../../textproc/erlang-fast_yaml
+DEPENDS+=	erlang-iconv>=1.0.0:../../converters/erlang-iconv
+DEPENDS+=	erlang-jiffy>=0.14.7:../../textproc/erlang-jiffy
 DEPENDS+=	erlang-lager>=3.0.2:../../sysutils/erlang-lager
-DEPENDS+=	erlang-oauth2>=0.6.0.20150911:../../security/erlang-oauth2
-DEPENDS+=	erlang-p1_iconv-0.9.*:../../converters/erlang-p1_iconv
-DEPENDS+=	erlang-p1_mysql>=1.0.0:../../databases/erlang-p1_mysql
+DEPENDS+=	erlang-luerl>=0.2:../../lang/erlang-luerl
+DEPENDS+=	erlang-p1_mysql>=1.0.1:../../databases/erlang-p1_mysql
+DEPENDS+=	erlang-p1_oauth2>=0.6.1:../../security/erlang-p1_oauth2
 DEPENDS+=	erlang-p1_pam>=1.0.0:../../security/erlang-p1_pam
-DEPENDS+=	erlang-p1_pgsql>=1.0.0:../../databases/erlang-p1_pgsql
-DEPENDS+=	erlang-p1_sip>=1.0.0:../../net/erlang-p1_sip
-DEPENDS+=	erlang-p1_stringprep>=1.0.0:../../textproc/erlang-p1_stringprep
-DEPENDS+=	erlang-p1_stun-0.9.*:../../net/erlang-p1_stun
-DEPENDS+=	erlang-p1_tls>=1.0.0:../../security/erlang-p1_tls
-DEPENDS+=	erlang-p1_utils>=1.0.2:../../misc/erlang-p1_utils
-DEPENDS+=	erlang-p1_xml>=1.1.1:../../textproc/erlang-p1_xml
-DEPENDS+=	erlang-p1_yaml>=1.0.0:../../textproc/erlang-p1_yaml
-DEPENDS+=	erlang-p1_zlib>=1.0.0:../../devel/erlang-p1_zlib
-DEPENDS+=	erlang-xmlrpc>=1.15.20150506:../../textproc/erlang-xmlrpc
+DEPENDS+=	erlang-p1_pgsql>=1.1.0:../../databases/erlang-p1_pgsql
+DEPENDS+=	erlang-p1_utils>=1.0.4:../../misc/erlang-p1_utils
+DEPENDS+=	erlang-p1_xmlrpc>=1.15.1:../../textproc/erlang-p1_xmlrpc
+DEPENDS+=	erlang-stringprep>=1.0.3:../../textproc/erlang-stringprep
+DEPENDS+=	erlang-stun>=1.0.3:../../net/erlang-stun
 CONFLICTS+=	jabberd-[0-9]*
 
 GNU_CONFIGURE=		yes
 USE_GCC_RUNTIME=	yes
-USE_LANGUAGES=		c c++
 USE_TOOLS+=		bash:run gmake patch
 
 CONFIGURE_ARGS+=	--disable-debug
@@ -83,12 +82,12 @@ INSTALLATION_DIRS+=	share/doc/${PKGBASE} ${EGDIR} share/bash-completion.d
 INSTALLATION_DIRS+=	lib/erlang/lib/${DISTNAME}/priv/sql
 
 CONF_FILES_PERMS=	${EGDIR}/ejabberd.yml ${PKG_SYSCONFDIR}/ejabberd.yml \
-			${ROOT_USER} ${EJABBERD_GROUP} 0640
+			${REAL_ROOT_USER} ${EJABBERD_GROUP} 0640
 CONF_FILES_PERMS+=	${EGDIR}/ejabberdctl.cfg ${PKG_SYSCONFDIR}/ejabberdctl.cfg \
-			${ROOT_USER} ${EJABBERD_GROUP} 0640
+			${REAL_ROOT_USER} ${EJABBERD_GROUP} 0640
 CONF_FILES_PERMS+=	${EGDIR}/inetrc ${PKG_SYSCONFDIR}/inetrc \
-			${ROOT_USER} ${EJABBERD_GROUP} 0640
-SPECIAL_PERMS+=		sbin/ejabberdctl ${ROOT_USER} ${EJABBERD_GROUP} 0750
+			${REAL_ROOT_USER} ${EJABBERD_GROUP} 0640
+SPECIAL_PERMS+=		sbin/ejabberdctl ${REAL_ROOT_USER} ${EJABBERD_GROUP} 0750
 
 REPLACE_BASH=		ejabberdctl.template tools/captcha.sh
 

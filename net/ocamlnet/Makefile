@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2016/03/05 11:29:09 jperkin Exp $
+# $NetBSD: Makefile,v 1.31 2016/06/20 15:36:04 jaapb Exp $
 #
 
-DISTNAME=		ocamlnet-4.0.4
-PKGREVISION=		1
+DISTNAME=		ocamlnet-4.1.1
+PKGREVISION=	1
 CATEGORIES=		net
 MASTER_SITES=		http://download.camlcity.org/download/
 
@@ -19,6 +19,10 @@ CONFIGURE_ARGS+=	-without-nethttpd -disable-tcl -disable-apache \
 USE_TOOLS+=		gmake
 BUILD_TARGET=		all
 OCAML_USE_FINDLIB=	yes
+OCAML_FINDLIB_DIRS= \
+	equeue netcamlbox netcgi2-plex netcgi2 netclient netmulticore \
+	netplex netshm netstring-pcre netstring netsys netunidata \
+	netzip rpc-auth-local rpc-generator rpc
 
 .include "../../mk/ocaml.mk"
 .include "../../mk/bsd.prefs.mk"
@@ -29,6 +33,7 @@ BUILD_TARGET+=		opt
 .endif
 .if ${OPSYS} == "SunOS"
 PLIST.xti=		yes
+OCAML_FINDLIB_DIRS+=	rpc-xti
 .endif
 
 .include "options.mk"

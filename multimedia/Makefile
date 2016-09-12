@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.246 2016/03/10 07:23:48 jnemeth Exp $
+# $NetBSD: Makefile,v 1.249 2016/06/18 22:13:43 kamil Exp $
 #
 
 COMMENT=	Multimedia utilities
@@ -90,6 +90,7 @@ SUBDIR+=	gstreamer1
 SUBDIR+=	gtranscode
 SUBDIR+=	gxine
 SUBDIR+=	handbrake
+SUBDIR+=	harvid
 SUBDIR+=	hwdecode-demos
 SUBDIR+=	juk
 SUBDIR+=	kaffeine
@@ -135,7 +136,9 @@ SUBDIR+=	libva
 SUBDIR+=	libva-driver-vdpau
 SUBDIR+=	libvdpau
 SUBDIR+=	libvpx
+SUBDIR+=	livestreamer
 SUBDIR+=	lsdvd
+SUBDIR+=	mate-media
 SUBDIR+=	mediainfo
 SUBDIR+=	mediatomb
 SUBDIR+=	mencoder

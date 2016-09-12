@@ -1,4 +1,4 @@
-$NetBSD: patch-ac,v 1.13 2015/11/03 20:28:45 adam Exp $
+$NetBSD: patch-ac,v 1.14 2016/07/07 14:59:37 jperkin Exp $
 
 On Darwin, do not put GLU as required lib in glew.pc.
 Use LDFLAGS for linking.

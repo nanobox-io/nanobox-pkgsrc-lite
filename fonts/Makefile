@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.292 2016/02/07 17:49:37 wiz Exp $
+# $NetBSD: Makefile,v 1.295 2016/06/16 03:59:40 markd Exp $
 #
 
 COMMENT=	Fonts
@@ -172,8 +172,10 @@ SUBDIR+=	mplayer-fonts
 SUBDIR+=	ms-ttf
 SUBDIR+=	nanum-ttf
 SUBDIR+=	noto-ttf
+SUBDIR+=	ohruri-ttf
 SUBDIR+=	otf2bdf
 SUBDIR+=	oto
+SUBDIR+=	oxygen-fonts
 SUBDIR+=	p5-Font-AFM
 SUBDIR+=	p5-Font-FreeType
 SUBDIR+=	p5-Font-TTF
@@ -342,6 +344,8 @@ SUBDIR+=	tex-cmbright
 SUBDIR+=	tex-cmbright-doc
 SUBDIR+=	tex-cmcyr
 SUBDIR+=	tex-cmcyr-doc
+SUBDIR+=	tex-cmexb
+SUBDIR+=	tex-cmexb-doc
 SUBDIR+=	tex-cmextra
 SUBDIR+=	tex-cmll
 SUBDIR+=	tex-cmll-doc
@@ -680,6 +684,8 @@ SUBDIR+=	tex-prodint
 SUBDIR+=	tex-prodint-doc
 SUBDIR+=	tex-psnfss
 SUBDIR+=	tex-psnfss-doc
+SUBDIR+=	tex-ptex-fonts
+SUBDIR+=	tex-ptex-fonts-doc
 SUBDIR+=	tex-punk
 SUBDIR+=	tex-punk-doc
 SUBDIR+=	tex-punk-latex

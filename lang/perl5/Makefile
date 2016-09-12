@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.236.2.1 2016/04/20 19:27:05 bsiegert Exp $
+# $NetBSD: Makefile,v 1.238 2016/05/01 00:05:57 ryoon Exp $
 
 .include "license.mk"
 .include "Makefile.common"
 
-PKGREVISION=	1
 COMMENT=	Practical Extraction and Report Language
 
 CONFLICTS+=	perl-base-[0-9]* perl-thread-[0-9]*
@@ -119,7 +118,7 @@ PERL5_API_VERS_cmd=	\
 HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	./Configure
 CONFIGURE_ARGS+=	-sde
-CONFIGURE_ARGS+=	-D startperl=${PREFIX}/bin/perl
+CONFIGURE_ARGS+=	-Dstartperl="\#!${PREFIX}/bin/perl"
 MAKE_ENV+=		LC_ALL="C"
 
 .if ${OPSYS} == "SunOS"

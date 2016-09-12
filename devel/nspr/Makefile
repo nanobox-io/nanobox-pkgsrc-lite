@@ -42,7 +42,7 @@ SUBST_SED.nspr-config=		-e 's|-L$$libdir|"${COMPILER_RPATH_FLAG}$$libdir -L$$lib
 SUBST_CLASSES+=			nspr-rpath
 SUBST_STAGE.nspr-rpath=		pre-configure
 SUBST_FILES.nspr-rpath=		nspr/lib/libc/src/Makefile.in nspr/lib/ds/Makefile.in
-SUBST_SED.nspr-rpath=		-e 's|$$$$ORIGIN|${PREFIX}/lib/nspr|g'
+SUBST_SED.nspr-rpath=		-e 's|$$$$ORIGIN|${PREFIX}/lib${LIBARCHSUFFIX}/nspr|g'
 
 .if ${OPSYS} == "OpenBSD"
 CHECK_SHLIBS_SUPPORTED= no

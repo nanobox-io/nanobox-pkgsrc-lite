@@ -2,7 +2,7 @@ $NetBSD: patch-au,v 1.2 2015/03/16 13:53:05 tnn Exp $
 
 Support multiarch.
 
---- Makefile.pre.in.orig	2015-02-25 11:27:45.000000000 +0000
+--- Makefile.pre.in.orig	2015-12-21 06:01:02.000000000 +0000
 +++ Makefile.pre.in
 @@ -86,7 +86,7 @@ PY_CFLAGS_NODIST=$(CONFIGURE_CFLAGS_NODI
  # be able to build extension modules using the directories specified in the
@@ -40,7 +40,7 @@ Support multiarch.
  
  Python/frozen.o: Python/importlib.h
  
-@@ -1034,7 +1034,7 @@ $(DESTSHARED):
+@@ -1035,7 +1035,7 @@ $(DESTSHARED):
  # Install the interpreter with $(VERSION) affixed
  # This goes into $(exec_prefix)
  altbininstall: $(BUILDPYTHON) @FRAMEWORKPYTHONW@
@@ -49,7 +49,7 @@ Support multiarch.
  	do \
  		if test ! -d $(DESTDIR)$$i; then \
  			echo "Creating directory $$i"; \
-@@ -1057,15 +1057,16 @@ altbininstall: $(BUILDPYTHON) @FRAMEWORK
+@@ -1058,15 +1058,16 @@ altbininstall: $(BUILDPYTHON) @FRAMEWORK
  		if test -n "$(DLLLIBRARY)" ; then \
  			$(INSTALL_SHARED) $(DLLLIBRARY) $(DESTDIR)$(BINDIR); \
  		else \
@@ -70,12 +70,8 @@ Support multiarch.
  	fi
  	if test "x$(LIPO_32BIT_FLAGS)" != "x" ; then \
  		rm -f $(DESTDIR)$(BINDIR)python$(VERSION)-32$(EXE); \
-@@ -1310,10 +1311,10 @@ inclinstall:
- 
- # Install the library and miscellaneous stuff needed for extending/embedding
- # This goes into $(exec_prefix)
--LIBPL=		$(LIBDEST)/config-$(LDVERSION)
-+LIBPL=		$(LIBDEST)/config-$(LDVERSION)@LIBARCHSUFFIX@
+@@ -1313,7 +1314,7 @@ inclinstall:
+ LIBPL=		@LIBPL@
  
  # pkgconfig directory
 -LIBPC=		$(LIBDIR)/pkgconfig

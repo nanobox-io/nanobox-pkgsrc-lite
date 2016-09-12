@@ -1,4 +1,4 @@
-$NetBSD: patch-command.c,v 1.1.20.1 2016/04/15 07:33:22 bsiegert Exp $
+$NetBSD: patch-command.c,v 1.2 2016/04/14 11:17:31 hauke Exp $
 
 Fix for Radmind bug #221, accomodating for 64 bit time_t
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/11/06 10:50:30 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/06 12:03:26 wiz Exp $
 
-DISTNAME=	oauthlib-1.0.3
+DISTNAME=	oauthlib-1.1.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_PYPI:=o/oauthlib/}

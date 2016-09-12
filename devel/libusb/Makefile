@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.37 2015/10/25 10:18:34 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2016/04/10 15:26:57 richard Exp $
 
 DISTNAME=	libusb-0.1.12
 PKGREVISION=	4
@@ -56,6 +56,9 @@ do-configure:
 	cp ${FILESDIR}/libusbugen* ${WRKSRC}/
 
 do-build:
+	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} usb.h.in >usb.h
+	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb-config.in >libusb-config
+	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb.pc.in >libusb.pc
 	cd ${WRKSRC} && ${LIBTOOL} --mode=compile --tag=CC ${CC} ${CFLAGS} \
 	    -I. -c libusbugen.c
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CC ${CC} \
@@ -66,9 +69,6 @@ do-build:
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CXX ${CXX} \
 	    -rpath ${PREFIX}/lib${LIBARCHSUFFIX} -version-info 8:4:4 -release 0.1 \
 	    -o libusbpp.la usbpp.lo
-	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} usb.h.in >usb.h
-	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb-config.in >libusb-config
-	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb.pc.in >libusb.pc
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/libusb-config ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}

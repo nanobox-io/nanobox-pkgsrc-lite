@@ -4,6 +4,7 @@ acl			Enable POSIX ACL support.
 adobe-cidfonts		Select Adobe-fonts.
 adplug			Enable Adlib emulator support.
 ads			Enable Windows Active Directory support.
+afterstep		Enable afterstep support.
 agg			Enable agg support.
 alsa			Enable ALSA support.
 amanda-dump-snap	If dump supports -X, use it.
@@ -148,6 +149,7 @@ eaccelerator-disassembler	Include disassembler.
 eaccelerator-doc-comment-inclusion	Retain doc-comments in internal php structures.
 eai			Enable EAI (Email Address Internationalization) support.
 eb			Enable EB dictionary library support.
+ecap			Enable eCAP support.
 ecl			Use Embeddable Common Lisp.
 ecore			Enable ecore library support.
 eekboard		Use eekboard for virtual keyboard support.
@@ -184,6 +186,7 @@ fam			Support using File Alteration Monitor (FAM).
 farsight		Enable farsight2 support.
 farstream		Enable farstream support.
 fastcgi			Use FastCGI as the CGI manager.
+fax			Enable fax support
 fd-small		Build smaller misc/fd package.
 ffmpeg			Enable ffmpeg support.
 fftw			Use the fftw library for Discrete Fourier Transforms.
@@ -224,6 +227,7 @@ gdb6-tui		Build the tui application.
 gdbm			Use the GNU gdbm database library.
 gdk-pixbuf		Use gdk-pixbuf as imaging library.
 gdk-pixbuf2		Use gdk-pixbuf2 as imaging library.
+geoclue			Enable geoclue support.
 geoip			Enable IP-to-country-lookup using the GeoIP C library.
 ggi			Enable GGI support.
 ghostscript		Enable GhostScript support.
@@ -405,6 +409,7 @@ ldap			Enable LDAP support.
 lensfun			Enable lensfun (camera lens distortion rectifyer) support.
 libao			Enable the platform-independent 'ao' audio library.
 libchamplain		Enable libchamplain support (map widget).
+libdrm			Enable libdrm support.
 libgcrypt		Use GNU cryptographic library.
 libgme			Enable Game_Music_Emu video game music file library support.
 libgpod			Enable libgpod support.
@@ -426,6 +431,7 @@ libspiff		Use libspiff for XML shareable playlist support.
 libssh2			Use libssh2 for SSHv2 protocol support.
 libthai			Use libthai for Thai word segmentation.
 libusb			Enable USB access.
+libusb-1		Enable USB access via libusb-1.
 libvisual		Enable libvisual (audio visualisation) support.
 libvpx			Enable libvpx support.
 libwildmidi		Enable MIDI support using libwildmidi.
@@ -499,6 +505,7 @@ mplayer-ssse3		Enable SSSE3 support.
 mplayer-win32		Enable usage of Win32 DLLs (codecs).
 mrtg-snmpv3		Enable SNMPv3 support.
 mstats			Enable memory statistics.
+mtpz			Enable MTPZ support using libgcrypt.
 musepack		Enable the portable Musepack decoder library.
 musicbrainz		Enable musicbrainz support.
 musicpd-lastfm		Enable Last.FM support in musicpd.
@@ -512,6 +519,7 @@ mysqlmanager		Build mysqlmanager.
 mysqlnd			Support for MySQL Native Driver (mainly for php).
 nagios-nrpe-args	Enable argument passing via NRPE (possible security issues).
 nas			Enable usage of the Network Audio System.
+nautilus		Enable nautilus sub-menu option.
 ncurses			Enable ncurses support.
 ncursesw		Enable wide character ncurses support.
 ndb-cluster		Build NDB Cluster support.
@@ -641,6 +649,7 @@ sidplay			Enable support for the SID audio file format.
 sieve			Enable sieve support.
 sigver			Enable signature verification for debugging purposes.
 simd			Enable MMX/3DNOW/SSE/Altivec support.
+sit			Enable source identity token support.
 sj3			Use SJ3 for Kana-to-Kanji conversion.
 skey			Enable S/Key support.
 skk			Use SKK for Kana-to-Kanji conversion.
@@ -730,6 +739,7 @@ tokyocabinet		Enable Tokyo Cabinet support.
 tremor			Enable Tremor fixed point audio decoding library support.
 trn-inn			Use INN as NNTP client.
 trn-nntpclnt		Use nntpclnt as NNTP client.
+tuning			Specify server tuning for large.
 twolame			Enable MP2 support using twolame.
 ucspi-ssl-perl		Enable Perl support in ucspi-ssl.
 ucspi-tcp-nodefaultrbl	Remove the (nonexistent) default RBL from rblsmtpd.
@@ -779,6 +789,7 @@ w3m-lynx-key		Enable lynx-like key bindings.
 wavpack			Enable wavpack support.
 webkit-jit		Enable JIT compilation.
 webrtc			Enable web realtime communications API.
+websocket		Websocket protocol support (as specified in RFC6455)
 webvmail		Install CGI script for voicemail.
 wide-curses		Enable wide curses support.
 winbind			Enable name-service switch daemon support using Windows Servers.

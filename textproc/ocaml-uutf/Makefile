@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.7 2016/02/06 12:45:35 jaapb Exp $
+# $NetBSD: Makefile,v 1.9 2016/06/17 11:31:55 jaapb Exp $
 
 DISTNAME=	uutf-0.9.4
 PKGNAME=	ocaml-${DISTNAME}
+PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	http://erratique.ch/software/uutf/releases/
 EXTRACT_SUFX=	.tbz
 
 MAINTAINER=	jaapb@NetBSD.org
-HOMEPAGE=	http://erratique.ch/software/uutf/releases/
+HOMEPAGE=	http://erratique.ch/software/uutf/
 COMMENT=	Unicode library for OCaml
 LICENSE=	modified-bsd
 
@@ -36,4 +37,5 @@ do-install:
 	done
 .endif
 
+.include "../../devel/ocamlbuild/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

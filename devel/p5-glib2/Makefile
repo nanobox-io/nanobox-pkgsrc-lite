@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.52 2015/06/12 10:49:57 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2016/06/08 19:23:47 wiz Exp $
 
-DISTNAME=	Glib-1.307
+DISTNAME=	Glib-1.321
 PKGNAME=	p5-${DISTNAME:S/Glib/glib2/}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

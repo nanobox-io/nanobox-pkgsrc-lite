@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2016/02/06 12:33:06 jaapb Exp $
+# $NetBSD: Makefile,v 1.15 2016/06/20 10:29:29 jaapb Exp $
 #
 
 DISTNAME=	ocaml-text-0.8
+PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=vbmithr/}
 
@@ -21,4 +22,5 @@ HAS_CONFIGURE=		yes
 OCAML_USE_OASIS=	yes
 
 .include "../../mk/ocaml.mk"
+.include "../../devel/ocamlbuild/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2016/03/09 11:26:43 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2016/06/08 19:24:48 wiz Exp $
 
-DISTNAME=	DateTime-1.25
+DISTNAME=	DateTime-1.28
 PKGNAME=	p5-${DISTNAME}00
+PKGREVISION=	1
 CATEGORIES=	time perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DateTime/}
 
@@ -22,7 +23,6 @@ DEPENDS+=	p5-Math-Round-[0-9]*:../../math/p5-Math-Round
 
 USE_LANGUAGES=	c # installs C module
 PERL5_PACKLIST=	auto/DateTime/.packlist
-PERL5_MODULE_TYPE=	Module::Build
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

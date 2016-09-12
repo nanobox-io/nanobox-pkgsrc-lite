@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9 2016/03/11 10:23:42 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.12 2016/06/23 20:12:23 ryoon Exp $
 bin/libreoffice
 bin/lobase
 bin/localc
@@ -303,6 +303,10 @@ ${PKGNAME}/lib/libreoffice/program/opengl/basicFragmentShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/basicVertexShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/blendedTextureFragmentShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/blendedTextureVertexShader.glsl
+${PKGNAME}/lib/libreoffice/program/opengl/combinedFragmentShader.glsl
+${PKGNAME}/lib/libreoffice/program/opengl/combinedTextureFragmentShader.glsl
+${PKGNAME}/lib/libreoffice/program/opengl/combinedTextureVertexShader.glsl
+${PKGNAME}/lib/libreoffice/program/opengl/combinedVertexShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/commonFragmentShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/commonVertexShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/convolutionFragmentShader.glsl
@@ -321,6 +325,8 @@ ${PKGNAME}/lib/libreoffice/program/opengl/honeycombFragmentShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/honeycombGeometryShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/honeycombVertexShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/invert50FragmentShader.glsl
+${PKGNAME}/lib/libreoffice/program/opengl/lineFragmentShader.glsl
+${PKGNAME}/lib/libreoffice/program/opengl/lineVertexShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/linearGradientFragmentShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/linearMultiColorGradientFragmentShader.glsl
 ${PKGNAME}/lib/libreoffice/program/opengl/linearTwoColorGradientFragmentShader.glsl
@@ -13694,7 +13700,6 @@ ${PKGNAME}/lib/libreoffice/share/xdg/calc.desktop
 ${PKGNAME}/lib/libreoffice/share/xdg/draw.desktop
 ${PKGNAME}/lib/libreoffice/share/xdg/impress.desktop
 ${PKGNAME}/lib/libreoffice/share/xdg/math.desktop
-${PKGNAME}/lib/libreoffice/share/xdg/qstart.desktop
 ${PKGNAME}/lib/libreoffice/share/xdg/startcenter.desktop
 ${PKGNAME}/lib/libreoffice/share/xdg/writer.desktop
 ${PKGNAME}/lib/libreoffice/share/xdg/xsltfilter.desktop
