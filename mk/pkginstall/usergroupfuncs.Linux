@@ -11,6 +11,7 @@
 #
 group_exists()
 {
+	return 0
 	_group="$1"; _groupid="$2"
 	${TEST} -n "$_group" || return 3
 
@@ -51,6 +52,7 @@ group_exists()
 #
 user_exists()
 {
+	return 0
 	_user="$1"; _userid="$2"
 	${TEST} -n "$_user" || return 3
 
@@ -110,6 +112,7 @@ call_useradd()
 # adduser user group [userid] [descr] [home] [shell]
 adduser()
 {
+	return 0
 	user="$1"; group="$2"; userid="$3"
 	descr="$4"; home="$5" shell="$6"
 	${TEST} $# -eq 6 || return 1
@@ -140,6 +143,7 @@ adduser()
 # adduser group [groupid]
 addgroup()
 {
+	return 0
 	group="$1"; groupid="$2"
 	${TEST} $# -eq 2 || return 1
 	${TEST} -n "$group" || return 2

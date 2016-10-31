@@ -185,7 +185,7 @@ post-install:
 	${CHMOD} -R g-w ${DESTDIR}${PREFIX}/${GEM_HOME}/gems
 	${RUBY_GENERATE_PLIST}
 
-.include "../../mk/bdb.buildlink3.mk"
+#.include "../../mk/bdb.buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2016/03/05 11:28:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.6 2016/09/18 12:44:49 kamil Exp $
 
 .include "dist.mk"
 
-PKGNAME=	python35-${PY_DISTVERSION}
-PKGREVISION=	2
+PKGNAME=	python-${PY_DISTVERSION}
+PKGREVISION=	3
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -123,6 +123,26 @@ SUBST_STAGE.findlib=	pre-configure
 SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
 SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
 
+# XXX: It might be needed to add manually more paths like ${PREFIX}/qt5/lib
+# Testing:
+# >>> from ctypes.util import find_library
+# >>> find_library("m")
+# 'libm.so.0'
+# >>> find_library("crypto")
+# 'libcrypto.so.11'
+# >>> find_library("GL")
+# 'libGL.so.2'
+# >>> find_library("curl")
+# 'libcurl.so.4'
+
+SUBST_CLASSES+=		pfindlib
+SUBST_MESSAGE.pfindlib=	Fixing find_library() on POSIX-like (excluding Darwin) systems.
+SUBST_STAGE.pfindlib=	pre-configure
+SUBST_FILES.pfindlib=	Lib/ctypes/util.py
+SUBST_SED.pfindlib=	-e 's!\(-Wl,-t -o\)!${COMPILER_RPATH_FLAG}${PREFIX}/lib -L${PREFIX}/lib \1!'
+
+.include "options.mk"
+
 SUBST_CLASSES+=		sslbase
 SUBST_MESSAGE.sslbase=	Fixing OpenSSL base directory to find header file.
 SUBST_STAGE.sslbase=	pre-configure
@@ -130,10 +150,6 @@ SUBST_FILES.sslbase=	setup.py
 SUBST_VARS.sslbase=	SSLBASE
 
 CHECK_INTERPRETER_SKIP=	lib/python${PY_VER_SUFFIX}/venv/scripts/posix/pydoc
-
-# Harmless PKG_CONFIG_LIBDIR references to BUILDLINK_DIR
-CHECK_WRKREF_SKIP+=	lib/python3.5/_sysconfigdata.py
-CHECK_WRKREF_SKIP+=	lib/python3.5/config-3.5/Makefile
 
 .if ${OPSYS} == "HPUX"
 post-install:
@@ -152,4 +168,5 @@ BUILDLINK_DEPMETHOD.readline=		build
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
+.include "../../mk/alternatives.mk"
 .include "../../mk/bsd.pkg.mk"

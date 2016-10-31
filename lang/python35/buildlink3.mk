@@ -5,7 +5,7 @@ BUILDLINK_TREE+=	python35
 .if !defined(PYTHON35_BUILDLINK3_MK)
 PYTHON35_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.python35+=	python35>=3.5
+BUILDLINK_API_DEPENDS.python35+=	python>=3.5<3.6
 BUILDLINK_PKGSRCDIR.python35?=		../../lang/python35
 
 .if defined(BUILDLINK_DEPMETHOD.python)

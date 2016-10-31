@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.1 2015/10/21 12:55:29 fhajny Exp $
 #
 
-CASSANDRA_VER=	2.1.11
+CASSANDRA_VER=	2.1.16
 
 MASTER_SITES=	${MASTER_SITE_APACHE:=cassandra/${CASSANDRA_VER:C/-.*//}/}
 

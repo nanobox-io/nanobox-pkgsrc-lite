@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2016/05/13 16:35:03 adam Exp $
+# $NetBSD: Makefile,v 1.17 2016/09/18 12:36:41 kamil Exp $
 
 .include "dist.mk"
 
-PKGNAME=	python34-${PY_DISTVERSION}
+PKGNAME=	python-${PY_DISTVERSION}
+PKGREVISION=	3
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -30,11 +31,6 @@ CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir}
 PKGCONFIG_OVERRIDE+=	Misc/python.pc.in
 
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		bin lib
-MAKE_JOBS_SAFE=		no
-MULTIARCH_DIRS.lib=	# empty, manually set in PLIST
-NO_MULTIARCH_LIBDIR=	# defined, manually set
-CHECK_INTERPRETER=no	# $PREFIX/bin/python3.4 not created until pkg_add
 
 PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
@@ -127,6 +123,26 @@ SUBST_STAGE.findlib=	pre-configure
 SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
 SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
 
+# XXX: It might be needed to add manually more paths like ${PREFIX}/qt5/lib
+# Testing:
+# >>> from ctypes.util import find_library
+# >>> find_library("m")
+# 'libm.so.0'
+# >>> find_library("crypto")
+# 'libcrypto.so.11'
+# >>> find_library("GL")
+# 'libGL.so.2'
+# >>> find_library("curl")
+# 'libcurl.so.4'
+
+SUBST_CLASSES+=		pfindlib
+SUBST_MESSAGE.pfindlib=	Fixing find_library() on POSIX-like (excluding Darwin) systems.
+SUBST_STAGE.pfindlib=	pre-configure
+SUBST_FILES.pfindlib=	Lib/ctypes/util.py
+SUBST_SED.pfindlib=	-e 's!\(-Wl,-t -o\)!${COMPILER_RPATH_FLAG}${PREFIX}/lib -L${PREFIX}/lib \1!'
+
+.include "options.mk"
+
 SUBST_CLASSES+=		sslbase
 SUBST_MESSAGE.sslbase=	Fixing OpenSSL base directory to find header file.
 SUBST_STAGE.sslbase=	pre-configure
@@ -134,38 +150,6 @@ SUBST_FILES.sslbase=	setup.py
 SUBST_VARS.sslbase=	SSLBASE
 
 CHECK_INTERPRETER_SKIP=	lib/python${PY_VER_SUFFIX}/venv/scripts/posix/pydoc
-
-# Harmless PKG_CONFIG_LIBDIR references to BUILDLINK_DIR
-CHECK_WRKREF_SKIP+=	lib/python3.4/_sysconfigdata.py
-CHECK_WRKREF_SKIP+=	lib/python3.4/config-3.4/Makefile
-
-SUBST_CLASSES+=		vars
-SUBST_MESSAGE.vars=	Substituting multiarch vars.
-SUBST_STAGE.vars=	pre-configure
-SUBST_FILES.vars=	Makefile.pre.in Modules/getpath.c
-SUBST_FILES.vars+=	Lib/distutils/command/install.py Lib/site.py
-SUBST_FILES.vars+=	Lib/distutils/sysconfig.py Lib/sysconfig.py
-SUBST_SED.vars=		-e 's,@LIBARCHSUFFIX@,${LIBARCHSUFFIX},'
-.if !empty(MULTIARCH:M[Yy][Ee][Ss])
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.32@,${LIBARCHSUFFIX.32},'
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.64@,${LIBARCHSUFFIX.64},'
-.else
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.32@,,'
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.64@,,'
-.endif
-
-do-install-multiarch-hook:
-	${MKDIR} ${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}/${INCARCHSUFFIX}
-	${MV} ${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}/pyconfig.h \
-		${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}/${INCARCHSUFFIX}
-
-.if !empty(MULTIARCH:M[Yy][Ee][Ss])
-post-install:
-	${INSTALL_DATA} ${FILESDIR}/pyconfig.h \
-		${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}
-	# XXX: figure out why this isn't removed in 64-bit case
-	${RM} -rf ${DESTDIR}/${PREFIX}/lib/python${PY_VER_SUFFIX}/config-${PY_VER_SUFFIX}${LIBARCHSUFFIX}/__pycache__
-.endif
 
 .if ${OPSYS} == "HPUX"
 post-install:
@@ -184,4 +168,5 @@ BUILDLINK_DEPMETHOD.readline=		build
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
+.include "../../mk/alternatives.mk"
 .include "../../mk/bsd.pkg.mk"

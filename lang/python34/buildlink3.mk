@@ -5,7 +5,7 @@ BUILDLINK_TREE+=	python34
 .if !defined(PYTHON34_BUILDLINK3_MK)
 PYTHON34_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.python34+=	python34>=3.4
+BUILDLINK_API_DEPENDS.python34+=	python>=3.4<3.5
 BUILDLINK_PKGSRCDIR.python34?=		../../lang/python34
 
 .if defined(BUILDLINK_DEPMETHOD.python)
@@ -13,7 +13,7 @@ BUILDLINK_DEPMETHOD.python34?=	${BUILDLINK_DEPMETHOD.python}
 .endif
 
 BUILDLINK_INCDIRS.python34+=	include/python3.4
-BUILDLINK_LIBDIRS.python34+=	lib${LIBARCHSUFFIX}/python3.4/config
+BUILDLINK_LIBDIRS.python34+=	lib/python3.4/config
 BUILDLINK_TRANSFORM+=		l:python:python3.4
 
 .include "../../mk/dlopen.buildlink3.mk"

@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- Magick++/lib/ImageMagick++.pc.in.orig	2016-05-21 12:14:22.000000000 +0000
++++ Magick++/lib/ImageMagick++.pc.in
+@@ -8,7 +8,7 @@ libname=Magick++-@MAGICK_MAJOR_VERSION@.
+ Name: ImageMagick++
+ Description: Magick++ - C++ API for ImageMagick (ABI @MAGICK_ABI_SUFFIX@)
+ Version: @PACKAGE_VERSION@
+-Requires: MagickWand
++Requires: MagickWand-6.Q16
+ Libs: -L${libdir} -l${libname}
+ Libs.private: -L${libdir} -l${libname} @MAGICK_LIBS@ @MATH_LIBS@
+ Cflags: -I${includearchdir} -I${includedir} @MAGICK_PCFLAGS@

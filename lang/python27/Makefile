@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.60 2016/05/26 04:07:32 dholland Exp $
+# $NetBSD: Makefile,v 1.67 2016/07/26 16:45:33 kamil Exp $
 
 .include "dist.mk"
 
-PKGNAME=	python27-${PY_DISTVERSION}
-PKGREVISION=	2
+PKGNAME=	python-${PY_DISTVERSION}
+PKGREVISION=	5
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -25,19 +25,10 @@ CONFIGURE_ENV+=		MKDIR_P=${MKDIR:Q}
 
 PKGCONFIG_OVERRIDE+=	Misc/python.pc.in
 
-USE_MULTIARCH=		bin lib
-MULTIARCH_DIRS.lib=	# empty, manually set in PLIST
-NO_MULTIARCH_LIBDIR=	# defined, manually set
-CHECK_INTERPRETER=no	# $PREFIX/bin/python2.7 not created until pkg_add
-
 LDFLAGS+=		-L${WRKSRC}
 
 # $RANDOM usage there is fine
 CHECK_PORTABILITY_SKIP=	Tools/faqwiz/move-faqwiz.sh
-
-# Harmless PKG_CONFIG_LIBDIR references to BUILDLINK_DIR
-CHECK_WRKREF_SKIP+=	lib/python2.7/_sysconfigdata.py
-CHECK_WRKREF_SKIP+=	lib/python2.7/config/Makefile
 
 USE_LANGUAGES=		c c++
 
@@ -171,6 +162,26 @@ SUBST_STAGE.findlib=	pre-configure
 SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
 SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
 
+# XXX: It might be needed to add manually more paths like ${PREFIX}/qt5/lib
+# Testing:
+# >>> from ctypes.util import find_library
+# >>> find_library("m")
+# 'libm.so.0'
+# >>> find_library("crypto")
+# 'libcrypto.so.11'
+# >>> find_library("GL")
+# 'libGL.so.2'
+# >>> find_library("curl")
+# 'libcurl.so.4'
+
+SUBST_CLASSES+=		pfindlib
+SUBST_MESSAGE.pfindlib=	Fixing find_library() on POSIX-like (excluding Darwin) systems.
+SUBST_STAGE.pfindlib=	pre-configure
+SUBST_FILES.pfindlib=	Lib/ctypes/util.py
+SUBST_SED.pfindlib=	-e 's!\(-Wl,-t -o\)!${COMPILER_RPATH_FLAG}${PREFIX}/lib -L${PREFIX}/lib \1!'
+
+.include "options.mk"
+
 SUBST_CLASSES+=		sslbase
 SUBST_MESSAGE.sslbase=	Fixing find-file for openssl with SSLBASE.
 SUBST_STAGE.sslbase=	pre-configure
@@ -183,30 +194,10 @@ SUBST_STAGE.cacert=	pre-configure
 SUBST_FILES.cacert=	Modules/_ssl.c
 SUBST_SED.cacert=	-e 's,@PREFIX@,${PREFIX},'
 
-SUBST_CLASSES+=		vars
-SUBST_MESSAGE.vars=	Substituting multiarch vars.
-SUBST_STAGE.vars=	pre-configure
-SUBST_FILES.vars=	Makefile.pre.in Modules/getpath.c
-SUBST_FILES.vars+=	Lib/distutils/command/install.py Lib/site.py
-SUBST_FILES.vars+=	Lib/distutils/sysconfig.py Lib/sysconfig.py
-SUBST_SED.vars=		-e 's,@LIBARCHSUFFIX@,${LIBARCHSUFFIX},'
-.if !empty(MULTIARCH:M[Yy][Ee][Ss])
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.32@,${LIBARCHSUFFIX.32},'
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.64@,${LIBARCHSUFFIX.64},'
-.else
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.32@,,'
-SUBST_SED.vars+=	-e 's,@LIBARCHSUFFIX.64@,,'
-.endif
-
 post-extract:
 	${LN} -s ${WRKSRC}/Lib/smtpd.py ${WRKSRC}/Tools/scripts/smtpd${PY_VER_SUFFIX}.py
 	${MV} ${WRKSRC}/Tools/scripts/pydoc ${WRKSRC}/Tools/scripts/pydoc${PY_VER_SUFFIX}
 	${MV} ${WRKSRC}/Tools/scripts/2to3 ${WRKSRC}/Tools/scripts/2to3-${PY_VER_SUFFIX}
-
-do-install-multiarch-hook:
-	${MKDIR} ${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}/${INCARCHSUFFIX}
-	${MV} ${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}/pyconfig.h \
-		${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}/${INCARCHSUFFIX}
 
 .if ${OPSYS} == "HPUX"
 post-install:
@@ -218,12 +209,6 @@ post-install:
 # SCO OpenServer 5.0.7/3.2 has no socklen_t in system headers, but has in
 # GNU pth's header. It should be used in this case.
 CONFIGURE_ENV+=		ac_cv_type_socklen_t=yes
-.endif
-
-.if !empty(MULTIARCH:M[Yy][Ee][Ss])
-post-install:
-	${INSTALL_DATA} ${FILESDIR}/pyconfig.h \
-		${DESTDIR}/${PREFIX}/include/python${PY_VER_SUFFIX}
 .endif
 
 BUILDLINK_DEPMETHOD.readline=		build
