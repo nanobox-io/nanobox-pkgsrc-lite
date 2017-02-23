@@ -1,13 +1,13 @@
-$NetBSD: patch-boost_config_stdlib_libcpp.hpp,v 1.3 2016/05/13 20:47:32 adam Exp $
+$NetBSD: patch-boost_config_stdlib_libcpp.hpp,v 1.5 2017/01/01 15:32:47 adam Exp $
 
---- boost/config/stdlib/libcpp.hpp.orig	2016-05-05 21:11:02.000000000 +0000
+--- boost/config/stdlib/libcpp.hpp.orig	2017-01-01 02:18:57.000000000 +0000
 +++ boost/config/stdlib/libcpp.hpp
-@@ -74,6 +74,8 @@
- // libc++ uses a non-standard messages_base
- #define BOOST_NO_STD_MESSAGES
+@@ -73,6 +73,8 @@
+ #  define BOOST_NO_CXX11_HDR_FUTURE
  #endif
+ 
 +// libc++ uses inline namespaces
 +#define BOOST_DETAIL_NO_CONTAINER_FWD
  
- #if defined(__has_include)
- #if !__has_include(<shared_mutex>)
+ #if _LIBCPP_VERSION < 3700
+ // libc++ uses a non-standard messages_base

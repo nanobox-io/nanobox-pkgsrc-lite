@@ -6,6 +6,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=jemalloc/}
 GITHUB_PROJECT=	jemalloc
 GITHUB_RELEASE=	${DISTNAME:S/jemalloc-//}
 EXTRACT_SUFX=	.tar.bz2
+PKGREVISION=	1
 
 MAINTAINER=	gson@NetBSD.org
 HOMEPAGE=	http://www.canonware.com/jemalloc/
@@ -21,6 +22,7 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-cc-silence
 CONFIGURE_ARGS+=	--enable-xmalloc
 CONFIGURE_ARGS+=        --with-xslroot=${PREFIX}/share/xsl/docbook/
+CONFIGURE_ARGS+=	--with-jemalloc-prefix=je_
 
 USE_TOOLS+=		perl:run
 REPLACE_PERL=		bin/jeprof.in

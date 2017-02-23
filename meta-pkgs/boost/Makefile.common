@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.58 2016/05/13 20:47:32 adam Exp $
+# $NetBSD: Makefile.common,v 1.65 2017/01/03 02:31:36 wiz Exp $
 #
 # used by devel/boost-build/Makefile
 # used by devel/boost-docs/Makefile
@@ -9,7 +9,7 @@
 
 BOOST_PACKAGE?=		undefined
 BOOST_COMMENT?=		undefined
-BOOST_VERSION=		1.61.0
+BOOST_VERSION=		1.63.0
 BOOST_SHORT_VERSION=	${BOOST_VERSION:S/./_/:C/\..*$//}
 
 DISTNAME=		boost_${BOOST_VERSION:S/./_/g}
@@ -30,6 +30,8 @@ LICENSE=	boost-license
 
 CONFLICTS+=		boost<1.36.0
 
+DIST_SUBDIR=		boost-1.63.0v3
+
 DISTINFO_FILE=		${.CURDIR}/../../meta-pkgs/boost/distinfo
 PATCHDIR=		${.CURDIR}/../../meta-pkgs/boost/patches
 
@@ -37,7 +39,8 @@ PATCHDIR=		${.CURDIR}/../../meta-pkgs/boost/patches
 
 USE_TOOLS+=		pax
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
+
+# IMPORTANT: sync this with devel/boost-libs/buildlink3.mk
 # GCC 4.5 or later is required to build, and GCC 4.5 is not provided for OpenBSD
 .  if ${OPSYS} == "OpenBSD"
 .    if ${MACHINE_ARCH} != "sparc64"
@@ -55,7 +58,7 @@ SUBST_CLASSES+=		prefix
 SUBST_STAGE.prefix=	pre-configure
 SUBST_MESSAGE.prefix=	Fixing prefix.
 SUBST_FILES.prefix=	boostcpp.jam
-SUBST_VARS.prefix=	PREFIX LIBARCHSUFFIX
+SUBST_VARS.prefix=	PREFIX
 
 SUBST_CLASSES+=		darwin
 SUBST_STAGE.darwin=	pre-configure
@@ -96,18 +99,17 @@ pre-configure:
 .    include "../../devel/boost-headers/buildlink3.mk"
 do-configure:
 	${CP} -f \
-	    ${BUILDLINK_PREFIX.boost-headers}/include/boost/config${INCARCHSUFFIX}/user.hpp \
+	    ${BUILDLINK_PREFIX.boost-headers}/include/boost/config/user.hpp \
 	    ${WRKSRC}/boost/config/user.hpp
 .  elif ${BOOST_CONFIG} == "generate"
 do-configure:
 	cd ${WRKSRC}/libs/config && \
 	    ${SETENV} ${CONFIGURE_ENV} ${SH} ./configure
-	${MKDIR} ${WRKSRC}/boost/config${INCARCHSUFFIX}
-	${CP} -f ${WRKSRC}/libs/config/user.hpp ${WRKSRC}/boost/config${INCARCHSUFFIX}/user.hpp
+	${CP} -f ${WRKSRC}/libs/config/user.hpp ${WRKSRC}/boost/config/user.hpp
 .  endif
 
 boost-install-libs:
 	${INSTALL_LIB_DIR} ${DESTDIR}${PREFIX}/lib
-	cd ${WRKSRC}/stage/lib && pax -rw -p p libboost* ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
+	cd ${WRKSRC}/stage/lib && pax -rw -p p libboost* ${DESTDIR}${PREFIX}/lib
 
 .endif # ${BOOST_PACKAGE} == "meta-pkg"

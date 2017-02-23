@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.44 2016/06/15 18:29:59 rumko Exp $
+# $NetBSD: Makefile,v 1.51 2017/01/02 07:33:11 ryoon Exp $
 
 BOOST_PACKAGE=		libs
 BOOST_COMMENT=		(binary libraries)
@@ -7,18 +7,20 @@ BOOST_INSTALL_LIBS=	yes
 
 .include "../../meta-pkgs/boost/Makefile.common"
 
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}
+INSTALLATION_DIRS+=	lib
 
 BJAM_ARGS+=		--without-python
-PLIST_VARS+=		context log long_double_math
+PLIST_VARS+=		context fiber log long_double_math
 
-.if ${OPSYS} == "NetBSD" && ((${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "sparc64") || (!empty(MACHINE_ARCH:Mearm*) && !empty(PKGSRC_COMPILER:Mgcc)))
+.if ${OPSYS} == "NetBSD" && ((${MACHINE_ARCH} == "i386") || (!empty(MACHINE_ARCH:Mearm*) && !empty(PKGSRC_COMPILER:Mgcc)))
 BJAM_ARGS+=		pch=off
-.elif !empty(MACHINE_ARCH:Malpha) || !empty(MACHINE_ARCH:Mm68k)
-BJAM_ARGS+=		--without-context
 .endif
 
-.if empty(BJAM_ARGS:M--without-context)
+.if !empty(MACHINE_ARCH:Malpha) || !empty(MACHINE_ARCH:Mm68k) || !empty(MACHINE_ARCH:Msparc64)
+BJAM_ARGS+=		--without-context
+BJAM_ARGS+=		--without-coroutine
+BJAM_ARGS+=		--without-coroutine2
+.else
 PLIST.context=		yes
 .endif
 
@@ -27,6 +29,21 @@ PLIST.context=		yes
 BJAM_ARGS+=		--without-log
 .else
 PLIST.log=		yes
+.endif
+
+# fiber requires thread_local support, unavailable in older compilers
+# (old darwin, netbsd <6). if fiber becomes necessary, set GCC_REQD
+# on other boost-* packages, too.
+# fiber requires context, so also disable it where context cannot be built
+# Additionally fiber checks std::timed_mutex.
+.if ((${OPSYS} == "Darwin" && ${OS_VERSION:R} < 14) || \
+    !empty(MACHINE_PLATFORM:MNetBSD-[0-7]*-*)) || \
+    !empty(MACHINE_ARCH:Malpha) || !empty(MACHINE_ARCH:Mm68k) || \
+    !empty(MACHINE_ARCH:Msparc64) || \
+    (${OPSYS} == "NetBSD" && !empty(PKGSRC_COMPILER:Mclang))
+BJAM_ARGS+=		--without-fiber
+.else
+PLIST.fiber=		yes
 .endif
 
 # Long double math functions are not available on Darwin. See

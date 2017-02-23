@@ -1,20 +1,20 @@
-$NetBSD: distinfo,v 1.87 2016/05/13 20:47:32 adam Exp $
+$NetBSD: distinfo,v 1.95 2017/01/03 02:31:36 wiz Exp $
 
-SHA1 (boost_1_61_0.tar.bz2) = f84b1a1ce764108ec3c2b7bd7704cf8dfd3c9d01
-RMD160 (boost_1_61_0.tar.bz2) = 1ceb250fcece242b54a999dbadbe2f3f1922541b
-SHA512 (boost_1_61_0.tar.bz2) = a1c7338e2d2dbac8552ede7c554640d22cbb2fda7fbc325dc3cdcb51e769713626695426ffc158cbe0e1729dd9a7b5ad18af4800d74e24539e8d8564268c2b9d
-Size (boost_1_61_0.tar.bz2) = 85202254 bytes
-SHA1 (patch-aa) = ad7146b2c6cc3d15b6a65ecc564be7c69ea8fc5c
+SHA1 (boost-1.63.0v3/boost_1_63_0.tar.bz2) = 9f1dd4fa364a3e3156a77dc17aa562ef06404ff6
+RMD160 (boost-1.63.0v3/boost_1_63_0.tar.bz2) = 9781b51fcf1919b98ef3356af988fd8a73e7accb
+SHA512 (boost-1.63.0v3/boost_1_63_0.tar.bz2) = c915c5f5778dee49b8e9d0a40f37f90f56fb1fdb1d8ce92d97bf48bc7bc462212487badfe4bbe30b06196d1149cfb221da12ac54e97499b0d4cb6466813bb4ad
+Size (boost-1.63.0v3/boost_1_63_0.tar.bz2) = 81984414 bytes
+SHA1 (patch-aa) = 408a63a807aaa491130db018cd89bca6a427090d
 SHA1 (patch-ab) = 37c61bcfc27f1533df21f4392f80df2d2dbe51ef
 SHA1 (patch-ac) = 32d14b50682dae1950ed927ecb9318ad6b07687a
 SHA1 (patch-ad) = 0e5dc31c3425de94444f97a9b7dec97ed5967733
 SHA1 (patch-ae) = ac2e4afcf243c2fee2394cfe3fe92f4890e9ab83
 SHA1 (patch-ag) = 117eabbbbc26d04bb5e56df5ad92e55b5061c0f8
-SHA1 (patch-aq) = 2e7f9854b69e98f48b4613c80191369012405b56
+SHA1 (patch-aq) = 7503ba9813a143b9e99e43b3017a30bc5543fe16
 SHA1 (patch-ar) = 2fec2c51272cc4ee376e6538d8f1fd8561a7f0a3
-SHA1 (patch-boost_atomic_detail_ops_gcc_sparc.hpp) = a7dd240ff6f61368ae6a8500e7009021fa6cba71
+SHA1 (patch-boost_atomic_detail_ops_gcc_sparc.hpp) = 6cd1b6fbb8659d7af8ecff63d4558f365f28c12b
 SHA1 (patch-boost_config_posix__features.hpp) = c3e7187af35a2a25901b37388d3194e22d005323
-SHA1 (patch-boost_config_stdlib_libcpp.hpp) = af158d85db15ea15d9fac1dbd72a15632d2fcff3
+SHA1 (patch-boost_config_stdlib_libcpp.hpp) = d57ee228c9dfa43665d261e7423fd10122dfd1a7
 SHA1 (patch-boost_config_stdlib_libstdcpp3.hpp) = 52ebedd5e80b3a8c257eccb28cd2db76cb1ca01e
 SHA1 (patch-boost_core_noncopyable.hpp) = a693e5eda7fc303e1bd86ecfab40321d771af6fe
 SHA1 (patch-boost_math_tools_config.hpp) = db3965cd810185116efd669df29067f58cc847e5

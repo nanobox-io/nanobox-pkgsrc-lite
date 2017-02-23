@@ -1,23 +1,26 @@
-@comment $NetBSD: PLIST,v 1.28 2015/12/27 12:41:42 adam Exp $
+@comment $NetBSD: PLIST,v 1.33 2017/01/02 09:41:50 ryoon Exp $
 lib/libboost_atomic.a
 lib/libboost_atomic.so
 lib/libboost_atomic.so.${BOOST_VERSION}
 lib/libboost_chrono.a
 lib/libboost_chrono.so
 lib/libboost_chrono.so.${BOOST_VERSION}
-${PLIST.context}lib/libboost_context.a
-${PLIST.context}lib/libboost_context.so
-${PLIST.context}lib/libboost_context.so.${BOOST_VERSION}
 lib/libboost_container.a
 lib/libboost_container.so
 lib/libboost_container.so.${BOOST_VERSION}
-lib/libboost_coroutine.a
-lib/libboost_coroutine.so
-lib/libboost_coroutine.so.${BOOST_VERSION}
+${PLIST.context}lib/libboost_context.a
+${PLIST.context}lib/libboost_context.so
+${PLIST.context}lib/libboost_context.so.${BOOST_VERSION}
+${PLIST.context}lib/libboost_coroutine.a
+${PLIST.context}lib/libboost_coroutine.so
+${PLIST.context}lib/libboost_coroutine.so.${BOOST_VERSION}
 lib/libboost_date_time.a
 lib/libboost_date_time.so
 lib/libboost_date_time.so.${BOOST_VERSION}
 lib/libboost_exception.a
+${PLIST.fiber}lib/libboost_fiber.a
+${PLIST.fiber}lib/libboost_fiber.so
+${PLIST.fiber}lib/libboost_fiber.so.${BOOST_VERSION}
 lib/libboost_filesystem.a
 lib/libboost_filesystem.so
 lib/libboost_filesystem.so.${BOOST_VERSION}
