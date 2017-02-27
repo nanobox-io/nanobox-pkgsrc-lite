@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.38 2016/03/05 11:28:27 jperkin Exp $
+# $NetBSD: Makefile,v 1.41 2017/02/12 06:25:16 ryoon Exp $
 #
 
 DISTNAME=		tea-16.0.5
-PKGREVISION=		31
+PKGREVISION=		34
 CATEGORIES=		editors
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=tea-editor/}
 EXTRACT_SUFX=		.tar.bz2

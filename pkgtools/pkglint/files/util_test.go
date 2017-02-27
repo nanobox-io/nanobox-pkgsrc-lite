@@ -2,44 +2,47 @@ package main
 
 import (
 	check "gopkg.in/check.v1"
+	"netbsd.org/pkglint/regex"
+	"netbsd.org/pkglint/textproc"
+	"testing"
 )
 
-func (s *Suite) TestMkopSubst_middle(c *check.C) {
-	c.Check(mkopSubst("pkgname", false, "kgna", false, "ri", false), equals, "prime")
-	c.Check(mkopSubst("pkgname", false, "pkgname", false, "replacement", false), equals, "replacement")
+func (s *Suite) Test_MkopSubst__middle(c *check.C) {
+	c.Check(mkopSubst("pkgname", false, "kgna", false, "ri", ""), equals, "prime")
+	c.Check(mkopSubst("pkgname", false, "pkgname", false, "replacement", ""), equals, "replacement")
 }
 
-func (s *Suite) TestMkopSubst_left(c *check.C) {
-	c.Check(mkopSubst("pkgname", true, "kgna", false, "ri", false), equals, "pkgname")
-	c.Check(mkopSubst("pkgname", true, "pkgname", false, "replacement", false), equals, "replacement")
+func (s *Suite) Test_MkopSubst__left(c *check.C) {
+	c.Check(mkopSubst("pkgname", true, "kgna", false, "ri", ""), equals, "pkgname")
+	c.Check(mkopSubst("pkgname", true, "pkgname", false, "replacement", ""), equals, "replacement")
 }
 
-func (s *Suite) TestMkopSubst_right(c *check.C) {
-	c.Check(mkopSubst("pkgname", false, "kgna", true, "ri", false), equals, "pkgname")
-	c.Check(mkopSubst("pkgname", false, "pkgname", true, "replacement", false), equals, "replacement")
+func (s *Suite) Test_MkopSubst__right(c *check.C) {
+	c.Check(mkopSubst("pkgname", false, "kgna", true, "ri", ""), equals, "pkgname")
+	c.Check(mkopSubst("pkgname", false, "pkgname", true, "replacement", ""), equals, "replacement")
 }
 
-func (s *Suite) TestMkopSubst_leftRight(c *check.C) {
-	c.Check(mkopSubst("pkgname", true, "kgna", true, "ri", false), equals, "pkgname")
-	c.Check(mkopSubst("pkgname", false, "pkgname", false, "replacement", false), equals, "replacement")
+func (s *Suite) Test_MkopSubst__leftRight(c *check.C) {
+	c.Check(mkopSubst("pkgname", true, "kgna", true, "ri", ""), equals, "pkgname")
+	c.Check(mkopSubst("pkgname", false, "pkgname", false, "replacement", ""), equals, "replacement")
 }
 
-func (s *Suite) TestMkopSubst_all(c *check.C) {
-	c.Check(mkopSubst("aaaaa", false, "a", false, "b", true), equals, "bbbbb")
-	c.Check(mkopSubst("aaaaa", true, "a", false, "b", true), equals, "baaaa")
-	c.Check(mkopSubst("aaaaa", false, "a", true, "b", true), equals, "aaaab")
-	c.Check(mkopSubst("aaaaa", true, "a", true, "b", true), equals, "aaaaa")
+func (s *Suite) Test_MkopSubst__gflag(c *check.C) {
+	c.Check(mkopSubst("aaaaa", false, "a", false, "b", "g"), equals, "bbbbb")
+	c.Check(mkopSubst("aaaaa", true, "a", false, "b", "g"), equals, "baaaa")
+	c.Check(mkopSubst("aaaaa", false, "a", true, "b", "g"), equals, "aaaab")
+	c.Check(mkopSubst("aaaaa", true, "a", true, "b", "g"), equals, "aaaaa")
 }
 
-func (s *Suite) TestReplaceFirst(c *check.C) {
-	m, rest := replaceFirst("a+b+c+d", `(\w)(.)(\w)`, "X")
+func (s *Suite) Test_replaceFirst(c *check.C) {
+	m, rest := regex.ReplaceFirst("a+b+c+d", `(\w)(.)(\w)`, "X")
 
 	c.Assert(m, check.NotNil)
 	c.Check(m, check.DeepEquals, []string{"a+b", "a", "+", "b"})
 	c.Check(rest, equals, "X+c+d")
 }
 
-func (s *Suite) TestTabLength(c *check.C) {
+func (s *Suite) Test_tabLength(c *check.C) {
 	c.Check(tabLength("12345"), equals, 5)
 	c.Check(tabLength("\t"), equals, 8)
 	c.Check(tabLength("123\t"), equals, 8)
@@ -47,7 +50,7 @@ func (s *Suite) TestTabLength(c *check.C) {
 	c.Check(tabLength("12345678\t"), equals, 16)
 }
 
-func (s *Suite) TestCleanpath(c *check.C) {
+func (s *Suite) Test_cleanpath(c *check.C) {
 	c.Check(cleanpath("simple/path"), equals, "simple/path")
 	c.Check(cleanpath("/absolute/path"), equals, "/absolute/path")
 	c.Check(cleanpath("./././."), equals, ".")
@@ -59,13 +62,14 @@ func (s *Suite) TestCleanpath(c *check.C) {
 	c.Check(cleanpath("dir/"), equals, "dir")
 }
 
-func (s *Suite) TestIsEmptyDirAndGetSubdirs(c *check.C) {
-	s.CreateTmpFile(c, "CVS/Entries", "dummy\n")
+func (s *Suite) Test_isEmptyDir_and_getSubdirs(c *check.C) {
+	s.Init(c)
+	s.CreateTmpFile("CVS/Entries", "dummy\n")
 
 	c.Check(isEmptyDir(s.tmpdir), equals, true)
 	c.Check(getSubdirs(s.tmpdir), check.DeepEquals, []string(nil))
 
-	s.CreateTmpFile(c, "somedir/file", "")
+	s.CreateTmpFile("somedir/file", "")
 
 	c.Check(isEmptyDir(s.tmpdir), equals, false)
 	c.Check(getSubdirs(s.tmpdir), check.DeepEquals, []string{"somedir"})
@@ -80,9 +84,66 @@ func (s *Suite) TestIsEmptyDirAndGetSubdirs(c *check.C) {
 	}
 }
 
-func (s *Suite) TestPrefixReplacer_Since(c *check.C) {
-	repl := NewPrefixReplacer("hello, world")
+func (s *Suite) Test_PrefixReplacer_Since(c *check.C) {
+	repl := textproc.NewPrefixReplacer("hello, world")
 	mark := repl.Mark()
 	repl.AdvanceRegexp(`^\w+`)
 	c.Check(repl.Since(mark), equals, "hello")
+}
+
+const reMkIncludeBenchmark = `^\.(\s*)(s?include)\s+\"([^\"]+)\"\s*(?:#.*)?$`
+const reMkIncludeBenchmarkPositive = `^\.(\s*)(s?include)\s+\"(.+)\"\s*(?:#.*)?$`
+
+func Benchmark_match3_buildlink3(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"../../category/package/buildlink3.mk\"", reMkIncludeBenchmark)
+	}
+}
+
+func Benchmark_match3_bsd_pkg_mk(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"../../mk/bsd.pkg.mk\"", reMkIncludeBenchmark)
+	}
+}
+
+func Benchmark_match3_samedir(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"options.mk\"", reMkIncludeBenchmark)
+	}
+}
+
+func Benchmark_match3_bsd_pkg_mk_comment(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"../../mk/bsd.pkg.mk\"          # infrastructure     ", reMkIncludeBenchmark)
+	}
+}
+
+func Benchmark_match3_buildlink3_positive(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"../../category/package/buildlink3.mk\"", reMkIncludeBenchmarkPositive)
+	}
+}
+
+func Benchmark_match3_bsd_pkg_mk_positive(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"../../mk/bsd.pkg.mk\"", reMkIncludeBenchmarkPositive)
+	}
+}
+
+func Benchmark_match3_samedir_positive(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"options.mk\"", reMkIncludeBenchmarkPositive)
+	}
+}
+
+func Benchmark_match3_bsd_pkg_mk_comment_positive(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		match3(".include \"../../mk/bsd.pkg.mk\"          # infrastructure     ", reMkIncludeBenchmarkPositive)
+	}
+}
+
+func Benchmark_match3_explicit(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		MatchMkInclude(".include \"../../mk/bsd.pkg.mk\"          # infrastructure     ")
+	}
 }

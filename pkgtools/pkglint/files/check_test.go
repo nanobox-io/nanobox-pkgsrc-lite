@@ -11,6 +11,9 @@ import (
 	"testing"
 
 	check "gopkg.in/check.v1"
+	"netbsd.org/pkglint/line"
+	"netbsd.org/pkglint/textproc"
+	"netbsd.org/pkglint/trace"
 )
 
 var equals = check.Equals
@@ -20,6 +23,23 @@ type Suite struct {
 	stdout bytes.Buffer
 	stderr bytes.Buffer
 	tmpdir string
+	checkC *check.C
+}
+
+// Init initializes the suite with the check.C instance for the actual
+// test run. See https://github.com/go-check/check/issues/22
+func (s *Suite) Init(c *check.C) {
+	if s.checkC != nil {
+		panic("Suite.Init must only be called once.")
+	}
+	s.checkC = c
+}
+
+func (s *Suite) c() *check.C {
+	if s.checkC == nil {
+		panic("Must call Suite.Init before accessing check.C.")
+	}
+	return s.checkC
 }
 
 func (s *Suite) Stdout() string {
@@ -42,6 +62,18 @@ func (s *Suite) Output() string {
 	return output
 }
 
+func (s *Suite) CheckOutputEmpty() {
+	s.c().Check(s.Output(), equals, "")
+}
+
+func (s *Suite) CheckOutputLines(expectedLines ...string) {
+	expectedOutput := ""
+	for _, expectedLine := range expectedLines {
+		expectedOutput += expectedLine + "\n"
+	}
+	s.c().Check(s.Output(), equals, expectedOutput)
+}
+
 // Arguments are either (lineno, orignl) or (lineno, orignl, textnl).
 func (s *Suite) NewRawLines(args ...interface{}) []*RawLine {
 	rawlines := make([]*RawLine, len(args)/2)
@@ -62,8 +94,8 @@ func (s *Suite) NewRawLines(args ...interface{}) []*RawLine {
 	return rawlines[:j]
 }
 
-func (s *Suite) NewLines(fname string, texts ...string) []*Line {
-	result := make([]*Line, len(texts))
+func (s *Suite) NewLines(fname string, texts ...string) []line.Line {
+	result := make([]line.Line, len(texts))
 	for i, text := range texts {
 		textnl := text + "\n"
 		result[i] = NewLine(fname, i+1, text, s.NewRawLines(i+1, textnl))
@@ -75,16 +107,22 @@ func (s *Suite) NewMkLines(fname string, lines ...string) *MkLines {
 	return NewMkLines(s.NewLines(fname, lines...))
 }
 
-func (s *Suite) DebugToStdout() {
-	G.debugOut = os.Stdout
+func (s *Suite) BeginDebugToStdout() {
 	G.logOut = os.Stdout
-	G.opts.Debug = true
+	trace.Out = os.Stdout
+	trace.Tracing = true
 }
 
-func (s *Suite) UseCommandLine(c *check.C, args ...string) {
+func (s *Suite) EndDebugToStdout() {
+	G.logOut = &s.stdout
+	trace.Out = &s.stdout
+	trace.Tracing = false
+}
+
+func (s *Suite) UseCommandLine(args ...string) {
 	exitcode := new(Pkglint).ParseCommandLine(append([]string{"pkglint"}, args...))
 	if exitcode != nil && *exitcode != 0 {
-		c.Fatalf("Cannot parse command line: %#v", args)
+		s.c().Fatalf("Cannot parse command line: %#v", args)
 	}
 	G.opts.LogVerbose = true // See SetUpTest
 }
@@ -117,11 +155,9 @@ func (s *Suite) RegisterTool(tool *Tool) {
 	}
 }
 
-func (s *Suite) CreateTmpFile(c *check.C, relFname, content string) (absFname string) {
-	if s.tmpdir == "" {
-		s.tmpdir = filepath.ToSlash(c.MkDir())
-	}
-	absFname = s.tmpdir + "/" + relFname
+func (s *Suite) CreateTmpFile(relFname, content string) (absFname string) {
+	c := s.c()
+	absFname = s.TmpDir() + "/" + relFname
 	err := os.MkdirAll(path.Dir(absFname), 0777)
 	c.Assert(err, check.IsNil)
 
@@ -130,18 +166,26 @@ func (s *Suite) CreateTmpFile(c *check.C, relFname, content string) (absFname st
 	return
 }
 
-func (s *Suite) CreateTmpFileLines(c *check.C, relFname string, rawTexts ...string) (absFname string) {
+func (s *Suite) CreateTmpFileLines(relFname string, rawTexts ...string) (absFname string) {
 	text := ""
 	for _, rawText := range rawTexts {
 		text += rawText + "\n"
 	}
-	return s.CreateTmpFile(c, relFname, text)
+	return s.CreateTmpFile(relFname, text)
 }
 
-func (s *Suite) LoadTmpFile(c *check.C, relFname string) string {
-	bytes, err := ioutil.ReadFile(s.tmpdir + "/" + relFname)
+func (s *Suite) LoadTmpFile(relFname string) (absFname string) {
+	c := s.c()
+	bytes, err := ioutil.ReadFile(s.TmpDir() + "/" + relFname)
 	c.Assert(err, check.IsNil)
 	return string(bytes)
+}
+
+func (s *Suite) TmpDir() string {
+	if s.tmpdir == "" {
+		s.tmpdir = filepath.ToSlash(s.c().MkDir())
+	}
+	return s.tmpdir
 }
 
 func (s *Suite) ExpectFatalError(action func()) {
@@ -156,13 +200,17 @@ func (s *Suite) ExpectFatalError(action func()) {
 
 func (s *Suite) SetUpTest(c *check.C) {
 	G = GlobalVars{Testing: true}
-	G.logOut, G.logErr, G.debugOut = &s.stdout, &s.stderr, &s.stdout
-	s.UseCommandLine(c /* no arguments */)
+	textproc.Testing = true
+	G.logOut, G.logErr, trace.Out = &s.stdout, &s.stderr, &s.stdout
+	s.checkC = c
+	s.UseCommandLine( /* no arguments */ )
+	s.checkC = nil
 	G.opts.LogVerbose = true // To detect duplicate work being done
 }
 
 func (s *Suite) TearDownTest(c *check.C) {
 	G = GlobalVars{}
+	textproc.Testing = false
 	if out := s.Output(); out != "" {
 		fmt.Fprintf(os.Stderr, "Unchecked output in %q; check with: c.Check(s.Output(), equals, %q)", c.TestName(), out)
 	}

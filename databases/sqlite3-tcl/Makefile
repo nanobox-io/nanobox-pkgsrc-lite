@@ -1,15 +1,12 @@
-# $NetBSD: Makefile,v 1.81 2016/04/20 05:04:44 adam Exp $
+# $NetBSD: Makefile,v 1.84 2017/01/02 17:52:24 adam Exp $
 
-DISTNAME=	sqlite-autoconf-${SQLITE3_DISTVERSION}
+.include "../../databases/sqlite3/Makefile.common"
+
 PKGNAME=	sqlite3-tcl-${SQLITE3_VERSION}
 CATEGORIES=	databases
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.sqlite.org/
 COMMENT=	SQL Database Engine in a C Library (TCL extension)
-LICENSE=	public-domain
-
-.include "../../databases/sqlite3/Makefile.version"
 
 WRKSRC=		${WRKDIR}/${DISTNAME}/tea
 

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.82 2016/04/11 04:22:33 dbj Exp $
+# $NetBSD: Makefile,v 1.86 2017/02/12 06:25:07 ryoon Exp $
 #
 
-DISTNAME=	pcb-20140316
+DISTNAME=	pcb-4.0.0
+PKGREVISION=	2
 CATEGORIES=	cad
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pcb/}
 
@@ -34,10 +35,10 @@ LDFLAGS+=		-lstdc++  -lm # direct link as required by ld v2.22
 USE_LANGUAGES=		c c++
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.pcb
-PKG_SUPPORTED_OPTIONS=		png
+PKG_SUPPORTED_OPTIONS=		png gl
 PKG_OPTIONS_REQUIRED_GROUPS=	gui
 PKG_OPTIONS_GROUP.gui=		batch gtk motif
-PKG_SUGGESTED_OPTIONS=		gtk png
+PKG_SUGGESTED_OPTIONS=		gtk png gl
 
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/bsd.options.mk"
@@ -50,6 +51,12 @@ CONFIGURE_ARGS+=	--with-gui=lesstif
 .include "../../graphics/glu/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-gui=gtk
+# users who use the GTK gui on an X server which does
+# not support GL (tightvnc for exmple) will need
+# to disable GL
+.  if empty(PKG_OPTIONS:Mgl)
+CONFIGURE_ARGS+=	--disable-gl
+.  endif
 .elif !empty(PKG_OPTIONS:Mbatch)
 CONFIGURE_ARGS+=	--with-gui=none
 .else
@@ -61,13 +68,15 @@ PKG_FAIL_REASON+=	Invalid options
 .include "../../sysutils/dbus/buildlink3.mk"
 .endif
 
-EXPORTERS=	bom gcode gerber ps
+EXPORTERS=	bom gcode gerber ipcd356 ps
 .if !empty(PKG_OPTIONS:Mpng)
-EXPORTERS+=	png
+# these three need gd
+EXPORTERS+=	gcode nelma png
 .include "../../graphics/gd/buildlink3.mk"
 .endif
 
 CONFIGURE_ARGS+=	--with-exporters=${EXPORTERS:Q}
+
 
 post-extract:
 	${CHMOD} -R go-w ${WRKSRC}

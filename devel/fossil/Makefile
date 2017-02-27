@@ -1,24 +1,24 @@
-# $NetBSD: Makefile,v 1.37 2016/06/16 08:34:29 roy Exp $
+# $NetBSD: Makefile,v 1.39 2016/12/03 19:40:05 wiedi Exp $
 
-DISTNAME=	fossil-src-1.35
+DISTNAME=	fossil-src-1.36
 PKGNAME=	${DISTNAME:S/-src//}
 WRKSRC=		${WRKDIR}/${PKGNAME}
 CATEGORIES=	devel scm
-MASTER_SITES=	http://www.fossil-scm.org/download/
+MASTER_SITES=	http://fossil-scm.org/xfer/uv/download/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.fossil-scm.org/
 COMMENT=	High-reliability, distributed software configuration management
 LICENSE=	2-clause-bsd
 
-USE_MULTIARCH=	bin
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl:Q}
+CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib:Q}
 
-INSTALLATION_DIRS+=	bin${BINARCHSUFFIX} ${PKGMANDIR}/man1 share/doc/${PKGBASE}
+INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1 share/doc/${PKGBASE}
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/fossil ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}
+	${INSTALL_PROGRAM} ${WRKSRC}/fossil ${DESTDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/fossil.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	${INSTALL_DATA} ${WRKSRC}/COPYRIGHT-BSD2.txt \
 		${DESTDIR}${PREFIX}/share/doc/${PKGBASE}

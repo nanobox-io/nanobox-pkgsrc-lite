@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.145 2016/05/25 23:21:15 markd Exp $
+# $NetBSD: Makefile,v 1.149 2016/10/09 03:13:08 ryoon Exp $
 #
 
 COMMENT=	Archivers
@@ -44,10 +44,12 @@ SUBDIR+=	lhasa
 SUBDIR+=	libarchive
 SUBDIR+=	libcomprex
 SUBDIR+=	liblzo
+SUBDIR+=	libmspack
 SUBDIR+=	libunrar
 SUBDIR+=	libzip
 SUBDIR+=	lrzip
 SUBDIR+=	lz4
+SUBDIR+=	lz4json
 SUBDIR+=	lzip
 SUBDIR+=	lziprecover
 SUBDIR+=	lzma
@@ -82,6 +84,7 @@ SUBDIR+=	php-zlib
 SUBDIR+=	pigz
 SUBDIR+=	ppmd
 SUBDIR+=	ppunpack
+SUBDIR+=	py-czipfile
 SUBDIR+=	py-lhafile
 SUBDIR+=	py-libarchive-c
 SUBDIR+=	py-yuicompressor
@@ -117,6 +120,7 @@ SUBDIR+=	xz
 SUBDIR+=	zip
 SUBDIR+=	zoo
 SUBDIR+=	zopfli
+SUBDIR+=	zstd
 SUBDIR+=	zutils
 SUBDIR+=	zziplib
 

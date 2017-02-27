@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.25 2016/03/05 11:29:37 jperkin Exp $
+# $NetBSD: Makefile,v 1.29 2017/01/01 16:06:38 adam Exp $
 
-DISTNAME=	libmicrohttpd-0.9.48
+DISTNAME=	libmicrohttpd-0.9.52
 PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GNU:=libmicrohttpd/}
@@ -13,8 +13,6 @@ LICENSE=	gnu-lgpl-v2.1
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
-# Avoid building and installing 'demo' program
-CONFIGURE_ENV+=		ac_cv_header_magic_h=no
 INFO_FILES=		yes
 
 PKGCONFIG_OVERRIDE+=	libmicrohttpd.pc.in

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.58 2016/03/21 05:50:37 ryoon Exp $
+# $NetBSD: Makefile,v 1.61 2016/12/18 08:28:08 wen Exp $
 #
 
-DISTNAME=	owncloud-9.0.0
+DISTNAME=	owncloud-9.1.3
 PKGNAME=	${PHP_PKG_PREFIX}-${DISTNAME}
 CATEGORIES=	www
 MASTER_SITES=	http://download.owncloud.org/community/
@@ -12,27 +12,16 @@ HOMEPAGE=	http://owncloud.org/
 COMMENT=	Web services under your control
 LICENSE=	gnu-agpl-v3
 
-OC_APPS_SITE=	https://apps.owncloud.com/CONTENT/content-files/
-OC_CALENDAR_APP=	168707-calendar.zip
-OC_CONTACT_APP=		168708-contacts.zip
-
-DISTFILES=	${DEFAULT_DISTFILES} \
-		${OC_CALENDAR_APP} \
-		${OC_CONTACT_APP}
-
-SITES.${OC_CALENDAR_APP}=	${OC_APPS_SITE}
-SITES.${OC_CONTACT_APP}=	${OC_APPS_SITE}
-
-DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.3.0:../../textproc/php-dom
-DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.3.0:../../graphics/php-gd
-DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=5.3.0:../../converters/php-iconv
-DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.3.0:../../textproc/php-json
-DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.3.0:../../converters/php-mbstring
-DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.3.0:../../archivers/php-zip
-DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.3.0:../../archivers/php-zlib
-DEPENDS+=	${PHP_PKG_PREFIX}-pdo>=5.3.0:../../databases/php-pdo
-DEPENDS+=	${PHP_PKG_PREFIX}-posix>=5.3.0:../../devel/php-posix
-DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.3.0:../../www/php-curl
+DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.4.0:../../textproc/php-dom
+DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.4.0:../../graphics/php-gd
+DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=5.4.0:../../converters/php-iconv
+DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.4.0:../../textproc/php-json
+DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.4.0:../../converters/php-mbstring
+DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.4.0:../../archivers/php-zip
+DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.4.0:../../archivers/php-zlib
+DEPENDS+=	${PHP_PKG_PREFIX}-pdo>=5.4.0:../../databases/php-pdo
+DEPENDS+=	${PHP_PKG_PREFIX}-posix>=5.4.0:../../devel/php-posix
+DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.4.0:../../www/php-curl
 
 .include "options.mk"
 
@@ -45,16 +34,6 @@ USE_TOOLS+=	bash:run pax perl:run
 
 OC_DIR=		share/owncloud
 INSTALLATION_DIRS=	${OC_DIR}
-
-REPLACE_BASH+=	3rdparty/*/*/*/*
-REPLACE_BASH+=	apps/*/*/*
-REPLACE_BASH+=	apps/*/*/*/*
-REPLACE_BASH+=	core/img/image-optimization.sh
-
-REPLACE_PERL+=	apps/*/*/*
-REPLACE_PERL+=	l10n/l10n.pl
-
-REPLACE_PYTHON+=	3rdparty/*/*/*/*
 
 # for php interpreter
 CHECK_INTERPRETER_SKIP+=	${OC_DIR}/3rdparty/doctrine/dbal/bin/doctrine-dbal
@@ -81,10 +60,6 @@ FILES_SUBST+=	WWWGRP=${APACHE_GROUP} WWWOWN=${APACHE_USER} \
 do-install:
 	cd ${WRKDIR} && ${FIND} owncloud -type f \! -name '*.orig' -print | \
 		pax -rw -pmp ${DESTDIR}${PREFIX}/share
-	cd ${WRKDIR} && ${FIND} calendar -type f \! -name '*.orig' -print | \
-		pax -rw -pmp ${DESTDIR}${PREFIX}/share/owncloud/apps
-	cd ${WRKDIR} && ${FIND} contacts -type f \! -name '*.orig' -print | \
-		pax -rw -pmp ${DESTDIR}${PREFIX}/share/owncloud/apps
 
 .include "../../lang/php/phpversion.mk"
 .include "../../lang/python/application.mk"

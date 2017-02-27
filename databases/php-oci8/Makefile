@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2012/10/02 21:25:39 asau Exp $
+# $NetBSD: Makefile,v 1.4 2016/10/05 22:09:39 jdolecek Exp $
 
 MODNAME=		oci8
 CATEGORIES+=		databases
@@ -8,18 +8,16 @@ USE_PHP_EXT_PATCHES=	yes
 
 .include "../../mk/bsd.prefs.mk"
 
-.include "../../lang/php/ext.mk"
-
 .if !defined(ORACLE_HOME)
-# Joyent hack, user needs to fetch Instant Client themselves
-.include "../../joyent/instantclient/buildlink3.mk"
-CONFIGURE_ARGS+=		--with-${MODNAME}=instantclient,${BUILDLINK_PREFIX.instantclient}/${ORACLE_IC_HOME}
-MESSAGE_SRC+=			${.CURDIR}/../../joyent/instantclient/MESSAGE.instantclient
+PKG_FAIL_REASON+=	"You must set ORACLE_HOME to the location of your Oracle installation"
 .elif !exists(${ORACLE_HOME})
-PKG_FAIL_REASON+=		"The location of ORACLE_HOME does not exist"
-.else
-BUILDLINK_PASSTHRU_DIRS+=       ${ORACLE_HOME}
-CONFIGURE_ARGS+=		--with-${MODNAME}=shared,${ORACLE_HOME}
+PKG_FAIL_REASON+=	"The location of ORACLE_HOME does not exist"
 .endif
 
+BUILDLINK_PASSTHRU_DIRS+=       ${ORACLE_HOME}
+CONFIGURE_ARGS+=		--with-${MODNAME}=shared,${ORACLE_HOME}
+
+ONLY_FOR_PLATFORM=      Linux-*-* SunOS-*-*
+
+.include "../../lang/php/ext.mk"
 .include "../../mk/bsd.pkg.mk"

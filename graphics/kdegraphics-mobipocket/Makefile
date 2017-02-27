@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.32 2016/03/05 11:27:48 jperkin Exp $
+# $NetBSD: Makefile,v 1.35 2017/01/19 08:58:21 markd Exp $
 
-DISTNAME=	kdegraphics-mobipocket-15.12.0
-PKGREVISION=	1
+DISTNAME=	kdegraphics-mobipocket-16.08.0
 CATEGORIES=	graphics
 COMMENT=	Library to support mobipocket ebooks
-MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.08.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

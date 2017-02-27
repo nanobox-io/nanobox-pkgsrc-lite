@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/10/21 12:55:29 fhajny Exp $
+# $NetBSD: Makefile,v 1.2 2017/01/09 22:13:19 fhajny Exp $
 #
 
 CASSANDRA_VER=	2.1.16

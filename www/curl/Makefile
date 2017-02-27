@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.166 2016/05/30 11:42:19 jklos Exp $
+# $NetBSD: Makefile,v 1.176 2017/01/01 16:06:01 adam Exp $
 
-DISTNAME=	curl-7.49.1
+DISTNAME=	curl-7.52.1
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	https://curl.haxx.se/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -16,7 +17,6 @@ BUILD_DEFS+=	IPV6_READY
 
 USE_TOOLS+=		nroff perl
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}
 CONFIGURE_ARGS+=	--with-ca-path=${SSLCERTS}
@@ -34,19 +34,10 @@ USE_TOOLS+=		perl
 
 .include "options.mk"
 
-do-install-multiarch-hook:
-	${MKDIR} ${DESTDIR}/${PREFIX}/include/curl/${INCARCHSUFFIX}
-	${MV} ${DESTDIR}/${PREFIX}/include/curl/curlbuild.h		\
-		${DESTDIR}/${PREFIX}/include/curl/${INCARCHSUFFIX}
-
 post-install:
 .for f in MANUAL TheArtOfHttpScripting FAQ
 	${INSTALL_DATA} ${WRKSRC}/docs/${f} ${DESTDIR}${PREFIX}/share/doc/curl/
 .endfor
-.if !empty(MULTIARCH:M[Yy][Ee][Ss])
-	${INSTALL_DATA} ${FILESDIR}/curlbuild.h				\
-		${DESTDIR}/${PREFIX}/include/curl
-.endif
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

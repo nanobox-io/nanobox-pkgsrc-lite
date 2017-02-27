@@ -15,6 +15,5 @@ CONFLICTS+=		renderext-[0-9]*
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	${WRKSRC}/renderproto.pc.in
 USE_LANGUAGES=		c
-USE_MULTIARCH=		lib
 
 .include "../../mk/bsd.pkg.mk"

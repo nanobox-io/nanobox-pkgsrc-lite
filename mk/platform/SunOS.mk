@@ -1,4 +1,4 @@
-# $NetBSD: SunOS.mk,v 1.71 2016/03/11 23:54:09 khorben Exp $
+# $NetBSD: SunOS.mk,v 1.73 2016/10/27 10:31:06 jperkin Exp $
 #
 # Variable definitions for the SunOS/Solaris operating system.
 
@@ -112,6 +112,11 @@ _OPSYS_SYSTEM_RPATH?=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
 _OPSYS_INCLUDE_DIRS?=	/usr/include
 
+# Sun Studio support is untested at this time, but would be strongly desired.
+.if ${PKGSRC_COMPILER} != "sunpro"
+_OPSYS_SUPPORTS_CWRAPPERS=	yes
+.endif
+
 # support FORTIFY (with GCC)
 _OPSYS_SUPPORTS_FORTIFY=yes
 
@@ -124,13 +129,3 @@ _OPSYS_CAN_CHECK_SHLIBS=	yes # requires readelf
 # to avoid a test required by the libtool script that takes forever.
 # FIXME: Adjust to work on this system and enable the lines below.
 #_OPSYS_MAX_CMDLEN_CMD=	/sbin/sysctl -n kern.argmax
-
-# Order is important, installation is done in order so any parts of the package
-# which do not have per-ABI suffixes will retain the final ABI.
-MULTIARCH_ABIS=		64 32
-BINARCHSUFFIX.32=	/i86
-BINARCHSUFFIX.64=	/amd64
-INCARCHSUFFIX.32=	/i86
-INCARCHSUFFIX.64=	/amd64
-LIBARCHSUFFIX.32=
-LIBARCHSUFFIX.64=	/amd64

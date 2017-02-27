@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.225 2016/06/06 12:24:27 wiz Exp $
+# $NetBSD: Makefile,v 1.227 2016/07/18 08:09:39 leot Exp $
 
 .include "Makefile.common"
 
@@ -10,7 +10,6 @@ COMMENT=	Package for display and interactive manipulation of images
 CONFLICTS=	geomview<1.8.1nb2  # used to have a program named 'animate'
 
 USE_LANGUAGES=		c c++ c99
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake pkg-config:run
 CONFIGURE_ARGS+=	--disable-assert
 CONFIGURE_ARGS+=	--with-fontconfig

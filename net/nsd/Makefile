@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.85 2016/06/16 15:25:44 pettai Exp $
+# $NetBSD: Makefile,v 1.89 2016/12/08 23:19:53 pettai Exp $
 
-DISTNAME=	nsd-4.1.10
+DISTNAME=	nsd-4.1.14
 CATEGORIES=	net
 MASTER_SITES=	http://www.nlnetlabs.nl/downloads/nsd/
 
@@ -62,8 +62,6 @@ OWN_DIRS_PERMS+=        ${VARBASE}/nsd ${NSD_USER} ${NSD_GROUP} 755
 
 INSTALLATION_DIRS=	share/examples/nsd
 INSTALLATION_DIRS+=	${VARBASE}/nsd
-
-CFLAGS.SunOS+=	-Du_int32_t=uint32_t
 
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,18 +1,20 @@
-# $NetBSD: Makefile,v 1.44 2016/06/21 13:39:21 joerg Exp $
+# $NetBSD: Makefile,v 1.46 2016/09/14 12:57:55 gdt Exp $
 
 .include "Makefile.common"
 
-PKGREVISION=	1
+PKGREVISION=	2
 COMMENT=	Library to read/create different archive formats
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 CONFIGURE_ARGS+=	--disable-bsdcat
 CONFIGURE_ARGS+=	--disable-bsdcpio
 CONFIGURE_ARGS+=	--disable-bsdtar
 
 do-extract:
 	${CP} -r ${FILESDIR} ${WRKSRC}
+	# Contents of ${FILESDIR} may not have the u=w bit set, and
+	# the build system assumes files in ${WRKSRC} are writable.
+	${CHMOD} -R u+w ${WRKSRC}
 
 # workaround for pkg/45491
 CONFIGURE_ENV.SunOS+=	ac_cv_header_ext2fs_ext2_fs_h=no

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2016/03/05 11:29:18 jperkin Exp $
+# $NetBSD: Makefile,v 1.43 2017/01/01 14:43:54 wiz Exp $
 
 DISTNAME=		scribus-1.4.3
-PKGREVISION=		7
+PKGREVISION=		8
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scribus/}
 EXTRACT_SUFX=		.tar.xz
@@ -20,7 +20,7 @@ CMAKE_ARGS+=	-DPNG_LIBRARY_RELEASE=${LOCALBASE}/lib
 # XXX not yet
 #CMAKE_ARGS+=	-DWANT_HUNSPELL:BOOL=ON
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.4.3
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 1.4.3
 
 INSTALLATION_DIRS+=	share/pixmaps
 

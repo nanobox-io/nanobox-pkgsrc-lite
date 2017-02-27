@@ -1,9 +1,9 @@
-$NetBSD: distinfo,v 1.38.2.1 2016/07/20 02:55:27 spz Exp $
+$NetBSD: distinfo,v 1.43 2017/02/09 00:50:15 taca Exp $
 
-SHA1 (bind-9.9.9-P2.tar.gz) = 4c003f9d2062a59e5b6ade431b7b69b7a013111c
-RMD160 (bind-9.9.9-P2.tar.gz) = d5ce5cde7f4740feaa1e6fa98d224593c1e631d6
-SHA512 (bind-9.9.9-P2.tar.gz) = 81cc61d17fa71c177b475491f1512cf666a4dedf2660d7d4b738f3b27f0b753212f2bee4f9a3feda8736291db8e9ae8f5632594561e8c58963e578a3623625f5
-Size (bind-9.9.9-P2.tar.gz) = 8762371 bytes
+SHA1 (bind-9.9.9-P6.tar.gz) = 620ffa8c7b2e6b650c4c76fe29dba75bc9281037
+RMD160 (bind-9.9.9-P6.tar.gz) = f7a96e6407769b6577e457a4f03a137ffb050d44
+SHA512 (bind-9.9.9-P6.tar.gz) = f8bddaf278af8b255714249ee8eee13b5fca7560ac77243444010139af1575676ebfdb37c726755ece69c16eb60a5272597b1778156cb9a1eb72375cbb3a2d3c
+Size (bind-9.9.9-P6.tar.gz) = 8778790 bytes
 SHA1 (patch-bin_dig_dighost.c) = a4bc9558c5dbedcc6bb0f87ea309358ca098d42a
 SHA1 (patch-bin_tests_system_Makefile.in) = 19d90050acfbe3da838dbd4c1436b5581039b71f
 SHA1 (patch-config.threads.in) = 227b83efe9cb3e301aaac9b97cf42f1fb8ad06b2

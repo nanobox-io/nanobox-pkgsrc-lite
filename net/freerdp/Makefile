@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2016/06/24 16:39:58 he Exp $
+# $NetBSD: Makefile,v 1.24 2017/02/12 06:25:50 ryoon Exp $
 
 DISTNAME=	freerdp-1.0.2
-PKGREVISION=	15
+PKGREVISION=	22
 CATEGORIES=	net
 MASTER_SITES=	http://pub.freerdp.com/releases/
 
@@ -17,6 +17,8 @@ USE_TOOLS+=	pkg-config
 USE_OLD_DES_API=yes
 
 PKGCONFIG_OVERRIDE+=	freerdp.pc.in
+
+CFLAGS.SunOS+=	-Du_int8_t=uint8_t -Du_int16_t=uint16_t -Du_int32_t=uint32_t -Du_int64_t=uint64_t
 
 .include "options.mk"
 

@@ -2,6 +2,9 @@ package main
 
 import (
 	"io/ioutil"
+	"netbsd.org/pkglint/line"
+	"netbsd.org/pkglint/regex"
+	"netbsd.org/pkglint/trace"
 	"path"
 	"sort"
 	"strings"
@@ -18,14 +21,15 @@ type GlobalData struct {
 	suggestedUpdates    []SuggestedUpdate   //
 	suggestedWipUpdates []SuggestedUpdate   //
 	LastChange          map[string]*Change  //
-	UserDefinedVars     map[string]*MkLine  // varname => line
+	UserDefinedVars     map[string]MkLine   // varname => line
 	Deprecated          map[string]string   //
 	vartypes            map[string]*Vartype // varcanon => type
+	latest              map[string]string   // "lang/php[0-9]*" => "lang/php70"
 }
 
 // Change is a change entry from the `doc/CHANGES-*` files.
 type Change struct {
-	Line    *Line
+	Line    line.Line
 	Action  string
 	Pkgpath string
 	Version string
@@ -35,7 +39,7 @@ type Change struct {
 
 // SuggestedUpdate is from the `doc/TODO` file.
 type SuggestedUpdate struct {
-	Line    *Line
+	Line    line.Line
 	Pkgname string
 	Version string
 	Comment string
@@ -63,6 +67,41 @@ func (gd *GlobalData) Initialize() {
 	gd.loadDeprecatedVars()
 }
 
+func (gd *GlobalData) Latest(category string, re regex.RegexPattern, repl string) string {
+	key := category + "/" + string(re) + " => " + repl
+	if latest, found := gd.latest[key]; found {
+		return latest
+	}
+
+	if gd.latest == nil {
+		gd.latest = make(map[string]string)
+	}
+
+	error := func() string {
+		dummyLine.Errorf("Cannot find latest version of %q in %q.", re, gd.Pkgsrcdir)
+		gd.latest[key] = ""
+		return ""
+	}
+
+	all, err := ioutil.ReadDir(gd.Pkgsrcdir + "/" + category)
+	if err != nil {
+		return error()
+	}
+
+	latest := ""
+	for _, fileInfo := range all {
+		if matches(fileInfo.Name(), re) {
+			latest = regex.Compile(re).ReplaceAllString(fileInfo.Name(), repl)
+		}
+	}
+	if latest == "" {
+		return error()
+	}
+
+	gd.latest[key] = latest
+	return latest
+}
+
 func (gd *GlobalData) loadDistSites() {
 	fname := gd.Pkgsrcdir + "/mk/fetch/sites.mk"
 	lines := LoadExistingLines(fname, true)
@@ -70,7 +109,7 @@ func (gd *GlobalData) loadDistSites() {
 	name2url := make(map[string]string)
 	url2name := make(map[string]string)
 	for _, line := range lines {
-		if m, varname, _, _, urls, _ := MatchVarassign(line.Text); m {
+		if m, varname, _, _, _, urls, _, _ := MatchVarassign(line.Text()); m {
 			if hasPrefix(varname, "MASTER_SITE_") && varname != "MASTER_SITE_BACKUP" {
 				for _, url := range splitOnSpace(urls) {
 					if matches(url, `^(?:http://|https://|ftp://)`) {
@@ -87,8 +126,8 @@ func (gd *GlobalData) loadDistSites() {
 	// Explicitly allowed, although not defined in mk/fetch/sites.mk.
 	name2url["MASTER_SITE_LOCAL"] = "ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/LOCAL_PORTS/"
 
-	if G.opts.Debug {
-		traceStep("Loaded %d MASTER_SITE_* URLs.", len(url2name))
+	if trace.Tracing {
+		trace.Stepf("Loaded %d MASTER_SITE_* URLs.", len(url2name))
 	}
 	gd.MasterSiteURLToVar = url2name
 	gd.MasterSiteVarToURL = name2url
@@ -100,7 +139,7 @@ func (gd *GlobalData) loadPkgOptions() {
 
 	gd.PkgOptions = make(map[string]string)
 	for _, line := range lines {
-		if m, optname, optdescr := match2(line.Text, `^([-0-9a-z_+]+)(?:\s+(.*))?$`); m {
+		if m, optname, optdescr := match2(line.Text(), `^([-0-9a-z_+]+)(?:\s+(.*))?$`); m {
 			gd.PkgOptions[optname] = optdescr
 		} else {
 			line.Fatalf("Unknown line format.")
@@ -114,7 +153,7 @@ func (gd *GlobalData) loadTools() {
 		fname := G.globalData.Pkgsrcdir + "/mk/tools/bsd.tools.mk"
 		lines := LoadExistingLines(fname, true)
 		for _, line := range lines {
-			if m, _, includefile := match2(line.Text, reMkInclude); m {
+			if m, _, _, includefile := MatchMkInclude(line.Text()); m {
 				if !contains(includefile, "/") {
 					toolFiles = append(toolFiles, includefile)
 				}
@@ -138,43 +177,27 @@ func (gd *GlobalData) loadTools() {
 		fname := G.globalData.Pkgsrcdir + "/mk/tools/" + basename
 		lines := LoadExistingLines(fname, true)
 		for _, line := range lines {
-			if m, varname, _, _, value, _ := MatchVarassign(line.Text); m {
-				if varname == "TOOLS_CREATE" && (value == "[" || matches(value, `^?[-\w.]+$`)) {
-					reg.Register(value)
-
-				} else if m, toolname := match1(varname, `^_TOOLS_VARNAME\.([-\w.]+|\[)$`); m {
-					reg.RegisterVarname(toolname, value)
-
-				} else if m, toolname := match1(varname, `^(?:TOOLS_PATH|_TOOLS_DEPMETHOD)\.([-\w.]+|\[)$`); m {
-					reg.Register(toolname)
-
-				} else if m, toolname := match1(varname, `_TOOLS\.(.*)`); m {
-					reg.Register(toolname)
-					for _, tool := range splitOnSpace(value) {
-						reg.Register(tool)
-					}
-				}
-			}
+			reg.ParseToolLine(line)
 		}
 	}
 
-	for _, basename := range []string{"bsd.prefs.mk", "bsd.pkg.mk"} {
+	for _, basename := range [...]string{"bsd.prefs.mk", "bsd.pkg.mk"} {
 		fname := G.globalData.Pkgsrcdir + "/mk/" + basename
 		condDepth := 0
 
 		lines := LoadExistingLines(fname, true)
 		for _, line := range lines {
-			text := line.Text
+			text := line.Text()
 
-			if m, varname, _, _, value, _ := MatchVarassign(text); m {
+			if m, varname, _, _, _, value, _, _ := MatchVarassign(text); m {
 				if varname == "USE_TOOLS" {
-					if G.opts.Debug {
-						traceStep("[condDepth=%d] %s", condDepth, value)
+					if trace.Tracing {
+						trace.Stepf("[condDepth=%d] %s", condDepth, value)
 					}
 					if condDepth == 0 || condDepth == 1 && basename == "bsd.prefs.mk" {
 						for _, toolname := range splitOnSpace(value) {
 							if !containsVarRef(toolname) {
-								for _, tool := range []*Tool{reg.Register(toolname), reg.Register("TOOLS_" + toolname)} {
+								for _, tool := range [...]*Tool{reg.Register(toolname), reg.Register("TOOLS_" + toolname)} {
 									tool.Predefined = true
 									if basename == "bsd.prefs.mk" {
 										tool.UsableAtLoadtime = true
@@ -201,16 +224,16 @@ func (gd *GlobalData) loadTools() {
 		}
 	}
 
-	if G.opts.Debug {
+	if trace.Tracing {
 		reg.Trace()
 	}
-	if G.opts.Debug {
-		traceStep("systemBuildDefs: %v", systemBuildDefs)
+	if trace.Tracing {
+		trace.Stepf("systemBuildDefs: %v", systemBuildDefs)
 	}
 
 	// Some user-defined variables do not influence the binary
 	// package at all and therefore do not have to be added to
-	// BUILD_DEFS; therefore they are marked as “already added”.
+	// BUILD_DEFS; therefore they are marked as "already added".
 	systemBuildDefs["DISTDIR"] = true
 	systemBuildDefs["FETCH_CMD"] = true
 	systemBuildDefs["FETCH_OUTPUT_ARGS"] = true
@@ -231,11 +254,11 @@ func loadSuggestedUpdates(fname string) []SuggestedUpdate {
 	return parselinesSuggestedUpdates(lines)
 }
 
-func parselinesSuggestedUpdates(lines []*Line) []SuggestedUpdate {
+func parselinesSuggestedUpdates(lines []line.Line) []SuggestedUpdate {
 	var updates []SuggestedUpdate
 	state := 0
 	for _, line := range lines {
-		text := line.Text
+		text := line.Text()
 
 		if state == 0 && text == "Suggested package updates" {
 			state = 1
@@ -252,10 +275,10 @@ func parselinesSuggestedUpdates(lines []*Line) []SuggestedUpdate {
 				if m, pkgbase, pkgversion := match2(pkgname, rePkgname); m {
 					updates = append(updates, SuggestedUpdate{line, pkgbase, pkgversion, comment})
 				} else {
-					line.Warn1("Invalid package name %q", pkgname)
+					line.Warnf("Invalid package name %q", pkgname)
 				}
 			} else {
-				line.Warn1("Invalid line format %q", text)
+				line.Warnf("Invalid line format %q", text)
 			}
 		}
 	}
@@ -272,9 +295,9 @@ func (gd *GlobalData) loadSuggestedUpdates() {
 func (gd *GlobalData) loadDocChangesFromFile(fname string) []*Change {
 	lines := LoadExistingLines(fname, false)
 
-	parseChange := func(line *Line) *Change {
-		text := line.Text
-		if !hasPrefix(line.Text, "\t") {
+	parseChange := func(line line.Line) *Change {
+		text := line.Text()
+		if !hasPrefix(text, "\t") {
 			return nil
 		}
 
@@ -307,9 +330,9 @@ func (gd *GlobalData) loadDocChangesFromFile(fname string) []*Change {
 	for _, line := range lines {
 		if change := parseChange(line); change != nil {
 			changes = append(changes, change)
-		} else if len(line.Text) >= 2 && line.Text[0] == '\t' && 'A' <= line.Text[1] && line.Text[1] <= 'Z' {
-			line.Warn1("Unknown doc/CHANGES line: %q", line.Text)
-			Explain1("See mk/misc/developer.mk for the rules.")
+		} else if text := line.Text(); len(text) >= 2 && text[0] == '\t' && 'A' <= text[1] && text[1] <= 'Z' {
+			line.Warnf("Unknown doc/CHANGES line: %q", text)
+			Explain("See mk/misc/developer.mk for the rules.")
 		}
 	}
 	return changes
@@ -352,7 +375,7 @@ func (gd *GlobalData) loadUserDefinedVars() {
 	lines := LoadExistingLines(G.globalData.Pkgsrcdir+"/mk/defaults/mk.conf", true)
 	mklines := NewMkLines(lines)
 
-	gd.UserDefinedVars = make(map[string]*MkLine)
+	gd.UserDefinedVars = make(map[string]MkLine)
 	for _, mkline := range mklines.mklines {
 		if mkline.IsVarassign() {
 			gd.UserDefinedVars[mkline.Varname()] = mkline
@@ -516,6 +539,9 @@ func (gd *GlobalData) loadDeprecatedVars() {
 
 		// January 2016
 		"SUBST_POSTCMD.*": "Has been removed, as it seemed unused.",
+
+		// June 2016
+		"USE_CROSSBASE": "Has been removed.",
 	}
 }
 
@@ -563,8 +589,8 @@ func (tr *ToolRegistry) RegisterTool(tool *Tool) {
 }
 
 func (tr *ToolRegistry) Trace() {
-	if G.opts.Debug {
-		defer tracecall0()()
+	if trace.Tracing {
+		defer trace.Call0()()
 	}
 
 	var keys []string
@@ -574,6 +600,26 @@ func (tr *ToolRegistry) Trace() {
 	sort.Strings(keys)
 
 	for _, toolname := range keys {
-		traceStep("tool %+v", tr.byName[toolname])
+		trace.Stepf("tool %+v", tr.byName[toolname])
+	}
+}
+
+func (tr *ToolRegistry) ParseToolLine(line line.Line) {
+	if m, varname, _, _, _, value, _, _ := MatchVarassign(line.Text()); m {
+		if varname == "TOOLS_CREATE" && (value == "[" || matches(value, `^?[-\w.]+$`)) {
+			tr.Register(value)
+
+		} else if m, toolname := match1(varname, `^_TOOLS_VARNAME\.([-\w.]+|\[)$`); m {
+			tr.RegisterVarname(toolname, value)
+
+		} else if m, toolname := match1(varname, `^(?:TOOLS_PATH|_TOOLS_DEPMETHOD)\.([-\w.]+|\[)$`); m {
+			tr.Register(toolname)
+
+		} else if m, toolname := match1(varname, `_TOOLS\.(.*)`); m {
+			tr.Register(toolname)
+			for _, tool := range splitOnSpace(value) {
+				tr.Register(tool)
+			}
+		}
 	}
 }

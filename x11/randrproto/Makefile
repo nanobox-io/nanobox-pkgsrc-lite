@@ -13,6 +13,5 @@ CONFLICTS+=		randrext-[0-9]*
 
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	randrproto.pc.in
-USE_MULTIARCH=		lib
 
 .include "../../mk/bsd.pkg.mk"

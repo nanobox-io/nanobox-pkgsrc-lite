@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2016/05/03 11:40:06 prlw1 Exp $
+# $NetBSD: Makefile,v 1.32 2016/12/04 05:17:09 ryoon Exp $
 
 DISTNAME=	gupnp-av-0.12.7
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gupnp-av/0.12/}
 EXTRACT_SUFX=	.tar.xz
@@ -13,7 +13,6 @@ LICENSE=	gnu-lgpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	gupnp-av-1.0.pc.in

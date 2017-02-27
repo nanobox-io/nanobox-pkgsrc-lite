@@ -1,16 +1,23 @@
-# $NetBSD: Makefile,v 1.57 2016/05/25 15:35:32 joerg Exp $
+# $NetBSD: Makefile,v 1.67 2017/02/12 06:26:01 ryoon Exp $
 
-DISTNAME=	open-vm-tools-2008.08.08-109361
-PKGNAME=	open-vm-tools-2008.08.08.109361
-PKGREVISION=	44
+DISTNAME=	open-vm-tools-10.1.0-4449150
+PKGNAME=	open-vm-tools-10.1.0
+PKGREVISION=	2
 CATEGORIES=	sysutils
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=open-vm-tools/}
+MASTER_SITES=	https://github.com/vmware/open-vm-tools/files/590760/
 
 MAINTAINER=	agc@NetBSD.org
-HOMEPAGE=	http://open-vm-tools.sourceforge.net/
+HOMEPAGE=	https://github.com/vmware/open-vm-tools
 COMMENT=	Open source VMware tools
+LICENSE=	gnu-lgpl-v2.1
 
 ONLY_FOR_PLATFORM=	NetBSD-*-i386 NetBSD-*-x86_64
+
+WRKSRC=		${WRKDIR}/${DISTNAME}/open-vm-tools
+
+GCC_REQD+=	4.8
+CXXFLAGS+=	-std=gnu++11
+BUILDLINK_TRANSFORM.NetBSD+=	rm:-Werror
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES+=	c c++
@@ -20,6 +27,9 @@ USE_TOOLS+=	pkg-config autoconf automake
 PLIST_SRC=	PLIST.common
 
 CONFIGURE_ARGS+=		--disable-unity --sysconfdir=${PKG_SYSCONFDIR:Q}
+CONFIGURE_ARGS+=		--disable-vgauth
+CONFIGURE_ARGS+=		--disable-grabbitmqproxy
+CONFIGURE_ARGS+=		--disable-docs # Requires doxygen
 
 INSTALLATION_DIRS+=		${PKG_SYSCONFDIR} share/examples/vmware-tools
 
@@ -28,9 +38,16 @@ EGDIR=				${PREFIX}/share/examples/vmware-tools
 CONF_FILES_PERMS+=		${EGDIR}/poweroff-vm-default ${PKG_SYSCONFDIR}/poweroff-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
 CONF_FILES_PERMS+=		${EGDIR}/poweron-vm-default ${PKG_SYSCONFDIR}/poweron-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
 CONF_FILES_PERMS+=		${EGDIR}/resume-vm-default ${PKG_SYSCONFDIR}/resume-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
+CONF_FILES_PERMS+=		${EGDIR}/statechange.subr ${PKG_SYSCONFDIR}/statechange.subr ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
 CONF_FILES_PERMS+=		${EGDIR}/suspend-vm-default ${PKG_SYSCONFDIR}/suspend-vm-default ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
-CONF_FILES_PERMS+=		${EGDIR}/tools.conf ${PKG_SYSCONFDIR}/tools.conf ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 644
 RCD_SCRIPTS=			vmtools
+
+SUBST_CLASSES+=			fix-etc-path
+SUBST_STAGE.fix-etc-path=	pre-configure
+SUBST_MESSAGE.fix-etc-path=	Fixing PREFIX
+SUBST_FILES.fix-etc-path+=	lib/guestApp/guestApp.c
+SUBST_FILES.fix-etc-path+=	lib/procMgr/procMgrPosix.c
+SUBST_VARS.fix-etc-path+=	PREFIX
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -f
@@ -44,9 +61,14 @@ _WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-local-typedefs -Wno-error=unused-but-set
 CWRAPPERS_APPEND.cc+=	-Wno-error=unused-local-typedefs -Wno-error=unused-but-set-variable
 .endif
 
+.include "../../archivers/libmspack/buildlink3.mk"
+.include "../../devel/glib2/buildlink3.mk"
+.include "../../mk/fuse.buildlink3.mk"
 .include "../../net/libdnet/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+.include "../../security/xml-security-c/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
+.include "../../x11/libXtst/buildlink3.mk"
 
 .include "options.mk"
 

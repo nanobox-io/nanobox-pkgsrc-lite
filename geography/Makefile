@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.60 2016/04/24 10:24:40 bouyer Exp $
+# $NetBSD: Makefile,v 1.64 2016/12/04 21:12:58 rodent Exp $
 #
 
 COMMENT=	Software for geographical-related uses
@@ -14,6 +14,8 @@ SUBDIR+=	garmin-utils
 SUBDIR+=	garmintools
 SUBDIR+=	gdal-lib
 SUBDIR+=	geoclue
+SUBDIR+=	geolite2-city
+SUBDIR+=	geolite2-country
 SUBDIR+=	geos
 SUBDIR+=	gipfel
 SUBDIR+=	gpsbabel
@@ -31,9 +33,11 @@ SUBDIR+=	libgeotiff
 SUBDIR+=	libmemphis02
 SUBDIR+=	libnova
 SUBDIR+=	libspatialite
+SUBDIR+=	mapcode
 SUBDIR+=	mapserver
 SUBDIR+=	merkaartor
 SUBDIR+=	opencpn
+SUBDIR+=	opencpn-plugin-debugger
 SUBDIR+=	opencpn-plugin-draw
 SUBDIR+=	opencpn-plugin-gshhs
 SUBDIR+=	opencpn-plugin-watchdog
@@ -57,6 +61,7 @@ SUBDIR+=	py-obspy
 SUBDIR+=	py-proj
 SUBDIR+=	py-pycountry
 SUBDIR+=	py-trytond-country
+SUBDIR+=	py-trytond-google-maps
 SUBDIR+=	qgis
 SUBDIR+=	qlandkartegt
 SUBDIR+=	qlandkartegt-garmindev

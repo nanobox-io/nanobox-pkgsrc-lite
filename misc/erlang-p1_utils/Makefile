@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2016/04/29 18:12:00 fhajny Exp $
+# $NetBSD: Makefile,v 1.7 2017/01/03 10:22:49 fhajny Exp $
 
-DISTNAME=	p1_utils-1.0.4
+DISTNAME=	p1_utils-1.0.6
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=processone/}
 

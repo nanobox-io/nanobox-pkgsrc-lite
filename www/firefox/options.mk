@@ -1,21 +1,46 @@
-# $NetBSD: options.mk,v 1.30 2016/06/16 12:08:21 ryoon Exp $
+# $NetBSD: options.mk,v 1.37 2017/02/12 07:36:27 ryoon Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.firefox
+
+PKG_OPTIONS_REQUIRED_GROUPS=	gtk
+PKG_OPTIONS_GROUP.gtk=		gtk2 gtk3
+PKG_SUGGESTED_OPTIONS=		gtk2
+
 PKG_SUPPORTED_OPTIONS=	official-mozilla-branding
-PKG_SUPPORTED_OPTIONS+=	debug debug-info mozilla-jemalloc gnome webrtc
-PKG_SUPPORTED_OPTIONS+=	alsa oss pulseaudio
+PKG_SUPPORTED_OPTIONS+=	debug debug-info mozilla-jemalloc webrtc
+PKG_SUPPORTED_OPTIONS+=	alsa oss pulseaudio dbus
 PLIST_VARS+=		gnome jemalloc debug
 
 .if ${OPSYS} == "Linux"
-PKG_SUGGESTED_OPTIONS+=	alsa mozilla-jemalloc
+PKG_SUGGESTED_OPTIONS+=	alsa mozilla-jemalloc dbus
+.elif ${OPSYS} == "NetBSD"
+PKG_SUGGESTED_OPTIONS+=	alsa dbus
+.elif ${OPSYS} == "FreeBSD"
+PKG_SUGGESTED_OPTIONS+=	oss dbus
+.elif ${OPSYS} == "DragonFly"
+PKG_SUGGESTED_OPTIONS+=	oss dbus
 .else
-PKG_SUGGESTED_OPTIONS+= pulseaudio
+PKG_SUGGESTED_OPTIONS+= dbus pulseaudio
 .endif
 
 # On NetBSD/amd64 6.99.21 libxul.so is invalid when --enable-webrtc is set.
 PKG_SUGGESTED_OPTIONS.Linux+=	webrtc
 
 .include "../../mk/bsd.options.mk"
+
+PLIST_VARS+=		gtk3
+.if !empty(PKG_OPTIONS:Mgtk2)
+CONFIGURE_ARGS+=	--enable-default-toolkit=cairo-gtk2
+BUILDLINK_API_DEPENDS.gtk2+=  gtk2+>=2.18.3nb1
+.include "../../x11/gtk2/buildlink3.mk"
+.endif
+
+# As of firefox-51 gtk2 is still pulled in implicitly
+.if !empty(PKG_OPTIONS:Mgtk3)
+CONFIGURE_ARGS+=	--enable-default-toolkit=cairo-gtk3
+.include "../../x11/gtk3/buildlink3.mk"
+PLIST.gtk3=		yes
+.endif
 
 .if !empty(PKG_OPTIONS:Malsa)
 CONFIGURE_ARGS+=	--enable-alsa
@@ -29,18 +54,6 @@ CONFIGURE_ARGS+=	--with-oss
 .include "../../mk/oss.buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--without-oss
-.endif
-
-.if !empty(PKG_OPTIONS:Mgnome)
-.include "../../devel/libgnomeui/buildlink3.mk"
-#.include "../../sysutils/gnome-vfs/buildlink3.mk"
-.include "../../sysutils/libnotify/buildlink3.mk"
-CONFIGURE_ARGS+=	--enable-dbus --enable-gnomeui
-CONFIGURE_ARGS+=	--enable-libnotify
-PLIST.gnome=		yes
-.else
-CONFIGURE_ARGS+=	--disable-dbus --disable-gnomeui
-CONFIGURE_ARGS+=	--disable-libnotify
 .endif
 
 .if !empty(PKG_OPTIONS:Mmozilla-jemalloc)
@@ -63,7 +76,6 @@ O0TRACKING=-fvar-tracking-assignments -fvar-tracking
 
 .if !empty(PKG_OPTIONS:Mdebug)
 CONFIGURE_ARGS+=	--enable-debug="-g -O0 ${O0TRACKING}"
-CONFIGURE_ARGS+=	--enable-debug-symbols
 CONFIGURE_ARGS+=	--disable-optimize
 CONFIGURE_ARGS+=	--enable-debug-js-modules
 CONFIGURE_ARGS+=	--disable-install-strip
@@ -86,7 +98,13 @@ CONFIGURE_ARGS+=	--enable-pulseaudio
 .else
 CONFIGURE_ARGS+=	--disable-pulseaudio
 .endif
-# XXX end
+
+.if !empty(PKG_OPTIONS:Mdbus)
+.include "../../sysutils/dbus-glib/buildlink3.mk"
+CONFIGURE_ARGS+=	--enable-dbus
+.else
+CONFIGURE_ARGS+=	--disable-dbus
+.endif
 
 PLIST_VARS+=		branding nobranding
 .if !empty(PKG_OPTIONS:Mofficial-mozilla-branding)

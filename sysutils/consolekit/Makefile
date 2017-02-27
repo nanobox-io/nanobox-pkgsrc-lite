@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.33 2016/06/18 11:20:40 kamil Exp $
+# $NetBSD: Makefile,v 1.34 2016/07/09 06:38:58 wiz Exp $
 
 CONSOLEKIT_VER=	1.0.2
 DISTNAME=	ConsoleKit2-1.0.2
 PKGNAME=	consolekit-${CONSOLEKIT_VER}
+PKGREVISION=	1
 CATEGORIES=	sysutils
 GITHUB_RELEASE= ${CONSOLEKIT_VER}
 GITHUB_PROJECT=	ConsoleKit2
@@ -30,6 +31,7 @@ MAKE_DIRS=	${PKG_SYSCONFDIR}/run-seat.d		\
 		${PKG_SYSCONFBASE}/logrotate.d		\
 		${PKG_SYSCONFBASE}/X11/xinit/xinitrc.d
 
+
 CONF_FILES+=	${EGDIR}/ConsoleKit/seats.d/00-primary.seat		\
 		${PKG_SYSCONFDIR}/seats.d/00-primary.seat		\
 		${EGDIR}/dbus-1/system.d/ConsoleKit.conf 		\
@@ -42,9 +44,6 @@ CONF_FILES+=	${EGDIR}/ConsoleKit/seats.d/00-primary.seat		\
 GNU_CONFIGURE=	YES
 USE_TOOLS+=	gmake intltool msgfmt perl pkg-config automake
 USE_LIBTOOL=	YES
-USE_MULTIARCH=		lib
-
-MULTIARCH_SKIP_DIRS.lib=	lib/ConsoleKit
 
 CONFIGURE_ARGS+=--sysconfdir=${PKG_SYSCONFBASE}			\
 		--localstatedir=${VARBASE}			\

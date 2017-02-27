@@ -1,24 +1,26 @@
-# $NetBSD: Makefile,v 1.18 2014/12/27 00:00:26 mef Exp $
-#
+# $NetBSD: Makefile,v 1.21 2017/02/05 12:28:14 bsiegert Exp $
 
-DISTNAME=		ltm-0.42.0
+DISTNAME=		ltm-1.0
 PKGREVISION=		1
 CATEGORIES=		math
-MASTER_SITES=		http://libtom.net/files/
-EXTRACT_SUFX=		.tar.bz2
+MASTER_SITES=		${MASTER_SITE_GITHUB:=libtom/}
+GITHUB_PROJECT=		libtommath
+GITHUB_RELEASE=		v${PKGVERSION_NOREV}
+EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://libtom.net/
 COMMENT=		Number theoretic multiple-precision integer library
 LICENSE=		public-domain
 
-WRKSRC=			${WRKDIR}/libtommath-0.42.0
+WRKSRC=			${WRKDIR}/libtommath-1.0
 USE_LIBTOOL=		yes
 MAKE_FILE=		makefile.shared
+MAKE_ENV+=		LIBPATH=${PREFIX}/lib
 BUILD_TARGET=		default
 USE_TOOLS+=		gmake
 
-AUTO_MKDIRS=		yes
+INSTALLATION_DIRS=	include lib share/doc/ltm
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/tommath.h ${DESTDIR}${PREFIX}/include

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.185 2016/06/04 19:39:22 joerg Exp $
+# $NetBSD: Makefile,v 1.189 2016/12/17 14:19:27 joerg Exp $
 
 DISTNAME=	kdelibs-${_KDE_VERSION}
-PKGREVISION=	39
+PKGREVISION=	40
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
 
@@ -68,6 +68,9 @@ SPECIAL_PERMS+=	${PREFIX}/bin/kgrantpty	${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 455
 # We require use of a recent enough libbz2 to have the BZ2_ prefixes
 # so force this as configure gets this wrong on Solaris 9
 CONFIGURE_ENV.SunOS+= ac_cv_lib_bzip2='no'
+
+# jasper uses SIZE_MAX and friends in its headers.
+CPPFLAGS+=	-D__STDC_LIMIT_MACROS
 
 .include "options.mk"
 

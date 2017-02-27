@@ -12,7 +12,6 @@ LICENSE=	gnu-gpl-v3 AND gnu-lgpl-v2
 
 USE_LANGUAGES+=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=	pax
 GNU_CONFIGURE=		yes
 

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.99 2016/02/25 10:15:46 jperkin Exp $
+# $NetBSD: Makefile,v 1.104 2017/02/12 06:25:06 ryoon Exp $
 
 DISTNAME=	TiMidity++-2.14.0
 PKGNAME=	${DISTNAME:S/TiMidity++/timidity/}
-PKGREVISION=	16
+PKGREVISION=	20
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=timidity/}
 EXTRACT_SUFX=	.tar.bz2
@@ -12,7 +12,7 @@ HOMEPAGE=	http://timidity.sourceforge.net/
 COMMENT=	MIDI to WAV renderer and player
 LICENSE=	gnu-gpl-v2
 
-CONFLICTS=		kdemultimedia-2.*{,nb*}
+CONFLICTS=		kdemultimedia-2.*
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-vt100
@@ -24,6 +24,8 @@ CONFIGURE_ARGS+=	--with-libFLAC="${BUILDLINK_DIR}/include"
 CONFIGURE_ARGS+=	--with-default-path=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--enable-audio=${TIMIDITY_NATIVE_AUDIO},ao,vorbis,flac,speex
 CONFIGURE_ARGS+=	--enable-network
+
+FAKE_NCURSES=		yes
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -64,9 +66,9 @@ post-install:
 .include "../../audio/libao/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../audio/speex/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 .if ${OPSYS} == "Linux"
 .  include "../../audio/alsa-lib/buildlink3.mk"
 .endif
 
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.41 2016/03/05 11:28:04 jperkin Exp $
+# $NetBSD: Makefile,v 1.45 2017/01/21 20:06:47 ryoon Exp $
 #
 
-DISTNAME=		lmms-0.4.15
-PKGREVISION=		10
+VERSION=		0.4.15
+DISTNAME=		lmms-${VERSION}
+PKGREVISION=		13
 CATEGORIES=		audio
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=lmms/}
-EXTRACT_SUFX=		.tar.bz2
+MASTER_SITES=		${MASTER_SITE_GITHUB:=LMMS/}
+GITHUB_TAG=		v${VERSION}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://lmms.sourceforge.net/

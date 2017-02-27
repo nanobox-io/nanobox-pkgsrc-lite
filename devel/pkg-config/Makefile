@@ -10,7 +10,6 @@ COMMENT=	System for managing library compile/link flags
 LICENSE=	gnu-gpl-v2
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-internal-glib
 CONFIGURE_ARGS+=	--disable-host-tool
@@ -53,7 +52,7 @@ PKGCONFIG_EXTRA_PATHS+=	${X11BASE}/lib/pkgconfig
 .endif
 
 .if ${LOCALBASE} != "/usr"
-PKGCONFIG_EXTRA_PATHS+=	/usr/lib${LIBARCHSUFFIX}/pkgconfig
+PKGCONFIG_EXTRA_PATHS+=	/usr/lib/pkgconfig
 .endif
 
 .if !empty(PKGCONFIG_EXTRA_PATHS)

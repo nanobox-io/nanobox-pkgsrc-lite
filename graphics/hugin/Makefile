@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.57 2016/04/07 19:23:26 adam Exp $
+# $NetBSD: Makefile,v 1.64 2017/02/12 06:25:29 ryoon Exp $
 
-DISTNAME=	hugin-2016.0.0
+DISTNAME=	hugin-2016.2.0
+PKGREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hugin/}
 EXTRACT_SUFX=	.tar.bz2
@@ -24,11 +25,13 @@ SUBST_CLASSES+=		apple
 SUBST_MESSAGE.apple=	Avoiding Mac OS X application bundles
 SUBST_STAGE.apple=	pre-configure
 SUBST_FILES.apple=	src/hugin1/hugin/CMakeLists.txt
-SUBST_FILES.apple+=	src/hugin1/ptbatcher/CMakeLists.txt
+SUBST_FILES.apple+=	src/hugin1/calibrate_lens/CMakeLists.txt
 SUBST_FILES.apple+=	src/hugin1/icpfind/CMakeLists.txt
+SUBST_FILES.apple+=	src/hugin1/ptbatcher/CMakeLists.txt
 SUBST_FILES.apple+=	src/hugin1/stitch_project/CMakeLists.txt
 SUBST_SED.apple=	-e 's,(APPLE),(ELPPA),g'
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/swig2/buildlink3.mk"

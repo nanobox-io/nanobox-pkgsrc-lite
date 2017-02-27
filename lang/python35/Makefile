@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2016/09/18 12:44:49 kamil Exp $
+# $NetBSD: Makefile,v 1.9 2017/02/01 11:47:45 jperkin Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python-${PY_DISTVERSION}
-PKGREVISION=	3
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -78,7 +77,7 @@ PLIST.oss=	yes
 CFLAGS+=		-I${OSX_SDK_PATH:Q}/usr/include
 .endif
 
-PLIST_VARS+=	bsddb dll nis no-nis
+PLIST_VARS+=	dll nis no-nis
 .if ${OPSYS} == "IRIX"
 .  if ${ABI} == "64"
 PLIST.no-nis=	yes
@@ -86,21 +85,12 @@ PLIST.no-nis=	yes
 PLIST.nis=	yes
 .  endif
 .else
-#.  include "../../mk/bdb.buildlink3.mk"
-MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
-MAKE_ENV+=	PY_BDB_INCDIRS=${BUILDLINK_INCDIRS.${BDB_TYPE}:S,^,${BDBBASE}/,:Q}
-MAKE_ENV+=	PY_BDB_LIBDIRS=${BDBBASE}/lib
-PLIST.bsddb=	yes
 PLIST.dll=	yes
 .  if ${OPSYS} != "NetBSD" || exists(/usr/bin/ypcat)
 PLIST.nis=	yes
 .  else
 PLIST.no-nis=	yes
 .  endif
-.endif
-
-.if defined(BUILDLINK_TRANSFORM)
-MAKE_ENV+=	PY_BDB_TRANSFORM=${BUILDLINK_TRANSFORM:Q}
 .endif
 
 PLIST_SUBST+=	PY_VER_SUFFIX=${PY_VER_SUFFIX:Q}
@@ -151,6 +141,10 @@ SUBST_VARS.sslbase=	SSLBASE
 
 CHECK_INTERPRETER_SKIP=	lib/python${PY_VER_SUFFIX}/venv/scripts/posix/pydoc
 
+# Avoid error: Cannot generate ./Include/opcode.h, python not found !
+post-configure:
+	touch ${WRKSRC}/Include/opcode.h
+
 .if ${OPSYS} == "HPUX"
 post-install:
 	${LN} -fs ${DESTDIR}${PREFIX}/lib/libpython3.5.sl \
@@ -166,7 +160,7 @@ BUILDLINK_DEPMETHOD.readline=		build
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+#.include "../../mk/bdb.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
-.include "../../mk/alternatives.mk"
 .include "../../mk/bsd.pkg.mk"

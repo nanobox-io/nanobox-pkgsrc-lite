@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.5 2015/12/05 21:26:05 adam Exp $
+# $NetBSD: options.mk,v 1.7 2017/01/01 14:44:04 wiz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.django
 PKG_SUPPORTED_OPTIONS=	mysql oracle pgsql sqlite
@@ -9,8 +9,8 @@ PKG_SUGGESTED_OPTIONS=	pgsql
 PLIST_VARS+=	${PKG_SUPPORTED_OPTIONS}
 
 .if !empty(PKG_OPTIONS:Mmysql)
-DEPENDS+=	${PYPKGPREFIX}-${MYSQL_PKG_PREFIX}db-[0-9]*:../../databases/py-mysqldb
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-mysqldb
+DEPENDS+=	${PYPKGPREFIX}-mysqldb-[0-9]*:../../databases/py-mysqldb
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-mysqldb
 PLIST.mysql=	yes
 .endif
 
@@ -26,6 +26,6 @@ PLIST.pgsql=	yes
 
 .if !empty(PKG_OPTIONS:Msqlite)
 DEPENDS+=	${PYPKGPREFIX}-sqlite2-[0-9]*:../../databases/py-sqlite2
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-sqlite2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-sqlite2
 PLIST.sqlite=	yes
 .endif

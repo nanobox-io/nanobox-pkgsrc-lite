@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.104 2016/04/11 16:15:22 ryoon Exp $
+# $NetBSD: Makefile,v 1.107 2016/12/12 17:46:39 adam Exp $
 
-DISTNAME=	icu4c-57_1-src
+DISTNAME=	icu4c-58_2-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
 CATEGORIES=	textproc
-MASTER_SITES=	http://download.icu-project.org/files/icu4c/${PKGVERSION_NOREV}/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=icu/}
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -12,8 +12,7 @@ COMMENT=	Robust and full-featured Unicode services
 LICENSE=	mit
 
 WRKSRC=			${WRKDIR}/icu/source
-USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
+USE_LANGUAGES=		c99 c++
 USE_TOOLS+=		gmake
 TEST_TARGET=		check
 UNLIMIT_RESOURCES+=	datasize
@@ -31,7 +30,7 @@ CONFIGURE_ARGS+=	--disable-threads
 
 # from ICU_CHECK_MH_FRAG in source/acinclude.m4
 .if ${OPSYS} == "SunOS"
-.  if ${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc"
+.  if ${PKGSRC_COMPILER:Mclang} || ${PKGSRC_COMPILER:Mgcc}
 PLIST_SUBST+=		MH_NAME=mh-solaris-gcc
 .  else
 PLIST_SUBST+=		MH_NAME=mh-solaris

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.90 2016/03/05 11:27:57 jperkin Exp $
+# $NetBSD: Makefile,v 1.91 2016/07/09 06:39:13 wiz Exp $
 
 DISTNAME=		w3c-libwww-5.4.0
 PKGNAME=		libwww-5.4.0
-PKGREVISION=		16
+PKGREVISION=		17
 CATEGORIES=		www devel
 MASTER_SITES=		http://www.w3.org/Library/Distribution/
 EXTRACT_SUFX=		.tgz
@@ -17,7 +17,6 @@ SITES.libwww-configure-5.4.0nb2.gz=	${MASTER_SITE_LOCAL}
 
 USE_TOOLS+=		automake14 gmake gzcat perl
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		bin lib
 
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--with-zlib --without-x

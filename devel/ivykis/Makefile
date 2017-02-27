@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2016/01/05 10:47:52 fhajny Exp $
+# $NetBSD: Makefile,v 1.5 2017/01/04 11:45:50 fhajny Exp $
 
-DISTNAME=	ivykis-0.39
-PKGREVISION=	1
+DISTNAME=	ivykis-0.41
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=buytenh/}
 

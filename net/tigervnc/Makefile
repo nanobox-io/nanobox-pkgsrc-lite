@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2016/02/19 10:14:48 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/01/25 23:17:08 wiz Exp $
 
-DISTNAME=	tigervnc-1.6.0
+DISTNAME=	tigervnc-1.7.1
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=TigerVNC/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -16,6 +17,8 @@ LICENSE=	gnu-gpl-v2
 BUILD_DEPENDS+=	xorg-util-macros-[0-9]*:../../devel/xorg-util-macros
 BUILD_DEPENDS+=	font-util-[0-9]*:../../fonts/font-util
 BUILD_DEPENDS+=	tradcpp-[0-9]*:../../devel/tradcpp
+
+DEPENDS+=	mcookie-[0-9]*:../../x11/mcookie
 
 USE_CMAKE=	yes
 USE_LIBTOOL=	yes
@@ -54,6 +57,14 @@ XORG_CONFIGURE_ARGS+=	--disable-config-hal --disable-config-udev --with-pic
 XORG_CONFIGURE_ARGS+=	--disable-unit-tests --disable-devel-docs --disable-selective-werror
 XORG_CONFIGURE_ARGS+=	--disable-dri --enable-dri2 --disable-dri3 --enable-glx --enable-glx-tls
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${X11_TYPE} != "modular"
+# when using native X, tigervnc server can't find xkb rules or xkbcomp without the following:
+XORG_CONFIGURE_ARGS+=	--with-xkb-path=${X11BASE}/lib/X11/xkb
+XORG_CONFIGURE_ARGS+=	--with-xkb-bin-directory=${X11BASE}/bin
+.endif
+
 pre-configure:
 	cd ${WRKSRC}/unix/xserver && autoreconf -fvi &&	\
 	${PKGSRC_SETENV} ${_CONFIGURE_SCRIPT_ENV} CONFIG_SHELL=${BASH}	\
@@ -64,6 +75,7 @@ pre-configure:
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
 .include "../../x11/libXft/buildlink3.mk"

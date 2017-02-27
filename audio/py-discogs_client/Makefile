@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/12/05 21:25:28 adam Exp $
+# $NetBSD: Makefile,v 1.6 2017/01/01 14:43:23 wiz Exp $
 
 DISTNAME=	v1.1.1
 PKGNAME=	${PYPKGPREFIX}-discogs_client-1.1.1
@@ -17,7 +17,7 @@ WRKSRC=		${WRKDIR}/discogs_client-1.1.1
 USE_LANGUAGES=	# none
 EGG_NAME=	discogs_client-1.1.1
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

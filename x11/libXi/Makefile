@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.30 2016/02/26 11:27:15 jperkin Exp $
+# $NetBSD: Makefile,v 1.33 2017/01/23 07:41:27 wiz Exp $
 
-DISTNAME=		libXi-1.7.6
+DISTNAME=		libXi-1.7.9
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -11,7 +11,6 @@ COMMENT=		X Input extension library
 LICENSE=		mit
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config
 

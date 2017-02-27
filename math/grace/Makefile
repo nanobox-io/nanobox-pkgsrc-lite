@@ -1,16 +1,16 @@
-# $NetBSD: Makefile,v 1.60 2016/03/05 11:28:52 jperkin Exp $
+# $NetBSD: Makefile,v 1.64 2017/01/19 18:52:17 agc Exp $
 
-DISTNAME=	grace-5.1.23
-PKGREVISION=	5
+DISTNAME=	grace-5.1.25
 CATEGORIES=	math graphics x11
-MASTER_SITES=	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/ \
-		ftp://ftp.fu-berlin.de/unix/graphics/grace/src/stable/ \
-		ftp://ftp.ru.xemacs.org/pub/math/grace/src/stable/ \
-		ftp://ftp.u-aizu.ac.jp/pub/SciEng/math/grace/src/stable/
+MASTER_SITES=	ftp://plasma-gate.weizmann.ac.il/pub/grace/src/stable/
+MASTER_SITES+=	ftp://ftp.fu-berlin.de/unix/graphics/grace/src/stable/
+MASTER_SITES+=	ftp://ftp.ru.xemacs.org/pub/math/grace/src/stable/
+MASTER_SITES+=	ftp://ftp.u-aizu.ac.jp/pub/SciEng/math/grace/src/stable/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://plasma-gate.weizmann.ac.il/Grace/
 COMMENT=	GRaphing, Advanced Computation and Exploration of data
+LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=		gmake
 USE_LANGUAGES=		c fortran77
@@ -33,7 +33,7 @@ post-install:
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../math/fftw2/buildlink3.mk"
-.include "../../print/pdflib/buildlink3.mk"
+.include "../../print/pdflib-lite/buildlink3.mk"
 .include "../../x11/Xbae/buildlink3.mk"
 .include "../../x11/XmHTML/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"

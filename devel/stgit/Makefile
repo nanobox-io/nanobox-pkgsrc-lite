@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2016/03/19 19:18:34 sevan Exp $
+# $NetBSD: Makefile,v 1.34 2017/01/01 14:43:37 wiz Exp $
 
 DISTNAME=	stgit-0.17.1
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	devel
 MASTER_SITES=	http://download.gna.org/stgit/
 
@@ -10,7 +10,8 @@ HOMEPAGE=	http://www.procode.org/stgit/
 COMMENT=	Stacked GIT
 LICENSE=	gnu-gpl-v2
 
-BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
+BUILD_DEPENDS+=	asciidoc>=8:../../textproc/asciidoc
+BUILD_DEPENDS+=	docbook-xsl>=1.72:../../textproc/docbook-xsl
 BUILD_DEPENDS+= xmlto-[0-9]*:../../textproc/xmlto
 DEPENDS+=	git-base>=1.5.2:../../devel/git-base
 
@@ -23,29 +24,9 @@ REPLACE_BASH=	contrib/stg-*
 
 REPLACE_PYTHON=	*.py stgit/*.py stg
 PYSETUPINSTALLARGS=	--prefix=${PREFIX}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 0.14.3
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 0.17.1
 
 MAKE_ENV+=	ASCIIDOC=${PREFIX}/bin/asciidoc
-MAKE_ENV+=	ASCIIDOC_EXTRA=${ASCIIDOC_EXTRA:M*:Q}
-
-.include "../../mk/bsd.prefs.mk"
-
-.for d in asciidoc docbook-xsl
-GITDOCDEP.${d}=	${${${PKG_INFO} -E ${d} || echo:L:sh}:L:C/[^[0-9]]*/ /g:[1..3]:ts.}
-.endfor
-
-ASCIIDOC_EXTRA=	# empty
-
-.if !empty(GITDOCDEP.asciidoc:M[8]*)
-ASCIIDOC_EXTRA+= -a ascidoc7compatible
-.endif
-
-.if !empty(GITDOCDEP.docbook-xsl:M1.7[2-9]*)
-ASCIIDOC_EXTRA+= -a docbook-xsl-172
-.endif
-
-.include "../../lang/python/application.mk"
-.include "../../lang/python/distutils.mk"
 
 pre-build:
 	cd ${WRKSRC}/Documentation && \
@@ -62,4 +43,6 @@ post-install:
 	${INSTALL_MAN} *.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1 && \
 	${INSTALL_DATA} *.html ${DESTDIR}/${PREFIX}/share/doc/${PKGBASE}/html
 
+.include "../../lang/python/application.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

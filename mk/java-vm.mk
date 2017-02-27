@@ -1,4 +1,4 @@
-# $NetBSD: java-vm.mk,v 1.107 2016/07/13 14:16:17 jperkin Exp $
+# $NetBSD: java-vm.mk,v 1.108 2016/12/16 16:27:23 asau Exp $
 #
 # This Makefile fragment handles Java dependencies and make variables,
 # and is meant to be included by packages that require Java either at
@@ -139,6 +139,8 @@ _ONLY_FOR_PLATFORMS.sun-jdk6= \
 	SunOS-5.11-x86_64
 _ONLY_FOR_PLATFORMS.openjdk7= \
 	DragonFly-*-* \
+	Linux-*-i[3-6]86 \
+	Linux-*-x86_64 \
 	NetBSD-[5-9]*-i386 \
 	NetBSD-[5-9]*-x86_64 \
 	NetBSD-[7-9]*-sparc64 \
@@ -147,6 +149,8 @@ _ONLY_FOR_PLATFORMS.openjdk7= \
 	SunOS-*-x86_64
 _ONLY_FOR_PLATFORMS.openjdk8= \
 	DragonFly-*-* \
+	Linux-*-i[3-6]86 \
+	Linux-*-x86_64 \
 	NetBSD-[5-9]*-i386 \
 	NetBSD-[5-9]*-x86_64 \
 	NetBSD-[7-9]*-sparc64 \
@@ -280,8 +284,8 @@ _JDK_PKGSRCDIR=		../../lang/openjdk8
 _JRE_PKGSRCDIR=		${_JDK_PKGSRCDIR}
 _JAVA_HOME=		${LOCALBASE}/java/openjdk8
 .elif ${_PKG_JVM} == "sun-jdk6"
-_JDK_PKGSRCDIR=		../../joyent/sun-jdk6
-_JRE_PKGSRCDIR=		../../joyent/sun-jre6
+_JDK_PKGSRCDIR=		../../lang/sun-jdk6
+_JRE_PKGSRCDIR=		../../lang/sun-jre6
 _JAVA_HOME=		${LOCALBASE}/java/sun-6
 UNLIMIT_RESOURCES+=	datasize
 .elif ${_PKG_JVM} == "sun-jdk7"

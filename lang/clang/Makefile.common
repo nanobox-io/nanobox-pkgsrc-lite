@@ -1,8 +1,8 @@
-# $NetBSD: Makefile.common,v 1.13 2016/03/10 15:01:52 tnn Exp $
+# $NetBSD: Makefile.common,v 1.18 2017/01/16 17:26:47 brook Exp $
 # used by lang/clang/Makefile
 # used by lang/clang-static-analyzer/Makefile
 
-DISTNAME=	cfe-3.8.0.src
+DISTNAME=	cfe-3.9.1.src
 CATEGORIES=	lang devel
 MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
@@ -27,6 +27,8 @@ CMAKE_ARGS+=	-DCMAKE_C_COMPILER=gcc
 CMAKE_ARGS+=	-DCMAKE_CXX_COMPILER=g++
 # XXX can't disable static-analyzer without also disabling ARCMT
 CMAKE_ARGS+=	-DCLANG_ENABLE_ARCMT=OFF
+
+CMAKE_ARGS.Darwin+=	-DCMAKE_LIBTOOL=/usr/bin/libtool
 
 REPLACE_PERL+=		test/make_test_dirs.pl
 REPLACE_PERL+=		tools/scan-build/bin/scan-build
@@ -100,29 +102,6 @@ PLIST_SUBST+=	SOEXT=${SOEXT}
 PKG_OPTIONS_VAR=	PKG_OPTIONS.clang
 PKG_SUPPORTED_OPTIONS=	tests
 
-.if ${OPSYS} == "SunOS" && ${PKGSRC_COMPILER} == "gcc"
-BUILDLINK_DEPMETHOD.gcc49=	full
-.  include "../../lang/gcc49/buildlink3.mk"
-
-SUBST_CLASSES+=			fix-paths
-SUBST_STAGE.fix-paths=		pre-configure
-SUBST_MESSAGE.fix-paths=	Fixing absolute gcc paths for SunOS.
-SUBST_FILES.fix-paths=		tools/clang/lib/Driver/Tools.cpp
-SUBST_SED.fix-paths=		-e "s,@GCCLIBPATH@,${LIBGCC_PREFIX}/${GCC_TARGET_MACHINE}/,g"
-.  if exists(/usr/bin/ld)
-SUBST_SED.fix-paths+=		-e 's,getToolChain().GetProgramPath("ld"),"/usr/bin/ld",g'
-.  else
-SUBST_SED.fix-paths+=		-e 's,getToolChain().GetProgramPath("ld"),"/usr/ccs/bin/ld",g'
-.  endif
-SUBST_SED.fix-paths+=		-e 's,^.*cxa_finalize.*$$,		; //cxa_finalize.o,g'
-
-SUBST_CLASSES+=			fix-gccinc
-SUBST_STAGE.fix-gccinc=		pre-configure
-SUBST_FILES.fix-gccinc=		tools/clang/lib/Driver/ToolChains.cpp
-SUBST_FILES.fix-gccinc+=	tools/clang/lib/Frontend/InitHeaderSearch.cpp
-SUBST_SED.fix-gccinc=		-e "s,@GCCINCLUDEPATH@,${LIBGCC_PREFIX}/include/c++,g"
-.endif
-
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Mtests)
@@ -136,11 +115,12 @@ CMAKE_ARGS+=		-DLLVM_INCLUDE_TESTS=OFF
 CMAKE_ARGS+=		-DCLANG_INCLUDE_TESTS=OFF
 .endif
 
+# At least LLVM 3.9.0 and subprojects don't correctly add C++11 flags
+# automatically.
+CXXFLAGS+=	-std=c++11
+
 post-extract:
 	${RUN} mkdir -p ${WRKDIR}/build
-
-pre-configure:
-	${RM} -f ${WRKSRC}/tools/clang/include/clang-c/Makefile.orig
 
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

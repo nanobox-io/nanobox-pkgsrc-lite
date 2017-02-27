@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.161 2016/05/08 11:05:15 markd Exp $
+# $NetBSD: Makefile,v 1.170 2017/02/12 06:25:00 ryoon Exp $
 
 DISTNAME=	amarok-${VERS}
 VERS=		2.8.0
-PKGREVISION=	20
+PKGREVISION=	29
 CATEGORIES=	audio multimedia
 MASTER_SITES=	${MASTER_SITE_KDE:=amarok/${VERS}/src/}
 EXTRACT_SUFX=	.tar.bz2
@@ -40,17 +40,17 @@ SUBST_SED.mysql=	-e s:/opt/mysqle/:${BUILDLINK_PREFIX.mysql-server}:
 .include "options.mk"
 
 .include "../../mk/mysql.buildlink3.mk"
-.if ${MYSQL_VERSION} == "56"
+.if ${_MYSQL_VERSION} == "56"
 .include "../../databases/mysql56-server/buildlink3.mk"
 SUBST_SED.mysql+=	-e s:@@WLR@@:${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.mysql-server}/lib:
-.elif ${MYSQL_VERSION} == "55"
+.elif ${_MYSQL_VERSION} == "55"
 .include "../../databases/mysql55-server/buildlink3.mk"
 SUBST_SED.mysql+=	-e s:@@WLR@@:${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.mysql-server}/lib:
-.elif ${MYSQL_VERSION} == "51"
+.elif ${_MYSQL_VERSION} == "51"
 .include "../../databases/mysql51-server/buildlink3.mk"
 SUBST_SED.mysql+=	-e s:@@WLR@@:${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.mysql-server}/lib/mysql:
 .else
-PKG_FAIL_REASON+=	"Unknown mysql version: ${MYSQL_VERSION}"
+PKG_FAIL_REASON+=	"Unknown mysql version: ${_MYSQL_VERSION}"
 .endif
 
 .include "../../audio/liblastfm/buildlink3.mk"
@@ -63,7 +63,7 @@ BUILDLINK_API_DEPENDS.taglib+=	taglib>=1.6nb1
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../meta-pkgs/kde4/kde4.mk"
 #.include "../../misc/nepomuk-core/buildlink3.mk"
-.include "../../multimedia/ffmpeg1/buildlink3.mk"
+.include "../../multimedia/ffmpeg3/buildlink3.mk"
 .include "../../multimedia/libkcompactdisc/buildlink3.mk"
 .include "../../security/qca2/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

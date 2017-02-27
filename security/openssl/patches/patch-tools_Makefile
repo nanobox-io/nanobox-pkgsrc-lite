@@ -12,16 +12,7 @@ Adjust build procedure.
  CC=	cc
  INCLUDES= -I$(TOP) -I../../include
  CFLAG=-g
-@@ -22,15 +23,15 @@
- 	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
- 	@for i in $(APPS) ; \
- 	do  \
--	(cp $$i $(INSTALL_PREFIX)$(INSTALLTOP)/bin/$$i.new; \
--	chmod 755 $(INSTALL_PREFIX)$(INSTALLTOP)/bin/$$i.new; \
--	mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/bin/$$i.new $(INSTALL_PREFIX)$(INSTALLTOP)/bin/$$i ); \
-+	(cp $$i $(INSTALL_PREFIX)$(INSTALLTOP)/bin$(BINARCHSUFFIX)/$$i.new; \
-+	chmod 755 $(INSTALL_PREFIX)$(INSTALLTOP)/bin$(BINARCHSUFFIX)/$$i.new; \
-+	mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/bin$(BINARCHSUFFIX)/$$i.new $(INSTALL_PREFIX)$(INSTALLTOP)/bin$(BINARCHSUFFIX)/$$i ); \
+@@ -28,9 +29,9 @@ install:
  	done;
  	@for i in $(MISC_APPS) ; \
  	do  \

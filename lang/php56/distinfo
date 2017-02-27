@@ -1,12 +1,12 @@
-$NetBSD: distinfo,v 1.28.2.1 2016/07/28 14:58:39 spz Exp $
+$NetBSD: distinfo,v 1.39 2017/01/20 00:44:01 taca Exp $
 
-SHA1 (php-5.6.24.tar.bz2) = c2b3ad1d968fbc615702ff0860efc3b35ca1fb70
-RMD160 (php-5.6.24.tar.bz2) = 6be7a7ea3a59dbbb618cb1251caf32f5332e5def
-SHA512 (php-5.6.24.tar.bz2) = 50bf22a1e4298049a3602906a47d4bbb52cf9e7bf8d01f6ebca76d15b4c87ef59ba94ac5d19889fb5f9a15f5da002b6304bb526327d5fe0409992a668a665ffc
-Size (php-5.6.24.tar.bz2) = 14905924 bytes
-SHA1 (patch-acinclude.m4) = b38fc34c3a3847dc317e8e286612b21ec8fd5ce8
+SHA1 (php-5.6.30.tar.bz2) = 9ac486b7f86c01a297375cae5728b424ac5790ce
+RMD160 (php-5.6.30.tar.bz2) = 445f7a88b802f88484671e2981f44147b13794fc
+SHA512 (php-5.6.30.tar.bz2) = 12734d786cca5767b8b8838affbe1c3d578dd179c8d5339653d905658562c5fdf39a88349213b1340f320320700a5378aed617447b6e15909019788a49ad2da0
+Size (php-5.6.30.tar.bz2) = 15011816 bytes
+SHA1 (patch-acinclude.m4) = 34d38d2538cc00932cdfcc80d1d4a91632cd15d0
 SHA1 (patch-configure) = 5d76f71aa903efa3c3491b908ff76419aa4af27c
-SHA1 (patch-ext_gd_config.m4) = 4b44853250eb4a638af4c663e618307ff25d2cbd
+SHA1 (patch-ext_gd_config.m4) = b92ab4c7fe8aceaef7787a607a7d2eac258fee19
 SHA1 (patch-ext_imap_config.m4) = 9c6ed6966366c4fe1b7cfd34b5910e2ff0e68577
 SHA1 (patch-ext_mssql_php__mssql.c) = c4fa9231dc539ffb027f1beb6f182f21ddb94a3c
 SHA1 (patch-ext_pcre_pcrelib_config.h) = 26588e9932ee715e32c872a1c7e2f9c640bd9cf8
@@ -14,6 +14,7 @@ SHA1 (patch-ext_pdo__mysql_config.m4) = 9d25c673fc151e1b8ae137f2a0fc540189ef5398
 SHA1 (patch-ext_pdo_config.m4) = f6deef3ac631769baa587dd7c27e55bd2e9ca6a5
 SHA1 (patch-ext_phar_Makefile.frag) = 1564c188e57d48f83de7c2420fdde183598539e2
 SHA1 (patch-ext_phar_phar_phar.php) = 5a82d55c7965027115065412f9b68defb278db64
+SHA1 (patch-ext_recode_recode.c) = a97a1815d6a41410f68c289debbb9396128a2159
 SHA1 (patch-ext_sqlite3_libsqlite_sqlite3.c) = 85cd8f3e115705aa2eeab0e7229f24422e322a7f
 SHA1 (patch-ext_standard_basic__functions.c) = 669fe55c975bf2d971f6fdcb5b3004f7e20304d2
 SHA1 (patch-ext_standard_php__dns.h) = 57c5d6d8ae60da58925abc2c51d66b56762fecda

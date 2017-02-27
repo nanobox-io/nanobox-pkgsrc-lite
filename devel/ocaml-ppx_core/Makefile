@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.4 2016/06/20 18:48:10 jaapb Exp $
+# $NetBSD: Makefile,v 1.6 2016/12/30 11:16:59 jaapb Exp $
 
-VERSION=	113.33.01
+VERSION=	114.01+04
 GITHUB_PROJECT=	ppx_core
-GITHUB_TAG=	${VERSION}+4.03
+GITHUB_TAG=	e5577ab
 DISTNAME=	${GITHUB_PROJECT}-${VERSION}
 PKGNAME=	ocaml-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=janestreet/}
 
@@ -13,16 +14,18 @@ HOMEPAGE=	https://github.com/janestreet/ppx_core/
 COMMENT=	Standard library for OCaml ppx rewriters
 LICENSE=	apache-2.0
 
-WRKSRC=		${WRKDIR}/${GITHUB_PROJECT}-${VERSION}-4.03
+WRKSRC=		${WRKDIR}/${GITHUB_PROJECT}-e5577ab345e2485cb6a7427f24b35840f5886490
 
 HAS_CONFIGURE=	yes
 USE_LANGUAGES=	# none
+OCAML_USE_OASIS_DYNRUN=	yes
 
-OCAML_USE_FINDLIB=	yes
+post-extract:
+	${MV} ${WRKSRC}/META.ab ${WRKSRC}/src
 
+.include "../../devel/ocaml-js-build-tools/buildlink3.mk"
 .include "../../devel/ocaml-oasis/buildlink3.mk"
 .include "../../devel/ocaml-ppx_tools/buildlink3.mk"
 .include "../../devel/ocamlbuild/buildlink3.mk"
-.include "../../misc/ocaml-opam/buildlink3.mk"
 .include "../../mk/ocaml.mk"
 .include "../../mk/bsd.pkg.mk"

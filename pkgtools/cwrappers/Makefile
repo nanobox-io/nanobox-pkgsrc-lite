@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2016/03/14 20:16:08 markd Exp $
+# $NetBSD: Makefile,v 1.19 2017/01/12 14:56:35 joerg Exp $
 
-PKGNAME=		cwrappers-20160110
-PKGREVISION=		1
+PKGNAME=		cwrappers-20170112
 CATEGORIES=		pkgtools sysutils
 
 MAINTAINER=		joerg@NetBSD.org
@@ -9,6 +8,7 @@ HOMEPAGE=		http://www.NetBSD.org/
 COMMENT=		pkgsrc compiler wrappers
 LICENSE=		modified-bsd
 
+GNU_CONFIGURE=		yes
 USE_BSD_MAKEFILE=	yes
 USE_FEATURES=		nbcompat
 
@@ -17,6 +17,7 @@ INSTALLATION_DIRS=	libexec/cwrappers
 .include "../../mk/bsd.prefs.mk"
 
 CHECK_PERMS=		no
+PKGSRC_LOCKTYPE=	none	# avoid dependency cycles with pkgtool/shlock
 
 .if ${OPSYS} != "NetBSD" || !empty(MACHINE_PLATFORM:MNetBSD-[0-5].*)
 MAKE_ENV+=	NEED_MI_VECTOR_HASH=1

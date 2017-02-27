@@ -14,7 +14,6 @@ GNU_CONFIGURE=	yes
 USE_GCC_RUNTIME=yes
 USE_TOOLS+=	gmake pkg-config
 USE_LANGUAGES=	c99
-USE_MULTIARCH=	lib
 
 PKGCONFIG_OVERRIDE+=	tokyocabinet.pc.in
 

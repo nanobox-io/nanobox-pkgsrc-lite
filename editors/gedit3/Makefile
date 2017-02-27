@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.29 2016/05/27 08:29:46 prlw1 Exp $
+# $NetBSD: Makefile,v 1.34 2017/02/12 06:25:15 ryoon Exp $
 
-DISTNAME=	gedit-3.20.2
+DISTNAME=	gedit-3.22.0
+PKGREVISION=	2
 CATEGORIES=	editors gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gedit/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -41,9 +42,9 @@ BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.44.0
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/gsettings-desktop-schemas/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.19.0
+BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.21.3
 .include "../../x11/gtk3/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gtksourceview3+=	gtksourceview3>=3.19.4
+BUILDLINK_API_DEPENDS.gtksourceview3+=	gtksourceview3>=3.21.2
 .include "../../x11/gtksourceview3/buildlink3.mk"
 .include "../../x11/libICE/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"

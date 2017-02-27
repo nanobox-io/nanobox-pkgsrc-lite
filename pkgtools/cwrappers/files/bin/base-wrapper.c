@@ -1,4 +1,4 @@
-/* $NetBSD: base-wrapper.c,v 1.2 2015/04/19 14:30:07 jperkin Exp $ */
+/* $NetBSD: base-wrapper.c,v 1.4 2017/01/12 14:56:35 joerg Exp $ */
 
 /*-
  * Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -71,7 +71,7 @@ libtool_mode(struct arglist *args)
 		if (strcmp(arg->val, "--mode") == 0) {
 			arg = TAILQ_NEXT(arg, link);
 			if (arg == NULL || *arg->val == '-')
-				errx(255, "Misssing --mode argument");
+				errx(255, "Missing --mode argument");
 			mode = arg->val;
 			continue;
 		}
@@ -82,14 +82,14 @@ libtool_mode(struct arglist *args)
 		if (strcmp(arg->val, "--tag") == 0) {
 			arg = TAILQ_NEXT(arg, link);
 			if (arg == NULL || *arg->val == '-')
-				errx(255, "Misssing --tag argument");
+				errx(255, "Missing --tag argument");
 			continue;
 		}
 	}
 	if (arg == NULL)
 		return 1;
 	if (mode == NULL)
-		errx(255, "Misssing --mode=XXX");
+		errx(255, "Missing --mode=XXX");
 	
 	if (strcmp(mode, "compile") == 0 ||
 	    strcmp(mode, "link") == 0)
@@ -102,6 +102,7 @@ libtool_mode(struct arglist *args)
 int
 main(int argc, char **argv)
 {
+	extern char **environ;
 	int do_fork, rv;
 	FILE *fp;
 	struct arglist args;
@@ -119,8 +120,6 @@ main(int argc, char **argv)
 
 	arglist_from_argc(&args, argc, argv);
 
-	arglist_register_globals(&args);
-
 	fp = worklog_open();
 	worklog_cmd(fp, "[*]", wrapper_name, &args); 
 
@@ -130,11 +129,6 @@ main(int argc, char **argv)
 #endif
 
 	arglist_apply_config(&args);
-#if defined(WRAPPER_LD)
-	ldadd_ld(&args);
-#elif defined(WRAPPER_CC) || defined(WRAPPER_CXX)
-	ldadd_cc(&args);
-#endif
 #if defined(WRAPPER_LD)
 	normalise_ld(&args);
 #else
@@ -176,7 +170,7 @@ skip_transforms:
 	do_fork = 0;
 #endif
 
-	rv = command_exec(&args, do_fork);
+	rv = command_exec(&args, do_fork, environ);
 
 #if defined(WRAPPER_LIBTOOL) || defined(WRAPPER_SHLIBTOOL)
 	if (rv == 0)

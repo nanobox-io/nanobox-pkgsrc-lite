@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.5 2016/06/16 04:03:13 markd Exp $
+# $NetBSD: Makefile,v 1.8 2017/01/20 23:31:08 markd Exp $
 
 DISTNAME=	collection-bibtexextra
-PKGNAME=	texlive-${DISTNAME}-2016pre1
+PKGNAME=	texlive-${DISTNAME}-2016pre3
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	41149
+TEXLIVE_REV=	41634
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -40,6 +40,7 @@ DEPENDS+=	tex-biblatex-[0-9]*:../../print/tex-biblatex
 # depend biblatex-gost
 # depend biblatex-historian
 # depend biblatex-ieee
+# depend biblatex-ijsra
 # depend biblatex-iso690
 # depend biblatex-juradiss
 # depend biblatex-luh-ipw
@@ -50,6 +51,7 @@ DEPENDS+=	tex-biblatex-[0-9]*:../../print/tex-biblatex
 # depend biblatex-musuos
 # depend biblatex-nature
 # depend biblatex-nejm
+# depend biblatex-nottsclassic
 # depend biblatex-opcit-booktitle
 # depend biblatex-philosophy
 # depend biblatex-phys
@@ -93,6 +95,7 @@ DEPENDS+=	tex-footbib-[0-9]*:../../print/tex-footbib
 DEPENDS+=	tex-harvard-[0-9]*:../../print/tex-harvard
 # depend harvmac
 # depend historische-zeitschrift
+# depend ietfbibs
 # depend ijqc
 # depend inlinebib
 # depend iopart-num
@@ -118,7 +121,7 @@ DEPENDS+=	tex-splitbib-[0-9]*:../../print/tex-splitbib
 # depend turabian-formatting
 # depend uni-wtal-ger
 # depend uni-wtal-lin
-# depend urlbst
+DEPENDS+=	tex-urlbst-[0-9]*:../../print/tex-urlbst
 # depend usebib
 # depend vak
 # depend xcite

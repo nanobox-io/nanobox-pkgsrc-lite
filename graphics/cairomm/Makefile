@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.37 2015/11/25 18:05:52 adam Exp $
+# $NetBSD: Makefile,v 1.39 2016/11/28 15:34:09 wiz Exp $
 
-DISTNAME=	cairomm-1.12.0
-PKGREVISION=	1
+DISTNAME=	cairomm-1.12.2
 CATEGORIES=	graphics
 MASTER_SITES=	http://cairographics.org/releases/
 
@@ -12,7 +11,6 @@ LICENSE=	gnu-lgpl-v2
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake perl pkg-config
 GNU_CONFIGURE=		yes

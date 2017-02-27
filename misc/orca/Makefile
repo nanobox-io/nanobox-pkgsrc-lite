@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2015/12/05 21:25:50 adam Exp $
+# $NetBSD: Makefile,v 1.40 2017/01/01 14:43:48 wiz Exp $
 
 DISTNAME=	orca-2.32.1
 PKGREVISION=	1
@@ -30,7 +30,7 @@ USE_PKGLOCALEDIR=	yes
 CONFIGURE_ENV+=	PYTHON=${PYTHONBIN}
 PY_PATCHPLIST=	yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-ORBit, py-gnome2, py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-ORBit, py-gnome2, py-gtk2
 PYTHON_VERSIONED_DEPENDENCIES=	cairo
 
 .include "../../mk/bsd.prefs.mk"

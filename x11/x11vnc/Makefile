@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.62 2016/03/05 11:29:49 jperkin Exp $
+# $NetBSD: Makefile,v 1.68 2017/02/12 06:26:16 ryoon Exp $
 #
 
 DISTNAME=	x11vnc-0.9.13
-PKGREVISION=	25
+PKGREVISION=	30
 CATEGORIES=	x11 net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libvncserver/}
 
@@ -28,6 +28,7 @@ INSTALL_DIRS=	x11vnc classes
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../net/libvncserver/buildlink3.mk"
+.include "../../graphics/png/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

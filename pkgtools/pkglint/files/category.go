@@ -1,12 +1,15 @@
 package main
 
 import (
+	"netbsd.org/pkglint/line"
+	"netbsd.org/pkglint/textproc"
+	"netbsd.org/pkglint/trace"
 	"sort"
 )
 
 func CheckdirCategory() {
-	if G.opts.Debug {
-		defer tracecall1(G.CurrentDir)()
+	if trace.Tracing {
+		defer trace.Call1(G.CurrentDir)()
 	}
 
 	lines := LoadNonemptyLines(G.CurrentDir+"/Makefile", true)
@@ -17,21 +20,21 @@ func CheckdirCategory() {
 	mklines := NewMkLines(lines)
 	mklines.Check()
 
-	exp := NewExpecter(lines)
+	exp := textproc.NewExpecter(lines)
 	for exp.AdvanceIfPrefix("#") {
 	}
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 
 	if exp.AdvanceIfMatches(`^COMMENT=\t*(.*)`) {
-		mklines.mklines[exp.index-1].CheckValidCharactersInValue(`[- '(),/0-9A-Za-z]`)
+		MkLineChecker{mklines.mklines[exp.Index()-1]}.CheckValidCharactersInValue(`[- '(),/0-9A-Za-z]`)
 	} else {
-		exp.CurrentLine().Error0("COMMENT= line expected.")
+		exp.CurrentLine().Errorf("COMMENT= line expected.")
 	}
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 
 	type subdir struct {
 		name   string
-		line   *Line
+		line   line.Line
 		active bool
 	}
 
@@ -46,22 +49,22 @@ func CheckdirCategory() {
 	prevSubdir := ""
 	for !exp.EOF() {
 		line := exp.CurrentLine()
-		text := line.Text
+		text := line.Text()
 
 		if m, commentFlag, indentation, name, comment := match4(text, `^(#?)SUBDIR\+=(\s*)(\S+)\s*(?:#\s*(.*?)\s*|)$`); m {
 			commentedOut := commentFlag == "#"
 			if commentedOut && comment == "" {
-				line.Warn1("%q commented out without giving a reason.", name)
+				line.Warnf("%q commented out without giving a reason.", name)
 			}
 
 			if indentation != "\t" {
-				line.Warn0("Indentation should be a single tab character.")
+				line.Warnf("Indentation should be a single tab character.")
 			}
 
 			if name == prevSubdir {
-				line.Error1("%q must only appear once.", name)
+				line.Errorf("%q must only appear once.", name)
 			} else if name < prevSubdir {
-				line.Warn2("%q should come before %q.", name, prevSubdir)
+				line.Warnf("%q should come before %q.", name, prevSubdir)
 			} else {
 				// correctly ordered
 			}
@@ -71,8 +74,8 @@ func CheckdirCategory() {
 			exp.Advance()
 
 		} else {
-			if line.Text != "" {
-				line.Error0("SUBDIR+= line or empty line expected.")
+			if line.Text() != "" {
+				line.Errorf("SUBDIR+= line or empty line expected.")
 			}
 			break
 		}
@@ -95,7 +98,7 @@ func CheckdirCategory() {
 
 	var subdirs []string
 
-	var line *Line
+	var line line.Line
 	mActive := false
 
 	for !(mAtend && fAtend) {
@@ -127,7 +130,7 @@ func CheckdirCategory() {
 		if !fAtend && (mAtend || fCurrent < mCurrent) {
 			if !mCheck[fCurrent] {
 				if !line.AutofixInsertBefore("SUBDIR+=\t" + fCurrent) {
-					line.Error1("%q exists in the file system, but not in the Makefile.", fCurrent)
+					line.Errorf("%q exists in the file system, but not in the Makefile.", fCurrent)
 				}
 			}
 			fNeednext = true
@@ -135,7 +138,7 @@ func CheckdirCategory() {
 		} else if !mAtend && (fAtend || mCurrent < fCurrent) {
 			if !fCheck[mCurrent] {
 				if !line.AutofixDelete() {
-					line.Error1("%q exists in the Makefile, but not in the file system.", mCurrent)
+					line.Errorf("%q exists in the Makefile, but not in the file system.", mCurrent)
 				}
 			}
 			mNeednext = true
@@ -152,13 +155,13 @@ func CheckdirCategory() {
 	// the pkgsrc-wip category Makefile defines its own targets for
 	// generating indexes and READMEs. Just skip them.
 	if G.Wip {
-		exp.index = len(exp.lines) - 2
+		exp.SkipToFooter()
 	}
 
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 	exp.ExpectText(".include \"../mk/misc/category.mk\"")
 	if !exp.EOF() {
-		exp.CurrentLine().Error0("The file should end here.")
+		exp.CurrentLine().Errorf("The file should end here.")
 	}
 
 	SaveAutofixChanges(lines)

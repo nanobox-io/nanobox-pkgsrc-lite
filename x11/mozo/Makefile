@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2016/05/21 19:21:56 youri Exp $
+# $NetBSD: Makefile,v 1.3 2017/01/01 14:44:08 wiz Exp $
 
 .include "../../meta-pkgs/mate/Makefile.common"
 
@@ -8,7 +8,7 @@ CATEGORIES=	x11
 COMMENT=	Menu editor for MATE
 
 DEPENDS+=			${PYPKGPREFIX}-gtk2>=2.13.0:../../x11/py-gtk2
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-gtk2
 
 PY_PATCHPLIST=	yes
 

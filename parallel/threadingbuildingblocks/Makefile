@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2013/10/20 17:58:05 joerg Exp $
+# $NetBSD: Makefile,v 1.6 2016/12/19 15:44:44 asau Exp $
 
 DISTNAME=	tbb30_20110325oss_src
 PKGNAME=	threadingbuildingblocks-3.0.6 # for "3.0 update 6"

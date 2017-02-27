@@ -12,7 +12,6 @@ LICENSE=		mit
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 
 CONFIGURE_ARGS+=	--with-appdefaultdir=${PREFIX}/lib/X11/app-defaults

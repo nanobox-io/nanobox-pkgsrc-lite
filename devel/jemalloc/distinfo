@@ -1,8 +1,7 @@
-$NetBSD: distinfo,v 1.1 2016/02/18 15:51:59 gson Exp $
+$NetBSD: distinfo,v 1.4 2016/12/15 09:12:41 maya Exp $
 
-SHA1 (jemalloc-4.0.4.tar.bz2) = 665050e09ed2270899c2421248f21e6d52dfd9dd
-RMD160 (jemalloc-4.0.4.tar.bz2) = 9d3572a41c5c5ed0ed15bd3cb82c1098767b11e7
-SHA512 (jemalloc-4.0.4.tar.bz2) = 93be0551a80d5f5dc3a1044ef3d5f06c5ce65f3c1fd753743ee64340b841fc2d7902178774ab71eaa633f68abad44109870eb84159679fdc8ce6d93db3a53112
-Size (jemalloc-4.0.4.tar.bz2) = 391483 bytes
-SHA1 (patch-Makefile.in) = 44329c739b691f977bd672acc337a07e4fa7f4c5
-SHA1 (patch-configure) = ade66a0b8fee1ed3a8e74f9e0e29a30f88802e0a
+SHA1 (jemalloc-4.4.0.tar.bz2) = da45ab6ff17045031f33fff15007c56a7e4b07ea
+RMD160 (jemalloc-4.4.0.tar.bz2) = bca4f78eb88b32c8c59a0e290a06f95d72f2ba80
+SHA512 (jemalloc-4.4.0.tar.bz2) = 2f88fb17ede3bf87e334e9c80949870e0dd85b5adcdd89a1750ccf6df5240f35293159ac0a360d3a29cf0b1d17edf86dcc7997c6bf3190ae7da7442d3a3cc14e
+Size (jemalloc-4.4.0.tar.bz2) = 440144 bytes
+SHA1 (patch-Makefile.in) = 62e04375dec9aab678fed5bc32559deb942e799f

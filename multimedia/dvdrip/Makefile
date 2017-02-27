@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.58 2015/06/12 10:50:37 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.60 2017/02/07 12:13:12 wiz Exp $
 
 DISTNAME=	dvdrip-0.98.11
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	multimedia x11 sysutils
 MASTER_SITES=	http://www.exit1.org/dvdrip/dist/
 
@@ -29,8 +28,6 @@ DEPENDS+=	ImageMagick-[0-9]*:../../graphics/ImageMagick
 DEPENDS+=	mjpegtools-[0-9]*:../../multimedia/mjpegtools
 
 .include "../../mk/bsd.prefs.mk"
-
-BUILDLINK_API_DEPENDS.perl+=	perl>=5.6.0
 
 USE_LANGUAGES=		c
 USE_PKGLOCALEDIR=	YES

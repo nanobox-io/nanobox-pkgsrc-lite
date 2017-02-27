@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.21 2016/03/08 11:27:11 nros Exp $
+# $NetBSD: Makefile,v 1.24 2017/01/19 09:15:16 markd Exp $
 
-DISTNAME=	libkcddb-15.12.0
-PKGREVISION=	2
+DISTNAME=	libkcddb-16.08.0
 CATEGORIES=	multimedia
 COMMENT=	KDE CDDB library
-MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.08.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

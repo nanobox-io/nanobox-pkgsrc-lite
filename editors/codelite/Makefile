@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2016/06/15 21:57:04 kamil Exp $
+# $NetBSD: Makefile,v 1.5 2017/02/12 06:25:14 ryoon Exp $
 
 DISTNAME=	codelite-9.1
+PKGREVISION=	3
 CATEGORIES=	editors x11
 MASTER_SITES=	${MASTER_SITE_GITHUB:=eranif/}
 
@@ -53,6 +54,7 @@ REPLACE_BASH+=		svgs/find-bar/convert-svg-to-png.sh
 
 LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib/codelite
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../textproc/hunspell/buildlink3.mk"

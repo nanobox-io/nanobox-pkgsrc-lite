@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.23 2015/06/12 10:48:47 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2017/01/16 14:06:43 mef Exp $
 
-DISTNAME=	bugzilla-3.2.4
-PKGREVISION=	7
+DISTNAME=	bugzilla-3.6.8
 CATEGORIES=	www devel
-MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=webtools/}
+MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=webtools/archived/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.bugzilla.org/
 COMMENT=	Web based bug tracking system
+LICENSE=	mpl-1.0
 
 DEPENDS+=	p5-CGI>=3.21:../../www/p5-CGI
 DEPENDS+=	p5-DBI>=1.41:../../databases/p5-DBI
@@ -32,7 +32,7 @@ PERL5_REQD+=	5.8.1
 PKG_USERS_VARS+=	APACHE_USER
 PKG_GROUPS_VARS+=	BZ_WEB_GROUP APACHE_GROUP
 
-MESSAGE_SUBST+=	BZDIR=${BZDIR:Q} PKG_SYSCONFDIR=${PKG_SYSCONFDIR:Q}
+MESSAGE_SUBST+=	BZDIR=${BZDIR} PKG_SYSCONFDIR=${PKG_SYSCONFDIR}
 
 BZDIR=			${PREFIX}/share/bugzilla
 EGDIR=			${PREFIX}/share/examples/bugzilla
@@ -55,11 +55,11 @@ SUBST_SED.conf+=	-e "s|@CVS@|${CVS}|g"
 SUBST_SED.conf+=	-e "s|@DBDRIVER@|${DBDRIVER}|g"
 SUBST_SED.conf+=	-e "s|/usr/lib/sendmail|${SENDMAIL}|g"
 
-INSTALLATION_DIRS += ${DOCDIR} ${DOCDIR}/en ${EGDIR} ${BZDIR} ${BZDIR}/Bugzilla
-INSTALLATION_DIRS += ${BZDIR}/js ${BZDIR}/lib ${BZDIR}/template ${BZDIR}/skins
-INSTALLATION_DIRS += ${BZDIR}/docs ${BZDIR}/docs/en ${BZDIR}/docs/en/html
-INSTALLATION_DIRS += ${BZDIR}/images ${BZDIR}/docs/en/html/api
-INSTALLATION_DIRS += ${BZDIR}/docs/en/html/api/Bugzilla
+INSTALLATION_DIRS+=	${DOCDIR} ${DOCDIR}/en ${EGDIR} ${BZDIR} ${BZDIR}/Bugzilla
+INSTALLATION_DIRS+=	${BZDIR}/js ${BZDIR}/lib ${BZDIR}/template ${BZDIR}/skins
+INSTALLATION_DIRS+=	${BZDIR}/docs ${BZDIR}/docs/en ${BZDIR}/docs/en/html
+INSTALLATION_DIRS+=	${BZDIR}/images ${BZDIR}/docs/en/html/api
+INSTALLATION_DIRS+=	${BZDIR}/docs/en/html/api/Bugzilla
 
 post-extract:
 	${FIND} ${WRKSRC} -type d -name CVS | ${XARGS} ${RM} -rf
@@ -71,16 +71,12 @@ do-install:
 
 	${INSTALL_DATA} ${WRKSRC}/docs/en/txt/Bugzilla-Guide.txt ${DESTDIR}${DOCDIR}/en
 	${INSTALL_DATA} ${WRKSRC}/docs/en/rel_notes.txt ${DESTDIR}${DOCDIR}/en
-	${INSTALL_DATA} ${WRKSRC}/QUICKSTART ${DESTDIR}${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/UPGRADING ${DESTDIR}${DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/UPGRADING-pre-2.8 ${DESTDIR}${DOCDIR}
 
 	${INSTALL_SCRIPT} ${WRKSRC}/*.cgi ${DESTDIR}${BZDIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/*.pl ${DESTDIR}${BZDIR}
 	${INSTALL_DATA} ${WRKSRC}/robots.txt ${DESTDIR}${BZDIR}
 	${INSTALL_DATA} ${WRKSRC}/bugzilla.dtd ${DESTDIR}${BZDIR}
-	${INSTALL_DATA} ${WRKSRC}/duplicates.xul ${DESTDIR}${BZDIR}
 	${INSTALL_DATA} ${WRKSRC}/Bugzilla.pm ${DESTDIR}${BZDIR}
 
 	${INSTALL_DATA} ${WRKSRC}/bugzilla.conf ${DESTDIR}${EGDIR}

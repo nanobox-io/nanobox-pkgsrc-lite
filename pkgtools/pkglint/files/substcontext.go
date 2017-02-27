@@ -12,7 +12,7 @@ type SubstContext struct {
 	filterCmd string
 }
 
-func (ctx *SubstContext) Varassign(mkline *MkLine) {
+func (ctx *SubstContext) Varassign(mkline MkLine) {
 	if !G.opts.WarnExtra {
 		return
 	}
@@ -20,13 +20,13 @@ func (ctx *SubstContext) Varassign(mkline *MkLine) {
 	varname := mkline.Varname()
 	op := mkline.Op()
 	value := mkline.Value()
-	if varname == "SUBST_CLASSES" {
+	if varname == "SUBST_CLASSES" || hasPrefix(varname, "SUBST_CLASSES.") {
 		classes := splitOnSpace(value)
 		if len(classes) > 1 {
-			mkline.Warn0("Please add only one class at a time to SUBST_CLASSES.")
+			mkline.Warnf("Please add only one class at a time to SUBST_CLASSES.")
 		}
-		if ctx.id != "" {
-			mkline.Warn0("SUBST_CLASSES should only appear once in a SUBST block.")
+		if ctx.id != "" && ctx.id != classes[0] {
+			mkline.Warnf("SUBST_CLASSES should only appear once in a SUBST block.")
 		}
 		ctx.id = classes[0]
 		return
@@ -35,13 +35,13 @@ func (ctx *SubstContext) Varassign(mkline *MkLine) {
 	m, varbase, varparam := match2(varname, `^(SUBST_(?:STAGE|MESSAGE|FILES|SED|VARS|FILTER_CMD))\.([\-\w_]+)$`)
 	if !m {
 		if ctx.id != "" {
-			mkline.Warn1("Foreign variable %q in SUBST block.", varname)
+			mkline.Warnf("Foreign variable %q in SUBST block.", varname)
 		}
 		return
 	}
 
 	if ctx.id == "" {
-		mkline.Warn1("SUBST_CLASSES should come before the definition of %q.", varname)
+		mkline.Warnf("SUBST_CLASSES should come before the definition of %q.", varname)
 		ctx.id = varparam
 	}
 
@@ -55,7 +55,7 @@ func (ctx *SubstContext) Varassign(mkline *MkLine) {
 			// but from a technically viewpoint, it is incorrect.
 			ctx.id = varparam
 		} else {
-			mkline.Warn2("Variable %q does not match SUBST class %q.", varname, ctx.id)
+			mkline.Warnf("Variable %q does not match SUBST class %q.", varname, ctx.id)
 		}
 		return
 	}
@@ -74,7 +74,7 @@ func (ctx *SubstContext) Varassign(mkline *MkLine) {
 	case "SUBST_VARS":
 		ctx.duplist(mkline, &ctx.vars, varname, op, value)
 	default:
-		mkline.Warn1("Foreign variable %q in SUBST block.", varname)
+		mkline.Warnf("Foreign variable %q in SUBST block.", varname)
 	}
 }
 
@@ -85,18 +85,18 @@ func (ctx *SubstContext) IsComplete() bool {
 		(len(ctx.sed) != 0 || len(ctx.vars) != 0 || ctx.filterCmd != "")
 }
 
-func (ctx *SubstContext) Finish(mkline *MkLine) {
+func (ctx *SubstContext) Finish(mkline MkLine) {
 	if ctx.id == "" || !G.opts.WarnExtra {
 		return
 	}
 	if ctx.stage == "" {
-		mkline.Warn1("Incomplete SUBST block: %s missing.", ctx.varname("SUBST_STAGE"))
+		mkline.Warnf("Incomplete SUBST block: %s missing.", ctx.varname("SUBST_STAGE"))
 	}
 	if len(ctx.files) == 0 {
-		mkline.Warn1("Incomplete SUBST block: %s missing.", ctx.varname("SUBST_FILES"))
+		mkline.Warnf("Incomplete SUBST block: %s missing.", ctx.varname("SUBST_FILES"))
 	}
 	if len(ctx.sed) == 0 && len(ctx.vars) == 0 && ctx.filterCmd == "" {
-		mkline.Line.Warnf("Incomplete SUBST block: %s, %s or %s missing.",
+		mkline.Warnf("Incomplete SUBST block: %s, %s or %s missing.",
 			ctx.varname("SUBST_SED"), ctx.varname("SUBST_VARS"), ctx.varname("SUBST_FILTER_CMD"))
 	}
 	ctx.id = ""
@@ -109,8 +109,6 @@ func (ctx *SubstContext) Finish(mkline *MkLine) {
 }
 
 func (ctx *SubstContext) varname(varbase string) string {
-	switch { // prevent inlining
-	}
 	if ctx.id != "" {
 		return varbase + "." + ctx.id
 	} else {
@@ -118,16 +116,16 @@ func (ctx *SubstContext) varname(varbase string) string {
 	}
 }
 
-func (ctx *SubstContext) dup(mkline *MkLine, pstr *string, varname, value string) {
+func (ctx *SubstContext) dup(mkline MkLine, pstr *string, varname, value string) {
 	if *pstr != "" {
-		mkline.Warn1("Duplicate definition of %q.", varname)
+		mkline.Warnf("Duplicate definition of %q.", varname)
 	}
 	*pstr = value
 }
 
-func (ctx *SubstContext) duplist(mkline *MkLine, plist *[]string, varname string, op MkOperator, value string) {
+func (ctx *SubstContext) duplist(mkline MkLine, plist *[]string, varname string, op MkOperator, value string) {
 	if len(*plist) > 0 && op != opAssignAppend {
-		mkline.Warn1("All but the first %q lines should use the \"+=\" operator.", varname)
+		mkline.Warnf("All but the first %q lines should use the \"+=\" operator.", varname)
 	}
 	*plist = append(*plist, value)
 }

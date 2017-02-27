@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.23 2016/05/17 10:32:07 fhajny Exp $
+# $NetBSD: Makefile,v 1.25 2017/01/19 18:52:16 agc Exp $
 
 DISTNAME=	ingo-h3-${INGOVER}
 PKGNAME=	ingo-${INGOVER}
 PKGREVISION=	2
 CATEGORIES=	mail www
-MASTER_SITES=	http://ftp.horde.org/pub/ingo/ \
-		ftp://ftp.horde.org/pub/ingo/
+MASTER_SITES=	http://ftp.horde.org/pub/ingo/
+MASTER_SITES+=	ftp://ftp.horde.org/pub/ingo/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.horde.org/apps/ingo/
@@ -14,7 +14,7 @@ LICENSE=	apache-1.1
 
 DEPENDS+=	horde>=3.2:../../www/horde
 
-PHP_VERSIONS_ACCEPTED=	55 56
+PHP_VERSIONS_ACCEPTED=	56
 PKG_DESTDIR_SUPPORT=	destdir
 
 .include "../../mk/bsd.prefs.mk"

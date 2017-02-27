@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.46.4.1 2016/07/12 20:43:32 bsiegert Exp $
+# $NetBSD: Makefile,v 1.47 2016/07/03 11:17:15 wiz Exp $
 
 DISTNAME=	xerces-c-3.1.4
 CATEGORIES=	textproc
@@ -11,7 +11,6 @@ LICENSE=	apache-2.0
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 PKGCONFIG_OVERRIDE=	xerces-c.pc.in
 GNU_CONFIGURE=		yes

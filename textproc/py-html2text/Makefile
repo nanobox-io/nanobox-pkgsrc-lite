@@ -1,21 +1,21 @@
-# $NetBSD: Makefile,v 1.45 2016/06/08 17:43:40 wiz Exp $
+# $NetBSD: Makefile,v 1.50 2017/01/03 13:23:04 jperkin Exp $
 
-DISTNAME=		html2text-2016.4.2
+DISTNAME=		html2text-2016.9.19
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
-CATEGORIES=		textproc python
+CATEGORIES=		converters python textproc 
 MASTER_SITES=		${MASTER_SITE_PYPI:=h/html2text/}
 
 MAINTAINER=		schmonz@NetBSD.org
-HOMEPAGE=		https://pypi.python.org/pypi/html2text/
+HOMEPAGE=		https://github.com/Alir3z4/html2text
 COMMENT=		Convert HTML into easy-to-read plain ASCII text
-LICENSE=		gnu-gpl-v2
+LICENSE=		gnu-gpl-v3
+
+USE_LANGUAGES=		# none
 
 REPLACE_PYTHON=	html2text/__init__.py
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-FILES_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
-	${MV} ${DESTDIR}${PREFIX}/bin/html2text ${DESTDIR}${PREFIX}/bin/html2text-${PYVERSSUFFIX}
+	${MV} ${DESTDIR}${PREFIX}/bin/html2text ${DESTDIR}${PREFIX}/bin/html2text-${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

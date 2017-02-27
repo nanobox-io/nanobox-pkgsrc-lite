@@ -4,10 +4,11 @@ import (
 	check "gopkg.in/check.v1"
 )
 
-func (s *Suite) TestLineModify(c *check.C) {
-	s.UseCommandLine(c, "--show-autofix")
+func (s *Suite) Test_Line_modifications(c *check.C) {
+	s.Init(c)
+	s.UseCommandLine("--show-autofix")
 
-	line := NewLine("fname", 1, "dummy", s.NewRawLines(1, "original\n"))
+	line := NewLine("fname", 1, "dummy", s.NewRawLines(1, "original\n")).(*LineImpl)
 
 	c.Check(line.changed, equals, false)
 	c.Check(line.raw, check.DeepEquals, s.NewRawLines(1, "original\n"))
@@ -53,71 +54,57 @@ func (s *Suite) TestLineModify(c *check.C) {
 		"after\n"})
 }
 
-func (s *Suite) TestLine_CheckAbsolutePathname(c *check.C) {
-	line := NewLine("Makefile", 1, "# dummy", nil)
-
-	line.CheckAbsolutePathname("bindir=/bin")
-	line.CheckAbsolutePathname("bindir=/../lib")
-
-	c.Check(s.Output(), equals, "WARN: Makefile:1: Found absolute pathname: /bin\n")
-}
-
-func (s *Suite) TestShowAutofix_replace(c *check.C) {
-	s.UseCommandLine(c, "--show-autofix", "--source")
+func (s *Suite) Test_Line_show_autofix_AutofixReplace(c *check.C) {
+	s.Init(c)
+	s.UseCommandLine("--show-autofix", "--source")
 	line := NewLineMulti("Makefile", 27, 29, "# old", s.NewRawLines(
 		27, "before\n",
 		28, "The old song\n",
 		29, "after\n"))
 
 	if !line.AutofixReplace("old", "new") {
-		line.Warn0("Using \"old\" is deprecated.")
+		line.Warnf("Using \"old\" is deprecated.")
 	}
 
-	c.Check(s.Output(), equals, ""+
-		"\n"+
-		"> before\n"+
-		"- The old song\n"+
-		"+ The new song\n"+
-		"> after\n"+
-		"WARN: Makefile:27--29: Using \"old\" is deprecated.\n"+
-		"AUTOFIX: Makefile:27--29: Replacing \"old\" with \"new\".\n")
+	s.CheckOutputLines(
+		"",
+		"> before",
+		"- The old song",
+		"+ The new song",
+		"> after",
+		"WARN: Makefile:27--29: Using \"old\" is deprecated.",
+		"AUTOFIX: Makefile:27--29: Replacing \"old\" with \"new\".")
 }
 
-func (s *Suite) TestShowAutofix_insert(c *check.C) {
-	s.UseCommandLine(c, "--show-autofix", "--source")
+func (s *Suite) Test_Line_show_autofix_AutofixInsertBefore(c *check.C) {
+	s.Init(c)
+	s.UseCommandLine("--show-autofix", "--source")
 	line := NewLine("Makefile", 30, "original", s.NewRawLines(30, "original\n"))
 
 	if !line.AutofixInsertBefore("inserted") {
-		line.Warn0("Dummy")
+		line.Warnf("Dummy")
 	}
 
-	c.Check(s.Output(), equals, ""+
-		"\n"+
-		"+ inserted\n"+
-		"> original\n"+
-		"WARN: Makefile:30: Dummy\n"+
-		"AUTOFIX: Makefile:30: Inserting a line \"inserted\" before this line.\n")
+	s.CheckOutputLines(
+		"",
+		"+ inserted",
+		"> original",
+		"WARN: Makefile:30: Dummy",
+		"AUTOFIX: Makefile:30: Inserting a line \"inserted\" before this line.")
 }
 
-func (s *Suite) TestShowAutofix_delete(c *check.C) {
-	s.UseCommandLine(c, "--show-autofix", "--source")
+func (s *Suite) Test_Line_show_autofix_AutofixDelete(c *check.C) {
+	s.Init(c)
+	s.UseCommandLine("--show-autofix", "--source")
 	line := NewLine("Makefile", 30, "to be deleted", s.NewRawLines(30, "to be deleted\n"))
 
 	if !line.AutofixDelete() {
-		line.Warn0("Dummy")
+		line.Warnf("Dummy")
 	}
 
-	c.Check(s.Output(), equals, ""+
-		"\n"+
-		"- to be deleted\n"+
-		"WARN: Makefile:30: Dummy\n"+
-		"AUTOFIX: Makefile:30: Deleting this line.\n")
-}
-
-func (s *Suite) TestLine_CheckTrailingWhitespace(c *check.C) {
-	line := NewLine("Makefile", 32, "The line must go on   ", nil)
-
-	line.CheckTrailingWhitespace()
-
-	c.Check(s.Output(), equals, "NOTE: Makefile:32: Trailing white-space.\n")
+	s.CheckOutputLines(
+		"",
+		"- to be deleted",
+		"WARN: Makefile:30: Dummy",
+		"AUTOFIX: Makefile:30: Deleting this line.")
 }

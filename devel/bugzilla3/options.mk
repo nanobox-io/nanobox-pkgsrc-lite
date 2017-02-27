@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.6 2014/06/22 19:47:22 wiz Exp $
+# $NetBSD: options.mk,v 1.7 2016/07/09 13:21:05 rillig Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.bugzilla
 
@@ -19,7 +19,7 @@ PKG_SUGGESTED_OPTIONS=	mysql
 ### Use mysql or postgresql backend
 ###
 .if !empty(PKG_OPTIONS:Mmysql)
-DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
+DEPENDS+=	p5-DBD-mysql>=4.000:../../databases/p5-DBD-mysql
 DBDRIVER=	mysql
 .elif !empty(PKG_OPTIONS:Mpgsql)
 DEPENDS+=	p5-DBD-postgresql>=1.45:../../databases/p5-DBD-postgresql
@@ -57,9 +57,9 @@ DEPENDS+=	p5-HTML-Parser>=3.40:../../www/p5-HTML-Parser
 .if !empty(PKG_OPTIONS:Mbugzilla-modperl)
 DEPENDS+=	p5-CGI>=3.11:../../www/p5-CGI
 DEPENDS+=	p5-Apache-DBI>=0.96:../../databases/p5-Apache-DBI
-. if defined(PKG_APACHE)
-.  include "../../www/ap2-perl/buildlink3.mk"
-. endif
+.  if defined(PKG_APACHE)
+.    include "../../www/ap2-perl/buildlink3.mk"
+.  endif
 .endif
 
 ###

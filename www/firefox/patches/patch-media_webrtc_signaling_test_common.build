@@ -1,0 +1,12 @@
+$NetBSD: patch-media_webrtc_signaling_test_common.build,v 1.4 2017/01/25 13:24:51 ryoon Exp $
+
+--- media/webrtc/signaling/test/common.build.orig	2017-01-22 14:52:50.270634552 +0000
++++ media/webrtc/signaling/test/common.build
+@@ -96,6 +96,7 @@ if CONFIG['JS_SHARED_LIBRARY']:
+ 
+ USE_LIBS += ['mozglue']
+ 
++OS_LIBS += CONFIG['MOZ_LIBV4L2_LIBS']
+ OS_LIBS += CONFIG['MOZ_WEBRTC_X11_LIBS']
+ OS_LIBS += CONFIG['REALTIME_LIBS']
+ 

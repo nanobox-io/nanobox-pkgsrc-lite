@@ -1,5 +1,5 @@
 ===========================================================================
-$NetBSD: MESSAGE,v 1.4 2003/02/26 00:33:48 uebayasi Exp $
+$NetBSD: MESSAGE,v 1.6 2017/01/24 20:31:14 hauke Exp $
 
 * See ${PREFIX}/lib/${DISTNAME}/etc/sample.init.el for a sample user
   configuration.  Copying it to ~/.xemacs/init.el is an easy start.

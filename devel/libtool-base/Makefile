@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.116 2016/03/10 12:43:48 tnn Exp $
+# $NetBSD: Makefile,v 1.117 2016/07/09 06:38:10 wiz Exp $
 
 ###########################################################################
 ###########################################################################
@@ -26,7 +26,7 @@
 .include "../../devel/libtool/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-base-/}
-PKGREVISION=	12
+PKGREVISION=	13
 
 COMMENT=	Generic shared library support script (the script itself)
 
@@ -60,8 +60,8 @@ USE_TOOLS+=		echo
 .PHONY: fix-libtool
 fix-libtool:
 	cd ${WRKSRC}; for f in libtool; do				\
-		${SED}	-e "s,-L${BUILDLINK_DIR}/lib${LIBARCHSUFFIX} *,,g" \
-			-e "s,${BUILDLINK_DIR}/lib${LIBARCHSUFFIX} *,,g" \
+		${SED}	-e "s,-L${BUILDLINK_DIR}/lib *,,g"		\
+			-e "s,${BUILDLINK_DIR}/lib *,,g"		\
 			$$f > $$f.new;					\
 		if [ -x $$f ]; then ${CHMOD} +x $$f.new; fi;		\
 		${MV} -f $$f.new $$f;					\
@@ -75,7 +75,7 @@ post-build:
 		${FILESDIR}/shlibtool.in > ${WRKSRC}/shlibtool
 
 post-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/shlibtool ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}/shlibtool
+	${INSTALL_SCRIPT} ${WRKSRC}/shlibtool ${DESTDIR}${PREFIX}/bin/shlibtool
 
 BUILDLINK_DEPMETHOD.dlcompat=	build
 

@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.5 2016/05/20 23:44:20 mef Exp $
+$NetBSD: distinfo,v 1.9 2017/01/16 12:07:20 wiz Exp $
 
-SHA1 (google-api-python-client-1.5.1.tar.gz) = e496b2b8a562fee81b5331b117a369252923c97e
-RMD160 (google-api-python-client-1.5.1.tar.gz) = 69994cb1b2b1b0a8439c55a308ac5e3b70062b1e
-SHA512 (google-api-python-client-1.5.1.tar.gz) = b6a89cffa0524b29c2e763cd9c3ec26218ef0b4c6855eaf7575939d1730f7f3cba8be8df6ebe43cf364f30f73ac0014551a94266a3d46c278f24075642679494
-Size (google-api-python-client-1.5.1.tar.gz) = 3229194 bytes
+SHA1 (google-api-python-client-1.6.1.tar.gz) = 39d127af0f0c57a145acef7498abbb010a63bfe4
+RMD160 (google-api-python-client-1.6.1.tar.gz) = a082461ccdf223aec1ebeb9164a9f7b26bfe15d5
+SHA512 (google-api-python-client-1.6.1.tar.gz) = 74e6b7bef74b24fe2500743fa13f5806ba46ac7a5fd7f78b344095ffcf5579549fab938778642b51ae25c07323b505240211d792f909e8cc62a0925666c75529
+Size (google-api-python-client-1.6.1.tar.gz) = 4261153 bytes

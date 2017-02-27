@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.76 2016/06/06 11:46:04 wiz Exp $
+# $NetBSD: Makefile,v 1.78 2016/09/07 06:29:31 wiz Exp $
 
 .include "Makefile.common"
 
@@ -11,7 +11,6 @@ DEPENDS+=	urw-fonts-[0-9]*:../../fonts/urw-fonts
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake pkg-config gs:run
 USE_FEATURES=		vsnprintf	# optional but recommended for security
 GNU_CONFIGURE=		yes

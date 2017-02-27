@@ -44,7 +44,6 @@ publish_all() {
   project=$3
   platform=$4
   uploaded=$(curl -k -s https://pkgsrc.nanobox.io/${user}/${project}/${platform}/ | sed 's/<a href=".*">//g;s,</a>.*$,,g;s/<.*>//g')
-#  uploaded=
   for file in $(ls /content/packages/pkgsrc/${project}/${platform}/All/*)
   do
     file=$(basename ${file})

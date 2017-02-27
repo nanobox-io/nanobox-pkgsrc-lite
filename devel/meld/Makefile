@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.69 2016/06/19 20:32:32 wiz Exp $
+# $NetBSD: Makefile,v 1.78 2017/02/12 06:25:13 ryoon Exp $
 
-DISTNAME=		meld-3.16.1
+DISTNAME=		meld-3.16.4
+PKGREVISION=		3
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/meld/3.16/}
 EXTRACT_SUFX=		.tar.xz
@@ -17,7 +18,7 @@ DEPENDS+=		dconf-[0-9]*:../../devel/dconf
 
 USE_TOOLS+=		intltool msgfmt
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 3.11; 3.12 will probably require 33+
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 3.16
 
 SUBST_CLASSES+=		man
 SUBST_FILES.man=	setup.py
@@ -25,6 +26,7 @@ SUBST_SED.man+=		-e "s,share/man/man1,${PKGMANDIR}/man1,"
 SUBST_STAGE.man=	pre-build
 SUBST_MESSAGE.man=	Fixing man page installation path.
 
+.include "../../graphics/adwaita-icon-theme/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../lang/python/distutils.mk"

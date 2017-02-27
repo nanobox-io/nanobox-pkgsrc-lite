@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2016/03/08 14:45:36 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2017/01/01 16:05:56 adam Exp $
 
 DISTNAME=	libpagemaker-0.0.3
+PKGREVISION=	2
 CATEGORIES=	converters
 MASTER_SITES=	http://dev-www.libreoffice.org/src/libpagemaker/
 
@@ -21,4 +22,5 @@ BUILDLINK_TRANSFORM+=	rm:-Werror
 
 .include "../../converters/librevenge/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

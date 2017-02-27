@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.50 2014/11/29 20:42:12 adam Exp $
+# $NetBSD: Makefile,v 1.52 2017/01/05 09:16:41 prlw1 Exp $
 
-DISTNAME=	flac-1.3.1
+DISTNAME=	flac-1.3.2
 CATEGORIES=	audio archivers
 MASTER_SITES=	http://downloads.xiph.org/releases/flac/
 EXTRACT_SUFX=	.tar.xz
+
+# XXX remove at next update
+DIST_SUBDIR=	flac
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://xiph.org/flac/
@@ -12,7 +15,6 @@ LICENSE=	modified-bsd AND gnu-gpl-v2 AND gnu-lgpl-v2.1
 
 WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		yes
@@ -41,13 +43,6 @@ CONFIGURE_ARGS+=	--disable-asm-optimizations
 
 .include "../../mk/compiler.mk"
 
-# Version 1.1.2 of flac doesn't seem to build correctly with -O3 using
-# the MIPSpro compiler.
-# XXX: retry for 1.1.3
-.if !empty(PKGSRC_COMPILER:Mmipspro)
-BUILDLINK_TRANSFORM+=	rm:-O3
-.endif
-
 # SunPro does not support __inline
 .if !empty(PKGSRC_COMPILER:Msunpro)
 CFLAGS+=	-D__inline=inline
@@ -59,5 +54,4 @@ BUILDLINK_TRANSFORM+=	rm:-fgnu89-inline
 .endif
 
 .include "../../multimedia/libogg/buildlink3.mk"
-
 .include "../../mk/bsd.pkg.mk"

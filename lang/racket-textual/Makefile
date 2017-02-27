@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.27 2016/04/06 12:39:37 joerg Exp $
+# $NetBSD: Makefile,v 1.31 2017/01/19 18:52:14 agc Exp $
 
-PKGNAME=	racket-minimal-6.4
+PKGNAME=	racket-minimal-6.7
 DISTNAME=	$(PKGNAME_NOREV)-src
 CATEGORIES=	lang
-MASTER_SITES_PLT=	http://download.racket-lang.org/installers/$(PKGVERSION_NOREV)/ \
-		http://www.eecs.northwestern.edu/racket/$(PKGVERSION_NOREV)/ \
-		http://www.cs.utah.edu/plt/installers/$(PKGVERSION_NOREV)/ \
-		http://mirror.informatik.uni-tuebingen.de/mirror/racket/$(PKGVERSION_NOREV)/ \
-		ftp://infogroep.be/pub/racket/installers/$(PKGVERSION_NOREV)/ \
-		http://russell.cs.bilgi.edu.tr/racket-installers/$(PKGVERSION_NOREV)/
+MASTER_SITES_PLT=	http://download.racket-lang.org/installers/$(PKGVERSION_NOREV)/
+MASTER_SITES_PLT+=	http://www.eecs.northwestern.edu/racket/$(PKGVERSION_NOREV)/
+MASTER_SITES_PLT+=	http://www.cs.utah.edu/plt/installers/$(PKGVERSION_NOREV)/
+MASTER_SITES_PLT+=	http://mirror.informatik.uni-tuebingen.de/mirror/racket/$(PKGVERSION_NOREV)/
+MASTER_SITES_PLT+=	ftp://infogroep.be/pub/racket/installers/$(PKGVERSION_NOREV)/
+# Pre-release:
+#MASTER_SITES_PLT=	http://pre-release.racket-lang.org/installers/
 MASTER_SITES=	$(MASTER_SITES_PLT)
 EXTRACT_SUFX=	.tgz
 
@@ -39,18 +40,10 @@ CHECK_INTERPRETER_SKIP=	lib/racket/collects/meta/build/sitemap/setup.py \
 
 CHECK_INTERPRETER_SKIP+=	lib/racket/collects/tests/jpr/mon-script.ss
 
-.for f in use-c-printf.rkt use-crypt.rkt use-esd.rkt use-magick.rkt use-sndfile.rkt use-tcl.rkt use-xmmsctrl.rkt use-xosd.rkt
-REPLACE_RACKET+=	collects/ffi/examples/${f}
-.endfor
-
-REPLACE_INTERPRETER+=	racket
-REPLACE.racket.old=	.*racket
-REPLACE.racket.new=	$(LOCALBASE)/bin/racket
-REPLACE_FILES.racket=	$(REPLACE_RACKET)
-
-post-install:
-	$(RM) -f $(DESTDIR)$(PREFIX)/lib/racket/collects/racket/draw/unsafe/png.rkt.orig
-	$(RM) -f $(DESTDIR)$(PREFIX)/lib/racket/collects/racket/draw/unsafe/jpeg.rkt.orig
+# REPLACE_INTERPRETER+=	racket
+# REPLACE.racket.old=	.*racket
+# REPLACE.racket.new=	$(LOCALBASE)/bin/racket
+# REPLACE_FILES.racket=	$(REPLACE_RACKET)
 
 PTHREAD_AUTO_VARS=	yes
 .include "../../mk/pthread.buildlink3.mk"

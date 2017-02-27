@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.35 2014/08/22 11:24:26 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2016/12/04 23:40:33 rodent Exp $
 
 DISTNAME=	openexr-2.2.0
 PKGREVISION=	3
@@ -12,13 +12,14 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	OpenEXR.pc.in
 TEST_TARGET=		check
 
 GCC_REQD+=	4.3
+
+.include "../../mk/bsd.prefs.mk"
 
 PTHREAD_OPTS+=		require
 LIBS.IRIX+=		-lmx

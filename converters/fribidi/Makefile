@@ -16,7 +16,6 @@ REPLACE.bash.new=	${SH}
 REPLACE_FILES.bash=	run.tests
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config gmake
 
@@ -30,6 +29,6 @@ TEST_TARGET=		check
 
 post-install:
 	cd ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3 && \
-		rm -f fribidi_set_debug.3 fribidi_unicode_version.3 fribidi_version_info.3
+		rm fribidi_set_debug.3 fribidi_unicode_version.3 fribidi_version_info.3
 
 .include "../../mk/bsd.pkg.mk"

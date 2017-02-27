@@ -2,25 +2,26 @@ package main
 
 import (
 	"io/ioutil"
+	"netbsd.org/pkglint/line"
 	"os"
 	"strings"
 )
 
-func LoadNonemptyLines(fname string, joinContinuationLines bool) []*Line {
-	lines, err := readLines(fname, joinContinuationLines)
+func LoadNonemptyLines(fname string, joinBackslashLines bool) []line.Line {
+	lines, err := readLines(fname, joinBackslashLines)
 	if err != nil {
-		NewLineWhole(fname).Error0("Cannot be read.")
+		NewLineWhole(fname).Errorf("Cannot be read.")
 		return nil
 	}
 	if len(lines) == 0 {
-		NewLineWhole(fname).Error0("Must not be empty.")
+		NewLineWhole(fname).Errorf("Must not be empty.")
 		return nil
 	}
 	return lines
 }
 
-func LoadExistingLines(fname string, foldBackslashLines bool) []*Line {
-	lines, err := readLines(fname, foldBackslashLines)
+func LoadExistingLines(fname string, joinBackslashLines bool) []line.Line {
+	lines, err := readLines(fname, joinBackslashLines)
 	if err != nil {
 		NewLineWhole(fname).Fatalf("Cannot be read.")
 	}
@@ -30,10 +31,10 @@ func LoadExistingLines(fname string, foldBackslashLines bool) []*Line {
 	return lines
 }
 
-func getLogicalLine(fname string, rawLines []*RawLine, pindex *int) *Line {
+func getLogicalLine(fname string, rawLines []*RawLine, pindex *int) line.Line {
 	{ // Handle the common case efficiently
 		index := *pindex
-		rawLine := rawLines[*pindex]
+		rawLine := rawLines[index]
 		textnl := rawLine.textnl
 		if hasSuffix(textnl, "\n") && !hasSuffix(textnl, "\\\n") {
 			*pindex = index + 1
@@ -101,16 +102,16 @@ func splitRawLine(textnl string) (leadingWhitespace, text, trailingWhitespace, c
 	return
 }
 
-func readLines(fname string, joinContinuationLines bool) ([]*Line, error) {
+func readLines(fname string, joinBackslashLines bool) ([]line.Line, error) {
 	rawText, err := ioutil.ReadFile(fname)
 	if err != nil {
 		return nil, err
 	}
 
-	return convertToLogicalLines(fname, string(rawText), joinContinuationLines), nil
+	return convertToLogicalLines(fname, string(rawText), joinBackslashLines), nil
 }
 
-func convertToLogicalLines(fname string, rawText string, joinContinuationLines bool) []*Line {
+func convertToLogicalLines(fname string, rawText string, joinBackslashLines bool) []line.Line {
 	var rawLines []*RawLine
 	for lineno, rawLine := range strings.SplitAfter(rawText, "\n") {
 		if rawLine != "" {
@@ -118,8 +119,8 @@ func convertToLogicalLines(fname string, rawText string, joinContinuationLines b
 		}
 	}
 
-	var loglines []*Line
-	if joinContinuationLines {
+	var loglines []line.Line
+	if joinBackslashLines {
 		for lineno := 0; lineno < len(rawLines); {
 			loglines = append(loglines, getLogicalLine(fname, rawLines, &lineno))
 		}
@@ -132,16 +133,16 @@ func convertToLogicalLines(fname string, rawText string, joinContinuationLines b
 	}
 
 	if 0 < len(rawLines) && !hasSuffix(rawLines[len(rawLines)-1].textnl, "\n") {
-		NewLineEOF(fname).Error0("File must end with a newline.")
+		NewLineEOF(fname).Errorf("File must end with a newline.")
 	}
 
 	return loglines
 }
 
-func SaveAutofixChanges(lines []*Line) (autofixed bool) {
+func SaveAutofixChanges(lines []line.Line) (autofixed bool) {
 	if !G.opts.Autofix {
 		for _, line := range lines {
-			if line.changed {
+			if line.IsChanged() {
 				G.autofixAvailable = true
 			}
 		}
@@ -151,10 +152,10 @@ func SaveAutofixChanges(lines []*Line) (autofixed bool) {
 	changes := make(map[string][]string)
 	changed := make(map[string]bool)
 	for _, line := range lines {
-		if line.changed {
-			changed[line.Fname] = true
+		if line.IsChanged() {
+			changed[line.Filename()] = true
 		}
-		changes[line.Fname] = append(changes[line.Fname], line.modifiedLines()...)
+		changes[line.Filename()] = append(changes[line.Filename()], line.(*LineImpl).modifiedLines()...)
 	}
 
 	for fname := range changed {
@@ -166,12 +167,12 @@ func SaveAutofixChanges(lines []*Line) (autofixed bool) {
 		}
 		err := ioutil.WriteFile(tmpname, []byte(text), 0666)
 		if err != nil {
-			NewLineWhole(tmpname).Error0("Cannot write.")
+			NewLineWhole(tmpname).Errorf("Cannot write.")
 			continue
 		}
 		err = os.Rename(tmpname, fname)
 		if err != nil {
-			NewLineWhole(fname).Error0("Cannot overwrite with auto-fixed content.")
+			NewLineWhole(fname).Errorf("Cannot overwrite with auto-fixed content.")
 			continue
 		}
 		msg := "Has been auto-fixed. Please re-run pkglint."

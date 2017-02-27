@@ -12,7 +12,6 @@ COMMENT=		XF86VidMode extension headers from modular X.org
 
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	xf86vidmodeproto.pc.in
-USE_MULTIARCH=		lib
 
 .include "../../x11/xproto/buildlink3.mk"
 

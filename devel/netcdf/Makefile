@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2016/03/05 11:27:46 jperkin Exp $
+# $NetBSD: Makefile,v 1.40 2017/01/01 16:05:57 adam Exp $
 
 DISTNAME=	netcdf-4.2.1.1
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	http://www.unidata.ucar.edu/downloads/netcdf/ftp/
 
@@ -11,7 +11,6 @@ COMMENT=	Library for array-oriented data access
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-doxygen
 CONFIGURE_ARGS+=	--disable-examples

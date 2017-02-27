@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2016/02/25 15:35:31 jperkin Exp $
+# $NetBSD: Makefile,v 1.32 2017/01/04 22:10:13 roy Exp $
 
 DISTNAME=	reed-5.4
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	misc
 MASTER_SITES=	http://www.sacredchao.net/software/reed/
 
@@ -35,5 +35,5 @@ do-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/reed
 	${INSTALL_DATA} ${WRKSRC}/help ${DESTDIR}${PREFIX}/share/reed/
 
-.include "../../devel/ncurses/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

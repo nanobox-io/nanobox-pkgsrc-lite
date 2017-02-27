@@ -1,4 +1,4 @@
-# $NetBSD: sites.mk,v 1.144 2016/06/16 18:23:01 mspo Exp $
+# $NetBSD: sites.mk,v 1.150 2017/01/28 00:23:35 maya Exp $
 #
 # This Makefile fragment defines read-only MASTER_SITE_* variables
 # representing some well-known master distribution sites for software.
@@ -17,7 +17,7 @@ MASTER_SITE_GNU+=       \
 	ftp://ftp.gnu.org/pub/gnu/ \
 	ftp://ftp.funet.fi/pub/gnu/prep/ \
 	ftp://ftp.kddlabs.co.jp/pub/gnu/gnu/ \
-	ftp://mirrors.kernel.org/gnu/ \
+	http://mirrors.kernel.org/gnu/ \
 	ftp://ftp.lip6.fr/pub/gnu/ \
 	http://gd.tuwien.ac.at/gnu/gnusrc/
 
@@ -42,7 +42,6 @@ MASTER_SITE_OSDN+=	\
 MASTER_SITE_PERL_CPAN+= \
 	ftp://cpan.pair.com/modules/by-module/ \
 	ftp://ftp.funet.fi/pub/languages/perl/CPAN/modules/by-module/ \
-	ftp://ftp.gmd.de/mirrors/CPAN/modules/by-module/ \
 	http://ftp.tuwien.ac.at/pub/CPAN/modules/by-module/ \
 	http://cpan.perl.org/CPAN/modules/by-module/ \
 	ftp://ftp.fi.muni.cz/pub/CPAN/modules/by-module/
@@ -62,18 +61,14 @@ MASTER_SITE_R_CRAN+=    \
 
 MASTER_SITE_TEX_CTAN+= \
 	ftp://ftp.funet.fi/pub/TeX/CTAN/ \
-	ftp://ftp.tex.ac.uk/tex-archive/ \
 	ftp://ftp.dante.de/tex-archive/ \
 	ftp://www.dnsbalance.ring.gr.jp/pub/text/CTAN/ \
 	http://www.dnsbalance.ring.gr.jp/archives/text/CTAN/
 
 MASTER_SITE_SUNSITE+=   \
-	ftp://sunsite.unc.edu/pub/Linux/ \
 	ftp://ftp.icm.edu.pl/pub/Linux/sunsite/ \
 	ftp://ftp.nvg.ntnu.no/pub/mirrors/metalab.unc.edu/ \
-	ftp://ftp.lip6.fr/pub/linux/sunsite/ \
-	ftp://ftp.cs.tu-berlin.de/pub/linux/Mirrors/sunsite.unc.edu/ \
-	http://ftp.tuwien.ac.at/pub/linux/ibiblio/
+	ftp://ftp.lip6.fr/pub/linux/sunsite/
 
 MASTER_SITE_GNOME+=     \
 	http://ftp.gnome.org/pub/GNOME/ \
@@ -122,11 +117,10 @@ MASTER_SITE_MOZILLA_ESR+=	\
 	http://ftp.mozilla.org/pub/mozilla.org/
 
 MASTER_SITE_XEMACS+=    \
-	http://ftp.xemacs.org/pub/xemacs/ \
-	ftp://ftp.xemacs.org/pub/xemacs/ \
-	ftp://ftp.pasteur.fr/pub/computing/xemacs/ \
-	ftp://mirror.aarnet.edu.au/pub/xemacs/ \
-	ftp://mirror.cict.fr/xemacs/ \
+	ftp://ftp.isr.tecnico.ulisboa.pt/pub/xemacs/ \
+	http://ftp.isr.tecnico.ulisboa.pt/pub/xemacs/ \
+	ftp://ftp.heanet.ie/mirrors/ftp.xemacs.org/pub/xemacs/ \
+	http://ftp.heanet.ie/mirrors/ftp.xemacs.org/pub/xemacs/ \
 	ftp://ftp.dnsbalance.ring.gr.jp/pub/text/xemacs/
 
 # http://www.ibiblio.org/pub/mirrors/apache/ returns 200 for missing
@@ -276,7 +270,6 @@ MASTER_SITE_FREEBSD_LOCAL+= \
 MASTER_SITE_NETLIB+= \
 	http://netlib.org/ \
 	http://netlib.sandia.gov/ \
-	http://www.netlib.no/netlib/ \
 	http://www.mirrorservice.org/sites/netlib.bell-labs.com/netlib/
 
 MASTER_SITE_OPENBSD+= \

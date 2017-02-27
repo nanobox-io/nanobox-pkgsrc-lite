@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2015/09/13 23:22:23 gdt Exp $
+# $NetBSD: Makefile,v 1.7 2016/10/27 22:14:19 gdt Exp $
 
-VERSION_BASE=	4.9.2
+VERSION_BASE=	4.9.3
 VERSION=	${VERSION_BASE}
 WRKSRC=		${WRKDIR}/proj-${VERSION_BASE}
 DISTNAME=	proj-${VERSION}
@@ -17,7 +17,6 @@ LICENSE=	mit
 PREV_PKGPATH=		misc/proj
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 

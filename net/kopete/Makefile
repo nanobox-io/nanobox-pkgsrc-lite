@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2016/04/11 19:02:00 ryoon Exp $
+# $NetBSD: Makefile,v 1.28 2017/01/19 09:23:36 markd Exp $
 
-DISTNAME=	kopete-15.12.0
-PKGREVISION=	2
+DISTNAME=	kopete-16.12.0
 CATEGORIES=	net
 COMMENT=	Multi-protocol instant messenger client
-MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.12.0/src/}
 
 # Race on translatorplugin.h
 MAKE_JOBS_SAFE=	no
@@ -26,6 +25,9 @@ REPLACE_SH+= \
 	protocols/winpopup/winpopup-install \
 	protocols/winpopup/winpopup-send
 
+# jasper uses SIZE_MAX and friends in its headers.
+CXXFLAGS+=	-D__STDC_LIMIT_MACROS
+
 .include "../../meta-pkgs/kde4/kde4.mk"
 
 .include "../../audio/alsa-lib/buildlink3.mk"
@@ -35,6 +37,7 @@ BUILDLINK_API_DEPENDS.libmsn+=  libmsn>=4.1
 .include "../../chat/meanwhile/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/libidn/buildlink3.mk"
+.include "../../devel/qjson/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/libv4l/buildlink3.mk"
 .include "../../graphics/qimageblitz/buildlink3.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.79 2016/05/22 18:17:17 wiz Exp $
+# $NetBSD: Makefile.common,v 1.82 2017/01/25 14:34:55 wiz Exp $
 #
 # used by print/poppler/Makefile
 # used by print/poppler-cpp/Makefile
@@ -8,7 +8,7 @@
 # used by print/poppler-qt5/Makefile
 # used by print/poppler-utils/Makefile
 
-POPPLER_VERS=		0.44.0
+POPPLER_VERS=		0.50.0
 DISTNAME=		poppler-${POPPLER_VERS}
 CATEGORIES=		print
 MASTER_SITES=		http://poppler.freedesktop.org/
@@ -23,7 +23,6 @@ PATCHDIR=		${.CURDIR}/../../print/poppler/patches
 USE_TOOLS+=		pkg-config
 USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
 
 # Don't accidentally find libtiff
 CONFIGURE_ARGS+=	--disable-libtiff

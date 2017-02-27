@@ -1,29 +1,31 @@
-# $NetBSD: Makefile,v 1.109 2016/06/30 09:00:18 taca Exp $
+# $NetBSD: Makefile,v 1.113 2017/02/04 23:05:51 spz Exp $
 
-DISTNAME=	libgd-2.1.1
+DISTNAME=	libgd-2.2.4
+#PKGREVISION=	1
 PKGNAME=	${DISTNAME:S/libgd/gd/}
-PKGREVISION=	3
 CATEGORIES=	graphics
-MASTER_SITES=	https://bitbucket.org/libgd/gd-libgd/downloads/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=libgd/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://libgd.bitbucket.org/
 COMMENT=	Graphics library for the dynamic creation of images
 
-#WRKSRC=		${WRKDIR}/${DISTNAME:S/libgd-/libgd-gd-/}
+GITHUB_PROJECT=	libgd
+GITHUB_RELEASE=	gd-${PKGVERSION_NOREV}
 
 .include "options.mk"
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		perl:run
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-werror
 CONFIGURE_ARGS+=	--with-fontconfig=${BUILDLINK_PREFIX.fontconfig}
 CONFIGURE_ARGS+=	--with-freetype=${BUILDLINK_PREFIX.freetype2}
 CONFIGURE_ARGS+=	--with-jpeg=${BUILDLINK_PREFIX.jpeg}
 CONFIGURE_ARGS+=	--with-png=${BUILDLINK_PREFIX.png}
 CONFIGURE_ARGS+=	--with-tiff=${BUILDLINK_PREFIX.tiff}
+CONFIGURE_ARGS+=	--with-webp=${BUILDLINK_PREFIX.libwebp}
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 REPLACE_PERL+=		src/bdftogd
 PTHREAD_AUTO_VARS=	yes
@@ -32,6 +34,7 @@ PTHREAD_AUTO_VARS=	yes
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+.include "../../graphics/libwebp/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

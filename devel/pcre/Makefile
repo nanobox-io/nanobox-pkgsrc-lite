@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.80 2016/06/19 20:40:48 wiz Exp $
+# $NetBSD: Makefile,v 1.82 2017/01/19 18:52:07 agc Exp $
 
-DISTNAME=	pcre-8.39
+DISTNAME=	pcre-8.40
 CATEGORIES=	devel
-MASTER_SITES=	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/ \
-		${MASTER_SITE_SOURCEFORGE:=pcre/}
+MASTER_SITES=	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/
+MASTER_SITES+=	${MASTER_SITE_SOURCEFORGE:=pcre/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -13,17 +13,10 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-pcre16
 CONFIGURE_ARGS+=	--enable-unicode-properties
 CONFIGURE_ARGS+=	--enable-utf8
-
-SUBST_CLASSES+=		lns
-SUBST_STAGE.lns=	post-patch
-SUBST_MESSAGE.lns=	Fixing ln -s commands in Makefile.in
-SUBST_FILES.lns=	Makefile.in
-SUBST_SED.lns=		-e 's,ln -s,ln -f -s,'
 
 SUBST_CLASSES+=		rpath
 SUBST_STAGE.rpath=	pre-configure

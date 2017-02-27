@@ -7,13 +7,13 @@ PKGNAME=	${DISTNAME:S/-/-gobject-/}
 BUILD_DIRS=	util/cairo-gobject
 INSTALL_DIRS=	util/cairo-gobject
 
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/pkgconfig
+INSTALLATION_DIRS+=	lib/pkgconfig
 
 .include "../../mk/bsd.prefs.mk"
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/src/cairo-gobject.pc \
-		${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
+		${DESTDIR}${PREFIX}/lib/pkgconfig
 
 .include "../../graphics/cairo/buildlink3.mk"
 ###

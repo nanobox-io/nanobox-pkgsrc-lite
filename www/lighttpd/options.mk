@@ -1,15 +1,16 @@
-# $NetBSD: options.mk,v 1.10 2015/07/26 18:24:15 alnsn Exp $
+# $NetBSD: options.mk,v 1.15 2017/01/16 00:30:46 schmonz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.lighttpd
-PKG_SUPPORTED_OPTIONS=	bzip fam gdbm inet6 ldap lua mysql ssl memcache
+PKG_SUPPORTED_OPTIONS=	bzip2 fam gdbm inet6 ldap lua mysql ssl memcached geoip gssapi
+PKG_OPTIONS_LEGACY_OPTS+=	memcache:memcached
 PKG_SUGGESTED_OPTIONS=	inet6 ssl
 
 .include "../../mk/bsd.options.mk"
 
 ###
-### Allow using bzip as a compression method in the "compress" module.
+### Allow using bzip2 as a compression method in the "compress" module.
 ###
-.if !empty(PKG_OPTIONS:Mbzip)
+.if !empty(PKG_OPTIONS:Mbzip2)
 .  include "../../archivers/bzip2/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-bzip2
 .else
@@ -30,6 +31,7 @@ CONFIGURE_ARGS+=	--with-fam
 .if !empty(PKG_OPTIONS:Mgdbm)
 .  include "../../databases/gdbm/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-gdbm
+PLIST.gdbm=		yes
 .endif
 
 ###
@@ -47,6 +49,7 @@ CONFIGURE_ARGS+=	--disable-ipv6
 .if !empty(PKG_OPTIONS:Mldap)
 .  include "../../databases/openldap-client/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-ldap
+PLIST.ldap=		yes
 .endif
 
 ###
@@ -63,7 +66,7 @@ CONFIGURE_ARGS+=	--with-lua
 ### Support using memcached as an in-memory caching system for the
 ### "trigger before download" and CML modules.
 ###
-.if !empty(PKG_OPTIONS:Mmemcache)
+.if !empty(PKG_OPTIONS:Mmemcached)
 .  include "../../devel/libmemcache/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-memcache
 .endif
@@ -75,6 +78,7 @@ CONFIGURE_ARGS+=	--with-memcache
 .  include "../../mk/mysql.buildlink3.mk"
 MYSQL_CONFIG?=		${BUILDLINK_PREFIX.mysql-client}/bin/mysql_config
 CONFIGURE_ARGS+=	--with-mysql=${MYSQL_CONFIG:Q}
+PLIST.mysql=		yes
 .endif
 
 ###
@@ -83,4 +87,30 @@ CONFIGURE_ARGS+=	--with-mysql=${MYSQL_CONFIG:Q}
 .if !empty(PKG_OPTIONS:Mssl)
 .  include "../../security/openssl/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-openssl=${SSLBASE:Q}
+.endif
+
+###
+### GeoIP support
+###
+.if !empty(PKG_OPTIONS:Mgeoip)
+.  include "../../net/GeoIP/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-geoip
+PLIST.geoip=		yes
+.endif
+
+###
+### gssapi
+###
+.if !empty(PKG_OPTIONS:Mgssapi)
+.include "../../security/mit-krb5/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-krb5
+PLIST.gssapi=		yes
+.endif
+
+###
+### lua
+###
+.if !empty(PKG_OPTIONS:Mlua)
+.  include "../../lang/lua/buildlink3.mk"
+PLIST.lua=		yes
 .endif

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2016/06/12 18:49:43 abs Exp $
+# $NetBSD: Makefile,v 1.46 2017/02/14 21:36:15 joerg Exp $
 
-VERSION=	4.5.3
-PKGREVISION=	1
+VERSION=	4.5.5
+PKGREVISION=	3
 VERSION_IPXE=	9a93db3f0947484e30e753bbd61a10b17336e20e
 
 DISTNAME=		xen-${VERSION}
@@ -27,8 +27,8 @@ DEPENDS+=   ${PYPKGPREFIX}-curses>=0:../../devel/py-curses
 
 PKG_SYSCONFSUBDIR=	xen
 
-ONLY_FOR_PLATFORM=	Linux-2.6*-i386 Linux-2.6*-x86_64
-ONLY_FOR_PLATFORM+=	NetBSD-[5-9].*-x86_64 NetBSD-[5-9].*-i386
+ONLY_FOR_PLATFORM=	Linux-2.6*-x86_64
+ONLY_FOR_PLATFORM+=	NetBSD-[5-9].*-x86_64
 
 CONFLICTS+=		libxen-[0-9]*
 CONFLICTS+=		xentools20-[0-9]*
@@ -60,7 +60,7 @@ MAKE_ENV+=		NO_WERROR=1
 #MAKE_ENV+=		INSTALL_DATA=${BSD_INSTALL_DATA}
 #MAKE_ENV+=		INSTALL_PROG=${BSD_INSTALL_PROGRAM}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36
 
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	misc/sbdf2devicepath misc/xen-bugtool
@@ -213,7 +213,8 @@ EXTRA_CFLAGS+=	-Wno-error=ignored-attributes -no-integrated-as \
 		-Wno-error=unused-const-variable \
 		-Wno-error=gnu-designator -Wno-error=uninitialized \
 		-Wno-error=parentheses-equality \
-		-Wno-error=enum-conversion
+		-Wno-error=enum-conversion \
+		-Wno-error=address-of-packed-member
 BUILDLINK_TRANSFORM+=	rm:-falign-jumps=1 rm:-falign-loops=1 \
 			rm:-mpreferred-stack-boundary=2
 .endif
@@ -222,7 +223,6 @@ MAKE_ENV+=	EXTRA_HOSTCFLAGS=${EXTRA_HOSTCFLAGS:Q} EXTRA_CFLAGS=${EXTRA_CFLAGS:M*
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 #.include "../../devel/SDL/buildlink3.mk"
 .include "../../lang/ocaml/buildlink3.mk"
 .include "../../devel/ocaml-findlib/buildlink3.mk"
@@ -231,4 +231,5 @@ MAKE_ENV+=	EXTRA_HOSTCFLAGS=${EXTRA_HOSTCFLAGS:Q} EXTRA_CFLAGS=${EXTRA_CFLAGS:M*
 .include "../../devel/yajl/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
 
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

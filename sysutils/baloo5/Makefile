@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2016/05/26 09:17:14 markd Exp $
+# $NetBSD: Makefile,v 1.8 2017/02/12 06:24:49 ryoon Exp $
 
 DISTNAME=	baloo-${KF5VER}
 PKGNAME=	baloo5-${KF5VER}
+PKGREVISION=	4
 CATEGORIES=	sysutils
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -21,6 +22,12 @@ CONF_FILES+=    ${PREFIX}/share/examples/baloo5/baloo_file.desktop \
 
 post-extract:
 	cp ${FILESDIR}/FindLibinotify.cmake ${WRKSRC}/cmake/
+
+SUBST_CLASSES+=		fix-moc
+SUBST_STAGE.fix-moc=	post-configure
+SUBST_MESSAGE.fix-moc=	Cleaning up MOC includes
+SUBST_FILES.fix-moc=	_KDE_build/src/kioslaves/kded/CMakeFiles/baloosearchmodule_automoc.dir/AutogenInfo.cmake
+SUBST_SED.fix-moc=	-e 's,;${PREFIX}/include;,;,g'
 
 .include "../../mk/bsd.prefs.mk"
 

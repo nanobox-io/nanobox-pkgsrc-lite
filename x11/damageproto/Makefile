@@ -14,7 +14,6 @@ GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	damageproto.pc.in
 # for configure
 USE_LANGUAGES=		c
-USE_MULTIARCH=		lib
 
 .include "../../x11/xproto/buildlink3.mk"
 .include "../../x11/fixesproto/buildlink3.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2016/06/19 20:48:29 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2017/02/11 10:18:52 adam Exp $
 
 PKGNAME=	${DISTNAME:C/-/95-contrib-/}
 COMMENT=	Contrib subtree of tools and plug-ins
@@ -57,13 +57,21 @@ BUILD_DIRS+=		contrib/vacuumlo
 CONFIGURE_ARGS+=	--with-openssl
 
 PLIST_VARS+=		uuid
-.if ${OPSYS} != "Darwin"
+.if ${OPSYS:M*BSD} || ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 PLIST.uuid=		yes
-CONFIGURE_ARGS+=	--with-uuid=ossp
 BUILD_DIRS+=		contrib/uuid-ossp
-# because global pg_config.h is included, we have to define this
-BUILD_MAKE_FLAGS+=	PG_CPPFLAGS=-DHAVE_UUID_H
-.include "../../devel/ossp-uuid/buildlink3.mk"
+.  if ${OPSYS:M*BSD}
+BUILD_MAKE_FLAGS+=	PG_CPPFLAGS="-DHAVE_UUID_H -DHAVE_UUID_BSD -DSHA1_RESULTLEN=20"
+CONFIGURE_ARGS+=	--with-uuid=bsd
+.  elif ${OPSYS} == "Linux"
+BUILD_MAKE_FLAGS+=	PG_CPPFLAGS="-DHAVE_UUID_UUID_H -DHAVE_UUID_E2FS"
+CONFIGURE_ARGS+=	--with-uuid=e2fs
+.  elif ${OPSYS} == "SunOS"
+BUILD_MAKE_FLAGS+=	PG_CPPFLAGS="-DHAVE_UUID_H -DHAVE_UUID_OSSP"
+CONFIGURE_ARGS+=	--with-uuid=ossp
+BUILD_MAKE_FLAGS+=	UUID_LIBS=-lossp-uuid
+.  include "../../devel/ossp-uuid/buildlink3.mk"
+.  endif
 .endif
 
 PRINT_PLIST_AWK+=	{if ($$0 ~ /uuid-ossp/) {$$0 = "$${PLIST.uuid}" $$0;}}

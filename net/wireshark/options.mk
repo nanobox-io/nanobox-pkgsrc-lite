@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.12 2016/03/03 13:33:14 wiz Exp $
+# $NetBSD: options.mk,v 1.14 2017/01/13 12:16:03 leot Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.wireshark
 PKG_SUPPORTED_OPTIONS=	gtk3 lua qt5
@@ -36,6 +36,7 @@ CONFIGURE_ARGS+=	--with-gtk3
 PLIST.gtk3=		yes
 POST_INSTALL_TARGETS+=	install-gtk-desktop
 .include "../../x11/gtk3/buildlink3.mk"
+.include "../../graphics/adwaita-icon-theme/buildlink3.mk"
 
 .PHONY: install-gtk-desktop
 install-gtk-desktop:
@@ -94,6 +95,7 @@ CONFIGURE_ARGS+=	--disable-wireshark
 .if empty(PKG_OPTIONS:Mlua)
 CONFIGURE_ARGS+=	--with-lua=no
 .else
+LUA_VERSIONS_INCOMPATIBLE=	53
 .include "../../lang/lua/buildlink3.mk"
 
 CONFIGURE_ARGS+=	--with-lua=yes

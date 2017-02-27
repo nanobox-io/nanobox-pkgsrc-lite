@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.63 2016/03/05 11:29:15 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.65 2016/10/03 11:48:31 wiz Exp $
 
 DISTNAME=		sge-8.1.6
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		parallel sysutils
 MASTER_SITES=		http://arc.liv.ac.uk/downloads/SGE/releases/8.1.6/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		https://arc.liv.ac.uk/trac/SGE
 COMMENT=		Son of Grid Engine distributed resource management system
-LICENSE=		sun-iss AND 2-clause-bsd AND gnu-gpl-v2 AND gnu-lgpl-v2
+LICENSE=		sissl-1.1 AND 2-clause-bsd AND gnu-gpl-v2 AND gnu-lgpl-v2
 
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gmake csh perl:run

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.62 2016/03/29 10:04:40 markd Exp $
+# $NetBSD: Makefile,v 1.68 2017/02/12 06:25:30 ryoon Exp $
 
 DISTNAME=	opencv-3.1.0
+PKGREVISION=	5
 CATEGORIES=	graphics devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Itseez/}
 EXTRACT_SUFX=	.zip
@@ -12,7 +13,6 @@ LICENSE=	modified-bsd
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
 
@@ -26,7 +26,7 @@ PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	samples/python/*.py
 
 # includes configure output and paths to gmake etc.
-CHECK_WRKREF_SKIP=	${PREFIX}/lib*/libopencv_core.*
+CHECK_WRKREF_SKIP=	${PREFIX}/lib/libopencv_core.*
 
 .include "options.mk"
 
@@ -41,6 +41,9 @@ CMAKE_ARGS.SunOS+=	-DENABLE_PRECOMPILED_HEADERS=NO
 CMAKE_ARGS+=		-DWITH_EIGEN=NO
 
 CONFIGURE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
+
+# jasper uses SIZE_MAX and friends in its headers.
+CXXFLAGS+=		-D__STDC_LIMIT_MACROS
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"

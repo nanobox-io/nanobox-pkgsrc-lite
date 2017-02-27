@@ -1,20 +1,21 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 17:43:38 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/01/01 14:43:54 wiz Exp $
 
 DISTNAME=	pisa-3.0.33
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	textproc print www python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pisa/}
 
-MAINTAINER=	joerg@NetBSD.org
+OWNER=		joerg@NetBSD.org
 HOMEPAGE=	http://www.htmltopdf.org/
-COMMENT=	HTML2pdf converter
+COMMENT=	HTML2pdf converter (obsolete, use print/py-weasyprint instead)
 LICENSE=	apache-2.0
 
 DEPENDS+=	${PYPKGPREFIX}-Pdf-[0-9]*:../../print/py-Pdf
 DEPENDS+=	${PYPKGPREFIX}-reportlab>=2.2:../../print/py-reportlab
 DEPENDS+=	${PYPKGPREFIX}-html5lib-[0-9]*:../../textproc/py-html5lib
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-reportlab
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not ported as of 3.0.33
 
 # remove CRs: fixes patching on Darwin and stops pkglint from complaining
 pre-patch:

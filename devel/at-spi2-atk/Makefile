@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2016/05/27 08:04:11 prlw1 Exp $
+# $NetBSD: Makefile,v 1.18 2016/11/25 12:51:41 prlw1 Exp $
 
-DISTNAME=	at-spi2-atk-2.20.1
+DISTNAME=	at-spi2-atk-2.22.0
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/at-spi2-atk/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -11,7 +11,6 @@ COMMENT=	Assistive Technology Service Provider Interface A11y Toolkit
 LICENSE=	gnu-lgpl-v2
 
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	gmake intltool msgfmt pkg-config
 GNU_CONFIGURE=	yes
 

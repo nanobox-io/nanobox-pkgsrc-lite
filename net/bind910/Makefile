@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.21.2.1 2016/07/20 02:55:36 spz Exp $
+# $NetBSD: Makefile,v 1.29 2017/02/09 00:48:59 taca Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
@@ -13,7 +13,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.10.4-P2
+BIND_VERSION=	9.10.4-P6
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -27,7 +27,7 @@ GNU_CONFIGURE=		yes
 #CONFIG_SHELL=		sh -x
 
 CONFIGURE_ARGS+=	--with-libtool
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--sysconfdir=/etc
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--disable-openssl-version-check
 CONFIGURE_ARGS+=	--with-openssl=${SSLBASE:Q}
@@ -61,17 +61,12 @@ RCD_SCRIPTS=		lwresd named9
 SMF_METHODS=		named
 
 INSTALLATION_DIRS+=	${DOCDIR} share/doc/bind9/arm
-INSTALLATION_DIRS+=	share/examples/bind9
-
-CONF_FILES+=		share/examples/bind9/named.conf ${PKG_SYSCONFDIR}/named.conf
 
 post-install:
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${DOCDIR}
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.html ${DOCDIR}/arm
-	${INSTALL_DATA} ${FILESDIR}/named.conf ${DESTDIR}${PREFIX}/share/examples/bind9
-	${RM} -f ${DESTDIR}${PKG_SYSCONFDIR}/bind.keys
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.104 2016/04/07 10:02:13 adam Exp $
+# $NetBSD: Makefile,v 1.110 2017/01/19 18:52:11 agc Exp $
 
-DISTNAME=	freetype-2.6.3
+DISTNAME=	freetype-2.7.1
 PKGNAME=	${DISTNAME:S/-/2-/}
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freetype/} \
-		http://download.savannah.gnu.org/releases/freetype/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freetype/}
+MASTER_SITES+=	http://download.savannah.gnu.org/releases/freetype/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -13,7 +13,6 @@ COMMENT=	Font rendering engine and library API
 LICENSE=	gnu-gpl-v2
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		grep gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_DIRS=		builds/unix
@@ -28,6 +27,11 @@ LDFLAGS+=	-framework Carbon
 .endif
 
 PKGCONFIG_OVERRIDE=	builds/unix/freetype2.in
+SUBST_CLASSES+=		ftc
+SUBST_FILES.ftc+=	builds/unix/freetype-config.in
+SUBST_SED.ftc+=		-e "s!echo -L\([^ ]*\)!echo ${COMPILER_RPATH_FLAG}\\1 -L\\1!"
+SUBST_STAGE.ftc+=	pre-configure
+SUBST_MESSAGE.ftc+=	Fixing rpath in freetype-config script.
 
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"
@@ -47,7 +51,7 @@ CONFIGURE_ENV+=		CC_BUILD=${NATIVE_CC:Q}
 .endif
 
 post-configure:
-	cd ${WRKSRC} && ${LN} -s builds/unix/unix.mk config.mk
+	cd ${WRKSRC} && ${LN} -f -s builds/unix/unix.mk config.mk
 .if ${OPSYS} == "IRIX"
 	${MKDIR} ${WRKSRC}/.libs
 .endif

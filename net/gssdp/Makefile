@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.57 2016/05/03 11:40:06 prlw1 Exp $
+# $NetBSD: Makefile,v 1.62 2016/12/05 02:19:27 marino Exp $
 
-DISTNAME=	gssdp-0.14.11
-PKGREVISION=	7
+DISTNAME=	gssdp-1.0.0
+PKGREVISION=	1
 CATEGORIES=	net
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gssdp/0.14/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gssdp/1.0/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -14,7 +14,6 @@ LICENSE=	gnu-lgpl-v2
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+= --without-gtk
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	pkg-config gmake
 
 PKGCONFIG_OVERRIDE+=	gssdp-1.0.pc.in

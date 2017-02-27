@@ -1,11 +1,11 @@
-# $NetBSD: options.mk,v 1.14 2014/08/18 09:34:49 gls Exp $
+# $NetBSD: options.mk,v 1.16 2017/01/24 17:44:45 maya Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.cmus
 PKG_SUPPORTED_OPTIONS=		flac mad vorbis arts libao musepack faad wavpack pulseaudio
-PKG_SUPPORTED_OPTIONS+=		wide-curses ffmpeg opus jack
+PKG_SUPPORTED_OPTIONS+=		ffmpeg opus jack
 PKG_OPTIONS_OPTIONAL_GROUPS=	mod
 PKG_OPTIONS_GROUP.mod=		modplug mikmod
-PKG_SUGGESTED_OPTIONS=		flac libao mad modplug vorbis
+PKG_SUGGESTED_OPTIONS=		flac libao mad modplug opus vorbis
 PKG_OPTIONS_LEGACY_OPTS=	ao:libao
 PKG_OPTIONS_LEGACY_OPTS=	mpcdec:musepack
 
@@ -166,18 +166,4 @@ CONFIGURE_ARGS+=	CONFIG_OPUS=y
 PLIST.opus=		yes
 .else
 CONFIGURE_ARGS+=	CONFIG_OPUS=n
-.endif
-
-###
-### Wide curses support; otherwise, default to using narrow curses.
-###
-# cmus works fine with a 5.0+ NetBSD curses
-.if !empty(MACHINE_PLATFORM:MNetBSD-[5-9].*-*)
-.    include "../../mk/curses.buildlink3.mk"
-.else
-.  if !empty(PKG_OPTIONS:Mwide-curses)
-.    include "../../devel/ncursesw/buildlink3.mk"
-.  else
-.    include "../../devel/ncurses/buildlink3.mk"
-.  endif
 .endif

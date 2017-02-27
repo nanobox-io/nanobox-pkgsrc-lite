@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.245 2016/06/11 21:10:37 kamil Exp $
+# $NetBSD: Makefile,v 1.247 2017/01/15 11:12:07 tsutsui Exp $
 #
 
 COMMENT=	Emulators for other operating systems
@@ -9,6 +9,7 @@ SUBDIR+=	Cygne-SDL
 SUBDIR+=	DatLib
 SUBDIR+=	DatUtil
 SUBDIR+=	MAMEDiff
+SUBDIR+=	PC6001VX
 SUBDIR+=	ROMBuild
 SUBDIR+=	ROMInfo
 SUBDIR+=	ZIPIdent
@@ -126,7 +127,6 @@ SUBDIR+=	pcemu
 SUBDIR+=	pearpc
 SUBDIR+=	py-keystone
 SUBDIR+=	qemu
-SUBDIR+=	qemu0
 SUBDIR+=	raine
 SUBDIR+=	realboy
 SUBDIR+=	retroarch

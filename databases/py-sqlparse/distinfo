@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.8 2015/11/03 01:56:28 agc Exp $
+$NetBSD: distinfo,v 1.11 2016/10/31 16:31:32 wiz Exp $
 
-SHA1 (sqlparse-0.1.14.tar.gz) = 117db829bed1ed002717456b8d4516ed522dbd4d
-RMD160 (sqlparse-0.1.14.tar.gz) = d159549be95372f4ccfff9067d6a953883eda2d9
-SHA512 (sqlparse-0.1.14.tar.gz) = 212f0dc1f05057f44cb441c2b0d29a597a826c3170ec87276a74c79f5d445cf736cfcbf8ff7cfe40c252416bba9851ce4a4739418627172ac41d98e6835668c6
-Size (sqlparse-0.1.14.tar.gz) = 55307 bytes
+SHA1 (sqlparse-0.2.2.tar.gz) = eb3590ba20284c08c7c4466b6f01e7b3e5087453
+RMD160 (sqlparse-0.2.2.tar.gz) = 6264e56cbfdca0273b11c0f6a3334891ac9c574b
+SHA512 (sqlparse-0.2.2.tar.gz) = 8d812067364897e96c6ece28bae51983d5560db2be2ed23c6f16e718a9fea220fd9941970208bfbd64becae78f1a1e1c2603c4f3246319ec120ada71515ef5a1
+Size (sqlparse-0.2.2.tar.gz) = 57965 bytes

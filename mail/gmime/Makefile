@@ -13,7 +13,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-gtk-doc=no

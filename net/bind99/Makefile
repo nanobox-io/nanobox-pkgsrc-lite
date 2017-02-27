@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.55.2.1 2016/07/20 02:55:27 spz Exp $
+# $NetBSD: Makefile,v 1.63 2017/02/09 00:50:15 taca Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
 CATEGORIES=	net
-MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/ \
-		http://ftp.belnet.be/pub/mirror/ftp.isc.org/isc/bind9/${BIND_VERSION}/
+MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.isc.org/software/bind/
@@ -14,9 +13,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.9.9-P2
-
-USE_MULTIARCH=		lib
+BIND_VERSION=	9.9.9-P6
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -30,7 +27,7 @@ GNU_CONFIGURE=		yes
 #CONFIG_SHELL=		sh -x
 
 CONFIGURE_ARGS+=	--with-libtool
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--sysconfdir=/etc
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE:Q}
 CONFIGURE_ARGS+=	--disable-openssl-version-check
 CONFIGURE_ARGS+=	--with-openssl=${SSLBASE:Q}
@@ -71,17 +68,12 @@ RCD_SCRIPTS=		lwresd named9
 SMF_METHODS=		named
 
 INSTALLATION_DIRS+=	${DOCDIR} share/doc/bind9/arm
-INSTALLATION_DIRS+=	share/examples/bind9
-
-CONF_FILES+=		share/examples/bind9/named.conf ${PKG_SYSCONFDIR}/named.conf
 
 post-install:
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${DOCDIR}
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.html ${DOCDIR}/arm
-	${INSTALL_DATA} ${FILESDIR}/named.conf ${DESTDIR}${PREFIX}/share/examples/bind9
-	${RM} -f ${DESTDIR}${PKG_SYSCONFDIR}/bind.keys
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/krb5.buildlink3.mk"

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.54 2016/03/05 11:29:37 jperkin Exp $
+# $NetBSD: Makefile,v 1.60 2017/02/11 21:13:08 he Exp $
 
-DISTNAME=	lighttpd-1.4.39
-PKGREVISION=	1
+DISTNAME=	lighttpd-1.4.45
 CATEGORIES=	www
 MASTER_SITES=	http://download.lighttpd.net/lighttpd/releases-1.4.x/
 EXTRACT_SUFX=	.tar.xz
+PKGREVISION=	1
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.lighttpd.net/
@@ -56,6 +56,8 @@ SUBST_STAGE.path=	pre-configure
 SUBST_FILES.path=	doc/config/lighttpd.conf
 SUBST_VARS.path=	LIGHTTPD_LOGDIR LIGHTTPD_STATEDIR LIGHTTPD_USER \
 			LIGHTTPD_GROUP PKG_SYSCONFDIR
+
+PLIST_VARS+=		gdbm geoip gssapi ldap lua mysql
 
 post-install:
 	set -e; cd ${WRKSRC}/doc;				\

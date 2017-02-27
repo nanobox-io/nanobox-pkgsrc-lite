@@ -83,6 +83,7 @@ cerf			Enable libcerf support.
 cg			Add support for the Cg compiler.
 cgi			Enable CGI support.
 chasen			Use ChaSen as the Japanese Morphological Analzer.
+checkpassword-suid	Install checkpassword executable setuid root.
 cjk			Enable Chinese/Japanese/Korean support.
 clamav			Enable ClamAV support.
 clang-static-analyzer	Install the clang static analyzer.
@@ -140,6 +141,8 @@ dspam-verbose-debug	Enable verbose debugging support.
 dspam-virtualusers	Enable support for virtual users.
 dtrace			Enable DTrace support.
 dts			Enable DTS Coherent Acoustics support.
+duplicity-amazons3	Add Amazon S3 support.
+duplicity-dropbox	Add Dropbox support.
 dv			Enable usage of the libdv library.
 dvdcss			Enable CSS support for DVDs.
 dvdnav			Enable libdvdnav support to navigate DVDs.
@@ -215,6 +218,7 @@ gcc-ada			Build the gcc Ada frontend and libraries.
 gcc-c++			Build the gcc C++ frontend and libraries.
 gcc-fortran		Build the gcc Fortran frontend and libraries.
 gcc-go			Build the gcc Go frontend and libraries.
+gcc-graphite		Build the gcc Graphite framework for high-level memory optimisation.
 gcc-inplace-math	Build math libs inplace instead of depending on them.
 gcc-java		Build the gcc Java frontend, tools and libraries.
 gcc-multilib		Build libraries for multiple ABI's.
@@ -245,8 +249,8 @@ gnome-keyring		Enable GNOME keyring support.
 gnomecanvas		Enable GNOME canvas support
 gnomevfs		Enable GNOME Virtual File System support.
 gnupg2			Use GNU Privacy Guard (GnuPG) Version 2.0
-gnupg21			Use GNU Privacy Guard (GnuPG) Version 2.1
 gnupg2-gpgsm		Install gpgsm binary.
+gnupg21			Use GNU Privacy Guard (GnuPG) Version 2.1
 gnuplot-pdf-doc		Install PDF document.
 gnutls			Enable GNU TLS support.
 goffice			Enable goffice support.
@@ -263,6 +267,7 @@ gsl			Use GNU Scientific Library.
 gssapi			Enable gssapi (Kerberos V) support.
 gstreamer		Enable gstreamer support.
 gstreamer-gstcheck	Enable gstcheck support in gstreamer.
+gstreamer-ptp-suid	Support synchronizing multiple devices over the network (requires a setuid binary).
 gtk			Enable support for GTK.
 gtk2			Enable support for GTK2.
 gtk3			Enable support for GTK3.
@@ -282,6 +287,7 @@ http2			Add support for HTTP/2.
 hunspell		Add spell checking support using hunspell.
 i586-optimized		Optimize for i586 (only).
 ibus			Enable Intelligent Input Bus support.
+iconv			Use iconv as chracter encoding conversion.
 icu			Enable icu support.
 id3			Enable id3 tagging support.
 idea			Enable support for the IDEA cryptographic algorithm (possible license+patent problems).
@@ -409,6 +415,7 @@ ldap			Enable LDAP support.
 lensfun			Enable lensfun (camera lens distortion rectifyer) support.
 libao			Enable the platform-independent 'ao' audio library.
 libchamplain		Enable libchamplain support (map widget).
+libdbi			Enable libdbi support (similar p5-DBI but for C).
 libdrm			Enable libdrm support.
 libgcrypt		Use GNU cryptographic library.
 libgme			Enable Game_Music_Emu video game music file library support.
@@ -532,6 +539,7 @@ nfdump-nfprofile	Build the netflow profiler.
 nfdump-sflow		Build sflow collector sfcpad.
 nghttp2-asio		Build the nghttp2 ASIO C++ library.
 nghttp2-tools		Build the supplied nghttp2 apps and tools.
+nginx			Enable support for Nginx web server.
 ninja-build		Enable build by ninja-build.
 nls			Use native language support.
 nntp			Enable Network News Transport Protocol (NNTP) support.
@@ -564,6 +572,8 @@ oss			Enable support for the Open Sound System audio library.
 osx-addressbook		Enable support for the Mac OS X Address Book.
 otr			Enable Off-the-record encrypted messaging.
 p0f			Enable support for passive OS fingerprinting.
+p5-module-build-dist-authoring		Enable building distfiles.
+p5-module-build-license-creation	Enable license creation.
 pam			Enable PAM support.
 pcb-motif		Use Motif for the gui instead of GTK for cad/pcb.
 pcre			Enable Perl-compatible regular expressions.
@@ -572,6 +582,7 @@ pdf			Enable PDF support.
 perl			Enable Perl support.
 pgadmin-db-designer	Enable pgAdmin database-designer functionality.
 pgsql			Enable PostgreSQL support.
+php-sockets		Enable php-sockets support.
 pim			Enable pim (personal information management) support.
 pinepwd			Enable $HOME/.pinepwd stored IMAP password file.
 pinfo-native-curses	Use NetBSD native curses rather than ncurses.

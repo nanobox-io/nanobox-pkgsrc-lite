@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2015/08/18 07:31:19 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2017/01/04 13:19:56 roy Exp $
 
 DISTNAME=	hunspell-1.3.3
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hunspell/}
 
@@ -13,7 +13,6 @@ LICENSE=	mpl-1.1 OR gnu-lgpl-v2.1 OR gnu-gpl-v2
 WRKSRC=			${WRKDIR}/${DISTNAME:C/-[0-9]+$//}
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config perl:run
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.41 2016/02/26 10:24:12 jperkin Exp $
+# $NetBSD: Makefile,v 1.42 2017/01/19 18:52:25 agc Exp $
 #
 
 DISTNAME=		fam-2.7.0
 PKGREVISION=		9
 CATEGORIES=		sysutils devel
-MASTER_SITES=		ftp://oss.sgi.com/projects/fam/download/stable/	\
-			${MASTER_SITE_GENTOO:=distfiles/}
+MASTER_SITES=		ftp://oss.sgi.com/projects/fam/download/stable/
+MASTER_SITES+=		${MASTER_SITE_GENTOO:=distfiles/}
 
 CONFLICTS+=		gamin-[0-9]*
 
@@ -19,7 +19,6 @@ NOT_FOR_PLATFORM=	IRIX-*-*
 
 USE_TOOLS+=		gmake
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		YES
 USE_LANGUAGES=		c c++
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}

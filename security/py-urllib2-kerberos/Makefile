@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2016/06/21 21:12:45 markd Exp $
+# $NetBSD: Makefile,v 1.4 2017/01/01 14:43:56 wiz Exp $
 #
 
 DISTNAME=	urllib2_kerberos-0.1.6
@@ -13,7 +13,7 @@ LICENSE=	apache-2.0
 
 DEPENDS+=	${PYPKGPREFIX}-kerberos>=1.1:../../security/py-kerberos
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

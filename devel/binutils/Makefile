@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.72 2016/02/03 19:56:34 jperkin Exp $
+# $NetBSD: Makefile,v 1.74 2016/08/15 19:29:13 ryoon Exp $
 
-DISTNAME=	binutils-2.26
-PKGREVISION=	1
+DISTNAME=	binutils-2.26.1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
@@ -35,10 +34,6 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-lib-path='/lib:/usr/lib'
 CONFIGURE_ARGS+=	--program-prefix=g
 BINUTILS_PREFIX=	${PREFIX}/${MACHINE_GNU_PLATFORM}
-
-# Joyent changes to avoid pulling in unwanted dependencies.
-CONFIGURE_ARGS+=		--without-zlib
-OVERRIDE_DIRDEPTH.depcomp=	-1
 
 PLIST_SRC=	${PKGDIR}/PLIST.common
 PLIST_SRC+=	${WRKDIR}/PLIST_DYNAMIC

@@ -1,11 +1,11 @@
-# $NetBSD: options.mk,v 1.2 2016/05/05 07:03:47 leot Exp $
+# $NetBSD: options.mk,v 1.5 2017/01/01 22:36:34 leot Exp $
 
 # Global and legacy options
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ffmpeg3
-PKG_SUPPORTED_OPTIONS=	ass doc faac fdk-aac fontconfig freetype gnutls lame \
-			libvpx opencore-amr openssl theora vorbis x264 x265 \
-			xcb xvid
+PKG_SUPPORTED_OPTIONS=	ass doc ebur128 fdk-aac fontconfig freetype \
+			gnutls lame libvpx opencore-amr openssl opus theora \
+			vorbis x264 x265 xcb xvid
 PKG_SUGGESTED_OPTIONS=	lame ass freetype fontconfig libvpx openssl \
 			theora vorbis x264 xvid
 
@@ -26,6 +26,14 @@ PKG_SUGGESTED_OPTIONS+=	vaapi
 .endif
 
 .include "../../mk/bsd.options.mk"
+
+# EBU R128 audio loudness normalization
+.if !empty(PKG_OPTIONS:Mebur128)
+CONFIGURE_ARGS+=	--enable-libebur128
+.include "../../audio/libebur128/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-libebur128
+.endif
 
 # Fontconfig
 .if !empty(PKG_OPTIONS:Mfontconfig)
@@ -61,16 +69,6 @@ USE_TOOLS+=		texi2html
 CONFIGURE_ARGS+=	--enable-htmlpages
 .else
 CONFIGURE_ARGS+=	--disable-htmlpages
-.endif
-
-# faac option
-.if !empty(PKG_OPTIONS:Mfaac)
-RESTRICTED=		This software may require the payment of patent royalties
-NO_BIN_ON_CDROM=	${RESTRICTED}
-NO_BIN_ON_FTP=		${RESTRICTED}
-CONFIGURE_ARGS+=	--enable-libfaac
-CONFIGURE_ARGS+=	--enable-nonfree
-.include "../../audio/faac/buildlink3.mk"
 .endif
 
 # Fraunhofer FDK AAC codec support
@@ -135,6 +133,12 @@ CONFIGURE_ARGS+=	--enable-libvorbis
 BUILDLINK_ABI_DEPENDS.lame+= lame>=3.98.2nb1
 CONFIGURE_ARGS+=	--enable-libmp3lame
 .include "../../audio/lame/buildlink3.mk"
+.endif
+
+# OPUS support
+.if !empty(PKG_OPTIONS:Mopus)
+CONFIGURE_ARGS+=	--enable-libopus
+.include "../../audio/libopus/buildlink3.mk"
 .endif
 
 # XviD support

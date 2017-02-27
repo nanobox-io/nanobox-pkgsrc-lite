@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.69 2016/02/25 10:15:45 jperkin Exp $
+# $NetBSD: Makefile,v 1.70 2016/06/30 17:38:09 wiz Exp $
 
-DISTNAME=	libsndfile-1.0.26
+DISTNAME=	libsndfile-1.0.27
 CATEGORIES=	audio
 MASTER_SITES=	http://www.mega-nerd.com/libsndfile/files/
 
@@ -11,7 +11,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake pkg-config
 PKGCONFIG_OVERRIDE=	sndfile.pc.in
 GNU_CONFIGURE=		yes

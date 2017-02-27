@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.9 2016/06/25 14:05:01 jaapb Exp $
+# $NetBSD: Makefile,v 1.11 2016/12/30 11:21:47 jaapb Exp $
 
-DISTNAME=	batteries-2.5.0
+VERSION=	2.5.3
+GITHUB_PROJECT=	batteries-included
+GITHUB_TAG=	v${VERSION}
+DISTNAME=	batteries-${VERSION}
 PKGNAME=	ocaml-${DISTNAME}
 CATEGORIES=	devel
-MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1611/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=ocaml-batteries-team/}
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://batteries.forge.ocamlcore.org/

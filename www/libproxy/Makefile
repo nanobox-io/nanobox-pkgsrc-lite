@@ -11,7 +11,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_CMAKE=	yes
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	pkg-config gmake
 USE_LANGUAGES=	c99 c++
 CMAKE_ARGS+=	-DWITH_PYTHON:BOOL=OFF

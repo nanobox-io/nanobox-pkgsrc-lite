@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2016/04/11 19:01:40 ryoon Exp $
+# $NetBSD: Makefile,v 1.20 2017/02/12 06:24:58 ryoon Exp $
 
 DISTNAME=	qtimageformats-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtimageformats-${QTVERSION}
-PKGREVISION=	4
+PKGREVISION=	7
 COMMENT=	Qt5 module for Image formats
 
 BUILD_TARGET=		sub-src
@@ -10,6 +10,9 @@ MAKE_ENV+=		QTDIR=${QTDIR}
 
 INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
 INSTALLATION_DIRS+=	lib/pkgconfig
+
+post-extract:
+	${RM} -r ${WRKSRC}/src/3rdparty/jasper*
 
 .include "../../x11/qt5-qtbase/Makefile.common"
 

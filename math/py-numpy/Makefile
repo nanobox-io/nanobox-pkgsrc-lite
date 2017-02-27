@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.28 2015/04/17 00:41:38 wen Exp $
+# $NetBSD: Makefile,v 1.38 2017/01/22 14:43:24 wiz Exp $
 
-DISTNAME=	numpy-1.9.2
+DISTNAME=	numpy-1.12.0
+GITHUB_PROJECT=	numpy
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	math python
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=numpy/}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=numpy/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.numpy.org/
@@ -11,28 +13,9 @@ COMMENT=	Array processing for numbers, strings, records, and objects
 LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c fortran
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 MAKE_ENV+=		ATLAS=None
 
-REPLACE_PYTHON+=	*.py
-REPLACE_PYTHON+=	numpy/*.py
-REPLACE_PYTHON+=	numpy/compat/*.py
-REPLACE_PYTHON+=	numpy/core/*.py
-REPLACE_PYTHON+=	numpy/core/tests/*.py
-REPLACE_PYTHON+=	numpy/distutils/*.py
-REPLACE_PYTHON+=	numpy/distutils/tests/*.py
-REPLACE_PYTHON+=	numpy/distutils/tests/f2py_ext/*.py
-REPLACE_PYTHON+=	numpy/distutils/tests/f2py_f90_ext/*.py
-REPLACE_PYTHON+=	numpy/distutils/tests/gen_ext/*.py
-REPLACE_PYTHON+=	numpy/distutils/tests/pyrex_ext/*.py
-REPLACE_PYTHON+=	numpy/distutils/tests/swig_ext/*.py
-REPLACE_PYTHON+=	numpy/f2py/*.py
-REPLACE_PYTHON+=	numpy/f2py/docs/usersguide/*.py
-REPLACE_PYTHON+=	numpy/fft/tests/*.py
-REPLACE_PYTHON+=	numpy/ma/*.py
-REPLACE_PYTHON+=	numpy/matrixlib/*.py
-REPLACE_PYTHON+=	numpy/random/mtrand/*.py
-REPLACE_PYTHON+=	numpy/testing/*.py
+REPLACE_PYTHON+=	*.py */*.py */*/*.py */*/*/*.py */*/*/*/*.py
 
 # XXX Avoid picking up other compilers when installed
 .include "../../mk/compiler.mk"
@@ -51,12 +34,20 @@ LDFLAGS+=		${_COMPILER_ABI_FLAG.${ABI}}
 
 .include "../../mk/bsd.prefs.mk"
 
-# needs devel/py-nose
-#do-test:
-#	${PYTHONBIN} -c "import numpy; numpy.test()"
+# numpy fails using the gold linker with:
+# fatal error: --sysroot=: must take a non-empty argument
+# Work around it on DragonFly by specifying the classic gnu linker
+MAKE_ENV.DragonFly+=	LDVER=ld.bfd
 
+# TEST_DEPENDS
+BUILD_DEPENDS+=	${PYPKGPREFIX}-nose-[0-9]*:../../devel/py-nose
+
+do-test:
+	${RUN} PYTHONPATH=${DESTDIR}${PREFIX}/${PYSITELIB} ${PYTHONBIN} -c "import numpy; numpy.test()"
+
+.include "../../devel/py-cython/buildlink3.mk"
 .include "../../lang/python/application.mk"
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .if ${OPSYS} != "Darwin"
 # blas and lapack are not needed; numpy will use Accelerate.framework
 .include "../../math/blas/buildlink3.mk"

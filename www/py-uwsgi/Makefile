@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.32 2016/03/05 11:29:39 jperkin Exp $
+# $NetBSD: Makefile,v 1.35 2017/01/03 13:23:05 jperkin Exp $
 
-DISTNAME=	uwsgi-2.0.10
+DISTNAME=	uwsgi-2.0.14
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	python www
 MASTER_SITES=	http://projects.unbit.it/downloads/
 
@@ -14,7 +13,7 @@ LICENSE=	gnu-gpl-v2 # with linking exception
 USE_LANGUAGES=	c
 USE_TOOLS+=	pkg-config
 
-PLIST_SUBST+=	PYPKGPREFIX=${PYPKGPREFIX} PYVERSSUFFIX=${PYVERSSUFFIX}
+PLIST_SUBST+=	PYPKGPREFIX=${PYPKGPREFIX}
 EGG_NAME=	${DISTNAME:S/uwsgi/uWSGI/}
 
 .include "options.mk"
@@ -25,7 +24,7 @@ INSTALLATION_DIRS+=	share/examples/${PYPKGPREFIX}-uwsgi
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/uwsgi \
-		${DESTDIR}${PREFIX}/bin/uwsgi-${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/uwsgi-${PYVERSSUFFIX} || ${TRUE}
 	${INSTALL_DATA} ${WRKSRC}/examples/* \
 		${DESTDIR}${PREFIX}/share/examples/${PYPKGPREFIX}-uwsgi
 

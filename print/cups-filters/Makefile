@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.47 2016/06/12 09:31:56 leot Exp $
+# $NetBSD: Makefile,v 1.68 2017/02/19 11:40:22 leot Exp $
 
-DISTNAME=	cups-filters-1.9.0
+DISTNAME=	cups-filters-1.13.4
 CATEGORIES=	print
 MASTER_SITES=	http://openprinting.org/download/cups-filters/
 EXTRACT_SUFX=	.tar.xz
@@ -23,7 +23,6 @@ PKGCONFIG_OVERRIDE+=	libfontembed.pc.in
 
 CONFLICTS+=	cups<1.6
 
-REPLACE_BASH+=	filter/textonly
 REPLACE_BASH+=	filter/braille/drivers/generic/brftoembosser.in
 REPLACE_BASH+=	filter/braille/drivers/index/imageubrltoindexv3.in
 REPLACE_BASH+=	filter/braille/drivers/index/imageubrltoindexv4.in
@@ -33,12 +32,20 @@ REPLACE_BASH+=	filter/braille/filters/texttobrf.in
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${OPSYS} == "Darwin"
+CFLAGS+=	-framework IOKit
+.endif
+
 .if ${INIT_SYSTEM} == "rc.d"
 CONFIGURE_ARGS+=	--with-rcdir=${PREFIX}/share/examples/rc.d
 CONFIGURE_ARGS+=	--with-rclevels=""
 .endif
 CONFIGURE_ARGS+=	--disable-ldap
+CONFIGURE_ARGS+=	--disable-mutool
+CONFIGURE_ARGS+=	--with-apple-raster-filter=rastertopdf
 CONFIGURE_ARGS+=	--with-shell=${TOOLS_PATH.bash}
+CONFIGURE_ARGS+=	--with-pdftops-path=${PREFIX}/bin/pdftops
+CONFIGURE_ARGS+=	--with-gs-path=${PREFIX}/bin/gs
 
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples/cups-filters
 
@@ -46,7 +53,10 @@ CONF_FILES=		${PREFIX}/share/examples/cups-filters/fonts/conf.d/99pdftoopvp.conf
 CONF_FILES+=		${PREFIX}/share/examples/cups-filters/cups-browsed.conf ${PKG_SYSCONFDIR}/cups/cups-browsed.conf
 
 post-install:
-	${MV} ${DESTDIR}${PREFIX}/etc/cups/cups-browsed.conf ${DESTDIR}${PREFIX}/share/examples/cups-filters/cups-browsed.conf
+	${MV} ${DESTDIR}${PKG_SYSCONFDIR}/cups/cups-browsed.conf ${DESTDIR}${PREFIX}/share/examples/cups-filters/cups-browsed.conf
+	# backends that need root access should not have world read and execute permissions
+	${CHMOD} go-rwx ${DESTDIR}${PREFIX}/libexec/cups/backend/parallel
+	${CHMOD} go-rwx ${DESTDIR}${PREFIX}/libexec/cups/backend/serial
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

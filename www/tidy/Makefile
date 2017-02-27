@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2016/06/07 07:44:25 wiz Exp $
+# $NetBSD: Makefile,v 1.49 2016/11/25 16:05:23 leot Exp $
 
 DISTNAME=	tidy-20091027
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	www
 MASTER_SITES=	# manually created tarballs on ftp.NetBSD.org only
 
@@ -21,7 +21,6 @@ PKG_SUGGESTED_OPTIONS=	doc
 WRKSRC=		${WRKDIR}/tidy
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	aclocal autoconf automake gmake
 CPPFLAGS+=	-DSUPPORT_ACCESSIBILITY_CHECKS=1 -DSUPPORT_UTF16_ENCODINGS=1
 CPPFLAGS+=	-DSUPPORT_ASIAN_ENCODINGS=1 -DSUPPORT_GETPWNAM=1
@@ -30,7 +29,7 @@ INSTALLATION_DIRS=	${PKGMANDIR}/man1
 PLIST_SRC+=		${PKGDIR}/PLIST
 
 .if !empty(PKG_OPTIONS:Mdoc)
-BUILD_DEPENDS+= doxygen>=1.8.11:../../devel/doxygen
+BUILD_DEPENDS+= doxygen>=1.8.12:../../devel/doxygen
 
 HTML_DOCFILES=	Overview.html doxygen.cfg grid.gif tidy.css faq.html \
 		license.html pending.html release-notes.html tidy.gif

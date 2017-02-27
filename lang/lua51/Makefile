@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.6 2015/12/06 00:25:26 alnsn Exp $
+# $NetBSD: Makefile,v 1.7 2017/01/19 18:52:14 agc Exp $
 
 DISTNAME=	lua-${LUA_VERSION}
 PKGNAME=	lua51-${LUA_VERSION}
 PKGREVISION=	3
 CATEGORIES=	lang
-MASTER_SITES=	http://www.lua.org/ftp/ \
-		http://www.tecgraf.puc-rio.br/lua/ftp/
+MASTER_SITES=	http://www.lua.org/ftp/
+MASTER_SITES+=	http://www.tecgraf.puc-rio.br/lua/ftp/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.lua.org/
@@ -15,8 +15,6 @@ LICENSE=	mit
 .include "../../lang/lua51/version.mk"
 
 CONFLICTS+=	lua-[0-9]*
-
-USE_MULTIARCH=	bin lib
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -59,7 +57,7 @@ BUILD_TARGET=	generic
 
 PKGCONFIG_OVERRIDE=	${WRKSRC}/etc/lua.pc
 
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/pkgconfig
+INSTALLATION_DIRS+=	lib/pkgconfig
 
 SUBST_CLASSES+=		pc-prefix
 SUBST_FILES.pc-prefix+=	${WRKSRC}/etc/lua.pc
@@ -87,7 +85,7 @@ post-install:
 		${INSTALL_DATA} "$$f" ${DESTDIR}${EGDIR}/etc;		\
 	done
 	${INSTALL_DATA} ${WRKSRC}/etc/lua.pc \
-	    ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig/lua-5.1.pc
+	    ${DESTDIR}${PREFIX}/lib/pkgconfig/lua-5.1.pc
 
 .include "../../mk/readline.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"

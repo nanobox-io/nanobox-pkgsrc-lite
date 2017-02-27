@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2015/12/25 02:55:16 dholland Exp $
+# $NetBSD: Makefile,v 1.14 2017/01/01 14:43:50 wiz Exp $
 
 DISTNAME=		omniORB-4.1.7
 PKGREVISION=		1
@@ -45,7 +45,7 @@ CONFIGURE_ARGS+=--disable-ipv6
 
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	src/tool/omniidl/python/scripts/omniidlrun.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 4.1.7
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 4.1.7
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/examples/omniORB/

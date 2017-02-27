@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/11/13 14:47:09 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2017/02/13 21:42:50 adam Exp $
 
-DISTNAME=	Markdown-2.6.4
+DISTNAME=	Markdown-2.6.8
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	textproc python
 MASTER_SITES=	${MASTER_SITE_PYPI:=M/Markdown/}
@@ -14,8 +14,6 @@ BUILD_DEPENDS+=	${PYPKGPREFIX}-nose-[0-9]*:../../devel/py-nose
 BUILD_DEPENDS+=	${PYPKGPREFIX}-yaml-[0-9]*:../../textproc/py-yaml
 
 USE_LANGUAGES=	# none
-
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-extract:
 	${MV} ${WRKSRC}/bin/markdown_py ${WRKSRC}/bin/markdown_py${PYVERSSUFFIX}

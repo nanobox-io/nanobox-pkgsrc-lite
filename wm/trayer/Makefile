@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/04/26 10:03:52 tnn Exp $
+# $NetBSD: Makefile,v 1.6 2017/02/12 06:26:06 ryoon Exp $
 
-PKGREVISION=	1
+PKGREVISION=	4
 DISTNAME=	trayer-1.1.6
 CATEGORIES=	wm x11
 MASTER_SITES=	${MASTER_SITE_GITHUB:=sargon/}

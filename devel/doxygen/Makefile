@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.124 2016/06/06 13:41:11 wiz Exp $
+# $NetBSD: Makefile,v 1.129 2017/01/19 18:52:05 agc Exp $
 
-DISTNAME=	doxygen-1.8.11.src
+DISTNAME=	doxygen-1.8.12.src
 PKGNAME=	${DISTNAME:S/.src//}
 CATEGORIES=	devel
-MASTER_SITES=	ftp://ftp.stack.nl/pub/users/dimitri/ \
-		http://ftp.stack.nl/pub/users/dimitri/
+MASTER_SITES=	ftp://ftp.stack.nl/pub/users/dimitri/
+MASTER_SITES+=	http://ftp.stack.nl/pub/users/dimitri/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.doxygen.org/
@@ -21,7 +21,7 @@ USE_LANGUAGES=		c c++
 MAKE_ENV+=		PKGSRC_CFLAGS=${CFLAGS:Q}
 MAKE_FLAGS+=		MAN1DIR=${PKGMANDIR}/man1
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.8.6
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 1.8.6
 
 # Case Insensitive or Case Sensitive File System
 PLIST_VARS+=		ci cs

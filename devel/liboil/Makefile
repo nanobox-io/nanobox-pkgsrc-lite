@@ -11,7 +11,6 @@ COMMENT=	Library of simple, CPU-optimized functions
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 
 CONFIGURE_ARGS+=	--disable-glib # Only used by examples.
 

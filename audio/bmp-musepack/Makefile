@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.37 2015/04/25 14:20:19 tnn Exp $
+# $NetBSD: Makefile,v 1.40 2017/02/12 06:25:01 ryoon Exp $
 #
 
 DISTNAME=		bmp-musepack-1.2
-PKGREVISION=		22
+PKGREVISION=		25
 CATEGORIES=		audio
 MASTER_SITES=		http://files.musepack.net/linux/plugins/
 EXTRACT_SUFX=		.tar.bz2

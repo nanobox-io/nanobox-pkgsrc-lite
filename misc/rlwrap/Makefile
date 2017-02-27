@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2015/08/18 07:31:13 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/01/04 22:19:17 roy Exp $
 #
 
 DISTNAME=	rlwrap-0.42
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	misc
 MASTER_SITES=	http://utopia.knoware.nl/~hlub/uck/rlwrap/
 
@@ -32,7 +32,7 @@ REPLACE_PERL+=	filters/unbackspace
 TEST_TARGET=		check
 
 .include "options.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 BUILDLINK_API_DEPENDS.readline+=readline>=4.2
 .include "../../devel/readline/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

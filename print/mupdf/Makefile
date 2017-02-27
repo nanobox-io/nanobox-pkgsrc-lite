@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.36 2016/04/27 12:34:58 leot Exp $
+# $NetBSD: Makefile,v 1.47 2017/02/12 06:24:48 ryoon Exp $
 
-DISTNAME=	mupdf-1.9a-source
+DISTNAME=	mupdf-1.10a-source
 PKGNAME=	${DISTNAME:S/-source//}
+PKGREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	http://mupdf.com/downloads/archive/
 
 MAINTAINER=	leot@NetBSD.org
 HOMEPAGE=	http://mupdf.com/
-COMMENT=	Lightweight PDF viewer and toolkit
+COMMENT=	Lightweight PDF, XPS and E-book viewer and toolkit
 LICENSE=	gnu-agpl-v3
 
 USE_LANGUAGES=	c99

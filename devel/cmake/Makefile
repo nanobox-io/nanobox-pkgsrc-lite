@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.118 2016/04/17 18:45:28 ryoon Exp $
+# $NetBSD: Makefile,v 1.130 2017/01/16 08:49:42 adam Exp $
 
-DISTNAME=	cmake-${CMAKE_API}.2
+.include "Makefile.version"
+
+DISTNAME=	cmake-${CMAKE_VERSION}
 CATEGORIES=	devel
 MASTER_SITES=	https://cmake.org/files/v${CMAKE_API}/
-
-# When changing this, please update devel/cmake-fedora as well.
-CMAKE_API=	3.5
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cmake.org/
@@ -32,7 +31,7 @@ LDFLAGS.SunOS+=		-lsocket -lnsl
 .include "../../mk/bsd.prefs.mk"
 
 .if !empty(MAKE_JOBS)
-CONFIGURE_ARGS+=	--parallel=${MAKE_JOBS:Q}
+CONFIGURE_ARGS+=	--parallel=${MAKE_JOBS}
 .endif
 
 PLIST_SUBST+=		CMAKE_API=${CMAKE_API}
@@ -64,12 +63,20 @@ pre-configure:
 	    ${WRKSRC}/Modules/Platform/SunOS-Clang-${lang}.cmake
 .endfor
 
-INCOMPAT_CURSES=	NetBSD-[0-7].*-*
+INCOMPAT_CURSES=	NetBSD-[0-6].*-*
 
 BUILDLINK_API_DEPENDS.libarchive+=	libarchive>=3.0.0
 .include "../../archivers/libarchive/buildlink3.mk"
 .include "../../devel/libexecinfo/buildlink3.mk"
-.include "../../mk/curses.buildlink3.mk"
+.include "../../devel/libuv/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
+
+.if !exists(${BUILDLINK_INCDIRS.curses}/form.h) && \
+     exists(${BUILDLINK_INCDIRS.curses}/ncurses/form.h)
+CFLAGS+=	-I${BUILDLINK_INCDIRS.curses}/ncurses
+CXXFLAGS+=	-I${BUILDLINK_INCDIRS.curses}/ncurses
+.endif
+
 .include "../../mk/bsd.pkg.mk"

@@ -1,12 +1,12 @@
-$NetBSD: patch-media_libcubeb_src_cubeb__oss.c,v 1.5 2016/06/16 12:08:21 ryoon Exp $
+$NetBSD: patch-media_libcubeb_src_cubeb__oss.c,v 1.8 2016/12/03 09:58:26 ryoon Exp $
 
 * Restore OSS audio support code
 
---- media/libcubeb/src/cubeb_oss.c.orig	2016-05-15 03:58:16.955259529 +0000
+--- media/libcubeb/src/cubeb_oss.c.orig	2016-11-29 13:25:18.814351604 +0000
 +++ media/libcubeb/src/cubeb_oss.c
-@@ -0,0 +1,412 @@
+@@ -0,0 +1,442 @@
 +/*
-+ * Copyright © 2014 Mozilla Foundation
++ * Copyright Â© 2014 Mozilla Foundation
 + *
 + * This program is made available under an ISC-style license.  See the
 + * accompanying file LICENSE for details.
@@ -131,8 +131,8 @@ $NetBSD: patch-media_libcubeb_src_cubeb__oss.c,v 1.5 2016/06/16 12:08:21 ryoon E
 +  return got;
 +}
 +
-+static void apply_volume(int16_t* buffer, unsigned int n,
-+                         float volume, float panning)
++static void apply_volume_int(int16_t* buffer, unsigned int n,
++                             float volume, float panning)
 +{
 +  float left = volume;
 +  float right = volume;
@@ -149,6 +149,26 @@ $NetBSD: patch-media_libcubeb_src_cubeb__oss.c,v 1.5 2016/06/16 12:08:21 ryoon E
 +    buffer[i] = ((int)buffer[i])*pan[i%2]/128;
 +  }
 +}
++
++static void apply_volume_float(float* buffer, unsigned int n,
++                               float volume, float panning)
++{
++  float left = volume;
++  float right = volume;
++  unsigned int i;
++  float pan[2];
++  if (panning<0) {
++    right *= (1+panning);
++  } else {
++    left *= (1-panning);
++  }
++  pan[0] = left;
++  pan[1] = right;
++  for(i=0; i<n; i++){
++    buffer[i] = buffer[i]*pan[i%2];
++  }
++}
++
 +
 +static void *writer(void *stm)
 +{
@@ -174,15 +194,25 @@ $NetBSD: patch-media_libcubeb_src_cubeb__oss.c,v 1.5 2016/06/16 12:08:21 ryoon E
 +    if (stream->floating) {
 +      got = run_data_callback(stream, f_buffer,
 +                              OSS_BUFFER_SIZE/stream->params.channels);
++      apply_volume_float(f_buffer, got*stream->params.channels,
++                                   stream->volume, stream->panning);
 +      for (i=0; i<((unsigned long)got)*stream->params.channels; i++) {
-+          buffer[i] = f_buffer[i]*32767.0;
++        /* Clipping is prefered to overflow */
++	if(f_buffer[i]>=1.0){
++	  f_buffer[i]=1.0;
++	}
++        if(f_buffer[i]<=-1.0){
++	  f_buffer[i]=-1.0;
++	}
++        /* One might think that multipling by 32767.0 is logical but results in clipping */
++        buffer[i] = f_buffer[i]*32767.0;
 +      }
 +    } else {
 +      got = run_data_callback(stream, buffer,
 +                              OSS_BUFFER_SIZE/stream->params.channels);
++      apply_volume_int(buffer, got*stream->params.channels,
++                               stream->volume, stream->panning);
 +    }
-+    apply_volume(buffer, got*stream->params.channels,
-+                         stream->volume, stream->panning);
 +    if (got<0) {
 +      run_state_callback(stream, CUBEB_STATE_ERROR);
 +      break;
@@ -262,9 +292,9 @@ $NetBSD: patch-media_libcubeb_src_cubeb__oss.c,v 1.5 2016/06/16 12:08:21 ryoon E
 +  oss_try_set_latency(stream, latency); 
 +
 +  stream->floating = 0;
-+  SET(SNDCTL_DSP_CHANNELS, output_stream_params->channels);
-+  SET(SNDCTL_DSP_SPEED, output_stream_params->rate);
-+  switch (output_stream_params->format) {
++  SET(SNDCTL_DSP_CHANNELS, stream->params.channels);
++  SET(SNDCTL_DSP_SPEED, stream->params.rate);
++  switch (stream->params.format) {
 +    case CUBEB_SAMPLE_S16LE:
 +      SET(SNDCTL_DSP_SETFMT, AFMT_S16_LE);
 +    break;

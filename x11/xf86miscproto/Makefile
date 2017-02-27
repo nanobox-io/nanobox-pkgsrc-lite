@@ -12,7 +12,6 @@ COMMENT=		XF86Misc extension headers from modular X.org
 
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	xf86miscproto.pc.in
-USE_MULTIARCH=		lib
 
 .include "../../x11/xproto/buildlink3.mk"
 

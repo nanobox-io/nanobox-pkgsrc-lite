@@ -1,19 +1,21 @@
-# $NetBSD: Makefile,v 1.46 2016/02/25 12:12:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.57 2017/01/12 16:53:22 wiz Exp $
 
-DISTNAME=	flex-2.6.0
-CATEGORIES=	lang
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=flex/}
-EXTRACT_SUFX=	.tar.xz
+DISTNAME=	flex-2.6.3
+PKGREVISION=	1
+CATEGORIES=	devel lang
+MASTER_SITES=	${MASTER_SITE_GITHUB:=westes/}
+GITHUB_RELEASE=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://flex.sourceforge.net/
+HOMEPAGE=	https://github.com/westes/flex
 COMMENT=	Fast clone of lex(1), the lexical scanner generator
 LICENSE=	2-clause-bsd
 
+BUILD_DEPENDS+=		help2man-[0-9]*:../../converters/help2man
+
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gm4:run
+USE_TOOLS+=		gm4:run	makeinfo gettext
 GNU_CONFIGURE=		yes
 INFO_FILES=		yes
 

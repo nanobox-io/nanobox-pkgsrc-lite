@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2016/03/05 11:28:04 jperkin Exp $
+# $NetBSD: Makefile,v 1.32 2017/02/16 13:31:44 maya Exp $
 
 DISTNAME=		moc-2.5.0
-PKGREVISION=		1
+PKGREVISION=		5
 CATEGORIES=		audio
 MASTER_SITES=		http://ftp.daper.net/pub/soft/moc/stable/
 EXTRACT_SUFX=		.tar.bz2

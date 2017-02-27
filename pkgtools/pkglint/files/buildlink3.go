@@ -1,60 +1,64 @@
 package main
 
 import (
+	"netbsd.org/pkglint/line"
+	"netbsd.org/pkglint/pkgver"
+	"netbsd.org/pkglint/textproc"
+	"netbsd.org/pkglint/trace"
 	"strings"
 )
 
 func ChecklinesBuildlink3Mk(mklines *MkLines) {
-	if G.opts.Debug {
-		defer tracecall1(mklines.lines[0].Fname)()
+	if trace.Tracing {
+		defer trace.Call1(mklines.lines[0].Filename())()
 	}
 
 	mklines.Check()
 
-	exp := NewExpecter(mklines.lines)
+	exp := textproc.NewExpecter(mklines.lines)
 
 	for exp.AdvanceIfPrefix("#") {
 		line := exp.PreviousLine()
 		// See pkgtools/createbuildlink/files/createbuildlink
-		if hasPrefix(line.Text, "# XXX This file was created automatically") {
-			line.Error0("This comment indicates unfinished work (url2pkg).")
+		if hasPrefix(line.Text(), "# XXX This file was created automatically") {
+			line.Errorf("This comment indicates unfinished work (url2pkg).")
 		}
 	}
 
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 
 	if exp.AdvanceIfMatches(`^BUILDLINK_DEPMETHOD\.(\S+)\?=.*$`) {
-		exp.PreviousLine().Warn0("This line belongs inside the .ifdef block.")
+		exp.PreviousLine().Warnf("This line belongs inside the .ifdef block.")
 		for exp.AdvanceIfEquals("") {
 		}
 	}
 
 	pkgbaseLine, pkgbase := exp.CurrentLine(), ""
-	var abiLine, apiLine *Line
+	var abiLine, apiLine line.Line
 	var abi, api *DependencyPattern
 
 	// First paragraph: Introduction of the package identifier
 	if !exp.AdvanceIfMatches(`^BUILDLINK_TREE\+=\s*(\S+)$`) {
-		exp.CurrentLine().Warn0("Expected a BUILDLINK_TREE line.")
+		exp.CurrentLine().Warnf("Expected a BUILDLINK_TREE line.")
 		return
 	}
-	pkgbase = exp.m[1]
+	pkgbase = exp.Group(1)
 	if containsVarRef(pkgbase) {
 		warned := false
-		for _, pair := range []struct{ varuse, simple string }{
+		for _, pair := range [...]struct{ varuse, simple string }{
 			{"${PYPKGPREFIX}", "py"},
 			{"${RUBY_BASE}", "ruby"},
 			{"${RUBY_PKGPREFIX}", "ruby"},
 			{"${PHP_PKG_PREFIX}", "php"},
 		} {
-			if contains(pkgbase, pair.varuse) && !pkgbaseLine.AutofixReplace(pair.varuse, pair.simple) {
-				pkgbaseLine.Warn2("Please use %q instead of %q.", pair.simple, pair.varuse)
+			if contains(pkgbase, pair.varuse) {
+				pkgbaseLine.Warnf("Please use %q instead of %q (also in other variables in this file).", pair.simple, pair.varuse)
 				warned = true
 			}
 		}
 		if !warned {
 			if m, varuse := match1(pkgbase, `(\$\{\w+\})`); m {
-				pkgbaseLine.Warn1("Please replace %q with a simple string.", varuse)
+				pkgbaseLine.Warnf("Please replace %q with a simple string (also in other variables in this file).", varuse)
 				warned = true
 			}
 		}
@@ -68,19 +72,19 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 		}
 	}
 
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 
 	// Second paragraph: multiple inclusion protection and introduction
 	// of the uppercase package identifier.
 	if !exp.AdvanceIfMatches(`^\.if !defined\((\S+)_BUILDLINK3_MK\)$`) {
 		return
 	}
-	pkgupperLine, pkgupper := exp.PreviousLine(), exp.m[1]
+	pkgupperLine, pkgupper := exp.PreviousLine(), exp.Group(1)
 
 	if !exp.ExpectText(pkgupper + "_BUILDLINK3_MK:=") {
 		return
 	}
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 
 	// See pkgtools/createbuildlink/files/createbuildlink, keyword PKGUPPER
 	ucPkgbase := strings.ToUpper(strings.Replace(pkgbase, "-", "_", -1))
@@ -91,7 +95,7 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 	if G.Pkg != nil {
 		if mkbase := G.Pkg.EffectivePkgbase; mkbase != "" && mkbase != pkgbase {
 			pkgbaseLine.Errorf("Package name mismatch between %q in this file and %q from %s.",
-				pkgbase, mkbase, G.Pkg.EffectivePkgnameLine.Line.ReferenceFrom(pkgbaseLine))
+				pkgbase, mkbase, G.Pkg.EffectivePkgnameLine.ReferenceFrom(pkgbaseLine))
 		}
 	}
 
@@ -99,12 +103,12 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 	indentLevel := 1 // The first .if is from the second paragraph.
 	for {
 		if exp.EOF() {
-			exp.CurrentLine().Warn0("Expected .endif")
+			exp.CurrentLine().Warnf("Expected .endif")
 			return
 		}
 
 		line := exp.CurrentLine()
-		mkline := mklines.mklines[exp.index]
+		mkline := mklines.mklines[exp.Index()]
 
 		if mkline.IsVarassign() {
 			exp.Advance()
@@ -132,16 +136,16 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 				}
 				doCheck = true
 			}
-			if doCheck && abi != nil && api != nil && abi.pkgbase != api.pkgbase && !hasPrefix(api.pkgbase, "{") {
+			if doCheck && abi != nil && api != nil && abi.Pkgbase != api.Pkgbase && !hasPrefix(api.Pkgbase, "{") {
 				abiLine.Warnf("Package name mismatch between ABI %q and API %q (from %s).",
-					abi.pkgbase, api.pkgbase, apiLine.ReferenceFrom(abiLine))
+					abi.Pkgbase, api.Pkgbase, apiLine.ReferenceFrom(abiLine))
 			}
 			if doCheck {
-				if abi != nil && abi.lower != "" && !containsVarRef(abi.lower) {
-					if api != nil && api.lower != "" && !containsVarRef(api.lower) {
-						if pkgverCmp(abi.lower, api.lower) < 0 {
+				if abi != nil && abi.Lower != "" && !containsVarRef(abi.Lower) {
+					if api != nil && api.Lower != "" && !containsVarRef(api.Lower) {
+						if pkgver.Compare(abi.Lower, api.Lower) < 0 {
 							abiLine.Warnf("ABI version %q should be at least API version %q (see %s).",
-								abi.lower, api.lower, apiLine.ReferenceFrom(abiLine))
+								abi.Lower, api.Lower, apiLine.ReferenceFrom(abiLine))
 						}
 					}
 				}
@@ -149,7 +153,7 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 
 			if varparam := mkline.Varparam(); varparam != "" && varparam != pkgbase {
 				if hasPrefix(varname, "BUILDLINK_") && mkline.Varcanon() != "BUILDLINK_API_DEPENDS.*" {
-					line.Warn2("Only buildlink variables for %q, not %q may be set in this file.", pkgbase, varparam)
+					line.Warnf("Only buildlink variables for %q, not %q may be set in this file.", pkgbase, varparam)
 				}
 			}
 
@@ -174,16 +178,16 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 			}
 
 		} else {
-			if G.opts.Debug {
-				traceStep1("Unchecked line %s in third paragraph.", exp.CurrentLine().linenos())
+			if trace.Tracing {
+				trace.Step1("Unchecked line %s in third paragraph.", exp.CurrentLine().Linenos())
 			}
 			exp.Advance()
 		}
 	}
 	if apiLine == nil {
-		exp.CurrentLine().Warn0("Definition of BUILDLINK_API_DEPENDS is missing.")
+		exp.CurrentLine().Warnf("Definition of BUILDLINK_API_DEPENDS is missing.")
 	}
-	exp.ExpectEmptyLine()
+	exp.ExpectEmptyLine(G.opts.WarnSpace)
 
 	// Fourth paragraph: Cleanup, corresponding to the first paragraph.
 	if !exp.ExpectText("BUILDLINK_TREE+=\t-" + pkgbase) {
@@ -191,7 +195,7 @@ func ChecklinesBuildlink3Mk(mklines *MkLines) {
 	}
 
 	if !exp.EOF() {
-		exp.CurrentLine().Warn0("The file should end here.")
+		exp.CurrentLine().Warnf("The file should end here.")
 	}
 
 	if G.Pkg != nil {

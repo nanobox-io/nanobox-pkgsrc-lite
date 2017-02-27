@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.2 2016/04/29 18:16:42 fhajny Exp $
+$NetBSD: distinfo,v 1.4 2017/01/03 18:21:25 fhajny Exp $
 
-SHA1 (stringprep-1.0.3.tar.gz) = 06956ad3ddcc873b410376dc8a2ca6abd5609415
-RMD160 (stringprep-1.0.3.tar.gz) = 5d185fe3b463eb60f3ce9f54a5d59778da843184
-SHA512 (stringprep-1.0.3.tar.gz) = a42ad55ddfe69f34025fb4ce8f357b13ca3f24449da7ca1e4dc5d78dd350d39530c39d1f3542fe0cba8081c6bc5d3441a606f227733d7a6d87d658a703a0feb1
-Size (stringprep-1.0.3.tar.gz) = 95189 bytes
-SHA1 (patch-rebar.config) = aced4f2212d683e38221a5bd8b2a2c1e3657abe7
+SHA1 (stringprep-1.0.7.tar.gz) = ea7ffc66e917187054ecd2fbc3d5e9083fd21c49
+RMD160 (stringprep-1.0.7.tar.gz) = b72bda35d8bec52986e9a1eb1dedd0ed1bd113e9
+SHA512 (stringprep-1.0.7.tar.gz) = 07b9268951dd7071f652ed034404def67895846dbacc226b4d3a43306f48106d2393c4f879ae6d8bc89e16ee181b83efaf8cc9cefde74a4ada87ed9eab85747b
+Size (stringprep-1.0.7.tar.gz) = 95491 bytes
+SHA1 (patch-rebar.config) = 0427f2c4fdc7bda71dc3da575a8a213487cc1617

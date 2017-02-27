@@ -1,4 +1,4 @@
-# $NetBSD: available.mk,v 1.3 2012/12/02 11:03:51 cheusov Exp $
+# $NetBSD: available.mk,v 1.5 2017/01/23 18:20:59 adam Exp $
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -7,13 +7,18 @@
 # platforms in multiple places, i.e. in mplayer, xine, xbmc etc.
 # Have a look at buildlink3.mk too.
 
-.if ${OPSYS} == "Linux" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64")
-VDPAU_AVAILABLE=	yes
-.elif ${OPSYS} == "FreeBSD" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64")
-VDPAU_AVAILABLE=	yes
-.elif ${OPSYS} == "SunOS" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64") \
-  && !empty(OS_VERSION:M5.1[0-9]*)
-VDPAU_AVAILABLE=	yes
-.else
+#.if ${OPSYS} == "Linux" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64")
+#VDPAU_AVAILABLE=	yes
+#.elif ${OPSYS} == "FreeBSD" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64")
+#VDPAU_AVAILABLE=	yes
+#.elif ${OPSYS} == "SunOS" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64") \
+#  && !empty(OS_VERSION:M5.1[0-9]*)
+#VDPAU_AVAILABLE=	yes
+#.else
 VDPAU_AVAILABLE=	no
+#.endif
+
+# XXX even these restrictions seem arbitrary
+.if ${OPSYS} != "Darwin" && (${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64")
+VDPAU_AVAILABLE=	yes
 .endif

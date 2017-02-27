@@ -14,7 +14,6 @@ MAKE_JOBS_SAFE=		no
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		lib
 PTHREAD_OPTS+=		require
 
 .include "../../mk/pthread.buildlink3.mk"

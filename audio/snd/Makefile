@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2016/04/20 12:10:31 nros Exp $
-#
+# $NetBSD: Makefile,v 1.88 2017/02/12 06:25:05 ryoon Exp $
 
-DISTNAME=		snd-9.9
-PKGREVISION=		24
+DISTNAME=		snd-16.9
+PKGREVISION=		2
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=snd/}
 
@@ -21,14 +20,6 @@ USE_TOOLS+=		gmake msgfmt pkg-config
 
 BUILD_TARGET=		snd
 MAKE_FILE=		makefile
-WRKSRC=			${WRKDIR}/snd-9
-
-INSTALLATION_DIRS=	${PKGLOCALEDIR}/locale/de/LC_MESSAGES
-INSTALL_MAKE_FLAGS+=	localedir=${DESTDIR}${PREFIX}/${PKGLOCALEDIR}/locale
-
-post-install:
-	${INSTALL_DATA} ${WRKSRC}/po/de.gmo \
-	    ${DESTDIR}${PREFIX}/${PKGLOCALEDIR}/locale/de/LC_MESSAGES/snd.mo
 
 .include "options.mk"
 

@@ -9,3 +9,7 @@
 publish:
 	@${PHASE_MSG} "Publishing ${PKGNAME} and any newly built dependencies"
 	@../../mk/publish/publish.sh
+
+publish-s3:
+	@${PHASE_MSG} "Publishing ${PKGNAME} and any newly built dependencies to s3"
+	@../../mk/publish/publish-s3.sh

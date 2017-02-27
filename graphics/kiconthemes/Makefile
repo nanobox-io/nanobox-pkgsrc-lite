@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2016/05/26 08:43:53 markd Exp $
+# $NetBSD: Makefile,v 1.5 2017/02/12 06:24:44 ryoon Exp $
 
 DISTNAME=	kiconthemes-${KF5VER}
+PKGREVISION=	3
 CATEGORIES=	graphics
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -12,6 +13,7 @@ LICENSE=	gnu-lgpl-v2.1
 USE_TOOLS+=	msgmerge
 
 .include "../../lang/python/tool.mk"
+.include "../../archivers/karchive/buildlink3.mk"
 .include "../../x11/kconfigwidgets/buildlink3.mk"
 .include "../../x11/kitemviews/buildlink3.mk"
 .include "../../x11/qt5-qtbase/buildlink3.mk"

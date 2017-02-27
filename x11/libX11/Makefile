@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.41 2016/02/26 11:27:14 jperkin Exp $
+# $NetBSD: Makefile,v 1.43 2016/10/08 23:26:56 joerg Exp $
 
-DISTNAME=		libX11-1.6.3
+DISTNAME=		libX11-1.6.4
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -11,7 +11,6 @@ COMMENT=		Base X libraries from modular Xorg X11
 LICENSE=		mit
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake pkg-config
 
@@ -30,7 +29,7 @@ CPPFLAGS.MirBSD+=	${PTHREAD_CFLAGS}
 LDFLAGS.MirBSD+=	${PTHREAD_LDFLAGS}
 LDFLAGS.OpenBSD+=	${PTHREAD_LDFLAGS}
 
-BUILDLINK_API_DEPENDS.libxcb+=libxcb>=1.8.1
+BUILDLINK_API_DEPENDS.libxcb+=libxcb>=1.11.1
 BUILDLINK_API_DEPENDS.xproto+=xproto>=7.0.17
 
 TOOL_DEPENDS+=		tradcpp-[0-9]*:../../devel/tradcpp

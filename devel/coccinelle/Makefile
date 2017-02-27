@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2016/05/05 11:45:37 jaapb Exp $
+# $NetBSD: Makefile,v 1.29 2016/12/30 11:16:58 jaapb Exp $
 
 DISTNAME=	coccinelle-1.0.0-rc17
 PKGNAME=	${DISTNAME:S/-rc/rc/}
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	devel
 MASTER_SITES=	http://coccinelle.lip6.fr/distrib/
 EXTRACT_SUFX=	.tgz
@@ -13,7 +13,10 @@ COMMENT=	Tool for writing and applying semantic patches
 LICENSE=	gnu-gpl-v2
 
 BUILD_DEPENDS+=	ocaml-findlib-[0-9]*:../../devel/ocaml-findlib
-DEPENDS+=	menhir>=20071212:../../devel/menhir
+
+# the current version rejects this package's .mly file
+#DEPENDS+=	menhir>=20071212:../../devel/menhir
+CONFIGURE_ARGS+=	--without-menhir --disable-menhirLib
 
 MAKE_JOBS_SAFE=		no
 

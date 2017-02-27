@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.68 2016/03/05 11:27:57 jperkin Exp $
+# $NetBSD: Makefile,v 1.70 2016/10/03 12:26:22 wiz Exp $
 
-DISTNAME=	neon-0.30.1
-PKGREVISION=	2
+DISTNAME=	neon-0.30.2
 CATEGORIES=	www
 MASTER_SITES=	http://www.webdav.org/neon/
 
@@ -11,7 +10,6 @@ COMMENT=	HTTP and WebDAV client library
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		pkg-config msgfmt
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared

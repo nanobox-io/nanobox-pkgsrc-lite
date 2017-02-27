@@ -1,8 +1,8 @@
-# $NetBSD: buildlink3.mk,v 1.66 2016/05/18 21:04:07 ryoon Exp $
+# $NetBSD: buildlink3.mk,v 1.69 2017/01/25 02:51:35 mrg Exp $
 #
 # Don't include this file manually!  It will be included as necessary
 # by bsd.buildlink3.mk.
-
+#
 # x11-links is sorted first in mk/buildlink3/bsd.buildlink3.mk,
 # so that symlinks created from it can be overriden by other packages.
 #
@@ -12,7 +12,7 @@ BUILDLINK_TREE+=	x11-links
 .if !defined(X11_LINKS_BUILDLINK3_MK)
 X11_LINKS_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.x11-links+=	x11-links>=1.02
+BUILDLINK_API_DEPENDS.x11-links+=	x11-links>=1.04
 BUILDLINK_PKGSRCDIR.x11-links?=	../../pkgtools/x11-links
 BUILDLINK_DEPMETHOD.x11-links?=	build
 

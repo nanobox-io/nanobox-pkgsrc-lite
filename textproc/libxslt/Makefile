@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.103 2016/05/29 21:06:46 wiz Exp $
+# $NetBSD: Makefile,v 1.104 2016/07/09 06:39:06 wiz Exp $
 
+PKGREVISION= 1
 .include "Makefile.common"
 
 BUILD_DEPENDS+=	docbook-xml-[0-9]*:../../textproc/docbook-xml
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake perl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-libxml-prefix=${BUILDLINK_PREFIX.libxml2}

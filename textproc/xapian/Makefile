@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2016/04/30 14:14:07 schmonz Exp $
-#
+# $NetBSD: Makefile,v 1.28 2017/01/01 10:40:49 schmonz Exp $
 
 DISTNAME=		xapian-core-${VERSION}
-VERSION=		1.2.23
+VERSION=		1.4.2
 PKGNAME=		xapian-${VERSION}
 CATEGORIES=		textproc
 MASTER_SITES=		http://oligarchy.co.uk/xapian/${VERSION}/
@@ -18,6 +17,8 @@ USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
 
 TEST_TARGET=		check
+
+LDFLAGS.SunOS+=		-lsocket -lnsl
 
 .include "../../devel/libuuid/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

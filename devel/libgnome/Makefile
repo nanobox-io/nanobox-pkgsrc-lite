@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.109 2016/03/05 11:27:45 jperkin Exp $
+# $NetBSD: Makefile,v 1.112 2017/02/12 06:24:40 ryoon Exp $
 #
 
 DISTNAME=	libgnome-2.32.1
-PKGREVISION=	24
+PKGREVISION=	27
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgnome/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,7 +15,6 @@ LICENSE=	gnu-lgpl-v2
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	YES
 
 PKGCONFIG_OVERRIDE=	libgnome/libgnome-2.0.pc.in

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.55 2016/06/19 10:43:34 wiedi Exp $
+# $NetBSD: Makefile,v 1.58 2017/01/22 02:04:15 wiedi Exp $
 
-DISTNAME=	nano-2.6.0
+DISTNAME=	nano-2.7.4
 CATEGORIES=	editors
-MASTER_SITES=	http://www.nano-editor.org/dist/v2.6/
+MASTER_SITES=	http://www.nano-editor.org/dist/v2.7/
 
 MAINTAINER=	wiedi@frubar.net
 HOMEPAGE=	http://www.nano-editor.org/
@@ -11,7 +11,7 @@ LICENSE=		gnu-gpl-v3
 
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		msgfmt
+USE_TOOLS+=		msgfmt gmake
 
 INFO_FILES=		yes
 
@@ -34,7 +34,7 @@ INSTALLATION_DIRS+=	share/examples/nano
 CONF_FILES+=		share/examples/nano/nanorc ${PKG_SYSCONFDIR}/nanorc
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/doc/nanorc.sample ${DESTDIR}${PREFIX}/share/examples/nano/nanorc
+	${INSTALL_DATA} ${WRKSRC}/doc/sample.nanorc ${DESTDIR}${PREFIX}/share/examples/nano/nanorc
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

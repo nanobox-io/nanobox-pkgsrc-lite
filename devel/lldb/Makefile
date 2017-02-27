@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2016/03/28 15:15:55 kamil Exp $
+# $NetBSD: Makefile,v 1.6 2017/01/05 11:54:32 adam Exp $
 
-DISTNAME=	lldb-3.8.0.src
+DISTNAME=	lldb-3.9.1.src
 PKGNAME=	${DISTNAME:S/.src//}
 CATEGORIES=	lang devel
 MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
-#MASTER_SITES=	http://llvm.org/pre-releases/3.8.0/rc1/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -22,10 +21,13 @@ USE_CMAKE=		yes
 GCC_REQD+=		4.8
 PY_PATCHPLIST=		yes
 
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # compilation failure in 3.8.1 (3.8.0 worked)
+
 CMAKE_ARGS+=	-DLLVM_CONFIG=${LLVM_CONFIG_PATH}
 CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 CMAKE_ARGS+=	-DCMAKE_C_COMPILER=gcc
 CMAKE_ARGS+=	-DCMAKE_CXX_COMPILER=g++
+CMAKE_ARGS+=	-DHAVE_CXX_ATOMICS64_WITHOUT_LIB=ON
 
 CHECK_PORTABILITY_SKIP=	utils/buildit/build_llvm
 
@@ -113,6 +115,11 @@ TEST_ENV+=		LD_LIBRARY_PATH=${WRKDIR}/build/lib
 
 .include "../../mk/bsd.prefs.mk"
 
+PLIST_VARS+=		posix
+.if ${OPSYS} != "Darwin"
+PLIST.posix=		yes
+.endif
+
 .if ${OPSYS} == "NetBSD"
 .  if exists(/usr/include/panel.h)
 CMAKE_ARGS+=	-DLLDB_DISABLE_CURSES:BOOL=FALSE
@@ -136,4 +143,5 @@ DEPENDS+=	clang-${PKGVERSION_NOREV}{,nb*}:../../lang/clang
 .include "../../lang/python/tool.mk"
 .include "../../lang/python/extension.mk"
 .include "../../devel/swig/buildlink3.mk"
+.include "../../devel/libatomic_ops/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

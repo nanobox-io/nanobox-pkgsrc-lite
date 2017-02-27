@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2016/05/03 11:40:03 prlw1 Exp $
+# $NetBSD: Makefile,v 1.43 2017/02/12 06:25:25 ryoon Exp $
 #
 
 PKGNAME=	eog-plugins-map-2.30.2
-PKGREVISION=	33
+PKGREVISION=	37
 COMMENT=	Plugin collection for eog - map plugin
 
 BUILD_DIRS=	plugins/map

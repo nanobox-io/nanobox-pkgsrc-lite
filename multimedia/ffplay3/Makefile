@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2016/04/29 19:26:25 adam Exp $
+# $NetBSD: Makefile,v 1.8 2017/02/07 19:28:09 adam Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffplay3/}
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -31,6 +31,6 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ffplay3 ${DESTDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/doc/ffplay3.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
-.include "../../devel/SDL/buildlink3.mk"
+.include "../../devel/SDL2/buildlink3.mk"
 .include "../../multimedia/ffmpeg3/buildlink3.mk"
 .include "../../multimedia/ffmpeg3/Makefile.common"

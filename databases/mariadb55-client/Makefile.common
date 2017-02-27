@@ -1,9 +1,9 @@
-# $NetBSD: Makefile.common,v 1.3 2016/02/25 11:46:21 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.5 2017/02/03 16:20:18 roy Exp $
 #
 # used by databases/mariadb55-client/Makefile
 # used by databases/mariadb55-server/Makefile
 
-DISTNAME=	mariadb-5.5.43
+DISTNAME=	mariadb-5.5.52
 CATEGORIES=	databases
 MASTER_SITES=	https://downloads.mariadb.org/f/${DISTNAME}/source/
 
@@ -63,7 +63,6 @@ CMAKE_ARGS+=		-DINSTALL_SUPPORTFILESDIR="share/mariadb"
 CMAKE_ARGS+=		-DMYSQL_DATADIR=${MYSQL_DATADIR}
 
 # always use our own readline, not MySQL bundled one
-CMAKE_ARGS+=		-DWITH_LIBEDIT=OFF
 CMAKE_ARGS+=		-DWITH_READLINE=OFF
 CMAKE_ARGS+=		-DDEFAULT_CHARSET=${MYSQL_CHARSET:Q}
 CMAKE_ARGS+=		-DDEFAULT_COLLATION=${MYSQL_COLLATION:Q}
@@ -120,12 +119,9 @@ SUBST_MESSAGE.scr=	Fixing scripts.
 
 .include "../../mk/readline.buildlink3.mk"
 .if !empty(READLINE_TYPE:Mreadline)
-CMAKE_ARGS+=	-DREADLINE_FOUND=system
-LDFLAGS+=	-lreadline
+CMAKE_ARGS+=    -DREADLINE_INCLUDE_DIR=${BUILDLINK_PREFIX.editlinereadline}/include/readline
 .else
-CMAKE_ARGS+=	-DLIBEDIT_FOUND=system
-LDFLAGS+=	-ledit
+CMAKE_ARGS+=    -DLIBEDIT_INCLUDE_DIR=${BUILDLINK_PREFIX.editlinereadline}/include/readline
 .endif
-CMAKE_ARGS+=	-DREADLINE_INCLUDE_DIR=${BUILDLINK_PREFIX.editlinereadline}/include/readline
 
 .include "../../devel/zlib/buildlink3.mk"

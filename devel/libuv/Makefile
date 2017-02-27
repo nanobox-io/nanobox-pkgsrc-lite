@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2016/04/23 12:52:04 adam Exp $
+# $NetBSD: Makefile,v 1.13 2017/02/07 12:59:33 wiz Exp $
 
-DISTNAME=	libuv-1.9.0
+DISTNAME=	libuv-1.11.0
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=libuv/}
 
@@ -16,7 +16,7 @@ USE_TOOLS+=	autoconf automake pkg-config
 GNU_CONFIGURE=	yes
 
 HEADERS=	uv-aix.h uv-bsd.h uv-darwin.h uv-linux.h uv-sunos.h	\
-		uv-unix.h uv-win.h
+		uv-unix.h uv-win.h pthread-barrier.h
 
 pre-configure:
 	${RUN} cd ${WRKSRC} && ${SH} ./autogen.sh

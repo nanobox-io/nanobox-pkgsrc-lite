@@ -1,7 +1,7 @@
 #!@SH@
-# $NetBSD: scan-client-start,v 1.4 2015/06/07 22:49:04 joerg Exp $
+# $NetBSD: scan-client-start,v 1.7 2016/12/18 22:59:35 joerg Exp $
 
-. ${PBULK_CONF:-@PBULK_CONFIG@}
+. @PBULK_CONFIG@
 
 set -e
 
@@ -17,42 +17,28 @@ else
 	extra_pscan_args=""
 fi
 
-# Start scan processes inside chroots.  We assume that the chroots were
-# created successfully.
-if [ -n "${chroot_create}" -a "${chroot_dir}" ]; then
-	if [ -n "${scan_clients}" ]; then
-		for client in ${scan_clients}; do
-			case ${client} in
-			*:*)
-				port="-p ${client##*:}"
-				client=${client%%:*}
-				;;
-			*)
-				;;
-			esac
-			ssh $port $client "for dir in ${chroot_dir}-scan*; do
-				PBULK_CONF=${PBULK_CONF} /usr/sbin/chroot \${dir} @SH@ -c \"${pscan_prepare} && ${pscan} -c ${master_port_scan} -M ${make} ${extra_pscan_args} ${pkgsrc}\" &
-			done" &
-		done
+${client_prepare}
+
+for client in ${scan_clients}; do
+	case ${client} in
+	/*)
+		path=${client}
+		port=
+		client=
+		;;
+	*:*)
+		path=
+		port="-p ${client##*:}"
+		client=${client%%:*}
+		;;
+	*)
+		path=
+		port=
+		;;
+	esac
+	if [ -z "$path" ]; then
+		ssh $port $client "${pscan} -c ${master_port_scan} -M ${make} ${extra_pscan_args} ${pkgsrc}" &
 	else
-		for dir in ${chroot_dir}-scan*; do
-			PBULK_CONF=${PBULK_CONF} /usr/sbin/chroot ${dir} @SH@ -c "${pscan_prepare} && ${pscan} -c ${master_port_scan} -M ${make} ${extra_pscan_args} ${pkgsrc}" &
-		done
+		chroot "$path" ${pscan} -c ${master_port_scan} -M ${make} ${extra_pscan_args} ${pkgsrc} &
 	fi
-else
-	if [ -n "${scan_clients}" ]; then
-		for client in ${scan_clients}; do
-			case ${client} in
-			*:*)
-				port="-p ${client##*:}"
-				client=${client%%:*}
-				;;
-			*)
-				;;
-			esac
-			ssh $port $client "PBULK_CONF=${PBULK_CONF} ${pscan_prepare} && PBULK_CONF=${PBULK_CONF} ${pscan} -c ${master_port_scan} -M ${make} ${extra_pscan_args} ${pkgsrc}" &
-		done
-	else
-		PBULK_CONF=${PBULK_CONF} ${pscan_prepare} && PBULK_CONF=${PBULK_CONF} ${pscan} -c ${master_port_scan} -M ${make} ${extra_pscan_args} ${pkgsrc} &
-	fi
-fi
+done

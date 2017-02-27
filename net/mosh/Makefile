@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2016/03/05 11:29:08 jperkin Exp $
+# $NetBSD: Makefile,v 1.16 2017/01/04 19:58:00 roy Exp $
 
-DISTNAME=	mosh-1.2.5
-PKGREVISION=	3
+DISTNAME=	mosh-1.2.6
 CATEGORIES=	net
 MASTER_SITES=	http://mosh.mit.edu/
 
@@ -18,12 +17,12 @@ USE_LANGUAGES+=	c c++
 
 REPLACE_PERL+=	scripts/mosh.pl
 
-.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/protobuf/buildlink3.mk"
 BUILDLINK_API_DEPENDS.zlib+=    zlib>=1.2.0.4
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/terminfo.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

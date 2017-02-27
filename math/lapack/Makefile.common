@@ -1,8 +1,8 @@
-# $NetBSD: Makefile.common,v 1.2 2014/10/09 14:06:41 wiz Exp $
+# $NetBSD: Makefile.common,v 1.7 2017/01/25 15:53:06 adam Exp $
 # used by math/blas/Makefile
 # used by math/lapack/Makefile
 
-DISTNAME=	lapack-3.5.0
+DISTNAME=	lapack-3.7.0
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_NETLIB:=lapack/}
 EXTRACT_SUFX=	.tgz
@@ -13,9 +13,14 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c fortran
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 
 DISTINFO_FILE=	${.CURDIR}/../../math/lapack/distinfo
 PATCHDIR=	${.CURDIR}/../../math/lapack/patches
 
-INSTALLATION_DIRS=	lib${LIBARCHSUFFIX}
+INSTALLATION_DIRS=	lib
+
+# blas fails using the gold linker with:
+# fatal error: --sysroot=: must take a non-empty argument
+# Work around it on DragonFly by specifying the classic gnu linker
+
+MAKE_ENV.DragonFly+=	LDVER=ld.bfd

@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.30 2016/03/03 13:02:24 wiz Exp $
+$NetBSD: distinfo,v 1.32 2016/12/12 13:58:49 wiz Exp $
 
-SHA1 (shared-mime-info-1.6.tar.xz) = 9860e569b4ac31423539f4cccfb5e54e2d28f8ab
-RMD160 (shared-mime-info-1.6.tar.xz) = 5391254c00a1606b09d9f8875288f7c868072485
-SHA512 (shared-mime-info-1.6.tar.xz) = 01c57759d363a2f0513cda94de5eb236f3d56683630a1be12278d9043d6184cf5f04a25b9cdca76b72fe42590542dfd41ae39f4e9bcd9cb239c200e9079a5840
-Size (shared-mime-info-1.6.tar.xz) = 557240 bytes
+SHA1 (shared-mime-info-1.8.tar.xz) = d7ea6a4e7537065de5d0766148be804eb4729cb7
+RMD160 (shared-mime-info-1.8.tar.xz) = c319b31296c05d7ba3db3def6ff1844131f474bd
+SHA512 (shared-mime-info-1.8.tar.xz) = e3fd57898ca85033a29f17d075b9a18a6ebee14db5f996183fd1183a6c6382c3d10c74cd1863563cd031359937ab95c886909ba6f9d7ecc8f2056464673b5fff
+Size (shared-mime-info-1.8.tar.xz) = 589444 bytes
 SHA1 (patch-aa) = 2e55e6051412b06b2661f88673cb14154eef2c8a

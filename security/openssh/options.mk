@@ -1,9 +1,9 @@
-# $NetBSD: options.mk,v 1.32 2016/06/10 23:15:36 alnsn Exp $
+# $NetBSD: options.mk,v 1.34 2016/12/30 04:43:16 taca Exp $
 
 .include "../../mk/bsd.prefs.mk"
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.openssh
-PKG_SUPPORTED_OPTIONS=	hpn-patch kerberos openssl pam
+PKG_SUPPORTED_OPTIONS=	kerberos openssl pam
 PKG_SUGGESTED_OPTIONS=	openssl
 
 .include "../../mk/bsd.options.mk"
@@ -17,17 +17,17 @@ CONFIGURE_ARGS+=	--without-openssl
 
 .if !empty(PKG_OPTIONS:Mkerberos)
 .  include "../../mk/krb5.buildlink3.mk"
-CONFIGURE_ARGS+=	--with-kerberos5=${KRB5BASE:Q}
+CONFIGURE_ARGS+=	--with-kerberos5=${KRB5BASE}
 .  if ${KRB5_TYPE} == "mit-krb5"
 CONFIGURE_ENV+=		ac_cv_search_k_hasafs=no
 .  endif
 .endif
 
-.if !empty(PKG_OPTIONS:Mhpn-patch)
-PATCHFILES=		openssh-7.1p1-hpn-20150822.diff.bz2
-PATCH_SITES=		ftp://ftp.NetBSD.org/pub/NetBSD/misc/openssh/
-PATCH_DIST_STRIP=	-p1
-.endif
+#.if !empty(PKG_OPTIONS:Mhpn-patch)
+#PATCHFILES=		openssh-7.1p1-hpn-20150822.diff.bz2
+#PATCH_SITES=		ftp://ftp.NetBSD.org/pub/NetBSD/misc/openssh/
+#PATCH_DIST_STRIP=	-p1
+#.endif
 
 PLIST_VARS+=	pam
 
@@ -36,7 +36,7 @@ PLIST_VARS+=	pam
 CONFIGURE_ARGS+=	--with-pam
 MESSAGE_SRC+=		${.CURDIR}/MESSAGE.pam
 MESSAGE_SUBST+=		EGDIR=${EGDIR}
-.if ${OPSYS} == "Linux"
+.  if ${OPSYS} == "Linux"
 PLIST.pam=	yes
-.endif
+.  endif
 .endif

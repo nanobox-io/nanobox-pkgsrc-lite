@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.131 2016/02/07 13:34:34 leot Exp $
+# $NetBSD: Makefile,v 1.135 2017/02/12 06:25:46 ryoon Exp $
 #
 # NOTE: if you are updating both mplayer and gmplayer, you must ensure
 # that *both* distinfo files contain the correct, up-to-date files and
@@ -8,6 +8,7 @@
 #
 
 PKGNAME=	gmplayer-${MPLAYER_VERSION}
+PKGREVISION=	4
 
 SKIN_SITES=	http://www1.mplayerhq.hu/MPlayer/skins/		\
 		http://www2.mplayerhq.hu/MPlayer/skins/		\
@@ -25,7 +26,7 @@ SKINS+=		Abyss-1.7${SKIN_EXTRACT_SUFX}			\
 		AlienMind-1.2${SKIN_EXTRACT_SUFX}		\
 		Blue-1.11${SKIN_EXTRACT_SUFX}			\
 		BlueHeart-1.5${SKIN_EXTRACT_SUFX}		\
-		Blue-small-1.8${SKIN_EXTRACT_SUFX}		\
+		Blue-small-1.9${SKIN_EXTRACT_SUFX}		\
 		Canary-1.2${SKIN_EXTRACT_SUFX}			\
 		Clearlooks-1.7${SKIN_EXTRACT_SUFX}		\
 		CornerMP-1.2${SKIN_EXTRACT_SUFX}		\

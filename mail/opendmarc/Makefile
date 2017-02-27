@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2016/03/05 11:27:50 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2016/07/09 06:38:31 wiz Exp $
 
 DISTNAME=	opendmarc-1.3.1
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opendmarc/}
 
@@ -11,7 +11,7 @@ COMMENT=	Open source DMARC library, MTA filter implementation and tools
 LICENSE=	modified-bsd
 
 DEPENDS+=	p5-DBI-[0-9]*:../../databases/p5-DBI
-DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
+DEPENDS+=	p5-DBD-mysql-[0-9]*:../../databases/p5-DBD-mysql
 #DEPENDS+=	{perl>=5.6.1,p5-File-Temp-[0-9]*}:../../devel/p5-File-Temp
 DEPENDS+=	p5-Switch-[0-9]*:../../lang/p5-Switch
 

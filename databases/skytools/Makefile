@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2015/12/05 21:25:33 adam Exp $
+# $NetBSD: Makefile,v 1.9 2017/01/01 14:43:28 wiz Exp $
 
 DISTNAME=	skytools-3.2
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	databases
 MASTER_SITES=	http://pgfoundry.org/frs/download.php/3622/
 
@@ -20,8 +20,7 @@ USE_TOOLS+=	awk gmake grep sed
 
 PY_PATCHPLIST=	yes
 PY_NO_EGG=	no
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 3.2
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 3.2
 
 REPLACE_PYTHON+=	scripts/*.py
 REPLACE_PYTHON+=	python/*.py

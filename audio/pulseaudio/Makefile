@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.108 2016/06/04 16:25:04 youri Exp $
+# $NetBSD: Makefile,v 1.119 2017/02/12 06:25:05 ryoon Exp $
 
-DISTNAME=	pulseaudio-8.0
-PKGREVISION=	1
+DISTNAME=	pulseaudio-10.0
+PKGREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	http://freedesktop.org/software/pulseaudio/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -11,21 +11,26 @@ HOMEPAGE=	http://www.freedesktop.org/wiki/Software/PulseAudio
 COMMENT=	Sound server for POSIX and Win32 systems
 LICENSE=	gnu-lgpl-v2.1 AND gnu-gpl-v2
 
+NOT_FOR_PLATFORM=	DragonFly-*-*
+
 LIBTOOL_REQD=	2.4
+GCC_REQD+=	4.8
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	aclocal autoheader autoconf automake gmake gm4 intltool msgfmt pkg-config
 USE_LANGUAGES=	c c++
 
 REPLACE_BASH=	shell-completion/bash/pulseaudio git-version-gen
 
 .include "../../mk/bsd.prefs.mk"
+
 # Some tests are incompatible for NetBSD at least
 CONFIGURE_ARGS.NetBSD+=	--disable-default-build-tests
-.if ${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[45].*)
+
 # broken test for TLS
+.if ((${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[45].*)) || \
+     (${OPSYS} == "Darwin" && !empty(PKGSRC_COMPILER:Mclang)))
 CONFIGURE_ENV+=		ac_cv_tls=none
 .endif
 
@@ -40,7 +45,6 @@ MAKE_ENV+=		EGDIR=${EGDIR}
 
 MAKE_FLAGS+=		bashcompletiondir=${PREFIX}/share/bash-completion/completions
 
-CONFIGURE_ARGS+=	--enable-samplerate
 CONFIGURE_ARGS+=	--disable-tcpwrap
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE:Q}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR:Q}
@@ -90,6 +94,7 @@ CONF_FILES+=	${EGDIR}/pulseaudio-system.conf \
 PLIST_VARS+=		alsa bonjour coreaudio evdev oss sun
 
 .if ${OPSYS} == "SunOS"
+USE_LANGUAGES+=		c99
 PLIST.sun=		yes
 .  if ${OS_VERSION} == "5.11"
 PLIST.oss=		yes
@@ -113,7 +118,6 @@ pre-configure:
 .if ${OPSYS} != "Darwin"
 .include "../../sysutils/consolekit/buildlink3.mk"
 .endif
-.include "../../audio/libsamplerate/buildlink3.mk"
 .include "../../audio/libsndfile/buildlink3.mk"
 .include "../../audio/speexdsp/buildlink3.mk"
 .include "../../databases/gdbm/buildlink3.mk"
@@ -121,6 +125,5 @@ pre-configure:
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
-.include "../../textproc/json-c/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.66 2016/03/05 11:28:42 jperkin Exp $
+# $NetBSD: Makefile,v 1.70 2017/02/12 06:25:33 ryoon Exp $
 #
 
-DISTNAME=	xlog-2.0.13
-PKGREVISION=	1
+DISTNAME=	xlog-2.0.14
+PKGREVISION=	2
 CATEGORIES=	ham
 MASTER_SITES=	http://download.savannah.gnu.org/releases/xlog/
 LICENSE=	gnu-gpl-v3
@@ -27,6 +27,7 @@ CWRAPPERS_APPEND.cc+=	-Wno-error=parentheses-equality -Wno-error=tautological-co
 .endif
 
 .include "../../databases/shared-mime-info/buildlink3.mk"
+.include "../../graphics/gnome-icon-theme/buildlink3.mk"
 .include "../../ham/hamlib/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../print/libgnomeprint/buildlink3.mk"

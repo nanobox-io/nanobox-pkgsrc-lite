@@ -1,25 +1,19 @@
-# $NetBSD: Makefile,v 1.19 2016/04/07 08:52:05 adam Exp $
+# $NetBSD: Makefile,v 1.23 2016/10/27 11:32:16 wiz Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-agpl/}
 CATEGORIES=	print
-MASTER_SITES=	${MASTER_SITE_GITHUB:=ArtifexSoftware/ghostpdl-downloads/releases/download/gs919/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GITHUB:=ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://ghostscript.sourceforge.net/
+HOMEPAGE=	http://ghostscript.com/
 COMMENT=	Postscript interpreter
-
 # Plus adobe verbatim for Resources/CMap.
 LICENSE=	gnu-agpl-v3
 
-.include	"Makefile.common"
-
 DEPENDS+=		ghostscript-fonts>=6.0:../../fonts/ghostscript-fonts
 
-CONFLICTS+=		ghostscript-afpl-[0-9]*
-CONFLICTS+=		ghostscript-esp{,-nox11}-[0-9]*
-CONFLICTS+=		ghostscript-gnu{,-nox11,-x11}-[0-9]*
+.include "Makefile.common"
 
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake perl:run lex pkg-config
@@ -43,10 +37,6 @@ REPLACE_PERL+=		toolbin/htmldiff.pl
 GS_RESOURCEDIR=		${PREFIX}/share/ghostscript/${PKGVERSION}/Resource
 # MESSAGE file substitution
 MESSAGE_SUBST+=		GS_RESOURCEDIR=${GS_RESOURCEDIR}
-
-# XXX make sure the local jpeg headers are found before those pulled
-# in indirectly by cups bl3
-CPPFLAGS+=		-Ijpeg
 
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"

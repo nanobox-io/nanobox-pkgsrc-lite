@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2016/05/07 09:58:49 joerg Exp $
+# $NetBSD: Makefile,v 1.40 2016/08/03 10:22:14 adam Exp $
 
 DISTNAME=	gdchart0.11.5dev
 PKGNAME=	gdchart-0.11.5
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.fred.net/brv/chart/
 
@@ -11,8 +11,7 @@ HOMEPAGE=	http://www.fred.net/brv/chart/
 COMMENT=	Easy to use, fast C API for creating charts and graphs
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
-INSTALLATION_DIRS=	include lib${LIBARCHSUFFIX}
+INSTALLATION_DIRS=	include lib
 
 #TEST_TARGET=	gdc_samp1 gdc_samp2 gdc_pie_samp ft_samp
 
@@ -25,7 +24,7 @@ post-patch:
 
 do-install:
 	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libgdchart.la \
-		 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
+		 ${DESTDIR}${PREFIX}/lib
 	${INSTALL_DATA}	${WRKSRC}/gdchart.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA}	${WRKSRC}/gdc.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA}	${WRKSRC}/gdcpie.h ${DESTDIR}${PREFIX}/include

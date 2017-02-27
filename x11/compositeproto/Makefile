@@ -13,7 +13,6 @@ CONFLICTS+=		compositeext-[0-9]*
 
 GNU_CONFIGURE=		YES
 PKGCONFIG_OVERRIDE+=	compositeproto.pc.in
-USE_MULTIARCH=		lib
 
 .include "../../x11/fixesproto/buildlink3.mk"
 .include "../../x11/xproto/buildlink3.mk"

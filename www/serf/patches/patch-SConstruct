@@ -1,11 +1,12 @@
-$NetBSD: patch-SConstruct,v 1.6 2015/11/25 10:46:24 adam Exp $
+$NetBSD: patch-SConstruct,v 1.8 2016/12/07 20:00:20 maya Exp $
 
 Hack: Use OPENSSL variable as final shared library path; fixes lib id on Darwin.
 Don't append -O2 compiler flag.
+Don't special case sunos5 in naming shlibs
 
---- SConstruct.orig	2013-10-04 15:11:04.000000000 +0000
+--- SConstruct.orig	2015-09-17 12:46:24.000000000 +0000
 +++ SConstruct
-@@ -106,6 +106,7 @@ opts.AddVariables(
+@@ -111,6 +111,7 @@ opts.AddVariables(
    RawListVariable('CC', "Command name or path of the C compiler", None),
    RawListVariable('CFLAGS', "Extra flags for the C compiler (space-separated)",
                    None),
@@ -13,7 +14,7 @@ Don't append -O2 compiler flag.
    RawListVariable('LIBS', "Extra libraries passed to the linker, "
                    "e.g. \"-l<library1> -l<library2>\" (space separated)", None),
    RawListVariable('LINKFLAGS', "Extra flags for the linker (space-separated)",
-@@ -146,7 +147,7 @@ if sys.platform == 'win32':
+@@ -152,7 +153,7 @@ if sys.platform == 'win32':
                   True),
      )
  
@@ -22,15 +23,25 @@ Don't append -O2 compiler flag.
                    tools=('default', 'textfile',),
                    CPPPATH=['.', ],
                    )
-@@ -240,7 +241,6 @@ if sys.platform != 'win32':
-     env.Append(CCFLAGS='-g')
+@@ -215,8 +216,7 @@ incdir = '$PREFIX/include/serf-$MAJOR'
+ # Unfortunately we can't set the .dylib compatibility_version option separately
+ # from current_version, so don't use the PATCH level to avoid that build and
+ # runtime patch levels have to be identical.
+-if sys.platform != 'sunos5':
+-  env['SHLIBVERSION'] = '%d.%d.%d' % (MAJOR, MINOR, 0)
++env['SHLIBVERSION'] = '%d.%d.%d' % (MAJOR, MINOR, 0)
+ 
+ LIBNAME = 'libserf-%d' % (MAJOR,)
+ if sys.platform != 'win32':
+@@ -257,7 +257,6 @@ if sys.platform != 'win32':
+     env.Append(CCFLAGS=['-g'])
      env.Append(CPPDEFINES=['DEBUG', '_DEBUG'])
    else:
--    env.Append(CCFLAGS='-O2')
-     env.Append(CPPDEFINES='NDEBUG')
+-    env.Append(CCFLAGS=['-O2'])
+     env.Append(CPPDEFINES=['NDEBUG'])
  
    ### works for Mac OS. probably needs to change
-@@ -372,6 +372,11 @@ if sys.platform == 'win32':
+@@ -391,6 +390,11 @@ if sys.platform == 'win32':
  for d in env['LIBPATH']:
    env.Append(RPATH=':'+d)
  
@@ -42,7 +53,7 @@ Don't append -O2 compiler flag.
  # Set up the construction of serf-*.pc
  pkgconfig = env.Textfile('serf-%d.pc' % (MAJOR,),
                           env.File('build/serf.pc.in'),
-@@ -410,7 +415,7 @@ if sys.platform == 'darwin':
+@@ -429,7 +433,7 @@ if sys.platform == 'darwin':
    # make applications depend on the exact major.minor.patch version of serf.
  
    install_shared_path = install_shared[0].abspath

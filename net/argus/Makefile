@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2016/05/17 10:32:08 fhajny Exp $
+# $NetBSD: Makefile,v 1.24 2016/11/03 01:23:42 wiz Exp $
 
 DISTNAME=	argus-3.7
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	net
 MASTER_SITES=	http://www.tcp4me.com/code/argus-archive/
 EXTRACT_SUFX=	.tgz
@@ -60,5 +60,4 @@ CONF_FILES+=		${PREFIX}/share/examples/argus/locale/${f} ${VARBASE}/argus/locale
 post-install:
 	(cd ${DESTDIR}${PREFIX}/share/examples/argus; chmod 755 . perl gcache gdata)
 
-.include "options.mk"
 .include "../../mk/bsd.pkg.mk"

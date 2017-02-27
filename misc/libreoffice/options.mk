@@ -1,16 +1,16 @@
-# $NetBSD: options.mk,v 1.2 2015/11/25 12:51:54 jperkin Exp $
+# $NetBSD: options.mk,v 1.4 2016/12/14 13:52:56 ryoon Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.libreoffice
-PKG_SUPPORTED_OPTIONS=	java debug kde4 gtk3
+PKG_SUPPORTED_OPTIONS=	java debug kde4 gtk3 cups
 
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS"
-PKG_SUGGESTED_OPTIONS=	java
+PKG_SUGGESTED_OPTIONS+=	java
 .endif
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=	java kde4 gtk3
+PLIST_VARS+=	java kde4 gtk3 cups
 
 .if !empty(PKG_OPTIONS:Mjava)
 .include "../../mk/java-env.mk"
@@ -63,4 +63,8 @@ PLIST.kde4=		yes
 .include "../../x11/kdelibs4/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-kde4
+.endif
+
+.if empty(PKG_OPTIONS:Mcups)
+CONFIGURE_ARGS+=	--disable-cups
 .endif

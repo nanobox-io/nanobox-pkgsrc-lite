@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2015/07/31 09:02:53 youri Exp $
+# $NetBSD: Makefile,v 1.4 2017/02/12 06:26:03 ryoon Exp $
 
+PKGREVISION= 3
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 DISTNAME=		xfce4-gvfs-mount-0.0.4-6d2684b

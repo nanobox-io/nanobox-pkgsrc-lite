@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.39 2015/10/25 09:44:09 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2016/07/03 11:05:43 wiz Exp $
 
-DISTNAME=	libebml-1.3.3
+DISTNAME=	libebml-1.3.4
 CATEGORIES=	devel
 MASTER_SITES=	http://dl.matroska.org/downloads/libebml/
 EXTRACT_SUFX=	.tar.bz2
@@ -12,7 +12,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 
 PKGCONFIG_OVERRIDE=	libebml.pc.in

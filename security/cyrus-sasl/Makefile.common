@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.23 2016/02/26 09:41:05 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.25 2017/01/19 18:52:23 agc Exp $
 #
 # used by security/cyrus-sasl/Makefile
 # used by security/cy2-anonymous/Makefile
@@ -19,8 +19,8 @@
 
 DISTNAME=	cyrus-sasl-2.1.26
 CATEGORIES=	security
-MASTER_SITES=	ftp://ftp.cyrusimap.org/cyrus-sasl/ \
-		ftp://ftp.cyrusimap.org/cyrus-sasl/OLD-VERSIONS/
+MASTER_SITES=	ftp://ftp.cyrusimap.org/cyrus-sasl/
+MASTER_SITES+=	ftp://ftp.cyrusimap.org/cyrus-sasl/OLD-VERSIONS/
 PATCHFILES+=	cyrus-sasl-dedad73e5e7a75d01a5f3d5a6702ab8ccd2ff40d.patch.v2
 SITES.cyrus-sasl-dedad73e5e7a75d01a5f3d5a6702ab8ccd2ff40d.patch.v2= \
 		-https://cgit.cyrus.foundation/cyrus-sasl/patch/?id=dedad73e5e7a75d01a5f3d5a6702ab8ccd2ff40d
@@ -32,8 +32,6 @@ LICENSE=	original-bsd # CMU version
 
 DISTINFO_FILE=		${.CURDIR}/../cyrus-sasl/distinfo
 PATCHDIR=		${.CURDIR}/../cyrus-sasl/patches
-
-PKG_SYSCONFSUBDIR=	sasl2
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -49,17 +47,18 @@ MAKE_JOBS_SAFE=		no
 USE_TOOLS+=		gmake
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
-MULTIARCH_DIRS.lib=	# manually defined in PLIST
 
 DOCDIR=			${PREFIX}/share/doc/cyrus-sasl
 PLUGINDIR=		${PREFIX}/lib/sasl2
 
-CONFIGURE_ARGS+=	--with-configdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-plugindir=${PLUGINDIR:Q}
 CONFIGURE_ARGS+=	--disable-java
 
 CONFIGURE_ARGS.Darwin+=	--disable-macos-framework
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ARGS+=	--with-ipctype=doors
+.endif
 
 # Authentication mechanisms
 CONFIGURE_ARGS+=	--disable-anon		# ANONYMOUS

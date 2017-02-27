@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2016/04/21 21:24:56 prlw1 Exp $
+# $NetBSD: Makefile,v 1.26 2016/09/19 13:04:25 wiz Exp $
 #
 
 DISTNAME=	glib-networking-2.48.0
+PKGREVISION=	1
 CATEGORIES=	net gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/glib-networking/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -14,7 +15,6 @@ LICENSE=	gnu-lgpl-v2
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+= --with-ca-certificates=/etc/ssl/certs/ca-certificates.crt
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 USE_TOOLS+=	intltool pkg-config gmake gettext
 
 # gcc>=4.2 specific -Werror=XXX flags will be added unconditionally.

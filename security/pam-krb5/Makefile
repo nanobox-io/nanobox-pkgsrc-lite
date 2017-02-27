@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2012/10/23 18:16:48 asau Exp $
+# $NetBSD: Makefile,v 1.9 2016/12/12 14:22:04 wiz Exp $
 #
 
 DISTNAME=	pam-krb5-4.6

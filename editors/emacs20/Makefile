@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.52 2015/10/14 20:17:24 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2017/01/19 18:52:08 agc Exp $
 
 DISTNAME=	emacs-20.7
 PKGNAME=	${DISTNAME:S/emacs/emacs20/}
-PKGREVISION=	18
+PKGREVISION=	22
 CATEGORIES=	editors
-MASTER_SITES=	http://ftp.gnu.org/pub/old-gnu/emacs/	\
-		ftp://ftp.gnu.org/pub/old-gnu/emacs
+MASTER_SITES=	http://ftp.gnu.org/pub/old-gnu/emacs/
+MASTER_SITES+=	ftp://ftp.gnu.org/pub/old-gnu/emacs
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 DISTFILES+=	${DISTNAME}-mule-4.1b-elc${EXTRACT_SUFX}
 SITES.${DISTNAME}-mule-4.1b-elc.tar.gz=	${MASTER_SITE_LOCAL}
@@ -44,19 +44,10 @@ CHECK_WRKREF_SKIP+=	bin/emacs-20.7
 
 .include "../../mk/bsd.prefs.mk"
 
-# This matches NetBSD <1.7 releases and 1.6A-1.6P, where ld is <2.13.2.1.
-.if (${OPSYS} == "NetBSD" && \
-    (empty(OS_VERSION:M1.[0-5]*) && \
-     empty(OS_VERSION:M1.6_*) && \
-     empty(OS_VERSION:M1.6) && \
-     empty(OS_VERSION:M1.6.[0-9]*) && \
-     empty(OS_VERSION:M1.6[A-P]*))) || \
-    (${OPSYS} == "DragonFly")
 # If using GNU ld 2.13.2.1 or later, avoid creating combined reloc
 # sections and .data reloc sections, both of which Emacs can't handle
 # properly.  Analyzed by Stephen Ma.
 LDFLAGS+=	-Wl,-z,nocombreloc
-.endif
 
 .if (${OPSYS} == "NetBSD") && \
     !exists(/usr/lib/libgcc_s.so) && !exists(/usr/lib/libgcc.a)

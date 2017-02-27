@@ -1,18 +1,17 @@
-# $NetBSD: Makefile,v 1.32 2016/04/13 18:13:49 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2017/01/25 16:09:06 adam Exp $
 
-DISTNAME=	Cython-0.24
-PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/Cy/cy/}
+DISTNAME=	Cython-0.25.2
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	lang python
-MASTER_SITES=	http://cython.org/release/
+MASTER_SITES=	${MASTER_SITE_PYPI:=c/cython/}
 
-MAINTAINER=	jihbed.research@gmail.com
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://cython.org/
 COMMENT=	C-Extensions for Python
 LICENSE=	apache-1.1
 
 USE_LANGUAGES=	c
 
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 PLIST_VARS=	cygdb
 
 REPLACE_PYTHON+=	Cython/Build/Cythonize.py
@@ -26,12 +25,10 @@ do-test:
 	(cd ${WRKSRC} && ${PYTHONBIN} runtests.py)
 
 post-install:
-	if [ -f ${DESTDIR}${PREFIX}/bin/cython ]; then \
 	cd ${DESTDIR}${PREFIX}/bin && \
 		${MV} cython cython${PYVERSSUFFIX} && \
 		${MV} cythonize cythonize${PYVERSSUFFIX} && \
-		${MV} cygdb cygdb${PYVERSSUFFIX}; \
-	fi
+		${MV} cygdb cygdb${PYVERSSUFFIX}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

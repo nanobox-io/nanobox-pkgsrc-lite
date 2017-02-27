@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2016/03/05 11:29:01 jperkin Exp $
+# $NetBSD: Makefile,v 1.22 2017/01/01 16:06:31 adam Exp $
 
 DISTNAME=	libkcompactdisc-${_KDE_VERSION}
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	multimedia
 COMMENT=	a library for interfacing with CDs
 

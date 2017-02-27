@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.36 2015/11/17 10:42:12 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2016/12/12 15:06:34 wiz Exp $
 
-DISTNAME=	gsl-2.1
+DISTNAME=	gsl-2.3
 CATEGORIES=	math devel
 MASTER_SITES=	${MASTER_SITE_GNU:=gsl/}
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2013/12/10 14:06:39 jperkin Exp $
+# $NetBSD: Makefile,v 1.11 2016/12/12 14:22:04 wiz Exp $
 #
 
 DISTNAME=		knc-1.7.1

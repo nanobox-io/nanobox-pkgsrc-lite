@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.123 2015/05/31 09:17:53 nat Exp $
+# $NetBSD: Makefile,v 1.125 2017/01/21 20:06:48 ryoon Exp $
 
 DISTNAME=	SDL-1.2.15
-PKGREVISION=	18
+PKGREVISION=	20
 CATEGORIES=	devel games
 MASTER_SITES=	http://www.libsdl.org/release/
 
@@ -12,7 +12,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 PTHREAD_OPTS+=		require

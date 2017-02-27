@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.23 2016/03/05 11:27:50 jperkin Exp $
+# $NetBSD: buildlink3.mk,v 1.25 2017/01/01 16:05:58 adam Exp $
 
 BUILDLINK_TREE+=	analitza
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	analitza
 ANALITZA_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.analitza+=	analitza>=4.8.0
-BUILDLINK_ABI_DEPENDS.analitza?=	analitza>=4.14.3nb5
+BUILDLINK_ABI_DEPENDS.analitza?=	analitza>=4.14.3nb8
 BUILDLINK_PKGSRCDIR.analitza?=	../../math/analitza
 
 .include "../../x11/kdelibs4/buildlink3.mk"

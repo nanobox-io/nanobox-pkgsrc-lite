@@ -1,11 +1,18 @@
-# $NetBSD: Makefile,v 1.3 2016/07/12 11:06:48 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2017/01/16 21:56:35 brook Exp $
+#
+# when updating this, please also update:
+# devel/include-what-you-use
+# devel/lldb
+# devel/polly
+# lang/clang
+# lang/clang-static-analyzer
+# lang/libLLVM
+# lang/libunwind
 
-DISTNAME=	llvm-3.8.0.src
+DISTNAME=	llvm-3.9.1.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	2
 CATEGORIES=	lang devel
 MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
-#MASTER_SITES=	http://llvm.org/pre-releases/3.8.0/rc2/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -25,6 +32,8 @@ CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 CMAKE_ARGS+=	-DCMAKE_C_COMPILER=gcc
 CMAKE_ARGS+=	-DCMAKE_CXX_COMPILER=g++
 CMAKE_ARGS+=	-DLLVM_INSTALL_UTILS=ON
+
+CMAKE_ARGS.Darwin+=	-DCMAKE_LIBTOOL=/usr/bin/libtool
 
 CHECK_PORTABILITY_SKIP=	utils/buildit/build_llvm
 
@@ -80,6 +89,15 @@ SOEXT=		so
 .endif
 PLIST_SUBST+=	SOEXT=${SOEXT}
 
+# At least LLVM 3.9.0 and subprojects don't correctly add C++11 flags
+# automatically.
+CXXFLAGS+=	-std=c++11
+
+# needs std::atomic with 64-bit CAS
+.if ${MACHINE_ARCH} == "i386"
+CXXFLAGS+=	-march=i586
+.endif
+
 .if ${OPSYS} == "Darwin"
 .PHONY: fix-darwin-install-name
 post-install: fix-darwin-install-name
@@ -97,7 +115,7 @@ fix-darwin-install-name:
 post-extract:
 	${RUN} mkdir -p ${WRKDIR}/build
 .for f in config.guess config.sub
-	cp ../../mk/gnu-config/${f} ${WRKSRC}/autoconf/${f}
+	cp ../../mk/gnu-config/${f} ${WRKSRC}/cmake/${f}
 .endfor
 
 .include "../../devel/zlib/buildlink3.mk"

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.277 2016/03/13 03:32:59 tnn Exp $
+# $NetBSD: Makefile,v 1.284 2017/02/12 06:24:53 ryoon Exp $
 
-DISTNAME=	gtk+-2.24.30
+DISTNAME=	gtk+-2.24.31
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}
-CATEGORIES=	x11
+PKGREVISION=	2
+CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk+/2.24/}
 EXTRACT_SUFX=	.tar.xz
 
@@ -23,7 +24,6 @@ USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake msgfmt perl pkg-config
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 PTHREAD_AUTO_VARS=	yes
 
 GNU_CONFIGURE=		yes
@@ -46,9 +46,9 @@ PKGCONFIG_OVERRIDE+=	gtk+-unix-print-2.0.pc.in
 #PKGCONFIG_OVERRIDE+=	gdk-pixbuf-2.0.pc.in
 #PKGCONFIG_OVERRIDE+=	contrib/gdk-pixbuf-xlib/gdk-pixbuf-xlib-2.0.pc.in
 
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/gtk-2.0/immodules
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/gtk-2.0/modules
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/gtk-2.0/2.10.0/filesystems
+INSTALLATION_DIRS+=	lib/gtk-2.0/immodules
+INSTALLATION_DIRS+=	lib/gtk-2.0/modules
+INSTALLATION_DIRS+=	lib/gtk-2.0/2.10.0/filesystems
 
 REQD_DIRS+=		${PREFIX}/libdata/gtk-2.0
 
@@ -80,7 +80,7 @@ SUBST_MESSAGE.iconcache=	Renaming gtk-icon-cache-update.
 SUBST_SED.iconcache=		-e 's,gtk-update-icon-cache,gtk2-update-icon-cache,g'
 SUBST_FILES.iconcache=		gtk/Makefile.in
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.24.22
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 2.24.22
 REPLACE_PYTHON=	gtk/gtk-builder-convert
 
 # We remove the module databases during post-install since we create them

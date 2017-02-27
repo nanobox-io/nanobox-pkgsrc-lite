@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.120 2016/06/19 20:34:38 wiz Exp $
+# $NetBSD: Makefile,v 1.140 2017/02/12 06:25:04 ryoon Exp $
 
-DISTNAME=		mpd-0.19.16
+DISTNAME=		mpd-0.20.4
 PKGNAME=		${DISTNAME:S/mpd/musicpd/}
+PKGREVISION=		2
 CATEGORIES=		audio
-MASTER_SITES=		http://www.musicpd.org/download/mpd/0.19/
+MASTER_SITES=		http://www.musicpd.org/download/mpd/0.20/
 #MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=musicpd/}
 EXTRACT_SUFX=		.tar.xz
 
@@ -19,8 +20,8 @@ USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
 USE_LANGUAGES=		c c++
 
-# See ${WRKSRC}/src/Compiler.h: mpd requires gcc>=4.6
-GCC_REQD=		4.6
+# c++14
+GCC_REQD+=		4.9
 
 # MacOS X audio output is no longer enabled by default.
 CONFIGURE_ARGS.Darwin+=	--enable-osx
@@ -34,6 +35,12 @@ CONF_FILES=		${EGDIR}/mpd.conf ${PKG_SYSCONFDIR}/mpd.conf
 RCD_SCRIPTS=		mpd
 
 FILES_SUBST+=		DEVOSSAUDIO=${DEVOSSAUDIO:Q}
+
+SUBST_CLASSES+=		paths
+SUBST_STAGE.paths=	post-patch
+SUBST_FILES.paths=	mpd.conf
+SUBST_SED.paths=	-e 's,@DEVOSSAUDIO@,${DEVOSSAUDIO},'
+
 LDFLAGS+=		${LIBOSSAUDIO}
 
 INSTALLATION_DIRS=	${EGDIR}
@@ -45,7 +52,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/mpd.conf ${DESTDIR}${EGDIR}
 
 .include "../../devel/boost-libs/buildlink3.mk"
-.include "../../devel/glib2/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../audio/libmad/buildlink3.mk"
 

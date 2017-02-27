@@ -11,7 +11,6 @@ COMMENT=		Library for the XFree86-VidMode X extension
 
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 

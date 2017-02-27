@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.30 2015/10/01 15:53:48 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2016/10/09 17:49:38 ryoon Exp $
 
 DISTNAME=	gdk-pixbuf-${PIXBUF2_VERSION}
 PKGNAME=	${DISTNAME:S/pixbuf/pixbuf2/}
@@ -17,7 +17,6 @@ CONFLICTS+=	gtk2+<2.22
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config gmake
 USE_PKGLOCALEDIR=	yes
 

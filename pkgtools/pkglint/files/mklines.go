@@ -1,27 +1,30 @@
 package main
 
 import (
+	"netbsd.org/pkglint/line"
+	"netbsd.org/pkglint/trace"
 	"path"
 	"strings"
 )
 
 // MkLines contains data for the Makefile (or *.mk) that is currently checked.
 type MkLines struct {
-	mklines        []*MkLine
-	lines          []*Line
-	forVars        map[string]bool    // The variables currently used in .for loops
-	target         string             // Current make(1) target
-	vardef         map[string]*MkLine // varname => line; for all variables that are defined in the current file
-	varuse         map[string]*MkLine // varname => line; for all variables that are used in the current file
-	buildDefs      map[string]bool    // Variables that are registered in BUILD_DEFS, to ensure that all user-defined variables are added to it.
-	plistVars      map[string]bool    // Variables that are registered in PLIST_VARS, to ensure that all user-defined variables are added to it.
-	tools          map[string]bool    // Set of tools that are declared to be used.
+	mklines        []MkLine
+	lines          []line.Line
+	forVars        map[string]bool   // The variables currently used in .for loops
+	target         string            // Current make(1) target
+	vardef         map[string]MkLine // varname => line; for all variables that are defined in the current file
+	varuse         map[string]MkLine // varname => line; for all variables that are used in the current file
+	buildDefs      map[string]bool   // Variables that are registered in BUILD_DEFS, to ensure that all user-defined variables are added to it.
+	plistVars      map[string]bool   // Variables that are registered in PLIST_VARS, to ensure that all user-defined variables are added to it.
+	tools          map[string]bool   // Set of tools that are declared to be used.
+	toolRegistry   ToolRegistry      // Tools defined in file scope.
 	SeenBsdPrefsMk bool
 	indentation    Indentation // Indentation depth of preprocessing directives
 }
 
-func NewMkLines(lines []*Line) *MkLines {
-	mklines := make([]*MkLine, len(lines))
+func NewMkLines(lines []line.Line) *MkLines {
+	mklines := make([]MkLine, len(lines))
 	for i, line := range lines {
 		mklines[i] = NewMkLine(line)
 	}
@@ -37,16 +40,17 @@ func NewMkLines(lines []*Line) *MkLines {
 		lines,
 		make(map[string]bool),
 		"",
-		make(map[string]*MkLine),
-		make(map[string]*MkLine),
+		make(map[string]MkLine),
+		make(map[string]MkLine),
 		make(map[string]bool),
 		make(map[string]bool),
 		tools,
+		NewToolRegistry(),
 		false,
 		Indentation{}}
 }
 
-func (mklines *MkLines) DefineVar(mkline *MkLine, varname string) {
+func (mklines *MkLines) DefineVar(mkline MkLine, varname string) {
 	if mklines.vardef[varname] == nil {
 		mklines.vardef[varname] = mkline
 	}
@@ -56,7 +60,7 @@ func (mklines *MkLines) DefineVar(mkline *MkLine, varname string) {
 	}
 }
 
-func (mklines *MkLines) UseVar(mkline *MkLine, varname string) {
+func (mklines *MkLines) UseVar(mkline MkLine, varname string) {
 	varcanon := varnameCanon(varname)
 	mklines.varuse[varname] = mkline
 	mklines.varuse[varcanon] = mkline
@@ -74,8 +78,8 @@ func (mklines *MkLines) VarValue(varname string) (value string, found bool) {
 }
 
 func (mklines *MkLines) Check() {
-	if G.opts.Debug {
-		defer tracecall1(mklines.lines[0].Fname)()
+	if trace.Tracing {
+		defer trace.Call1(mklines.lines[0].Filename())()
 	}
 
 	G.Mk = mklines
@@ -93,18 +97,19 @@ func (mklines *MkLines) Check() {
 	// In the first pass, all additions to BUILD_DEFS and USE_TOOLS
 	// are collected to make the order of the definitions irrelevant.
 	mklines.DetermineUsedVariables()
-	mklines.determineDefinedVariables()
+	mklines.DetermineDefinedVariables()
 
 	// In the second pass, the actual checks are done.
 
-	mklines.lines[0].CheckRcsid(`#\s+`, "# ")
+	LineChecker{mklines.lines[0]}.CheckRcsid(`#\s+`, "# ")
 
 	var substcontext SubstContext
 	var varalign VaralignBlock
 	indentation := &mklines.indentation
 	indentation.Push(0)
 	for _, mkline := range mklines.mklines {
-		mkline.Check()
+		ck := MkLineChecker{mkline}
+		ck.Check()
 		varalign.Check(mkline)
 
 		switch {
@@ -121,12 +126,15 @@ func (mklines *MkLines) Check() {
 			case "bsd.prefs.mk", "bsd.fast.prefs.mk", "bsd.builtin.mk":
 				mklines.setSeenBsdPrefsMk()
 			}
+			if G.Pkg != nil {
+				G.Pkg.CheckInclude(mkline, indentation)
+			}
 
 		case mkline.IsCond():
-			mkline.checkCond(mklines.forVars)
+			ck.checkCond(mklines.forVars)
 
 		case mkline.IsDependency():
-			mkline.checkDependencyRule(allowedTargets)
+			ck.checkDependencyRule(allowedTargets)
 			mklines.target = mkline.Targets()
 		}
 	}
@@ -137,15 +145,15 @@ func (mklines *MkLines) Check() {
 	ChecklinesTrailingEmptyLines(mklines.lines)
 
 	if indentation.Len() != 1 && indentation.Depth() != 0 {
-		lastMkline.Line.Errorf("Directive indentation is not 0, but %d.", indentation.Depth())
+		lastMkline.Errorf("Directive indentation is not 0, but %d.", indentation.Depth())
 	}
 
 	SaveAutofixChanges(mklines.lines)
 }
 
-func (mklines *MkLines) determineDefinedVariables() {
-	if G.opts.Debug {
-		defer tracecall0()()
+func (mklines *MkLines) DetermineDefinedVariables() {
+	if trace.Tracing {
+		defer trace.Call0()()
 	}
 
 	for _, mkline := range mklines.mklines {
@@ -158,16 +166,16 @@ func (mklines *MkLines) determineDefinedVariables() {
 		case "BUILD_DEFS", "PKG_GROUPS_VARS", "PKG_USERS_VARS":
 			for _, varname := range splitOnSpace(mkline.Value()) {
 				mklines.buildDefs[varname] = true
-				if G.opts.Debug {
-					traceStep1("%q is added to BUILD_DEFS.", varname)
+				if trace.Tracing {
+					trace.Step1("%q is added to BUILD_DEFS.", varname)
 				}
 			}
 
 		case "PLIST_VARS":
 			for _, id := range splitOnSpace(mkline.Value()) {
 				mklines.plistVars["PLIST."+id] = true
-				if G.opts.Debug {
-					traceStep1("PLIST.%s is added to PLIST_VARS.", id)
+				if trace.Tracing {
+					trace.Step1("PLIST.%s is added to PLIST_VARS.", id)
 				}
 				mklines.UseVar(mkline, "PLIST."+id)
 			}
@@ -183,16 +191,16 @@ func (mklines *MkLines) determineDefinedVariables() {
 			for _, tool := range splitOnSpace(tools) {
 				tool = strings.Split(tool, ":")[0]
 				mklines.tools[tool] = true
-				if G.opts.Debug {
-					traceStep1("%s is added to USE_TOOLS.", tool)
+				if trace.Tracing {
+					trace.Step1("%s is added to USE_TOOLS.", tool)
 				}
 			}
 
 		case "SUBST_VARS.*":
 			for _, svar := range splitOnSpace(mkline.Value()) {
 				mklines.UseVar(mkline, varnameCanon(svar))
-				if G.opts.Debug {
-					traceStep1("varuse %s", svar)
+				if trace.Tracing {
+					trace.Step1("varuse %s", svar)
 				}
 			}
 
@@ -202,12 +210,14 @@ func (mklines *MkLines) determineDefinedVariables() {
 				defineVar(mkline, osvar)
 			}
 		}
+
+		mklines.toolRegistry.ParseToolLine(mkline)
 	}
 }
 
 func (mklines *MkLines) DetermineUsedVariables() {
 	for _, mkline := range mklines.mklines {
-		varnames := mkline.determineUsedVariables()
+		varnames := mkline.DetermineUsedVariables()
 		for _, varname := range varnames {
 			mklines.UseVar(mkline, varname)
 		}
@@ -217,15 +227,15 @@ func (mklines *MkLines) DetermineUsedVariables() {
 func (mklines *MkLines) setSeenBsdPrefsMk() {
 	if !mklines.SeenBsdPrefsMk {
 		mklines.SeenBsdPrefsMk = true
-		if G.opts.Debug {
-			traceStep("Mk.setSeenBsdPrefsMk")
+		if trace.Tracing {
+			trace.Stepf("Mk.setSeenBsdPrefsMk")
 		}
 	}
 }
 
 type VaralignBlock struct {
 	info []struct {
-		mkline *MkLine
+		mkline MkLine
 		prefix string
 		align  string
 	}
@@ -236,8 +246,8 @@ type VaralignBlock struct {
 	maxTabWidth    int
 }
 
-func (va *VaralignBlock) Check(mkline *MkLine) {
-	if !G.opts.WarnSpace || mkline.Line.IsMultiline() || mkline.IsComment() || mkline.IsCond() {
+func (va *VaralignBlock) Check(mkline MkLine) {
+	if !G.opts.WarnSpace || mkline.IsMultiline() || mkline.IsComment() || mkline.IsCond() {
 		return
 	}
 	if mkline.IsEmpty() {
@@ -254,7 +264,7 @@ func (va *VaralignBlock) Check(mkline *MkLine) {
 	align := valueAlign[len(prefix):]
 
 	va.info = append(va.info, struct {
-		mkline *MkLine
+		mkline MkLine
 		prefix string
 		align  string
 	}{mkline, prefix, align})
@@ -282,7 +292,7 @@ func (va *VaralignBlock) Check(mkline *MkLine) {
 func (va *VaralignBlock) Finish() {
 	if !va.skip {
 		for _, info := range va.info {
-			if !info.mkline.Line.IsMultiline() {
+			if !info.mkline.IsMultiline() {
 				va.fixalign(info.mkline, info.prefix, info.align)
 			}
 		}
@@ -290,8 +300,8 @@ func (va *VaralignBlock) Finish() {
 	*va = VaralignBlock{}
 }
 
-func (va *VaralignBlock) fixalign(mkline *MkLine, prefix, oldalign string) {
-	if mkline.Value() == "" && mkline.Comment() == "" {
+func (va *VaralignBlock) fixalign(mkline MkLine, prefix, oldalign string) {
+	if mkline.Value() == "" && mkline.VarassignComment() == "" {
 		return
 	}
 
@@ -300,6 +310,11 @@ func (va *VaralignBlock) fixalign(mkline *MkLine, prefix, oldalign string) {
 		va.maxTabWidth != 0 &&
 		va.maxSpaceWidth > va.maxTabWidth &&
 		tabLength(prefix+oldalign) == va.maxSpaceWidth {
+		return
+	}
+
+	// Don't warn about procedure parameters
+	if mkline.Op() == opAssignEval && matches(mkline.Varname(), `^[a-z]`) {
 		return
 	}
 
@@ -321,15 +336,15 @@ func (va *VaralignBlock) fixalign(mkline *MkLine, prefix, oldalign string) {
 		return
 	}
 
-	if !mkline.Line.AutofixReplace(prefix+oldalign, prefix+newalign) {
+	if !mkline.AutofixReplace(prefix+oldalign, prefix+newalign) {
 		wrongColumn := tabLength(prefix+oldalign) != tabLength(prefix+newalign)
 		switch {
 		case hasSpace && wrongColumn:
-			mkline.Line.Notef("This variable value should be aligned with tabs, not spaces, to column %d.", goodWidth+1)
+			mkline.Notef("This variable value should be aligned with tabs, not spaces, to column %d.", goodWidth+1)
 		case hasSpace:
-			mkline.Line.Notef("Variable values should be aligned with tabs, not spaces.")
+			mkline.Notef("Variable values should be aligned with tabs, not spaces.")
 		case wrongColumn:
-			mkline.Line.Notef("This variable value should be aligned to column %d.", goodWidth+1)
+			mkline.Notef("This variable value should be aligned to column %d.", goodWidth+1)
 		}
 		if wrongColumn {
 			Explain(

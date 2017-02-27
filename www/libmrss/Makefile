@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2016/03/05 11:27:57 jperkin Exp $
+# $NetBSD: Makefile,v 1.8 2017/01/01 16:06:01 adam Exp $
 #
 
 DISTNAME=	libmrss-0.19.2
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	www
 MASTER_SITES=	http://www.autistici.org/bakunin/libmrss/
 
@@ -14,7 +14,7 @@ LICENSE=	gnu-lgpl-v2.1
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
-USE_LANGUAGES =	c c++
+USE_LANGUAGES=	c c++
 
 PKGCONFIG_OVERRIDE+=	mrss.pc.in
 

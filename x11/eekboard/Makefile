@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2016/04/10 19:38:53 prlw1 Exp $
+# $NetBSD: Makefile,v 1.41 2017/02/12 06:24:52 ryoon Exp $
 
 DISTNAME=	eekboard-1.0.8
-PKGREVISION=	8
+PKGREVISION=	11
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ueno/}
 GITHUB_PROJECT= eekboard
 GITHUB_TAG=	${DISTNAME}
@@ -14,7 +14,6 @@ LICENSE=	gnu-gpl-v3
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config intltool msgfmt msgmerge xgettext
 

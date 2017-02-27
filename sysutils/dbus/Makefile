@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.100 2016/05/23 07:10:08 youri Exp $
+# $NetBSD: Makefile,v 1.105 2017/02/16 16:07:05 wiz Exp $
 
-DISTNAME=	dbus-1.10.8
-PKGREVISION=	1
+DISTNAME=	dbus-1.10.16
 CATEGORIES=	sysutils
 MASTER_SITES=	http://dbus.freedesktop.org/releases/dbus/
 
@@ -18,7 +17,6 @@ BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gmake msgfmt pkg-config
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		lib
 
 PKGCONFIG_OVERRIDE=	dbus-1.pc.in
 

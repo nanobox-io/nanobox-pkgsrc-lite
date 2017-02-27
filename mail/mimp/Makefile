@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.4 2016/05/17 10:32:07 fhajny Exp $
+# $NetBSD: Makefile,v 1.6 2017/01/19 18:52:16 agc Exp $
 
 DISTNAME=	mimp-h3-${MIMPVER}
 PKGNAME=	mimp-${MIMPVER}
 PKGREVISION=	2
 CATEGORIES=	mail www
-MASTER_SITES=	http://ftp.horde.org/pub/mimp/ \
-		ftp://ftp.horde.org/pub/mimp/
+MASTER_SITES=	http://ftp.horde.org/pub/mimp/
+MASTER_SITES+=	ftp://ftp.horde.org/pub/mimp/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.horde.org/apps/mimp/
@@ -14,7 +14,7 @@ LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	imp>=4.2:../../mail/imp
 
-PHP_VERSIONS_ACCEPTED=	55 56
+PHP_VERSIONS_ACCEPTED=	56
 
 USE_TOOLS+=	pax
 

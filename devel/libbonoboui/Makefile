@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.107 2016/03/05 11:27:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.110 2017/02/12 06:24:40 ryoon Exp $
 #
 
 DISTNAME=	libbonoboui-2.24.4
-PKGREVISION=	26
+PKGREVISION=	29
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libbonoboui/2.24/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,7 +15,6 @@ GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 
 PKGCONFIG_OVERRIDE=	bonobo/libbonoboui-2.0.pc.in
 

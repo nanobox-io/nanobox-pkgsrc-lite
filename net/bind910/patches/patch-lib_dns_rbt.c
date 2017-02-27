@@ -1,4 +1,4 @@
-$NetBSD: patch-lib_dns_rbt.c,v 1.4.2.1 2016/07/20 02:55:36 spz Exp $
+$NetBSD: patch-lib_dns_rbt.c,v 1.5 2016/07/19 01:08:05 taca Exp $
 
 * Disable inline on powerpc.
 

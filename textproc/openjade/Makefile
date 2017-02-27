@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/06/12 10:51:22 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2016/07/09 06:39:07 wiz Exp $
 
 DISTNAME=	openjade-1.3.2
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=openjade/}
 
@@ -14,13 +14,12 @@ MAKE_JOBS_SAFE=		no
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake perl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--datadir=${OPENJADE_DATA_DIR}
 CONFIGURE_ARGS+=	--enable-default-catalog=${OPENJADE_DATA_DIR}/catalog
 CONFIGURE_ARGS+=	--enable-spincludedir=${BUILDLINK_PREFIX.opensp}/include/OpenSP
-CONFIGURE_ARGS+=	--enable-splibdir=${BUILDLINK_PREFIX.opensp}/lib${LIBARCHSUFFIX}
+CONFIGURE_ARGS+=	--enable-splibdir=${BUILDLINK_PREFIX.opensp}/lib
 CONFIGURE_ENV+=		CXXFLAGS=${CFLAGS:M*:Q}
 
 SGML_CATALOGS=		${PREFIX}/share/sgml/openjade/catalog

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.42 2015/08/23 14:30:38 wiz Exp $
+# $NetBSD: Makefile,v 1.46 2017/02/12 06:25:40 ryoon Exp $
 #
 
 DISTNAME=	synce_plugin-0.7.5
 PKGNAME=	claws-mail-synce_plugin-0.7.5
-PKGREVISION=	30
+PKGREVISION=	34
 CATEGORIES=	mail
 MASTER_SITES=	http://claws-mail.org/downloads/plugins/
 

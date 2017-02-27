@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.43 2015/06/12 10:51:22 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2016/07/09 06:39:07 wiz Exp $
 #
 
 DISTNAME=	OpenSP-1.5.2
 PKGNAME=	${DISTNAME:S/OpenSP/opensp/}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=openjade/}
 
@@ -18,7 +18,6 @@ CONFLICTS+=	sp-[0-9]*
 USE_TOOLS+=		gmake msgfmt perl
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 PTHREAD_OPTS+=		require
 USE_PKGLOCALEDIR=	yes
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2016/06/08 17:43:34 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2017/01/22 15:19:25 kamil Exp $
 
-DISTNAME=	pygal-1.7.0
+DISTNAME=	pygal-2.3.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	graphics python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pygal/}
@@ -15,13 +15,12 @@ DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 .include "options.mk"
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/pygal_gen.py \
-		${DESTDIR}${PREFIX}/bin/pygal_gen${PYVERSSUFFIX}.py
+		${DESTDIR}${PREFIX}/bin/pygal_gen${PYVERSSUFFIX}.py || ${TRUE}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

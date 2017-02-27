@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.46 2016/03/05 11:27:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.52 2017/01/16 13:13:13 fhajny Exp $
 
 COMMENT=		Database connection pooling middleware and API
-PKGREVISION=		1
 
 .include "../../databases/sqlrelay/Makefile.common"
 
@@ -12,12 +11,12 @@ CONFIGURE_ARGS+=	--disable-db2 --disable-erlang --disable-firebird	\
 			--disable-mysql --disable-odbc --disable-oracle		\
 			--disable-perl --disable-php --disable-postgresql	\
 			--disable-python --disable-ruby --disable-sqlite	\
-			--disable-sybase --disable-tcl --disable-nodejs
+			--disable-sap --disable-tcl --disable-nodejs
 
 INSTALL_MAKE_FLAGS+=	EXAMPLEDIR=${DESTDIR}${EGDIR}
 
 CONF_FILES+=		${EGDIR}/sqlrelay.conf ${PKG_SYSCONFDIR}/sqlrelay.conf
-CONF_FILES+=		${EGDIR}/sqlrelay.dtd ${PKG_SYSCONFDIR}/sqlrelay.dtd
+CONF_FILES+=		${EGDIR}/sqlrelay.xsd ${PKG_SYSCONFDIR}/sqlrelay.xsd
 
 SQLR_USER?=		sqlrelay
 SQLR_GROUP?=		${SQLR_USER}
@@ -56,12 +55,5 @@ FILES_SUBST+=		SQLR_DATA=${SQLR_DATA}
 RCD_SCRIPTS+=				sqlrelay sqlrcachemanager
 RCD_SCRIPT_SRC.sqlrelay=		${WRKSRC}/init/rc.sqlrelay
 RCD_SCRIPT_SRC.sqlrcachemanager=	${WRKSRC}/init/rc.sqlrcachemanager
-
-.include "../../mk/compiler.mk"
-
-.if !empty(PKGSRC_COMPILER:Mclang)
-_WRAP_EXTRA_ARGS.CXX+=	-Wno-error=unused-private-field -Wno-error=mismatched-tags
-CWRAPPERS_APPEND.cxx+=	-Wno-error=unused-private-field -Wno-error=mismatched-tags
-.endif
 
 .include "../../mk/bsd.pkg.mk"

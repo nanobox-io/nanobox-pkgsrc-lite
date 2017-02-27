@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2015/06/15 17:14:27 marino Exp $
+# $NetBSD: Makefile,v 1.7 2017/01/19 18:52:13 agc Exp $
 #
 
 PKGNAME=	gcc5-aux-${SNAPSHOT}
@@ -18,7 +18,6 @@ USE_TOOLS+=	gmake sed:run perl makeinfo bzip2 patch pod2man tar
 APPLY_DIFFS=	core ada cxx
 
 .include "Makefile.version"
-.include "Makefile.testsuite"
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
@@ -37,10 +36,10 @@ GARCH=			${MACHINE_ARCH:S/amd64/x86_64/}
 BLD_TARGET=		${GARCH}-aux-${LOWER_OPSYS}${OS_VERSION}
 OS_LABEL4VERS=		[${OPSYS}${GARCH:M*64:S/amd_//:S/x86_//}]
 FULL_GNATGCC=		NOT SET
-FULL_PATH=		/sbin:/bin:/usr/sbin:/usr/bin:${PREFIX}/gcc-aux/bin:${PREFIX}/sbin:${PREFIX}/bin
+FULL_PATH=		/sbin:/bin:/usr/sbin:/usr/bin:${PREFIX}/gcc5-aux/bin:${PREFIX}/sbin:${PREFIX}/bin
 
 .if ${OPSYS} == DragonFly
-BOOTSTRAP_COMPILER=	ada-bootstrap.${GARCH}.dragonfly.36A.tar.bz2
+BOOTSTRAP_COMPILER=	ada-bootstrap.${GARCH}.dragonfly.41.tar.bz2
 .endif
 
 .if ${OPSYS} == FreeBSD
@@ -53,9 +52,7 @@ BOOTSTRAP_COMPILER=	ada-bootstrap.${GARCH}.freebsd.100B.tar.bz2
 .endif
 
 .if ${OPSYS} == NetBSD
-.  if !empty(OS_VERSION:M6.99.*)
-NSUFF=	7.0_DEV
-.  elif !empty(OS_VERSION:M7.99.*)
+.  if !empty(OS_VERSION:M7.99.*)
 NSUFF=	8.0_DEV
 .  else
 NSUFF=	${OS_VERSION}
@@ -112,8 +109,8 @@ MY_CONFIGURE_ENV+=	RANLIB=${PREFIX}/bin/granlib
 .  if defined(NATIVE_LINKER)
 EXTRA_CONFARGS+=	--without-gnu-ld --with-ld=${NATIVE_LINKER}
 .  else
-EXTRA_CONFARGS+=	--with-gnu-ld --with-ld=${PREFIX}/bin/gld.gold
-MY_CONFIGURE_ENV+=	LD=${PREFIX}/bin/gld.gold
+EXTRA_CONFARGS+=	--with-gnu-ld --with-ld=${PREFIX}/bin/gld.bfd
+MY_CONFIGURE_ENV+=	LD=${PREFIX}/bin/gld.bfd
 .  endif
 .else
 EXTRA_CONFARGS+=	--with-gnu-ld --with-ld=/usr/bin/ld
@@ -134,11 +131,11 @@ PKG_PREFIX=		${PREFIX}/gcc5-aux
 BSFILENAME=		ada-bootstrap.${GARCH}.${LOWER_OPSYS}.${OS_VERSION:C/[A-Z_.-]//g}.tar
 
 
-# testing if gcc-aux is already installed - if so, use this compiler along with
+# testing if gcc5-aux is already installed - if so, use this compiler along with
 # its gnatlink, gnatbind, and gnatmake rather than the older bootstrap versions
-.if exists(${LOCALBASE}/gcc-aux/bin/ada)
-FULL_GNATGCC=${LOCALBASE}/gcc-aux/bin/ada
-FULL_GNATGXX=${LOCALBASE}/gcc-aux/bin/g++
+.if exists(${LOCALBASE}/gcc5-aux/bin/ada)
+FULL_GNATGCC=${LOCALBASE}/gcc5-aux/bin/ada
+FULL_GNATGXX=${LOCALBASE}/gcc5-aux/bin/g++
 .endif
 
 
@@ -158,15 +155,14 @@ FULL_PATH=${BOOTSTRAP_PREFIX}/bin:/sbin:/bin:/usr/sbin:/usr/bin:${PREFIX}/sbin:$
 
 # for port maintenance, invoke "make mdi PLUS_BOOTSTRAPS=1"
 .if defined(PLUS_BOOTSTRAPS)
-MASTER_SITES= http://downloads.dragonlace.net/src/ \
-   ${MASTER_SITE_GNU:=gcc/${IDENTIFICATION}/}
+MASTER_SITES=	http://downloads.dragonlace.net/src/
+MASTER_SITES+=	${MASTER_SITE_GNU:=gcc/${IDENTIFICATION}/}
 DISTFILES= \
    ${DISTNAME}.tar.bz2 \
-   ada-bootstrap.i386.dragonfly.36A.tar.bz2 \
    ada-bootstrap.i386.freebsd.84.tar.bz2 \
    ada-bootstrap.i386.freebsd.100B.tar.bz2 \
    ada-bootstrap.i386.netbsd.614.tar.bz2 \
-   ada-bootstrap.x86_64.dragonfly.36A.tar.bz2 \
+   ada-bootstrap.x86_64.dragonfly.41.tar.bz2 \
    ada-bootstrap.x86_64.freebsd.84.tar.bz2 \
    ada-bootstrap.x86_64.freebsd.100B.tar.bz2 \
    ada-bootstrap.x86_64.netbsd.614.tar.bz2 \
@@ -214,14 +210,6 @@ post-extract:
 	@${ECHO} "Applying composite patch diff-${suffix}"
 	${PATCH} -d ${WRKSRC} -s -E < ${FILESDIR}/diff-${suffix}
 .endfor
-	(cd ${WRKSRC}/libstdc++-v3/testsuite/22_locale && ${PERL5} -i \
-	  -pe 's|ISO-8859|ISO8859|g;' \
-	  -pe 's|ja_JP.eucjp|ja_JP.eucJP|g;' \
-	  -pe 's|en_HK|zh_HK|g;' \
-	  -pe 's|en_PH|en_NZ|g;' \
-	  -pe 's|se_NO|no_NO|g;' \
-	  -pe 's|es_MX|es_ES|g;' \
-	  -pe 's|ru_RU.UTF8|ru_RU.UTF-8|g' ${LOCALE22FIX})
 .if ${OPSYS} == NetBSD
 .  for sysfile in ${CORRECTIONS}
 .    for pair in ${${CRXN}_${sysfile}}
@@ -243,7 +231,7 @@ post-extract:
 	  ${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
 .  endif
 .endif
-.if !exists(${LOCALBASE}/gcc-aux/bin/ada) && ${OPSYS} == SunOS
+.if !exists(${LOCALBASE}/gcc5-aux/bin/ada) && ${OPSYS} == SunOS
 	# In case /usr/pkg/bin/gas doesn't exist, establish fallback
 	${LN} -s ${PREFIX}/bin/gas ${BOOTSTRAP_PREFIX}/bin/as
 .endif
@@ -251,12 +239,12 @@ post-extract:
 	# elfdump was present on OmniOS but not in Joyent dev area
 	${PERL5} -i -pe 's|/usr/ccs/bin|/usr/bin|g;' \
 	  -pe 's|readelf -s|greadelf -s|' ${WRKSRC}/contrib/make_sunver.pl
-	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
+	# Update LINK_SPEC to add gcc5-aux lib runpath in every binary
 	@${ECHO} "Configuring LINK_SPEC runpath"
-	${PERL5} -pi -e 's;\@PREFIX\@;${PREFIX};' \
+	${PERL5} -pi -e 's;\@PREFIX\@/\@GCCAUX\@;${PREFIX}/gcc5-aux;' \
 	  ${WRKSRC}/gcc/config/dragonfly.h \
-	  ${WRKSRC}/gcc/config/i386/freebsd.h \
-	  ${WRKSRC}/gcc/config/i386/netbsd-elf.h
+	  ${WRKSRC}/gcc/config/netbsd-elf.h \
+	  ${WRKSRC}/gcc/config/i386/freebsd.h
 
 .if defined(BOOTSTRAP_TRIPLET)
 	# Bootstrap compiler has statically linked z, gmp, mpc, mpfr and iconv

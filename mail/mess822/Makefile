@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2014/10/09 14:06:39 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2017/01/14 20:49:07 schmonz Exp $
 #
 
 DISTNAME=		mess822-0.58
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		mail
 MASTER_SITES=		http://cr.yp.to/software/
 
@@ -31,6 +31,11 @@ DJB_BUILD_TARGETS=	install instcheck
 AUTO_MKDIRS=		yes
 
 SUBST_FILES.djbware+=	cdb_seek.c leapsecs_read.c
+
+SUBST_CLASSES+=		paths
+SUBST_STAGE.paths=	do-configure
+SUBST_FILES.paths=	hier.c
+SUBST_SED.paths=	-e 's,@PKGMANDIR@,${PKGMANDIR},g'
 
 .include "../../mk/djbware.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2016/03/05 11:28:33 jperkin Exp $
+# $NetBSD: Makefile,v 1.22 2017/01/01 16:06:15 adam Exp $
 
 DISTNAME=	kolf-${_KDE_VERSION}
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	games
 COMMENT=	a miniature golf game for KDE
 

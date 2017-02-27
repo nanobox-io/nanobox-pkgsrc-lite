@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2016/04/16 14:15:19 wen Exp $
+# $NetBSD: Makefile,v 1.4 2016/12/18 02:28:50 wen Exp $
 
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_R_CRAN:=contrib/}
@@ -9,7 +9,7 @@ COMMENT=	Parsing and evaluation tools
 # TODO: LICENSE=	GPL
 
 R_PKGNAME=	evaluate
-R_PKGVER=	0.8.3
+R_PKGVER=	0.10
 
 DEPENDS+=	R-stringr>=0.6.2:../../textproc/R-stringr
 

@@ -1,4 +1,4 @@
-# $NetBSD: Linux.mk,v 1.66 2016/03/17 16:02:23 jperkin Exp $
+# $NetBSD: Linux.mk,v 1.72 2017/02/01 10:00:17 sevan Exp $
 #
 # Variable definitions for the Linux operating system.
 
@@ -50,23 +50,33 @@ _OPSYS_EMULDIR.linux32=	# empty
 
 # Support Debian/Ubuntu's multiarch hierarchy.
 .if exists(/etc/debian_version)
-.if !empty(MACHINE_ARCH:Mx86_64)
+.  if !empty(MACHINE_ARCH:Mx86_64)
 _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
-.endif
-.if !empty(MACHINE_ARCH:Mi386)
+.  endif
+.  if !empty(MACHINE_ARCH:Mi386)
 _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/i386-linux-gnu:/usr/lib/i386-linux-gnu
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/i386-linux-gnu /usr/lib/i386-linux-gnu
-.endif
-.if !empty(MACHINE_ARCH:Marm*)
-.if exists(/etc/ld.so.conf.d/arm-linux-gnueabihf.conf)
+.  endif
+.  if !empty(MACHINE_ARCH:Marm*)
+.    if exists(/etc/ld.so.conf.d/arm-linux-gnueabihf.conf)
 _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/arm-linux-gnueabihf /usr/lib/arm-linux-gnueabihf
-.else
+.    else
 _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/arm-linux-gnueabi:/usr/lib/arm-linux-gnueabi
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/arm-linux-gnueabi /usr/lib/arm-linux-gnueabi
-.endif
-.endif
+.    endif
+.  endif
+.  if !empty(MACHINE_ARCH:Maarch64)
+LIBABISUFFIX?=		/aarch64-linux-gnu
+_OPSYS_SYSTEM_RPATH=	/lib:/usr/lib:/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib /usr/lib /lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+.  endif
+.  if !empty(MACHINE_ARCH:Mpowerpc64le)
+LIBABISUFFIX?=		/powerpc64le-linux-gnu
+_OPSYS_SYSTEM_RPATH=	/lib:/usr/lib:/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib /usr/lib /lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+.  endif
 .else
 _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
@@ -98,6 +108,8 @@ _USE_RPATH=		yes	# add rpath to LDFLAGS
 
 _STRIPFLAG_CC?=		${_INSTALL_UNSTRIPPED:D:U-s}	# cc(1) option to strip
 _STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
+
+_OPSYS_SUPPORTS_CWRAPPERS=	yes
 
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk
 

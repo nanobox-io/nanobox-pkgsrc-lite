@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.18 2015/06/12 10:50:19 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.20 2016/10/03 11:28:20 wiz Exp $
 
 DISTNAME=	fromto-1.5
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	ftp://ftp.sra.co.jp/pub/lang/perl/sra-scripts/
 EXTRACT_SUFX=	#empty
 
 MAINTAINER=	bad@NetBSD.org
 COMMENT=	Sendmail logfile viewer
-LICENSE=	fromto-license  # XXX missing
+LICENSE=	fromto-license
 
 RESTRICTED=	Redistribution allowed for non-commercial purposes only
 NO_SRC_ON_CDROM=	${RESTRICTED}

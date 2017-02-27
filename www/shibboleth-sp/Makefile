@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2016/03/05 11:29:39 jperkin Exp $
+# $NetBSD: Makefile,v 1.22 2017/01/20 16:01:32 jperkin Exp $
 #
 
 DISTNAME=	shibboleth-sp-2.5.5
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	http://www.shibboleth.net/downloads/service-provider/${PKGVERSION_NOREV}/
 
@@ -22,6 +22,8 @@ SHIB_CONFDIR=	${PKG_SYSCONFDIR}/shibboleth
 
 USE_LIBTOOL=	yes
 USE_LANGUAGES=	c c++
+
+CFLAGS.SunOS+=	-fpermissive
 
 RCD_SCRIPTS=	shibd
 

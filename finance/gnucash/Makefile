@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.230 2016/05/03 11:40:02 prlw1 Exp $
+# $NetBSD: Makefile,v 1.244 2017/02/12 06:25:19 ryoon Exp $
 
-DISTNAME=		gnucash-2.6.12
+DISTNAME=		gnucash-2.6.15
 PKGREVISION=		2
 CATEGORIES=		finance
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gnucash/}
@@ -11,7 +11,7 @@ HOMEPAGE=		http://www.gnucash.org/
 COMMENT=		Personal or business finance management program
 LICENSE=		gnu-gpl-v3
 
-#DEPENDS+=		guile-slib>=3.2.1:../../devel/guile-slib
+DEPENDS+=		guile-slib>=3.2.1:../../devel/guile-slib
 DEPENDS+=		p5-Finance-Quote-[0-9]*:../../finance/p5-Finance-Quote
 DEPENDS+=		p5-Date-Manip-[0-9]*:../../devel/p5-Date-Manip
 DEPENDS+=		${PYPKGPREFIX}-gtk2-[0-9]*:../../x11/py-gtk2
@@ -26,7 +26,6 @@ GNU_CONFIGURE=		yes
 INFO_FILES=		YES
 
 CONFIGURE_ARGS+=	--with-html-engine=webkit
-CONFIGURE_ARGS+=	--disable-dbi
 CONFIGURE_ARGS+=	--enable-python
 CONFIGURE_ARGS+=	--with-xdg-data-dirs=${PREFIX}/share
 #CONFIGURE_ARGS+=	GUILE=${PREFIX}/${GUILE20_SUBDIR}/bin/guile
@@ -36,7 +35,7 @@ REPLACE_PERL+=		src/backend/xml/test/grab-types.pl
 REPLACE_PERL+=		src/quotes/Quote_example.pl
 REPLACE_PERL+=		src/gnc-test-env.pl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 2.6.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 2.6.1
 REPLACE_PYTHON+=	src/python/pycons/*.py src/python/pycons/pycons
 PY_PATCHPLIST=		yes
 

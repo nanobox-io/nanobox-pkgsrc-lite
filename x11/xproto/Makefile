@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.31 2016/05/16 21:54:29 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2016/09/30 10:33:50 wiz Exp $
 
-DISTNAME=		xproto-7.0.29
+DISTNAME=		xproto-7.0.31
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=proto/}
 EXTRACT_SUFX=		.tar.bz2
@@ -13,7 +13,6 @@ LICENSE=		mit
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	xproto.pc.in
 USE_LANGUAGES=		c
-USE_MULTIARCH=		lib
 
 post-extract:
 	${MV} ${WRKSRC}/Xos_r.h ${WRKSRC}/Xos_r.h.in

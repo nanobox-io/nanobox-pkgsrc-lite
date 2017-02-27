@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.25 2015/06/12 10:50:38 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2016/07/09 06:38:39 wiz Exp $
 #
 
 .include "Makefile.common"
 
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	multimedia
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -15,7 +15,6 @@ GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config bison flex
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	bin lib
 
 CONFIGURE_ARGS+=	--disable-python
 CONFIGURE_ARGS+=	--disable-perl

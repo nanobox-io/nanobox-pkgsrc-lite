@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2016/06/18 22:11:53 kamil Exp $
+# $NetBSD: Makefile,v 1.3 2017/01/16 23:45:14 wiz Exp $
 
 DISTNAME=	harvid-0.8.1
+PKGREVISION=	2
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=x42/}
 

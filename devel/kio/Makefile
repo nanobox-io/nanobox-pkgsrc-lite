@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2016/05/26 08:29:05 markd Exp $
+# $NetBSD: Makefile,v 1.8 2017/02/12 06:24:39 ryoon Exp $
 
 DISTNAME=	kio-${KF5VER}
+PKGREVISION=	4
 CATEGORIES=	devel
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -22,6 +23,10 @@ SUBST_CLASSES+=		fix-moc
 SUBST_STAGE.fix-moc=	post-configure
 SUBST_MESSAGE.fix-moc=	Cleaning up MOC includes
 SUBST_FILES.fix-moc=	_KDE_build/src/ioslaves/http/kcookiejar/CMakeFiles/kded_kcookiejar_automoc.dir/AutogenInfo.cmake
+SUBST_FILES.fix-moc+=	_KDE_build/src/ioslaves/trash/CMakeFiles/kcm_trash_automoc.dir/AutogenInfo.cmake
+SUBST_FILES.fix-moc+=	_KDE_build/src/urifilters/ikws/CMakeFiles/kurisearchfilter_automoc.dir/AutogenInfo.cmake
+SUBST_FILES.fix-moc+=	_KDE_build/autotests/CMakeFiles/jobremotetest_automoc.dir/AutogenInfo.cmake
+SUBST_FILES.fix-moc+=	_KDE_build/src/kcms/kio/CMakeFiles/kcm_kio_automoc.dir/AutogenInfo.cmake
 SUBST_SED.fix-moc=	-e 's,;${PREFIX}/include;,;,g'
 
 #.include "../../lang/python/tool.mk"

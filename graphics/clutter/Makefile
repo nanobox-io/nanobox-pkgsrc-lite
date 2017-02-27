@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.52 2015/08/31 10:59:04 jperkin Exp $
+# $NetBSD: Makefile,v 1.55 2017/02/12 06:24:43 ryoon Exp $
 
 DISTNAME=	clutter-1.22.2
+PKGREVISION=	3
 CATEGORIES=	graphics gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/clutter/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -12,7 +13,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake pkg-config
 USE_PKGLOCALEDIR=	yes
 

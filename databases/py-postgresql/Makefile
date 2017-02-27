@@ -1,11 +1,9 @@
-# $NetBSD: Makefile,v 1.79 2016/03/23 21:51:25 wiz Exp $
+# $NetBSD: Makefile,v 1.82 2016/12/11 11:25:52 darcy Exp $
 
-DISTNAME=		PyGreSQL-5.0
-PKGNAME=		${PYPKGPREFIX}-postgresql-5.0
-PKGREVISION=    	1
+DISTNAME=		PyGreSQL-5.0.3
+PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/PyGreSQL/postgresql/}
 CATEGORIES=		databases python
 MASTER_SITES=		http://pygresql.org/files/
-DIST_SUBDIR=		py-postgresql-5.0-20160323
 
 OWNER=			darcy@NetBSD.org
 HOMEPAGE=		http://www.PyGreSQL.org/
@@ -19,8 +17,6 @@ USE_TOOLS+=		gmake
 MAKE_FILE=		GNUmakefile
 MAKE_ENV+=		INSTALLED_LIBPQ=1
 
-PY_PATCHPLIST=		yes
-PLIST_SUBST+=		PYPKGPREFIX=${PYPKGPREFIX:Q}
 REPLACE_PYTHON=		pg.py pgdb.py
 
 .include "../../lang/python/application.mk"

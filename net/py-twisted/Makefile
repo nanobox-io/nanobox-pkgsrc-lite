@@ -1,19 +1,20 @@
-# $NetBSD: Makefile,v 1.24 2015/04/14 11:40:32 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2017/02/16 11:10:21 wiz Exp $
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
+PKGREVISION=	1
 COMMENT=	Framework for writing networked applications
 .include "../../net/py-twisted/Makefile.common"
 
+DEPENDS+=	${PYPKGPREFIX}-automat-[0-9]*:../../devel/py-automat
+DEPENDS+=	${PYPKGPREFIX}-constantly-[0-9]*:../../devel/py-constantly
+DEPENDS+=	${PYPKGPREFIX}-incremental-[0-9]*:../../devel/py-incremental
 DEPENDS+=	${PYPKGPREFIX}-OpenSSL>=0.6:../../security/py-OpenSSL
+DEPENDS+=	${PYPKGPREFIX}-service_identity-[0-9]*:../../security/py-service_identity
 DEPENDS+=	${PYPKGPREFIX}-ZopeInterface>=3.0.1:../../devel/py-ZopeInterface
 
-# bin/cftp
-CONFLICTS+=		cftp-[0-9]*
-
-REPLACE_PYTHON+=	twisted/mail/test/pop3testserver.py
-REPLACE_PYTHON+=	twisted/trial/test/scripttest.py
-REPLACE_PYTHON+=	twisted/topfiles/setup.py
-REPLACE_PYTHON+=	twisted/python/test/pullpipe.py
+REPLACE_PYTHON+=	src/twisted/mail/test/pop3testserver.py
+REPLACE_PYTHON+=	src/twisted/trial/test/scripttest.py
+REPLACE_PYTHON+=	src/twisted/python/test/pullpipe.py
 
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE=1 -D_XOPEN_SOURCE_EXTENDED=1 -Du_int=uint32_t
 
@@ -23,6 +24,12 @@ CFLAGS.SunOS+=	-D_XOPEN_SOURCE=1 -D_XOPEN_SOURCE_EXTENDED=1 -Du_int=uint32_t
 # post-patch so that mkpatches(1) will still work.
 pre-install:
 	rm -f ${WRKSRC}/twisted/runner/portmap.c.orig
+
+post-install:
+	cd ${DESTDIR}${PREFIX}/bin && \
+	for i in cftp ckeygen conch mailmail pyhtmlizer tkconch trial twist twistd; do \
+		${MV} $$i $$i-${PYVERSSUFFIX}; \
+	done
 
 # Do not "make package" after running "make test"; this will result in files
 # being installed that should not be.
@@ -35,5 +42,4 @@ CHECK_FILES_SKIP+=	${PREFIX}/${PYSITELIB}/twisted/plugins/dropin.cache
 # egg.mk restricts the Python version list
 .include "../../lang/python/egg.mk"
 .include "../../lang/python/application.mk"
-
 .include "../../mk/bsd.pkg.mk"

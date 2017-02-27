@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.44 2016/04/11 19:01:46 ryoon Exp $
+# $NetBSD: Makefile,v 1.46 2016/12/04 05:17:22 ryoon Exp $
 
 DISTNAME=	apr-util-1.5.4
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_APACHE:=apr/}
 EXTRACT_SUFX=	.tar.bz2
@@ -12,7 +12,6 @@ COMMENT=	Apache Portable Runtime utilities
 LICENSE=	apache-2.0
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-apr=${BUILDLINK_PREFIX.apr}/bin/apr-1-config

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2016/06/08 17:43:43 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2017/02/14 07:35:06 adam Exp $
 
-DISTNAME=	static-1.0.2
+DISTNAME=	static-1.1.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/static/}
@@ -11,12 +11,11 @@ COMMENT=	Serve static or templated content via WSGI or stand-alone
 LICENSE=	mit
 
 USE_LANGUAGES=	# none
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+
+DEPENDS+=	${PYPKGPREFIX}-pystache-[0-9]*:../../www/py-pystache
 
 post-install:
-	if [ -f ${DESTDIR}${PREFIX}/bin/static ]; then \
-	${MV} ${DESTDIR}${PREFIX}/bin/static ${DESTDIR}${PREFIX}/bin/static-${PYVERSSUFFIX}; \
-	fi
+	${MV} ${DESTDIR}${PREFIX}/bin/static ${DESTDIR}${PREFIX}/bin/static-${PYVERSSUFFIX}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

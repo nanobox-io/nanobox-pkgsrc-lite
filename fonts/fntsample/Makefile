@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2015/06/12 10:50:05 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2017/02/12 06:25:19 ryoon Exp $
 #
 
-DISTNAME=	fntsample-3.2
-PKGREVISION=	19
+DISTNAME=	fntsample-4.1
+PKGREVISION=	2
 CATEGORIES=	fonts
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fntsample/}
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2016/06/23 11:25:19 maya Exp $
+# $NetBSD: Makefile,v 1.38 2017/02/12 06:25:46 ryoon Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg2/}
-PKGREVISION=	2
+PKGREVISION=	1
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ffmpeg.mplayerhq.hu/
 COMMENT=	Decoding, encoding and streaming software (v2.x)
@@ -40,9 +40,6 @@ post-install:
 .include "options.mk"
 
 .include "../../mk/compiler.mk"
-
-# XXX: Incompatible with our disabling -fomit-frame-pointer
-CONFIGURE_ARGS+=	--disable-asm
 
 # disable asm on i386 for non-gcc and gcc < 4.2
 .if ${MACHINE_ARCH} == "i386"

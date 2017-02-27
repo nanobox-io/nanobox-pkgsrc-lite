@@ -1,19 +1,16 @@
-# $NetBSD: Makefile,v 1.108 2016/04/20 05:04:44 adam Exp $
+# $NetBSD: Makefile,v 1.114 2017/02/13 17:44:01 adam Exp $
 
-DISTNAME=	sqlite-autoconf-${SQLITE3_DISTVERSION}
+.include "Makefile.common"
+
 PKGNAME=	sqlite3-${SQLITE3_VERSION}
 CATEGORIES=	databases
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.sqlite.org/
 COMMENT=	SQL Database Engine in a C Library
-LICENSE=	public-domain
 
-.include "../../databases/sqlite3/Makefile.version"
 .include "options.mk"
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-static-shell
@@ -50,15 +47,5 @@ LDFLAGS.SCO_SV+=	-lpthread
 .endif
 
 .include "../../mk/readline.buildlink3.mk"
-.if ${READLINE_TYPE} == "editline" && ${IS_BUILTIN.editline} == "yes"
-LDFLAGS.NetBSD+=	-ledit
-LDFLAGS.DragonFly+=	-ledit
-LDFLAGS.FreeBSD+=	-ledit
-.else
-LDFLAGS.NetBSD+=	-lreadline
-LDFLAGS.DragonFly+=	-lreadline
-LDFLAGS.FreeBSD+=	-lreadline
-.endif
-
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

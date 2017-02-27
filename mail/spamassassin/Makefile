@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.124 2016/03/05 11:28:51 jperkin Exp $
+# $NetBSD: Makefile,v 1.128 2016/12/16 15:52:52 hans Exp $
 
 DISTNAME=	Mail-SpamAssassin-3.4.1
 PKGNAME=	spamassassin-3.4.1
-PKGREVISION=	2
+PKGREVISION=	6
 CATEGORIES=	mail perl5
 MASTER_SITES=	${MASTER_SITE_APACHE:=spamassassin/source/}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
@@ -18,6 +18,8 @@ LICENSE=	apache-2.0
 
 .include "../../mk/bsd.prefs.mk"
 
+SMF_METHODS=	spamassassin
+
 RULESARCHIVE=	Mail-SpamAssassin-rules-3.4.1.r1675274.tgz
 #RULESARCHIVEASC=${RULESARCHIVE}.asc
 #RULESARCHIVESHA=${RULESARCHIVE}.sha1
@@ -32,10 +34,11 @@ DEPENDS+=	p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1
 DEPENDS+=	p5-HTML-Parser>=3.43:../../www/p5-HTML-Parser
 #DEPENDS+=	{perl>=5.9.3,p5-IO-Compress-[0-9]*}:../../devel/p5-IO-Compress # Compress::Zlib>=0
 #DEPENDS+=	{perl>=5.9.3,p5-IO-Zlib>=1.04}:../../devel/p5-IO-Zlib
+DEPENDS+=	p5-Mail-DKIM>=0.40:../../mail/p5-Mail-DKIM
 DEPENDS+=	p5-Mail-SPF-[0-9]*:../../mail/p5-Mail-SPF
 #DEPENDS+=	{p5-MIME-Base64>=2.11,perl>=5.8.0}:../../converters/p5-MIME-Base64
 DEPENDS+=	p5-NetAddr-IP>=4.007:../../net/p5-NetAddr-IP
-DEPENDS+=	p5-Net-DNS>=0.58:../../net/p5-Net-DNS
+DEPENDS+=	p5-Net-DNS>=1.01:../../net/p5-Net-DNS
 #DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
 DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww
 DEPENDS+=	re2c>=0.13.6:../../devel/re2c

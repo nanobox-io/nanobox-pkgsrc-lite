@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.34 2012/10/03 11:43:46 asau Exp $
+# $NetBSD: Makefile,v 1.36 2017/02/19 19:13:35 snj Exp $
 
 PKGNAME=		vim-motif-${VIM_VERSION}.${VIM_PATCHLEVEL}
 

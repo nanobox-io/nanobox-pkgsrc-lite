@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2016/03/05 11:28:25 jperkin Exp $
+# $NetBSD: Makefile,v 1.16 2017/01/03 13:23:02 jperkin Exp $
 
 DISTNAME=	hgview-1.8.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -17,13 +17,12 @@ BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 
 REPLACE_PYTHON= *.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.8.0
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 1.8.0
 
 USE_TOOLS+=	gmake
 
 post-install:
-	mv ${DESTDIR}${PREFIX}/bin/hgview ${DESTDIR}${PREFIX}/bin/hgview${PYVERSSUFFIX}
+	${MV} ${DESTDIR}${PREFIX}/bin/hgview ${DESTDIR}${PREFIX}/bin/hgview${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"

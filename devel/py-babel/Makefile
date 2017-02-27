@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2016/06/08 17:43:24 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2017/01/03 13:23:01 jperkin Exp $
 
-DISTNAME=	Babel-1.3
+DISTNAME=	Babel-2.3.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
-PKGREVISION=	1
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=B/Babel/}
 
@@ -15,11 +14,8 @@ DEPENDS+=	${PYPKGPREFIX}-pytz-[0-9]*:../../time/py-pytz
 
 USE_LANGUAGES=	# none
 
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-FILES_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-
 post-install:
-	[ -f ${DESTDIR}${PREFIX}/bin/pybabel ] && ${MV} ${DESTDIR}${PREFIX}/bin/pybabel \
+	${MV} ${DESTDIR}${PREFIX}/bin/pybabel \
 		${DESTDIR}${PREFIX}/bin/pybabel-${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/egg.mk"

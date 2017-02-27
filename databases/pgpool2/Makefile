@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2016/03/11 21:30:55 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2016/11/24 12:52:47 fhajny Exp $
 #
 
-DISTNAME=	pgpool-II-3.5.0
+DISTNAME=	pgpool-II-3.6.0
 PKGNAME=	postgresql${PGSQL_VERSION}-${DISTNAME:S/pgpool-II/pgpool2/}
 CATEGORIES=	databases
 MASTER_SITES=	http://www.pgpool.net/mediawiki/images/
@@ -15,7 +15,7 @@ DEPENDS+=	postgresql${PGSQL_VERSION}-server>=0:../../databases/postgresql${PGSQL
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	gmake
+USE_TOOLS+=	bash:run gmake
 
 .include "options.mk"
 .include "../../mk/bsd.prefs.mk"
@@ -47,6 +47,8 @@ SUBST_MESSAGE.path=	Fixing default paths
 SUBST_STAGE.path=	pre-configure
 SUBST_FILES.path=	src/sample/pgpool.conf.sample src/include/pool.h
 SUBST_VARS.path=	PGPOOL_LOGDIR PGPOOL_PIDDIR
+
+REPLACE_BASH+=		src/tools/pgpool_setup src/tools/watchdog_setup
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 

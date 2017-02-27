@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.16 2016/06/16 14:05:38 mef Exp $
+# $NetBSD: Makefile,v 1.18 2017/01/13 22:03:35 mef Exp $
 
 META_PACKAGE=	yes
 
@@ -22,8 +22,7 @@ DEPENDS+=	gnuradio-core-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-core
 DEPENDS+=	gnuradio-ctrlport-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-ctrlport
 
 DEPENDS+=	gnuradio-digital-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-digital
-# dropped, for unstable with doxygen update
-#EPENDS+=	gnuradio-doxygen-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-doxygen
+DEPENDS+=	gnuradio-doxygen-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-doxygen
 DEPENDS+=	gnuradio-dtv-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-dtv
 DEPENDS+=	gnuradio-fcd-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-fcd
 DEPENDS+=	gnuradio-fec-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-fec

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2015/06/12 10:48:36 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2016/07/09 06:38:00 wiz Exp $
 
 DISTNAME=	mytop-1.6
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	databases
 MASTER_SITES=	http://jeremy.zawodny.com/mysql/mytop/
 
@@ -13,7 +13,7 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=	p5-DBI-[0-9]*:../../databases/p5-DBI
 #DEPENDS+=	p5-Term-ANSIColor-[0-9]*:../../devel/p5-Term-ANSIColor
 DEPENDS+=	p5-Term-ReadKey-[0-9]*:../../devel/p5-Term-ReadKey
-DEPENDS+=	p5-DBD-{mysql,percona}*-[0-9]*:../../databases/p5-DBD-mysql
+DEPENDS+=	p5-DBD-mysql-[0-9]*:../../databases/p5-DBD-mysql
 
 PERL5_PACKLIST=	auto/mytop/.packlist
 REPLACE_PERL=	mytop

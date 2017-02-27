@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2015/06/12 10:50:01 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2017/01/07 19:00:55 maya Exp $
 
 DISTNAME=	nvi-1.79
 PKGNAME=	nvi-m17n-1.79.20040608
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	editors
 MASTER_SITES=	http://www.bostic.com/files/
 

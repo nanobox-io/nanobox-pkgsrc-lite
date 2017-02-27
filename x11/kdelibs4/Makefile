@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.85 2016/03/11 16:51:33 jperkin Exp $
+# $NetBSD: Makefile,v 1.89 2017/01/19 08:44:10 markd Exp $
 
-DISTNAME=	kdelibs-4.14.15
+DISTNAME=	kdelibs-4.14.27
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	2
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
-MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.12.0/src/}
 
 #PATCH_SITES=	ftp://ftp.kde.org/pub/kde/security_patches/ \
 #		http://mirrors.isc.org/pub/kde/security_patches/
@@ -88,6 +87,9 @@ PLIST.kgrantpty=	yes
 
 CFLAGS.SunOS+=		-D__EXTENSIONS__
 LDFLAGS.SunOS+=		-lintl
+
+# jasper uses SIZE_MAX and friends in its headers.
+CXXFLAGS+=	-D__STDC_LIMIT_MACROS
 
 BUILDLINK_DEPMETHOD.qt4-tools=		full
 .include "../../meta-pkgs/kde4/kde4.mk"

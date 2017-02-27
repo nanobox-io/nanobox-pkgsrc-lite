@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2015/12/12 23:23:46 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2017/01/01 14:43:39 wiz Exp $
 
 DISTNAME=	unicorn-0.9
 CATEGORIES=	emulators
@@ -11,7 +11,7 @@ LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=	gmake pkg-config
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # as of 0.9
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # as of 0.9
 
 .include "../../lang/python/application.mk"
 

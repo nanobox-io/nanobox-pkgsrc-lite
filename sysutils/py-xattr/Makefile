@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2015/12/05 21:25:59 adam Exp $
+# $NetBSD: Makefile,v 1.13 2017/01/03 13:23:04 jperkin Exp $
 
 DISTNAME=	v0.7.6
 PROPERNAME=	${DISTNAME:S/v/xattr-/}
@@ -20,15 +20,13 @@ WRKSRC=		${WRKDIR}/${PROPERNAME}
 EGG_NAME=	${PROPERNAME}
 USE_LANGUAGES=	c
 REPLACE_PYTHON=	xattr/tool.py
-FILES_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 # XXX: builds, installs, but cannot be executed
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/xattr \
-		${DESTDIR}${PREFIX}/bin/xattr-${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/xattr-${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

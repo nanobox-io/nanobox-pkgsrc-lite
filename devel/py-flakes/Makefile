@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2016/06/08 17:43:25 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2017/02/13 11:08:25 wen Exp $
 
-DISTNAME=	pyflakes-0.9.2
+DISTNAME=	pyflakes-1.5.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^py//}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pyflakes/}
@@ -12,13 +12,10 @@ LICENSE=	mit
 
 USE_LANGUAGES=	# none
 
-PYDISTUTILSPKG= yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+PYDISTUTILSPKG=	yes
 
 post-install:
-	if [ -f ${DESTDIR}${PREFIX}/bin/pyflakes ]; then \
-	${MV} ${DESTDIR}${PREFIX}/bin/pyflakes ${DESTDIR}${PREFIX}/bin/pyflakes${PYVERSSUFFIX}; \
-	fi
+	${MV} ${DESTDIR}${PREFIX}/bin/pyflakes ${DESTDIR}${PREFIX}/bin/pyflakes${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

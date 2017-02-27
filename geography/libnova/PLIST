@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1.12.1 2016/07/14 18:33:55 bsiegert Exp $
+@comment $NetBSD: PLIST,v 1.2 2016/07/14 12:52:48 is Exp $
 bin/libnovaconfig
 include/libnova/aberration.h
 include/libnova/airmass.h

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.17 2012/10/02 21:25:40 asau Exp $
+# $NetBSD: Makefile,v 1.19 2016/11/12 15:42:51 taca Exp $
 
 MODNAME=		pgsql
 CATEGORIES+=		databases

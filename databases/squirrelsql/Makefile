@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2016/03/09 17:41:06 asau Exp $
+# $NetBSD: Makefile,v 1.5 2016/12/19 15:57:11 asau Exp $
 
 DISTNAME=	squirrelsql-3.7-standard
 PKGNAME=	squirrelsql-3.7

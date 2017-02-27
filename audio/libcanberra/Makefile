@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2015/04/25 14:20:21 tnn Exp $
+# $NetBSD: Makefile,v 1.41 2017/02/12 06:24:36 ryoon Exp $
 
 DISTNAME=	libcanberra-0.27
-PKGREVISION=	5
+PKGREVISION=	8
 CATEGORIES=	audio
 MASTER_SITES=	http://0pointer.de/lennart/projects/libcanberra/
 
@@ -11,7 +11,6 @@ COMMENT=	Desktop event sound library
 LICENSE=	gnu-lgpl-v2.1
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		ac_cv_lib_ltdl_lt_dladvise_init=yes

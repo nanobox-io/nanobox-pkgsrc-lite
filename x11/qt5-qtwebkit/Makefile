@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2016/04/11 19:01:41 ryoon Exp $
+# $NetBSD: Makefile,v 1.40 2017/02/12 06:24:59 ryoon Exp $
 
 DISTNAME=	qtwebkit-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtwebkit-${QTVERSION}
-PKGREVISION=	4
+PKGREVISION=	9
 COMMENT=	Qt5 WebView module
 
 BUILD_DEPENDS+=		gperf-[0-9]*:../../devel/gperf
@@ -16,7 +16,7 @@ INSTALLATION_DIRS+=	lib/pkgconfig
 
 .include "../../x11/qt5-qtbase/Makefile.common"
 
-.if ${USE_CWRAPPERS:Uno} == "yes"
+.if ${_USE_CWRAPPERS} == "yes"
 BUILDLINK_TRANSFORM+=	R:${WRKSRC}/lib:${QTDIR}/lib
 .else
 BUILDLINK_TRANSFORM+=	rpath:${WRKSRC}/lib:${QTDIR}/lib

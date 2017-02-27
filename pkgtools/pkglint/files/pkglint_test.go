@@ -4,35 +4,84 @@ import (
 	"strings"
 
 	check "gopkg.in/check.v1"
+	"netbsd.org/pkglint/trace"
+	"os"
 )
 
-func (s *Suite) TestDetermineUsedVariables_simple(c *check.C) {
-	mklines := s.NewMkLines("fname",
-		"\t${VAR}")
-	mkline := mklines.mklines[0]
-	G.Mk = mklines
+func (s *Suite) Test_Pkglint_Main_help(c *check.C) {
+	exitcode := new(Pkglint).Main("pkglint", "-h")
 
-	mklines.DetermineUsedVariables()
-
-	c.Check(len(mklines.varuse), equals, 1)
-	c.Check(mklines.varuse["VAR"], equals, mkline)
+	c.Check(exitcode, equals, 0)
+	c.Check(s.Output(), check.Matches, `^\Qusage: pkglint [options] dir...\E\n(?s).+`)
 }
 
-func (s *Suite) TestDetermineUsedVariables_nested(c *check.C) {
-	mklines := s.NewMkLines("fname",
-		"\t${outer.${inner}}")
-	mkline := mklines.mklines[0]
-	G.Mk = mklines
+func (s *Suite) Test_Pkglint_Main_version(c *check.C) {
+	exitcode := new(Pkglint).Main("pkglint", "--version")
 
-	mklines.DetermineUsedVariables()
-
-	c.Check(len(mklines.varuse), equals, 3)
-	c.Check(mklines.varuse["inner"], equals, mkline)
-	c.Check(mklines.varuse["outer."], equals, mkline)
-	c.Check(mklines.varuse["outer.*"], equals, mkline)
+	c.Check(exitcode, equals, 0)
+	c.Check(s.Output(), equals, confVersion+"\n")
 }
 
-func (s *Suite) TestResolveVariableRefs_CircularReference(c *check.C) {
+func (s *Suite) Test_Pkglint_Main_no_args(c *check.C) {
+	exitcode := new(Pkglint).Main("pkglint")
+
+	c.Check(exitcode, equals, 1)
+	c.Check(s.Stderr(), equals, "FATAL: \".\" is not inside a pkgsrc tree.\n")
+}
+
+// go test -c -covermode count
+// pkgsrcdir=...
+// env PKGLINT_TESTCMDLINE="$pkgsrcdir -r" ./pkglint.test -test.coverprofile pkglint.cov
+// go tool cover -html=pkglint.cov -o coverage.html
+func (s *Suite) Test_Pkglint_coverage(c *check.C) {
+	cmdline := os.Getenv("PKGLINT_TESTCMDLINE")
+	if cmdline != "" {
+		G.logOut, G.logErr, trace.Out = os.Stdout, os.Stderr, os.Stdout
+		new(Pkglint).Main(append([]string{"pkglint"}, splitOnSpace(cmdline)...)...)
+	}
+}
+
+func (s *Suite) Test_Pkglint_CheckDirent__outside(c *check.C) {
+	s.Init(c)
+	s.CreateTmpFile("empty", "")
+
+	new(Pkglint).CheckDirent(s.tmpdir)
+
+	s.CheckOutputLines(
+		"ERROR: ~: Cannot determine the pkgsrc root directory for \"~\".")
+}
+
+func (s *Suite) Test_Pkglint_CheckDirent(c *check.C) {
+	s.Init(c)
+	s.CreateTmpFile("mk/bsd.pkg.mk", "")
+	s.CreateTmpFile("category/package/Makefile", "")
+	s.CreateTmpFile("category/Makefile", "")
+	s.CreateTmpFile("Makefile", "")
+	G.globalData.Pkgsrcdir = s.tmpdir
+	pkglint := new(Pkglint)
+
+	pkglint.CheckDirent(s.tmpdir)
+
+	s.CheckOutputLines(
+		"ERROR: ~/Makefile: Must not be empty.")
+
+	pkglint.CheckDirent(s.tmpdir + "/category")
+
+	s.CheckOutputLines(
+		"ERROR: ~/category/Makefile: Must not be empty.")
+
+	pkglint.CheckDirent(s.tmpdir + "/category/package")
+
+	s.CheckOutputLines(
+		"ERROR: ~/category/package/Makefile: Must not be empty.")
+
+	pkglint.CheckDirent(s.tmpdir + "/category/package/nonexistent")
+
+	s.CheckOutputLines(
+		"ERROR: ~/category/package/nonexistent: No such file or directory.")
+}
+
+func (s *Suite) Test_resolveVariableRefs__circular_reference(c *check.C) {
 	mkline := NewMkLine(NewLine("fname", 1, "GCC_VERSION=${GCC_VERSION}", nil))
 	G.Pkg = NewPackage(".")
 	G.Pkg.vardef["GCC_VERSION"] = mkline
@@ -42,7 +91,7 @@ func (s *Suite) TestResolveVariableRefs_CircularReference(c *check.C) {
 	c.Check(resolved, equals, "gcc-${GCC_VERSION}")
 }
 
-func (s *Suite) TestResolveVariableRefs_Multilevel(c *check.C) {
+func (s *Suite) Test_resolveVariableRefs__multilevel(c *check.C) {
 	mkline1 := NewMkLine(NewLine("fname", 10, "_=${SECOND}", nil))
 	mkline2 := NewMkLine(NewLine("fname", 11, "_=${THIRD}", nil))
 	mkline3 := NewMkLine(NewLine("fname", 12, "_=got it", nil))
@@ -56,7 +105,7 @@ func (s *Suite) TestResolveVariableRefs_Multilevel(c *check.C) {
 	c.Check(resolved, equals, "you got it")
 }
 
-func (s *Suite) TestResolveVariableRefs_SpecialChars(c *check.C) {
+func (s *Suite) Test_resolveVariableRefs__special_chars(c *check.C) {
 	mkline := NewMkLine(NewLine("fname", 10, "_=x11", nil))
 	G.Pkg = NewPackage("category/pkg")
 	G.Pkg.vardef["GST_PLUGINS0.10_TYPE"] = mkline
@@ -66,76 +115,8 @@ func (s *Suite) TestResolveVariableRefs_SpecialChars(c *check.C) {
 	c.Check(resolved, equals, "gst-plugins0.10-x11/distinfo")
 }
 
-func (s *Suite) TestChecklineRcsid(c *check.C) {
-	lines := s.NewLines("fname",
-		"$"+"NetBSD: dummy $",
-		"$"+"NetBSD$",
-		"$"+"Id: dummy $",
-		"$"+"Id$",
-		"$"+"FreeBSD$")
-
-	for _, line := range lines {
-		line.CheckRcsid(``, "")
-	}
-
-	c.Check(s.Output(), equals, ""+
-		"ERROR: fname:3: Expected \"$"+"NetBSD$\".\n"+
-		"ERROR: fname:4: Expected \"$"+"NetBSD$\".\n"+
-		"ERROR: fname:5: Expected \"$"+"NetBSD$\".\n")
-}
-
-func (s *Suite) TestMatchVarassign(c *check.C) {
-	checkVarassign := func(text string, ck check.Checker, varname, op, align, value, comment string) {
-		type va struct {
-			varname, op, align, value, comment string
-		}
-		expected := va{varname, op, align, value, comment}
-		am, avarname, aop, aalign, avalue, acomment := MatchVarassign(text)
-		if !am {
-			c.Errorf("Text %q doesn’t match variable assignment", text)
-			return
-		}
-		actual := va{avarname, aop, aalign, avalue, acomment}
-		c.Check(actual, ck, expected)
-	}
-	checkNotVarassign := func(text string) {
-		m, _, _, _, _, _ := MatchVarassign(text)
-		if m {
-			c.Errorf("Text %q matches variable assignment, but shouldn’t.", text)
-		}
-	}
-
-	checkVarassign("C++=c11", equals, "C+", "+=", "C++=", "c11", "")
-	checkVarassign("V=v", equals, "V", "=", "V=", "v", "")
-	checkVarassign("VAR=#comment", equals, "VAR", "=", "VAR=", "", "#comment")
-	checkVarassign("VAR=\\#comment", equals, "VAR", "=", "VAR=", "#comment", "")
-	checkVarassign("VAR=\\\\\\##comment", equals, "VAR", "=", "VAR=", "\\\\#", "#comment")
-	checkVarassign("VAR=\\", equals, "VAR", "=", "VAR=", "\\", "")
-	checkVarassign("VAR += value", equals, "VAR", "+=", "VAR += ", "value", "")
-	checkVarassign(" VAR=value", equals, "VAR", "=", " VAR=", "value", "")
-	checkNotVarassign("\tVAR=value")
-	checkNotVarassign("?=value")
-	checkNotVarassign("<=value")
-}
-
-func (s *Suite) TestPackage_LoadPackageMakefile(c *check.C) {
-	makefile := s.CreateTmpFile(c, "category/package/Makefile", ""+
-		"# $"+"NetBSD$\n"+
-		"\n"+
-		"PKGNAME=pkgname-1.67\n"+
-		"DISTNAME=distfile_1_67\n"+
-		".include \"../../category/package/Makefile\"\n")
-	pkg := NewPackage("category/package")
-	G.CurrentDir = s.tmpdir + "/category/package"
-	G.CurPkgsrcdir = "../.."
-	G.Pkg = pkg
-
-	pkg.loadPackageMakefile(makefile)
-
-	c.Check(s.Output(), equals, "")
-}
-
-func (s *Suite) TestChecklinesDescr(c *check.C) {
+func (s *Suite) Test_ChecklinesDescr(c *check.C) {
+	s.Init(c)
 	lines := s.NewLines("DESCR",
 		strings.Repeat("X", 90),
 		"", "", "", "", "", "", "", "", "10",
@@ -145,22 +126,25 @@ func (s *Suite) TestChecklinesDescr(c *check.C) {
 
 	ChecklinesDescr(lines)
 
-	c.Check(s.Output(), equals, ""+
-		"WARN: DESCR:1: Line too long (should be no more than 80 characters).\n"+
-		"NOTE: DESCR:11: Variables are not expanded in the DESCR file.\n"+
-		"WARN: DESCR:25: File too long (should be no more than 24 lines).\n")
+	s.CheckOutputLines(
+		"WARN: DESCR:1: Line too long (should be no more than 80 characters).",
+		"NOTE: DESCR:11: Variables are not expanded in the DESCR file.",
+		"WARN: DESCR:25: File too long (should be no more than 24 lines).")
 }
 
-func (s *Suite) TestChecklinesMessage_short(c *check.C) {
+func (s *Suite) Test_ChecklinesMessage__short(c *check.C) {
+	s.Init(c)
 	lines := s.NewLines("MESSAGE",
 		"one line")
 
 	ChecklinesMessage(lines)
 
-	c.Check(s.Output(), equals, "WARN: MESSAGE:1: File too short.\n")
+	s.CheckOutputLines(
+		"WARN: MESSAGE:1: File too short.")
 }
 
-func (s *Suite) TestChecklinesMessage_malformed(c *check.C) {
+func (s *Suite) Test_ChecklinesMessage__malformed(c *check.C) {
+	s.Init(c)
 	lines := s.NewLines("MESSAGE",
 		"1",
 		"2",
@@ -170,8 +154,44 @@ func (s *Suite) TestChecklinesMessage_malformed(c *check.C) {
 
 	ChecklinesMessage(lines)
 
-	c.Check(s.Output(), equals, ""+
-		"WARN: MESSAGE:1: Expected a line of exactly 75 \"=\" characters.\n"+
-		"ERROR: MESSAGE:2: Expected \"$"+"NetBSD$\".\n"+
-		"WARN: MESSAGE:5: Expected a line of exactly 75 \"=\" characters.\n")
+	s.CheckOutputLines(
+		"WARN: MESSAGE:1: Expected a line of exactly 75 \"=\" characters.",
+		"ERROR: MESSAGE:2: Expected \"$"+"NetBSD$\".",
+		"WARN: MESSAGE:5: Expected a line of exactly 75 \"=\" characters.")
+}
+
+func (s *Suite) Test_GlobalData_Latest(c *check.C) {
+	s.Init(c)
+	G.globalData.Pkgsrcdir = s.TmpDir()
+
+	latest1 := G.globalData.Latest("lang", `^python[0-9]+$`, "../../lang/$0")
+
+	c.Check(latest1, equals, "")
+	s.CheckOutputLines(
+		"ERROR: Cannot find latest version of \"^python[0-9]+$\" in \"~\".")
+
+	s.CreateTmpFile("lang/Makefile", "")
+	G.globalData.latest = nil
+
+	latest2 := G.globalData.Latest("lang", `^python[0-9]+$`, "../../lang/$0")
+
+	c.Check(latest2, equals, "")
+	s.CheckOutputLines(
+		"ERROR: Cannot find latest version of \"^python[0-9]+$\" in \"~\".")
+
+	s.CreateTmpFile("lang/python27/Makefile", "")
+	G.globalData.latest = nil
+
+	latest3 := G.globalData.Latest("lang", `^python[0-9]+$`, "../../lang/$0")
+
+	c.Check(latest3, equals, "../../lang/python27")
+	s.CheckOutputEmpty()
+
+	s.CreateTmpFile("lang/python35/Makefile", "")
+	G.globalData.latest = nil
+
+	latest4 := G.globalData.Latest("lang", `^python[0-9]+$`, "../../lang/$0")
+
+	c.Check(latest4, equals, "../../lang/python35")
+	s.CheckOutputEmpty()
 }

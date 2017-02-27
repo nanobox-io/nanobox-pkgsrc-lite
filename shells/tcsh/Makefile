@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.81 2015/12/13 10:46:26 markd Exp $
+# $NetBSD: Makefile,v 1.85 2017/02/17 19:21:44 he Exp $
 
-DISTNAME=	tcsh-6.19.00
-PKGREVISION=	1
+DISTNAME=	tcsh-6.20.00
+PKGREVISION=	2
 CATEGORIES=	shells
-MASTER_SITES=	ftp://ftp.astron.com/pub/tcsh/ \
-		ftp://ftp.funet.fi/pub/mirrors/ftp.astron.com/pub/tcsh/
+MASTER_SITES=	ftp://ftp.astron.com/pub/tcsh/
+MASTER_SITES+=	ftp://ftp.funet.fi/pub/mirrors/ftp.astron.com/pub/tcsh/
 
 MAINTAINER=	kimmo@suominen.com
 HOMEPAGE=	http://www.tcsh.org/

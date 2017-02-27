@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2016/03/05 11:29:31 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2017/01/01 16:06:37 adam Exp $
 
 DISTNAME=	ksystemlog-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	sysutils
 COMMENT=	System log viewer tool
 

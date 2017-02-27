@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2016/06/29 08:23:33 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2017/02/02 15:31:16 wiz Exp $
 
-DISTNAME=	libressl-2.2.6
-PKGREVISION=	2
+DISTNAME=	libressl-2.5.1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_OPENBSD:=LibreSSL/}
 
@@ -24,11 +23,10 @@ LIBRESSL_PREFIX=	${PREFIX}/${PKGBASE}
 PKG_SYSCONFSUBDIR=	${PKGBASE}
 GNU_CONFIGURE_PREFIX=	${LIBRESSL_PREFIX}
 CONFIGURE_ARGS+=	--with-openssldir=${PKG_SYSCONFDIR}
-CONFIGURE_ARGS+=	--with-enginesdir=${LIBRESSL_PREFIX}/lib/engines
 
 INSTALLATION_DIRS+=	${EGDIR} lib
 
-EGDIR= 			${PREFIX}/share/examples/${PKGBASE}
+EGDIR= 			${PREFIX}/libressl/share/examples/${PKGBASE}
 CONFS= 			cert.pem openssl.cnf x509v3.cnf
 .for f in ${CONFS}
 CONF_FILES+= 		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
@@ -44,11 +42,13 @@ PLIST_VARS+=	man
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} != "Darwin"
+# bn_print(3) and BN_print(3) conflict on case-insensitive file system
 PLIST.man=	yes
 .endif
 
 post-install:
-	cd ${WRKSRC}/apps; ${INSTALL_DATA} ${CONFS} ${DESTDIR}${EGDIR}
+	cd ${WRKSRC}/apps/openssl; ${INSTALL_DATA} ${CONFS} ${DESTDIR}${EGDIR}
 	mv ${DESTDIR}${PREFIX}/libressl/lib/pkgconfig ${DESTDIR}${PREFIX}/lib
+	${RM} -r ${DESTDIR}${PREFIX}/etc/libressl
 
 .include "../../mk/bsd.pkg.mk"

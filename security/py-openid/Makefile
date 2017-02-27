@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2015/12/05 21:25:57 adam Exp $
+# $NetBSD: Makefile,v 1.11 2017/01/01 14:43:56 wiz Exp $
 
 DISTVERS=	2.2.5
 GITREF=		b666238
@@ -14,7 +14,7 @@ COMMENT=	Python module for OpenID
 LICENSE=	apache-2.0
 
 PYDISTUTILSPKG= yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36
 
 .include "../../lang/python/extension.mk"
 .include "../../mk/bsd.pkg.mk"

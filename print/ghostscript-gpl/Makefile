@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2016/03/05 11:27:53 jperkin Exp $
+# $NetBSD: Makefile,v 1.22 2016/07/09 06:38:50 wiz Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-gpl/}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ghostscript/}
 MASTER_SITES+=	http://ghostscript.com/releases/
@@ -28,7 +28,6 @@ CONFLICTS+=		ghostscript-gnu-nox11-[0-9]*
 
 USE_TOOLS+=		gmake perl:run lex pkg-config
 USE_LANGUAGES+=		c c++
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 UNLIMIT_RESOURCES+=	datasize	# gsromfs1.c
 
@@ -80,7 +79,6 @@ CFLAGS+=		-fPIC
 # require linking against libiconv when it should do so.
 BUILDLINK_TRANSFORM.IRIX+=	l:fontconfig:fontconfig:iconv
 
-CONFIGURE_ENV+=	LPLIBDIR=${PREFIX}/lib${LIBARCHSUFFIX}
 CONFIGURE_ENV+=	LPLIBDIR=${PREFIX}/lib
 
 # On OpenBSD 5.3, libxcb is required libXt.

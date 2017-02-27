@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.59 2016/03/05 11:28:03 jperkin Exp $
+# $NetBSD: Makefile,v 1.67 2017/01/24 19:34:37 maya Exp $
 
-DISTNAME=		cmus-2.6.0
+DISTNAME=		cmus-2.7.1
 PKGREVISION=		6
 CATEGORIES=		audio
 MASTER_SITES=		-https://github.com/cmus/cmus/archive/v${PKGVERSION_NOREV}${EXTRACT_SUFX}
@@ -36,8 +36,11 @@ PLIST.sunaudio=		yes
 CONFIGURE_ARGS+=	CONFIG_SUN=n
 .endif
 
+NOT_PAX_MPROTECT_SAFE+=	bin/cmus
+
 .include "options.mk"
 
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/ncursesw/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

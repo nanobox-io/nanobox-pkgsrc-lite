@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.use.mk,v 1.62 2016/06/19 20:03:09 wiz Exp $
+#	$NetBSD: bsd.pkg.use.mk,v 1.65 2017/01/18 05:33:39 taca Exp $
 #
 # Turn USE_* macros into proper depedency logic.  Included near the top of
 # bsd.pkg.mk, after bsd.prefs.mk.
@@ -21,6 +21,9 @@
 
 .if defined(USE_BSD_MAKEFILE)
 MAKE_ENV+=		${BSD_MAKE_ENV} INSTALL=${TOOLS_INSTALL:Q}
+.  if !defined(TOOLS_PLATFORM.ctfconvert) && !defined(TOOLS_PLATFORM.ctfmerge)
+MAKE_ENV+=		NOCTF=yes
+.  endif
 .  if defined(HAVE_LLVM)
 MAKE_ENV+=		HAVE_LLVM=${HAVE_LLVM:Q}
 .  endif
@@ -76,7 +79,7 @@ BUILD_DEFS+=		KERBEROS
 PKG_FAIL_REASON+=	"Cross-compiling Fortran with libtool NYI."
 .  endif
 
-PKG_LIBTOOL?=		${LOCALBASE}/bin${BINARCHSUFFIX}/libtool-fortran
+PKG_LIBTOOL?=		${LOCALBASE}/bin/libtool-fortran
 PKG_SHLIBTOOL?=		${LOCALBASE}/bin/shlibtool-fortran
 
 .  if defined(USE_LIBTOOL)
@@ -87,18 +90,17 @@ BUILD_DEPENDS+=		libtool-fortran>=${_OPSYS_LIBTOOL_REQD:U${LIBTOOL_REQD}}:../../
 PKG_LIBTOOL?=		${CROSSBASE}/bin/libtool
 PKG_SHLIBTOOL?=		${CROSSBASE}/bin/shlibtool
 .  else
-PKG_LIBTOOL?=		${LOCALBASE}/bin${BINARCHSUFFIX}/libtool
+PKG_LIBTOOL?=		${LOCALBASE}/bin/libtool
 PKG_SHLIBTOOL?=		${LOCALBASE}/bin/shlibtool
 .  endif
 .endif
 LIBTOOL?=		${WRAPPER_BINDIR}/libtool
 SHLIBTOOL?=		${WRAPPER_BINDIR}/shlibtool
 .if defined(USE_LIBTOOL)
-LIBTOOL_REQD?=		2.2.6bnb3
+LIBTOOL_REQD?=		2.4.2nb9
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 TOOL_DEPENDS+=		cross-libtool-base-${MACHINE_ARCH}>=${_OPSYS_LIBTOOL_REQD:U${LIBTOOL_REQD}}:../../cross/libtool-base
-# We use an external libtool for binutils.
-.elif empty(PKGPATH:Mdevel/binutils)
+.else
 TOOL_DEPENDS+=		libtool-base>=${_OPSYS_LIBTOOL_REQD:U${LIBTOOL_REQD}}:../../devel/libtool-base
 .endif
 CONFIGURE_ENV+=		LIBTOOL="${LIBTOOL} ${LIBTOOL_FLAGS}"

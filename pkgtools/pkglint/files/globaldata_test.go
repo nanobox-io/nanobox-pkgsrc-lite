@@ -2,16 +2,17 @@ package main
 
 import (
 	check "gopkg.in/check.v1"
+	"netbsd.org/pkglint/trace"
 )
 
-func (s *Suite) TestGlobalDataVartypes(c *check.C) {
+func (s *Suite) Test_GlobalData_InitVartypes(c *check.C) {
 	G.globalData.InitVartypes()
 
-	c.Check(G.globalData.vartypes["BSD_MAKE_ENV"].checker.name, equals, "ShellWord")
-	c.Check(G.globalData.vartypes["USE_BUILTIN.*"].checker.name, equals, "YesNoIndirectly")
+	c.Check(G.globalData.vartypes["BSD_MAKE_ENV"].basicType.name, equals, "ShellWord")
+	c.Check(G.globalData.vartypes["USE_BUILTIN.*"].basicType.name, equals, "YesNoIndirectly")
 }
 
-func (s *Suite) TestParselinesSuggestedUpdates(c *check.C) {
+func (s *Suite) Test_parselinesSuggestedUpdates(c *check.C) {
 	lines := s.NewLines("doc/TODO",
 		"",
 		"Suggested package updates",
@@ -30,23 +31,24 @@ func (s *Suite) TestParselinesSuggestedUpdates(c *check.C) {
 		{lines[6], "freeciv-client", "2.5.0", "(urgent)"}})
 }
 
-func (s *Suite) TestGlobalData_LoadTools(c *check.C) {
-	s.CreateTmpFileLines(c, "mk/tools/bsd.tools.mk",
+func (s *Suite) Test_GlobalData_loadTools(c *check.C) {
+	s.Init(c)
+	s.CreateTmpFileLines("mk/tools/bsd.tools.mk",
 		".include \"flex.mk\"",
 		".include \"gettext.mk\"")
-	s.CreateTmpFileLines(c, "mk/tools/defaults.mk",
+	s.CreateTmpFileLines("mk/tools/defaults.mk",
 		"_TOOLS_VARNAME.chown=CHOWN",
 		"_TOOLS_VARNAME.gawk=AWK",
 		"_TOOLS_VARNAME.mv=MV",
 		"_TOOLS_VARNAME.pwd=PWD")
-	s.CreateTmpFileLines(c, "mk/tools/flex.mk",
+	s.CreateTmpFileLines("mk/tools/flex.mk",
 		"# empty")
-	s.CreateTmpFileLines(c, "mk/tools/gettext.mk",
+	s.CreateTmpFileLines("mk/tools/gettext.mk",
 		"USE_TOOLS+=msgfmt",
 		"TOOLS_CREATE+=msgfmt")
-	s.CreateTmpFileLines(c, "mk/bsd.prefs.mk",
+	s.CreateTmpFileLines("mk/bsd.prefs.mk",
 		"USE_TOOLS+=\tpwd")
-	s.CreateTmpFileLines(c, "mk/bsd.pkg.mk",
+	s.CreateTmpFileLines("mk/bsd.pkg.mk",
 		"USE_TOOLS+=\tmv")
 	G.globalData.Pkgsrcdir = s.tmpdir
 	G.CurrentDir = s.tmpdir
@@ -54,7 +56,7 @@ func (s *Suite) TestGlobalData_LoadTools(c *check.C) {
 
 	G.globalData.loadTools()
 
-	G.opts.Debug = true
+	trace.Tracing = true
 	G.globalData.Tools.Trace()
 
 	c.Check(s.Output(), equals, ""+
@@ -74,8 +76,9 @@ func (s *Suite) TestGlobalData_LoadTools(c *check.C) {
 		"TRACE: - (*ToolRegistry).Trace()\n")
 }
 
-func (s *Suite) TestGlobalData_loadDocChanges(c *check.C) {
-	s.CreateTmpFile(c, "doc/CHANGES-2015", ""+
+func (s *Suite) Test_GlobalData_loadDocChangesFromFile(c *check.C) {
+	s.Init(c)
+	s.CreateTmpFile("doc/CHANGES-2015", ""+
 		"\tAdded category/package version 1.0 [author1 2015-01-01]\n"+
 		"\tUpdated category/package to 1.5 [author2 2015-01-02]\n"+
 		"\tRenamed category/package to category/pkg [author3 2015-01-03]\n"+
@@ -96,11 +99,35 @@ func (s *Suite) TestGlobalData_loadDocChanges(c *check.C) {
 	c.Check(*changes[6], equals, Change{changes[6].Line, "Downgraded", "category/package", "1.2", "author7", "2015-01-07"})
 }
 
-func (s *Suite) TestGlobalData_deprecated(c *check.C) {
+func (s *Suite) Test_GlobalData_deprecated(c *check.C) {
+	s.Init(c)
 	G.globalData.loadDeprecatedVars()
 
 	line := NewLine("Makefile", 5, "USE_PERL5=\tyes", nil)
-	NewMkLine(line).checkVarassign()
+	MkLineChecker{NewMkLine(line)}.checkVarassign()
 
-	c.Check(s.Output(), equals, "WARN: Makefile:5: Definition of USE_PERL5 is deprecated. Use USE_TOOLS+=perl or USE_TOOLS+=perl:run instead.\n")
+	s.CheckOutputLines(
+		"WARN: Makefile:5: Definition of USE_PERL5 is deprecated. Use USE_TOOLS+=perl or USE_TOOLS+=perl:run instead.")
+}
+
+// https://mail-index.netbsd.org/tech-pkg/2017/01/18/msg017698.html
+func (s *Suite) Test_GlobalData_loadDistSites(c *check.C) {
+	s.Init(c)
+	G.globalData.Pkgsrcdir = s.TmpDir()
+	s.CreateTmpFileLines("mk/fetch/sites.mk",
+		mkrcsid,
+		"",
+		"MASTER_SITE_A+= https://example.org/distfiles/",
+		"MASTER_SITE_B+= https://b.example.org/distfiles/ \\",
+		"  https://b2.example.org/distfiles/",
+		"MASTER_SITE_A+= https://a.example.org/distfiles/")
+
+	G.globalData.loadDistSites()
+
+	c.Check(G.globalData.MasterSiteURLToVar["https://example.org/distfiles/"], equals, "MASTER_SITE_A")
+	c.Check(G.globalData.MasterSiteURLToVar["https://b.example.org/distfiles/"], equals, "MASTER_SITE_B")
+	c.Check(G.globalData.MasterSiteURLToVar["https://b2.example.org/distfiles/"], equals, "MASTER_SITE_B")
+	c.Check(G.globalData.MasterSiteURLToVar["https://a.example.org/distfiles/"], equals, "MASTER_SITE_A")
+	c.Check(G.globalData.MasterSiteVarToURL["MASTER_SITE_A"], equals, "https://example.org/distfiles/")
+	c.Check(G.globalData.MasterSiteVarToURL["MASTER_SITE_B"], equals, "https://b.example.org/distfiles/")
 }

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2016/03/05 11:28:40 jperkin Exp $
+# $NetBSD: Makefile,v 1.26 2017/01/01 16:06:20 adam Exp $
 
-DISTNAME=		libsixel-1.4.11
-PKGREVISION=		3
+DISTNAME=		libsixel-1.7.0
+PKGREVISION=		2
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_GITHUB:=saitoha/}
 GITHUB_PROJECT=		libsixel
@@ -15,6 +15,8 @@ LICENSE=		mit AND public-domain
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
+
+CONFIGURE_ARGS+=	--disable-python
 
 PKGCONFIG_OVERRIDE+=	libsixel.pc.in
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2016/03/05 11:28:32 jperkin Exp $
+# $NetBSD: Makefile,v 1.21 2017/01/01 16:06:13 adam Exp $
 
 DISTNAME=	kdiamond-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	games
 COMMENT=	build lines of three similar diamonds
 

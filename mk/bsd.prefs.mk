@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.387 2016/06/13 13:26:42 jperkin Exp $
+# $NetBSD: bsd.prefs.mk,v 1.389 2017/02/01 09:55:07 sevan Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -245,11 +245,6 @@ LOWER_VENDOR?=		hp
 LOWER_VENDOR?=		sun
 LOWER_OPSYS?=		solaris
 LOWER_OPSYS_VERSUFFIX=	2.${OS_VERSION:C/5.//}
-# XXX: Required for multiarch, there's no good workaround.  Building bmake as
-# multiarch causes circular dependencies due to abiexec.
-MACHINE_ARCH.32=	i386
-MACHINE_ARCH.64=	x86_64
-MACHINE_ARCH=		${MACHINE_ARCH.${ABI}}
 _UNAME_V!=		${UNAME} -v
 .  if !empty(_UNAME_V:Mjoyent_*)
 OS_VARIANT=		SmartOS
@@ -720,8 +715,13 @@ _PKGSRC_USE_SSP=	no
 _PKGSRC_USE_SSP=	yes
 .endif
 
-# Enable cwrappers if requested unless we're building the wrappers themselves.
-.if ${USE_CWRAPPERS:tl} != "no" && empty(PKGPATH:Mpkgtools/cwrappers)
+# Enable cwrappers if not building the wrappers themselves, and if the user has
+# explicitly requested them, or if they haven't but the compiler/platform is
+# known to support them.
+.if empty(PKGPATH:Mpkgtools/cwrappers) && \
+    (${USE_CWRAPPERS:tl} == "yes" || \
+    (${USE_CWRAPPERS:tl} == "auto" && \
+     ${_OPSYS_SUPPORTS_CWRAPPERS:Uno} == "yes"))
 _USE_CWRAPPERS=		yes
 .else
 _USE_CWRAPPERS=		no
@@ -772,8 +772,8 @@ LP64PLATFORMS=		*-*-aarch64 *-*-aarch64eb *-*-alpha *-*-ia64 \
 #
 _BIGENDIANCPUS=		coldfire hppa m68000 m68k mips64eb mipseb or1k \
 			powerpc powerpc64 sh3eb sparc sparc64
-_LITTLEENDIANCPUS=	alpha i386 ia64 mips64el mipsel riscv32 riscv64 \
-			sh3el vax x86_64
+_LITTLEENDIANCPUS=	alpha i386 ia64 mips64el mipsel powerpc64le riscv32 \
+			riscv64 sh3el vax x86_64
 
 # piles of ARM variants
 _ARMCPUS+=		arm earm earmhf earmv4 earmv5 earmv6 earmv6hf

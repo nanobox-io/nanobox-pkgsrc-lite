@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2016/06/09 05:54:32 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2017/01/03 13:23:03 jperkin Exp $
 
-DISTNAME=	qrcode-5.1
+DISTNAME=	qrcode-5.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_PYPI:=q/qrcode/}
@@ -17,7 +17,6 @@ DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
 USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 REPLACE_PYTHON+=		qrcode/console_scripts.py
 SUBST_CLASSES+=			pkgmandir
@@ -28,9 +27,9 @@ SUBST_STAGE.pkgmandir=		post-patch
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/qr \
-		${DESTDIR}${PREFIX}/bin/qr${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/qr${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/qr.1 \
-		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/qr${PYVERSSUFFIX}.1
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/qr${PYVERSSUFFIX}.1 || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

@@ -1,8 +1,9 @@
-@comment $NetBSD: PLIST,v 1.54 2016/06/18 20:36:38 leot Exp $
+@comment $NetBSD: PLIST,v 1.58 2016/12/30 07:08:34 adam Exp $
 bin/cancel
 bin/cups-config
 bin/cupstestdsc
 bin/cupstestppd
+${PLIST.ippfind}bin/ippfind
 bin/ipptool
 bin/lp
 bin/lpoptions
@@ -18,17 +19,13 @@ bin/ppdpo
 include/cups/adminutil.h
 include/cups/array.h
 include/cups/backend.h
-include/cups/cgi.h
 include/cups/cups.h
 include/cups/dir.h
 include/cups/file.h
-include/cups/help-index.h
 include/cups/http.h
 include/cups/ipp.h
 include/cups/language.h
-include/cups/mime.h
 include/cups/ppd.h
-include/cups/ppdc.h
 include/cups/pwg.h
 include/cups/raster.h
 include/cups/sidechannel.h
@@ -39,9 +36,15 @@ lib/libcupscgi.la
 lib/libcupsimage.la
 lib/libcupsmime.la
 lib/libcupsppdc.la
+${PLIST.apple}libexec/cups/apple/http
+${PLIST.apple}libexec/cups/apple/https
+${PLIST.apple}libexec/cups/apple/ipp
+${PLIST.apple}libexec/cups/apple/ipps
 ${PLIST.dnssd}libexec/cups/backend/dnssd
 libexec/cups/backend/http
+libexec/cups/backend/https
 libexec/cups/backend/ipp
+libexec/cups/backend/ipps
 libexec/cups/backend/lpd
 ${PLIST.dnssd}libexec/cups/backend/mdns
 libexec/cups/backend/snmp
@@ -74,6 +77,7 @@ man/man1/cups-config.1
 man/man1/cups.1
 man/man1/cupstestdsc.1
 man/man1/cupstestppd.1
+${PLIST.ippfind}man/man1/ippfind.1
 man/man1/ipptool.1
 man/man1/lp.1
 man/man1/lpoptions.1
@@ -478,6 +482,8 @@ share/cups/templates/pt_BR/error-op.tmpl
 share/cups/templates/pt_BR/error.tmpl
 share/cups/templates/pt_BR/header.tmpl
 share/cups/templates/pt_BR/help-header.tmpl
+share/cups/templates/pt_BR/help-printable.tmpl
+share/cups/templates/pt_BR/help-trailer.tmpl
 share/cups/templates/pt_BR/job-cancel.tmpl
 share/cups/templates/pt_BR/job-hold.tmpl
 share/cups/templates/pt_BR/job-move.tmpl
@@ -499,6 +505,7 @@ share/cups/templates/pt_BR/option-trailer.tmpl
 share/cups/templates/pt_BR/pager.tmpl
 share/cups/templates/pt_BR/printer-accept.tmpl
 share/cups/templates/pt_BR/printer-added.tmpl
+share/cups/templates/pt_BR/printer-cancel-jobs.tmpl
 share/cups/templates/pt_BR/printer-configured.tmpl
 share/cups/templates/pt_BR/printer-confirm.tmpl
 share/cups/templates/pt_BR/printer-default.tmpl
@@ -612,19 +619,17 @@ share/doc/cups/cups.css
 share/doc/cups/de/index.html
 share/doc/cups/es/index.html
 share/doc/cups/help/accounting.html
+share/doc/cups/help/api-admin.html
 share/doc/cups/help/api-array.html
-share/doc/cups/help/api-cgi.html
 share/doc/cups/help/api-cups.html
-share/doc/cups/help/api-driver.html
 share/doc/cups/help/api-filedir.html
 share/doc/cups/help/api-filter.html
 share/doc/cups/help/api-httpipp.html
-share/doc/cups/help/api-mime.html
 share/doc/cups/help/api-overview.html
 share/doc/cups/help/api-ppd.html
-share/doc/cups/help/api-ppdc.html
 share/doc/cups/help/api-raster.html
 share/doc/cups/help/cgi.html
+share/doc/cups/help/encryption.html
 share/doc/cups/help/glossary.html
 share/doc/cups/help/kerberos.html
 share/doc/cups/help/license.html
@@ -680,7 +685,6 @@ share/doc/cups/help/ref-ppdcfile.html
 share/doc/cups/help/security.html
 share/doc/cups/help/sharing.html
 share/doc/cups/help/spec-banner.html
-share/doc/cups/help/spec-cmp.html
 share/doc/cups/help/spec-command.html
 share/doc/cups/help/spec-design.html
 share/doc/cups/help/spec-ipp.html
@@ -713,8 +717,8 @@ share/doc/cups/pt_BR/index.html
 share/doc/cups/robots.txt
 share/doc/cups/ru/index.html
 share/examples/cups/cups-files.conf
-share/examples/cups/cupsd.conf
 ${PLIST.pam}share/examples/cups/cups.pam
+share/examples/cups/cupsd.conf
 share/examples/cups/snmp.conf
 share/locale/ca/cups_ca.po
 share/locale/cs/cups_cs.po

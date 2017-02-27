@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2015/08/28 07:09:57 richard Exp $
+# $NetBSD: Makefile,v 1.13 2016/12/18 23:30:34 joerg Exp $
 
-PKGREVISION= 1
+PKGREVISION= 2
 .include "../../devel/ncurses/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/ncurses/ncursesw/}
@@ -13,8 +13,8 @@ CONFIGURE_ARGS+=	--enable-widec
 CONFIGURE_ARGS+=	--includedir=${PREFIX}/include/ncursesw
 
 INSTALLATION_DIRS+=	include/ncursesw
-INSTALLATION_DIRS+=	bin${BINARCHSUFFIX}
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}
+INSTALLATION_DIRS+=	bin
+INSTALLATION_DIRS+=	lib
 
 BUILD_TARGET=	libs
 
@@ -28,10 +28,10 @@ SUBST_SED.includes+=	-e 's,<unctrl\.h>,<ncurses/unctrl\.h>,'
 do-install:
 	cd ${WRKSRC}/include &&	\
 	${MAKE_ENV} ${MAKE_PROGRAM} ${INSTALL_MAKE_FLAGS} install
-	${INSTALL_SCRIPT} ${WRKSRC}/misc/ncurses-config ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}/ncursesw${NC_VERS:R}-config
-	for LIB in form menu ncurses++ ncurses panel; do	\
-		${SETENV} ${MAKE_ENV} ${LIBTOOL} --mode=install ${INSTALL_PROGRAM}	\
-		    ${WRKSRC}/lib/lib$${LIB}w.la ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX};	\
+	${INSTALL_SCRIPT} ${WRKSRC}/misc/ncurses-config ${DESTDIR}${PREFIX}/bin/ncursesw${NC_VERS:R}-config
+	for LIB in gnuform gnumenu ncurses++ ncurses gnupanel; do	\
+		${LIBTOOL} --mode=install ${INSTALL_PROGRAM}	\
+		    ${WRKSRC}/lib/lib$${LIB}w.la ${DESTDIR}${PREFIX}/lib;	\
 	done
 
 BUILDLINK_API_DEPENDS.ncurses+=	ncurses-${NC_VERS}{,nb*}

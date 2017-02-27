@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.201 2016/04/23 07:49:36 prlw1 Exp $
+# $NetBSD: Makefile,v 1.204 2017/02/12 06:24:41 ryoon Exp $
 
-DISTNAME=	pango-1.40.1
+DISTNAME=	pango-1.40.3
+PKGREVISION=	2
 CATEGORIES=	devel fonts
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pango/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -15,7 +16,6 @@ BUILD_DEPENDS+=		help2man-[0-9]*:../../converters/help2man
 TEST_TARGET=		check
 USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/libdata

@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.4 2015/11/03 23:27:15 agc Exp $
+$NetBSD: distinfo,v 1.6 2017/01/02 07:25:48 wen Exp $
 
-SHA1 (Mail-Sender-0.8.23.tar.gz) = 07f340d577a9583d9d51f668ac5b878c94da9869
-RMD160 (Mail-Sender-0.8.23.tar.gz) = 375e77c602d699e8fdc88479a77ad54fe97b9344
-SHA512 (Mail-Sender-0.8.23.tar.gz) = e9c2e2806976aaea568885f41ff774b9cb460707123c0926ed20428b00a9e9db796d67dca938dc16463eeb8e1c92f8e82ba60c92bc053c20d5570d5604df651c
-Size (Mail-Sender-0.8.23.tar.gz) = 38361 bytes
+SHA1 (Mail-Sender-0.903.tar.gz) = 5d64e9a3eb3748b0cc5fab68b46aea2a6f83ccd9
+RMD160 (Mail-Sender-0.903.tar.gz) = be73717d2e5d5ac0e2f61786ef206ee674c96a57
+SHA512 (Mail-Sender-0.903.tar.gz) = 6c2ca98f7a19b1833c053760f2d62986e9de39e625c2f1bde88d6f9afa26bd3f7cb3e0acc0c0dd3aa2dad94ec80c6696350e5e42684ba0c75a86fc2ddea9a8f1
+Size (Mail-Sender-0.903.tar.gz) = 60499 bytes

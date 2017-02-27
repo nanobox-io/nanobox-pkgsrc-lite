@@ -1,4 +1,4 @@
-# $NetBSD: xorg.mk,v 1.26 2014/04/29 06:20:04 obache Exp $
+# $NetBSD: xorg.mk,v 1.28 2017/01/24 14:25:00 mrg Exp $
 #
 # This is for X.org, but use "xfree" files also.
 
@@ -43,6 +43,7 @@ FILES_LIST=	${FILESDIR}/xorg
 .include "../../x11/libXinerama/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
+.include "../../x11/libXpresent/buildlink3.mk"
 .include "../../x11/libXprintUtil/buildlink3.mk"
 .include "../../x11/libXrandr/buildlink3.mk"
 .include "../../x11/libXrender/buildlink3.mk"
@@ -53,6 +54,7 @@ FILES_LIST=	${FILESDIR}/xorg
 .include "../../x11/libdrm/buildlink3.mk"
 .include "../../x11/libxcb/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
+.include "../../x11/presentproto/buildlink3.mk"
 .include "../../x11/printproto/buildlink3.mk"
 .include "../../x11/randrproto/buildlink3.mk"
 .include "../../x11/recordproto/buildlink3.mk"
@@ -81,20 +83,20 @@ FILES_LIST=	${FILESDIR}/xorg
 # ${X11BASE} actually belong to the base Xorg or not.
 #
 # XXX: maybe skip iconv and zlib too?
-.for _pkg_ in ${BUILDLINK_TREE:N-*:Nx11-links:O:u}
-CHECK_BUILTIN.${_pkg_}:=	yes
-.  sinclude "${BUILDLINK_PKGSRCDIR.${_pkg_}}/builtin.mk"
-CHECK_BUILTIN.${_pkg_}:=	no
+.for pkg in ${BUILDLINK_TREE:N-*:Nx11-links:O:u}
+CHECK_BUILTIN.${pkg}:=	yes
+.  sinclude "${BUILDLINK_PKGSRCDIR.${pkg}}/builtin.mk"
+CHECK_BUILTIN.${pkg}:=	no
 .endfor
 
-.for _pkg_ in ${BUILDLINK_TREE:N-*:Nx11-links:O:u}
-IGNORE_PKG.${_pkg_}=	yes
-.  if defined(USE_BUILTIN.${_pkg_}) && \
-      !empty(USE_BUILTIN.${_pkg_}:M[yY][eE][sS])
-.    if exists(${FILESDIR}/xorg.${_pkg_})
-FILES_LIST+=	${FILESDIR}/xorg.${_pkg_}
-.    elif exists(${FILESDIR}/xfree.${_pkg_})
-FILES_LIST+=	${FILESDIR}/xfree.${_pkg_}
+.for pkg in ${BUILDLINK_TREE:N-*:Nx11-links:O:u}
+IGNORE_PKG.${pkg}=	yes
+.  if defined(USE_BUILTIN.${pkg}) && \
+      !empty(USE_BUILTIN.${pkg}:M[yY][eE][sS])
+.    if exists(${FILESDIR}/xorg.${pkg})
+FILES_LIST+=	${FILESDIR}/xorg.${pkg}
+.    elif exists(${FILESDIR}/xfree.${pkg})
+FILES_LIST+=	${FILESDIR}/xfree.${pkg}
 .    endif
 .  endif
 .endfor

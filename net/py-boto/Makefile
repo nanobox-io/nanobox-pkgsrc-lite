@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.24 2016/06/08 17:43:36 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2017/01/03 13:23:03 jperkin Exp $
 
 DISTNAME=	boto-2.37.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -16,51 +16,50 @@ REPLACE_PYTHON+=	bin/* boto/pyami/launch_ami.py boto/services/bs.py
 REPLACE_PYTHON+=	boto/services/result.py
 
 PY_PATCHPLIST=			yes
-PLIST_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/asadmin \
-		${DESTDIR}${PREFIX}/bin/asadmin${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/asadmin${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/bundle_image \
-		${DESTDIR}${PREFIX}/bin/bundle_image${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/bundle_image${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/cfadmin \
-		${DESTDIR}${PREFIX}/bin/cfadmin${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/cfadmin${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/cq \
-		${DESTDIR}${PREFIX}/bin/cq${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/cq${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/cwutil \
-		${DESTDIR}${PREFIX}/bin/cwutil${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/cwutil${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/dynamodb_dump \
-		${DESTDIR}${PREFIX}/bin/dynamodb_dump${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/dynamodb_dump${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/dynamodb_load \
-		${DESTDIR}${PREFIX}/bin/dynamodb_load${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/dynamodb_load${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/elbadmin \
-		${DESTDIR}${PREFIX}/bin/elbadmin${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/elbadmin${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/fetch_file \
-		${DESTDIR}${PREFIX}/bin/fetch_file${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/fetch_file${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/glacier \
-		${DESTDIR}${PREFIX}/bin/glacier${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/glacier${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/instance_events \
-		${DESTDIR}${PREFIX}/bin/instance_events${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/instance_events${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/kill_instance \
-		${DESTDIR}${PREFIX}/bin/kill_instance${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/kill_instance${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/launch_instance \
-		${DESTDIR}${PREFIX}/bin/launch_instance${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/launch_instance${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/list_instances \
-		${DESTDIR}${PREFIX}/bin/list_instances${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/list_instances${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/lss3 \
-		${DESTDIR}${PREFIX}/bin/lss3${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/lss3${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/mturk \
-		${DESTDIR}${PREFIX}/bin/mturk${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/mturk${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/pyami_sendmail \
-		${DESTDIR}${PREFIX}/bin/pyami_sendmail${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/pyami_sendmail${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/route53 \
-		${DESTDIR}${PREFIX}/bin/route53${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/route53${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/s3put \
-		${DESTDIR}${PREFIX}/bin/s3put${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/s3put${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/sdbadmin \
-		${DESTDIR}${PREFIX}/bin/sdbadmin${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/sdbadmin${PYVERSSUFFIX} || ${TRUE}
 	${MV} ${DESTDIR}${PREFIX}/bin/taskadmin \
-		${DESTDIR}${PREFIX}/bin/taskadmin${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/taskadmin${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

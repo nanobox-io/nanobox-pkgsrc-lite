@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2016/02/25 14:42:56 jperkin Exp $
+# $NetBSD: Makefile,v 1.15 2017/01/25 15:17:41 adam Exp $
 
 GCC_PKGNAME=		gcc5
+PKGREVISION=		2
 .include		"version.mk"
-PKGREVISION=	1
 
 DISTNAME=	gcc-${GCC5_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}-${GCC5_DIST_VERSION}
@@ -65,14 +65,6 @@ BOOT_LDFLAGS+=		${LDFLAGS:M-Wl,-syslibroot*}
 # GCC does not understand this option; remove it, or stage build will fail
 BUILDLINK_TRANSFORM+=	rm:-stdlib=libc++
 
-# Avoid ssp.h not found error.
-.if !empty(MACHINE_PLATFORM:MNetBSD-*-*)
-SUBST_CLASSES+=		fixinc
-SUBST_STAGE.fixinc=	pre-configure
-SUBST_FILES.fixinc=	gcc/Makefile.in
-SUBST_SED.fixinc=	-e "s,\./fixinc.sh,-c true,"
-.endif
-
 .include "options.mk"
 
 ## For graphite support.
@@ -90,8 +82,8 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGS:Q}
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
-.if !empty(MACHINE_PLATFORM:MNetBSD-*-*) && ${PKGSRC_USE_SSP:Uno} != "no"
-# on NetBSD with stack protector, use the native SSP code in libc
+.if !empty(MACHINE_PLATFORM:MNetBSD-*-*)
+# on NetBSD, use the native SSP code in libc
 CONFIGURE_ARGS+=	--disable-libssp
 .else
 CONFIGURE_ARGS+=	--enable-libssp
@@ -99,6 +91,11 @@ CONFIGURE_ARGS+=	--enable-libssp
 CONFIGURE_ARGS+=	--enable-threads=posix
 CONFIGURE_ARGS+=	--with-boot-ldflags=${BOOT_LDFLAGS:Q}
 
+# multilib on Darwin requires fat-binaries
+CONFIGURE_ARGS.Darwin+=	--disable-multilib
+.if !empty(OSX_SDK_PATH)
+CONFIGURE_ARGS.Darwin+=	--with-sysroot=${OSX_SDK_PATH}
+.endif
 CONFIGURE_ARGS.NetBSD+=	--with-gnu-ld --with-ld=/usr/bin/ld
 CONFIGURE_ARGS.NetBSD+=	--with-gnu-as --with-as=/usr/bin/as
 MAKE_ENV.NetBSD+=	ac_cv_func_clock_gettime=yes
@@ -146,6 +143,13 @@ BUILDLINK_DEPMETHOD.binutils=	full
 .    include "../../devel/binutils/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-gnu-as --with-as=${PREFIX}/bin/gas
 .  endif
+.endif
+
+.if ${OS_VARIANT} == "SmartOS"
+SUBST_CLASSES+=		ccs
+SUBST_STAGE.ccs=	pre-configure
+SUBST_FILES.ccs=	contrib/make_sunver.pl
+SUBST_SED.ccs=		-e 's,/usr/ccs/bin,/usr/bin,g'
 .endif
 
 pre-configure:

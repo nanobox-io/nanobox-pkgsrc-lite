@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1.1.1 2015/07/21 23:33:11 asau Exp $
+# $NetBSD: Makefile,v 1.3 2016/12/19 16:01:19 asau Exp $
 
 DISTNAME=	projectlibre-1.6.1
 CATEGORIES=	time

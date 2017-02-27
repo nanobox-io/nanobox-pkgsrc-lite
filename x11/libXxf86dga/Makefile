@@ -10,7 +10,6 @@ HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		Library for the XFree86-DGA X extension
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 

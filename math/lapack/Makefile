@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2014/08/19 13:37:14 joerg Exp $
+# $NetBSD: Makefile,v 1.38 2016/10/18 14:08:14 wiz Exp $
 
 .include "Makefile.common"
 
-PKGREVISION=	1
 COMMENT=	Linear Algebra PACKage
 
 BUILD_TARGET=	lapacklib
@@ -22,7 +21,7 @@ do-configure:
 
 do-install:
 	${LIBTOOL} --mode=install ${INSTALL_DATA} ${WRKSRC}/liblapack.la \
-		${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
+		${DESTDIR}${PREFIX}/lib
 
 .include "../../math/blas/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

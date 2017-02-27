@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.23 2016/06/25 14:33:41 jaapb Exp $
+# $NetBSD: Makefile,v 1.25 2017/01/04 13:06:18 jaapb Exp $
 #
 
-VERSION=	2.7
+VERSION=	2.8
 GITHUB_PROJECT=	ocsigenserver
+PKGREVISION=	1
 PKGNAME=	ocsigen-${VERSION}
 DISTNAME=	${GITHUB_PROJECT}-${VERSION}
-PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ocsigen/}
 
@@ -53,7 +53,6 @@ CONFIGURE_ARGS=	--disable-debug \
 CONF_FILES+=	${DESTDIR}${PREFIX}/share/examples/ocsigen/ocsigenserver.conf.sample \
 		${PKG_SYSCONFDIR}/ocsigenserver/ocsigenserver.conf
 USE_TOOLS+=	gmake
-WRKSRC=	${WRKDIR}/ocsigenserver-${VERSION}
 
 OCAML_USE_FINDLIB=	yes
 OCAML_FINDLIB_DIRS=	ocsigenserver

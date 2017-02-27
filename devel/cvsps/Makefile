@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26.14.1 2016/07/28 12:56:35 spz Exp $
+# $NetBSD: Makefile,v 1.27 2016/07/25 05:10:03 christos Exp $
 #
 
 DISTNAME=	cvsps-2.1

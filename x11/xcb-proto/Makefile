@@ -13,7 +13,6 @@ LICENSE=	mit # with no-advertising clause
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config
 USE_LANGUAGES=	# none
-USE_MULTIARCH=	lib
 
 PKGCONFIG_OVERRIDE+=	xcb-proto.pc.in
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2016/06/08 19:24:23 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/08/04 22:38:10 wiz Exp $
 #
 
 DISTNAME=	GSSAPI-0.28
@@ -12,8 +12,8 @@ HOMEPAGE=	http://perlgssapi.sourceforge.net/
 COMMENT=	Perl extension providing access to the GSSAPIv2 library
 LICENSE=	${PERL5_LICENSE}
 
-USE_MULTIARCH=	lib
 PERL5_PACKLIST=	auto/GSSAPI/.packlist
+MAKE_PARAMS+=	--gssapiimpl=${KRB5BASE}
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/krb5.buildlink3.mk"

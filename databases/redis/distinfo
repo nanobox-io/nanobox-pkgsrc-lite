@@ -1,10 +1,10 @@
-$NetBSD: distinfo,v 1.23 2016/06/19 21:28:58 fhajny Exp $
+$NetBSD: distinfo,v 1.29 2017/02/14 10:30:03 fhajny Exp $
 
-SHA1 (redis-3.2.1.tar.gz) = 26c0fc282369121b4e278523fce122910b65fbbf
-RMD160 (redis-3.2.1.tar.gz) = fa2b678b3d8b7f32f289bf18a738ca5c9ee647ca
-SHA512 (redis-3.2.1.tar.gz) = 600416558d96d584e67b7fee57292553d801499bc425e39a75e4f047a0b0e59210c6558c9d8206affe4c0fd66a7eaaca67d9e3139380c66098c6c37a22132cb7
-Size (redis-3.2.1.tar.gz) = 1534696 bytes
-SHA1 (patch-ab) = 21754f59e9f1013095fe47ccf7411b438385d558
+SHA1 (redis-3.2.8.tar.gz) = 6780d1abb66f33a97aad0edbe020403d0a15b67f
+RMD160 (redis-3.2.8.tar.gz) = cbcc361705fcf7c3468b3d133d0f1ec22b60868c
+SHA512 (redis-3.2.8.tar.gz) = 7334faf73af3644f7f9dcaddd322955d5df1e88a1640b509ae623f322615a20f6dc143eb57dd89ff3a278557df309ac4215c3fb458235682ce28e16c817068ba
+Size (redis-3.2.8.tar.gz) = 1547237 bytes
+SHA1 (patch-ab) = 91678cf71a05cf3d9227bdb5feb8fab57b5e4259
 SHA1 (patch-ac) = 1d848860a39af7a93a06eb8f3001fe89cb1bb3ad
 SHA1 (patch-deps_hiredis_fmacros.h) = b9d7d0a82e6794078d997769db6e5572f981b445
 SHA1 (patch-src_object.c) = 30ffaec9c7e6135e3a5576cd1a35d7bcec668299

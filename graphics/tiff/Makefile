@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.122 2016/03/22 21:50:13 tez Exp $
+# $NetBSD: Makefile,v 1.125 2016/11/23 13:51:29 he Exp $
 
-DISTNAME=	tiff-4.0.6
+DISTNAME=	tiff-4.0.7
 PKGREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	ftp://ftp.remotesensing.org/pub/libtiff/ \
-		http://libtiff.maptools.org/dl/
+MASTER_SITES=	ftp://download.osgeo.org/libtiff/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.remotesensing.org/libtiff/
+HOMEPAGE=	http://simplesystems.org/libtiff/
 COMMENT=	Library and tools for reading and writing TIFF data files
 LICENSE=	mit
 
@@ -15,7 +14,6 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-rpath
 CONFIGURE_ARGS+=	--enable-cxx
@@ -29,7 +27,7 @@ TEST_TARGET=		check
 post-install:
 	cd ${DESTDIR}/${PREFIX}/${PKGMANDIR}/man3 && for file in *.3tiff; do\
 		target=`${ECHO} $$file | sed "s/3tiff/3/"`; \
-		[ -f $$file ] && ${MV} $$file $$target || ${TRUE}; \
+		${MV} $$file $$target; \
 	done
 
 .include "options.mk"

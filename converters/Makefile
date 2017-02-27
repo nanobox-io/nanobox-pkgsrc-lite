@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.143 2016/04/25 20:39:15 fhajny Exp $
+# $NetBSD: Makefile,v 1.152 2017/02/06 07:10:00 wiz Exp $
 #
 
 COMMENT=	Document format and character code converters
@@ -45,18 +45,19 @@ SUBDIR+=	libmspub
 SUBDIR+=	libmwaw
 SUBDIR+=	libpagemaker
 SUBDIR+=	librevenge
+SUBDIR+=	libstaroffice
 SUBDIR+=	libvisio
 SUBDIR+=	libwpd
 SUBDIR+=	libwpg
 SUBDIR+=	libwps
-SUBDIR+=	libwps03
+SUBDIR+=	libzmf
 SUBDIR+=	macfork
 SUBDIR+=	mpack
 SUBDIR+=	nkf
 SUBDIR+=	odt2txt
 SUBDIR+=	opencc
-SUBDIR+=	orcus
-SUBDIR+=	orcus0.8
+SUBDIR+=	orcus0.12
+SUBDIR+=	p5-Convert-Bencode
 SUBDIR+=	p5-Convert-BinHex
 SUBDIR+=	p5-Convert-Color
 SUBDIR+=	p5-Convert-TNEF

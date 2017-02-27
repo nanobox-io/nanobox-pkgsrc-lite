@@ -15,7 +15,6 @@ CONFLICTS=	xz-[0-9]*
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
-USE_MULTIARCH=	lib
 USE_TOOLS+=	gmake
 
 # Link with c++ instead (see also patch-aa)

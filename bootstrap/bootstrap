@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# $NetBSD: bootstrap,v 1.232 2016/06/22 11:40:16 joerg Exp $
+# $NetBSD: bootstrap,v 1.240 2017/02/11 16:08:31 tron Exp $
 #
 # Copyright (c) 2001-2011 Alistair Crooks <agc@NetBSD.org>
 # All rights reserved.
@@ -64,7 +64,6 @@ usage="Usage: $0 "'
     [ --help ]
     [ --make-jobs <num> ]
     [ --mk-fragment <mk.conf> ]
-    [ --multiarch ]
     [ --pkgdbdir <pkgdbdir> ]
     [ --pkginfodir <pkginfodir> ]
     [ --pkgmandir <pkgmandir> ]
@@ -373,8 +372,7 @@ case "$bootstrap_sh" in
 /*)
 	;;
 *)
-	echo "ERROR: The variable SH must contain an absolute path" 1>&2
-	exit 1
+	die "ERROR: The variable SH must contain an absolute path"
 	;;
 esac
 
@@ -392,8 +390,7 @@ if [ "$opsys" != "GNUkFreeBSD" ] && [ "$dash_echo_test" = "@" ]; then
 fi
 
 if [ -n "$PKG_PATH" ]; then
-	echo "ERROR: Please unset PKG_PATH before running bootstrap." 1>&2
-	exit 1;
+	die "ERROR: Please unset PKG_PATH before running bootstrap."
 fi
 
 build_start=`date`
@@ -437,7 +434,6 @@ while [ $# -gt 0 ]; do
 	--abi=*)	abi=`get_optarg "$1"` ;;
 	--abi)		abi="$2"; shift ;;
 	--cwrappers)	cwrappers=yes ;;
-	--multiarch)	multiarch=yes ;;
 	--unprivileged | --ignore-user-check) unprivileged=yes ;;
 	--prefer-pkgsrc=*)
 			prefer_pkgsrc=`get_optarg "$1"` ;;
@@ -489,7 +485,7 @@ elif [ -z "$prefix" -o "$prefix" = "/usr/pkg" ]; then
 fi
 
 [ -z "$varbase" ] && varbase=${prefix}/var
-[ -z "$pkgdbdir" ] && pkgdbdir=${varbase}/db/pkg
+[ -z "$pkgdbdir" ] && pkgdbdir=${prefix}/pkgdb
 
 if [ "$prefix" = "/usr" ]; then
 	[ -z "$pkginfodir" ] && pkginfodir=share/info
@@ -573,7 +569,7 @@ Darwin)
 		;;
 	esac
 	case "$macosx_version" in
-	10.[8-9]|10.1[01])
+	10.[8-9]|10.1[012])
 		need_awk=yes
 		need_sed=yes
 		;;
@@ -718,7 +714,12 @@ Linux)
 	fi
 	need_sed=no
 	set_opsys=no
-	machine_arch=`uname -m | sed -e 's/i.86/i386/'`
+	machine_arch=`uname -m`
+	# Override machine_arch where required.
+	case "$machine_arch" in
+	i?86)		machine_arch=i386 ;;
+	ppc64le)	machine_arch=powerpc64le ;;
+	esac
 	;;
 Minix)
 	root_group=operator
@@ -870,6 +871,7 @@ powerpc/64)	abi=64	machine_arch=powerpc64	;;
 powerpc/*)	abi=32	machine_arch=powerpc	;;
 powerpc64/32)	abi=32	machine_arch=powerpc	;;
 powerpc64/*)	abi=64	machine_arch=powerpc64	;;
+powerpc64le/*)	abi=64	machine_arch=powerpc64le;;
 # "sparc" can support 64-bit, e.g. SunOS, defaults to 32-bit.
 sparc/64)	abi=64	machine_arch=sparc64	;;
 sparc/*)	abi=32	machine_arch=sparc	;;
@@ -934,16 +936,22 @@ check_prog shprog sh
 check_prog whoamiprog whoami
 
 if [ -d "${wrkdir}" ] || [ -f "${wrkdir}" ]; then
-	echo "\"${wrkdir}\" already exists, please remove it or use --workdir.";
-	exit 1
+	die "\"${wrkdir}\" already exists, please remove it or use --workdir"
+fi
+
+if [ -f "${prefix}/share/mk/sys.mk" ]; then
+	die "\"${prefix}\" already in use, remove it or use a different --prefix"
+fi
+
+if [ -d "${pkgdbdir}/bootstrap-mk-files-"* ]; then
+	die "\"${pkgdbdir}\" already in use, remove it or use a different --pkgdbdir"
 fi
 
 mkdir_p_early ${wrkdir}
 if touch ${wrkdir}/.writeable; then
 	:
 else
-	echo "\"${wrkdir}\" is not writeable. Try $0 -h.";
-	exit 1
+	die "\"${wrkdir}\" is not writeable. Try $0 -h"
 fi
 echo "Working directory is: ${wrkdir}"
 
@@ -1022,9 +1030,6 @@ fi
 
 if [ -n "$abi" ]; then
 	echo "ABI=			$abi" >> ${TARGET_MKCONF}
-fi
-if [ -n "$multiarch" ]; then
-	echo "MULTIARCH=		$multiarch" >> ${TARGET_MKCONF}
 fi
 if [ "$compiler" != "" ]; then
 	echo "PKGSRC_COMPILER=	$compiler" >> ${TARGET_MKCONF}
@@ -1203,7 +1208,7 @@ run_cmd "(cd $wrkdir/libarchive; env $BSTRAP_ENV \
 $shprog ./configure $configure_quiet_flags --enable-static --disable-shared \
 --disable-bsdtar --disable-bsdcpio --disable-posix-regex-lib --disable-xattr \
 --disable-maintainer-mode --disable-acl --without-zlib --without-bz2lib \
---without-lzmadec --without-iconv --without-lzma --without-lzo2 \
+--without-lzmadec --without-iconv --without-lzma --without-lzo2 --without-lz4 \
 --without-nettle --without-openssl --without-xml2 --without-expat \
 MAKE=$bmake && $bmake $make_quiet_flags -j$make_jobs)"
 copy_src $pkgsrcdir/pkgtools/pkg_install/files pkg_install
@@ -1292,10 +1297,24 @@ echo ".endif			# end pkgsrc settings" >> ${TARGET_MKCONF}
 echo ".endif			# end pkgsrc settings" >> ${BOOTSTRAP_MKCONF}
 
 # build and register packages
-# usage: build_package <packagedirectory> [additional arguments]
+# usage: build_package <packagedirectory>
 build_package() {
 	run_cmd "(cd $pkgsrcdir/$1 && $bmake $make_quiet_flags MAKE_JOBS=${make_jobs} PKG_COMPRESSION=none -DPKG_PRESERVE MAKECONF=${BOOTSTRAP_MKCONF} install)"
 }
+build_package_nopreserve() {
+	run_cmd "(cd $pkgsrcdir/$1 && $bmake $make_quiet_flags MAKE_JOBS=${make_jobs} PKG_COMPRESSION=none MAKECONF=${BOOTSTRAP_MKCONF} install)"
+}
+
+#
+# cwrappers is special, we don't want to set it as a BOOTSTRAP_PKG but must
+# build it (if required) without -DPKG_PRESERVE set so that it can be deleted.
+#
+use_cwrappers=`(cd $pkgsrcdir/devel/bmake && $bmake show-var VARNAME=_USE_CWRAPPERS)`
+case "$use_cwrappers" in
+yes)
+	build_package_nopreserve "pkgtools/cwrappers"
+	;;
+esac
 
 #
 # Please make sure that the following packages and

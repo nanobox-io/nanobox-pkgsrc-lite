@@ -1,4 +1,4 @@
-<!-- $NetBSD: configuring.xml,v 1.49 2016/06/11 14:58:26 rillig Exp $ -->
+<!-- $NetBSD: configuring.xml,v 1.52 2017/01/07 04:30:45 sevan Exp $ -->
 
 <chapter id="configuring">
   <title>Configuring pkgsrc</title>
@@ -13,22 +13,16 @@ that file depends on the installation. On NetBSD, when you use
 <literal>${PREFIX}/etc/</literal>, depending on where you told the
 bootstrap program to install the binary packages.</para>
 
-<para>During the bootstrap, an example configuration file is created. To
-use that, you have to create the directory
-<filename>${PREFIX}/etc</filename> and copy the example file
-there.</para>
-
 <para>The format of the configuration file is that of the usual
 BSD-style <filename>Makefile</filename>s. The whole pkgsrc configuration
 is done by setting variables in this file. Note that you can define all
 kinds of variables, and no special error checking (for example for
-spelling mistakes) takes place, so you have to try it out to see if it
-works.</para>
+spelling mistakes) takes place.</para>
 
   <sect1 id="general-configuration">
     <title>General configuration</title>
 
-    <para>In this section, you can find some variables that apply to all
+    <para>The following variables apply to all
     pkgsrc packages. A complete list of the variables that can be
     configured by the user is available in
     <filename>mk/defaults/mk.conf</filename>, together with some
@@ -56,7 +50,7 @@ works.</para>
 	</listitem>
 	<listitem><para><varname>PKG_DBDIR</varname>: Where the
 	    database about installed packages is stored.  The default is
-	    <filename>/var/db/pkg</filename>.</para>
+	    <filename>/usr/pkg/pkgdb</filename>.</para>
 	</listitem>
 	<listitem><para><varname>MASTER_SITE_OVERRIDE</varname>:
 	    If set, override the packages'
@@ -67,10 +61,8 @@ works.</para>
 	    if not found locally or in
 	    <filename>${MASTER_SITES}</filename> or
 	    <filename>${PATCH_SITES}</filename> respectively.
-	    The defaults are
-	    <filename>ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/${DIST_SUBDIR}/</filename>
-	    and
-	    <filename>ftp://ftp.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/</filename>.</para>
+	    The defaults is
+	    <filename>ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/${DIST_SUBDIR}/</filename>.</para>
 	</listitem>
 	<listitem><para><varname>BINPKG_SITES</varname>:
 	    List of sites carrying binary pkgs. <replaceable>rel</replaceable> and
@@ -262,7 +254,7 @@ uid=1000(myusername) gid=100(users) groups=100(users),0(wheel)
 	    </listitem>
 
 	    <listitem><para><varname>xlc</varname>:
-	    IBM's XL C/C++ compiler suite (Darwin/MacOSX)</para>
+	    IBM's XL C/C++ compiler suite</para>
 	    </listitem>
 	  </itemizedlist>
 
@@ -292,6 +284,33 @@ uid=1000(myusername) gid=100(users) groups=100(users),0(wheel)
 	  install one of the GCC packages to use instead.</para>
 	</listitem>
       </varlistentry>
+
+      <varlistentry>
+	<term><varname>PYTHON_DEFAULT_VERSION</varname>:</term>
+	<listitem>
+	  <para>Specifies which version of python to use when several
+	  options are available.</para>
+	</listitem>
+      </varlistentry>
+
+      <varlistentry>
+	<term><varname>PKGSRC_FORTRAN</varname>:</term>
+	<listitem>
+	  <para>Specifies the fortran compiler to use.
+	  The default is <varname>g95</varname>, and
+	  <varname>gfortran</varname> is an alternative.</para>
+	</listitem>
+      </varlistentry>
+
+      <varlistentry>
+	<term><varname>GFORTRAN_VERSION</varname>:</term>
+	<listitem>
+	  <para>If <varname>PKGSRC_FORTRAN</varname><literal>=</literal>
+	  <varname>gfortran</varname> is used, this option specifies which
+	  version to use.</para>
+	</listitem>
+      </varlistentry>
+
     </variablelist>
   </sect2>
 
@@ -366,8 +385,8 @@ LDFLAGS+=        -your -linkerflags
 	(normal, default, quiet operation); the value 1 will display
 	all shell commands before their invocation, and the value 2
 	will display both the shell commands before their invocation,
-	and their actual execution progress with <command>set
-	-x</command> will be displayed.</para></listitem>
+	as well as their actual execution progress with <command>set
+	-x</command>.</para></listitem>
       </itemizedlist>
     </para>
   </sect1>

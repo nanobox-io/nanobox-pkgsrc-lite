@@ -1,10 +1,12 @@
-# $NetBSD: Makefile,v 1.49 2015/04/25 14:23:02 tnn Exp $
+# $NetBSD: Makefile,v 1.53 2017/02/12 06:25:22 ryoon Exp $
 
-DISTNAME=	puzzles-20141021.r10286
-PKGREVISION=	1
+DISTNAME=	puzzles
+PKGNAME=	puzzles-20160429
+PKGREVISION=	2
 CATEGORIES=	games
-# distfile changes daily
+# distfile changes every day
 MASTER_SITES=	# http://www.chiark.greenend.org.uk/~sgtatham/puzzles/
+DIST_SUBDIR=	${PKGNAME_NOREV}
 
 MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://www.chiark.greenend.org.uk/~sgtatham/puzzles/
@@ -13,6 +15,7 @@ LICENSE=	mit
 
 INSTALLATION_DIRS=	bin share/doc/puzzles
 
+WRKSRC=		${WRKDIR}/puzzles-20160429.b31155b
 USE_TOOLS+=	gmake pkg-config
 
 BUILDLINK_TRANSFORM+=	rm:-Werror

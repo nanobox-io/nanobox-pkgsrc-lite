@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.17.4.1 2016/07/12 20:43:32 bsiegert Exp $
+$NetBSD: distinfo,v 1.18 2016/07/03 11:17:15 wiz Exp $
 
 SHA1 (xerces-c-3.1.4.tar.gz) = eb7711ba3c079f45a443238665a5e7d612fd1b0c
 RMD160 (xerces-c-3.1.4.tar.gz) = 3f5671262e542afefbc5964ddc0373a11a95791d

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2016/05/03 11:40:11 prlw1 Exp $
+# $NetBSD: Makefile,v 1.10 2017/02/12 06:26:17 ryoon Exp $
 
-PKGREVISION= 4
+PKGREVISION= 8
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 DISTNAME=	xfce4-screenshooter-1.8.2

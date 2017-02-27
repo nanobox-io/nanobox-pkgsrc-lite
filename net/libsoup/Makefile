@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2016/05/03 11:37:39 prlw1 Exp $
+# $NetBSD: Makefile,v 1.31 2017/01/04 10:44:58 roy Exp $
 
 DISTNAME=	libsoup-2.54.1
+PKGREVISION=	2
 CATEGORIES=	net gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -12,7 +13,6 @@ LICENSE=	gnu-lgpl-v2
 
 USE_TOOLS+=		pkg-config gmake intltool msgfmt
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 
 # XXX work around botched gettext check (ignores libintl)

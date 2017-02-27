@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2015/04/18 07:23:18 manu Exp $
+# $NetBSD: Makefile,v 1.29 2016/11/27 09:49:41 spz Exp $
 
 DISTNAME=	libobjc2-1.6.1
 PKGNAME=	${DISTNAME:S/libobjc2/gnustep-objc/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel gnustep
 MASTER_SITES=	http://download.gna.org/gnustep/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,5 +20,7 @@ GNUSTEP_OVERRIDE_INSTALL=	YES
 NO_CONFIGURE=			YES
 
 .include "../../devel/gnustep-make/buildlink3.mk"
+.include "../../mk/compiler.mk"
+
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

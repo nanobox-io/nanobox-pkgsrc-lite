@@ -18,7 +18,6 @@ MAKE_JOBS_SAFE=		no
 
 USE_TOOLS+=		gmake pkg-config
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		YES
 # needs interaction
 #TEST_TARGET=		check

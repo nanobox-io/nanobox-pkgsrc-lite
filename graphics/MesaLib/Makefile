@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.127 2016/05/18 12:55:28 wiz Exp $
+# $NetBSD: Makefile,v 1.131 2017/01/15 00:13:44 wiz Exp $
 
 DISTNAME=	mesa-11.2.2
 PKGNAME=	${DISTNAME:S/mesa/MesaLib/}
+PKGREVISION=	1
 CATEGORIES=	graphics x11
 MASTER_SITES=	ftp://ftp.freedesktop.org/pub/mesa/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
@@ -15,6 +16,9 @@ GNU_CONFIGURE=	yes
 USE_TOOLS+=	bison pkg-config gmake flex
 USE_LANGUAGES=	c99 c++
 USE_LIBTOOL=	yes
+
+#CFLAGS+=	-g -O0
+#CXXFLAGS+=	-g -O0
 
 GCC_REQD+=	4.2
 
@@ -68,7 +72,7 @@ SUBST_SED.tr1+=		-e 's,include <tr1/,include <,g'
 .endif
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # as of 10.6.7
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # as of 11.2.2
 BUILD_DEPENDS+=		${PYPKGPREFIX}-mako-[0-9]*:../../devel/py-mako
 CONFIGURE_ENV+=		ac_cv_prog_PYTHON2=${PYTHONBIN}
 .include "../../lang/python/tool.mk"

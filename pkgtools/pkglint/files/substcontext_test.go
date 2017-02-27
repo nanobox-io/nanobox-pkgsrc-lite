@@ -4,7 +4,8 @@ import (
 	check "gopkg.in/check.v1"
 )
 
-func (s *Suite) TestSubstContext_Incomplete(c *check.C) {
+func (s *Suite) Test_SubstContext__incomplete(c *check.C) {
+	s.Init(c)
 	G.opts.WarnExtra = true
 	ctx := new(SubstContext)
 
@@ -26,10 +27,12 @@ func (s *Suite) TestSubstContext_Incomplete(c *check.C) {
 
 	ctx.Finish(newSubstLine(14, ""))
 
-	c.Check(s.Output(), equals, "WARN: Makefile:14: Incomplete SUBST block: SUBST_STAGE.interp missing.\n")
+	s.CheckOutputLines(
+		"WARN: Makefile:14: Incomplete SUBST block: SUBST_STAGE.interp missing.")
 }
 
-func (s *Suite) TestSubstContext_Complete(c *check.C) {
+func (s *Suite) Test_SubstContext__complete(c *check.C) {
+	s.Init(c)
 	G.opts.WarnExtra = true
 	ctx := new(SubstContext)
 
@@ -46,11 +49,30 @@ func (s *Suite) TestSubstContext_Complete(c *check.C) {
 
 	ctx.Finish(newSubstLine(15, ""))
 
-	c.Check(s.Output(), equals, "")
+	s.CheckOutputEmpty()
 }
 
-func (s *Suite) TestSubstContext_NoClass(c *check.C) {
-	s.UseCommandLine(c, "-Wextra")
+func (s *Suite) Test_SubstContext__OPSYSVARS(c *check.C) {
+	s.Init(c)
+	G.opts.WarnExtra = true
+	ctx := new(SubstContext)
+
+	ctx.Varassign(newSubstLine(11, "SUBST_CLASSES.SunOS+=prefix"))
+	ctx.Varassign(newSubstLine(12, "SUBST_CLASSES.NetBSD+=prefix"))
+	ctx.Varassign(newSubstLine(13, "SUBST_FILES.prefix=Makefile"))
+	ctx.Varassign(newSubstLine(14, "SUBST_SED.prefix=s,@PREFIX@,${PREFIX},g"))
+	ctx.Varassign(newSubstLine(15, "SUBST_STAGE.prefix=post-configure"))
+
+	c.Check(ctx.IsComplete(), equals, true)
+
+	ctx.Finish(newSubstLine(15, ""))
+
+	s.CheckOutputEmpty()
+}
+
+func (s *Suite) Test_SubstContext__no_class(c *check.C) {
+	s.Init(c)
+	s.UseCommandLine("-Wextra")
 	ctx := new(SubstContext)
 
 	ctx.Varassign(newSubstLine(10, "UNRELATED=anything"))
@@ -58,11 +80,11 @@ func (s *Suite) TestSubstContext_NoClass(c *check.C) {
 	ctx.Varassign(newSubstLine(12, "SUBST_SED.repl+=-e s,from,to,g"))
 	ctx.Finish(newSubstLine(13, ""))
 
-	c.Check(s.Output(), equals, ""+
-		"WARN: Makefile:11: SUBST_CLASSES should come before the definition of \"SUBST_FILES.repl\".\n"+
-		"WARN: Makefile:13: Incomplete SUBST block: SUBST_STAGE.repl missing.\n")
+	s.CheckOutputLines(
+		"WARN: Makefile:11: SUBST_CLASSES should come before the definition of \"SUBST_FILES.repl\".",
+		"WARN: Makefile:13: Incomplete SUBST block: SUBST_STAGE.repl missing.")
 }
 
-func newSubstLine(lineno int, text string) *MkLine {
+func newSubstLine(lineno int, text string) MkLine {
 	return NewMkLine(NewLine("Makefile", lineno, text, nil))
 }

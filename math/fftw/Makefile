@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.50 2015/06/12 10:50:27 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2017/01/22 14:49:23 wiz Exp $
 
-DISTNAME=	fftw-3.3.4
-PKGREVISION=	2
+DISTNAME=	fftw-3.3.6-pl1
+PKGNAME=	${DISTNAME:S/-pl1/pl1/}
 CATEGORIES=	math
-MASTER_SITES=	ftp://ftp.fftw.org/pub/fftw/ \
-		http://www.fftw.org/
+MASTER_SITES=	ftp://ftp.fftw.org/pub/fftw/
+MASTER_SITES+=	http://www.fftw.org/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.fftw.org/
@@ -13,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=		c
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared

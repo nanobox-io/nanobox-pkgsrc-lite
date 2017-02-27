@@ -1,4 +1,4 @@
-# $NetBSD: pkg-build-options.mk,v 1.9 2012/12/17 14:27:44 wiz Exp $
+# $NetBSD: pkg-build-options.mk,v 1.11 2016/12/17 23:41:51 joerg Exp $
 #
 # This procedure determines the PKG_OPTIONS that have been in effect
 # when the package ${pkgbase} has been built. When the package is not
@@ -29,7 +29,7 @@ BUILDLINK_TREE?=
 # Counting words doesn't work as expected for empty strings, they
 # still have one word.  Older make doesn't like the code without
 # variable assignment for unknown reasons.
-_BUILDLINK_TREE_WITH:= ${BUILDLINK_TREE:M-*:[\#]}
+_BUILDLINK_TREE_WITH:=	${BUILDLINK_TREE:M-*:[\#]}
 _BUILDLINK_TREE_WITHOUT:= ${BUILDLINK_TREE:N-*:[\#]}
 .if (empty(BUILDLINK_TREE:M-*) && empty(BUILDLINK_TREE:N-*)) || \
     (!empty(BUILDLINK_TREE:M-*) && !empty(BUILDLINK_TREE:N-*) && \
@@ -40,13 +40,20 @@ PKG_FAIL_REASON+=	"[pkg-build-options.mk] This file may only be included from a 
 .  endfor
 .else
 .  for b in ${pkgbase}
+.    if !defined(PKG_BUILD_OPTIONS.${b}) && defined(PBULK_CACHE_DIRECTORY)
+.sinclude "${PBULK_CACHE_DIRECTORY}/build-options.${b}"
+.    endif
 .    if !defined(PKG_BUILD_OPTIONS.${b})
-PKG_BUILD_OPTIONS.${b} != \
+PKG_BUILD_OPTIONS.${b}!= \
 	echo ""; \
 	${PKG_INFO} -Q PKG_OPTIONS ${b} 2>/dev/null \
 	|| { cd ${BUILDLINK_PKGSRCDIR.${b}} \
 	     && ${MAKE} ${MAKEFLAGS} show-var VARNAME=PKG_OPTIONS; }
-
+.        if defined(PBULK_CACHE_DIRECTORY)
+_PKG_BUILD_OPTIONS.${b}!= \
+	echo PKG_BUILD_OPTIONS.${b:Q}=${PKG_BUILD_OPTIONS.${b:Q}} > ${PBULK_CACHE_DIRECTORY:Q}/build-options.${pkgbase}.$$$$; \
+	mv ${PBULK_CACHE_DIRECTORY:Q}/build-options.${pkgbase}.$$$$ ${PBULK_CACHE_DIRECTORY:Q}/build-options.${pkgbase}
+.        endif
 MAKEFLAGS+=	PKG_BUILD_OPTIONS.${b}=${PKG_BUILD_OPTIONS.${b}:Q}
 .    endif
 

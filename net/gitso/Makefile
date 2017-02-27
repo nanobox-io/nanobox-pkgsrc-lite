@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2015/12/05 21:25:52 adam Exp $
+# $NetBSD: Makefile,v 1.25 2017/02/12 06:25:50 ryoon Exp $
 
 DISTNAME=		gitso-0.6
-PKGREVISION=		13
+PKGREVISION=		16
 CATEGORIES=		net x11
 MASTER_SITES=		http://gitso.googlecode.com/files/
 DISTFILES=		gitso_0.6_linux_all.tar.gz
@@ -17,7 +17,7 @@ DEPENDS+=		x11vnc-[0-9]*:../../x11/x11vnc
 WRKSRC=			${WRKDIR}/Gitso
 
 PY_PATCHPLIST=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-wxWidgets
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-wxWidgets
 
 USE_TOOLS+=		bash:run
 

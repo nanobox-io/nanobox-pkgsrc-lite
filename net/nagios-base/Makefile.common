@@ -30,5 +30,3 @@ CONFIGURE_ARGS+=	--with-cgiurl=/nagios/cgi-bin
 CONFIGURE_ARGS+=	--with-htmurl=/nagios
 
 BUILD_DEFS+=		NAGIOSDIR
-
-CONFIGURE_ENV+=		ABI=${ABI:Q}

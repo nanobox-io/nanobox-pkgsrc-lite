@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2016/03/05 11:28:45 jperkin Exp $
+# $NetBSD: Makefile,v 1.49 2017/02/12 06:25:39 ryoon Exp $
 #
 
 PLUGIN_NAME=    fetchinfo
-PKGREVISION= 1
+PKGREVISION= 5
 .include "../../mail/claws-mail/plugins.mk"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

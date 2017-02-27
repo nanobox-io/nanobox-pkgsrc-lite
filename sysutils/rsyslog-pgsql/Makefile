@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2014/09/05 07:15:41 fhajny Exp $
+# $NetBSD: Makefile,v 1.3 2016/10/20 10:05:11 fhajny Exp $
 #
 
 RSYSLOG_MOD=	pgsql

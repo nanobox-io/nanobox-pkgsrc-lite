@@ -1,4 +1,4 @@
-# $NetBSD: rubyversion.mk,v 1.163 2016/05/15 14:19:56 taca Exp $
+# $NetBSD: rubyversion.mk,v 1.168 2016/12/05 15:11:10 taca Exp $
 #
 
 # This file determines which Ruby version is used as a dependency for
@@ -33,12 +33,12 @@
 #	Ruby version to use. This variable should not be set in
 #	packages.  Normally it is used by bulk build tools.
 #
-#		Possible values: ${RUBY_VERSION_SUPPORTED}
+#		Possible values: ${RUBY_VERSIONS_ACCEPTED}
 #		Default:         ${RUBY_VERSION_DEFAULT}
 #
 # === Package-settable variables ===
 #
-# RUBY_VERSION_SUPPORTED
+# RUBY_VERSIONS_ACCEPTED
 #	The Ruby versions that are acceptable for the package.
 #
 #		Possible values: 18 21 22 23
@@ -202,6 +202,11 @@
 # RUBY_SITERIDIR
 #	version specific site ri directory.
 #
+# === supporting scripts ===
+#
+# UPDATE_GEMSPEC
+#	a tool to modify gemspec file.
+#
 # Keywords: ruby
 #
 
@@ -224,8 +229,8 @@ RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
 # current supported Ruby's version
 RUBY18_VERSION=		1.8.7
 RUBY21_VERSION=		2.1.10
-RUBY22_VERSION=		2.2.5
-RUBY23_VERSION=		2.3.1
+RUBY22_VERSION=		2.2.6
+RUBY23_VERSION=		2.3.3
 
 # patch level
 RUBY18_PATCHLEVEL=	pl374
@@ -248,16 +253,23 @@ RUBY_RDOC_PKGSRC_VERS=	4.2.2
 #
 RUBY_VERSION_DEFAULT?=	22
 
-RUBY_VERSION_SUPPORTED?= 22 23 21
+RUBY_VERSIONS_ACCEPTED?= 22 23 21
+RUBY_VERSIONS_INCOMPATIBLE?=
+
+.for rv in ${RUBY_VERSIONS_ACCEPTED}
+.  if empty(RUBY_VERSIONS_INCOMPATIBLE:M${rv})
+_RUBY_VERSIONS_ACCEPTED+=	${rv}
+.  endif
+.endfor
 
 .if defined(RUBY_VERSION_REQD)
-. for rv in ${RUBY_VERSION_SUPPORTED}
+. for rv in ${_RUBY_VERSIONS_ACCEPTED}
 .  if "${rv}" == ${RUBY_VERSION_REQD}
 RUBY_VER=	${rv}
 .  endif
 . endfor
 .elif !defined(RUBY_VER)
-. for rv in ${RUBY_VERSION_SUPPORTED}
+. for rv in ${_RUBY_VERSIONS_ACCEPTED}
 .  if "${rv}" == ${RUBY_VERSION_DEFAULT}
 RUBY_VER=	${rv}
 .  endif
@@ -265,7 +277,7 @@ RUBY_VER=	${rv}
 .endif
 
 .if !defined(RUBY_VER)
-. for rv in ${RUBY_VERSION_SUPPORTED}
+. for rv in ${_RUBY_VERSIONS_ACCEPTED}
 .  if !defined(RUBY_VER)
 RUBY_VER=	${rv}
 .  endif
@@ -308,7 +320,7 @@ RUBY_VERSION=		${RUBY22_VERSION}
 RUBY_VERSION_FULL=	${RUBY_VERSION}
 RUBY_ABI_VERSION=	${RUBY_VERSION}
 
-RUBY_GEMS_VERSION=	2.4.5
+RUBY_GEMS_VERSION=	2.4.5.2
 RUBY_RDOC_VERSION=	4.2.0
 RUBY_RAKE_VERSION=	10.4.2
 RUBY_JSON_VERSION=	1.8.1
@@ -327,16 +339,16 @@ RUBY_VERSION=		${RUBY23_VERSION}
 RUBY_VERSION_FULL=	${RUBY_VERSION}
 RUBY_ABI_VERSION=	${RUBY_VERSION}
 
-RUBY_GEMS_VERSION=	2.5.1
+RUBY_GEMS_VERSION=	2.5.2
 RUBY_RDOC_VERSION=	4.2.1
 RUBY_RAKE_VERSION=	10.4.2
 RUBY_JSON_VERSION=	1.8.3
 
 RUBY_BIGDECIMAL_VERSION=	1.2.8
 RUBY_IO_CONSOLE_VERSION=	0.4.5
-RUBY_PSYCH_VERSION=		2.0.17
+RUBY_PSYCH_VERSION=		2.1.0
 RUBY_DID_YOU_MEAN_VERSION=	1.0.0
-RUBY_MINITEST_VERSION=		5.8.3
+RUBY_MINITEST_VERSION=		5.8.5
 RUBY_NET_TELNET_VERSION=	0.1.1
 RUBY_POWER_ASSERT_VERSION=	0.2.6
 RUBY_TEST_UNIT_VERSION=		3.1.5
@@ -609,7 +621,7 @@ RUBY_PLIST_COMMENT_CMD= \
 RUBY_PLIST_FILES_CMD= ( cd ${DESTDIR}${PREFIX}; \
 	${FIND} ${RUBY_DYNAMIC_DIRS} \( -type f -o -type l \) -print ) | \
 	${SORT} -u
-RUBY_GENERATE_PLIST =	( \
+RUBY_GENERATE_PLIST=	( \
 	${RUBY_PLIST_COMMENT_CMD}; \
 	${RUBY_PLIST_FILES_CMD} ) > ${RUBY_PLIST_DYNAMIC}
 .endif
@@ -680,5 +692,8 @@ PRINT_PLIST_AWK+=	/\/${RUBY_NAME}/ \
 			{ sub(/${RUBY_NAME}/, "$${RUBY_NAME}"); }
 PRINT_PLIST_AWK+=	/^${GEM_HOME:S|/|\\/|g:S|.|\\.|g}/ \
 			{ gsub(/${GEM_HOME:S|/|\\/|g}/, "$${GEM_HOME}"); }
+
+# supporting scripts
+UPDATE_GEMSPEC=		../../lang/ruby/files/update-gemspec.rb
 
 .endif # _RUBY_MK

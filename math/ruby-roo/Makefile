@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2016/03/09 15:09:22 taca Exp $
+# $NetBSD: Makefile,v 1.5 2017/01/07 22:26:46 wiz Exp $
 
-DISTNAME=	roo-2.3.2
+DISTNAME=	roo-2.7.1
 CATEGORIES=	math
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

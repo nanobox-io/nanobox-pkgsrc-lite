@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.24 2016/05/17 10:32:09 fhajny Exp $
+# $NetBSD: Makefile,v 1.26 2017/01/19 18:52:28 agc Exp $
 
 DISTNAME=	kronolith-h3-${KRONOLITHVER}
 PKGNAME=	kronolith-${KRONOLITHVER}
 PKGREVISION=	3
 CATEGORIES=	www time
-MASTER_SITES=	http://ftp.horde.org/pub/kronolith/ \
-		ftp://ftp.horde.org/pub/kronolith/
+MASTER_SITES=	http://ftp.horde.org/pub/kronolith/
+MASTER_SITES+=	ftp://ftp.horde.org/pub/kronolith/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.horde.org/kronolith/
@@ -16,7 +16,7 @@ DEPENDS+=	horde>=3.2:../../www/horde
 DEPENDS+=	${PHP_PKG_PREFIX}-mysql>=4.3.3:../../databases/php-mysql
 DEPENDS+=	${PHP_PKG_PREFIX}-pear-Date-[0-9]*:../../time/pear-Date
 
-PHP_VERSIONS_ACCEPTED=	55 56
+PHP_VERSIONS_ACCEPTED=	56
 
 USE_TOOLS+=	pax
 

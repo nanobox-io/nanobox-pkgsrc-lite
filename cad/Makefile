@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.84 2016/03/15 15:19:03 mef Exp $
+# $NetBSD: Makefile,v 1.93 2017/01/20 11:01:38 fhajny Exp $
 #
 
 COMMENT=	CAD tools
@@ -11,7 +11,6 @@ SUBDIR+=	boolean
 SUBDIR+=	cascade
 SUBDIR+=	cgi-wcalc
 SUBDIR+=	covered
-SUBDIR+=	covered-current
 SUBDIR+=	dinotrace
 SUBDIR+=	dinotrace-mode
 SUBDIR+=	diylc
@@ -32,7 +31,7 @@ SUBDIR+=	gsmc
 SUBDIR+=	gtk1-wcalc
 SUBDIR+=	gtk2-wcalc
 SUBDIR+=	gtkwave
-SUBDIR+=	gwave
+SUBDIR+=	iverilog
 SUBDIR+=	kicad
 SUBDIR+=	kicad-doc
 SUBDIR+=	kicad-footprints
@@ -48,16 +47,14 @@ SUBDIR+=	mpac
 SUBDIR+=	nelma
 SUBDIR+=	ng-spice
 SUBDIR+=	ntesla
+SUBDIR+=	oce
 SUBDIR+=	openscad
 SUBDIR+=	p5-gds2
 SUBDIR+=	pcb
 SUBDIR+=	py-MyHDL
+SUBDIR+=	py-gds
 SUBDIR+=	py-simpy
 SUBDIR+=	qcad
-SUBDIR+=	qcad-manual-cs
-SUBDIR+=	qcad-manual-de
-SUBDIR+=	qcad-manual-en
-SUBDIR+=	qcad-manual-hu
 SUBDIR+=	qcad-partlibrary
 SUBDIR+=	sci-wcalc
 SUBDIR+=	spice
@@ -66,9 +63,8 @@ SUBDIR+=	stdio-wcalc
 SUBDIR+=	tkgate
 SUBDIR+=	tnt-mmtl
 SUBDIR+=	transcalc
-SUBDIR+=	verilog
-SUBDIR+=	verilog-current
 SUBDIR+=	verilog-mode
+SUBDIR+=	veriwell
 SUBDIR+=	vipec
 SUBDIR+=	wcalc
 SUBDIR+=	wcalc-docs

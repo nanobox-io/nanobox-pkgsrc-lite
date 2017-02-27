@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.31 2015/06/29 10:46:31 youri Exp $
+# $NetBSD: Makefile,v 1.34 2017/02/12 06:26:17 ryoon Exp $
 
+PKGREVISION= 3
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 DISTNAME=	xfce4-places-plugin-1.7.0

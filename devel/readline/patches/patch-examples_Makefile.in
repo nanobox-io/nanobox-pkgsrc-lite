@@ -1,12 +1,25 @@
-$NetBSD: patch-examples_Makefile.in,v 1.2 2014/03/12 10:04:50 wiz Exp $
+$NetBSD: patch-examples_Makefile.in,v 1.4 2016/11/20 01:14:21 dholland Exp $
 
 Patch to link correctly against libtool built libs.
 
---- examples/Makefile.in.orig	2013-10-03 16:57:31.000000000 +0000
+Note: to make the patch smaller this uses "CC" to link and "REALCC"
+to compile. There's only one compile line and many link lines.
+
+--- examples/Makefile.in.orig	2016-04-26 13:50:18.000000000 +0000
 +++ examples/Makefile.in
-@@ -58,8 +58,8 @@ LDFLAGS = -g -L.. @LDFLAGS@
+@@ -46,7 +46,8 @@ OBJEXT = @OBJEXT@
+ DESTDIR =
  
- PURIFY = @PURIFY@
+ DEFS = @DEFS@
+-CC = @CC@
++REALCC = $(LIBTOOL) --mode=compile @CC@
++CC = $(LIBTOOL) --mode=link @CC@
+ CFLAGS = @CFLAGS@
+ LOCAL_CFLAGS = @LOCAL_CFLAGS@ -DREADLINE_LIBRARY -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
+ CPPFLAGS = @CPPFLAGS@
+@@ -56,14 +57,14 @@ INCLUDES = -I$(srcdir) -I$(top_srcdir) -
+ CCFLAGS  = $(DEFS) $(LOCAL_CFLAGS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+ LDFLAGS = -g -L.. @LDFLAGS@
  
 -READLINE_LIB = ../libreadline.a
 -HISTORY_LIB = ../libhistory.a
@@ -15,52 +28,10 @@ Patch to link correctly against libtool built libs.
  
  TERMCAP_LIB = @TERMCAP_LIB@
  
-@@ -104,37 +104,37 @@ uninstall:
- 	-rmdir $(DESTDIR)$(installdir)
+ .c.o:
+ 	${RM} $@
+-	$(CC) $(CCFLAGS) -c $<
++	$(REALCC) $(CCFLAGS) -c $<
  
- rl$(EXEEXT): rl.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ rl.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ rl.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- rlcat$(EXEEXT): rlcat.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ rlcat.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ rlcat.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- rlevent$(EXEEXT): rlevent.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ rlevent.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ rlevent.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- fileman$(EXEEXT): fileman.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ fileman.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ fileman.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- rltest$(EXEEXT): rltest.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ rltest.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ rltest.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- rl-callbacktest$(EXEEXT): rl-callbacktest.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ rl-callbacktest.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ rl-callbacktest.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- rlptytest$(EXEEXT): rlptytest.o $(READLINE_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ rlptytest.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ rlptytest.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- rlversion$(EXEEXT): rlversion.o $(READLINE_LIB)
--	$(CC) $(LDFLAGS) -o $@ rlversion.o $(READLINE_LIB) $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@ rlversion.o $(READLINE_LIB) $(TERMCAP_LIB)
- 
- histexamp$(EXEEXT): histexamp.o $(HISTORY_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ histexamp.o -lhistory $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ histexamp.o -lhistory $(TERMCAP_LIB)
- 
- hist_erasedups$(EXEEXT): hist_erasedups.o $(HISTORY_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ hist_erasedups.o -lhistory $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ hist_erasedups.o -lhistory $(TERMCAP_LIB)
- 
- hist_purgecmd$(EXEEXT): hist_purgecmd.o $(HISTORY_LIB)
--	$(PURIFY) $(CC) $(LDFLAGS) -o $@ hist_purgecmd.o -lhistory $(TERMCAP_LIB)
-+	$(LIBTOOL) --mode=link $(PURIFY) $(CC) $(LDFLAGS) -o $@ hist_purgecmd.o -lhistory $(TERMCAP_LIB)
- 
- clean mostlyclean:
- 	$(RM) $(OBJECTS) $(OTHEROBJ)
+ SOURCES = excallback.c fileman.c histexamp.c manexamp.c rl-fgets.c rl.c \
+ 		rlbasic.c rlcat.c rlevent.c rlptytest.c rltest.c rlversion.c \

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.59 2016/04/08 22:00:40 wiz Exp $
+@comment $NetBSD: PLIST,v 1.62 2016/12/19 10:19:22 wiz Exp $
 bin/gnc-fq-check
 bin/gnc-fq-dump
 bin/gnc-fq-helper
@@ -223,6 +223,7 @@ include/gnucash/window-main-summarybar.h
 include/gnucash/window-report.h
 lib/gnucash/libgncmod-app-utils-python.la
 lib/gnucash/libgncmod-app-utils.la
+${PLIST.dbi}lib/gnucash/libgncmod-backend-dbi.la
 lib/gnucash/libgncmod-backend-xml.la
 lib/gnucash/libgncmod-bi_import.la
 lib/gnucash/libgncmod-business-gnome.la
@@ -391,7 +392,6 @@ ${PYSITELIB}/gnucash/gnucash_core.py
 ${PYSITELIB}/gnucash/gnucash_core_c.py
 libexec/gnucash/overrides/gnucash-env
 libexec/gnucash/overrides/gnucash-make-guids
-libexec/gnucash/overrides/guile
 libexec/gnucash/src/libqof/qof/test/kvp_frame.h
 libexec/gnucash/src/libqof/qof/test/qofbook.h
 libexec/gnucash/src/libqof/qof/test/qofinstance.h
@@ -593,6 +593,7 @@ share/gnucash/accounts/es_MX/acctchrt_spouseinc.gnucash-xea
 share/gnucash/accounts/es_MX/acctchrt_spouseretire.gnucash-xea
 share/gnucash/accounts/fi_FI/acctchrt_common.gnucash-xea
 share/gnucash/accounts/fi_FI/acctchrt_ry.gnucash-xea
+share/gnucash/accounts/fi_FI/acctchrt_sbr-xbrl.gnucash-xea
 share/gnucash/accounts/fr_CA/acctchrt_actifsfixes.gnucash-xea
 share/gnucash/accounts/fr_CA/acctchrt_automobile.gnucash-xea
 share/gnucash/accounts/fr_CA/acctchrt_basecommune.gnucash-xea
@@ -804,8 +805,10 @@ share/gnucash/accounts/sk/acctchrt_spouseinc.gnucash-xea
 share/gnucash/accounts/sk/acctchrt_spouseretire.gnucash-xea
 share/gnucash/accounts/sv_AX/acctchrt_common.gnucash-xea
 share/gnucash/accounts/sv_AX/acctchrt_rf.gnucash-xea
+share/gnucash/accounts/sv_AX/acctchrt_sbr-xbrl.gnucash-xea
 share/gnucash/accounts/sv_FI/acctchrt_common.gnucash-xea
 share/gnucash/accounts/sv_FI/acctchrt_rf.gnucash-xea
+share/gnucash/accounts/sv_FI/acctchrt_sbr-xbrl.gnucash-xea
 share/gnucash/accounts/sv_SE/acctchrt_common.gnucash-xea
 share/gnucash/accounts/sv_SE/bas_2012.gnucash-xea
 share/gnucash/accounts/tr_TR/acctchrt_TEKDUZ.gnucash-xea
@@ -940,6 +943,8 @@ share/gnucash/pixmaps/gnc-account-new-16.png
 share/gnucash/pixmaps/gnc-account-new.png
 share/gnucash/pixmaps/gnc-account-open-16.png
 share/gnucash/pixmaps/gnc-account-open.png
+share/gnucash/pixmaps/gnc-account-report-16.png
+share/gnucash/pixmaps/gnc-account-report.png
 share/gnucash/pixmaps/gnc-account.png
 share/gnucash/pixmaps/gnc-gnome-pdf-16.png
 share/gnucash/pixmaps/gnc-gnome-pdf-24.png

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:11:59 joerg Exp $
+@comment $NetBSD: PLIST,v 1.4 2016/11/08 11:42:01 wiz Exp $
 bin/pisa
 bin/xhtml2pdf
 ${PYSITELIB}/ho/__init__.py

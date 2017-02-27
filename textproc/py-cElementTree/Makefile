@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2015/03/15 19:42:33 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.13 2016/08/28 15:48:35 wiz Exp $
 
 PKGNAME=	${PYPKGPREFIX}-cElementTree-${PY_DISTVERSION}
 CATEGORIES=	textproc python
@@ -10,9 +10,6 @@ COMMENT=	C implementation of Python ElementTree API
 EXTRACT_ELEMENTS=	${PYSUBDIR}/Modules/_elementtree.c
 
 USE_GCC_RUNTIME=yes
-
-MULTIARCH_DIRS.lib=	${PYLIB}/lib-dynload
-
 USE_TOOLS+=	patch
 
 PYDISTUTILSPKG=	yes
@@ -20,8 +17,7 @@ PY_PATCHPLIST=	yes
 PY_SETUP_SUBST+= EXPATPREFIX=${BUILDLINK_DIR}
 PY_SETUP_SUBST+= EXPATRTPREFIX=${BUILDLINK_PREFIX.expat}
 
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
-PYSETUPINSTALLARGS+=	--install-lib ${PREFIX}/${PYLIB}/lib-dynload${LIBARCHSUFFIX}
+PYSETUPINSTALLARGS+=	--install-lib ${PREFIX}/${PYLIB}/lib-dynload
 
 # ignore errors due to missing files (EXTRACT_ELEMENTS!)
 do-patch:

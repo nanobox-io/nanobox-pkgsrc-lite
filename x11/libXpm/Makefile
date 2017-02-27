@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2013/09/08 08:19:04 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2016/12/15 23:02:51 wiz Exp $
 
-DISTNAME=		libXpm-3.5.11
+DISTNAME=		libXpm-3.5.12
 CATEGORIES=		graphics x11
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -12,7 +12,6 @@ COMMENT=		X PixMap Library from modular Xorg X11
 CONFLICTS+=		xpm-[0-9]*
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config xgettext
 PKGCONFIG_OVERRIDE+=	xpm.pc.in
 GNU_CONFIGURE=		yes

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.14 2016/05/26 09:02:16 wiz Exp $
+@comment $NetBSD: PLIST,v 1.21 2017/02/05 17:55:52 wiz Exp $
 bin/castool
 bin/chdman
 bin/floptool
@@ -27,21 +27,25 @@ man/man1/ldverify.1
 man/man1/romcmp.1
 man/man6/mame.6
 man/man6/mess.6
-share/doc/mame/SDL.txt
-share/doc/mame/config.txt
-share/doc/mame/emscripten.txt
-share/doc/mame/floppy.txt
-share/doc/mame/hlsl.txt
-share/doc/mame/imgtool.txt
-share/doc/mame/m6502.txt
-share/doc/mame/mame.txt
-share/doc/mame/newvideo.txt
-share/doc/mame/nscsi.txt
-share/doc/mame/windows.txt
+share/doc/mame/CONTRIBUTING.md
+share/doc/mame/README.md
 share/mame/artwork/LICENSE
 share/mame/artwork/README.md
 share/mame/artwork/aperture-grille.png
 share/mame/artwork/bgfx/border_blur/default.lay
+share/mame/artwork/bgfx/chains/crt-geom/aperture_1_2_bgr.png
+share/mame/artwork/bgfx/chains/crt-geom/aperture_1_4_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/aperture_2_4_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/aperture_2_5_bgr.png
+share/mame/artwork/bgfx/chains/crt-geom/aperture_3_6_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/delta_1_2x1_bgr.png
+share/mame/artwork/bgfx/chains/crt-geom/delta_1_4x1_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/delta_2_4x1_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/delta_2_4x2_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/none.png
+share/mame/artwork/bgfx/chains/crt-geom/slot_2_4x4_rgb.png
+share/mame/artwork/bgfx/chains/crt-geom/slot_2_5x4_bgr.png
+share/mame/artwork/bgfx/chains/crt-geom/slot_3_7x6_rgb.png
 share/mame/artwork/bgfx/chains/hq2x.png
 share/mame/artwork/bgfx/chains/hq3x.png
 share/mame/artwork/bgfx/chains/hq4x.png
@@ -98,6 +102,7 @@ share/mame/hash/apple1.xml
 share/mame/hash/apple2.xml
 share/mame/hash/apple2gs.xml
 share/mame/hash/apple3.xml
+share/mame/hash/apricot_flop.xml
 share/mame/hash/aquarius.xml
 share/mame/hash/arcadia.xml
 share/mame/hash/archimedes.xml
@@ -151,6 +156,7 @@ share/mame/hash/cdtv.xml
 share/mame/hash/cgenie_cart.xml
 share/mame/hash/cgenie_cass.xml
 share/mame/hash/channelf.xml
+share/mame/hash/chessmstdm.xml
 share/mame/hash/coco_cart.xml
 share/mame/hash/coco_flop.xml
 share/mame/hash/coleco.xml
@@ -167,10 +173,12 @@ share/mame/hash/database.xml
 share/mame/hash/dim68k.xml
 share/mame/hash/dmv.xml
 share/mame/hash/dps1.xml
+share/mame/hash/e01_flop.xml
 share/mame/hash/ec1841.xml
 share/mame/hash/einstein.xml
 share/mame/hash/electron_cart.xml
 share/mame/hash/electron_cass.xml
+share/mame/hash/electron_flop.xml
 share/mame/hash/ep64_cart.xml
 share/mame/hash/ep64_cass.xml
 share/mame/hash/ep64_flop.xml
@@ -183,6 +191,7 @@ share/mame/hash/fm77av.xml
 share/mame/hash/fm7_cass.xml
 share/mame/hash/fm7_disk.xml
 share/mame/hash/fmtowns_cd.xml
+share/mame/hash/fmtowns_flop.xml
 share/mame/hash/g7400.xml
 share/mame/hash/galaxy.xml
 share/mame/hash/gamate.xml
@@ -193,6 +202,7 @@ share/mame/hash/gameking.xml
 share/mame/hash/gameking3.xml
 share/mame/hash/gamepock.xml
 share/mame/hash/gba.xml
+share/mame/hash/gba_ereader.xml
 share/mame/hash/gbcolor.xml
 share/mame/hash/genius.xml
 share/mame/hash/gimix.xml
@@ -209,14 +219,15 @@ share/mame/hash/horizon.xml
 share/mame/hash/hp9835a_rom.xml
 share/mame/hash/hp9845a_rom.xml
 share/mame/hash/hp9845b_rom.xml
+share/mame/hash/hp_ipc.xml
 share/mame/hash/ht68k.xml
 share/mame/hash/i7000_card.xml
 share/mame/hash/ibm5140.xml
 share/mame/hash/ibm5150.xml
 share/mame/hash/ibm5150_cass.xml
-share/mame/hash/ibm5160_flop.xml
 share/mame/hash/ibm5170.xml
 share/mame/hash/ibm5170_cdrom.xml
+share/mame/hash/ibm6580.xml
 share/mame/hash/ibmpcjr_cart.xml
 share/mame/hash/ibmpcjr_flop.xml
 share/mame/hash/interact.xml
@@ -234,6 +245,7 @@ share/mame/hash/kayproii.xml
 share/mame/hash/kc_cart.xml
 share/mame/hash/kc_cass.xml
 share/mame/hash/kc_flop.xml
+share/mame/hash/kim1_cass.xml
 share/mame/hash/korvet_flop.xml
 share/mame/hash/lantutor.xml
 share/mame/hash/leapster.xml
@@ -306,6 +318,7 @@ share/mame/hash/next.xml
 share/mame/hash/ngp.xml
 share/mame/hash/ngpc.xml
 share/mame/hash/nimbus.xml
+share/mame/hash/octopus.xml
 share/mame/hash/odyssey2.xml
 share/mame/hash/ondra.xml
 share/mame/hash/orao.xml
@@ -321,13 +334,16 @@ share/mame/hash/partner_flop.xml
 share/mame/hash/pasogo.xml
 share/mame/hash/pb2000c.xml
 share/mame/hash/pc1000.xml
-share/mame/hash/pc1512.xml
-share/mame/hash/pc1640.xml
+share/mame/hash/pc1512_flop.xml
+share/mame/hash/pc1512_hdd.xml
+share/mame/hash/pc1640_flop.xml
+share/mame/hash/pc1640_hdd.xml
 share/mame/hash/pc8201.xml
 share/mame/hash/pc8801_cass.xml
 share/mame/hash/pc8801_flop.xml
 share/mame/hash/pc88va.xml
 share/mame/hash/pc98.xml
+share/mame/hash/pc98_cd.xml
 share/mame/hash/pce.xml
 share/mame/hash/pce_tourvision.xml
 share/mame/hash/pcecd.xml
@@ -350,6 +366,8 @@ share/mame/hash/plus4_flop.xml
 share/mame/hash/pmd85_cass.xml
 share/mame/hash/pockchalv2.xml
 share/mame/hash/pockchalw.xml
+share/mame/hash/pofo.xml
+share/mame/hash/poisk1_flop.xml
 share/mame/hash/pokemini.xml
 share/mame/hash/pro128_cart.xml
 share/mame/hash/pro128_cass.xml
@@ -426,6 +444,7 @@ share/mame/hash/svi318_cass.xml
 share/mame/hash/svi318_flop.xml
 share/mame/hash/svision.xml
 share/mame/hash/svmu.xml
+share/mame/hash/t1000.xml
 share/mame/hash/tandy200.xml
 share/mame/hash/tandy2k.xml
 share/mame/hash/tandy6k.xml
@@ -459,6 +478,7 @@ share/mame/hash/v1050_hdd.xml
 share/mame/hash/vboy.xml
 share/mame/hash/vc4000.xml
 share/mame/hash/vector06_cart.xml
+share/mame/hash/vector06_flop.xml
 share/mame/hash/vectrex.xml
 share/mame/hash/vg5k.xml
 share/mame/hash/vic10.xml
@@ -474,6 +494,8 @@ share/mame/hash/vixen.xml
 share/mame/hash/vreader.xml
 share/mame/hash/vsmile_cart.xml
 share/mame/hash/vsmile_cd.xml
+share/mame/hash/vsmileb_cart.xml
+share/mame/hash/vsmilem_cart.xml
 share/mame/hash/vz_cass.xml
 share/mame/hash/wangpc.xml
 share/mame/hash/wicat.xml
@@ -488,3 +510,4 @@ share/mame/hash/x68k_flop.xml
 share/mame/hash/xegs.xml
 share/mame/hash/xerox820.xml
 share/mame/hash/xerox820ii.xml
+share/mame/hash/zorba.xml

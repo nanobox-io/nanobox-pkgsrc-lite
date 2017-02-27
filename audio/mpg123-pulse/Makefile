@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.14 2015/02/21 23:35:39 ryoon Exp $
+# $NetBSD: Makefile,v 1.17 2017/01/21 20:06:47 ryoon Exp $
 
 MPG123_MODULE=	pulse
 

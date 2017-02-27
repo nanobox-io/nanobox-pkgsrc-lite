@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.148 2016/06/11 14:40:17 wiz Exp $
+# $NetBSD: Makefile,v 1.165 2017/02/12 06:25:54 ryoon Exp $
 
-DISTNAME=	wireshark-2.0.4
+DISTNAME=	wireshark-2.2.4
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.wireshark.org/download/src/
 EXTRACT_SUFX=	.tar.bz2
@@ -13,12 +14,13 @@ LICENSE=	gnu-gpl-v2
 CONFLICTS+=		ethereal-[0-9]*
 
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake perl pkg-config yacc lex
 
 USE_LIBTOOL=		yes
 SHLIBTOOL_OVERRIDE=	# empty
 CHECK_PORTABILITY_SKIP+=packaging/macosx/*/*
+
+PKGCONFIG_OVERRIDE+=	wireshark.pc.in
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-static=no
@@ -31,7 +33,7 @@ CONFIGURE_ENV+=		ac_cv_path_LEXDUMMY=${TOOLS_PATH.lex}
 PTHREAD_OPTS+=		require
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.10.5
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 1.10.5
 REPLACE_PYTHON+=	help/faq.py
 REPLACE_PYTHON+=	tools/asn2deb
 REPLACE_PYTHON+=	tools/asn2wrs.py
@@ -80,5 +82,6 @@ BUILDLINK_TRANSFORM+=	rm:-DGDK_PIXBUF_DISABLE_DEPRECATED
 .include "../../security/openssl/buildlink3.mk"
 
 .include "../../lang/python/application.mk"
+.include "../../mk/krb5.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

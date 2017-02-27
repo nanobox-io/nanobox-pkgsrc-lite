@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.15 2015/06/12 10:51:02 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/01/22 00:01:30 rillig Exp $
 
 DISTNAME=		hackbot-2.21
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		security net
 MASTER_SITES=		http://hackbot.stream-portal.org/
 EXTRACT_SUFX=		.tgz
 
-MAINTAINER=		is@netbsd.org
+MAINTAINER=		is@NetBSD.org
 HOMEPAGE=		http://hackbot.stream-portal.org/
 COMMENT=		Vulnerability scanner written in Perl
 

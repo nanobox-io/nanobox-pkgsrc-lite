@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST.java,v 1.2 2016/02/11 09:45:26 ryoon Exp $
+@comment $NetBSD: PLIST.java,v 1.5 2017/02/04 01:48:00 ryoon Exp $
 ${PKGNAME}/lib/libreoffice/program/JREProperties.class
 ${PKGNAME}/lib/libreoffice/program/classes/ScriptFramework.jar
 ${PKGNAME}/lib/libreoffice/program/classes/ScriptProviderForBeanShell.jar
@@ -182,6 +182,7 @@ ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-ug.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-uk.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-uz.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-ve.txt
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-vec.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-vi.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-xh.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/description-zh-CN.txt
@@ -1248,6 +1249,16 @@ ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/ve/help.idxl/segments
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/ve/help.jar
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/ve/help.key_
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/ve/help.tree
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec-xhp.done
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec.done
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.db_
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.ht_
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.idxl/_0.cfs
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.idxl/segments.gen
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.idxl/segments_3
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.jar
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.key_
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vec/help.tree
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vi-xhp.done
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vi.done
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/help/vi/help.db_
@@ -1405,6 +1416,7 @@ ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_ug.
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_uk.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_uz.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_ve.properties
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_vec.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_vi.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_xh.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverCommon_zh_CN.properties
@@ -1517,6 +1529,7 @@ ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDial
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_uk.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_uz.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_ve.properties
+${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_vec.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_vi.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_xh.properties
 ${PKGNAME}/lib/libreoffice/share/extensions/nlpsolver/locale/NLPSolverStatusDialog_zh_CN.properties
@@ -1646,6 +1659,7 @@ ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-ug.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-uk.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-uz.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-ve.txt
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-vec.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-vi.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-xh.txt
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/description-zh-CN.txt
@@ -2720,6 +2734,16 @@ ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/ve/help.idxl/seg
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/ve/help.jar
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/ve/help.key_
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/ve/help.tree
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec-xhp.done
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec.done
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.db_
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.ht_
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.idxl/_0.cfs
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.idxl/segments.gen
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.idxl/segments_3
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.jar
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.key_
+${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vec/help.tree
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vi-xhp.done
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vi.done
 ${PKGNAME}/lib/libreoffice/share/extensions/wiki-publisher/help/vi/help.db_

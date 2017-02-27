@@ -15,7 +15,6 @@ DEPENDS+=	p5-ExtUtils-XSBuilder>=0.23:../../devel/p5-ExtUtils-XSBuilder
 
 USE_TOOLS+=	gmake
 USE_LIBTOOL=	YES
-USE_MULTIARCH=	bin lib
 PERL5_PACKLIST=	auto/libapreq2/.packlist
 
 SUBST_CLASSES+=		apxs

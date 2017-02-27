@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.122 2016/04/23 06:23:49 adam Exp $
+# $NetBSD: Makefile,v 1.127 2017/02/12 06:24:37 ryoon Exp $
 #
 # Please, also update databases/ruby-rrdtool
 
 DISTNAME=	rrdtool-1.6.0
+PKGREVISION=	5
 CATEGORIES=	databases graphics net
 MASTER_SITES=	http://oss.oetiker.ch/rrdtool/pub/
 
@@ -14,15 +15,11 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=		dejavu-ttf>=2.26:../../fonts/dejavu-ttf
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		gmake pkg-config perl msgfmt intltool groff nroff
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-perl-options=${MAKE_PARAMS:Q}
-CONFIGURE_ARGS+=	--disable-tcl
-CONFIGURE_ARGS+=	--disable-python
 CONFIGURE_ARGS+=	--disable-ruby
-CONFIGURE_ARGS+=	--disable-lua
 CONFIGURE_ARGS+=	--disable-libdbi
 
 PTHREAD_OPTS+=		require
@@ -39,7 +36,6 @@ SUBST_MESSAGE.prefix=	Fixing $${prefix} in scripts.
 SUBST_FILES.prefix=	examples/cgi-demo.cgi
 SUBST_SED.prefix=	-e '1s,^\#! \$${prefix},\#! ${PREFIX},'
 
-REPLACE_PYTHON=		examples/stripes.py
 TEST_TARGET=		# *** No rule to make target 'test'.
 
 RCD_SCRIPTS=		rrdcached
@@ -49,6 +45,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/src/rrd_config.h ${DESTDIR}${PREFIX}/include/
 
 .include "../../mk/bsd.prefs.mk"
+.include "options.mk"
 
 RRDCACHED_USER?=	rrdcached
 RRDCACHED_GROUP?=	${RRDCACHED_USER}
@@ -69,7 +66,6 @@ PKG_GECOS.${RRDCACHED_USER}=	RRDCacheD daemon user
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
-.include "../../lang/python/application.mk"
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

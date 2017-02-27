@@ -1,20 +1,47 @@
-$NetBSD: patch-configure.ac,v 1.4 2016/02/13 08:46:03 wiz Exp $
+$NetBSD: patch-configure.ac,v 1.6 2017/02/04 01:48:00 ryoon Exp $
 
-* Adapt for mdds-1.0.
 * Adapt ant path for pkgsrc.
+* Explicitly use internal static libraries with path
 
---- configure.ac.orig	2016-01-27 00:58:25.000000000 +0000
+--- configure.ac.orig	2017-01-26 22:22:46.000000000 +0000
 +++ configure.ac
-@@ -8768,7 +8768,7 @@ AC_SUBST(SYSTEM_BOOST)
- dnl ===================================================================
- dnl Check for system mdds
- dnl ===================================================================
--libo_CHECK_SYSTEM_MODULE([mdds], [MDDS], [mdds >= 0.12.0], ["-I${WORKDIR}/UnpackedTarball/mdds/include"])
-+libo_CHECK_SYSTEM_MODULE([mdds], [MDDS], [mdds-1.0 >= 0.12.0], ["-I${WORKDIR}/UnpackedTarball/mdds/include"])
+@@ -6025,14 +6025,14 @@ if test "$GCC" = "yes" -o "$COM_IS_CLANG
+         ], [AC_MSG_RESULT([no])])
+     AC_LANG_POP([C++])
  
+-    AC_MSG_CHECKING([whether $CXX defines __cxa_exceptions in cxxabi.h])
++    AC_MSG_CHECKING([whether $CXX defines __cxa_exception in cxxabi.h])
+     AC_LANG_PUSH([C++])
+     AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+             #include <cstddef>
+             #include <cxxabi.h>
+-            std::size_t f() { return sizeof(__cxxabiv1::__cxa_exceptions); }
++            std::size_t f() { return sizeof(__cxxabiv1::__cxa_exception); }
+         ])], [
+-            AC_DEFINE([HAVE_CXXABI_H_CXA_EXCEPTIONS],[1])
++            AC_DEFINE([HAVE_CXXABI_H_CXA_EXCEPTION],[1])
+             AC_MSG_RESULT([yes])
+         ], [AC_MSG_RESULT([no])])
+     AC_LANG_POP([C++])
+@@ -9177,7 +9177,7 @@ AC_SUBST(ICU_LIBS)
  dnl ===================================================================
- dnl Check for system glm
-@@ -11998,8 +11998,8 @@ EOF
+ dnl Graphite
+ dnl ===================================================================
+-libo_CHECK_SYSTEM_MODULE([graphite],[GRAPHITE],[graphite2 >= 0.9.3],["-I${WORKDIR}/UnpackedTarball/graphite/include -DGRAPHITE2_STATIC"],["-L${WORKDIR}/LinkTarget/StaticLibrary -lgraphite"])
++libo_CHECK_SYSTEM_MODULE([graphite],[GRAPHITE],[graphite2 >= 0.9.3],["-I${WORKDIR}/UnpackedTarball/graphite/include -DGRAPHITE2_STATIC"],["${WORKDIR}/LinkTarget/StaticLibrary/libgraphite.a"])
+ if test "$with_system_graphite" = "yes"; then
+     libo_MINGW_CHECK_DLL([libgraphite2])
+ fi
+@@ -9272,7 +9272,7 @@ AC_SUBST(ENABLE_ORCUS)
+ dnl ===================================================================
+ dnl HarfBuzz
+ dnl ===================================================================
+-libo_CHECK_SYSTEM_MODULE([harfbuzz],[HARFBUZZ],[harfbuzz-icu >= 0.9.42],["-I${WORKDIR}/UnpackedTarball/harfbuzz/src"],["-L${WORKDIR}/UnpackedTarball/harfbuzz/src/.libs -lharfbuzz"])
++libo_CHECK_SYSTEM_MODULE([harfbuzz],[HARFBUZZ],[harfbuzz-icu >= 0.9.42],["-I${WORKDIR}/UnpackedTarball/harfbuzz/src"],["${WORKDIR}/UnpackedTarball/harfbuzz/src/.libs/libharfbuzz.a"])
+ if test "$COM" = "MSC"; then # override the above
+     HARFBUZZ_LIBS="${WORKDIR}/UnpackedTarball/harfbuzz/src/.libs/libharfbuzz.lib"
+ fi
+@@ -11899,8 +11899,8 @@ EOF
      dnl Checking for ant.jar
      if test "$ANT_HOME" != "NO_ANT_HOME"; then
          AC_MSG_CHECKING([Ant lib directory])

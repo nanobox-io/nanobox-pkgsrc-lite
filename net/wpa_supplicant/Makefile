@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.15 2016/03/05 11:29:14 jperkin Exp $
+# $NetBSD: Makefile,v 1.17 2016/11/16 15:07:34 maya Exp $
 #
 
-DISTNAME=	wpa_supplicant-2.0
-PKGREVISION=	2
+DISTNAME=	wpa_supplicant-2.6
 CATEGORIES=	net
 MASTER_SITES=	http://hostap.epitest.fi/releases/
 
 MAINTAINER=	reed@reedmedia.net
 HOMEPAGE=	http://hostap.epitest.fi/wpa_supplicant/
 COMMENT=	Wireless connection client daemon for WPA, WPA2, and WEP
+LICENSE=	modified-bsd
 
 USE_LANGUAGES=	c
 USE_TOOLS+=	gmake

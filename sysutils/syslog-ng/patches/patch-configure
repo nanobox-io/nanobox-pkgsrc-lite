@@ -1,24 +1,24 @@
-$NetBSD: patch-configure,v 1.1 2015/10/29 16:34:13 fhajny Exp $
+$NetBSD: patch-configure,v 1.3 2017/01/10 18:54:15 fhajny Exp $
 
 Portability.
 
---- configure.orig	2015-08-17 08:56:19.000000000 +0000
+--- configure.orig	2016-12-21 15:00:32.000000000 +0000
 +++ configure
-@@ -16011,7 +16011,7 @@ $as_echo "$as_me: Too old java version r
-       fi
-     fi
+@@ -16463,7 +16463,7 @@ $as_echo_n "checking for JAVA_VERSION...
+   JAVA_HOME_CHECKER="/usr/libexec/java_home"
  
--    if test "$VERSION_OK" == "1";
-+    if test "$VERSION_OK" = "1";
-     then
-       JNI_HOME=`echo $JAVAC_BIN | sed "s/\(.*\)[/]bin[/]java.*/\1/"`
-       JNI_LIBDIR=`find $JNI_HOME -name "libjvm.so" | sed "s/\(.*\)libjvm.so/\1/" | head -n 1`
-@@ -16112,7 +16112,7 @@ $as_echo "$as_me: Too old java version r
-       fi
-     fi
+   if test "x$JAVAC_BIN" != "x"; then
+-    if test "x$DONT_RESOLVE_JAVA_BIN_LINKS" == "x"; then
++    if test "x$DONT_RESOLVE_JAVA_BIN_LINKS" = "x"; then
+       JAVAC_BIN=`
+   READLINK_TARGET=$JAVAC_BIN
+   cd $(dirname "$READLINK_TARGET")
+@@ -16570,7 +16570,7 @@ $as_echo_n "checking for JAVA_VERSION...
+   JAVA_HOME_CHECKER="/usr/libexec/java_home"
  
--    if test "$VERSION_OK" == "1";
-+    if test "$VERSION_OK" = "1";
-     then
-       JNI_HOME=`echo $JAVAC_BIN | sed "s/\(.*\)[/]bin[/]java.*/\1/"`
-       JNI_LIBDIR=`find $JNI_HOME -name "libjvm.so" | sed "s/\(.*\)libjvm.so/\1/" | head -n 1`
+   if test "x$JAVAC_BIN" != "x"; then
+-    if test "x$DONT_RESOLVE_JAVA_BIN_LINKS" == "x"; then
++    if test "x$DONT_RESOLVE_JAVA_BIN_LINKS" = "x"; then
+       JAVAC_BIN=`
+   READLINK_TARGET=$JAVAC_BIN
+   cd $(dirname "$READLINK_TARGET")

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.258 2016/06/25 22:06:12 pgoyette Exp $
+# $NetBSD: Makefile,v 1.285 2017/02/12 06:26:08 ryoon Exp $
 
-FIREFOX_VER=	${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=	47.0
-MOZ_BRANCH_MINOR=	
+FIREFOX_VER=		${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
+MOZ_BRANCH=		51.0
+MOZ_BRANCH_MINOR=	.1
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	firefox-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
@@ -38,6 +38,13 @@ ALL_ENV+=		MOZILLA_PKG_NAME=firefox
 BUILDLINK_TRANSFORM.SunOS+=	rm:-fdata-sections
 BUILDLINK_TRANSFORM.SunOS+=	rm:-ffunction-sections
 
+SUBST_CLASSES+=			dfly_malloc_h
+SUBST_STAGE.dfly_malloc_h=	pre-configure
+SUBST_MESSAGE.dfly_malloc_h=	Dont include malloc.h on dragonflybsd
+SUBST_SED.dfly_malloc_h=	-e 's,HAVE_MALLOC_H,HAVE_MALLOC_H \&\& !defined(__DragonFly__),g'
+SUBST_FILES.dfly_malloc_h=	media/libav/libavutil/mem.c
+SUBST_FILES.dfly_malloc_h+=	media/ffvpx/libavutil/mem.c
+
 LDFLAGS.DragonFly=	-lplc4 -lnspr4
 LDFLAGS.FreeBSD=	-lplc4 -lnspr4
 LDFLAGS.Linux=		-lnspr4
@@ -49,6 +56,8 @@ CHECK_INTERPRETER_SKIP+=lib/firefox-sdk/sdk/bin/header.py
 CHECK_INTERPRETER_SKIP+=lib/firefox-sdk/sdk/bin/typelib.py
 CHECK_INTERPRETER_SKIP+=lib/firefox-sdk/sdk/bin/xpidl.py
 CHECK_INTERPRETER_SKIP+=lib/firefox-sdk/sdk/bin/xpt.py
+
+CHECK_WRKREF_SKIP+=lib/firefox/chrome/toolkit/content/global/buildconfig.html
 
 MOZILLA=firefox
 MOZILLA_ICON=	${WRKSRC}/${OBJDIR}/dist/firefox/browser/chrome/icons/default/default48.png
@@ -64,10 +73,14 @@ SUBST_MESSAGE.sys-dic=	Reference to system hunspell dictionaries.
 SUBST_FILES.sys-dic=	extensions/spellcheck/hunspell/glue/mozHunspell.cpp
 SUBST_VARS.sys-dic=	PREFIX
 
+post-extract:
+	mv ${WRKSRC}/gfx/ycbcr/yuv_row_arm.s ${WRKSRC}/gfx/ycbcr/yuv_row_arm.S
+
 pre-configure:
 	cd ${WRKSRC} && autoconf
 	cd ${WRKSRC}/js/src && autoconf
 	cd ${WRKSRC} && mkdir ${OBJDIR}
+	cd ${WRKSRC}/${OBJDIR} && touch old-configure.vars
 
 post-build:
 	${SED} -e 's|@MOZILLA@|${MOZILLA}|g'				\

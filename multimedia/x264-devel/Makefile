@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.57 2016/03/08 15:41:32 wiz Exp $
+# $NetBSD: Makefile,v 1.61 2017/01/23 15:28:27 adam Exp $
 
-SNAPSHOT_DATE=	20160307
+SNAPSHOT_DATE=	20170122
 
 DISTNAME=	x264-snapshot-${SNAPSHOT_DATE}-2245
 PKGNAME=	x264-devel-${SNAPSHOT_DATE}
@@ -12,8 +12,6 @@ MAINTAINER=	joerg@NetBSD.org
 HOMEPAGE=	http://www.videolan.org/developers/x264.html
 COMMENT=	GPL licensed H.264 encoder
 LICENSE=	gnu-gpl-v2
-
-USE_MULTIARCH=	lib
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -45,9 +43,6 @@ CONFIGURE_ARGS+=	--disable-asm
 .  else
 BUILD_DEPENDS+=		yasm>=0.4.0:../../devel/yasm
 .  endif
-.elif ${MACHINE_ARCH} == "arm" && ${OPSYS} == "NetBSD"
-# pre-ARMv6 is default on NetBSD/arm
-CONFIGURE_ARGS+=	--disable-asm
 .endif
 
 USE_TOOLS+=		bash gmake
@@ -56,7 +51,6 @@ HAS_CONFIGURE=		yes
 CONFIG_SHELL=		${BASH}
 CONFIGURE_ARGS+=	--enable-pic	# uses libtool's -prefer-pic
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib${LIBARCHSUFFIX}
 .if ${OPSYS} == "Darwin"
 USE_TOOLS+=		perl
 .else
@@ -66,7 +60,7 @@ MAKE_ENV+=		SH=${SH:Q}
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 # XXX Consider passing this whether cross-compiling or not.
-CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM:Q}
+CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM}
 .endif
 
 BUILD_TARGET=		default

@@ -14,6 +14,5 @@ CONFLICTS+=		xextensions-[0-9]*
 
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	kbproto.pc.in
-USE_MULTIARCH=		lib
 
 .include "../../mk/bsd.pkg.mk"

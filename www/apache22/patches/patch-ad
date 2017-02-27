@@ -11,13 +11,13 @@ $NetBSD: patch-ad,v 1.1.1.1 2006/12/08 23:31:52 xtraeme Exp $
 +<Layout NetBSD>
 +    prefix:        @PREFIX@
 +    exec_prefix:   ${prefix}
-+    bindir:        ${exec_prefix}/bin@BINARCHSUFFIX@
-+    sbindir:       ${exec_prefix}/sbin@BINARCHSUFFIX@
-+    libexecdir:    ${exec_prefix}/lib@LIBARCHSUFFIX@/httpd
++    bindir:        ${exec_prefix}/bin
++    sbindir:       ${exec_prefix}/sbin
++    libexecdir:    ${exec_prefix}/lib/httpd
 +    mandir:        ${prefix}/man
 +    sysconfdir:    @SYSCONFDIR@
 +    datadir:       ${prefix}/share/httpd
-+    installbuilddir: ${datadir}/build@LIBARCHSUFFIX@
++    installbuilddir: ${datadir}/build
 +    errordir:      ${datadir}/error
 +    iconsdir:      ${datadir}/icons
 +    htdocsdir:     ${datadir}/htdocs

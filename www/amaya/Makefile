@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.95 2016/04/03 12:43:39 joerg Exp $
+# $NetBSD: Makefile,v 1.102 2017/02/12 06:26:07 ryoon Exp $
 
 DISTNAME=	amaya-fullsrc-11.3.1
 PKGNAME=	${DISTNAME:S/-fullsrc//}
-PKGREVISION=	28
+PKGREVISION=	34
 CATEGORIES=	www
-MASTER_SITES=	http://www.w3.org/Amaya/Distribution/ \
-		ftp://ftp.w3.org/pub/amaya/ \
-		ftp://mirror.aarnet.edu.au/pub/amaya/
+MASTER_SITES=	http://www.w3.org/Amaya/Distribution/
+MASTER_SITES+=	ftp://ftp.w3.org/pub/amaya/
+MASTER_SITES+=	ftp://mirror.aarnet.edu.au/pub/amaya/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

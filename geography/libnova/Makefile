@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1.12.1 2016/07/14 18:33:55 bsiegert Exp $
+# $NetBSD: Makefile,v 1.2 2016/07/14 12:52:48 is Exp $
 
 DISTNAME=	libnova-0.15.0
 CATEGORIES=	geography math

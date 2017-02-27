@@ -13,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 FAKE_NCURSES=	yes
 
 .include "options.mk"

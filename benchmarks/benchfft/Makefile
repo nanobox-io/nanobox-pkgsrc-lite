@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.38 2014/10/09 14:05:58 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2017/01/19 18:52:03 agc Exp $
 
 DISTNAME=		benchfft-2.0
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		benchmarks math
-MASTER_SITES=		ftp://ftp.fftw.org/pub/fftw/ \
-			ftp://ftp.fftw.org/pub/fftw/old/benchfft/
+MASTER_SITES=		ftp://ftp.fftw.org/pub/fftw/
+MASTER_SITES+=		ftp://ftp.fftw.org/pub/fftw/old/benchfft/
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX} fftw-2.0.1${EXTRACT_SUFX}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
@@ -15,6 +15,7 @@ GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake csh:run
 USE_LANGUAGES=		c fortran77
 USE_LIBTOOL=		yes
+PKGSRC_FORTRAN=		gfortran
 
 LIBTOOL_OVERRIDE=	libtool ../fftw-*/libtool
 CONFIG_GUESS_OVERRIDE=	config.guess ../fftw-*/config.guess

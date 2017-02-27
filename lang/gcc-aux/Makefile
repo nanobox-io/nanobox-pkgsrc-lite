@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2015/06/15 18:22:55 marino Exp $
+# $NetBSD: Makefile,v 1.27 2017/01/19 18:52:13 agc Exp $
 #
 
 PKGNAME=	gcc-aux-${SNAPSHOT}
+PKGREVISION=	1
 DISTNAME=	gcc-${GCC_VERSION}
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
@@ -156,8 +157,8 @@ FULL_PATH=${BOOTSTRAP_PREFIX}/bin:/sbin:/bin:/usr/sbin:/usr/bin:${PREFIX}/sbin:$
 
 # for port maintenance, invoke "make mdi PLUS_BOOTSTRAPS=1"
 .if defined(PLUS_BOOTSTRAPS)
-MASTER_SITES= http://downloads.dragonlace.net/src/ \
-   ${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
+MASTER_SITES=	http://downloads.dragonlace.net/src/
+MASTER_SITES+=	${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 DISTFILES= \
    ${DISTNAME}.tar.bz2 \
    ada-bootstrap.i386.dragonfly.36A.tar.bz2 \

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.37 2015/06/12 10:48:50 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2016/07/09 06:38:09 wiz Exp $
 
 DISTNAME=	ldapsdk_12311998
 PKGNAME=	${DISTNAME:S/_/-/}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	devel databases
 MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=directory/c-sdk/ancient/}
 
@@ -17,7 +17,6 @@ NOT_FOR_BULK_PLATFORM=	Linux-*-*
 MAKE_JOBS_SAFE=	no
 
 WRKSRC=		${WRKDIR}/mozilla
-USE_MULTIARCH=	lib
 USE_TOOLS+=	gmake perl
 
 PKG_SYSCONFSUBDIR=	ldapsdk
@@ -45,14 +44,14 @@ do-install:
 	#
 	# XXX kludge
 	#
-	${INSTALL_DATA} ${WRKSRC}/dist/${OPSYS}*/lib/libldap.a ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/libldap.a
-	${INSTALL_DATA} ${WRKSRC}/dist/${OPSYS}*/lib/liblber.a ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/liblber.a
-	${INSTALL_LIB} ${WRKSRC}/dist/${OPSYS}*/bin/libldap.so.1.0 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/libldap.so.1.0
-	${LN} -sf libldap.so.1.0 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/libldap.so.1
-	${LN} -sf libldap.so.1.0 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/libldap.so
-	${INSTALL_LIB} ${WRKSRC}/dist/${OPSYS}*/bin/liblber.so.1.0 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/liblber.so.1.0
-	${LN} -sf liblber.so.1.0 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/liblber.so.1
-	${LN} -sf liblber.so.1.0 ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/liblber.so
+	${INSTALL_DATA} ${WRKSRC}/dist/${OPSYS}*/lib/libldap.a ${DESTDIR}${PREFIX}/lib/libldap.a
+	${INSTALL_DATA} ${WRKSRC}/dist/${OPSYS}*/lib/liblber.a ${DESTDIR}${PREFIX}/lib/liblber.a
+	${INSTALL_LIB} ${WRKSRC}/dist/${OPSYS}*/bin/libldap.so.1.0 ${DESTDIR}${PREFIX}/lib/libldap.so.1.0
+	${LN} -sf libldap.so.1.0 ${DESTDIR}${PREFIX}/lib/libldap.so.1
+	${LN} -sf libldap.so.1.0 ${DESTDIR}${PREFIX}/lib/libldap.so
+	${INSTALL_LIB} ${WRKSRC}/dist/${OPSYS}*/bin/liblber.so.1.0 ${DESTDIR}${PREFIX}/lib/liblber.so.1.0
+	${LN} -sf liblber.so.1.0 ${DESTDIR}${PREFIX}/lib/liblber.so.1
+	${LN} -sf liblber.so.1.0 ${DESTDIR}${PREFIX}/lib/liblber.so
 	${INSTALL_DATA_DIR} ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${WRKSRC}/dist/${OPSYS}*/etc/ldapfilter.conf      ${DESTDIR}${EGDIR}/ldapfilter.conf
 	${INSTALL_DATA} ${WRKSRC}/dist/${OPSYS}*/etc/ldapsearchprefs.conf ${DESTDIR}${EGDIR}/ldapsearchprefs.conf

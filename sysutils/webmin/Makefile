@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2016/05/17 10:32:09 fhajny Exp $
+# $NetBSD: Makefile,v 1.45 2017/02/01 13:00:44 mef Exp $
 
 .include "version.mk"
 
 DISTNAME=	webmin-${WBM_VERSION}
-PKGREVISION=	7
 CATEGORIES=	sysutils www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=webadmin/}
 
@@ -75,15 +74,15 @@ post-extract:
 
 pre-configure:
 	cd ${WRKSRC} &&							\
-	ptn="@"`${ECHO} ${WEBMIN_MINIMAL_MODULES}|sed -e 's/ /@/g'`"@" &&	\
-	for m in `${ECHO} */module.info | sed -e 's/\/module.info//g'`; do \
-		case $${ptn} in						\
-		*@$${m}@*) ;;						\
-		*)	rm -rf $${m} ;;					\
+	for m in */module.info; do 					\
+		moduledir=$${m%/module.info};				\
+		case $${moduledir} in					\
+		${WEBMIN_MINIMAL_MODULES:ts|}) ;;			\
+		*)	rm -rf $${moduledir} ;;				\
 		esac;							\
 	done &&								\
-	for t in `${ECHO} */theme.info | sed -e 's/\/theme.info//g'`; do\
-		rm -rf $${t};						\
+	for t in */theme.info; do					\
+		rm -rf $${t%/theme.info};				\
 	done &&								\
 	touch ${WRKSRC}/minimal-install
 
@@ -138,5 +137,10 @@ do-install:
 			    ${DESTDIR}${WEBMIN_EGDIR}/module.infos.cache
 	cd ${DESTDIR}${WEBMIN_DIR} &&					\
 				${CHMOD} 0400 setup.pl setup.sh setup-pre.sh
+
+	cd ${DESTDIR}${WEBMIN_DIR} &&  \
+	${CHMOD} -x *.pl */*.pl */*.gif */*/*.gif */*/*.html */*.ca lang/* \
+	*/lang/* */*.svg */*.png */*.eu
+
 
 .include "../../mk/bsd.pkg.mk"

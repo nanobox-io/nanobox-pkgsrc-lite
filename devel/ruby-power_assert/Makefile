@@ -1,14 +1,12 @@
-# $NetBSD: Makefile,v 1.10 2016/03/14 00:59:06 tnn Exp $
+# $NetBSD: Makefile,v 1.12 2016/10/09 14:44:12 taca Exp $
 
-DISTNAME=	power_assert-0.2.7
+DISTNAME=	power_assert-0.3.1
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/k-tsj/power_assert
 COMMENT=	Power Assert for Ruby
 LICENSE=	2-clause-bsd
-
-#RUBY_VERSION_SUPPORTED?= 21 22
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

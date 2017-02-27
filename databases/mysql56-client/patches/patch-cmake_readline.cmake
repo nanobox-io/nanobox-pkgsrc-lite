@@ -1,18 +1,19 @@
-$NetBSD: patch-cmake_readline.cmake,v 1.3 2015/10/07 11:22:00 adam Exp $
+$NetBSD: patch-cmake_readline.cmake,v 1.4 2016/09/30 11:54:49 fhajny Exp $
 
-* If devel/editline is installed and use base libedit, cmake
-  readline.h detection fails. Disable mis-detection of
-  /usr/pkg/include/editline/readline.h.
+Fix for pkgsrc editline.
 
---- cmake/readline.cmake.orig	2013-05-21 15:18:39.000000000 +0000
+--- cmake/readline.cmake.orig	2016-08-26 11:22:35.000000000 +0000
 +++ cmake/readline.cmake
-@@ -130,9 +130,6 @@ MACRO (MYSQL_USE_BUNDLED_EDITLINE)
- ENDMACRO()
+@@ -131,10 +131,10 @@ ENDMACRO()
  
  MACRO (FIND_SYSTEM_EDITLINE)
--  FIND_PATH(FOUND_EDITLINE_READLINE
+   FIND_PATH(FOUND_EDITLINE_READLINE
 -    NAMES editline/readline.h
--  )
++    NAMES readline/readline.h
+   )
    IF(FOUND_EDITLINE_READLINE)
-     SET(EDITLINE_INCLUDE_DIR "${FOUND_EDITLINE_READLINE}/editline")
+-    SET(EDITLINE_INCLUDE_DIR "${FOUND_EDITLINE_READLINE}/editline")
++    SET(EDITLINE_INCLUDE_DIR "${FOUND_EDITLINE_READLINE}/readline")
    ELSE()
+     # Different path on FreeBSD
+     FIND_PATH(FOUND_EDIT_READLINE_READLINE

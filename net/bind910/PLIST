@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.6.2.1 2016/07/20 02:55:36 spz Exp $
+@comment $NetBSD: PLIST,v 1.7 2016/07/19 01:08:05 taca Exp $
 bin/bind9-config
 bin/delv
 bin/dig
@@ -453,4 +453,3 @@ share/doc/bind9/arm/man.rndc-confgen.html
 share/doc/bind9/arm/man.rndc.conf.html
 share/doc/bind9/arm/man.rndc.html
 share/doc/bind9/arm/notes.html
-share/examples/bind9/named.conf

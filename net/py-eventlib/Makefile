@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2016/06/08 17:43:37 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2017/01/03 13:23:03 jperkin Exp $
 
 DISTNAME=	eventlib-0.1.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -19,12 +19,11 @@ DEPENDS+=	${PYPKGPREFIX}-django>=1.4.1:../../www/py-django
 USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-PYTHON_VERSIONS_INCOMPATIBLE+=	33 34 35	# not yet ported as of 0.1.5
+PYTHON_VERSIONS_INCOMPATIBLE+=	34 35 36	# not yet ported as of 0.1.5
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/eventlib \
-		${DESTDIR}${PREFIX}/bin/eventlib${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/eventlib${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

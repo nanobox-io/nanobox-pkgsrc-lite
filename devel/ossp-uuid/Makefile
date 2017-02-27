@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2015/06/12 10:48:52 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/07/09 06:38:11 wiz Exp $
 #
 
 DISTNAME=		uuid-1.6.2
 PKGNAME=		ossp-${DISTNAME}
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		devel
 MASTER_SITES=		ftp://ftp.ossp.org/pkg/lib/uuid/
 
@@ -18,7 +18,6 @@ GNU_CONFIGURE=		yes
 
 USE_TOOLS+=		gmake
 USE_LANGUAGES=		c c++
-USE_MULTIARCH=		lib
 
 CONFIGURE_ARGS+=	--with-dce
 CONFIGURE_ARGS+=	--with-cxx

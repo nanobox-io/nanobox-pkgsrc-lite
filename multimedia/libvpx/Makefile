@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.64 2016/02/25 15:49:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.67 2017/01/16 12:12:59 wiz Exp $
 
-DISTNAME=	libvpx-1.5.0
-PKGREVISION=	1
+DISTNAME=	libvpx-1.6.1
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=webmproject/}
 GITHUB_PROJECT=	libvpx
@@ -14,7 +13,6 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake bash:build perl:build
 HAS_CONFIGURE=		yes
 CONFIG_SHELL=		${BASH}
@@ -22,7 +20,6 @@ CONFIGURE_ARGS+=	--disable-postproc
 CONFIGURE_ARGS+=	--enable-pic
 CONFIGURE_ARGS+=	--enable-runtime-cpu-detect
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib${LIBARCHSUFFIX}
 CONFIGURE_ARGS+=	--disable-unit-tests
 
 .include "../../mk/bsd.prefs.mk"
@@ -36,13 +33,10 @@ GCC_REQD+=	4.4
 BUILD_DEPENDS+=		yasm-[0-9]*:../../devel/yasm
 .endif
 
-REPLACE_BASH=		configure \
-			build/make/configure.sh \
-			build/make/version.sh \
-			build/make/gen_asm_deps.sh \
-			build/make/rtcd.sh \
-			examples/gen_example_text.sh \
-			examples/gen_example_code.sh
+REPLACE_BASH=		configure
+REPLACE_BASH+=		build/make/configure.sh
+REPLACE_BASH+=		build/make/version.sh
+REPLACE_BASH+=		build/make/gen_asm_deps.sh
 
 REPLACE_PERL=		build/make/ads2gas.pl
 

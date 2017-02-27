@@ -1,18 +1,16 @@
-# $NetBSD: Makefile,v 1.43 2015/06/12 10:51:10 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.46 2017/01/19 18:52:24 agc Exp $
 
 DISTNAME=	pgp50i-unix-src
 PKGNAME=	pgp5-5.0i
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	security
-MASTER_SITES=	ftp://ftp.pgpi.com/pub/pgp/5.0/unix/ \
-		ftp://ftp.au.pgpi.com/pub/pgp/5.0/unix/
+MASTER_SITES=	ftp://ftp.pgpi.com/pub/pgp/5.0/unix/
+MASTER_SITES+=	ftp://ftp.au.pgpi.com/pub/pgp/5.0/unix/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.pgpi.org/
 COMMENT=	Public-key encryption and digital signature utilities (v5)
-# use of IDEA as crypto function
-LICENSE=	idea-license
+LICENSE=	pgp5-license
 
 MAKE_JOBS_SAFE=		no
 

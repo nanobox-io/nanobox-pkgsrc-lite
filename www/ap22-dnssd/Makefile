@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.35 2016/06/05 05:02:24 richard Exp $
+# $NetBSD: Makefile,v 1.38 2017/02/12 06:26:07 ryoon Exp $
 #
 
 DISTNAME=	mod_dnssd-0.6
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME:S/mod_//}
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	http://0pointer.de/lennart/projects/mod_dnssd/
 
@@ -24,10 +24,6 @@ APACHE_MODULE_NAME=	mod_dnssd
 APACHE_MODULE=		yes
 
 INSTALLATION_DIRS+=	lib/httpd
-
-# XXX:
-BUILDLINK_TRANSFORM.SunOS+=	rm:-D_XOPEN_SOURCE
-BUILDLINK_TRANSFORM.SunOS+=	rm:-D_XOPEN_SOURCE_EXTENDED=1
 
 do-install:
 	cd ${WRKSRC}/src &&						\

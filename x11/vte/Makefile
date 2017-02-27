@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.103 2015/04/25 14:25:20 tnn Exp $
+# $NetBSD: Makefile,v 1.106 2017/02/12 06:24:59 ryoon Exp $
 #
 
 .include "Makefile.common"
 
-PKGREVISION=	16
+PKGREVISION=	19
 CATEGORIES=	x11
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -13,7 +13,6 @@ LICENSE=	gnu-lgpl-v2
 
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 

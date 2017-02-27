@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2017/01/27 15:45:05 prlw1 Exp $
+
+SHA1 (swig-3.0.11.tar.gz) = e2ee4deb16024d8e0406f6a64cf513d2aa5c9a72
+RMD160 (swig-3.0.11.tar.gz) = eae47a37453e79049329fe7c03ebec114bac8e2c
+SHA512 (swig-3.0.11.tar.gz) = 36771bd29fcec159d283f0f8d056937c6c913fec717f1f3b97a9b17fa27a8a85aa5f7b79bec3c46d70b625c36c26e9e856a4750cbd0872070ca18e9174842a52
+Size (swig-3.0.11.tar.gz) = 8141827 bytes

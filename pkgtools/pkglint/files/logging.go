@@ -99,13 +99,16 @@ func Explain(explanation ...string) {
 			io.WriteString(G.logOut, "\t"+explanationLine+"\n")
 		}
 		io.WriteString(G.logOut, "\n")
-	} else if G.Testing {
+	}
+
+	if G.Testing {
 		for _, s := range explanation {
 			if l := tabLength(s); l > 68 && contains(s, " ") {
-				print(fmt.Sprintf("Long explanation line (%d): %s\n", l, s))
+				lastSpace := strings.LastIndexByte(s[:68], ' ')
+				print(fmt.Sprintf("Long explanation line: %s\nBreak after: %s\n", s, s[:lastSpace]))
 			}
 			if m, before := match1(s, `(.+)\. [^ ]`); m {
-				if !matches(before, `\d$`) {
+				if !matches(before, `\d$|e\.g`) {
 					print(fmt.Sprintf("Short space after period: %s\n", s))
 				}
 			}
@@ -113,9 +116,5 @@ func Explain(explanation ...string) {
 	}
 	G.explanationsAvailable = true
 }
-func Explain1(e1 string)             { Explain(e1) }
-func Explain2(e1, e2 string)         { Explain(e1, e2) }
-func Explain3(e1, e2, e3 string)     { Explain(e1, e2, e3) }
-func Explain4(e1, e2, e3, e4 string) { Explain(e1, e2, e3, e4) }
 
 type pkglintFatal struct{}

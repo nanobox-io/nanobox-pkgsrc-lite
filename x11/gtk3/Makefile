@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.81 2016/05/27 08:27:08 wiz Exp $
+# $NetBSD: Makefile,v 1.90 2017/02/12 06:24:53 ryoon Exp $
 
-DISTNAME=	gtk+-3.20.6
+DISTNAME=	gtk+-3.22.7
 PKGNAME=	${DISTNAME:S/gtk/gtk3/}
+PKGREVISION=	2
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk+/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -15,7 +16,6 @@ USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake perl pkg-config bash xgettext msgmerge
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 PTHREAD_AUTO_VARS=	yes
 BUILD_DEPENDS+=		gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 TOOL_DEPENDS+=		gettext-tools>=0.19.4nb1:../../devel/gettext-tools
@@ -77,7 +77,7 @@ _BUILDING_GTK3=	yes
 BUILDLINK_API_DEPENDS.atk+=	atk>=2.15.1
 .include "../../devel/atk/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.45.8
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.49.4
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gdk-pixbuf2+=	gdk-pixbuf2>=2.30.0
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"

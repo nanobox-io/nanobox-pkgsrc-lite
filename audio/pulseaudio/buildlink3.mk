@@ -1,12 +1,12 @@
-# $NetBSD: buildlink3.mk,v 1.24 2015/04/19 06:42:02 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.27 2017/01/23 12:24:18 wiz Exp $
 
 BUILDLINK_TREE+=	pulseaudio
 
 .if !defined(PULSEAUDIO_BUILDLINK3_MK)
 PULSEAUDIO_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.pulseaudio+=	pulseaudio>=6.0
-BUILDLINK_ABI_DEPENDS.pulseaudio+=	pulseaudio>=6.0
+BUILDLINK_API_DEPENDS.pulseaudio+=	pulseaudio>=10.0
+BUILDLINK_ABI_DEPENDS.pulseaudio+=	pulseaudio>=10.0
 BUILDLINK_PKGSRCDIR.pulseaudio?=	../../audio/pulseaudio
 
 .include "../../mk/bsd.fast.prefs.mk"
@@ -15,8 +15,8 @@ BUILDLINK_PKGSRCDIR.pulseaudio?=	../../audio/pulseaudio
 .include "../../devel/libatomic_ops/buildlink3.mk"
 .endif
 
-BUILDLINK_LIBDIRS.pulseaudio+=		lib${LIBARCHSUFFIX}/pulseaudio
-BUILDLINK_RPATHDIRS.pulseaudio+=	lib${LIBARCHSUFFIX}/pulseaudio
+BUILDLINK_LIBDIRS.pulseaudio+=		lib/pulseaudio
+BUILDLINK_RPATHDIRS.pulseaudio+=	lib/pulseaudio
 
 _WRAP_EXTRA_ARGS.LIBTOOL+=	-L${PREFIX}/lib/pulseaudio
 
@@ -36,7 +36,6 @@ pkgbase:= pulseaudio
 .include "../../databases/gdbm/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
-.include "../../textproc/json-c/buildlink3.mk"
 .endif # PULSEAUDIO_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-pulseaudio

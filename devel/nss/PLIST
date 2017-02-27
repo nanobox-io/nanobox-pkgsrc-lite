@@ -1,5 +1,29 @@
-@comment $NetBSD: PLIST,v 1.17 2016/05/25 13:17:13 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.21 2017/02/05 02:41:13 ryoon Exp $
+bin/certcgi
+bin/certutil
+bin/cmsutil
+bin/crlutil
+bin/derdump
+bin/makepqg
+bin/mangle
+bin/modutil
 bin/nss-config
+bin/ocspclnt
+bin/oidcalc
+bin/p7content
+bin/p7env
+bin/p7sign
+bin/p7verify
+bin/pk12util
+bin/rsaperf
+bin/shlibsign
+bin/signtool
+bin/signver
+bin/ssltap
+bin/strsclnt
+bin/symkeyutil
+bin/vfychain
+bin/vfyserv
 include/nss/dbm/mcom_db.h
 include/nss/dbm/ncompat.h
 include/nss/dbm/winfile.h
@@ -18,6 +42,7 @@ include/nss/nss/crmf.h
 include/nss/nss/crmft.h
 include/nss/nss/cryptohi.h
 include/nss/nss/cryptoht.h
+include/nss/nss/eccutil.h
 include/nss/nss/ecl-exp.h
 include/nss/nss/hasht.h
 include/nss/nss/jar-ds.h

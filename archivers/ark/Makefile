@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2016/03/05 11:28:02 jperkin Exp $
+# $NetBSD: Makefile,v 1.39 2017/01/01 16:06:02 adam Exp $
 
 DISTNAME=	ark-${_KDE_VERSION}
-PKGREVISION=	5
+PKGREVISION=	8
 CATEGORIES=	archivers
 COMMENT=	Manages various archive formats within the KDE environment
 

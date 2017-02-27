@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.20 2016/06/12 15:58:23 wiz Exp $
+# $NetBSD: Makefile.common,v 1.23 2017/02/03 15:27:10 maya Exp $
 #
 # used by audio/gst-plugins1-dts/Makefile
 # used by audio/gst-plugins1-faac/Makefile
@@ -13,7 +13,7 @@
 #
 
 GST_PLUGINS1_TYPE=	bad
-GST_PLUGINS1_VER=	1.8.2
+GST_PLUGINS1_VER=	1.10.3
 
 # Disable all drivers and features by default.
 .for driver in	\
@@ -38,8 +38,8 @@ GST_PLUGINS1_VER=	1.8.2
 CONFIGURE_ARGS+=	--disable-${driver}
 .endfor
 
-BUILDLINK_API_DEPENDS.gstreamer1+=	gstreamer1>=1.8.0
-BUILDLINK_API_DEPENDS.gst-plugins1-base+=	gst-plugins1-base>=1.8.0
+BUILDLINK_API_DEPENDS.gstreamer1+=	gstreamer1>=1.10.0
+BUILDLINK_API_DEPENDS.gst-plugins1-base+=	gst-plugins1-base>=1.10.0
 
 PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer-insertbin.pc.in
 PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer-bad-audio.pc.in

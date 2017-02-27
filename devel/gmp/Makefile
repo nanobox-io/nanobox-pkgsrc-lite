@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.78 2015/11/13 11:36:44 wiz Exp $
+# $NetBSD: Makefile,v 1.81 2017/01/19 18:52:06 agc Exp $
 
-DISTNAME=	gmp-6.1.0
+DISTNAME=	gmp-6.1.2
 CATEGORIES=	devel math
-MASTER_SITES=	https://gmplib.org/download/gmp/ \
-		${MASTER_SITE_GNU:=gmp/}
+MASTER_SITES=	https://gmplib.org/download/gmp/
+MASTER_SITES+=	${MASTER_SITE_GNU:=gmp/}
 # Use .tar.bz2 distfile so that no extra dependency on archivers/xz
 # is needed when building lang/gcc* with option gcc-inplace-math.
 EXTRACT_SUFX=	.tar.bz2
@@ -16,7 +16,6 @@ LICENSE=	gnu-lgpl-v3 OR gnu-gpl-v2
 INFO_FILES=		yes
 USE_LANGUAGES=		c c++ c99
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gm4 autoconf makeinfo
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--without-readline

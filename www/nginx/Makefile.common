@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.7 2015/10/12 14:53:17 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.9 2017/01/01 16:38:24 rillig Exp $
 # used by www/nginx/Makefile
 # used by www/nginx-devel/Makefile
 
@@ -60,8 +60,7 @@ EGFILES+=		fastcgi.conf fastcgi_params koi-utf koi-win \
 .for file in ${EGFILES}
 CONF_FILES+=	${EGDIR}/conf/${file} ${PKG_SYSCONFDIR}/${file}
 .	if !empty(PKG_OPTIONS:Mnaxsi)
-CONF_FILES+=	${EGDIR}/conf/naxsi_core.rules
-CONF_FILES+=	${PKG_SYSCONFDIR}/naxsi_core.rules
+CONF_FILES+=	${EGDIR}/conf/naxsi_core.rules ${PKG_SYSCONFDIR}/naxsi_core.rules
 .	endif
 .endfor
 
@@ -74,6 +73,11 @@ OWN_DIRS=		${NGINX_LOGDIR}
 OWN_DIRS_PERMS+=	${NGINX_DATADIR} ${NGINX_USER} ${NGINX_GROUP} 0700
 
 BUILD_TARGET=		build
+
+SUBST_CLASSES+=		prefix
+SUBST_STAGE.prefix+=	pre-configure
+SUBST_FILES.prefix+=	auto/lib/pcre/conf
+SUBST_SED.prefix+=	-e 's,@PREFIX@,${PREFIX},g'
 
 SUBST_CLASSES+=		paths
 SUBST_STAGE.paths=	pre-configure

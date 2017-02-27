@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.75 2016/06/11 23:34:07 dholland Exp $
+# $NetBSD: Makefile,v 1.77 2017/01/29 05:31:13 mef Exp $
 
 .include "../../shells/zsh/Makefile.common"
 
-ZSH_VERSION=	5.2
+ZSH_VERSION=	5.3.1
 ZSH_MAINTAINER=	uebayasi@NetBSD.org
 
 CONFIGURE_ARGS+=	--disable-gdbm

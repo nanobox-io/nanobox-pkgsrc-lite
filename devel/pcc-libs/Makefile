@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.2 2012/10/31 11:19:22 asau Exp $
+# $NetBSD: Makefile,v 1.4 2017/01/19 18:52:07 agc Exp $
 
-DISTNAME=	pcc-libs-1.0.0
+DISTNAME=	pcc-libs-1.1.0
 CATEGORIES=	devel
-MASTER_SITES=	ftp://pcc.ludd.ltu.se/pub/pcc-releases/ \
-		http://pcc.ludd.ltu.se/ftp/pub/pcc-releases/
+MASTER_SITES=	ftp://pcc.ludd.ltu.se/pub/pcc-releases/
+MASTER_SITES+=	http://pcc.ludd.ltu.se/ftp/pub/pcc-releases/
 EXTRACT_SUFX=	.tgz
 
 HOMEPAGE=	http://pcc.ludd.ltu.se/
 COMMENT=	Runtime libraries for the Portable C Compiler
+LICENSE=	original-bsd
 
 ONLY_FOR_PLATFORM=	NetBSD-*-arm* NetBSD-*-i386 NetBSD-*-mips* \
 			NetBSD-*-powerpc NetBSD-*-sparc64 NetBSD-*-vax \

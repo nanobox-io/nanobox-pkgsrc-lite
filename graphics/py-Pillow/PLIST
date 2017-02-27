@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9 2016/04/21 08:13:50 leot Exp $
+@comment $NetBSD: PLIST,v 1.11 2017/01/29 12:46:45 adam Exp $
 ${PYSITELIB}/PIL/BdfFontFile.py
 ${PYSITELIB}/PIL/BdfFontFile.pyc
 ${PYSITELIB}/PIL/BdfFontFile.pyo
@@ -173,7 +173,6 @@ ${PYSITELIB}/PIL/MpoImagePlugin.pyo
 ${PYSITELIB}/PIL/MspImagePlugin.py
 ${PYSITELIB}/PIL/MspImagePlugin.pyc
 ${PYSITELIB}/PIL/MspImagePlugin.pyo
-${PYSITELIB}/PIL/OleFileIO-README.md
 ${PYSITELIB}/PIL/OleFileIO.py
 ${PYSITELIB}/PIL/OleFileIO.pyc
 ${PYSITELIB}/PIL/OleFileIO.pyo
@@ -263,6 +262,10 @@ ${PYSITELIB}/PIL/_imagingcms.so
 ${PYSITELIB}/PIL/_imagingft.so
 ${PYSITELIB}/PIL/_imagingmath.so
 ${PYSITELIB}/PIL/_imagingmorph.so
+${PYSITELIB}/PIL/_imagingtk.so
+${PYSITELIB}/PIL/_tkinter_finder.py
+${PYSITELIB}/PIL/_tkinter_finder.pyc
+${PYSITELIB}/PIL/_tkinter_finder.pyo
 ${PYSITELIB}/PIL/_util.py
 ${PYSITELIB}/PIL/_util.pyc
 ${PYSITELIB}/PIL/_util.pyo
@@ -273,5 +276,6 @@ ${PYSITELIB}/PIL/features.pyo
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
+${PYSITELIB}/${EGG_INFODIR}/requires.txt
 ${PYSITELIB}/${EGG_INFODIR}/top_level.txt
 ${PYSITELIB}/${EGG_INFODIR}/zip-safe

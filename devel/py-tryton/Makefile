@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2016/02/25 12:12:49 jperkin Exp $
+# $NetBSD: Makefile,v 1.27 2017/02/12 06:25:13 ryoon Exp $
 TRYTON_MODULE_NAME=	tryton
+PKGREVISION= 2
 .include "../../devel/py-trytond/Makefile.common"
 CATEGORIES=	devel python
 
@@ -11,18 +12,17 @@ LICENSE=	gnu-gpl-v3
 USE_LANGUAGES=		# none
 
 PYTHON_VERSIONED_DEPENDENCIES=	dateutil
-PY_PATCHPLIST=			yes
-PLIST_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX}
+
+PYTHON_VERSIONS_INCOMPATIBLE=   34 35 36
 
 .include "options.mk"
 
-OPSYSVARS+=		DEPENDS
 DEPENDS+=		${PYPKGPREFIX}-chardet-[0-9]*:../../converters/py-chardet
 DEPENDS.Darwin+=	${PYPKGPREFIX}-py2app-[0-9]*:../../devel/py-py2app
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/tryton \
-		${DESTDIR}${PREFIX}/bin/tryton${PYVERSSUFFIX}
+		${DESTDIR}${PREFIX}/bin/tryton${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../graphics/librsvg/buildlink3.mk"
 .include "../../x11/py-gtk2/buildlink3.mk"

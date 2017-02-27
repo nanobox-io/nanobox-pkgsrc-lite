@@ -1,4 +1,4 @@
-$NetBSD: patch-aa,v 1.2 2011/04/15 09:00:57 adam Exp $
+$NetBSD: patch-aa,v 1.4 2016/11/08 11:42:01 wiz Exp $
 
 --- sx/w3c/css.py.orig	2009-03-18 13:02:36.000000000 +0000
 +++ sx/w3c/css.py

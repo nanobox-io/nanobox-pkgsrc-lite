@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.6 2014/01/25 10:30:12 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2017/02/14 09:54:30 markd Exp $
 
-VERS=			4.2.3
+VERS=			5.0.1
 DISTNAME=		cx_Freeze-${VERS}
 PKGNAME=		${PYPKGPREFIX}-cxfreeze-${VERS}
 CATEGORIES=		devel
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=cx-freeze/}
+MASTER_SITES=		${MASTER_SITE_PYPI:=c/cx-freeze/}
 
 MAINTAINER=		helgoman@users.sourceforge.net
 HOMEPAGE=		http://cx-freeze.sourceforge.net/
@@ -13,11 +13,10 @@ LICENSE=		python-software-foundation
 
 USE_LANGUAGES=      	c c++
 
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
-
 post-extract:
 	${MV} ${WRKSRC}/cxfreeze ${WRKSRC}/cxfreeze${PYVERSSUFFIX}
+	${MV} ${WRKSRC}/cxfreeze-quickstart ${WRKSRC}/cxfreeze-quickstart${PYVERSSUFFIX}
 
 .include "../../lang/python/application.mk"
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

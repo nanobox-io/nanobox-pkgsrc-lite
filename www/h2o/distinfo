@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.5 2016/05/12 18:04:06 adam Exp $
+$NetBSD: distinfo,v 1.9 2017/01/26 21:11:53 adam Exp $
 
-SHA1 (h2o-1.7.2.tar.gz) = e398f2e88ed6fec86dcb34b9baa74c21c52f44c6
-RMD160 (h2o-1.7.2.tar.gz) = f962ffe660a8d04866bc4c420e3c3971d87f57f6
-SHA512 (h2o-1.7.2.tar.gz) = 65d6fa93fa604b26b71607f5f1e8a12b949964698225d78f3325119e2ec9ae0ea3aac4009b447cd07cb6e6d2c50b3c2cf0e350213106aecf50ac2f5edb0bfeb7
-Size (h2o-1.7.2.tar.gz) = 6541718 bytes
+SHA1 (h2o-2.1.0.tar.gz) = 81422e22febbabebbfae8d1b21a911193682bafe
+RMD160 (h2o-2.1.0.tar.gz) = 20bc69fe5c6e41cd641f5a0792c05478008647eb
+SHA512 (h2o-2.1.0.tar.gz) = b54c122c5da95d373eb21f3061d8d4cd0b05359ba9d879c54a08f63b4ec8346582656a5f191c39f028ed5df4fa05c86a2a90a1bfc0e341fdff0b8694df84d819
+Size (h2o-2.1.0.tar.gz) = 15207573 bytes

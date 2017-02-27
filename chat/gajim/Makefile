@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/12/05 21:25:30 adam Exp $
+# $NetBSD: Makefile,v 1.33 2017/02/12 06:25:07 ryoon Exp $
 
 DISTNAME=	gajim-0.15
-PKGREVISION=	13
+PKGREVISION=	16
 CATEGORIES=	chat python
 MASTER_SITES=	http://www.gajim.org/downloads/0.15/
 EXTRACT_SUFX=	.tar.bz2
@@ -15,7 +15,7 @@ DEPENDS=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 DEPENDS=	${PYPKGPREFIX}-dbus>=0.81:../../sysutils/py-dbus
 DEPENDS=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-gtk2
 
 .include "options.mk"
 

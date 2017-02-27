@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.51 2016/03/05 11:28:24 jperkin Exp $
+# $NetBSD: Makefile,v 1.53 2017/02/16 11:10:53 adam Exp $
 
-DISTNAME=	memcached-1.4.25
-PKGREVISION=	1
+DISTNAME=	memcached-1.4.34
 CATEGORIES=	devel
 MASTER_SITES=	http://www.memcached.org/files/
 
@@ -10,7 +9,6 @@ HOMEPAGE=	http://www.memcached.org/
 COMMENT=	High-performance distributed memory object caching system
 LICENSE=	2-clause-bsd
 
-USE_MULTIARCH=		bin
 USE_TOOLS+=		perl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-libevent=${BUILDLINK_PREFIX.libevent}
@@ -45,7 +43,7 @@ TEST_TARGET=		test
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/*.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_SCRIPT} ${WRKSRC}/scripts/memcached-tool ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/memcached-tool ${DESTDIR}${PREFIX}/bin
 
 .include "../../devel/libevent/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.0

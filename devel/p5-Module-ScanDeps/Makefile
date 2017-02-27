@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2016/06/08 19:23:12 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2017/01/02 13:46:46 wen Exp $
 
-DISTNAME=	Module-ScanDeps-1.21
+DISTNAME=	Module-ScanDeps-1.23
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Module/}
 
@@ -16,7 +15,6 @@ BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Module/ScanDeps/.packlist
-PERL5_MODULE_TYPE=	Module::Install::Bundled
 
 REPLACE_PERL+=	script/scandeps.pl
 

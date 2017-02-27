@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.22 2015/11/08 21:31:59 dholland Exp $
+# $NetBSD: Makefile,v 1.25 2017/01/19 18:52:15 agc Exp $
 
 DISTNAME=		yap-6.3.3
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		lang
 # MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=yap/}
-MASTER_SITES=		http://www.dcc.fc.up.pt/~vsc/Yap/ \
-			http://www.dcc.fc.up.pt/~vsc/Yap/current/
+MASTER_SITES=		http://www.dcc.fc.up.pt/~vsc/Yap/
+MASTER_SITES+=		http://www.dcc.fc.up.pt/~vsc/Yap/current/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.ncc.up.pt/~vsc/Yap/
@@ -35,8 +35,8 @@ PLIST.horus=		yes
 .endif
 
 .include "../../archivers/libarchive/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

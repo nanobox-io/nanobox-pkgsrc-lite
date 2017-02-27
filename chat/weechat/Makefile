@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.63 2016/06/08 19:22:19 wiz Exp $
+# $NetBSD: Makefile,v 1.72 2017/02/13 13:02:11 fhajny Exp $
 
-DISTNAME=	weechat-1.5
+DISTNAME=	weechat-1.7
 PKGREVISION=	1
 CATEGORIES=	chat
 MASTER_SITES=	http://www.weechat.org/files/src/
@@ -18,17 +18,20 @@ USE_TOOLS+=		msgfmt pkg-config
 USE_LANGUAGES=		c99
 USE_LIBTOOL=		yes
 USE_CMAKE=		yes
+FAKE_NCURSES=		yes
 
 CMAKE_ARGS+=		-DENABLE_ASPELL:BOOL=OFF
 CMAKE_ARGS+=		-DENABLE_GUILE:BOOL=OFF
 CMAKE_ARGS+=		-DENABLE_TCL:BOOL=OFF
-CMAKE_ARGS+=		-DENABLE_MAN:BOOL=ON
+CMAKE_ARGS+=		-DENABLE_MAN:BOOL=OFF # Requires ascii-doctor
 CMAKE_ARGS+=		-DENABLE_V8:BOOL=OFF
 CMAKE_ARGS+=		-DMANDIR:STRING=${PKGMANDIR}
 CMAKE_ARGS+=		-DLOCALEDIR:STRING=${PKGLOCALEDIR}/locale
 CMAKE_ARGS+=		-DENABLE_CHARSET:BOOL=ON
 
 LDFLAGS+=		${BUILDLINK_LDADD.gettext}
+LDFLAGS.Darwin+=	-lresolv
+LDFLAGS.SunOS+=		-lresolv
 
 .include "options.mk"
 
@@ -39,4 +42,5 @@ LDFLAGS+=		${BUILDLINK_LDADD.gettext}
 .include "../../www/curl/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

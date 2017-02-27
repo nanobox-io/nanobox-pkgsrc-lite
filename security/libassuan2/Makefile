@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2015/12/14 14:07:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.13 2016/12/01 14:48:02 wiz Exp $
 
-DISTNAME=	libassuan-2.4.2
+DISTNAME=	libassuan-2.4.3
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/libassuan/
 EXTRACT_SUFX=	.tar.bz2
-CONFLICTS=	libassuan-1.*{,nb*}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://gnupg.org/related_software/libassuan/index.en.html
@@ -15,6 +14,10 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--infodir=${PREFIX}/info
 INFO_FILES=		yes
+TEST_TARGET=		check
 
+CONFLICTS=	libassuan-1.*
+
+BUILDLINK_ABI_DEPENDS.libgpg-error+=	libgpg-error>=1.17
 .include "../../security/libgpg-error/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

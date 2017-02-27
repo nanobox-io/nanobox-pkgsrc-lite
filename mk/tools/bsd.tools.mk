@@ -47,7 +47,7 @@
 # first when searching for executables.
 #
 TOOLS_DIR=	${WRKDIR}/.tools
-PREPEND_PATH+=	${TOOLS_DIR}/bin${BINARCHSUFFIX}
+PREPEND_PATH+=	${TOOLS_DIR}/bin
 
 TOOLS_SHELL?=		${SH}
 _TOOLS_WRAP_LOG=	${WRKLOG}
@@ -97,13 +97,8 @@ ${_COOKIE.tools}: real-tools
 ### targets that do the actual tool creation.
 ###
 _REAL_TOOLS_TARGETS+=	tools-message
-.if defined(_MULTIARCH)
-_REAL_TOOLS_TARGETS+=	tools-vars-multi
-_REAL_TOOLS_TARGETS+=	override-tools-multi
-.else
 _REAL_TOOLS_TARGETS+=	tools-vars
 _REAL_TOOLS_TARGETS+=	override-tools
-.endif
 _REAL_TOOLS_TARGETS+=	post-tools
 _REAL_TOOLS_TARGETS+=	tools-cookie
 _REAL_TOOLS_TARGETS+=	error-check
@@ -137,16 +132,6 @@ tools-cookie:
 .PHONY: override-tools
 override-tools:
 	@${DO_NADA}
-
-.if defined(_MULTIARCH)
-.  for _tgt_ in tools-vars override-tools
-.PHONY: ${_tgt_}-multi
-${_tgt_}-multi:
-.    for _abi_ in ${MULTIARCH_ABIS}
-	@${MAKE} ${MAKE_FLAGS} ABI=${_abi_} WRKSRC=${WRKSRC}-${_abi_} ${_tgt_}
-.    endfor
-.  endfor
-.endif
 
 ######################################################################
 ### post-tools (PUBLIC, override)

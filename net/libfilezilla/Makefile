@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2016/04/29 11:54:06 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2017/01/01 15:42:32 wiz Exp $
 
-DISTNAME=	libfilezilla-0.5.0
+DISTNAME=	libfilezilla-0.9.0
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=filezilla/}
+MASTER_SITES=	http://download.filezilla-project.org/libfilezilla/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -15,5 +15,8 @@ USE_TOOLS+=	pkg-config
 USE_LANGUAGES=	c c++
 
 PKGCONFIG_OVERRIDE+=	lib/libfilezilla.pc.in
+
+# GCC 4.9 is required to support C++14
+GCC_REQD+=	4.9
 
 .include "../../mk/bsd.pkg.mk"

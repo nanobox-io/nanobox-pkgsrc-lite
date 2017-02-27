@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.53 2016/05/10 12:16:06 jperkin Exp $
+# $NetBSD: Makefile,v 1.60 2017/01/19 18:52:08 agc Exp $
 
-DISTNAME=		lyx-2.1.2.2
-PKGREVISION=		4
+DISTNAME=		lyx-2.2.2
+PKGREVISION=		1
 CATEGORIES=		editors
-MASTER_SITES=		ftp://ftp.lyx.org/pub/lyx/stable/2.1.x/ \
-			http://gd.tuwien.ac.at/publishing/tex/lyx/stable/2.1.x/ \
-			ftp://gd.tuwien.ac.at/publishing/tex/lyx/stable/2.1.x/ \
-			ftp://ftp.sdsc.edu/pub/other/lyx/stable/2.1.x/ \
-			ftp://ftp.lip6.fr/pub/lyx/stable/2.1.x/ \
-			ftp://ftp.ntua.gr/pub/X11/LyX/stable/2.1.x/
+MASTER_SITES=		ftp://ftp.lyx.org/pub/lyx/stable/2.2.x/
+MASTER_SITES+=		http://gd.tuwien.ac.at/publishing/tex/lyx/stable/2.2.x/
+MASTER_SITES+=		ftp://gd.tuwien.ac.at/publishing/tex/lyx/stable/2.2.x/
+MASTER_SITES+=		ftp://ftp.sdsc.edu/pub/other/lyx/stable/2.2.x/
+MASTER_SITES+=		ftp://ftp.lip6.fr/pub/lyx/stable/2.2.x/
+MASTER_SITES+=		ftp://ftp.ntua.gr/pub/X11/LyX/stable/2.2.x/
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		reed@reedmedia.net
@@ -65,7 +65,7 @@ GNU_CONFIGURE=		YES
 USE_TOOLS+=		gmake perl:run pkg-config xgettext
 USE_LIBTOOL=		YES
 USE_PKGLOCALEDIR=	YES
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 1.6.10
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 1.6.10
 
 CXXFLAGS.Linux+=	-fpermissive
 LDFLAGS.SunOS+=		-liconv

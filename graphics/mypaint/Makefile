@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.22 2015/12/05 21:25:45 adam Exp $
+# $NetBSD: Makefile,v 1.28 2017/02/12 06:25:30 ryoon Exp $
 
 DISTNAME=	mypaint-1.1.0
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.gna.org/mypaint/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	ryoon@NetBSD.org
-HOMEPAGE=	http://mypaint.intilinux.com/
+HOMEPAGE=	http://mypaint.org/
 COMMENT=	Fast and easy open-source graphics application for digital painters
 LICENSE=	gnu-gpl-v2
 
@@ -19,7 +19,7 @@ USE_LANGUAGES=	c c++
 USE_TOOLS+=	bash:run msgfmt pkg-config
 
 PYTHON_VERSIONED_DEPENDENCIES=	cairo
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-gtk2
 
 USE_PKGLOCALEDIR=	yes
 

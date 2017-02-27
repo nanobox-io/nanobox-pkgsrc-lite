@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.5 2015/04/25 14:20:20 tnn Exp $
+# $NetBSD: Makefile,v 1.9 2017/02/12 06:25:02 ryoon Exp $
 
 DISTNAME=	gmpc-alarm-11.8.16
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	audio
-MASTER_SITES=	http://download.sarine.nl/Programs/gmpc/11.8/ \
-		${MASTER_SITE_SOURCEFORGE:=musicpd/}
+MASTER_SITES=	http://download.sarine.nl/Programs/gmpc/11.8/
+MASTER_SITES+=	${MASTER_SITE_SOURCEFORGE:=musicpd/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://gmpc.wikia.com/wiki/GMPC_PLUGIN_ALARM

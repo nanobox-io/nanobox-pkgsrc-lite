@@ -1,4 +1,4 @@
-# $NetBSD: cmake.mk,v 1.13 2016/02/24 15:24:56 jperkin Exp $
+# $NetBSD: cmake.mk,v 1.14 2016/10/21 11:13:35 kamil Exp $
 #
 # This file handles packages that use CMake as their primary build
 # system. For more information about CMake, see http://www.cmake.org/.
@@ -27,12 +27,17 @@
 #	If set to yes, set GNU standard installation directories with pkgsrc
 #	configured settings.  The default is yes.
 #
+# CMAKE_INSTALL_PREFIX
+#	Destination directory to install software. The default is ${PREFIX}.
+#
 
 _CMAKE_DIR=	${BUILDLINK_DIR}/cmake-Modules
 
 CMAKE_USE_GNU_INSTALL_DIRS?=	yes
 
-CMAKE_ARGS+=	-DCMAKE_INSTALL_PREFIX:PATH=${PREFIX}
+CMAKE_INSTALL_PREFIX?=	${PREFIX}
+
+CMAKE_ARGS+=	-DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
 CMAKE_ARGS+=	-DCMAKE_MODULE_PATH:PATH=${_CMAKE_DIR}
 .if ${OPSYS} != "Darwin"
 CMAKE_ARGS+=	-DCMAKE_SKIP_RPATH:BOOL=TRUE
@@ -41,16 +46,7 @@ CMAKE_ARGS+=	-DCMAKE_SKIP_RPATH:BOOL=FALSE
 CMAKE_ARGS+=	-DCMAKE_INSTALL_NAME_DIR:PATH=${PREFIX}/lib
 .endif
 .if defined(CMAKE_USE_GNU_INSTALL_DIRS) && empty(CMAKE_USE_GNU_INSTALL_DIRS:M[nN][oO])
-.  if defined(_MULTIARCH) && !empty(USE_MULTIARCH:Mbin)
-CMAKE_ARGS+=	-DCMAKE_INSTALL_BINDIR:PATH=bin${BINARCHSUFFIX}
-CMAKE_ARGS+=	-DCMAKE_INSTALL_SBINDIR:PATH=sbin${BINARCHSUFFIX}
-.  endif
-.  if defined(_MULTIARCH) && !empty(USE_MULTIARCH:Mlib) && !defined(NO_MULTIARCH_LIBDIR)
-CMAKE_ARGS+=	-DLIB_SUFFIX=${LIBARCHSUFFIX}
-CMAKE_ARGS+=	-DCMAKE_INSTALL_LIBDIR:PATH=lib${LIBARCHSUFFIX}
-.  else
 CMAKE_ARGS+=	-DCMAKE_INSTALL_LIBDIR:PATH=lib
-.  endif
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR:PATH=${PKGMANDIR}
 .  if defined(INFO_FILES)
 CMAKE_ARGS+=	-DCMAKE_INSTALL_INFODIR:PATH=${PKGINFODIR}

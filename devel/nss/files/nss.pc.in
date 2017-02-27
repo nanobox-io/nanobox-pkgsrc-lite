@@ -1,6 +1,6 @@
 prefix=@PREFIX@
 exec_prefix=@PREFIX@/bin
-libdir=@PREFIX@/lib@LIBARCHSUFFIX@/nss
+libdir=@PREFIX@/lib/nss
 includedir=@PREFIX@/include/nss
 
 Name: NSS

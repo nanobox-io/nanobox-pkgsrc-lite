@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.797 2016/06/12 20:32:59 kamil Exp $
+# $NetBSD: Makefile,v 1.801 2017/01/25 11:39:49 wiz Exp $
 #
 
 COMMENT=	Packages to support the X window system
@@ -269,6 +269,7 @@ SUBDIR+=	kded
 SUBDIR+=	kdelibdocs3
 SUBDIR+=	kdelibs3
 SUBDIR+=	kdelibs4
+SUBDIR+=	kdelibs4support
 SUBDIR+=	kdesignerplugin
 SUBDIR+=	keybinder
 SUBDIR+=	keylaunch
@@ -372,6 +373,7 @@ SUBDIR+=	mate-screensaver
 SUBDIR+=	mate-session-manager
 SUBDIR+=	mate-settings-daemon
 SUBDIR+=	mate-terminal
+SUBDIR+=	mcookie
 SUBDIR+=	mkcomposecache
 SUBDIR+=	mlterm
 SUBDIR+=	modeline
@@ -423,6 +425,7 @@ SUBDIR+=	py-qt5
 SUBDIR+=	py-qwt-qt4
 SUBDIR+=	py-sip
 SUBDIR+=	py-terminator
+SUBDIR+=	py-terminator-plugins
 SUBDIR+=	py-vte
 SUBDIR+=	py-wxWidgets
 SUBDIR+=	py-xcbgen
@@ -638,6 +641,7 @@ SUBDIR+=	xf86-video-suncg14
 SUBDIR+=	xf86-video-suncg3
 SUBDIR+=	xf86-video-suncg6
 SUBDIR+=	xf86-video-sunffb
+SUBDIR+=	xf86-video-sunleo
 SUBDIR+=	xf86-video-suntcx
 SUBDIR+=	xf86-video-tdfx
 SUBDIR+=	xf86-video-tga

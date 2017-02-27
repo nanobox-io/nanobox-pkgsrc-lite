@@ -12,6 +12,5 @@ COMMENT=		Record extension headers from X.org
 
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	recordproto.pc.in
-USE_MULTIARCH=		lib
 
 .include "../../mk/bsd.pkg.mk"

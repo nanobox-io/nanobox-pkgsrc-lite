@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2014/03/31 08:35:18 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2017/02/02 18:42:55 wiz Exp $
 
-DISTNAME=		util-macros-1.19.0
+DISTNAME=		util-macros-1.19.1
 PKGNAME=		xorg-${DISTNAME}
 CATEGORIES=		devel x11
 MASTER_SITES=		${MASTER_SITE_XORG:=util/}
@@ -12,7 +12,6 @@ COMMENT=		Xorg autotool macros
 LICENSE=		mit
 
 GNU_CONFIGURE=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 PKGCONFIG_OVERRIDE+=	xorg-macros.pc.in
 

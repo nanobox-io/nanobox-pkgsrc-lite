@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2015/11/14 17:12:35 asau Exp $
+# $NetBSD: Makefile,v 1.20 2017/02/06 03:50:01 markd Exp $
 
-DISTNAME=	hwloc-1.11.1
+DISTNAME=	hwloc-1.11.4
 CATEGORIES=	parallel
 MASTER_SITES=	http://www.open-mpi.org/software/hwloc/v1.11/downloads/
 
@@ -10,7 +10,7 @@ COMMENT=	Portable Hardware Locality
 LICENSE=	modified-bsd
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		pkg-config
+USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-picky
 

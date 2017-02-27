@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.57 2016/02/25 15:49:43 jperkin Exp $
+# $NetBSD: Makefile,v 1.59 2017/01/31 15:54:39 martin Exp $
 #
 
 DISTNAME=		gstreamer-0.10.36
 PKGNAME=		${DISTNAME:S/gstreamer/gstreamer0.10/}
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		multimedia gnome
 MASTER_SITES=		http://gstreamer.freedesktop.org/src/gstreamer/
 EXTRACT_SUFX=		.tar.bz2
@@ -15,7 +15,6 @@ COMMENT=		Open source multimedia framework
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		bison flex gmake perl pkg-config
 
 # queue2 moved from gst-plugins-base to here
@@ -52,10 +51,11 @@ BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.4.0nb1
 .endif
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gstreamer
-PKG_SUPPORTED_OPTIONS=	gstcheck
+PKG_SUPPORTED_OPTIONS=	gstcheck introspection
+PKG_SUGGESTED_OPTIONS=	introspection
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=	gstcheck
+PLIST_VARS+=	gstcheck introspection
 .if !empty(PKG_OPTIONS:Mgstcheck)
 .include "../../devel/check/buildlink3.mk"
 PLIST.gstcheck=	yes
@@ -65,8 +65,12 @@ TEST_TARGET=	check-torture
 .else
 CONFIGURE_ARGS+= --disable-check
 .endif
-
-.include "../../devel/glib2/buildlink3.mk"
+.if !empty(PKG_OPTIONS:Mintrospection)
+PLIST.introspection=	yes
 .include "../../devel/gobject-introspection/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-introspection
+.endif
+.include "../../devel/glib2/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

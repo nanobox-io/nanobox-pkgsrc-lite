@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2016/06/06 14:45:03 fhajny Exp $
+# $NetBSD: Makefile,v 1.18 2017/02/16 10:43:12 fhajny Exp $
 
-DISTNAME=	python-driver-3.4.1
+DISTNAME=	python-driver-3.7.1
 PKGNAME=	${DISTNAME:S/python/${PYPKGPREFIX}-cassandra/}
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_GITHUB:=datastax/}
@@ -20,6 +20,9 @@ DEPENDS+=	${PYPKGPREFIX}-six>=1.6:../../lang/py-six
 .if ${_PYTHON_VERSION} == 27
 DEPENDS+=	${PYPKGPREFIX}-futures-[0-9]*:../../devel/py-futures
 .endif
+
+# Remove if upstream stops being obsessive about Cython version
+MAKE_ENV+=	CASS_DRIVER_ALLOWED_CYTHON_VERSION=0.*
 
 .include "../../devel/libev/buildlink3.mk"
 .include "../../lang/python/egg.mk"

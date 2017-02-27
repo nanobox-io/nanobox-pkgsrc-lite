@@ -1,4 +1,4 @@
-# $NetBSD: DragonFly.mk,v 1.49 2016/06/29 13:37:19 sevan Exp $
+# $NetBSD: DragonFly.mk,v 1.51 2016/12/04 15:37:41 bsiegert Exp $
 #
 # Variable definitions for the DragonFly operating system.
 
@@ -25,9 +25,9 @@ ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
 ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
 ULIMIT_CMD_cputime?=	ulimit -t `ulimit -H -t`
 
-_OPSYS_EMULDIR.linux=	/compat/linux
+_OPSYS_EMULDIR.linux=	# empty
 
-_OPSYS_SYSTEM_RPATH?=		/lib:/usr/lib:/usr/lib/gcc41:/usr/lib/gcc34:/usr/lib/gcc47:/usr/lib/gcc50
+_OPSYS_SYSTEM_RPATH?=		/lib:/usr/lib:/usr/lib/gcc47:/usr/lib/gcc50
 _OPSYS_LIB_DIRS?=		/lib /usr/lib
 _OPSYS_INCLUDE_DIRS?=		/usr/include
 
@@ -52,6 +52,7 @@ _STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
 DEFAULT_SERIAL_DEVICE?=	/dev/cuaa0
 SERIAL_DEVICES?=	/dev/cuaa0
 
+_OPSYS_SUPPORTS_CWRAPPERS=	yes
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk
 
 # check for kqueue(2) support

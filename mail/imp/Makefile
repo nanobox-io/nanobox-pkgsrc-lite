@@ -1,25 +1,25 @@
-# $NetBSD: Makefile,v 1.61 2016/05/17 10:32:07 fhajny Exp $
+# $NetBSD: Makefile,v 1.64 2017/01/19 18:52:16 agc Exp $
 
 DISTNAME=	imp-h3-${IMPVER}
 PKGNAME=	imp-${IMPVER}
 PKGREVISION=	2
 CATEGORIES=	mail www
-MASTER_SITES=	http://ftp.horde.org/pub/imp/ \
-		ftp://ftp.horde.org/pub/imp/
+MASTER_SITES=	http://ftp.horde.org/pub/imp/
+MASTER_SITES+=	ftp://ftp.horde.org/pub/imp/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.horde.org/imp/
 COMMENT=	Internet Messaging Program
 LICENSE=	gnu-gpl-v2
 
-CONFLICTS+=	imp-3.*{,nb*}
+CONFLICTS+=	imp-3.*
 
 DEPENDS+=	horde>=3.2:../../www/horde
 DEPENDS+=	${PHP_PKG_PREFIX}-imap>4.3.3:../../mail/php-imap
 DEPENDS+=	${PHP_PKG_PREFIX}-pear-Mail-[0-9]*:../../mail/pear-Mail
 DEPENDS+=	${PHP_PKG_PREFIX}-pear-Mail_mimeDecode-[0-9]*:../../mail/pear-Mail_mimeDecode
 
-PHP_VERSIONS_ACCEPTED=	55 56
+PHP_VERSIONS_ACCEPTED=	56
 
 USE_TOOLS+=	pax
 

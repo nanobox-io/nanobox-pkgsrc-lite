@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.121 2016/06/02 16:01:12 jperkin Exp $
+# $NetBSD: Makefile,v 1.122 2016/12/04 05:17:11 ryoon Exp $
 
 DISTNAME=	heimdal-1.5.3
-PKGREVISION=	12
+PKGREVISION=	13
 CATEGORIES=	security
 MASTER_SITES=	http://www.h5l.org/dist/src/
 
@@ -18,9 +18,7 @@ CONFLICTS+=	kth-krb4-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-USE_LANGUAGES=		c99
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_TOOLS+=		bison flex:run
 PKGCONFIG_OVERRIDE+=	tools/heimdal-gssapi.pc.in
 MAKE_ENV+=		INSTALL_CATPAGES=no
@@ -89,21 +87,10 @@ PLIST.afskauth=		yes
 .endif
 
 OWN_DIRS_PERMS=		${HEIMDAL_HDB_DIR} ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0700
-SPECIAL_PERMS+=		${PREFIX}/bin${BINARCHSUFFIX}/otp ${SETUID_ROOT_PERMS}
-SPECIAL_PERMS=		${PREFIX}/bin${BINARCHSUFFIX}/${KRB5_PREFIX}su ${SETUID_ROOT_PERMS}
+SPECIAL_PERMS+=		${PREFIX}/bin/otp ${SETUID_ROOT_PERMS}
+SPECIAL_PERMS=		${PREFIX}/bin/${KRB5_PREFIX}su ${SETUID_ROOT_PERMS}
 RCD_SCRIPTS=		kadmind kcm kdc kpasswdd
 INFO_FILES=		yes
-
-# Dynamically determine the "replacement" headers for bits needed by
-# Heimdal but are missing in the base system and add them to the PLIST.
-.if !empty(MULTIARCH:M[Yy][Ee][Ss])
-ROKENDIR=	${WRKSRC}-${MULTIARCH_ABIS:C/ .*//W}/lib/roken
-.else
-ROKENDIR=	${WRKSRC}/lib/roken
-.endif
-GENERATE_PLIST+=	\
-	( cd ${ROKENDIR} && ${BUILD_MAKE_CMD} print-xheaders |	\
-	  ${XARGS} -n 1 | ${SED} -e "s,^,include/krb5/roken/," );
 
 TEST_TARGET=		check
 

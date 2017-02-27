@@ -30,9 +30,19 @@
 # OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+function mark_restricted(PKG, dep, depend_list) {
+	if (PKG in restricted)
+		return
+
+	restricted[PKG] = 1
+
+	split(reverse_depends[PKG], depend_list, "[ \t]+")
+	for (dep in depend_list)
+		mark_restricted(depend_list[dep])
+}
+
 BEGIN {
 	meta_dir = ARGV[1]
-	pkg_sufx = ARGV[2]
 	success_file = meta_dir "/success"
 	presolve_file = meta_dir "/presolve"
 
@@ -49,7 +59,7 @@ BEGIN {
 			status[cur] = substr($0, 14)
 
 		if ($0 ~ "^NO_BIN_ON_FTP=.")
-			restricted[cur] = 1
+			initial_restricted[cur] = 1
 
 		if ($0 ~ "^DEPENDS=")
 			depends[cur] = substr($0, 9)
@@ -64,6 +74,9 @@ BEGIN {
 		}
 	}
 
+	for (pkg in initial_restricted)
+		mark_restricted(pkg)
+
 	while ((getline pkg < success_file) > 0) {
 		# skip restricted packages
 		if (pkg in restricted)
@@ -77,7 +90,7 @@ BEGIN {
 				print "+ " cat "/"
 				printed_cats[cat] = cat
 			}
-			print "+ " cat "/" pkg pkg_sufx
+			print "+ " cat "/" pkg ".tgz"
 		}
 	}
 	close(success_file)

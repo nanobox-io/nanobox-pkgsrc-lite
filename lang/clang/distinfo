@@ -1,17 +1,7 @@
-$NetBSD: distinfo,v 1.41 2016/03/10 15:01:52 tnn Exp $
+$NetBSD: distinfo,v 1.46 2017/01/05 11:54:32 adam Exp $
 
-SHA1 (cfe-3.8.0.src.tar.xz) = 2230ef962f2df3c13ec93f5b04b0e3cdff94b2ce
-RMD160 (cfe-3.8.0.src.tar.xz) = 7c6763d277aaca7b0e35f0887c1eb5ad4cdb05af
-SHA512 (cfe-3.8.0.src.tar.xz) = fef431d63f95a394d53e3857fb6a6bde7a7b27f40ef5111b4353bcb63ac26febec8a9eb84780187c49699ab099834f13f996f085d02c365676b3fa5bbcc03dcd
-Size (cfe-3.8.0.src.tar.xz) = 9627228 bytes
-SHA1 (patch-ac) = a7d1723d8ace127bc522b3fc8f52a1ab7469943f
-SHA1 (patch-tools_clang-format_CMakeLists.txt) = a1052c71728467625a40234719580cb34688a568
-SHA1 (patch-tools_clang_include_clang-c_Makefile) = d748eceb2c44a03795a9d5f3622580d5cecb219c
-SHA1 (patch-tools_clang_lib_Basic_Targets.cpp) = f4bbd7212a1ec410a6404b63ba70472750cd9590
-SHA1 (patch-tools_clang_lib_Driver_ToolChains.cpp) = aa4f9c1991383b256ed16279d185f62244dc83ce
-SHA1 (patch-tools_clang_lib_Driver_ToolChains.h) = c039c61b3fb43cc98c4cca659d88a53cd2cd52a0
-SHA1 (patch-tools_clang_lib_Driver_Tools.cpp) = c03395140c01bb4e7b375ce674496e6981a464fd
-SHA1 (patch-tools_clang_lib_Frontend_CompilerInvocation.cpp) = b32c1861e575eddc5b23a2c55bf95bb40febbe1d
-SHA1 (patch-tools_clang_lib_Frontend_FrontendOptions.h) = 2bd812070e3ff338bbe0e4bd10e055a1686d14c5
-SHA1 (patch-tools_clang_lib_Frontend_InitHeaderSearch.cpp) = 32a1e31da80fe4fc667469ef9172b059b684ad7d
-SHA1 (patch-tools_clang_lib_Frontend_InitPreprocessor.cpp) = 817d06ab15e4dab4ebffb473917b2c0aec4ef551
+SHA1 (cfe-3.9.1.src.tar.xz) = 95e4be54b70f32cf98a8de36821ea5495b84add8
+RMD160 (cfe-3.9.1.src.tar.xz) = 51930c2d55eacd44df28b49a84565771c94f418e
+SHA512 (cfe-3.9.1.src.tar.xz) = 3f0eea194597e438bbe49ce9ef5fdced81459c21cbdd2653750b2fe02c55a0154d6a33a8cfd02e607b83314a8e35b2c300f944462120ab6de1d4139d85db56b8
+Size (cfe-3.9.1.src.tar.xz) = 10363080 bytes
+SHA1 (patch-tools_clang-format_CMakeLists.txt) = 4efc9c9f69caf7df1dd0db384eae644c606c5ca9

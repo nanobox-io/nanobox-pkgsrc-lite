@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.14 2016/02/01 13:32:10 wiz Exp $
-#
-# any of ~* is fine, they are the same and just there for Ubuntu
-# so moneyguru's built for all releases
-DISTNAME=	moneyguru-2.9.4
+# $NetBSD: Makefile,v 1.20 2016/12/25 12:47:44 wiz Exp $
+
+DISTNAME=	moneyguru-src-2.10.2
+PKGNAME=	${DISTNAME:S/-src//}
+PKGREVISION=	1
 CATEGORIES=	finance
-MASTER_SITES=	${MASTER_SITE_GITHUB:=hsoft/}
+MASTER_SITES=	https://download.hardcoded.net/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.hardcoded.net/moneyguru/
@@ -12,21 +12,19 @@ COMMENT=	Personal finance management application
 LICENSE=	modified-bsd
 
 DEPENDS+=	${PYPKGPREFIX}-polib-[0-9]*:../../devel/py-polib
-DEPENDS+=	${PYPKGPREFIX}-qt4-[0-9]*:../../x11/py-qt4
+DEPENDS+=	${PYPKGPREFIX}-qt5-[0-9]*:../../x11/py-qt5
 DEPENDS+=	${PYPKGPREFIX}-sphinx>=1.3.4nb1:../../textproc/py-sphinx
 DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 DEPENDS+=	${PYPKGPREFIX}-cElementTree-[0-9]*:../../textproc/py-cElementTree
 
-GITHUB_TAG=	${PKGVERSION_NOREV}
 EXTRACT_USING=	bsdtar
 
-WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
+WRKSRC=		${WRKDIR}
 USE_LANGUAGES=	c
 USE_TOOLS=	pax
 
-PYTHON_VERSIONS_INCOMPATIBLE=	27 # 3.x only
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 PY_PATCHPLIST=		yes
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 REPLACE_PYTHON+=	cocoa/waf
 REPLACE_PYTHON+=	cocoa/wscript
 REPLACE_PYTHON+=	psmtabbarcontrol/waf
@@ -46,9 +44,6 @@ BASE_ARCH=	${MACHINE_ARCH}
 .endif
 
 PLIST_SUBST+=	BASE_ARCH=${BASE_ARCH:Q}
-
-do-configure:
-	cd ${WRKSRC} && ${PYTHONBIN} configure.py
 
 do-build:
 	cd ${WRKSRC} && ${PYTHONBIN} build.py

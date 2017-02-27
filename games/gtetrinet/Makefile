@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.80 2016/03/05 11:28:31 jperkin Exp $
+# $NetBSD: Makefile,v 1.83 2017/02/12 06:25:21 ryoon Exp $
 #
 
 DISTNAME=	gtetrinet-0.7.11
-PKGREVISION=	38
+PKGREVISION=	41
 CATEGORIES=	games gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtetrinet/0.7/}
 

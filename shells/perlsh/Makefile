@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.28 2015/07/12 18:56:29 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2017/01/08 10:55:51 mef Exp $
 
-DISTNAME=	psh-1.8
-PKGNAME=	perlsh-1.8
-PKGREVISION=	12
+DISTNAME=	psh-1.8.1
+PKGNAME=	perlsh-1.8.1
 CATEGORIES=	shells perl5
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/G/GR/GREGOR/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/psh/
 COMMENT=	The Perl Shell
+LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Term-ReadKey>=2.21:../../devel/p5-Term-ReadKey
 #DEPENDS+=	{perl>=5.17.10,p5-Term-ReadLine>=1.12}:../../devel/p5-Term-ReadLine

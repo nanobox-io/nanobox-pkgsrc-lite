@@ -1,6 +1,7 @@
-# $NetBSD: Makefile.common,v 1.8 2016/06/02 09:57:32 fhajny Exp $
+# $NetBSD: Makefile.common,v 1.13 2017/01/01 14:43:45 wiz Exp $
 # used by lang/nodejs/Makefile
 # used by lang/nodejs4/Makefile
+# used by lang/nodejs6/Makefile
 
 CATEGORIES=	devel
 MASTER_SITES=	http://nodejs.org/dist/${DISTNAME:S/node-//}/
@@ -15,7 +16,7 @@ HAS_CONFIGURE=	yes
 USE_TOOLS+=	bash gmake pkg-config
 USE_LANGUAGES=	c c++
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 0.10.24
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 0.10.24
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
@@ -47,6 +48,14 @@ BUILD_DEPENDS+=	lockf-[0-9]*:../../sysutils/lockf
 
 TEST_TARGET=		check
 
+.if defined(TOOLS_PLATFORM.paxctl)
+SUBST_CLASSES+=			mksnapshot
+SUBST_STAGE.mksnapshot=		post-configure
+SUBST_FILES.mksnapshot=		out/deps/v8/tools/gyp/mksnapshot.target.mk
+SUBST_FILES.mksnapshot+=	out/deps/v8/src/mksnapshot.target.mk
+SUBST_SED.mksnapshot+=		-e 's|call do_cmd,link)|call do_cmd,link)\${.newline}	${TOOLS_PLATFORM.paxctl} +m $$@|'
+.endif
+
 pre-install:
 	${FIND} ${WRKSRC}/deps/npm -name '*.orig' | ${XARGS} ${RM} -f
 	${CHMOD} -R g-w ${WRKSRC}
@@ -54,6 +63,9 @@ pre-install:
 post-install:
 	cd ${DESTDIR}${PREFIX} && ${SETENV} ${BASH} \
 		./lib/node_modules/npm/scripts/relocate.sh ${PREFIX}/bin/node
+.if defined(TOOLS_PLATFORM.paxctl)
+	${TOOLS_PLATFORM.paxctl} +m ${DESTDIR}${PREFIX}/bin/node
+.endif
 
 .if ${OPSYS} != "Darwin"
 .include "../../devel/libexecinfo/buildlink3.mk"

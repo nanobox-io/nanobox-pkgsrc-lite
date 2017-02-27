@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.6 2014/01/19 19:56:32 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2017/02/12 04:01:39 wen Exp $
 
-DISTNAME=	beautifulsoup4-4.3.2
+DISTNAME=	beautifulsoup4-4.5.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
-MASTER_SITES=	http://www.crummy.com/software/BeautifulSoup/bs4/download/4.3/
+MASTER_SITES=	http://www.crummy.com/software/BeautifulSoup/bs4/download/4.5/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.crummy.com/software/BeautifulSoup/
 COMMENT=	HTML/XML Parser for Python, version 4
-LICENSE=	modified-bsd
+LICENSE=	mit
 
 DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 

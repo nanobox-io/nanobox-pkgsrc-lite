@@ -12,7 +12,6 @@ LICENSE=	modified-bsd
 
 USE_TOOLS+=	pkg-config
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	lib
 GNU_CONFIGURE=	yes
 
 GCC_REQD+=	2.95.3

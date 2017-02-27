@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.34 2016/03/05 11:28:58 jperkin Exp $
+# $NetBSD: Makefile,v 1.38 2017/01/01 16:06:29 adam Exp $
 
 DISTNAME=	superkaramba-15.08.3
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	misc
 COMMENT=	KDE desktop widgets
 MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.08.3/src/}
 
-PYTHON_VERSIONS_INCOMPATIBLE=  33 34 35 # not yet ported as of 4.11.3
+PYTHON_VERSIONS_INCOMPATIBLE=  34 35 36 # not yet ported as of 4.11.3
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

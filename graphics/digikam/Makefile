@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.124 2016/04/28 07:14:32 markd Exp $
+# $NetBSD: Makefile,v 1.128 2017/01/01 16:06:18 adam Exp $
 
 DISTNAME=	digikam-4.13.0
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_KDE:=digikam/}
 EXTRACT_SUFX=	.tar.bz2
@@ -28,6 +28,9 @@ CXXFLAGS.NetBSD+=	-D_KERNTYPES
 
 post-patch:
 	rm ${WRKSRC}/po/*/kipiplug* ${WRKSRC}/po/*/libkipi*
+
+# jasper uses SIZE_MAX and friends in its headers.
+CXXFLAGS+=	-D__STDC_LIMIT_MACROS
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 .include "../../databases/mysql55-server/buildlink3.mk"

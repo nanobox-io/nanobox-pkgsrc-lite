@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2016/03/05 11:28:29 jperkin Exp $
+# $NetBSD: Makefile,v 1.11 2017/01/01 16:06:11 adam Exp $
 
 DISTNAME=	1003a82
 PKGNAME=	cloudfuse-20120124
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	filesystems
 MASTER_SITES=	https://github.com/redbo/cloudfuse/tarball/
 DIST_SUBDIR=	cloudfuse

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.56 2016/03/05 11:27:52 jperkin Exp $
+# $NetBSD: Makefile,v 1.59 2016/10/27 10:05:38 joerg Exp $
 #
 
-DISTNAME=	libfetch-2.36
-PKGREVISION=	3
+DISTNAME=	libfetch-2.38
 CATEGORIES=	net
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -13,18 +12,15 @@ COMMENT=	Library to access HTTP/FTP server
 LICENSE=	modified-bsd
 
 USE_FEATURES=		nbcompat
-USE_MULTIARCH=		lib
 
 USE_BSD_MAKEFILE=	yes
-
-MAKE_JOBS_SAFE=		NO
 
 .include "../../mk/bsd.prefs.mk"
 .if !empty(FETCH_USING:Mfetch)
 CHECK_PERMS=		no
 .endif
 
-INSTALLATION_DIRS=	include lib${LIBARCHSUFFIX} ${PKGMANDIR}/cat3 ${PKGMANDIR}/man3
+INSTALLATION_DIRS=	include lib ${PKGMANDIR}/cat3 ${PKGMANDIR}/man3
 
 BUILD_TARGET=	depend all
 INSTALL_TARGET=	install includes

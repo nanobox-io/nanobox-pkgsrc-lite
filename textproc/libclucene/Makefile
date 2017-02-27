@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2015/04/17 15:52:58 adam Exp $
+# $NetBSD: Makefile,v 1.16 2017/01/01 16:06:00 adam Exp $
 
 DISTNAME=		clucene-core-2.3.3.4
 PKGNAME=		lib${DISTNAME:S/-core-/-/}
-PKGREVISION=		5
+PKGREVISION=		7
 CATEGORIES=		textproc
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=clucene/}
 
@@ -18,7 +18,6 @@ USE_CMAKE=		yes
 CMAKE_ARGS+=		-DBUILD_CONTRIBS_LIB=ON
 #BUILD_TARGET+=	clucene-contribs-lib
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

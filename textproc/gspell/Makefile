@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2016/06/19 16:01:57 prlw1 Exp $
+# $NetBSD: Makefile,v 1.6 2017/02/12 06:24:50 ryoon Exp $
 
-DISTNAME=	gspell-1.0.2
+DISTNAME=	gspell-1.2.2
+PKGREVISION=	2
 CATEGORIES=	textproc gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gspell/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -18,6 +19,8 @@ USE_PKGLOCALEDIR=	yes
 PKGCONFIG_OVERRIDE+=	gspell.pc.in
 
 .include "../../devel/glib2/buildlink3.mk"
+.include "../../devel/gobject-introspection/buildlink3.mk"
+.include "../../lang/vala/buildlink3.mk"
 .include "../../textproc/enchant/buildlink3.mk"
 .include "../../textproc/iso-codes/buildlink3.mk"
 .include "../../x11/gtk3/buildlink3.mk"

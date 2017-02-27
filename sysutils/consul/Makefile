@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2016/06/07 18:00:20 joerg Exp $
+# $NetBSD: Makefile,v 1.11 2017/02/17 15:22:03 fhajny Exp $
 
-DISTNAME=	consul-0.6.4
+DISTNAME=	consul-0.7.5
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=hashicorp/}
 
@@ -19,7 +19,7 @@ WRKSRC=		${WRKDIR}/src/github.com/hashicorp/consul
 
 BUILD_DEPENDS+=		go-${GO_VERSION}*:../../lang/go
 
-USE_LANGUAGES=		c
+USE_LANGUAGES=		c c99
 USE_TOOLS+=		bash gmake
 
 MAKE_ENV+=		GOPATH=${WRKDIR}:${PREFIX}/gopkg

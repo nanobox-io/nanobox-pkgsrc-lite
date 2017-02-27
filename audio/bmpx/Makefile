@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.78 2016/05/03 11:40:00 prlw1 Exp $
+# $NetBSD: Makefile,v 1.85 2017/02/12 06:25:01 ryoon Exp $
 
 DISTNAME=	bmpx-0.40.14
-PKGREVISION=	52
+PKGREVISION=	58
 CATEGORIES=	audio
 MASTER_SITES=	http://files.backtrace.info/releases/0.40/
 EXTRACT_SUFX=	.tar.bz2
@@ -22,10 +22,8 @@ CHECK_WRKREF_SKIP=	bin/beep-media-player-2
 CHECK_WRKREF_SKIP+=	bin/bmp2
 CHECK_WRKREF_SKIP+=	libexec/beep-media-player-2-bin
 
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
+GCC_REQD+=	4.8
 CXXFLAGS+=	-std=c++11
-.endif
 
 .include "../../mk/bsd.fast.prefs.mk"
 .if ${OPSYS} == "Linux"

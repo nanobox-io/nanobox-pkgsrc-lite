@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.4 2016/06/19 06:24:09 ryoon Exp $
+# $NetBSD: Makefile,v 1.21 2017/02/12 06:26:08 ryoon Exp $
 
 MOZILLA_PKG_NAME=	firefox45
 FIREFOX_VER=	${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=	45.2
+MOZ_BRANCH=	45.7
 MOZ_BRANCH_MINOR=	.0esr
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	${MOZILLA_PKG_NAME}-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
@@ -27,6 +28,8 @@ CONFIGURE_ARGS+=	--enable-application=browser
 # workround for link of libxul.so etc.
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/${MOZILLA_PKG_NAME}
 LDFLAGS.SunOS+=		-lm
+
+NOT_PAX_MPROTECT_SAFE+=	lib/firefox45/firefox
 
 ALL_ENV+=		MOZILLA_PKG_NAME=${MOZILLA_PKG_NAME}
 
@@ -62,6 +65,7 @@ SUBST_VARS.sys-dic=	PREFIX
 
 post-extract:
 	mv ${WRKSRC}/gfx/ycbcr/yuv_row_arm.s ${WRKSRC}/gfx/ycbcr/yuv_row_arm.S
+	${CP} files/cubeb_oss.c ${WRKSRC}/media/libcubeb/src/cubeb_oss.c
 
 pre-configure:
 	cd ${WRKSRC} && mkdir ${OBJDIR}

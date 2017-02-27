@@ -32,7 +32,6 @@ FILESDIR=		${.CURDIR}/../../devel/subversion/files
 PATCHDIR=		${.CURDIR}/../../devel/subversion/patches
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 

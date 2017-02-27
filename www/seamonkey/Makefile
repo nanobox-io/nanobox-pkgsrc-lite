@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.144 2016/06/11 12:34:27 wiz Exp $
+# $NetBSD: Makefile,v 1.157 2017/02/12 06:26:09 ryoon Exp $
 
 DISTNAME=	seamonkey-${SM_VER}.source
 PKGNAME=	seamonkey-${SM_VER:S/b/beta/}
-PKGREVISION=	2
-SM_VER=		2.40
+PKGREVISION=	5
+SM_VER=		2.46
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_MOZILLA:=seamonkey/releases/${SM_VER}/source/}
 EXTRACT_SUFX=	.tar.xz
@@ -21,8 +21,9 @@ USE_TOOLS+=	unzip pax
 NOT_PAX_MPROTECT_SAFE+=	lib/seamonkey/seamonkey
 NOT_PAX_MPROTECT_SAFE+=	lib/seamonkey/seamonkey-bin
 
-.include "../../www/firefox45/mozilla-common.mk"
+.include "../../mk/bsd.prefs.mk"
 .include "options.mk"
+.include "../../www/firefox/mozilla-common.mk"
 
 # Workaround to fix pixman.h detection
 CFLAGS+=	-I${BUILDLINK_PREFIX.pixman}/include/pixman-1
@@ -55,6 +56,11 @@ SUBST_STAGE.sys-dic=	pre-configure
 SUBST_MESSAGE.sys-dic=	Reference to system hunspell dictionaries.
 SUBST_FILES.sys-dic=	mozilla/extensions/spellcheck/hunspell/src/mozHunspell.cpp
 SUBST_VARS.sys-dic=	PREFIX
+
+CHECK_WRKREF_SKIP=	lib/seamonkey/chrome/toolkit/content/global/buildconfig.html
+
+post-extract:
+	mv ${WRKSRC}/mozilla/gfx/ycbcr/yuv_row_arm.s ${WRKSRC}/mozilla/gfx/ycbcr/yuv_row_arm.S
 
 pre-configure:
 	cd ${WRKSRC} && mkdir ${OBJDIR}

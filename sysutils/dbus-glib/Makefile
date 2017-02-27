@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.38 2016/01/18 22:53:03 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2016/09/12 07:34:19 wiz Exp $
 
-DISTNAME=	dbus-glib-0.106
+DISTNAME=	dbus-glib-0.108
 CATEGORIES=	sysutils
 MASTER_SITES=	http://dbus.freedesktop.org/releases/dbus-glib/
 
@@ -14,7 +14,6 @@ MAKE_JOBS_SAFE=		NO
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gmake msgfmt pkg-config
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		lib
 
 PKGCONFIG_OVERRIDE=	dbus-glib-1.pc.in
 

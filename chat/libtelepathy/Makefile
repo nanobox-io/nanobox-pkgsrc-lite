@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2015/12/05 21:25:30 adam Exp $
+# $NetBSD: Makefile,v 1.20 2017/01/01 14:43:25 wiz Exp $
 
 DISTNAME=	libtelepathy-0.3.3
 PKGREVISION=	9
@@ -18,7 +18,7 @@ USE_TOOLS+=	gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	libtelepathy.pc.in
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 0.3.3
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 0.3.3
 
 .include "../../lang/python/pyversion.mk"
 CONFIGURE_ENV+=		ac_cv_prog_PYTHON=${PYTHONBIN}

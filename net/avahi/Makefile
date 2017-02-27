@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.64 2016/04/11 19:01:59 ryoon Exp $
+# $NetBSD: Makefile,v 1.68 2017/02/12 06:24:47 ryoon Exp $
 
 DISTNAME=		avahi-0.6.32
-PKGREVISION=		1
+PKGREVISION=		5
 CATEGORIES=		net
 MASTER_SITES=		https://github.com/lathiat/avahi/releases/download/v${PKGVERSION_NOREV}/
 
@@ -14,7 +14,6 @@ EXTRACT_USING=		bsdtar
 
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES
-USE_MULTIARCH=		lib
 USE_PKGINSTALL=		YES
 USE_PKGLOCALEDIR=	YES
 USE_TOOLS+=		pkg-config gmake intltool msgfmt xgettext

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.90 2016/04/11 19:01:55 ryoon Exp $
+# $NetBSD: Makefile,v 1.94 2016/12/04 05:17:31 ryoon Exp $
 
 DISTNAME=	tcl${TCL_VERSION}-src
 PKGNAME=	tcl-${TCL_VERSION}
@@ -16,8 +16,6 @@ LICENSE=	2-clause-bsd
 WRKSRC=			${WRKDIR}/tcl${TCL_VERSION}
 
 USE_GCC_RUNTIME=	yes
-USE_MULTIARCH=		lib
-MULTIARCH_DIRS.lib=	# manually set in PLIST
 
 GNU_CONFIGURE=		yes
 CONFIGURE_DIRS=		unix
@@ -43,32 +41,34 @@ CONFIGURE_ARGS.NetBSD+=	ac_cv_func_gethostbyname_r=no
 SUBST_CLASSES+=		tcl-config
 SUBST_STAGE.tcl-config=	post-build
 SUBST_FILES.tcl-config=	unix/tclConfig.sh
-SUBST_SED.tcl-config+=	-e "s|${WRKSRC}/unix|${PREFIX}/lib${LIBARCHSUFFIX}|"
+SUBST_SED.tcl-config+=	-e "s|${WRKSRC}/unix|${PREFIX}/lib|"
 SUBST_SED.tcl-config+=	-e "s|${WRKSRC}|${PREFIX}/include/tcl|"
 
 PLIST_SUBST+=		SONUM=${TCL_SONUM}
 PLIST_SUBST+=		BASEVER=${TCL_BASEVER}
+PLIST_SUBST+=		ITCL_VERSION=${ITCL_VERSION}
+PLIST_SUBST+=		TDBC_VERSION=${TDBC_VERSION}
 
 CONFIGURE_ARGS+=	--with-system-sqlite
 SUBST_CLASSES+=		sqllink
 SUBST_STAGE.sqllink=	pre-configure
-SUBST_FILES.sqllink=	pkgs/sqlite3.11.0/configure
+SUBST_FILES.sqllink=	pkgs/sqlite3.13.0/configure
 SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib -lsqlite3|g"
 
 .if ${OPSYS} == "Darwin"
 post-build:
-.  for lib in itcl4.0.4/libitcl4.0.4.dylib \
-	      sqlite3.11.0/libsqlite3.11.0.dylib \
-	      tdbc1.0.4/libtdbc1.0.4.dylib \
-	      tdbcmysql1.0.4/libtdbcmysql1.0.4.dylib \
-	      tdbcodbc1.0.4/libtdbcodbc1.0.4.dylib \
-	      tdbcpostgres1.0.4/libtdbcpostgres1.0.4.dylib \
-	      thread2.7.3/libthread2.7.3.dylib
+.  for lib in itcl${ITCL_VERSION}/libitcl${ITCL_VERSION}.dylib \
+	      sqlite3.13.0/libsqlite3.13.0.dylib \
+	      tdbc${TDBC_VERSION}/libtdbc${TDBC_VERSION}.dylib \
+	      tdbcmysql${TDBC_VERSION}/libtdbcmysql${TDBC_VERSION}.dylib \
+	      tdbcodbc${TDBC_VERSION}/libtdbcodbc${TDBC_VERSION}.dylib \
+	      tdbcpostgres${TDBC_VERSION}/libtdbcpostgres${TDBC_VERSION}.dylib \
+	      thread2.8.0/libthread2.8.0.dylib
 	install_name_tool -id ${PREFIX}/lib/${lib} ${WRKSRC}/unix/pkgs/${lib}
 .  endfor
 .endif
 
-BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.11.0
+BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.13.0
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

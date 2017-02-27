@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2016/05/27 08:26:58 prlw1 Exp $
+# $NetBSD: Makefile,v 1.32 2017/02/12 06:24:54 ryoon Exp $
 
-DISTNAME=	gtksourceview-3.20.3
+DISTNAME=	gtksourceview-3.22.0
 PKGNAME=	${DISTNAME:S/gtksourceview/gtksourceview3/}
+PKGREVISION=	2
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtksourceview/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -13,7 +14,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake gsed intltool msgfmt pkg-config
 USE_PKGLOCALEDIR=	yes
 #CONFIGURE_ARGS+=	--disable-deprecations

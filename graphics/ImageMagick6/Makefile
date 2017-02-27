@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2016/05/25 12:41:17 ryoon Exp $
+# $NetBSD: Makefile,v 1.4 2017/02/12 21:41:52 adam Exp $
 
 .include "Makefile.common"
 
@@ -29,6 +29,22 @@ PKGCONFIG_OVERRIDE+=	magick/ImageMagick.pc.in
 PKGCONFIG_OVERRIDE+=	magick/MagickCore.pc.in
 PKGCONFIG_OVERRIDE+=	wand/MagickWand.pc.in
 PKGCONFIG_OVERRIDE+=	wand/Wand.pc.in
+
+SUBST_CLASSES+=		pkgcfg
+SUBST_FILES.pkgcfg=	${PKGCONFIG_OVERRIDE} Magick++/bin/Magick++-config.in
+SUBST_FILES.pkgcfg+=	magick/Magick-config.in magick/MagickCore-config.in
+SUBST_FILES.pkgcfg+=	wand/MagickWand-config.in wand/Wand-config.in
+SUBST_MESSAGE.pkgcfg=	Fixing pkg-config requirements.
+SUBST_SED.pkgcfg=	-e 's|MagickCore-config |MagickCore-config6 |g'
+SUBST_SED.pkgcfg+=	-e 's|Wand-config|Wand-config6|g'
+SUBST_SED.pkgcfg+=	-e 's|s MagickWand|s MagickWand-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|s: MagickWand|s: MagickWand-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|s MagickCore|s MagickCore-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|s: MagickCore|s: MagickCore-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|Magick++-config|Magick++-config6|g'
+SUBST_SED.pkgcfg+=	-e 's|Magick-config |Magick-config6 |g'
+SUBST_SED.pkgcfg+=	-e 's|s Magick++|s Magick++-6.Q16|g'
+SUBST_STAGE.pkgcfg=	pre-configure
 
 GCC_REQD+=		2.95.3
 

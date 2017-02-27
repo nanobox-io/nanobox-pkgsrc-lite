@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9 2015/12/13 16:16:59 taca Exp $
+@comment $NetBSD: PLIST,v 1.11 2016/11/01 17:06:59 taca Exp $
 bin/unicorn${RUBY_SUFFIX}
 bin/unicorn_rails${RUBY_SUFFIX}
 ${GEM_HOME}/cache/${GEM_NAME}.gem

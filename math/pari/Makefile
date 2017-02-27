@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.68 2016/05/07 10:03:25 joerg Exp $
+# $NetBSD: Makefile,v 1.72 2017/01/07 13:37:41 leot Exp $
 
-DISTNAME=	pari-2.7.5
-PKGREVISION=	1
+DISTNAME=	pari-2.7.6
+PKGREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	http://pari.math.u-bordeaux.fr/pub/pari/unix/
 
@@ -13,21 +13,16 @@ LICENSE=	gnu-gpl-v2
 MAKE_JOBS_SAFE=	no
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		gmake perl:run
 USE_LANGUAGES+=		c c++
 HAS_CONFIGURE=		yes
-CONFIGURE_ENV+=		LIBARCHSUFFIX=${LIBARCHSUFFIX}
 CONFIGURE_ENV+=		LOCALBASE=${LOCALBASE}
 CONFIGURE_ENV+=		PERL5=${PERL5:Q}
 
 CONFIGURE_SCRIPT=	${WRKSRC}/Configure
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib${LIBARCHSUFFIX}
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}/man1
 CONFIGURE_ARGS+=	--share-prefix=${PREFIX}/share
-
-MULTIARCH_DIRS.lib=	# manually specified in PLIST
 
 REPLACE_PERL+=		src/desc/PARI/822.pm
 REPLACE_PERL+=		doc/gphelp
@@ -53,7 +48,6 @@ pre-install: replace-interpreter
 
 .include "options.mk"
 
-.include "../../devel/ncurses/buildlink3.mk"
 # rl_save_prompt()
 .include "../../devel/readline/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

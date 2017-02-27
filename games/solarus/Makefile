@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.19 2015/07/07 11:41:19 joerg Exp $
+# $NetBSD: Makefile,v 1.24 2017/02/12 06:25:22 ryoon Exp $
 
-VERSION=	1.4.2
+VERSION=	1.5.1
 DISTNAME=	solarus-${VERSION}-src
 PKGNAME=	${DISTNAME:S/-src//1}
+PKGREVISION=	3
 CATEGORIES=	games
 MASTER_SITES=	http://www.solarus-games.org/downloads/solarus/
 
@@ -20,9 +21,8 @@ USE_LANGUAGES=	c c++
 GCC_REQD+=	4.8
 LDFLAGS.SunOS+=	-lsocket -lnsl
 
-pre-install:
-	rm ${WRKSRC}/include/solarus/EntityData.h.orig
-
+.include "../../x11/qt5-qttools/buildlink3.mk"
+.include "../../x11/qt5-qtbase/buildlink3.mk"
 .include "../../devel/physfs/buildlink3.mk"
 .include "../../lang/LuaJIT2/buildlink3.mk"
 LUA_VERSIONS_ACCEPTED=		51
@@ -31,7 +31,7 @@ BUILDLINK_API_DEPENDS.lua51+=	lua51>=5.1.5
 .include "../../audio/libmodplug/buildlink3.mk"
 .include "../../multimedia/libogg/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
-.include "../../audio/openal/buildlink3.mk"
+.include "../../audio/openal-soft/buildlink3.mk"
 BUILDLINK_API_DEPENDS.SDL2_ttf+=	SDL2_ttf>=2.0.12
 .include "../../fonts/SDL2_ttf/buildlink3.mk"
 BUILDLINK_API_DEPENDS.SDL2_image+=	SDL2_image>=2.0.0

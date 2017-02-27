@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.245 2016/06/10 23:15:36 alnsn Exp $
+# $NetBSD: Makefile,v 1.251 2017/01/19 03:50:53 maya Exp $
 
-DISTNAME=		openssh-7.2p2
-PKGNAME=		${DISTNAME:S/p2/.2/}
-PKGREVISION=		2
+DISTNAME=		openssh-7.4p1
+PKGNAME=		${DISTNAME:S/p1/.1/}
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
 
@@ -15,7 +14,7 @@ CONFLICTS+=		ssh-[0-9]* ssh6-[0-9]*
 CONFLICTS+=		ssh2-[0-9]* ssh2-nox11-[0-9]*
 CONFLICTS+=		openssh+gssapi-[0-9]*
 CONFLICTS+=		lsh>2.0
-BROKEN_FOR_PLATFORM+=	OpenBSD-*-*
+BROKEN_ON_PLATFORM+=	OpenBSD-*-*
 
 USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		autoconf perl
@@ -25,8 +24,8 @@ CRYPTO=			yes
 # retain the following line, for IPv6-ready pkgsrc webpage
 BUILD_DEFS+=		IPV6_READY
 
-#PKG_GROUPS_VARS+=	OPENSSH_GROUP
-#PKG_USERS_VARS+=	OPENSSH_USER
+PKG_GROUPS_VARS+=	OPENSSH_GROUP
+PKG_USERS_VARS+=	OPENSSH_USER
 BUILD_DEFS+=		OPENSSH_CHROOT
 BUILD_DEFS+=		VARBASE
 
@@ -44,23 +43,23 @@ BUILDLINK_PASSTHRU_DIRS+= /usr/local/lib/bind
 CONFIGURE_ENV+=		ac_cv_func_openpty=no
 CONFIGURE_ENV+=		ac_cv_type_struct_timespec=yes
 CPPFLAGS+=		-DIOV_MAX=16 # default is INT_MAX, way too large
-.if exists(/usr/local/include/bind/resolv.h)
+.  if exists(/usr/local/include/bind/resolv.h)
 CPPFLAGS+=		-I/usr/local/include/bind
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/include/bind
-.elif exists(/usr/local/bind/include/resolv.h)
+.  elif exists(/usr/local/bind/include/resolv.h)
 CPPFLAGS+=		-I/usr/local/bind/include
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/bind/include
-.endif
+.  endif
 LDFLAGS+=		-L/usr/local/lib/bind
 LIBS+=			-lbind -ldb -lcrypt
 
 .else # not Interix
 
-#PKG_GROUPS=		${OPENSSH_GROUP}
-#PKG_USERS=		${OPENSSH_USER}:${OPENSSH_GROUP}
+PKG_GROUPS=		${OPENSSH_GROUP}
+PKG_USERS=		${OPENSSH_USER}:${OPENSSH_GROUP}
 
-#PKG_GECOS.${OPENSSH_USER}=	sshd privsep pseudo-user
-#PKG_HOME.${OPENSSH_USER}=	${OPENSSH_CHROOT}
+PKG_GECOS.${OPENSSH_USER}=	sshd privsep pseudo-user
+PKG_HOME.${OPENSSH_USER}=	${OPENSSH_CHROOT}
 
 .endif
 
@@ -70,13 +69,13 @@ PKG_SYSCONFSUBDIR=	ssh
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-mantype=man
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
-CONFIGURE_ARGS+=	--with-pid-dir=${SSH_PID_DIR:Q}
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--with-pid-dir=${SSH_PID_DIR}
 CONFIGURE_ARGS+=	--with-tcp-wrappers=${BUILDLINK_PREFIX.tcp_wrappers}
 
 .if ${OPSYS} != "Interix"
 CONFIGURE_ARGS+=	--with-privsep-path=${OPENSSH_CHROOT:Q}
-CONFIGURE_ARGS+=	--with-privsep-user=${OPENSSH_USER:Q}
+CONFIGURE_ARGS+=	--with-privsep-user=${OPENSSH_USER}
 .endif
 
 # pkgsrc already enforces a "secure" version of zlib via dependencies,
@@ -144,17 +143,7 @@ CONFIGURE_ARGS+=	--with-xauth=${PREFIX}/bin/xauth
 
 CONFS=			ssh_config sshd_config moduli
 
-PLIST_VARS+=		darwin prng
-
-.if exists(/dev/urandom)
-.  if ${OPSYS} == "NetBSD"
-MESSAGE_SRC+=		${.CURDIR}/MESSAGE.urandom
-.  endif
-.else
-CONFIGURE_ARGS+=	--without-random
-CONFS+=			ssh_prng_cmds
-PLIST.prng=		yes
-.endif
+PLIST_VARS+=		darwin
 
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 
@@ -173,7 +162,7 @@ RCD_SCRIPTS=		sshd
 RCD_SCRIPT_SRC.sshd=	${WRKDIR}/sshd.sh
 SMF_METHODS=		sshd
 
-FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR:Q}
+FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR}
 
 SUBST_CLASSES+=		patch
 SUBST_STAGE.patch=	pre-configure
@@ -199,7 +188,7 @@ post-configure:
 		${SED} -e '/HAVE_ECDSA_START/,/HAVE_ECDSA_STOP/d' \
 			${FILESDIR}/sshd.sh > ${WRKDIR}/sshd.sh; \
 	fi
-	${SED} -e 's,@VARBASE@,${VARBASE:Q},g' \
+	${SED} -e 's,@VARBASE@,${VARBASE},g' \
 		< ${FILESDIR}/org.openssh.sshd.sb.in \
 		> ${WRKDIR}/org.openssh.sshd.sb
 

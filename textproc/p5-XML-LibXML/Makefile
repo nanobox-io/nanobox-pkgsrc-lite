@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2016/06/08 19:24:44 wiz Exp $
+# $NetBSD: Makefile,v 1.70 2016/07/26 14:16:49 mef Exp $
 
-DISTNAME=	XML-LibXML-2.0125
+DISTNAME=	XML-LibXML-2.0128
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=XML/}
 
@@ -21,7 +20,6 @@ CONFLICTS+=	p5-XML-LibXML-Common-[0-9]*
 # includes XML::LibXML::XPathContext module
 CONFLICTS+=	p5-XML-LibXML-XPathContext-[0-9]*
 
-USE_MULTIARCH=		lib
 MAKE_ENV+=		SKIP_SAX_INSTALL=1 # Must be done in the INSTALL script
 MAKE_PARAMS+=		INC="-I${BUILDLINK_PREFIX.libxml2}/include/libxml2"
 MAKE_PARAMS+=		LIBS="-L${BUILDLINK_PREFIX.libxml2}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.libxml2}/lib -lxml2"

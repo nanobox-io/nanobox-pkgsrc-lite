@@ -10,7 +10,6 @@ HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		GL extension headers
 
 PKGCONFIG_OVERRIDE+=	glproto.pc.in
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 

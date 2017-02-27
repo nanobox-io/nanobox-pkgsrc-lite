@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.53 2015/08/30 10:54:11 richard Exp $
+# $NetBSD: Makefile,v 1.54 2017/01/19 18:52:08 agc Exp $
 
-DISTNAME=	zlib-1.2.8
+DISTNAME=	zlib-1.2.11
 PKGREVISION=	3
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/} \
-		http://zlib.net/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/}
+MASTER_SITES+=	http://zlib.net/
 DISTFILES=	# empty
 
 MAINTAINER=	joerg@NetBSD.org
@@ -13,7 +13,6 @@ COMMENT=	General purpose data compression library
 LICENSE=	zlib
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 
 PKGCONFIG_OVERRIDE+=	zlib.pc.in
 
@@ -36,19 +35,19 @@ SUBST_SED.pc=	-e "s,@prefix@,${PREFIX},g"
 SUBST_SED.pc+=	-e "s,@exec_prefix@,${PREFIX},g"
 SUBST_SED.pc+=	-e "s,@VERSION@,${PKGVERSION_NOREV},g"
 SUBST_SED.pc+=	-e "s,@includedir@,${PREFIX}/include,g"
-SUBST_SED.pc+=	-e "s,@libdir@,${PREFIX}/lib${LIBARCHSUFFIX},g"
+SUBST_SED.pc+=	-e "s,@libdir@,${PREFIX}/lib,g"
 SUBST_SED.pc+=	-e "s,@sharedlibdir@,${PREFIX}/lib,g"
 
-INSTALLATION_DIRS=	include lib${LIBARCHSUFFIX}/pkgconfig ${PKGMANDIR}/man3
+INSTALLATION_DIRS=	include lib/pkgconfig ${PKGMANDIR}/man3
 
 do-extract:
 	${CP} -r ${FILESDIR} ${WRKSRC}
 
 do-install:
-	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libz.la ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
+	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libz.la ${DESTDIR}${PREFIX}/lib
 	${INSTALL_MAN} ${WRKSRC}/zlib.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
 	${INSTALL_DATA} ${WRKSRC}/zconf.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/zlib.h ${DESTDIR}${PREFIX}/include
-	${INSTALL_DATA} ${WRKSRC}/zlib.pc.in ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig/zlib.pc
+	${INSTALL_DATA} ${WRKSRC}/zlib.pc.in ${DESTDIR}${PREFIX}/lib/pkgconfig/zlib.pc
 
 .include "../../mk/bsd.pkg.mk"

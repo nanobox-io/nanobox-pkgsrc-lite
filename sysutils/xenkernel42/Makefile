@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.20.4.1 2016/07/28 13:54:43 spz Exp $
+# $NetBSD: Makefile,v 1.28 2017/02/14 21:36:15 joerg Exp $
 
 VERSION=	4.2.5
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xenkernel42-${VERSION}
-PKGREVISION=	11
+PKGREVISION=	15
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -20,7 +20,7 @@ NO_CONFIGURE=	yes
 USE_TOOLS+=	gmake
 
 PYTHON_FOR_BUILD_ONLY=	YES
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 4.2.3
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 4.2.3
 
 MAKE_ENV+=	OCAML_TOOLS=no
 
@@ -34,7 +34,10 @@ MESSAGE_SUBST+=		XENKERNELDIR=${XENKERNELDIR}
 EXTRA_CFLAGS+=	-Qunused-arguments -no-integrated-as -Wno-error=format \
 		-Wno-error=parentheses-equality -Wno-error=enum-conversion \
 		-Wno-error=unused-function -Wno-error=unused-const-variable \
-		-Wno-error=pointer-bool-conversion
+		-Wno-error=pointer-bool-conversion \
+		-Wno-error=constant-conversion \
+		-Wno-error=address-of-packed-member \
+		-Wno-error=tautological-compare
 .endif
 
 MAKE_ENV+=	EXTRA_CFLAGS=${EXTRA_CFLAGS:Q}

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile.common,v 1.150 2014/09/01 20:28:48 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.156 2017/01/19 09:54:56 markd Exp $
 
 # used by editors/vim/Makefile
-# used by editors/vim-gtk/Makefile
 # used by editors/vim-gtk2/Makefile
 # used by editors/vim-lang/Makefile
 # used by editors/vim-motif/Makefile
@@ -11,8 +10,9 @@
 
 DISTNAME=		vim-${VIM_VERSION}.${VIM_PATCHLEVEL}
 CATEGORIES=		editors
-MASTER_SITES=		${MASTER_SITE_LOCAL}
-EXTRACT_SUFX=		.tar.bz2
+GITHUB_PROJECT=		vim
+GITHUB_TAG=		v${VIM_VERSION}.${VIM_PATCHLEVEL}
+MASTER_SITES=		${MASTER_SITE_GITHUB:=vim/}
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -22,8 +22,9 @@ LICENSE=		vim-license
 
 CONFLICTS+=		vim-kde-[0-9]*
 
-WRKSRC=			${WRKDIR}/${VIM_SUBDIR}/src
+WRKSRC=			${WRKDIR}/${DISTNAME}/src
 GNU_CONFIGURE=		yes
+USE_LANGUAGES+=		c99
 
 # http://www.netbsd.org/cgi-bin/query-pr-single.pl?number=38710
 CHECK_INTERPRETER_SKIP=	share/vim/vim74/tools/vim132
@@ -38,9 +39,9 @@ CONFIGURE_ARGS+=	${VIM_EXTRA_OPTS}
 CONFIGURE_ARGS+=	--enable-multibyte
 CONFIGURE_ARGS+=	--enable-cscope
 
-PATCH_ARGS=		-d ${WRKDIR}/${VIM_SUBDIR} --forward --quiet \
+PATCH_ARGS=		-d ${WRKDIR}/${DISTNAME} --forward --quiet \
 				-E ${PATCH_STRIP:Q}
-PATCH_DIST_ARGS=	-d ${WRKDIR}/${VIM_SUBDIR} --forward --quiet \
+PATCH_DIST_ARGS=	-d ${WRKDIR}/${DISTNAME} --forward --quiet \
 				-E ${PATCH_DIST_STRIP:Q}
 PATCHDIR=		${.CURDIR}/../../editors/vim-share/patches
 DISTINFO_FILE?=		${.CURDIR}/../../editors/vim-share/distinfo
@@ -54,6 +55,11 @@ ALTERNATIVES_SRC=	${.CURDIR}/../../editors/vim-share/ALTERNATIVES
 .else
 ALTERNATIVES_SRC=
 .endif
+
+SUBST_CLASSES+=		sysconfdir
+SUBST_FILES.sysconfdir=	feature.h
+SUBST_STAGE.sysconfdir=	post-patch
+SUBST_VARS.sysconfdir=	PKG_SYSCONFDIR
 
 post-patch:
 	find ${WRKDIR} -name '*.orig_dist' -exec rm -f {} \;

@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.77 2016/05/03 11:40:00 prlw1 Exp $
-#
+# $NetBSD: Makefile,v 1.82 2017/02/12 06:24:36 ryoon Exp $
 
 DISTNAME=		gmpc-11.8.16
-PKGREVISION=		11
+PKGREVISION=		15
 CATEGORIES=		audio
-MASTER_SITES=		http://download.sarine.nl/Programs/gmpc/11.8/ \
-			${MASTER_SITE_SOURCEFORGE:=musicpd/}
+MASTER_SITES=		http://download.sarine.nl/Programs/gmpc/11.8/
+MASTER_SITES+=		${MASTER_SITE_SOURCEFORGE:=musicpd/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://gmpc.wikia.com/wiki/Gnome_Music_Player_Client

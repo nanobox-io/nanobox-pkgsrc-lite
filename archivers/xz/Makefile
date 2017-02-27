@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2016/02/25 09:28:37 jperkin Exp $
+# $NetBSD: Makefile,v 1.24 2017/01/01 08:24:44 mef Exp $
 
-DISTNAME=	xz-5.2.2
+DISTNAME=	xz-5.2.3
 CATEGORIES=	archivers
 MASTER_SITES=	http://tukaani.org/xz/
 EXTRACT_SUFX=	.tar.bz2
@@ -11,7 +11,6 @@ COMMENT=	XZ utilities
 LICENSE=	public-domain AND gnu-gpl-v2
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	src/liblzma/liblzma.pc.in
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2016/04/10 15:26:57 richard Exp $
+# $NetBSD: Makefile,v 1.39 2016/12/03 04:19:05 marino Exp $
 
 DISTNAME=	libusb-0.1.12
 PKGREVISION=	4
@@ -13,7 +13,6 @@ LICENSE=	gnu-lgpl-v2.1
 USE_LANGUAGES=		c c++
 GCC_REQD+=		3.3
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-build-docs
 PKGCONFIG_OVERRIDE+=	libusb.pc.in
@@ -23,7 +22,7 @@ PKGCONFIG_OVERRIDE+=	libusb.pc.in
 # supports one of these APIs, add it here and also in the configure
 # script. Solaris support has been hacked on separately.
 ONLY_FOR_PLATFORM=	Linux-*-*
-ONLY_FOR_PLATFORM+=	NetBSD-*-* OpenBSD-*-* FreeBSD-*-* DragonFly-*-*
+ONLY_FOR_PLATFORM+=	NetBSD-*-* OpenBSD-*-* FreeBSD-*-*
 ONLY_FOR_PLATFORM+=	Darwin-*-*
 ONLY_FOR_PLATFORM+=	SunOS-*-*
 
@@ -47,10 +46,10 @@ SED_TRANSFORMS+=	-e "s,@exec_prefix@,${PREFIX},g"
 SED_TRANSFORMS+=	-e "s,@LIBUSB_VERSION@,${PKGVERSION_NOREV},g"
 SED_TRANSFORMS+=	-e "s,@VERSION@,${PKGVERSION_NOREV},g"
 SED_TRANSFORMS+=	-e "s,@includedir@,${PREFIX}/include,g"
-SED_TRANSFORMS+=	-e "s,@libdir@,${PREFIX}/lib${LIBARCHSUFFIX},g"
+SED_TRANSFORMS+=	-e "s,@libdir@,${PREFIX}/lib,g"
 SED_TRANSFORMS+=	-e "s,@OSLIBS@,,g"
 
-INSTALLATION_DIRS+=	bin${BINARCHSUFFIX} include lib${LIBARCHSUFFIX}/pkgconfig
+INSTALLATION_DIRS+=	bin include lib/pkgconfig
 
 do-configure:
 	cp ${FILESDIR}/libusbugen* ${WRKSRC}/
@@ -62,23 +61,23 @@ do-build:
 	cd ${WRKSRC} && ${LIBTOOL} --mode=compile --tag=CC ${CC} ${CFLAGS} \
 	    -I. -c libusbugen.c
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CC ${CC} \
-	    -rpath ${PREFIX}/lib${LIBARCHSUFFIX} -version-info 8:4:4 -release 0.1 \
+	    -rpath ${PREFIX}/lib -version-info 8:4:4 -release 0.1 \
 	    -o libusb.la libusbugen.lo
 	cd ${WRKSRC} && ${LIBTOOL} --mode=compile --tag=CXX ${CXX} ${CXXFLAGS} \
 	    -I. -c usbpp.cpp
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CXX ${CXX} \
-	    -rpath ${PREFIX}/lib${LIBARCHSUFFIX} -version-info 8:4:4 -release 0.1 \
+	    -rpath ${PREFIX}/lib -version-info 8:4:4 -release 0.1 \
 	    -o libusbpp.la usbpp.lo
 
 do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/libusb-config ${DESTDIR}${PREFIX}/bin${BINARCHSUFFIX}
+	${INSTALL_SCRIPT} ${WRKSRC}/libusb-config ${DESTDIR}${PREFIX}/bin
 	${INSTALL_DATA} ${WRKSRC}/usb.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/usbpp.h ${DESTDIR}${PREFIX}/include
 	cd ${WRKSRC} && ${LIBTOOL} --mode=install ${INSTALL_LIB} libusb.la \
-	    ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
+	    ${DESTDIR}${PREFIX}/lib
 	cd ${WRKSRC} && ${LIBTOOL} --mode=install ${INSTALL_LIB} libusbpp.la \
-	    ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}
-	${INSTALL_DATA} ${WRKSRC}/libusb.pc ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
+	    ${DESTDIR}${PREFIX}/lib
+	${INSTALL_DATA} ${WRKSRC}/libusb.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
 .endif
 
 .include "../../mk/bsd.pkg.mk"

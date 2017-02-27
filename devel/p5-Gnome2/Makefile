@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.40 2016/06/19 12:02:31 mef Exp $
+# $NetBSD: Makefile,v 1.43 2017/02/12 06:25:13 ryoon Exp $
 #
 
 DISTNAME=	Gnome2-1.046
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	3
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gtk2-perl/}
 

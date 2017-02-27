@@ -1,28 +1,34 @@
-# $NetBSD: Makefile,v 1.150 2016/05/31 05:25:12 pgoyette Exp $
+# $NetBSD: Makefile,v 1.164 2017/02/20 04:03:07 ryoon Exp $
 
-DISTNAME=	qemu-2.6.0
+DISTNAME=	qemu-2.8.0
 PKGREVISION=	1
 CATEGORIES=	emulators
-MASTER_SITES=	http://wiki.qemu.org/download/
+MASTER_SITES=	http://download.qemu-project.org/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.qemu.org/
+HOMEPAGE=	http://www.qemu-project.org/
 COMMENT=	CPU emulator using dynamic translation
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1 AND mit AND modified-bsd
 
 CONFLICTS+=		qemu-bin-[0-9]*
 NOT_FOR_PLATFORM+=	NetBSD-1.[0-6]*-*
 # qemu 1 does not work on NetBSD-5; see http://gnats.netbsd.org/46565.
-# As a workaround, use emulators/qemu0.
 NOT_FOR_PLATFORM+=	NetBSD-5*-*
 
 USE_TOOLS+=		bison gmake makeinfo perl:build pkg-config
-USE_NCURSES=		yes			# requires resize_term()
+USE_CURSES=		resize_term wide
+FAKE_NCURSES=		yes
 UNLIMIT_RESOURCES=	datasize
 HAS_CONFIGURE=		yes
 
 BUILD_DEPENDS+=		texi2html-[0-9]*:../../textproc/texi2html
+
+SUBST_CLASSES+=			prefix
+SUBST_STAGE.prefix=		pre-configure
+SUBST_MESSAGE.prefix=		Setting PREFIX
+SUBST_FILES.prefix+=		configure
+SUBST_VARS.prefix+=		PREFIX
 
 .include "options.mk"
 
@@ -39,13 +45,46 @@ CONFIGURE_ARGS+=	--enable-curses
 CONFIGURE_ARGS+=	--disable-opengl
 CONFIGURE_ENV+=		mansuffix=/${PKGMANDIR}
 
+.if defined(PKGSRC_USE_SSP)
+# do not add flags to everything
+PKGSRC_USE_SSP=		no
+CONFIGURE_ARGS+=	--enable-stack-protector
+.endif
+
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-aarch64
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-alpha
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-arm
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-cris
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-i386
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-lm32
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-m68k
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-microblaze
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-microblazeel
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-mips
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-mips64
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-mips64el
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-mipsel
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-moxie
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-or32
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-ppc
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-ppc64
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-ppcemb
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-s390x
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-sh4
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-sh4eb
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-sparc
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-sparc64
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-tricore
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-unicore32
 NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-x86_64
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-xtensa
+NOT_PAX_MPROTECT_SAFE+=	bin/qemu-system-xtensaeb
 
 PKG_SYSCONFSUBDIR=	qemu
 
 REPLACE_PERL+=		scripts/texi2pod.pl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported yet as of 1.7.0
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported yet as of 1.7.0
 
 BUILDLINK_PASSTHRU_DIRS+= /usr/lib
 BUILDLINK_PASSTHRU_RPATHDIRS+= /usr/lib
@@ -98,10 +137,10 @@ post-install:
 .include "../../mk/oss.buildlink3.mk"
 .endif
 .include "../../devel/glib2/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/extension.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

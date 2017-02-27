@@ -1,25 +1,25 @@
-# $NetBSD: Makefile,v 1.16 2015/12/05 21:26:02 adam Exp $
+# $NetBSD: Makefile,v 1.22 2017/01/20 22:38:29 wiz Exp $
 
-DISTNAME=	vobject-0.8.1c
+DISTNAME=	vobject-0.9.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	textproc python
-MASTER_SITES=	http://vobject.skyhouseconsulting.com/
+MASTER_SITES=	${MASTER_SITE_PYPI:=v/vobject/}
 
 MAINTAINER=	kleink@NetBSD.org
-HOMEPAGE=	http://vobject.skyhouseconsulting.com/
+HOMEPAGE=	https://eventable.github.io/vobject/
 COMMENT=	Python iCalendar (ics) and vCard library
 LICENSE=	apache-2.0
 
-PYTHON_VERSIONED_DEPENDENCIES=	dateutil
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not yet ported as of 0.8.1c
+DEPENDS+=	${PYPKGPREFIX}-dateutil-[0-9]*:../../time/py-dateutil
+DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
 
-PYTHON_SELF_CONFLICT=	yes
-EGG_NAME=	${DISTNAME:S/1c/1rc0/}
+post-install:
+	cd ${DESTDIR}${PREFIX}/bin && \
+		${MV} change_tz change_tz-${PYVERSSUFFIX} && \
+		${MV} ics_diff ics_diff-${PYVERSSUFFIX} || ${TRUE}
 
-PYDISTUTILSPKG=	yes
-PY_PATCHPLIST=	yes
+do-test:
+	cd ${WRKSRC} && ${PYTHONBIN} tests.py
 
 .include "../../lang/python/egg.mk"
-.include "../../lang/python/versioned_dependencies.mk"
 .include "../../mk/bsd.pkg.mk"

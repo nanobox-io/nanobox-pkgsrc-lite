@@ -14,7 +14,6 @@ LICENSE=	original-bsd
 CHECK_PERMS=		no
 
 GNU_CONFIGURE=		yes
-USE_MULTIARCH=		bin
 
 .include "../../mk/bsd.prefs.mk"
 

@@ -1,21 +1,22 @@
-$NetBSD: distinfo,v 1.35 2016/06/15 11:30:39 adam Exp $
+$NetBSD: distinfo,v 1.41 2016/12/16 17:55:48 jperkin Exp $
 
-SHA1 (mysql-5.6.31.tar.gz) = 9c687f4766bb0085b3d9e518b3a356879b230e58
-RMD160 (mysql-5.6.31.tar.gz) = 4789473f9bcdf00328b9af9306f621a2d179dfb1
-SHA512 (mysql-5.6.31.tar.gz) = dc527e1d3ce7359a86fd91e9469d4ff1bb475c68bbb11aecb2a1897660fc09d0d26a401384117a2ad4e58cd709b5525facabef534e4f7b242119ce171d245cb1
-Size (mysql-5.6.31.tar.gz) = 32098698 bytes
-SHA1 (sphinx-2.2.10-release.tar.gz) = 0f2372dd41df2848ea06c6076a86af6f0f66a071
-RMD160 (sphinx-2.2.10-release.tar.gz) = 2712e8ce85609e78c53bd2d9fba877f1e630d5f2
-SHA512 (sphinx-2.2.10-release.tar.gz) = 07683f64df730368563e11a7d2939b521837c9a04944ab7d6d09732ab06e451b674169eca4f85db2aae41d883bd16fb4d17b9265912fea9691d07d407d7212d8
-Size (sphinx-2.2.10-release.tar.gz) = 3109250 bytes
-SHA1 (patch-CMakeLists.txt) = 1b5dd5a965f87027a03c5f2eaa1c7e6a43395cff
+SHA1 (mysql-5.6.35.tar.gz) = a971f01d711addd87c860fb534d51139a73d5319
+RMD160 (mysql-5.6.35.tar.gz) = 3a54baba27b940b5c18787a6d213e1cc6530ea28
+SHA512 (mysql-5.6.35.tar.gz) = 106c4b05c52cd2bb5378376e4a453aeb55eda0adce527862c435068597c3e60f44e3c64476011befefd688e6fdf30f2245e28320d57d9fccbb2415d87498e7f2
+Size (mysql-5.6.35.tar.gz) = 32167628 bytes
+SHA1 (sphinx-2.2.11-release.tar.gz) = 34e83f43de0e69e258bf749ea00348c60a51632a
+RMD160 (sphinx-2.2.11-release.tar.gz) = 5804b4cce64bc03fa20bac26c7391cd661cecc77
+SHA512 (sphinx-2.2.11-release.tar.gz) = cf1a262a5b0fbf0bd2827ec6ec629edeaf709ce855a6e7b509b65342baaeb26c02717ca63f1578d32c83d21e2fd6d1e92dceb34660e6351b93cd96fd4e623689
+Size (sphinx-2.2.11-release.tar.gz) = 3061998 bytes
+SHA1 (patch-CMakeLists.txt) = cc14caabcb6ca55eba33595f98ad4b3db14504da
 SHA1 (patch-client_completion_hash.cc) = b86ec80beac624b2aa21c7587e351ff126400ecb
 SHA1 (patch-client_mysqladmin.cc) = e1650ef3695675bcc01375bacdebcb7318218b93
 SHA1 (patch-client_sql_string.h) = f26aff4ce4cf6dfef44c85ef95120331ca8fef52
 SHA1 (patch-cmake_dtrace.cmake) = d953fdf976f3a7e7f0c2c16a9a2d2615f2777396
 SHA1 (patch-cmake_libutils.cmake) = c3e5ab66d2bef43dc2308369e27550553e0f5356
+SHA1 (patch-cmake_os_SunOS.cmake) = 1ef310e6395653be3219044fc2ea58977a1b0ce3
 SHA1 (patch-cmake_plugin.cmake) = 03e7a7debd61e870bd76d5c5b253a620662b3595
-SHA1 (patch-cmake_readline.cmake) = ace5d3dc0d0737271a0a2e4292d81dff30591c20
+SHA1 (patch-cmake_readline.cmake) = 6bec6ca87b45c739d0614493477a18bb7c56d981
 SHA1 (patch-cmake_ssl.cmake) = a5a25b00010c6586e5a3e099975ddabe369d4247
 SHA1 (patch-include_CMakeLists.txt) = 49d351a958e63c69ad8bfe5c50961fe3751e86c4
 SHA1 (patch-include_my__global.h) = 843b9527faf880eee59cf02239ba601f5985ddfb

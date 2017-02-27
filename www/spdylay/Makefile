@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2016/03/05 11:27:58 jperkin Exp $
+# $NetBSD: Makefile,v 1.6 2017/02/18 13:57:06 joerg Exp $
 
-DISTNAME=	spdylay-1.3.2
-PKGREVISION=	1
+DISTNAME=	spdylay-1.4.0
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=tatsuhiro-t/}
 EXTRACT_SUFX=	.tar.xz
@@ -26,6 +25,8 @@ CONFIGURE_ENV+=		LIBEVENT_OPENSSL_LIBS="-L${BUILDLINK_PREFIX.libevent}/lib -leve
 PKGCONFIG_OVERRIDE+=	lib/libspdylay.pc.in
 
 .include "../../mk/bsd.prefs.mk"
+
+CPPFLAGS+=		-D__STDC_LIMIT_MACROS
 
 LIBS.SunOS+=	-lsocket
 

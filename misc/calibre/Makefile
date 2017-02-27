@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.143 2016/06/19 20:29:44 wiz Exp $
+# $NetBSD: Makefile,v 1.173 2017/02/17 15:43:43 wiz Exp $
 
-DISTNAME=	calibre-2.59.0
+DISTNAME=	calibre-2.79.1
 CATEGORIES=	misc
 #MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=calibre/}
 MASTER_SITES=	http://download.calibre-ebook.com/${PKGVERSION_NOREV}/
@@ -19,45 +19,46 @@ DEPENDS+=	xdg-utils>=1.0.2:../../misc/xdg-utils
 #DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 DEPENDS+=	${PYPKGPREFIX}-lxml>=3.2.1:../../textproc/py-lxml
 DEPENDS+=	${PYPKGPREFIX}-beautifulsoup>=3.0.5:../../www/py-beautifulsoup
+DEPENDS+=	${PYPKGPREFIX}-dns>=1.6.0:../../net/py-dns
 DEPENDS+=	${PYPKGPREFIX}-mechanize>=0.1.11nb1:../../www/py-mechanize
 DEPENDS+=	${PYPKGPREFIX}-cssselect>=0.7.1:../../textproc/py-cssselect
 DEPENDS+=	${PYPKGPREFIX}-cssutils>=0.9.9:../../textproc/py-cssutils
 DEPENDS+=	${PYPKGPREFIX}-psutil>=0.6.1:../../sysutils/py-psutil
-## Let's depend on the ones we have in pkgsrc instead of the bundled ones.
-#DEPENDS+=	${PYPKGPREFIX}-Pdf-[0-9]*:../../print/py-Pdf
+# Let's depend on the ones we have in pkgsrc instead of the bundled ones.
 DEPENDS+=	${PYPKGPREFIX}-cherrypy-[0-9]*:../../www/py-cherrypy
-DEPENDS+=	${PYPKGPREFIX}-html5lib-[0-9]*:../../textproc/py-html5lib
+# not sure if pkgsrc version would be ok or not
 #DEPENDS+=	${PYPKGPREFIX}-chardet-[0-9]*:../../converters/py-chardet
+# includes own, modified copy of html5lib
+#DEPENDS+=	${PYPKGPREFIX}-html5lib-[0-9]*:../../textproc/py-html5lib
 DEPENDS+=	${PYPKGPREFIX}-netifaces>=0.8:../../net/py-netifaces
 DEPENDS+=	${PYPKGPREFIX}-apsw>=3.7.17:../../databases/py-apsw
 
 # dateutil>=1.4.1
-# dns>=1.6.0
-PYTHON_VERSIONED_DEPENDENCIES=	dateutil dns
+PYTHON_VERSIONED_DEPENDENCIES=	dateutil
 
-EXTRACT_USING=  bsdtar
+EXTRACT_USING=	bsdtar
 
-USE_LANGUAGES=	c c++
-USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config pax
+USE_LANGUAGES=			c c++
+USE_LIBTOOL=			yes
+USE_TOOLS+=			pkg-config pax
 PYTHON_VERSIONS_ACCEPTED=	27
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 35 # not ported as of 2.1.0; also: py-mechanize, py-beautifulsoup, py-imaging, py-netifaces
-PYDISTUTILSPKG=	yes
-PYSETUPOPTARGS=	# empty
-PYSETUPINSTALLARGS=	--prefix=${PREFIX} --root=${DESTDIR:Q}${PREFIX}
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not ported as of 2.1.0; also: py-mechanize, py-beautifulsoup, py-imaging, py-netifaces
+PYDISTUTILSPKG=			yes
+PYSETUPOPTARGS=			# empty
+PYSETUPINSTALLARGS=		--prefix=${PREFIX} --root=${DESTDIR:Q}${PREFIX}
 
 INSTALLATION_DIRS=	share/applications
 INSTALLATION_DIRS=	share/icons
 INSTALLATION_DIRS=	share/calibre/recipes
 
-FIX_PYTHON_PATHS+=	*.py
-FIX_PYTHON_PATHS+=	recipes/*.recipe
-FIX_PYTHON_PATHS+=	*/*.py
-FIX_PYTHON_PATHS+=	*/*/*.py
-FIX_PYTHON_PATHS+=	*/*/*/*.py
-FIX_PYTHON_PATHS+=	*/*/*/*/*.py
-FIX_PYTHON_PATHS+=	*/*/*/*/*/*.py
-FIX_PYTHON_PATHS+=	*/*/*/*/*/*/*.py
+FIX_PYTHON_FILES+=	*.py
+FIX_PYTHON_FILES+=	recipes/*.recipe
+FIX_PYTHON_FILES+=	*/*.py
+FIX_PYTHON_FILES+=	*/*/*.py
+FIX_PYTHON_FILES+=	*/*/*/*.py
+FIX_PYTHON_FILES+=	*/*/*/*/*.py
+FIX_PYTHON_FILES+=	*/*/*/*/*/*.py
+FIX_PYTHON_FILES+=	*/*/*/*/*/*/*.py
 
 SUBST_CLASSES+=		prefix
 SUBST_SED.prefix=	-e "s,^QMAKE =.*,QMAKE = '${PREFIX}/qt5/bin/qmake',"
@@ -70,14 +71,13 @@ SUBST_CLASSES+=		path
 SUBST_SED.path=		-e "s,\#! */usr/bin/env *[Pp]ython[0-9.]*,\#!${PYTHONBIN},"
 SUBST_MESSAGE.path=	Fixing path to python.
 SUBST_STAGE.path=	post-patch
-SUBST_FILES.path=	${FIX_PYTHON_PATHS}
+SUBST_FILES.path=	${FIX_PYTHON_FILES}
 
 REPLACE_BASH+=		resources/calibre-portable.sh
 
 # These ones are for replacing python[0-9*] with PYTHONBIN
 REPLACE_PYTHON+=	recipes/animal_politico.recipe
 REPLACE_PYTHON+=	recipes/respekt_magazine.recipe
-REPLACE_PYTHON+=	recipes/respekt_web.recipe
 REPLACE_PYTHON+=	recipes/kompiutierra.recipe
 REPLACE_PYTHON+=	recipes/trouw.recipe
 REPLACE_PYTHON+=	src/calibre/ebooks/markdown/extensions/*.py
@@ -94,7 +94,7 @@ MAKE_ENV+=		SIP_BIN=${BUILDLINK_PREFIX.py-sip}/bin/sip${PYVERSSUFFIX}
 
 # Let's depend on the ones we have in pkgsrc instead of the bundled ones.
 pre-configure:
-	cd ${WRKSRC} && rm -rf src/cherrypy src/pyPdf src/html5lib src/chardet
+	cd ${WRKSRC} && rm -rf src/cherrypy
 
 # Turn off x bits on non-executable files.
 post-extract:

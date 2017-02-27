@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.62 2015/07/14 09:03:05 wiz Exp $
+# $NetBSD: Makefile,v 1.63 2016/11/08 10:51:26 wiz Exp $
 
 .include "../../print/poppler/Makefile.common"
 
@@ -33,12 +33,13 @@ BUILDLINK_API_DEPENDS.poppler+=     poppler-${POPPLER_VERS}{,nb*}
 BUILD_DIRS=		goo fofi poppler glib
 INSTALL_DIRS=		glib
 
-INSTALLATION_DIRS+=	lib${LIBARCHSUFFIX}/pkgconfig
+INSTALLATION_DIRS+=	lib/pkgconfig
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/poppler-cairo.pc ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
-	${INSTALL_DATA} ${WRKSRC}/poppler-glib.pc ${DESTDIR}${PREFIX}/lib${LIBARCHSUFFIX}/pkgconfig
+	${INSTALL_DATA} ${WRKSRC}/poppler-cairo.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${WRKSRC}/poppler-glib.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
 
+BUILDLINK_ABI_DEPENDS.glib2+=	glib2>=2.41.0
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

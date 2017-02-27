@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2015/04/25 14:20:31 tnn Exp $
-#
+# $NetBSD: Makefile,v 1.28 2017/02/12 06:24:37 ryoon Exp $
 
 DISTNAME=	SDL_Pango-0.1.2
-PKGREVISION=	20
+PKGREVISION=	22
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sdlpango/}
 
@@ -16,7 +15,6 @@ LICENSE=	gnu-lgpl-v2.1
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 USE_TOOLS+=		pkg-config
 
 PKGCONFIG_OVERRIDE+=	SDL_Pango.pc.in

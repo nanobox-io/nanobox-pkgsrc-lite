@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.26 2016/03/09 10:49:00 tnn Exp $
+# $NetBSD: Makefile,v 1.29 2017/01/10 18:54:15 fhajny Exp $
 
-PKGREVISION= 1
 .include "../../sysutils/syslog-ng/Makefile.common"
 
 CONFIGURE_ARGS+=	--enable-ssl
@@ -34,6 +33,11 @@ PLIST_VARS+=		systemd
 .if exists(/bin/systemd)
 PLIST.systemd=		yes
 .endif
+
+PKGCONFIG_OVERRIDE=	libtest/syslog-ng-test.pc.in			\
+			syslog-ng-add-contextual-data.pc.in		\
+			syslog-ng-native-connector.pc.in		\
+			syslog-ng.pc.in
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/INSTALL ${DESTDIR}${DOCDIR}

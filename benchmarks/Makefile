@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.50 2015/02/28 23:09:27 prlw1 Exp $
+# $NetBSD: Makefile,v 1.52 2017/02/04 12:50:59 ryoon Exp $
 #
 
 COMMENT=	Benchmarking tools
@@ -13,9 +13,11 @@ SUBDIR+=	dhrystone
 SUBDIR+=	dnsperf
 SUBDIR+=	fib
 SUBDIR+=	filebench
+SUBDIR+=	fio
 SUBDIR+=	flops
 SUBDIR+=	forkbomb
 SUBDIR+=	glmark2
+SUBDIR+=	google-benchmark
 SUBDIR+=	hbench
 SUBDIR+=	heapsort
 SUBDIR+=	hint

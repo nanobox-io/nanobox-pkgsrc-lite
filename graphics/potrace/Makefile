@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2013/03/15 23:21:39 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2017/02/08 18:03:27 adam Exp $
 
-DISTNAME=	potrace-1.11
+DISTNAME=	potrace-1.13
 CATEGORIES=	graphics
-MASTER_SITES=	http://potrace.sourceforge.net/download/ \
-		${MASTER_SITE_SOURCEFORGE:=potrace/}
+MASTER_SITES=	http://potrace.sourceforge.net/download/
+MASTER_SITES+=	${MASTER_SITE_SOURCEFORGE:=potrace/}
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://potrace.sourceforge.net/
@@ -12,6 +12,7 @@ LICENSE=	gnu-gpl-v2
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-libpotrace
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,11 +1,11 @@
-# $NetBSD: version.mk,v 1.14.2.1 2016/07/20 03:02:31 spz Exp $
+# $NetBSD: version.mk,v 1.22 2017/01/30 03:04:53 wen Exp $
 
 .include "../../mk/bsd.prefs.mk"
 
-GO_VERSION=	1.6.3
+GO_VERSION=	1.7.5
 GO14_VERSION=	1.4.3
 
-ONLY_FOR_PLATFORM=	*-*-i386 *-*-x86_64 *-*-evbarm
+ONLY_FOR_PLATFORM=	*-*-i386 *-*-x86_64 *-*-*arm*
 NOT_FOR_PLATFORM=	SunOS-*-i386
 .if ${MACHINE_ARCH} == "i386"
 GOARCH=		386
@@ -13,7 +13,7 @@ GOCHAR=		8
 .elif ${MACHINE_ARCH} == "x86_64"
 GOARCH=		amd64
 GOCHAR=		6
-.elif ${MACHINE_ARCH} == "evbarm"
+.elif !empty(MACHINE_ARCH:M*arm)
 GOARCH=		arm
 GOCHAR=		5
 .endif

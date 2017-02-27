@@ -10,7 +10,6 @@ HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		Inter Client Exchange (ICE) library for X
 
 USE_LIBTOOL=		yes
-USE_MULTIARCH=		lib
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config
 

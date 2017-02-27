@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.91 2016/06/26 20:27:30 adam Exp $
+# $NetBSD: Makefile,v 1.105 2017/02/18 20:19:12 leot Exp $
 
-VERSION_DATE=	2016.06.25
+VERSION_DATE=	2017.02.17
 DISTNAME=	youtube-dl-${VERSION_DATE}
 PKGNAME=	youtube-dl-${VERSION_DATE:S/.//:S/.//}
 CATEGORIES=	net
@@ -10,12 +10,6 @@ MAINTAINER=	leot@NetBSD.org
 HOMEPAGE=	http://rg3.github.io/youtube-dl/
 COMMENT=	Download videos from youtube.com
 LICENSE=	public-domain
-
-# Unfortunately at the moment upstream youtube-dl does not provide a changelog.
-# When updating net/youtube-dl you can find a complete list of changes here:
-#  https://github.com/rg3/youtube-dl/compare/${OLD_VERSION_DATE}...${NEW_VERSION_DATE}
-# ...where OLD_VERSION_DATE is the previous VERSION_DATE and NEW_VERSION_DATE is
-# the version you are going to commit.
 
 USE_LANGUAGES=	# none
 EGG_NAME=	youtube_dl-${VERSION_DATE:S/.0/./g}

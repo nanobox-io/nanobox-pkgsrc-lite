@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.20 2016/06/28 10:31:42 prlw1 Exp $
+# $NetBSD: options.mk,v 1.22 2017/02/10 08:41:25 sborrill Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.squid
 PKG_SUPPORTED_OPTIONS=	ecap inet6 snmp ssl squid-backend-aufs \
@@ -70,9 +70,9 @@ SQUID_EXTERNAL_ACL_HELPERS?=	file_userip unix_group
 CONFIGURE_ARGS+=	--enable-linux-netfilter
 .elif !empty(PKG_OPTIONS:Msquid-pf)
 CONFIGURE_ARGS+=	--enable-pf-transparent
-.if ${OPSYS} == "NetBSD"
+.  if ${OPSYS} == "NetBSD"
 CONFIGURE_ARGS+=	--with-nat-devpf
-.endif
+.  endif
 .elif !empty(PKG_OPTIONS:Msquid-ipf)
 CONFIGURE_ARGS+=	--enable-ipf-transparent
 .elif !empty(PKG_OPTIONS:Msquid-ipfw)
@@ -132,6 +132,7 @@ CONFIGURE_ARGS+=	--disable-snmp
 
 .if !empty(PKG_OPTIONS:Mssl)
 CONFIGURE_ARGS+=	--enable-ssl --with-openssl=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--enable-ssl-crtd
 .  include "../../security/openssl/buildlink3.mk"
 PLIST.ssl=		yes
 .endif

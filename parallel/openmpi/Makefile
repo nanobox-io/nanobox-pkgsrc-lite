@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.34 2016/02/28 19:47:41 joerg Exp $
+# $NetBSD: Makefile,v 1.36 2016/10/23 14:02:28 asau Exp $
 
-DISTNAME=	openmpi-1.10.1
-PKGREVISION=	1
+DISTNAME=	openmpi-1.10.4
 CATEGORIES=	parallel
 MASTER_SITES=	http://www.open-mpi.org/software/ompi/v1.10/downloads/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	asau@inbox.ru
 HOMEPAGE=	http://www.open-mpi.org/
-COMMENT=	Open source MPI-2 implementation
+COMMENT=	Open source MPI-3.1 implementation
 
 GNU_CONFIGURE=		yes
 USE_LANGUAGES=		c c++ fortran77

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2016/05/23 18:02:36 prlw1 Exp $
+# $NetBSD: Makefile,v 1.21 2017/02/12 06:24:54 ryoon Exp $
 
-DISTNAME=	gtkmm-3.20.1
+DISTNAME=	gtkmm-3.22.0
 PKGNAME=	${DISTNAME:S/gtkmm/gtkmm3/1}
+PKGREVISION=	2
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtkmm/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -28,16 +29,17 @@ PLIST.x11=	yes
 BUILDLINK_ABI_DEPENDS.atkmm+=	atkmm>=2.24.2
 .include "../../devel/atkmm/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
-BUILDLINK_ABI_DEPENDS.glibmm+=	glibmm>=2.48.0
+BUILDLINK_ABI_DEPENDS.glibmm+=	glibmm>=2.49.1
 .include "../../devel/glibmm/buildlink3.mk"
 .include "../../devel/libsigc++/buildlink3.mk"
 BUILDLINK_ABI_DEPENDS.pangomm+=	pangomm>=2.38.2
 .include "../../devel/pangomm/buildlink3.mk"
 BUILDLINK_ABI_DEPENDS.cairomm+=	cairomm>=1.12.0
 .include "../../graphics/cairomm/buildlink3.mk"
+BUILDLINK_ABI_DEPENDS.gdk-pixbuf2+=	gdk-pixbuf2>=2.35.5
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
-BUILDLINK_ABI_DEPENDS.gtk3+=	gtk3+>=3.20.0
+BUILDLINK_ABI_DEPENDS.gtk3+=	gtk3+>=3.22.0
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

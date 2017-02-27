@@ -1,4 +1,4 @@
-/* $NetBSD: common.c,v 1.4 2015/04/19 13:30:35 tnn Exp $ */
+/* $NetBSD: common.c,v 1.6 2016/12/09 22:25:28 joerg Exp $ */
 
 /*-
  * Copyright (c) 2009 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -30,12 +30,16 @@
  */
 
 #include <nbcompat.h>
+#include "config.h"
 #include <sys/wait.h>
 #include <nbcompat/err.h>
 #include <nbcompat/stdio.h>
 #include <nbcompat/stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#if defined(HAVE_POSIX_SPAWNP) && defined(HAVE_SPAWN_H)
+#include <spawn.h>
+#endif
 
 #include "common.h"
 
@@ -46,10 +50,6 @@ char *exec_name;
 char *wrksrc;
 int debug;
 
-int rflag = 0;
-int linking = 1;
-
-static struct arglist ldadd_args = TAILQ_HEAD_INITIALIZER(ldadd_args);
 static struct arglist prepend_args = TAILQ_HEAD_INITIALIZER(prepend_args);
 static struct arglist append_args = TAILQ_HEAD_INITIALIZER(append_args);
 struct argument *prepend_after;
@@ -158,41 +158,6 @@ arglist_apply_config(struct arglist *args)
 }
 
 void
-arglist_register_globals(struct arglist *args)
-{
-	struct argument *arg;
-
-	TAILQ_FOREACH(arg, args, link) {
-		if (strcmp(arg->val, "-r") == 0) {
-			rflag = 1;
-			continue;
-		}
-		if ((strcmp(arg->val, "-c") == 0) ||
-		    (strcmp(arg->val, "-E") == 0) ||
-		    (strncmp(arg->val, "-M", 2) == 0) ||
-		    (strcmp(arg->val, "-S") == 0) ||
-		    (strcmp(arg->val, "-xc-header") == 0) ||
-		    (strcmp(arg->val, "-xc++-header") == 0) ||
-		    (strcmp(arg->val, "c-header") == 0) ||
-		    (strcmp(arg->val, "c++-header") == 0)) {
-			linking = 0;
-			continue;
-		}
-	}
-}
-
-void
-arglist_apply_ldadd(struct arglist *args)
-{
-	struct argument *arg, *arg2;
-
-	TAILQ_FOREACH(arg, &ldadd_args, link) {
-		arg2 = argument_copy(arg->val);
-		TAILQ_INSERT_TAIL(args, arg2, link);
-	}
-}
-
-void
 argument_unlink(struct arglist *args, struct argument **argp)
 {
 	struct argument *arg;
@@ -249,11 +214,6 @@ parse_config(const char *wrapper)
 			free(exec_name);
 			exec_name = xstrdup(line + 5);
 			continue;
-		}
-		if (strncmp(line, "ldadd=", 6) == 0) {
-			struct argument *arg;
-			arg = argument_copy(line + 6);
-			TAILQ_INSERT_TAIL(&ldadd_args, arg, link);
 		}
 		if (strncmp(line, "reorder=", 8) == 0) {
 			register_reorder(line + 8);
@@ -354,11 +314,25 @@ worklog_cmd(FILE *worklog, const char *prefix, const char *cmd,
 		free(buf);
 }
 
+#if __GNUC__ + 0 >= 3
+__attribute__((__noreturn__))
+#endif
+static void
+command_child_exec(char **argv)
+{
+	static const char failed_exec_msg[] = "exec failed\n";
+	int status;
+
+	execvp(exec_name, argv);
+	status = write(STDERR_FILENO, failed_exec_msg,
+	    sizeof(failed_exec_msg) - 1);
+	_exit(255 | status);
+}
+
 int
-command_exec(struct arglist *args, int do_fork)
+command_exec(struct arglist *args, int do_fork, char **environment)
 {
 	struct argument *arg;
-	static const char failed_exec_msg[] = "exec failed\n";
 	char **argv, **argv2;
 	int argc, status;
 	pid_t child;
@@ -377,23 +351,26 @@ command_exec(struct arglist *args, int do_fork)
 	if (real_path)
 		setenv("PATH", real_path, 1);
 
-	if (do_fork)
-		child = vfork();
-	else
-		child = 0;
+	if (!do_fork)
+		command_child_exec(argv2);
 
-	switch (child) {
-	case 0:
-		execvp(exec_name, argv2);
-		status = write(STDERR_FILENO, failed_exec_msg,
-		    sizeof(failed_exec_msg) - 1);
-		_exit(255 | status);
-	case -1:
-		err(255, "fork failed");
-	default:
-		waitpid(child, &status, 0);
-		return WEXITSTATUS(status);
+#if defined(HAVE_POSIX_SPAWNP) && defined(HAVE_SPAWN_H)
+	status = posix_spawnp(&child, exec_name, NULL, NULL, argv2,
+	    environment);
+	if (status) {
+		errno = status;
+		err(255, "posix_spawn failed");
 	}
+#else
+	child = vfork();
+
+	if (child == -1)
+		err(255, "fork failed");
+	if (child == 0)
+		command_child_exec(argv2);
+#endif
+	waitpid(child, &status, 0);
+	return WEXITSTATUS(status);
 }
 
 size_t

@@ -1,8 +1,7 @@
-$NetBSD: distinfo,v 1.8 2016/06/20 14:01:42 jaapb Exp $
+$NetBSD: distinfo,v 1.10 2016/12/30 12:04:25 jaapb Exp $
 
-SHA1 (js_of_ocaml-2.8.tar.gz) = b2dd34395fd83ba84650d0f1fa0f2f4b7e87883b
-RMD160 (js_of_ocaml-2.8.tar.gz) = 66352ac084a126e6b2b9d5d404cd3a4c22e158c7
-SHA512 (js_of_ocaml-2.8.tar.gz) = 914b2a1a452acd494c3373fa65e858c2747bd7d946d6077320429160d4172f627978a0b4ee526fc6e39378dffc9c965b81e5a1f16eba1f60529e4a6b5f474c1e
-Size (js_of_ocaml-2.8.tar.gz) = 1330364 bytes
-SHA1 (patch-Makefile) = 9268aaa9bfb7aedda30a9a0356d6caa531c88f34
+SHA1 (js_of_ocaml-2.8.3.tar.gz) = 0611156c17bab5fda0f5106d07af55ecdbc5413b
+RMD160 (js_of_ocaml-2.8.3.tar.gz) = d8e1e094b2456c1e1e8f108bc43c36aca2797cf0
+SHA512 (js_of_ocaml-2.8.3.tar.gz) = 89908f3da1846f4fe24e1109ba262507221ed67d58bec1d8b7c53ec82438febbab66bdb3bec697e2880842253777167ef1563687cae414426e8ea1dcc00a323a
+Size (js_of_ocaml-2.8.3.tar.gz) = 1335811 bytes
 SHA1 (patch-Makefile.conf) = 40a365bd35106f2cb16958424926e657edc7887b

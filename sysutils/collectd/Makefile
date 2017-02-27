@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.16 2016/02/03 15:10:43 he Exp $
+# $NetBSD: Makefile,v 1.20 2017/01/25 14:10:18 fhajny Exp $
 
-PKGREVISION= 11
 .include "../../sysutils/collectd/Makefile.common"
 
 COMMENT=	Statistics collection daemon base
@@ -24,6 +23,8 @@ CONFIGURE_ARGS+=	--enable-${option}
 
 # Several libs not generated in time for linking collectd
 MAKE_JOBS_SAFE=		no
+
+INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples/collectd
 
 .include "options.mk"
 

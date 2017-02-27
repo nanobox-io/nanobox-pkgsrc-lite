@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.62 2016/03/08 12:53:34 adam Exp $
+# $NetBSD: Makefile,v 1.63 2017/02/02 18:46:39 maya Exp $
 
-DISTNAME=	libpcap-1.7.4
+DISTNAME=	libpcap-1.8.1
 CATEGORIES=	net
 MASTER_SITES=	http://www.tcpdump.org/release/
 
@@ -13,7 +13,6 @@ NOT_FOR_PLATFORM+=	Interix-*-* # no raw interface access
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		bison flex gm4
-USE_MULTIARCH=		bin lib
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS.Darwin+=	--disable-universal
 

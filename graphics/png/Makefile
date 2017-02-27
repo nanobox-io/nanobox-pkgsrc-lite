@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.183 2016/06/10 15:23:47 wiz Exp $
+# $NetBSD: Makefile,v 1.189 2017/01/19 18:52:12 agc Exp $
 
-DISTNAME=	libpng-1.6.23
+DISTNAME=	libpng-1.6.28
 PKGNAME=	${DISTNAME:S/lib//}
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/} \
-		ftp://ftp.fu-berlin.de/unix/graphics/png/src/libpng16/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/}
+MASTER_SITES+=	ftp://ftp.fu-berlin.de/unix/graphics/png/src/libpng16/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	wiz@NetBSD.org
@@ -22,7 +22,6 @@ INSTALL_TARGET=	install install-header-links
 PKGCONFIG_OVERRIDE=	scripts/libpng.pc.in libpng.pc.in
 TEST_TARGET=	check
 USE_LIBTOOL=	yes
-USE_MULTIARCH=	bin lib
 
 CPPFLAGS+=	-DPNG_USER_CHUNK_CACHE_MAX=128 -DPNG_USER_CHUNK_MALLOC_MAX=8000000
 

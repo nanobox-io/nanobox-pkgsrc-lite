@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.14 2016/06/08 17:43:21 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2017/01/03 13:23:01 jperkin Exp $
 
 DISTNAME=	chardet-2.3.0
 PKGREVISION=	1
@@ -12,11 +12,9 @@ COMMENT=	Character encoding auto-detection in Python
 LICENSE=	gnu-lgpl-v2.1
 
 REPLACE_PYTHON=		chardet/chardetect.py
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
-FILES_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
-	${MV} ${DESTDIR}${PREFIX}/bin/chardetect ${DESTDIR}${PREFIX}/bin/chardetect-${PYVERSSUFFIX}
+	${MV} ${DESTDIR}${PREFIX}/bin/chardetect ${DESTDIR}${PREFIX}/bin/chardetect-${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

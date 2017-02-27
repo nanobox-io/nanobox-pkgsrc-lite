@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.49 2016/03/05 11:29:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.53 2017/01/01 16:06:40 adam Exp $
 
 PKGNAME=	${PYPKGPREFIX}-kde4-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	6
 DISTNAME=	pykde4-${_KDE_VERSION}
 CATEGORIES=	misc
 COMMENT=	Python bindings for the KDE integrated X11 desktop
@@ -15,7 +15,6 @@ CMAKE_ARGS+=	-DWITH_Soprano:BOOL=OFF
 CMAKE_ARGS+=	-DWITH_Nepomuk:BOOL=OFF
 
 PY_PATCHPLIST=			yes
-PLIST_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 
 REPLACE_PYTHON+= \
 	tools/pykdeuic4/*.py \

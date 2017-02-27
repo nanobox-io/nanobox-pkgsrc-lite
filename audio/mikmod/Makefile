@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.52 2015/08/18 07:31:02 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2017/01/04 16:19:33 roy Exp $
 
-DISTNAME=	mikmod-3.2.6
-PKGREVISION=	2
+DISTNAME=	mikmod-3.2.7
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mikmod/}
 
@@ -14,5 +13,5 @@ USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 
 .include "../../audio/libmikmod/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

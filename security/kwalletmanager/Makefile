@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2016/03/05 11:29:22 jperkin Exp $
+# $NetBSD: Makefile,v 1.6 2017/01/01 16:06:35 adam Exp $
 
 DISTNAME=	kwalletmanager-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	security
 COMMENT=	KDE wallet manager
 

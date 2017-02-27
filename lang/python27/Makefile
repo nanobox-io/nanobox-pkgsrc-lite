@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.67 2016/07/26 16:45:33 kamil Exp $
+# $NetBSD: Makefile,v 1.70 2017/02/01 11:31:50 jperkin Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python-${PY_DISTVERSION}
-PKGREVISION=	5
+PKGREVISION=	1
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -20,7 +20,7 @@ CONFIGURE_ARGS+=	--with-threads
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	OPT=${CFLAGS:Q}
 CONFIGURE_ARGS+=	--with-system-ffi
-CONFIGURE_ARGS+=	--with-dbmliborder=ndbm:bdb
+#CONFIGURE_ARGS+=	--with-dbmliborder=ndbm:bdb
 CONFIGURE_ENV+=		MKDIR_P=${MKDIR:Q}
 
 PKGCONFIG_OVERRIDE+=	Misc/python.pc.in
@@ -125,19 +125,8 @@ PLIST.no-nis=	yes
 .  endif
 .endif
 
-#.include "../../mk/bdb.buildlink3.mk"
-MAKE_ENV+=	PY_BDB_TYPE=${BDB_TYPE}
-.if empty(BDB_LIBS)
-BUILDLINK_TRANSFORM+=	rm:-ldb
-.endif
-CFLAGS+=	-DHAVE_DB_185_H
-
 # configure complains about buggy getaddrinfo()
 CONFIGURE_ARGS.OSF1+=	--disable-ipv6
-
-.if defined(BUILDLINK_TRANSFORM)
-MAKE_ENV+=	PY_BDB_TRANSFORM=${BUILDLINK_TRANSFORM:Q}
-.endif
 
 PLIST_SUBST+=	PY_VER_SUFFIX=${PY_VER_SUFFIX:Q}
 
@@ -219,5 +208,6 @@ BUILDLINK_DEPMETHOD.readline=		build
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+#.include "../../mk/bdb.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

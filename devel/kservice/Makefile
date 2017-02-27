@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2016/05/26 08:29:06 markd Exp $
+# $NetBSD: Makefile,v 1.5 2017/02/12 06:24:39 ryoon Exp $
 
 DISTNAME=	kservice-${KF5VER}
+PKGREVISION=	3
 CATEGORIES=	devel
 
 HOMEPAGE=	https://community.kde.org/Frameworks
@@ -11,7 +12,7 @@ LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2.1
 
 BUILD_DEPENDS+=	kdoctools>=${KF5VER}:../../devel/kdoctools
 
-USE_TOOLS+=	msgmerge
+USE_TOOLS+=	bison flex msgmerge
 
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/xdg/menus
 CONF_FILES+=	${PREFIX}/share/examples/kservice/applications.menu \
