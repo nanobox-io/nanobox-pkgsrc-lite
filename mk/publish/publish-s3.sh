@@ -47,7 +47,7 @@ publish_all() {
   for file in $(ls /content/packages/pkgsrc/${project}/${platform}/All/*)
   do
     file=$(basename ${file})
-    if [[ ! ${uploaded} =~ ${file//\+/\\\+} ]]
+    if ! echo "${uploaded}" | grep -q "^${file}$"
     then
       publish_file ${user} ${project} ${platform} ${file}
     fi

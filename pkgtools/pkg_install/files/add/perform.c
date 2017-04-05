@@ -133,6 +133,9 @@ end_of_version(const char *opsys, const char *version_end)
     if (*version_end == '\0')
 	return 1;
 
+    if (strcmp(opsys, "Linux") == 0)
+        return 1;
+
     if (strcmp(opsys, "NetBSD") == 0) {
 	if (strncmp(version_end, "_ALPHA", 6) == 0
 	    || strncmp(version_end, "_BETA", 5) == 0

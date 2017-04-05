@@ -1795,6 +1795,7 @@ lib/python${PY_VER_SUFFIX}/lib-dynload/_csv.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/_ctypes.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/_ctypes_test.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/_datetime.so
+lib/python${PY_VER_SUFFIX}/lib-dynload/_dbm.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/_decimal.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/_hashlib.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/_heapq.so

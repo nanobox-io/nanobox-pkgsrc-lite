@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.87 2017/02/11 12:12:02 abs Exp $
+# $NetBSD: mozilla-common.mk,v 1.89 2017/03/07 20:45:43 ryoon Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -11,7 +11,7 @@
 BUILD_DEPENDS+=		yasm>=1.1:../../devel/yasm
 
 # Enable Google widevine CDM. This requires external libwidevinecdm.so.
-CONFIGURE_ARGS+=	--enable-eme=widevine
+#CONFIGURE_ARGS+=	--enable-eme=widevine
 .endif
 
 HAS_CONFIGURE=		yes
@@ -89,11 +89,7 @@ CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}js/src/build/autoconf/config.sub
 CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}nsprpub/build/autoconf/config.sub
 CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}/js/ctypes/libffi/config.sub
 
-PYTHON_VERSIONS_ACCEPTED=	27
-PYTHON_FOR_BUILD_ONLY=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-sqlite2
-.include "../../lang/python/application.mk"
-CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
+CONFIGURE_ENV+=		CPP=${CPP}
 
 SUBST_CLASSES+=		python
 SUBST_STAGE.python=	pre-configure
@@ -152,14 +148,6 @@ CONFIGURE_ARGS+=	--enable-macos-target=10.4
 .elif !empty(MACHINE_PLATFORM:MDarwin-9.*-*)
 CONFIGURE_ARGS+=	--enable-macos-target=10.5
 .endif
-
-#
-# pysqlite2 is used by xulrunner's Python virtualenv.  If pysqlite2 isn't
-# installed at build time it will attempt to download it instead, so the
-# problem is stealthy in a networked environment, and obvious in an
-# offline environment.
-#
-BUILD_DEPENDS+=	${PYPKGPREFIX}-sqlite2-[0-9]*:../../databases/py-sqlite2
 
 # Makefiles sometimes call "rm -f" without more arguments. Kludge around ...
 .PHONY: create-rm-wrapper
