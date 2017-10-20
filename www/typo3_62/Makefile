@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.21 2017/01/13 15:06:40 taca Exp $
+# $NetBSD: Makefile,v 1.23 2017/09/03 08:53:17 wiz Exp $
 #
 
 DISTNAME=	${TYPO3NAME}
@@ -7,7 +7,7 @@ CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=typo3/}
 
 MAINTAINER=	taca@NetBSD.org
-HOMEPAGE=	http://typo3.com/
+HOMEPAGE=	https://typo3.com/
 COMMENT=	The TYPO3 content management system, 6.2 LTS release
 LICENSE=	gnu-gpl-v2
 
@@ -18,7 +18,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.3.7:../../textproc/php-json
 DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.3.7:../../archivers/php-zip
 DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.3.7:../../archivers/php-zlib
 
-VER=		6.2.30
+VER=		6.2.31
 NO_BUILD=	yes
 USE_TOOLS+=	bash:run pax
 

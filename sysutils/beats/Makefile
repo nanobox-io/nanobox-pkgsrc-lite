@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2017/03/01 14:21:27 fhajny Exp $
-#
+# $NetBSD: Makefile,v 1.18 2017/10/17 11:31:36 fhajny Exp $
 
-DISTNAME=		beats-5.2.2
+DISTNAME=		beats-5.6.3
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_GITHUB:=elastic/}
 GITHUB_PROJECT=		beats
@@ -12,16 +11,19 @@ HOMEPAGE=		https://www.elastic.co/products/beats
 COMMENT=		Data Shippers for Elasticsearch
 LICENSE=		apache-2.0
 
-.include "../../lang/go/version.mk"
-BUILD_DEPENDS+=		go-${GO_VERSION}*:../../lang/go
-
 EXTRACT_USING=		bsdtar
 USE_TOOLS+=		gmake
 
-WRKSRC=			${WRKDIR}/src/github.com/elastic/beats
+GO_DIST_BASE=		${PKGBASE}-${GITHUB_TAG:S/v//}
+GO_SRCPATH=		github.com/elastic/beats
 
 # Components to build/install
 BEATS=			filebeat heartbeat metricbeat packetbeat
+
+CHECK_RELRO_SKIP+=	bin/filebeat
+CHECK_RELRO_SKIP+=	bin/heartbeat
+CHECK_RELRO_SKIP+=	bin/metricbeat
+CHECK_RELRO_SKIP+=	bin/packetbeat
 
 .for beat in ${BEATS}
 CONF_FILES+=		share/examples/beats/${beat}.yml			\
@@ -45,14 +47,14 @@ SMF_INSTANCES+=		${BEATS}
 OWN_DIRS+=		${BEATS_DIR} ${BEATS_LOGDIR}
 
 MAKE_ENV+=		GOPATH=${WRKDIR}:${PREFIX}/gopkg
-BUILD_DIRS=		${BEATS}
 BUILD_TARGET=		#
 
 INSTALLATION_DIRS+=	bin share/examples/beats
 
-post-extract:
-	${MKDIR} ${WRKSRC}
-	${MV} ${WRKDIR}/${DISTNAME}/* ${WRKSRC}
+do-build:
+.for beat in ${BEATS}
+	cd ${WRKSRC}/${beat} && ${BUILD_MAKE_CMD}
+.endfor
 
 do-install:
 .for beat in ${BEATS}
@@ -67,5 +69,6 @@ do-install:
 		${DESTDIR}${PREFIX}/share/examples/beats
 .endfor
 
+.include "../../lang/go/go-package.mk"
 .include "../../net/libpcap/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

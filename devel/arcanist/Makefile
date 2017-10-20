@@ -1,26 +1,27 @@
-# $NetBSD: Makefile,v 1.5 2016/03/05 17:11:22 youri Exp $
+# $NetBSD: Makefile,v 1.10 2017/06/27 10:35:46 roy Exp $
 
-DISTNAME=		arcanist-20160224
+DISTNAME=		arcanist-20170609
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GITHUB:=phacility/}
+# Track the stable branch
 GITHUB_PROJECT=		arcanist
-GITHUB_TAG=		086f5399bfbb65513b1b0e2c5371522202a9beb7
+GITHUB_TAG=		0c53a35d30e924f902510eb2e497ae5934209304
 
-MAINTAINER=		youri@NetBSD.org
+MAINTAINER=		roy@NetBSD.org
 HOMEPAGE=		https://github.com/phacility/arcanist/
 COMMENT=		Command line interface for Phabricator
 LICENSE=		apache-2.0
 
+PHP_VERSIONS_INCOMPATIBLE=	70
+
 EXTRACT_USING=		bsdtar
-USE_TOOLS+=		bash bsdtar pax
+USE_TOOLS+=		bsdtar pax
 
 DEPENDS+=		${PHP_PKG_PREFIX}-curl-[0-9]*:../../www/php-curl
 DEPENDS+=		${PHP_PKG_PREFIX}-json-[0-9]*:../../textproc/php-json
 DEPENDS+=		libphutil-[0-9]*:../../devel/libphutil
 
 CONFLICTS+=		arc-[0-9]*:../../archivers/arc
-
-REPLACE_BASH+=		bin/arc
 
 SUBST_CLASSES+=		php
 SUBST_MESSAGE.php=	Fixing PHP path
@@ -40,8 +41,11 @@ ARCANISTDIR=		share/arcanist
 INSTALLATION_DIRS+=	${ARCANISTDIR} bin
 
 do-install:
-	cd ${WRKSRC} && ${PAX} -rw * ${DESTDIR}${PREFIX}/${ARCANISTDIR}
-	ln -s ${PREFIX}/${ARCANISTDIR}/bin/arc ${DESTDIR}${PREFIX}/bin/arc
+	cd ${WRKSRC} && \
+		${PAX} -rw * -s',.*\.orig$$,,' \
+		${DESTDIR}${PREFIX}/${ARCANISTDIR}
+	ln -s ${PREFIX}/${ARCANISTDIR}/scripts/arcanist.php \
+		${DESTDIR}${PREFIX}/bin/arc
 
 .include "../../lang/python/application.mk"
 .include "../../lang/php/phpversion.mk"

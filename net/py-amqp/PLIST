@@ -1,8 +1,9 @@
-@comment $NetBSD: PLIST,v 1.1 2013/12/31 14:02:07 rodent Exp $
+@comment $NetBSD: PLIST,v 1.3 2017/07/13 14:15:20 adam Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
 ${PYSITELIB}/${EGG_INFODIR}/not-zip-safe
+${PYSITELIB}/${EGG_INFODIR}/requires.txt
 ${PYSITELIB}/${EGG_INFODIR}/top_level.txt
 ${PYSITELIB}/amqp/__init__.py
 ${PYSITELIB}/amqp/__init__.pyc
@@ -28,12 +29,21 @@ ${PYSITELIB}/amqp/five.pyo
 ${PYSITELIB}/amqp/method_framing.py
 ${PYSITELIB}/amqp/method_framing.pyc
 ${PYSITELIB}/amqp/method_framing.pyo
+${PYSITELIB}/amqp/platform.py
+${PYSITELIB}/amqp/platform.pyc
+${PYSITELIB}/amqp/platform.pyo
 ${PYSITELIB}/amqp/protocol.py
 ${PYSITELIB}/amqp/protocol.pyc
 ${PYSITELIB}/amqp/protocol.pyo
+${PYSITELIB}/amqp/sasl.py
+${PYSITELIB}/amqp/sasl.pyc
+${PYSITELIB}/amqp/sasl.pyo
 ${PYSITELIB}/amqp/serialization.py
 ${PYSITELIB}/amqp/serialization.pyc
 ${PYSITELIB}/amqp/serialization.pyo
+${PYSITELIB}/amqp/spec.py
+${PYSITELIB}/amqp/spec.pyc
+${PYSITELIB}/amqp/spec.pyo
 ${PYSITELIB}/amqp/transport.py
 ${PYSITELIB}/amqp/transport.pyc
 ${PYSITELIB}/amqp/transport.pyo

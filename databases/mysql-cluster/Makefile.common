@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.11 2016/09/15 06:05:08 jnemeth Exp $
+# $NetBSD: Makefile.common,v 1.14 2017/09/03 08:53:05 wiz Exp $
 #
 # used by databases/mysql-cluster/Makefile
 
@@ -7,7 +7,7 @@ CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_MYSQL:=MySQL-Cluster-7.4/}
 
 MAINTAINER?=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.mysql.com/products/cluster/
+HOMEPAGE=	https://www.mysql.com/products/cluster/
 LICENSE=	gnu-gpl-v2
 
 USE_CMAKE=		yes
@@ -120,7 +120,7 @@ SUBST_FILES.fixpaths+=	${DESTDIR}${PREFIX}/share/doc/mysql/INFO_BIN
 SUBST_SED.fixpaths=	-e "s,${WRAPPER_BINDIR}/gcc,${CCPATH},g"
 SUBST_SED.fixpaths+=	-e "s,${WRAPPER_BINDIR}/g++,${CXXPATH},g"
 
-.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+.if ${SHLIB_TYPE} == "dylib"
 SOEXT="dylib"
 .else
 SOEXT="so"
@@ -128,5 +128,6 @@ SOEXT="so"
 
 CMAKE_ARGS+=	-DWITH_EDITLINE=bundled
 
+.include "../../mk/curses.buildlink3.mk"
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

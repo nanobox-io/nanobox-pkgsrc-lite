@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.33 2017/02/27 09:49:27 wiz Exp $
+$NetBSD: distinfo,v 1.36 2017/09/04 14:43:59 wiz Exp $
 
-SHA1 (anki-2.0.44-source.tgz) = a2039119c5c7299662bea44d68b4e90eec3709df
-RMD160 (anki-2.0.44-source.tgz) = 694ab4bb331cc2277ba16cca299f6a065433a642
-SHA512 (anki-2.0.44-source.tgz) = fffc828a7dc77c8d6a5f5d22689d231f6fbfb0eaaa68988b0be7205dffeb18c39e7a6ec6240030c35d5c4fdd593bc239ef367c666648b37b1683c6ba1a9e9721
-Size (anki-2.0.44-source.tgz) = 3422168 bytes
+SHA1 (anki-2.0.47-source.tgz) = 04b11ba8f25f8e86b549e7fa73ee81751e154116
+RMD160 (anki-2.0.47-source.tgz) = fa8aaae0a8d4e57fbd805466cd61f5af17900ac8
+SHA512 (anki-2.0.47-source.tgz) = 5e4bbaac6d60506f43adfec1c4ff83285ac423405bfba57b566e7a9d632a22cf0f9ca7fe3eff3ce56c516a6cbb0112e5251319f11ba984d74bffd2c25e04c64a
+Size (anki-2.0.47-source.tgz) = 3422231 bytes
 SHA1 (patch-Makefile) = 7148ed542b1f1be4e75274a82fda4863bf40f861

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2017/01/05 11:54:32 adam Exp $
+# $NetBSD: Makefile,v 1.6 2017/07/11 19:47:37 adam Exp $
 
-DISTNAME=	polly-3.9.1.src
+DISTNAME=	polly-4.0.1.src
 PKGNAME=	${DISTNAME:S/.src//}
 CATEGORIES=	devel
 MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
@@ -14,7 +14,7 @@ LICENSE=	modified-bsd
 CONFIGURE_DIRS=		${WRKDIR}/build
 CMAKE_ARG_PATH=		${WRKSRC}
 
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_CMAKE=		yes
 GCC_REQD+=		4.8
 

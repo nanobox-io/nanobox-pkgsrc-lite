@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2017/02/04 12:50:23 ryoon Exp $
+# $NetBSD: Makefile,v 1.3 2017/05/18 07:20:22 fhajny Exp $
 
-DISTNAME=	fio-2.17
+DISTNAME=	fio-2.19
 CATEGORIES=	benchmarks
 MASTER_SITES=	http://brick.kernel.dk/snaps/
 
@@ -24,6 +24,8 @@ REPLACE_PYTHON+=	tools/hist/fiologparser_hist.py
 REPLACE_PYTHON+=	tools/plot/fio2gnuplot
 
 INSTALLATION_DIRS=	${DOCDIR} ${EGDIR}
+
+TEST_TARGET=		test
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/HOWTO ${DESTDIR}${DOCDIR}

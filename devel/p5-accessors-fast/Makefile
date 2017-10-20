@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.6 2016/06/08 19:23:45 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2017/09/16 19:26:46 wiz Exp $
 #
 
 DISTNAME=	accessors-fast-0.03
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/M/MO/MONS/}
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/accessors-fast/
 COMMENT=	Compiletime accessors using Class::Accessor::Fast
 LICENSE=	${PERL5_LICENSE}
@@ -20,6 +20,8 @@ DEPENDS+=	p5-constant-def>=0.01:../../devel/p5-constant-def
 BUILD_DEPENDS+=	p5-lib-abs>=0.90:../../devel/p5-lib-abs
 
 REPLACE_PERL+=	cpants.pl
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

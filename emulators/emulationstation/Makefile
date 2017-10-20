@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2017/01/01 16:06:11 adam Exp $
+# $NetBSD: Makefile,v 1.12 2017/08/24 20:03:13 adam Exp $
 
 DISTNAME=	abba19584636c28cd98e3810e857f493cb63d06c
 PKGNAME=	emulationstation-2.0.0_rc1_20150210
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	emulators games
 MASTER_SITES=	https://github.com/Aloshi/EmulationStation/archive/
 EXTRACT_SUFX=	.zip
@@ -14,13 +14,8 @@ COMMENT=	Themeable multi-system emulator frontend
 LICENSE=	mit
 
 USE_CMAKE=	yes
-USE_LANGUAGES+=	c c++
+USE_LANGUAGES+=	c c++11
 GCC_REQD+=	4.7 # C++11
-
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11
-.endif
 
 WRKSRC=		${WRKDIR}/EmulationStation-${DISTNAME}
 

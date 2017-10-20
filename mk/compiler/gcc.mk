@@ -1,4 +1,4 @@
-# $NetBSD: gcc.mk,v 1.174 2016/12/29 23:16:26 maya Exp $
+# $NetBSD: gcc.mk,v 1.185 2017/10/03 09:38:16 jperkin Exp $
 #
 # This is the compiler definition for the GNU Compiler Collection.
 #
@@ -20,6 +20,10 @@
 #	When set to "yes", the runtime gcc libraries (libgcc, libstdc++
 #	etc) will be used from pkgsrc rather than the native compiler.
 #
+# GCC_VERSION_SUFFIX
+#	Optional suffix for GCC binaries, i.e. if the installed names are like
+#	/usr/bin/g++-5, /usr/bin/gcc-5 etc.
+
 # Package-settable variables:
 #
 # GCC_REQD
@@ -105,7 +109,7 @@ GCC_REQD+=	20120614
 
 # _GCC_DIST_VERSION is the highest version of GCC installed by the pkgsrc
 # without the PKGREVISIONs.
-_GCC_DIST_NAME:=	gcc6
+_GCC_DIST_NAME:=	gcc7
 .include "../../lang/${_GCC_DIST_NAME}/version.mk"
 _GCC_DIST_VERSION:=	${${_GCC_DIST_NAME:tu}_DIST_VERSION}
 
@@ -120,11 +124,11 @@ _GCC3_PATTERNS=	2.95.[4-9]* 2.95.[1-9][0-9]* 2.9[6-9] 2.9[6-9].*	\
 # _GCC34_PATTERNS matches N s.t. 3.4 <= N < 4.
 _GCC34_PATTERNS= 3.[4-9] 3.[4-9].* 3.[1-9][0-9]*
 
-# _GCC44_PATTERNS matches N s.t. 4.4 <= N < 4.5.
-_GCC44_PATTERNS= 4.4 4.4.*
+# _GCC44_PATTERNS matches N s.t. 4.0 <= N < 4.5.
+_GCC44_PATTERNS= 4.[0-4] 4.[0-4].*
 
 # _GCC48_PATTERNS matches N s.t. 4.5 <= N < 4.9.
-_GCC48_PATTERNS= 4.[5678] 4.[5678].*
+_GCC48_PATTERNS= 4.[5-8] 4.[5-8].*
 
 # _GCC49_PATTERNS matches N s.t. 4.9 <= N < 4.10.
 _GCC49_PATTERNS= 4.9 4.9.*
@@ -134,6 +138,9 @@ _GCC5_PATTERNS= 5.*
 
 # _GCC6_PATTERNS matches N s.t. 6.0 <= N < 7.
 _GCC6_PATTERNS= 6.*
+
+# _GCC7_PATTERNS matches N s.t. 7.0 <= N < 8.
+_GCC7_PATTERNS= 7.*
 
 # _GCC_AUX_PATTERNS matches 8-digit date YYYYMMDD*
 _GCC_AUX_PATTERNS= 20[1-2][0-9][0-1][0-9][0-3][0-9]*
@@ -269,6 +276,12 @@ _NEED_GCC6?=	no
 _NEED_GCC6=	yes
 .  endif
 .endfor
+_NEED_GCC7?=	no
+.for _pattern_ in ${_GCC7_PATTERNS}
+.  if !empty(_GCC_REQD:M${_pattern_})
+_NEED_GCC7=	yes
+.  endif
+.endfor
 _NEED_GCC_AUX?=	no
 .for _pattern_ in ${_GCC_AUX_PATTERNS}
 .  if !empty(_GCC_REQD:M${_pattern_})
@@ -280,8 +293,9 @@ _NEED_NEWER_GCC=NO
     !empty(_NEED_GCC34:M[nN][oO]) && !empty(_NEED_GCC44:M[nN][oO]) && \
     !empty(_NEED_GCC48:M[nN][oO]) && !empty(_NEED_GCC49:M[nN][oO]) && \
     !empty(_NEED_GCC5:M[nN][oO]) && !empty(_NEED_GCC6:M[nN][oO]) && \
+    !empty(_NEED_GCC7:M[nN][oO]) && \
     !empty(_NEED_GCC_AUX:M[nN][oO])
-_NEED_GCC6=	yes
+_NEED_GCC7=	yes
 .endif
 
 # Assume by default that GCC will only provide a C compiler.
@@ -302,6 +316,8 @@ LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
 LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
 .elif !empty(_NEED_GCC6:M[yY][eE][sS])
 LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
+.elif !empty(_NEED_GCC7:M[yY][eE][sS])
+LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
 .elif !empty(_NEED_GCC_AUX:M[yY][eE][sS])
 LANGUAGES.gcc=	c c++ fortran fortran77 objc ada
 .endif
@@ -316,52 +332,49 @@ CWRAPPERS_APPEND.cc+=	-std=gnu99
 .endif
 
 .if ${OPSYS} == "NetBSD"
-_FORTIFY_CFLAGS.gcc=	-D_FORTIFY_SOURCE=2
 _MKPIE_CFLAGS.gcc=	-fPIC
 # XXX for executables it should be:
 #_MKPIE_CFLAGS.gcc=	-fPIE
 # XXX for libraries a sink wrapper around gcc is required and used instead
-#_MKPIE_LDFLAGS.gcc=	-pie
-_RELRO_LDFLAGS.gcc=	-Wl,-z,relro -Wl,-z,now
-.endif
-
-.if ${OPSYS} == "SunOS"
-_FORTIFY_CFLAGS.gcc=	-D_FORTIFY_SOURCE=2
+_MKPIE_LDFLAGS.gcc=	-pie
 .endif
 
 .if ${_PKGSRC_MKPIE} == "yes"
 _GCC_CFLAGS+=		${_MKPIE_CFLAGS.gcc}
-_GCC_LDFLAGS+=		${_MKPIE_LDFLAGS.gcc}
+#_GCC_LDFLAGS+=		${_MKPIE_LDFLAGS.gcc}
 CWRAPPERS_APPEND.cc+=	${_MKPIE_CFLAGS.gcc}
-# XXX this differs for libraries and executables
+# this differs for libraries and executables (handled in mk/cwrappers.mk)
 # CWRAPPERS_APPEND.ld+=	${_MKPIE_LDFLAGS.gcc}
 .endif
 
+# The user can choose the level of FORTIFY.
+.if ${PKGSRC_USE_FORTIFY} == "weak"
+_FORTIFY_CFLAGS=	-D_FORTIFY_SOURCE=1
+.else
+_FORTIFY_CFLAGS=	-D_FORTIFY_SOURCE=2
+.endif
+
 .if ${_PKGSRC_USE_FORTIFY} == "yes"
-_GCC_CFLAGS+=		${_FORTIFY_CFLAGS.gcc}
-CWRAPPERS_APPEND.cc+=	${_FORTIFY_CFLAGS.gcc}
+_GCC_CFLAGS+=		${_FORTIFY_CFLAGS}
+CWRAPPERS_APPEND.cc+=	${_FORTIFY_CFLAGS}
+.endif
+
+# The user can choose the level of RELRO.
+.if ${PKGSRC_USE_RELRO} == "partial"
+_RELRO_LDFLAGS=		-Wl,-z,relro
+.else
+_RELRO_LDFLAGS=		-Wl,-z,relro -Wl,-z,now
 .endif
 
 .if ${_PKGSRC_USE_RELRO} == "yes"
-_GCC_LDFLAGS+=		${_RELRO_LDFLAGS.gcc}
-CWRAPPERS_APPEND.ld+=	${_RELRO_LDFLAGS.gcc}
+_GCC_LDFLAGS+=		${_RELRO_LDFLAGS}
+CWRAPPERS_APPEND.ld+=	${_RELRO_LDFLAGS}
 .endif
  
-# The user can choose the level of stack smashing protection.
-.if ${PKGSRC_USE_SSP} == "all"
-_SSP_CFLAGS=		-fstack-protector-all
-.elif ${PKGSRC_USE_SSP} == "strong"
-_SSP_CFLAGS=		-fstack-protector-strong
-.else
-_SSP_CFLAGS=		-fstack-protector
-.endif
+_STACK_CHECK_CFLAGS=	-fstack-check
 
-.if ${_PKGSRC_USE_SSP} == "yes"
-_WRAP_EXTRA_ARGS.CC+=	${_SSP_CFLAGS}
-_WRAP_EXTRA_ARGS.CXX+=	${_SSP_CFLAGS}
-CWRAPPERS_APPEND.cc+=	${_SSP_CFLAGS}
-CWRAPPERS_APPEND.cxx+=	${_SSP_CFLAGS}
-CWRAPPERS_APPEND.f77+=	${_SSP_CFLAGS}
+.if ${_PKGSRC_USE_STACK_CHECK} == "yes"
+_GCC_CFLAGS+=		${_STACK_CHECK_CFLAGS}
 .endif
 
 # GCC has this annoying behaviour where it advocates in a multi-line
@@ -519,6 +532,27 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc6
 _GCC_DEPENDENCY=	gcc6>=${_GCC_REQD}:../../lang/gcc6
+.    if !empty(_LANGUAGES.gcc:Mc++) || \
+        !empty(_LANGUAGES.gcc:Mfortran) || \
+        !empty(_LANGUAGES.gcc:Mfortran77) || \
+        !empty(_LANGUAGES.gcc:Mgo) || \
+        !empty(_LANGUAGES.gcc:Mobjc) || \
+        !empty(_LANGUAGES.gcc:Mobj-c++)
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+.elif !empty(_NEED_GCC7:M[yY][eE][sS])
+#
+# We require gcc-7.x in the lang/gcc7-* directory.
+#
+_GCC_PKGBASE=		gcc7
+.  if !empty(PKGPATH:Mlang/gcc7)
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc7
+_GCC_DEPENDENCY=	gcc7>=${_GCC_REQD}:../../lang/gcc7
 .    if !empty(_LANGUAGES.gcc:Mc++) || \
         !empty(_LANGUAGES.gcc:Mfortran) || \
         !empty(_LANGUAGES.gcc:Mfortran77) || \
@@ -702,44 +736,44 @@ _GCCBINDIR=	${_CC:H}
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 _GCC_BIN_PREFIX=	${MACHINE_GNU_PLATFORM}-
 .endif
-.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}gcc)
+.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}gcc${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	CC
-_GCC_CC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gcc
+_GCC_CC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gcc${GCC_VERSION_SUFFIX}
 _ALIASES.CC=	cc gcc
-CCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}gcc
+CCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}gcc${GCC_VERSION_SUFFIX}
 PKG_CC:=	${_GCC_CC}
 .endif
-.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}cpp)
+.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}cpp${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	CPP
-_GCC_CPP=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}cpp
+_GCC_CPP=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}cpp${GCC_VERSION_SUFFIX}
 _ALIASES.CPP=	cpp
-CPPPATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}cpp
+CPPPATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}cpp${GCC_VERSION_SUFFIX}
 PKG_CPP:=	${_GCC_CPP}
 .endif
-.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}g++)
+.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}g++${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	CXX
-_GCC_CXX=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g++
+_GCC_CXX=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g++${GCC_VERSION_SUFFIX}
 _ALIASES.CXX=	c++ g++
-CXXPATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g++
+CXXPATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g++${GCC_VERSION_SUFFIX}
 PKG_CXX:=	${_GCC_CXX}
 .endif
-.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77)
+.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	FC
-_GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g77
+_GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX}
 _ALIASES.FC=	f77 g77
 FC=		g77
-FCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77
-F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77
+FCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX}
+F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX}
 PKG_FC:=	${_GCC_FC}
 PKGSRC_FORTRAN?=	g77
 .endif
-.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran)
+.if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	FC
-_GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gfortran
+_GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX}
 _ALIASES.FC=	gfortran
 FC=		gfortran
-FCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran
-F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran
+FCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX}
+F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX}
 PKG_FC:=	${_GCC_FC}
 PKGSRC_FORTRAN?=	gfortran
 .endif
@@ -830,6 +864,17 @@ CC_VERSION=		gcc-${_GCC_REQD}
 .else
 CC_VERSION_STRING=	${CC_VERSION}
 CC_VERSION=		${_GCC_PKG}
+.endif
+
+# The user can choose the level of stack smashing protection.
+.if !empty(CC_VERSION:Mgcc-[4-9]*)
+.  if ${PKGSRC_USE_SSP} == "all"
+_SSP_CFLAGS=		-fstack-protector-all
+.  elif ${PKGSRC_USE_SSP} == "strong"
+_SSP_CFLAGS=		-fstack-protector-strong
+.  else
+_SSP_CFLAGS=		-fstack-protector
+.  endif
 .endif
 
 # Prepend the path to the compiler to the PATH.

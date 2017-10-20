@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.4 2007/01/11 19:08:48 drochner Exp $
+@comment $NetBSD: PLIST,v 1.6 2017/08/02 16:14:58 adam Exp $
 bin/sqlite3
 include/sqlite3.h
 include/sqlite3ext.h

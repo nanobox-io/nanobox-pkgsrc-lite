@@ -90,6 +90,7 @@ clang-static-analyzer	Install the clang static analyzer.
 claws-mail-jpilot	Add jpilot support.
 clisp			Common/C Lisp.
 clutter			Use Clutter for graphics support.
+cmxs			Produce CMXS files.
 compface		Enable compface support.
 coqide			Enable ide support for coq.
 coreaudio		Enable Core Audio library support.
@@ -106,6 +107,7 @@ cvsgraph		Enable cvsgraph support.
 cython			Enable Cython support.
 dar-int32		Use 32-bit integers for file lengths in Dar.
 dar-int64		Use 64-bit integers for file lengths in Dar.
+daemontools-moresignals	Add options to send SIG{QUIT,USR1,USR2} to daemons.
 darwin			Build and/or run on Darwin and Mac OS X.
 db2			Enable db2 support.
 db4			Enable db4 support.
@@ -135,7 +137,6 @@ doc			Include the documentation.
 doxygen			Include doxygen based document.
 drac			Enable DRAC support.
 dri			Enable Direct Rendering support.
-drupal-xmlservices	Enable XML-based services.
 dspam-preferences-extension	Enable preferences extension.
 dspam-verbose-debug	Enable verbose debugging support.
 dspam-virtualusers	Enable support for virtual users.
@@ -158,6 +159,7 @@ ecore			Enable ecore library support.
 eekboard		Use eekboard for virtual keyboard support.
 efence			Build with Electric Fence malloc() debugger support.
 efnet			Enable tweaks to support EFNet.
+el1			Switch to EL1 before booting kernel (required for 32-bit kernels).
 elinks-exmode		Enable vi-like command entry.
 elinks-fastmem		Allow direct use of system memory allocation functions.
 elinks-html-highlight	Enable HTML highlighting using DOM engine.
@@ -199,6 +201,7 @@ finger			Enable finger support.
 firefox			Use firefox as gecko rendering engine.
 firefox3		Use firefox3 as gecko rendering engine.
 flac			Enable FLAC support.
+flambda			Enable Flambda optimisation passes
 floppyd			Use floppyd to access floppy device.
 fluidsynth		Enable MIDI support using fluidsynth.
 fontconfig		Enable FONTCONFIG (fonts/fontconfig) support.
@@ -227,7 +230,6 @@ gcc-objc++		Build the gcc Objective-C++ frontend and libraries.
 gconf			Use GConf to store preferences.
 gd			Use GD to render graphical output.
 gdal			Use the GDAL library.
-gdb6-tui		Build the tui application.
 gdbm			Use the GNU gdbm database library.
 gdk-pixbuf		Use gdk-pixbuf as imaging library.
 gdk-pixbuf2		Use gdk-pixbuf2 as imaging library.
@@ -249,8 +251,6 @@ gnome-keyring		Enable GNOME keyring support.
 gnomecanvas		Enable GNOME canvas support
 gnomevfs		Enable GNOME Virtual File System support.
 gnupg2			Use GNU Privacy Guard (GnuPG) Version 2.0
-gnupg2-gpgsm		Install gpgsm binary.
-gnupg21			Use GNU Privacy Guard (GnuPG) Version 2.1
 gnuplot-pdf-doc		Install PDF document.
 gnutls			Enable GNU TLS support.
 goffice			Enable goffice support.
@@ -277,6 +277,7 @@ gtksourceview2		Enable gtksourceview2 support.
 gtkspell		Enable gtkspell support.
 gtkwave-tcl		Enable tcl for gtkwave.
 guile			Enable support for GUILE.
+gvfs                    Enable GVFS support.
 gzip			Enable compression using gzip.
 hal			Support for the freedesktop.org Hardware Abstraction Layer.
 halfops			Halfops are similar to plain ops, but can't kick/deop plain ops.
@@ -287,7 +288,7 @@ http2			Add support for HTTP/2.
 hunspell		Add spell checking support using hunspell.
 i586-optimized		Optimize for i586 (only).
 ibus			Enable Intelligent Input Bus support.
-iconv			Use iconv as chracter encoding conversion.
+iconv			Use iconv for character encoding conversion.
 icu			Enable icu support.
 id3			Enable id3 tagging support.
 idea			Enable support for the IDEA cryptographic algorithm (possible license+patent problems).
@@ -334,7 +335,6 @@ jpeg			Enable JPEG support.
 json			Enable JSON (JavaScript Object Notation) support.
 jwhois-enable-cache	Enable cache support.
 kde			Enable KDE support.
-kde3			Enable support for KDE 3.
 kde4			Enable support for KDE 4.
 kerberos		Enable Kerberos support.
 kerberos-prefix-cmds	Enables addition of a prefix to the kerberos client commands.
@@ -421,7 +421,6 @@ libgcrypt		Use GNU cryptographic library.
 libgme			Enable Game_Music_Emu video game music file library support.
 libgpod			Enable libgpod support.
 libiconv-cp932		Add supplemental support for CP932.
-libidn			Add support for libidn text conversion.
 libind			Add Indian script support using libind.
 liblqr			Enable liblqr (liquid rescale) support.
 libmms			Enable streaming from mms:// URLS using libmms.
@@ -498,7 +497,6 @@ mp3tunes		Enable support for mp3tunes.com.
 mp4v2			Enable MP4 support using mp4v2.
 mpcdec			Enable Musepack decoder library support.
 mpeg3			Enable libmpeg3 MPEG decoding library support.
-mpeg4ip			Enable mpeg4ip support.
 mpg123			Enable MP3 support using mpg123.
 mpg123-altivec		Enable altivec optimized dithering code.
 mpg123-fifo		Enable FIFO support for the mpg123 control interface.
@@ -506,7 +504,6 @@ mpg123-with-fpu		Enable generic fpu code.
 mpg123-x86-dither	Enable runtime selection of optimized x86 dithering (like MMX or 3Dnow).
 mplayer-default-cflags	Enable default optimized CFLAGS.
 mplayer-menu		Enable support for user-defined menus.
-mplayer-real		Enable usage of Real codecs.
 mplayer-runtime-cpudetection	Enable CPU detection at run time.
 mplayer-ssse3		Enable SSSE3 support.
 mplayer-win32		Enable usage of Win32 DLLs (codecs).
@@ -577,12 +574,14 @@ p5-module-build-license-creation	Enable license creation.
 pam			Enable PAM support.
 pcb-motif		Use Motif for the gui instead of GTK for cad/pcb.
 pcre			Enable Perl-compatible regular expressions.
+pcre2-jit		Enable JIT (just-in-time) support in pcre2.
 pcsc			Enable PC/SC support.
 pdf			Enable PDF support.
 perl			Enable Perl support.
 pgadmin-db-designer	Enable pgAdmin database-designer functionality.
 pgsql			Enable PostgreSQL support.
 php-sockets		Enable php-sockets support.
+pic			Enable compiling with -fPIC
 pim			Enable pim (personal information management) support.
 pinepwd			Enable $HOME/.pinepwd stored IMAP password file.
 pinfo-native-curses	Use NetBSD native curses rather than ncurses.
@@ -611,14 +610,19 @@ qemu			Use qemu.
 qemu-0			Use qemu-0.x.
 qmail-badrcptto		Patch to SMTP-reject particular envelope recipients.
 qmail-bigdns		Patch to handle oversized responses to MX queries.
+qmail-customerror	Patch to return custom messages from queue filters.
+qmail-maildiruniq	Patch to avoid name collisions when PIDs recycle fast.
 qmail-netqmail		Patch collection prepared by respected list members.
 qmail-outgoingip	Patch to force a particular source IP address.
 qmail-qregex		Patch to SMTP-reject customizable patterns.
+qmail-rcptcheck		Patch to SMTP-reject via a script or program.
 qmail-realrcptto	Patch to SMTP-reject nonexistent recipients.
+qmail-rejectutils	Patch to SMTP-reject recipients, senders, or content.
+qmail-remote		Patch to run $QMAILREMOTE instead of "qmail-remote".
+qmail-srs		Patch to implement Sender Rewriting Scheme with libsrs2.
 qmail-viruscan		Patch to SMTP-reject certain types of MIME attachments.
 qpopper-servermode	Enable server mode.
 qt			Enable support for QT.
-qt3			Enable support for QT3.
 qt4			Enable support for QT4.
 qt5			Enable support for QT5.
 quartz			Enable Quartz support on Mac OS X.
@@ -679,6 +683,7 @@ snort-prelude		Enable support for the Prelude Hybrid IDS system.
 socks4			Enable Socks4 support.
 socks5			Enable Socks5 support.
 softhsm			Enable SoftHSM for key management.
+spacetime		Enable memory profiling with Spacetime
 spamassassin		Enable SpamAssassin support.
 spamassassin-perl-warnings	Enable Perl warnings at run-time.
 spamassassin-taint-checks	Enable Perl taint checks to improve security.
@@ -798,6 +803,7 @@ w3m-image-imlib		Use imlib as imaging library for W3m.
 w3m-image-imlib2	Use imlib2 as imaging library for W3m.
 w3m-lynx-key		Enable lynx-like key bindings.
 wavpack			Enable wavpack support.
+webdav			Enable WebDAV support.
 webkit-jit		Enable JIT compilation.
 webrtc			Enable web realtime communications API.
 websocket		Websocket protocol support (as specified in RFC6455)

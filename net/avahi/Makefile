@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.68 2017/02/12 06:24:47 ryoon Exp $
+# $NetBSD: Makefile,v 1.73 2017/10/15 23:19:12 prlw1 Exp $
 
 DISTNAME=		avahi-0.6.32
-PKGREVISION=		5
+PKGREVISION=		7
 CATEGORIES=		net
 MASTER_SITES=		https://github.com/lathiat/avahi/releases/download/v${PKGVERSION_NOREV}/
 
@@ -77,6 +77,7 @@ CONFIGURE_ARGS+=	--disable-doxygen-dot
 CONFIGURE_ARGS+=	--disable-doxygen-html --disable-doxygen-xml
 CONFIGURE_ARGS+=	--disable-xmltoman
 CONFIGURE_ARGS+=	--disable-autoipd
+CONFIGURE_ARGS+=	--disable-qt3
 CONFIGURE_ARGS+=	--with-distro=none
 
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples

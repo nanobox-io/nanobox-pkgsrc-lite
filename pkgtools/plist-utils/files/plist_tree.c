@@ -1,4 +1,4 @@
-/* $NetBSD: plist_tree.c,v 1.1 2016/10/01 18:37:15 kamil Exp $ */
+/* $NetBSD: plist_tree.c,v 1.3 2017/09/30 13:23:06 adam Exp $ */
 
 /*-
  * Copyright (c) 2016 The NetBSD Foundation, Inc.
@@ -30,7 +30,7 @@
  */
 
 #include <sys/cdefs.h>
-__RCSID("$NetBSD: plist_tree.c,v 1.1 2016/10/01 18:37:15 kamil Exp $");
+__RCSID("$NetBSD: plist_tree.c,v 1.3 2017/09/30 13:23:06 adam Exp $");
 
 #include <sys/param.h>
 #include <sys/types.h>
@@ -128,21 +128,20 @@ plist_tree_init(void)
 char *
 get_key(const char *entry)
 {
-	char *copy;
+	char *copy, *s;
 	size_t n = 0;
-	char *s;
 	regmatch_t rm[10];
 	int ret;
 	size_t i;
 
 	assert(entry);
 
-	/* 1. Strip all ${PLIST.option}-like strings */
+	/* Strip all ${PLIST.option}-like strings */
 	ret = regexec(&plist_tree_singleton.plist_regex_options, entry,
-	              __arraycount(rm), rm, 0);
+	              sizeof(rm)/sizeof(rm[0]), rm, 0);
 	if (!ret) { /* Something found! */
 		/* Set pointer just after the matched string */
-		for(i = 0; i < __arraycount(rm); i++) {
+		for(i = 0; i < sizeof(rm)/sizeof(rm[0]); i++) {
 			if (rm[i].rm_so == -1)
 				break;
 
@@ -150,10 +149,16 @@ get_key(const char *entry)
 		}
 	}
 
-	/* Set copy that now contains an entry with removed '${PLIST.*}' */
-	copy = strdup(entry + n);
+	/* ${PYSITELIB} -> lib/python/site-packages */
+	if (strncmp("${PYSITELIB}", entry + n, 12) == 0) {
+		asprintf(&copy, "lib/python/site-packages%s", entry + n + 12);
+	}
+	else {
+		/* Set copy that now contains an entry with removed '${PLIST.*}' */
+		copy = strdup(entry + n);
+	}
 	if (copy == NULL)
-		err(EXIT_FAILURE, "strdup");
+		err(EXIT_FAILURE, "strdup/asprintf");
 
 	return copy;
 }

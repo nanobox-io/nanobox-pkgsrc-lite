@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.41 2017/01/01 16:06:01 adam Exp $
+# $NetBSD: Makefile,v 1.43 2017/08/24 20:03:03 adam Exp $
 #
 
 DISTNAME=	enlightenment-0.17.3
-PKGREVISION=	9
+PKGREVISION=	11
 CATEGORIES=	x11
 MASTER_SITES=	http://download.enlightenment.org/releases/
 EXTRACT_SUFX=	.tar.bz2

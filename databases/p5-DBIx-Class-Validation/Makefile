@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2016/06/08 19:22:27 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2017/06/28 13:24:28 jperkin Exp $
 
 DISTNAME=	DBIx-Class-Validation-0.02005
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
 
@@ -21,6 +21,8 @@ BUILD_DEPENDS+=	p5-DateTime-Format-SQLite-[0-9]*:../../time/p5-DateTime-Format-S
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/DBIx/Class/Validation/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

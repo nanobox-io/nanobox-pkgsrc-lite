@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.40 2017/02/26 18:41:59 tnn Exp $
+# $NetBSD: Makefile,v 1.45 2017/09/18 13:44:14 tnn Exp $
 
-DISTNAME=		synergy-1.8.6
+DISTNAME=		synergy-1.8.8
 PKGREVISION=		1
 CATEGORIES=		net x11
 MASTER_SITES=		${MASTER_SITE_GITHUB:=symless/}
@@ -11,11 +11,12 @@ HOMEPAGE=		http://synergy-project.org/
 COMMENT=		Let a user share a mouse and keyboard among computers
 LICENSE=		gnu-gpl-v2
 
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_TOOLS+=		unzip
 # Main configuration is CMake, but subdirectories are GNU configure.
 # We need to set GNU_CONFIGURE=yes for config.{guess,sub} overrides to kick in.
-# Fortunately for us, cmake seems to take precedence in infrastructure.
+# We override the do-configure target to prevent pkgsrc from running both
+# configuration mechanisms.
 USE_CMAKE=		yes
 GNU_CONFIGURE=		yes
 
@@ -43,6 +44,9 @@ post-extract:
 	${MKDIR} ${WRKSRC}/ext/gtest-1.6.0
 	cd ${WRKSRC}/ext/gtest-1.6.0 && unzip -aqo ../gtest-1.6.0.zip
 
+.PHONY: do-configure
+do-configure: do-configure-cmake
+
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/examples/${PKGBASE}
 
 do-install:
@@ -56,10 +60,10 @@ do-install:
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-_WRAP_EXTRA_ARGS.CXX+=	-std=c++11 -Wno-switch -Wno-unused	\
+_WRAP_EXTRA_ARGS.CXX+=	-Wno-switch -Wno-unused	\
 			-Wno-deprecated-register -Wno-tautological-compare \
 			-Wno-logical-op-parentheses -Wno-null-dereference
-CWRAPPERS_APPEND.cxx+=	-std=c++11 -Wno-switch -Wno-unused	\
+CWRAPPERS_APPEND.cxx+=	-Wno-switch -Wno-unused	\
 			-Wno-deprecated-register -Wno-tautological-compare \
 			-Wno-logical-op-parentheses -Wno-null-dereference
 .endif

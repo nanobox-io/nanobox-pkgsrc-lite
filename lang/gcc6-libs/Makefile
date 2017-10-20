@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2016/09/12 22:13:54 maya Exp $
+# $NetBSD: Makefile,v 1.5 2017/07/08 21:03:55 maya Exp $
 
 GCC_PKGNAME=	gcc6
 .include	"../../lang/${GCC_PKGNAME}/version.mk"
@@ -9,7 +9,7 @@ PKGNAME=	${GCC_PKGNAME}-libs-${GCC6_DIST_VERSION}
 ## The PKGREVISION of this package needs to be at least 1 more than the
 ## PKGREVISION of the lang/gcc6 package so that with the dependence pattern
 ## '{gcc6,gcc6-libs}>=6.1.*' pkg_add will choose gcc6-libs over gcc6.
-PKGREVISION=	1
+PKGREVISION=	2
 
 CATEGORIES=	lang
 MASTER_SITES=	# empty
@@ -36,7 +36,7 @@ GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 BUILD_DEFS+=		GCC_TARGET_MACHINE
 
 .include "../../mk/bsd.prefs.mk"
-.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+.if ${SHLIB_TYPE} == "dylib"
 SHLIB_EXT=	dylib
 .else
 SHLIB_EXT=	so

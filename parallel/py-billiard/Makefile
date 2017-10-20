@@ -1,23 +1,25 @@
-# $NetBSD: Makefile,v 1.13 2016/06/08 17:43:38 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/09/16 19:27:06 wiz Exp $
 
-DISTNAME=	billiard-3.3.0.18
+DISTNAME=	billiard-3.5.0.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	parallel
 MASTER_SITES=	${MASTER_SITE_PYPI:=b/billiard/}
 
-MAINTAINER=	rodent@NetBSD.org
-HOMEPAGE=	http://github.com/celery/billiard
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://github.com/celery/billiard
 COMMENT=	Python multiprocessing fork with improvements and bugfixes
 LICENSE=	modified-bsd
 
-USE_LANGUAGES+=	c
-REPLACE_PYTHON+=	funtests/setup.py funtests/tests/test_multiprocessing.py
+BUILD_DEPENDS+=	${PYPKGPREFIX}-case>=1.3.1:../../devel/py-case
+BUILD_DEPENDS+=	${PYPKGPREFIX}-test>=3.0:../../devel/py-test
 
 .include "../../lang/python/pyversion.mk"
+# builds _billiard.so
+.if "${PYPKGPREFIX}" == "py27"
+USE_LANGUAGES=		c
+.else
+USE_LANGUAGES=		# empty
+.endif
 
-TWO_OR_THREE=	${PYPKGPREFIX:C/([0-9])[0-9]/\1/1}
-PLIST_SUBST+=	PY_VER_MAJ=${TWO_OR_THREE}
-
-.include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

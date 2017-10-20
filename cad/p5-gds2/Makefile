@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2016/12/20 23:35:42 mef Exp $
+# $NetBSD: Makefile,v 1.6 2017/10/09 07:12:22 wiz Exp $
 
-DISTNAME=	GDS2-3.33
+DISTNAME=	GDS2-3.35
 PKGNAME=	p5-${DISTNAME:tl}
-PKGREVISION=	1
 CATEGORIES=	cad
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/S/SC/SCHUMACK/
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.39 2016/09/12 07:34:19 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2017/10/15 23:19:12 prlw1 Exp $
 
 DISTNAME=	dbus-glib-0.108
 CATEGORIES=	sysutils

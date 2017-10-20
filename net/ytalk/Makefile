@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.21 2015/08/18 07:31:16 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2017/10/09 08:53:56 wiz Exp $
 
 DISTNAME=	ytalk-3.3.0
 PKGREVISION=	1
 CATEGORIES=	net
-MASTER_SITES=	ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+MASTER_SITES=	ftp://ftp.ourproject.org/pub/ytalk/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.iagora.com/~espel/ytalk/ytalk.html
+HOMEPAGE=	http://ytalk.ourproject.org/
 COMMENT=	Multi-user replacement for UNIX talk
 
 CONFLICTS+=	ytalk-x11-[0-9]*

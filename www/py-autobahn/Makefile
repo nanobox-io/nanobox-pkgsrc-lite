@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.1 2017/02/22 13:19:07 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2017/09/16 08:50:30 wiz Exp $
 
-DISTNAME=	autobahn-0.17.1
+DISTNAME=	autobahn-17.9.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	${MASTER_SITE_PYPI:=a/autobahn/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	https://pypi.python.org/pypi/autobahn
+HOMEPAGE=	https://crossbar.io/autobahn/
 COMMENT=	WebSocket client and server library, WAMP real-time framework
 LICENSE=	mit
 
-DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
-DEPENDS+=	${PYPKGPREFIX}-txaio-[0-9]*:../../devel/py-txaio
+DEPENDS+=	${PYPKGPREFIX}-six>=1.10.0:../../lang/py-six
+DEPENDS+=	${PYPKGPREFIX}-txaio>=2.7.0:../../devel/py-txaio
 
 # actually TEST_DEPENDS
 BUILD_DEPENDS+=	${PYPKGPREFIX}-mock-[0-9]*:../../devel/py-mock

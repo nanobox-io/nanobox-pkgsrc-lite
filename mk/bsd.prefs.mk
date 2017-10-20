@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.389 2017/02/01 09:55:07 sevan Exp $
+# $NetBSD: bsd.prefs.mk,v 1.393 2017/07/09 14:30:07 khorben Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -381,6 +381,9 @@ SHAREMODE?=		${DOCMODE}
 PKG_FAIL_REASON+=	"missing mk/platform/${OPSYS}.mk"
 .endif
 
+# Set default SHLIB_TYPE to the ${OPSYS}-specific shared library type.
+SHLIB_TYPE?=		${_OPSYS_SHLIB_TYPE}
+
 PKGDIRMODE?=		755
 
 # A meta-package is a package that does not have any files and whose
@@ -686,10 +689,12 @@ PREPEND_PATH+=		${X11BASE}/bin
 .endif
 PREPEND_PATH+=		${LOCALBASE}/bin
 
+.if ${_USE_NEW_PKGINSTALL:Uno} == "no"
 # Support alternative init systems.
 #
 INIT_SYSTEM?=		rc.d
 _BUILD_DEFS+=		INIT_SYSTEM
+.endif
 
 _PKGSRC_MKPIE=	no
 .if (${PKGSRC_MKPIE:tl} == "yes") && \
@@ -698,13 +703,13 @@ _PKGSRC_MKPIE=	yes
 .endif
 
 _PKGSRC_USE_FORTIFY=	no
-.if (${PKGSRC_USE_FORTIFY:tl} == "yes") && \
+.if (${PKGSRC_USE_FORTIFY:tl} != "no") && \
     (${_OPSYS_SUPPORTS_FORTIFY:Uno} == "yes")
 _PKGSRC_USE_FORTIFY=	yes
 .endif
 
 _PKGSRC_USE_RELRO=	no
-.if (${PKGSRC_USE_RELRO:tl} == "yes") && \
+.if (${PKGSRC_USE_RELRO:tl} != "no") && \
     (${_OPSYS_SUPPORTS_RELRO:Uno} == "yes")
 _PKGSRC_USE_RELRO=	yes
 .endif
@@ -713,6 +718,12 @@ _PKGSRC_USE_SSP=	no
 .if (${PKGSRC_USE_SSP:tl} != "no") && \
     (${_OPSYS_SUPPORTS_SSP:Uno} == "yes")
 _PKGSRC_USE_SSP=	yes
+.endif
+
+_PKGSRC_USE_STACK_CHECK=no
+.if (${PKGSRC_USE_STACK_CHECK:tl} != "no") && \
+    (${_OPSYS_SUPPORTS_STACK_CHECK:Uno} == "yes")
+_PKGSRC_USE_STACK_CHECK=yes
 .endif
 
 # Enable cwrappers if not building the wrappers themselves, and if the user has
@@ -737,6 +748,11 @@ _USE_CWRAPPERS=		no
 
 # System features framework
 .include "features/features-vars.mk"
+
+.if ${_USE_NEW_PKGINSTALL:Uno} != "no"
+# Init services framework
+.include "init/bsd.init-vars.mk"
+.endif
 
 # Package system format definitions
 .include "pkgformat/bsd.pkgformat-vars.mk"

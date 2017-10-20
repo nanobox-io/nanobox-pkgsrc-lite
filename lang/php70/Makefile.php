@@ -1,7 +1,12 @@
-# $NetBSD: Makefile.php,v 1.2 2016/06/24 15:27:57 taca Exp $
+# $NetBSD: Makefile.php,v 1.7 2017/08/04 23:07:28 taca Exp $
 # used by lang/php70/Makefile
 # used by www/ap-php/Makefile
 # used by www/php-fpm/Makefile
+
+# PHP bug #74526 - segfaults on build with GCC 4.8.5 i386
+.if ${MACHINE_ARCH} == "i386"
+GCC_REQD+=              4.9
+.endif
 
 .include "../../lang/php70/Makefile.common"
 
@@ -29,7 +34,6 @@ CONFIGURE_ARGS+=	--without-pear
 #CONFIGURE_ARGS+=	--without-intl
 
 CONFIGURE_ARGS+=	--disable-posix
-CONFIGURE_ARGS+=	--disable-dom
 CONFIGURE_ARGS+=	--disable-opcache
 CONFIGURE_ARGS+=	--disable-pdo
 CONFIGURE_ARGS+=	--disable-json
@@ -42,7 +46,7 @@ CONFIGURE_ARGS+=	--with-libxml-dir=${PREFIX}
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.${PHP_PKG_PREFIX}
 PKG_SUPPORTED_OPTIONS+=	inet6 ssl maintainer-zts readline
-PKG_SUGGESTED_OPTIONS+=	inet6 ssl
+PKG_SUGGESTED_OPTIONS+=	inet6 ssl readline
 
 .if ${OPSYS} == "SunOS" || ${OPSYS} == "Darwin" || ${OPSYS} == "FreeBSD"
 PKG_SUPPORTED_OPTIONS+=	dtrace

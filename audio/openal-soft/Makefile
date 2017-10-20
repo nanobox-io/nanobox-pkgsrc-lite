@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.3 2016/07/25 15:28:27 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.7 2017/10/02 15:13:44 wiz Exp $
 
-DISTNAME=	openal-soft-1.17.2
+DISTNAME=	openal-soft-1.18.2
 CATEGORIES=	audio
 MASTER_SITES=	http://kcat.strangesoft.net/openal-releases/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://kcat.strangesoft.net/
+HOMEPAGE=	http://kcat.strangesoft.net/openal.html
 COMMENT=	Alternative OpenAL implementation
 LICENSE=	gnu-lgpl-v2
 
@@ -34,6 +33,7 @@ CMAKE_ARGS+=	-DALSOFT_EXAMPLES:BOOL=OFF
 CMAKE_ARGS+=	-DALSOFT_BACKEND_JACK:BOOL=OFF
 CMAKE_ARGS+=	-DALSOFT_BACKEND_PORTAUDIO:BOOL=OFF
 CMAKE_ARGS+=	-DALSOFT_BACKEND_PULSEAUDIO:BOOL=OFF
+CMAKE_ARGS+=	-DALSOFT_NO_CONFIG_UTIL:BOOL=ON
 
 .include "../../mk/oss.buildlink3.mk"
 
@@ -41,10 +41,6 @@ CMAKE_ARGS+=	-DALSOFT_BACKEND_PULSEAUDIO:BOOL=OFF
 CMAKE_ARGS+=	-DALSOFT_REQUIRE_OSS:BOOL=OFF
 .else
 CMAKE_ARGS+=	-DALSOFT_REQUIRE_OSS:BOOL=ON
-.endif
-
-.if !empty(BUILTIN_LIB_FOUND.ossaudio:M[Yy][Ee][Ss])
-CMAKE_ARGS+=	-DEXTRA_LIBS=${LIBOSSAUDIO:Q}
 .endif
 
 CFLAGS+= -DSYS_CONF_DIR="\"${PKG_SYSCONFDIR}\""

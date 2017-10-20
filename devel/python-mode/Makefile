@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.27 2013/06/10 21:51:04 jnemeth Exp $
-#
+# $NetBSD: Makefile,v 1.29 2017/09/29 12:40:27 wiz Exp $
 
 DISTNAME=	python-mode-1.0
 PKGNAME=	${EMACS_PKGNAME_PREFIX}${DISTNAME}
@@ -8,7 +7,7 @@ CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=python-mode/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://sourceforge.net/projects/python-mode/
+HOMEPAGE=	https://sourceforge.net/projects/python-mode/
 COMMENT=	Emacs mode for editing python files
 
 ELISP_FILES=	python-mode.el
@@ -17,11 +16,7 @@ ELISP_FILES=	python-mode.el
 
 # Note that XEmacs >=21.4.4 includes a python-mode in the prog-modes
 # package. Also, python-mode does not appear to work as is with XEmacs 21.1
-EMACS_VERSIONS_ACCEPTED=	emacs24 emacs24nox \
-				emacs23 emacs23nox \
-				emacs22 emacs22nox \
-				emacs21 emacs21nox \
-				emacs20
+EMACS_VERSIONS_ACCEPTED=	emacs21 emacs21nox emacs20
 
 .include "../../editors/emacs/modules.mk"
 

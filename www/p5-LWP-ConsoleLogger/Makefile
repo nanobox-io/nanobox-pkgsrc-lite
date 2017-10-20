@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2016/07/24 00:27:00 wen Exp $
+# $NetBSD: Makefile,v 1.5 2017/09/27 15:56:33 wiz Exp $
 
-DISTNAME=	LWP-ConsoleLogger-0.000028
+DISTNAME=	LWP-ConsoleLogger-0.000036
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=LWP/}
@@ -13,6 +13,8 @@ LICENSE=	artistic-2.0
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/LWP/ConsoleLogger/.packlist
 
+DEPENDS+=	p5-Capture-Tiny-[0-9]*:../../devel/p5-Capture-Tiny
+DEPENDS+=	p5-Clone-[0-9]*:../../devel/p5-Clone
 DEPENDS+=	p5-Data-Printer>=0.36:../../devel/p5-Data-Printer
 DEPENDS+=	p5-DateTime-[0-9]*:../../time/p5-DateTime
 DEPENDS+=	p5-HTML-Restrict-[0-9]*:../../www/p5-HTML-Restrict
@@ -36,7 +38,10 @@ DEPENDS+=	p5-XML-Simple-[0-9]*:../../textproc/p5-XML-Simple
 # not officially requested but needed by tests
 BUILD_DEPENDS+=	p5-Log-Dispatch-Array-[0-9]*:../../devel/p5-Log-Dispatch-Array
 BUILD_DEPENDS+=	p5-Path-Tiny-[0-9]*:../../filesystems/p5-Path-Tiny
+BUILD_DEPENDS+=	p5-Test-LWP-UserAgent-[0-9]*:../../www/p5-Test-LWP-UserAgent
+BUILD_DEPENDS+=	p5-Test-RequiresInternet-[0-9]*:../../net/p5-Test-RequiresInternet
 BUILD_DEPENDS+=	p5-Test-Most-[0-9]*:../../devel/p5-Test-Most
+BUILD_DEPENDS+=	p5-Test-Needs-[0-9]*:../../devel/p5-Test-Needs
 BUILD_DEPENDS+=	p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
 BUILD_DEPENDS+=	p5-WWW-Mechanize-[0-9]*:../../www/p5-WWW-Mechanize
 BUILD_DEPENDS+=	p5-HTML-FormatText-WithLinks-[0-9]*:../../textproc/p5-HTML-FormatText-WithLinks

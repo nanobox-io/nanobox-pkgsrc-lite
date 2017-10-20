@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.231 2016/08/21 21:47:29 prlw1 Exp $
+# $NetBSD: Makefile,v 1.237 2017/10/16 00:40:08 prlw1 Exp $
 
 .include "Makefile.common"
 
@@ -27,7 +27,7 @@ FILES_SUBST+=		GLIB_SCHEMAS_DIR=${PREFIX}/share/glib-2.0/schemas
 # agc doesn't want glib2 to depend on python so we install it
 # in a broken and useless state.
 CHECK_INTERPRETER_SKIP+=	bin/gtester-report
-CHECK_INTERPRETER_SKIP+=	bin/gdbus-codegen
+CHECK_WRKREF_SKIP+=		bin/gtester-report
 
 # need pcre utf8 + unicode-properties
 BUILDLINK_API_DEPENDS.pcre+=	pcre>=8.31
@@ -53,6 +53,11 @@ CONFIGURE_ENV+=		LIBELF_LIBS='-lelf'
 .  include "../../devel/libelf/buildlink3.mk"
 .  endif
 .endif
+
+# to run gdbus-codegen to generate gdbus-daemon-generated.{h,c}
+TOOL_DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
+PYTHON_FOR_BUILD_ONLY?=	yes
+.include "../../lang/python/pyversion.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

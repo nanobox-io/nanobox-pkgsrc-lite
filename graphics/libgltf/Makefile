@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2017/01/01 16:06:20 adam Exp $
+# $NetBSD: Makefile,v 1.12 2017/08/24 20:03:23 adam Exp $
 
-DISTNAME=	libgltf-0.0.2
-PKGREVISION=	6
+DISTNAME=	libgltf-0.1.0
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://dev-www.libreoffice.org/src/libgltf/
-EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	https://gerrit.libreoffice.org/#/admin/projects/libgltf
@@ -29,4 +28,5 @@ BUILDLINK_TRANSFORM+=	rm:-Weffc++
 .include "../../graphics/glew/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
 .include "../../graphics/glm/buildlink3.mk"
+.include "../../graphics/libepoxy/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

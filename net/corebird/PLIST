@@ -1,7 +1,6 @@
-@comment $NetBSD: PLIST,v 1.4 2017/01/14 09:28:41 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.7 2017/09/09 06:18:53 ryoon Exp $
 bin/corebird
 man/man1/corebird.1
-share/appdata/org.baedert.corebird.appdata.xml
 share/applications/org.baedert.corebird.desktop
 share/dbus-1/services/org.baedert.corebird.service
 share/glib-2.0/schemas/org.baedert.corebird.gschema.xml
@@ -19,6 +18,7 @@ share/locale/ca/LC_MESSAGES/corebird.mo
 share/locale/ca@valencia/LC_MESSAGES/corebird.mo
 share/locale/de/LC_MESSAGES/corebird.mo
 share/locale/en_AU/LC_MESSAGES/corebird.mo
+share/locale/eo/LC_MESSAGES/corebird.mo
 share/locale/es/LC_MESSAGES/corebird.mo
 share/locale/es_419/LC_MESSAGES/corebird.mo
 share/locale/es_MX/LC_MESSAGES/corebird.mo
@@ -26,6 +26,7 @@ share/locale/es_VE/LC_MESSAGES/corebird.mo
 share/locale/fa/LC_MESSAGES/corebird.mo
 share/locale/fi/LC_MESSAGES/corebird.mo
 share/locale/fr/LC_MESSAGES/corebird.mo
+share/locale/ga/LC_MESSAGES/corebird.mo
 share/locale/gl/LC_MESSAGES/corebird.mo
 share/locale/hi/LC_MESSAGES/corebird.mo
 share/locale/hu/LC_MESSAGES/corebird.mo
@@ -46,3 +47,4 @@ share/locale/tr/LC_MESSAGES/corebird.mo
 share/locale/uk_UA/LC_MESSAGES/corebird.mo
 share/locale/zh_CN/LC_MESSAGES/corebird.mo
 share/locale/zh_TW/LC_MESSAGES/corebird.mo
+share/metainfo/org.baedert.corebird.appdata.xml

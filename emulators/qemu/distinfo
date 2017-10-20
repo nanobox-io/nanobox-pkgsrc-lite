@@ -1,26 +1,24 @@
-$NetBSD: distinfo,v 1.122 2017/03/04 15:11:10 spz Exp $
+$NetBSD: distinfo,v 1.129 2017/10/11 19:53:23 adam Exp $
 
-SHA1 (qemu-2.8.0.tar.bz2) = a5602f2ddb51d61b4c0e618b779fdb0dbdc9cc1f
-RMD160 (qemu-2.8.0.tar.bz2) = da1e640443a15f36a242fe803c65a39f85b06fcc
-SHA512 (qemu-2.8.0.tar.bz2) = 50f2988d822388ba9fd1bf5dbe68359033ed7432d7f0f9790299f32f63faa6dc72979256b5632ba572d47ee3e74ed40e3e8e331dc6303ec1599f1b4367cb78c2
-Size (qemu-2.8.0.tar.bz2) = 28368517 bytes
-SHA1 (patch-Makefile.objs) = f40deeed5482a24369e898411bb611be418dc3ca
-SHA1 (patch-configure) = 302d0ed283947b943e7fbcdd1138ba5fad3d1683
-SHA1 (patch-default-configs_pci.mak) = 2162550a68de514c8fe9e255df88f8a0a07ee6c7
-SHA1 (patch-disas_libvixl_vixl_a64_disasm-a64.cc) = 0660a0c2d37c332fcd1e00edb2dc3c52fe179cc9
-SHA1 (patch-disas_libvixl_vixl_utils.h) = 85285473b6021f9a0d190832d03c60c4d9df6bb7
+SHA1 (qemu-2.10.1.tar.xz) = 7d404902de032c14ba65d2daef030cb94d65980c
+RMD160 (qemu-2.10.1.tar.xz) = dc97c919686fea43e3cb3a13edab5dcbf5c2eb2d
+SHA512 (qemu-2.10.1.tar.xz) = 62e9717ede71a49f3ffd9b86c321470f64c90e575be1a9da01078cfc9466b0aeb08adf5d05bab7ee1e89dfce75def7b276af01f77b7151d406999e7af21b6711
+Size (qemu-2.10.1.tar.xz) = 24979688 bytes
+SHA1 (patch-configure) = 51d5396f99ef129631138bc51f47bc24775aa08b
+SHA1 (patch-contrib_ivshmem-client_ivshmem-client.c) = 40c8751607cbf66a37e4c4e08f2664b864e2e984
+SHA1 (patch-contrib_ivshmem-server_ivshmem-server.c) = d8f53432b5752f4263dc4ef96108a976a05147a3
 SHA1 (patch-ef) = 98a1de2fd48638886b5d16f6a61dc72910e98b41
 SHA1 (patch-et) = e9b850ac5985cbe934b541acbfdb330cce421d50
 SHA1 (patch-hw_display_omap__dss.c) = 6b13242f28e32346bc70548c216c578d98fd3420
-SHA1 (patch-hw_misc_ivshmem.c) = c1fdc8111286f2c760512189db4a854bfc6129d0
+SHA1 (patch-hw_net_e1000.c) = 761e9afb5c74a03ee6cf0b918dd27122777a27b7
+SHA1 (patch-hw_net_e1000__regs.h) = b93974c75bec94cbba048c0b61917177c5cc08c1
+SHA1 (patch-hw_net_e1000e__core.c) = 55917bcb9ca0f80476159e51f4240e8c1df68132
+SHA1 (patch-hw_net_e1000x__common.h) = 093501bafdaa3a4b4ae705c45ea656a602907d18
 SHA1 (patch-hw_net_etraxfs__eth.c) = e5dd1661d60dbcd27b332403e0843500ba9544bc
 SHA1 (patch-hw_net_xilinx__axienet.c) = ebcd2676d64ce6f31e4a8c976d4fdf530ad5e8b7
 SHA1 (patch-hw_ppc_mac__newworld.c) = 5131bb6edf8b0acf6e7ed3b6bc7be962dc71eca6
 SHA1 (patch-hw_ppc_mac__oldworld.c) = b71667ab281dc23c9d971dc8754eeefc879bd1d7
-SHA1 (patch-memory.c) = 9f94de7799ef80931fb1de572e5603894f3fb328
-SHA1 (patch-scripts_qemu-binfmt-conf.sh) = a59c227e5891efe201eb2b8af15fb0832a1b20d0
+SHA1 (patch-hw_usb_dev-mtp.c) = f5a446079d51b19eae6c2f5e0c9810c181e4f02d
+SHA1 (patch-memory.c) = f8a97fa2ee2afcd361deaa1f0023b83d059e100b
 SHA1 (patch-slirp_tcp__subr.c) = f011c9dc58282e61b26017547a9884f30a6e6154
-SHA1 (patch-target-i386_bpt__helper.c) = c2aacda7cabb4dcc507e260c0d74a976733a2114
-SHA1 (patch-target-i386_helper.h) = af5316b8796f1d9bf70becea9f09245ec0e6e36c
-SHA1 (patch-target-i386_translate.c) = 837c8f348cfd6e027a6292df7d95381020f90825
 SHA1 (patch-tests_Makefile.include) = 42345d697cb2e324dccf1d68bd8d61e8001c6162

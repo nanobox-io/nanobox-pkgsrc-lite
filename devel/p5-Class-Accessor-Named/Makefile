@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 19:22:39 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/06/12 12:24:29 maya Exp $
 
 DISTNAME=	Class-Accessor-Named-0.009
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Class/}
 
@@ -17,6 +17,7 @@ DEPENDS+=	p5-Sub-Name-[0-9]*:../../devel/p5-Sub-Name
 DEPENDS+=	p5-UNIVERSAL-require-[0-9]*:../../devel/p5-UNIVERSAL-require
 
 USE_LANGUAGES=		# empty
+MAKE_ENV+=		PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=		auto/Class/Accessor/Named/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
 

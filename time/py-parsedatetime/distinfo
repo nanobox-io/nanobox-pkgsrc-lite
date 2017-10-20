@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.4 2017/01/24 13:18:04 fhajny Exp $
+$NetBSD: distinfo,v 1.6 2017/05/16 09:27:52 adam Exp $
 
-SHA1 (parsedatetime-2.2.tar.gz) = 51133bdaa0be67f55063b14b0048be99b51159ec
-RMD160 (parsedatetime-2.2.tar.gz) = ba544430fe539712ccd84d82957507dd24b338d7
-SHA512 (parsedatetime-2.2.tar.gz) = 5a2de2beac6cc30b75de9e662d1937377f9b1baea80fb40656b687633e174083f41c3ef1ae126d41712a212b0297ae2800e68093ae8f056f85af09518c76dc8d
-Size (parsedatetime-2.2.tar.gz) = 63339 bytes
+SHA1 (parsedatetime-2.4.tar.gz) = c6133a2e93078669e6f1c3222acb96869e2ce902
+RMD160 (parsedatetime-2.4.tar.gz) = 86f0af8bba4b17fb9bfc9829ea6b7fa85aff709d
+SHA512 (parsedatetime-2.4.tar.gz) = c12cebc465c749821ef2433bd4971c009ef6783234b6cbb00991534fe55d8599ad28fd4dcaf4ee1882d14b73fea95fdf834a027140767f8054b9bf8bb66a29f9
+Size (parsedatetime-2.4.tar.gz) = 58753 bytes

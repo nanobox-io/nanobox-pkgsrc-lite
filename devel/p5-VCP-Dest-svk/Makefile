@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2016/06/08 19:23:45 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2017/06/28 13:24:29 jperkin Exp $
 
 DISTNAME=	VCP-Dest-svk-0.29
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	devel perl5 scm
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:S/${MODULE_DIR}/${AUTHOR_DIR}/}
 MODULE_DIR=	modules/by-module
@@ -17,6 +17,8 @@ DEPENDS+=	p5-YAML>=0.62:../../textproc/p5-YAML
 DEPENDS+=	svk>=1.04:../../devel/svk
 
 PERL5_PACKLIST=		auto/VCP/Dest/svk/.packlist
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

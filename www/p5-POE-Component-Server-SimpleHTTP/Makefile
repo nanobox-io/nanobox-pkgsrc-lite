@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2016/07/09 08:08:05 wen Exp $
+# $NetBSD: Makefile,v 1.10 2017/09/27 16:04:54 wiz Exp $
 
-DISTNAME=	POE-Component-Server-SimpleHTTP-2.22
+DISTNAME=	POE-Component-Server-SimpleHTTP-2.26
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=POE/}
@@ -11,7 +11,8 @@ COMMENT=	Simple HTTP Server implementation for POE
 LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=	# empty
-PERL5_PACKLIST= auto/POE/Component/Server/SimpleHTTP/.packlist
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
+PERL5_PACKLIST=	auto/POE/Component/Server/SimpleHTTP/.packlist
 
 BUILD_DEPENDS+=	p5-POE-Filter-HTTP-Parser>=1.06:../../www/p5-POE-Filter-HTTP-Parser
 BUILD_DEPENDS+=	p5-Test-POE-Client-TCP>=0.10:../../devel/p5-Test-POE-Client-TCP

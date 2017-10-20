@@ -1,17 +1,19 @@
-# $NetBSD: Makefile,v 1.5 2015/06/11 17:22:16 taca Exp $
+# $NetBSD: Makefile,v 1.9 2017/09/16 19:26:51 wiz Exp $
 
 DISTNAME=	shoulda-matchers-2.8.0
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel ruby
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://thoughtbot.com/community/
 COMMENT=	Making tests easy on the fingers and eyes
 LICENSE=	mit
 
-DEPENDS+=	${RUBY_PKGPREFIX}-activesupport>=3.0.0:../../devel/ruby-activesupport32
+DEPENDS+=	${RUBY_ACTIVESUPPORT_DEPENDS}
 
 USE_LANGUAGES=	# none
+RUBY_RAILS_SUPPORTED=	32
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

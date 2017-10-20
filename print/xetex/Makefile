@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.57 2017/01/25 14:36:39 wiz Exp $
+# $NetBSD: Makefile,v 1.66 2017/09/18 09:53:33 maya Exp $
 
-DISTNAME=	texlive-20160523-source
-PKGNAME=	xetex-0.99996
-PKGREVISION=	5
+DISTNAME=	texlive-20170524-source
+PKGNAME=	xetex-0.99997
+PKGREVISION=	4
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2017/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -21,7 +21,7 @@ EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 			${DISTNAME}/texk/web2c
 
 GNU_CONFIGURE=	yes
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake lex perl pkg-config yacc
 CONFIGURE_ARGS+=	--disable-aleph --disable-etex --disable-pdftex \

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.65 2017/02/24 15:46:14 fhajny Exp $
+# $NetBSD: Makefile,v 1.71 2017/07/31 13:42:06 taca Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
-PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/
 
@@ -14,7 +13,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.9.9-P6
+BIND_VERSION=	9.9.11
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -51,7 +50,7 @@ PKG_USERS=		${BIND_USER}:${BIND_GROUP}
 PKG_GECOS.${BIND_USER}=	Named pseudo-user
 PKG_HOME.${BIND_USER}=	${BIND_DIR}
 
-DOCS=			CHANGES FAQ README
+DOCS=			CHANGES FAQ.xml README
 
 FILES_SUBST+=		BIND_GROUP=${BIND_GROUP:Q} \
 			BIND_USER=${BIND_USER:Q} PAX=${PAX:Q} \

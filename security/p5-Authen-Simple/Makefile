@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2016/06/08 19:24:18 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2017/06/12 07:38:53 maya Exp $
 #
 
 DISTNAME=	Authen-Simple-0.5
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	security perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Authen/}
 
@@ -18,6 +18,7 @@ DEPENDS+=	p5-Crypt-PasswdMD5-[0-9]*:../../security/p5-Crypt-PasswdMD5
 DEPENDS+=	p5-Params-Validate-[0-9]*:../../devel/p5-Params-Validate
 
 USE_LANGUAGES=	# empty
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=	auto/Authen/Simple/.packlist
 
 .include "../../lang/perl5/module.mk"

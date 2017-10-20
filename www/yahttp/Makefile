@@ -1,25 +1,20 @@
-# $NetBSD: Makefile,v 1.6 2017/01/01 16:06:39 adam Exp $
+# $NetBSD: Makefile,v 1.10 2017/09/16 19:27:26 wiz Exp $
 
 DISTNAME=	yahttp-0.1.5
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=cmouse/}
 GITHUB_RELEASE=	v${PKGVERSION_NOREV}
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/cmouse/yahttp/
 COMMENT=	Yet Another HTTP Library
 LICENSE=	mit
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 USE_TOOLS+=	aclocal autoconf autoheader automake
-
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11
-.endif
 
 pre-configure:
 	set -e; cd ${WRKSRC}; \

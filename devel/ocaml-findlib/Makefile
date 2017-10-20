@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.31 2016/12/30 11:16:58 jaapb Exp $
+# $NetBSD: Makefile,v 1.34 2017/09/08 09:51:21 jaapb Exp $
 
-DISTNAME=		findlib-1.7.1
+DISTNAME=		findlib-1.7.3
 PKGNAME=		ocaml-${DISTNAME}
 PKGREVISION=		1
 CATEGORIES=		devel
@@ -15,6 +15,13 @@ OCAML_FINDLIB_DIRS+=	bigarray bytes compiler-libs dynlink findlib graphics \
 			ocamldoc num-top num stdlib str threads unix
 
 .include "../../mk/ocaml.mk"
+
+# spacetime profiling is only available for native code on 64bit platforms
+PLIST_VARS+=		64bit
+.if !empty(LP64PLATFORMS:@.PLAT.@${MACHINE_PLATFORM:M${.PLAT.}}@) || \
+    (defined(ABI) && ${ABI} == "64")
+PLIST.64bit=		yes
+.endif
 
 # Undeclared dependencies between different components
 MAKE_JOBS_SAFE=		no

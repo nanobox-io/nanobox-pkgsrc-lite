@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.15 2016/06/08 19:23:08 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/06/05 14:23:12 ryoon Exp $
 
-DISTNAME=	MRO-Compat-0.12
+DISTNAME=	MRO-Compat-0.13
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/B/BO/BOBTFISH/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/H/HA/HAARG/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/perldoc?MRO::Compat

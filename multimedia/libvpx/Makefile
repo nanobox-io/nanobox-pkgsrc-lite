@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2017/01/16 12:12:59 wiz Exp $
+# $NetBSD: Makefile,v 1.71 2017/06/28 15:35:48 he Exp $
 
 DISTNAME=	libvpx-1.6.1
+PKGREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=webmproject/}
 GITHUB_PROJECT=	libvpx
@@ -11,7 +12,7 @@ HOMEPAGE=	https://chromium.googlesource.com/webm/libvpx
 COMMENT=	On2 VP8 library from Google
 LICENSE=	modified-bsd
 
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake bash:build perl:build
 HAS_CONFIGURE=		yes
@@ -80,12 +81,12 @@ CONFIGURE_ARGS+=	--target=ppc32-darwin8-gcc
 CONFIGURE_ARGS+=	--target=x86_64-solaris-gcc
 .  elif ${MACHINE_ARCH} == "i386"
 CONFIGURE_ARGS+=	--target=x86-solaris-gcc
+# Disable libyuv SSE code, it doesn't compile at present.
+CFLAGS+=		-U__SSE2__
 .  endif
 .endif
 
-.include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11
 .  if ${OPSYS} == "NetBSD" || ${OPSYS} == "Darwin"
 # https://bugzilla.mozilla.org/show_bug.cgi?id=982693
 SUBST_CLASSES+=		clang
@@ -93,7 +94,7 @@ SUBST_STAGE.clang=	pre-configure
 SUBST_FILES.clang=	build/make/Makefile
 SUBST_MESSAGE.clang=	Disabling clang integrated assembler
 # Test for whether clang supports -fno-integrated-as instead of -no-integrated-as
-CLANG_INTEGRATED_AS!=  if ${CCPATH} --version -fno-integrated-as > /dev/null 2>&1; then ${ECHO} "-fno-integrated-as"; else ${ECHO} "-no-integrated-as"; fi
+CLANG_INTEGRATED_AS!=  if ${CCPATH:Utrue} --version -fno-integrated-as > /dev/null 2>&1; then ${ECHO} "-fno-integrated-as"; else ${ECHO} "-no-integrated-as"; fi
 SUBST_SED.clang=	-e 's/-DINLINE_ASM/-DINLINE_ASM ${CLANG_INTEGRATED_AS}/'
 .  endif
 .endif

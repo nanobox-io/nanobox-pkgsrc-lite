@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.107 2016/12/12 17:46:39 adam Exp $
+# $NetBSD: Makefile,v 1.111 2017/10/04 10:52:40 jperkin Exp $
 
-DISTNAME=	icu4c-58_2-src
+DISTNAME=	icu4c-59_1-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
+PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=icu/}
 EXTRACT_SUFX=	.tgz
@@ -14,6 +15,7 @@ LICENSE=	mit
 WRKSRC=			${WRKDIR}/icu/source
 USE_LANGUAGES=		c99 c++
 USE_TOOLS+=		gmake
+GCC_REQD+=		4.8
 TEST_TARGET=		check
 UNLIMIT_RESOURCES+=	datasize
 GNU_CONFIGURE=		yes
@@ -89,10 +91,6 @@ PLIST_SUBST+=		MH_NAME=mh-qnx
 PLIST_SUBST+=		MH_NAME=mh-unknown
 .endif
 
-.if ${OPSYS} == "Cygwin"
-INSTALL_UNSTRIPPED=	yes
-.endif
-
 PKGCONFIG_OVERRIDE+=	config/icu-i18n.pc
 PKGCONFIG_OVERRIDE+=	config/icu-io.pc
 PKGCONFIG_OVERRIDE+=	config/icu-le.pc
@@ -111,6 +109,7 @@ CFLAGS+=	-march=i486
 .endif
 
 .if ${OPSYS} == "Cygwin"
+INSTALL_UNSTRIPPED=	yes
 SO_MAJOR=		${PKGVERSION_NOREV:R}
 .  for l in data i18n io le lx test tu uc
 GENERATE_PLIST+=	${ECHO} bin/cygicu${l}${SO_MAJOR}.dll;

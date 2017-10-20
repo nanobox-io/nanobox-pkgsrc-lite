@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2017/01/01 16:06:11 adam Exp $
+# $NetBSD: Makefile,v 1.13 2017/09/25 22:32:16 joerg Exp $
 
 DISTNAME=		bastet-0.43.1
-PKGREVISION=		1
+PKGREVISION=		4
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_GITHUB:=fph/}
 

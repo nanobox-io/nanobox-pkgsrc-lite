@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2016/06/08 19:22:52 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2017/08/14 18:49:39 wiz Exp $
 
-DISTNAME=	Error-0.17024
+DISTNAME=	Error-0.17025
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Error/}
 

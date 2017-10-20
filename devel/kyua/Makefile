@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2016/12/31 09:39:31 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2017/09/18 09:53:17 maya Exp $
 
 DISTNAME=	kyua-0.13
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=jmmv/kyua/releases/download/${DISTNAME}/}
 
@@ -34,13 +34,16 @@ PKG_SYSCONFSUBDIR=	kyua
 .  include "../../devel/atf/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-atf
 PLIST_SUBST+=		TESTS=
+
+post-install: post-install-tests
 .else
 CONFIGURE_ARGS+=	--without-atf
-PLIST_SUBST+=		TESTS=@comment
+PLIST_SUBST+=		TESTS="@comment "
 .endif
 PRINT_PLIST_AWK+=	{ sub("^tests/", "$${TESTS}tests/"); }
 
-post-install:
+.PHONY: post-install-tests
+post-install-tests:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/tests
 	${INSTALL_DATA} ${WRKSRC}/examples/Kyuafile.top \
 	    ${DESTDIR}${PREFIX}/tests/Kyuafile

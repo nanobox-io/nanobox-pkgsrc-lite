@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.36 2017/02/12 06:25:53 ryoon Exp $
+# $NetBSD: Makefile,v 1.43 2017/10/04 13:08:20 jaapb Exp $
 #
 
-DISTNAME=		ocamlnet-4.1.2
-PKGREVISION=		2
+DISTNAME=		ocamlnet-4.1.4
+PKGREVISION=		3
 CATEGORIES=		net
 MASTER_SITES=		http://download.camlcity.org/download/
 
@@ -37,6 +37,7 @@ OCAML_FINDLIB_DIRS+=	rpc-xti
 .endif
 
 .include "options.mk"
+
 .include "../../devel/pcre-ocaml/buildlink3.mk"
 .include "../../archivers/ocaml-zip/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

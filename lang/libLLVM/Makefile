@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2017/01/16 21:56:35 brook Exp $
+# $NetBSD: Makefile,v 1.25 2017/07/24 13:13:39 maya Exp $
 
-DISTNAME=	llvm-3.9.1.src
+DISTNAME=	llvm-4.0.1.src
 PKGNAME=	${DISTNAME:S/llvm/libLLVM/:S/.src//}
 CATEGORIES=	lang devel
 MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
@@ -11,7 +11,7 @@ HOMEPAGE=	http://llvm.org/
 COMMENT=	Low Level Virtual Machine shared library
 LICENSE=	modified-bsd
 
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_CMAKE=		yes
 GCC_REQD+=		4.8
 PYTHON_FOR_BUILD_ONLY=	yes
@@ -22,8 +22,11 @@ CMAKE_ARG_PATH=		${WRKSRC}
 CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 CMAKE_ARGS+=	-DCMAKE_C_COMPILER=gcc
 CMAKE_ARGS+=	-DCMAKE_CXX_COMPILER=g++
+CMAKE_ARGS+=	-DCMAKE_CXX_LINK_FLAGS=${LDFLAGS:Q}
 CMAKE_ARGS+=	-DLLVM_BUILD_LLVM_DYLIB=ON
+CMAKE_ARGS+=	-DLLVM_LINK_LLVM_DYLIB=ON
 CMAKE_ARGS+=	-DLLVM_INCLUDE_TESTS=OFF
+CMAKE_ARGS+=	-DCMAKE_EXE_LINKER_FLAGS=${COMPILER_RPATH_FLAG}${PREFIX}/lib/libLLVM
 
 CMAKE_ARGS.Darwin+=	-DCMAKE_LIBTOOL=/usr/bin/libtool
 
@@ -95,7 +98,7 @@ LLVM_MAJOR_MINOR=	${PKGVERSION_NOREV:C/^([0-9]+\.[0-9]+)\..*$/\1/}
 PLIST_SUBST+=		LLVM_MAJOR_MINOR=${LLVM_MAJOR_MINOR}
 
 PLIST_VARS+=	notdylib
-.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+.if ${SHLIB_TYPE} == "dylib"
 SOEXT=		dylib
 LLVM_LIBNAME=	libLLVM.${SOEXT}
 .else
@@ -107,10 +110,6 @@ PLIST_SUBST+=	SOEXT=${SOEXT}
 PLIST_SUBST+=	LLVM_LIBNAME=${LLVM_LIBNAME}
 
 .include "options.mk"
-
-# At least LLVM 3.9.0 and subprojects don't correctly add C++11 flags
-# automatically.
-CXXFLAGS+=	-std=c++11
 
 # needs std::atomic with 64-bit CAS
 .if ${MACHINE_ARCH} == "i386"
@@ -134,9 +133,9 @@ post-install:
 		${PREFIX}/lib/libLLVM/${LLVM_LIBNAME}	\
 		${DESTDIR}${PREFIX}/lib/libLLVM/${LLVM_LIBNAME}
 .else
-	${LN} -s ${LLVM_LIBNAME}	\
+	${LN} -sf ${LLVM_LIBNAME}	\
 		${DESTDIR}${PREFIX}/lib/libLLVM/libLLVM.${SOEXT}
-	${LN} -s ${LLVM_LIBNAME}	\
+	${LN} -sf ${LLVM_LIBNAME}	\
 		${DESTDIR}${PREFIX}/lib/libLLVM/libLLVM-${PKGVERSION_NOREV}.${SOEXT}
 .endif
 

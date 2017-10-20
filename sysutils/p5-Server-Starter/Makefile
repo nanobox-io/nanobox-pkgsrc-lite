@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2016/06/08 19:24:26 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2017/09/18 11:53:39 wiz Exp $
 
-DISTNAME=	Server-Starter-0.32
+DISTNAME=	Server-Starter-0.33
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	sysutils perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Server/}
 

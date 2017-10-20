@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.22 2016/07/09 06:38:01 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2017/09/03 08:53:05 wiz Exp $
 #
 
 DISTNAME=	libdbiwrapper-perl-${VERSION}
 PKGNAME=	p5-DBIWrapper-${VERSION}
-PKGREVISION=	13
+PKGREVISION=	14
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dbiwrapper/}
 
 MAINTAINER=	erh@NetBSD.org
-HOMEPAGE=	http://sourceforge.net/projects/dbiwrapper/
+HOMEPAGE=	https://sourceforge.net/projects/dbiwrapper/
 COMMENT=	Perl extension for generic DBI database access
 
 DEPENDS+=	p5-XML-LibXML>=1.57:../../textproc/p5-XML-LibXML

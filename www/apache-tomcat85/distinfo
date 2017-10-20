@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2017/08/15 01:50:45 ryoon Exp $
+
+SHA1 (apache-tomcat-8.5.20.tar.gz) = e0c8b5f2c5ac4bea302d50101cac46b57947a920
+RMD160 (apache-tomcat-8.5.20.tar.gz) = fc705cb89a54aa33189fc7338d6e9e8447bdec10
+SHA512 (apache-tomcat-8.5.20.tar.gz) = 6948e52ba6bb66254cb322d50d5432d56b6f3cf99c23f8ab0ff756d2934862be90560f49f594995f672a9211ba684a0267fae3ae67eb6831f11da1b5924117d3
+Size (apache-tomcat-8.5.20.tar.gz) = 9433364 bytes

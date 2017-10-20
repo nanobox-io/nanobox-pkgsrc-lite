@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.3 2013/10/01 15:29:11 drochner Exp $
+@comment $NetBSD: PLIST,v 1.5 2017/08/14 21:14:49 wiz Exp $
 include/mpd/async.h
 include/mpd/audio_format.h
 include/mpd/capabilities.h
@@ -26,15 +26,19 @@ include/mpd/response.h
 include/mpd/search.h
 include/mpd/send.h
 include/mpd/settings.h
+include/mpd/socket.h
 include/mpd/song.h
 include/mpd/stats.h
 include/mpd/status.h
 include/mpd/sticker.h
 include/mpd/tag.h
 include/mpd/version.h
-lib/libmpdclient.la
+lib/libmpdclient.so
+lib/libmpdclient.so.2
+lib/libmpdclient.so.${PKGVERSION}
 lib/pkgconfig/libmpdclient.pc
+share/doc/libmpdclient/AUTHORS
 share/doc/libmpdclient/COPYING
 share/doc/libmpdclient/NEWS
-share/doc/libmpdclient/README
+share/doc/libmpdclient/README.rst
 share/vala/vapi/libmpdclient.vapi

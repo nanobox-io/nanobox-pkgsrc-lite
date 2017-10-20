@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2017/02/15 00:54:25 joerg Exp $
+# $NetBSD: Makefile,v 1.35 2017/09/09 07:55:31 alnsn Exp $
 
 PKGNAME=	${DISTNAME:S/ZoneMinder-/zoneminder-/}
 DISTNAME=	ZoneMinder-1.28.1
-PKGREVISION=	11
+PKGREVISION=	13
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ZoneMinder/}
 GITHUB_PROJECT=	ZoneMinder
@@ -10,7 +10,7 @@ GITHUB_TYPE=	tag
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	dsainty@NetBSD.org
-HOMEPAGE=	http://www.zoneminder.com/
+HOMEPAGE=	https://www.zoneminder.com/
 COMMENT=	Video camera security and surveillance solution
 LICENSE=	gnu-gpl-v2
 
@@ -99,6 +99,12 @@ CONFIGURE_ENV+=		ZM_SSL_LIB=openssl
 # Default is "/var/run/zm", but we want to conform to VARBASE.
 CONFIGURE_ENV+=		ZM_RUNDIR=${VARBASE}/run/zm
 CONFIGURE_ENV+=		ZM_SOCKDIR=${VARBASE}/run/zm
+
+#
+# Darwin does have sendfile(), but the API differs from ZoneMinder's
+# expectation.
+#
+CONFIGURE_ARGS.Darwin+=	ac_cv_func_sendfile=no ac_cv_header_sys_sendfile_h=no
 
 .if !empty(PKG_OPTIONS:Mapache)
 .include "../../mk/apache.mk"

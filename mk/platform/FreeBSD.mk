@@ -1,4 +1,4 @@
-# $NetBSD: FreeBSD.mk,v 1.33 2016/12/04 15:37:41 bsiegert Exp $
+# $NetBSD: FreeBSD.mk,v 1.36 2017/10/03 13:18:00 jperkin Exp $
 #
 # Variable definitions for the FreeBSD operating system.
 
@@ -47,7 +47,15 @@ _OPSYS_HAS_MANZ=	yes	# MANZ controls gzipping of man pages
 _OPSYS_HAS_OSSAUDIO=	yes	# libossaudio is available
 _OPSYS_PERL_REQD=		# no base version of perl required
 _OPSYS_PTHREAD_AUTO=	no	# -lpthread needed for pthreads
-_OPSYS_SHLIB_TYPE=	ELF/a.out	# shared lib type
+_OPSYS_SHLIB_TYPE=	${_OPSYS_SHLIB_TYPE_cmd:sh}	# shared library type
+_OPSYS_SHLIB_TYPE_cmd=	\
+	output=`/usr/bin/file /sbin/sysctl`;	\
+	case $$output in			\
+	*ELF*dynamically*)	echo ELF ;;	\
+	*shared*library*)	echo a.out ;;	\
+	*dynamically*)		echo a.out ;;	\
+	*)			echo ELF ;;	\
+	esac
 _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-V simple -b 	# switch to patch(1) for backup suffix
 _USE_RPATH=		yes	# add rpath to LDFLAGS
@@ -63,8 +71,15 @@ SERIAL_DEVICES?=	/dev/cuaa0
 PKG_HAVE_KQUEUE=	# defined
 .endif
 
+# Register support for SSP on x86 architectures
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_SSP=	yes
+.endif
+
 _OPSYS_SUPPORTS_CWRAPPERS=	yes
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk
+_OPSYS_CAN_CHECK_SSP=		no  # only supports libssp at this time
 
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.

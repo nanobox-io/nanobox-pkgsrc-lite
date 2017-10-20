@@ -1,4 +1,4 @@
-# $NetBSD: replace.mk,v 1.278 2016/04/08 13:12:33 wiz Exp $
+# $NetBSD: replace.mk,v 1.280 2017/08/01 15:09:52 wiz Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -406,14 +406,8 @@ TOOLS_ALIASES.gawk=		awk
 .endif
 
 .if !defined(TOOLS_IGNORE.gem) && !empty(_USE_TOOLS:Mgem)
-.  if !empty(PKGPATH:Mmisc/rubygems)
-MAKEFLAGS+=			TOOLS_IGNORE.gem=
-.  elif !empty(_TOOLS_USE_PKGSRC.gem:M[yY][eE][sS])
-.    if !defined(RUBY_VER) || !empty(RUBY_VER:M18)
-TOOLS_DEPENDS.gem?=		${RUBY_PKGPREFIX}-rubygems-[0-9]*:../../misc/rubygems
-.    else
+.  if !empty(_TOOLS_USE_PKGSRC.gem:M[yY][eE][sS])
 TOOLS_DEPENDS.gem?=		${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
-.    endif
 TOOLS_CREATE+=			gem
 TOOLS_PATH.gem=			${LOCALBASE}/bin/gem${RUBY_SUFFIX}
 .  endif
@@ -996,18 +990,18 @@ TOOLS_PATH.${_t_}=	${LOCALBASE}/bin/g${_t_}
 
 ######################################################################
 
-# These tools are supplied by textproc/mdocml as replacements for their
+# These tools are supplied by textproc/mandoc as replacements for their
 # groff counterparts.  As this package has fewer dependencies it should
 # be preferred over groff wherever possible.
 #
-_TOOLS.mdocml=	nroff
+_TOOLS.mandoc=	nroff
 
-.for _t_ in ${_TOOLS.mdocml}
+.for _t_ in ${_TOOLS.mandoc}
 .  if !defined(TOOLS_IGNORE.${_t_}) && !empty(_USE_TOOLS:M${_t_})
-.    if !empty(PKGPATH:Mtextproc/mdocml)
+.    if !empty(PKGPATH:Mtextproc/mandoc)
 MAKEFLAGS+=		TOOLS_IGNORE.${_t_}=
 .    elif !empty(_TOOLS_USE_PKGSRC.${_t_}:M[yY][eE][sS])
-TOOLS_DEPENDS.${_t_}?=	mdocml>=1.12.0nb3:../../textproc/mdocml
+TOOLS_DEPENDS.${_t_}?=	mandoc>=1.12.0nb3:../../textproc/mandoc
 TOOLS_CREATE+=		${_t_}
 TOOLS_PATH.${_t_}=	${LOCALBASE}/bin/mandoc
 .    endif

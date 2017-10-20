@@ -1,8 +1,8 @@
-# $NetBSD: platform.mk,v 1.2 2016/11/13 16:03:31 taca Exp $
+# $NetBSD: platform.mk,v 1.4 2017/08/29 14:47:35 jmcneill Exp $
 #
 
 #
-# Common definition for ruby*-base package (except ruby18-base).
+# Common definition for ruby*-base package.
 #
 
 .if !defined(_RUBY_PLATFORM_MK)
@@ -82,6 +82,15 @@ CONFIGURE_ARGS+=	--disable-dtrace
 # built with dtrace enabled yet, so this problem is on 7.99.* only.)
 #
 .if ${OPSYS} == "NetBSD" && ${MACHINE_ARCH} == "i386"
+CONFIGURE_ARGS+=	--disable-dtrace
+.endif
+
+#
+# NetBSD
+#
+# dtrace support can cause problems with miniruby on arm.
+#
+.if !empty(MACHINE_PLATFORM:MNetBSD-*-*arm*)
 CONFIGURE_ARGS+=	--disable-dtrace
 .endif
 

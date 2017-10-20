@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.9 2016/12/04 16:29:58 bsiegert Exp $
+# $NetBSD: Makefile,v 1.12 2017/07/30 22:32:11 wiz Exp $
 
-DISTNAME=	mongo-tools-3.2.4
-PKGREVISION=	4
+DISTNAME=	mongo-tools-3.4.4
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mongodb/}
 
 MAINTAINER=	filip@joyent.com
-HOMEPAGE=	http://github.com/mongodb/mongo-tools/
+HOMEPAGE=	https://github.com/mongodb/mongo-tools/
 COMMENT=	MongoDB CLI tools
 LICENSE=	apache-2.0
 
@@ -45,5 +44,6 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/${tool} ${DESTDIR}${PREFIX}/bin/${tool}
 .endfor
 
+.include "../../devel/go-sys/buildlink3.mk"
 .include "../../lang/go/version.mk"
 .include "../../mk/bsd.pkg.mk"

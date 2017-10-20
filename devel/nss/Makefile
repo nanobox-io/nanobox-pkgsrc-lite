@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.131 2017/03/07 20:53:22 ryoon Exp $
+# $NetBSD: Makefile,v 1.141 2017/10/02 20:45:11 leot Exp $
 
 DISTNAME=		nss-${NSS_RELEASE:S/.0$//}
-NSS_RELEASE=		3.29.3
+PKGREVISION=		1
+NSS_RELEASE=		3.33.0
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_DIST_DIR_VERSION:S/_0$//}_RTM/src/}
 
@@ -16,6 +17,7 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}js/src/configure
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}configure
 
 USE_GCC_RUNTIME=	yes
+USE_LANGUAGES=		c99
 USE_TOOLS+=		gmake perl pax pkg-config
 MAKE_JOBS_SAFE=		no
 
@@ -49,7 +51,7 @@ SO_SUFFIX=		so.1.0
 .endif
 PLIST_SUBST+=		SO_SUFFIX=${SO_SUFFIX:Q}
 
-.if ${OPSYS} == "SunOS" && (${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc")
+.if ${OPSYS} == "SunOS" && (${PKGSRC_COMPILER:Mclang} || ${PKGSRC_COMPILER:Mgcc})
 MAKE_ENV+=	NS_USE_GCC=YES
 .endif
 
@@ -73,7 +75,7 @@ MAKE_ENV+=	INCLUDES=-I${BUILDLINK_PREFIX.nspr}/include/nspr
 MAKE_ENV+=	NSS_USE_SYSTEM_SQLITE=1
 MAKE_ENV+=	ZLIB_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.zlib}/lib -L${BUILDLINK_PREFIX.zlib}/lib -lz"
 MAKE_ENV+=	USE_SYSTEM_ZLIB=1
-MAKE_ENV+=	EXTRA_SHARED_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.nspr}/lib/nspr ${COMPILER_RPATH_FLAG}${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4"
+MAKE_ENV+=	EXTRA_SHARED_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.nspr}/lib/nspr ${COMPILER_RPATH_FLAG}${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4 "${LDFLAGS:Q}
 MAKE_ENV+=	NSS_DISABLE_GTESTS=yes
 MAKE_ENV+=	NSS_ENABLE_TLS_1_3=1
 .include "../../mk/compiler.mk"
@@ -127,7 +129,7 @@ do-install:
 # For consistency of libxul.so link in www/firefox.
 BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.4.2
 .include "../../databases/sqlite3/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.13.1
+BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.17
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

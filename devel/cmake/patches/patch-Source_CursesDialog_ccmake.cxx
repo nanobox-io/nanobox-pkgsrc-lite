@@ -1,10 +1,19 @@
-$NetBSD: patch-Source_CursesDialog_ccmake.cxx,v 1.2 2016/07/28 17:44:43 prlw1 Exp $
+$NetBSD: patch-Source_CursesDialog_ccmake.cxx,v 1.5 2017/07/19 17:44:34 adam Exp $
 
 initscr() error path
+include cstdlib for exit
 
---- Source/CursesDialog/ccmake.cxx.orig	2016-07-07 14:47:27.000000000 +0000
+--- Source/CursesDialog/ccmake.cxx.orig	2017-07-18 15:22:54.000000000 +0000
 +++ Source/CursesDialog/ccmake.cxx
-@@ -54,7 +54,11 @@ void onsig(int)
+@@ -11,6 +11,7 @@
+ #include "cmake.h"
+ 
+ #include "cmsys/Encoding.hxx"
++#include <cstdlib>
+ #include <iostream>
+ #include <signal.h>
+ #include <string.h>
+@@ -49,7 +50,11 @@ void onsig(int /*unused*/)
  {
    if (cmCursesForm::CurrentForm) {
      endwin();
@@ -16,8 +25,8 @@ initscr() error path
 +    }
      noecho();             /* Echo off */
      cbreak();             /* nl- or cr not needed */
-     keypad(stdscr, TRUE); /* Use key symbols as
-@@ -130,7 +134,10 @@ int main(int argc, char const* const* ar
+     keypad(stdscr, true); /* Use key symbols as KEY_DOWN */
+@@ -124,7 +129,10 @@ int main(int argc, char const* const* ar
      cmCursesForm::DebugStart();
    }
  
@@ -28,4 +37,4 @@ initscr() error path
 +  }
    noecho();             /* Echo off */
    cbreak();             /* nl- or cr not needed */
-   keypad(stdscr, TRUE); /* Use key symbols as
+   keypad(stdscr, true); /* Use key symbols as KEY_DOWN */

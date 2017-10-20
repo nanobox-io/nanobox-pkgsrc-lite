@@ -1,4 +1,4 @@
-# $NetBSD: SunOS.mk,v 1.73 2016/10/27 10:31:06 jperkin Exp $
+# $NetBSD: SunOS.mk,v 1.77 2017/10/10 13:57:23 jperkin Exp $
 #
 # Variable definitions for the SunOS/Solaris operating system.
 
@@ -85,6 +85,8 @@ BUILDLINK_TRANSFORM+=	rm:-Wl,--gc-sections
 BUILDLINK_TRANSFORM+=	rm:-Wl,--no-as-needed
 BUILDLINK_TRANSFORM+=	rm:-Wl,--warn-common
 BUILDLINK_TRANSFORM+=	rm:-Wl,--warn-shared-textrel
+BUILDLINK_TRANSFORM+=	rm:-Wl,-O1
+BUILDLINK_TRANSFORM+=	rm:-Wl,-O2
 BUILDLINK_TRANSFORM+=	rm:-Wl,-export-dynamic
 BUILDLINK_TRANSFORM+=	rm:-export-dynamic
 
@@ -96,6 +98,14 @@ BUILDLINK_TRANSFORM+=	opt:-Wl,--rpath:-Wl,-R
 BUILDLINK_TRANSFORM+=	rm:-mimpure-text
 .endif
 
+# The native curses implementations are reasonably old and can cause lots of
+# issues with software which assumes newer interfaces, so it's easier to just
+# use pkgsrc curses at this point.  Both curses and terminfo should be in sync
+# otherwise it's possible to end up with conflicting buildlink transforms.
+#
+_INCOMPAT_CURSES=		SunOS-*-*
+_OPSYS_PREFER.terminfo?=	pkgsrc
+
 # Solaris has /usr/include/iconv.h, but it's not GNU iconv, so mark it
 # incompatible.
 _INCOMPAT_ICONV=	SunOS-*-*
@@ -105,9 +115,9 @@ _STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
 
 PKG_TOOLS_BIN?=		${LOCALBASE}/sbin
 
-.if ${MACHINE_ARCH} == "x86_64"
-LIBABISUFFIX=		/amd64
-.endif
+LIBABISUFFIX.sparc64=	/sparcv9
+LIBABISUFFIX.x86_64=	/amd64
+LIBABISUFFIX?=		${LIBABISUFFIX.${MACHINE_ARCH}}
 _OPSYS_SYSTEM_RPATH?=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
 _OPSYS_INCLUDE_DIRS?=	/usr/include

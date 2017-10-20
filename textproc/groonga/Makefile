@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.60 2016/09/11 16:06:53 taca Exp $
+# $NetBSD: Makefile,v 1.63 2017/08/29 13:35:54 fhajny Exp $
 #
 
-DISTNAME=	groonga-6.0.8
+DISTNAME=	groonga-7.0.6
 CATEGORIES=	textproc
 MASTER_SITES=	http://packages.groonga.org/source/groonga/
 
@@ -25,25 +25,25 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--with-ruby=${RUBY}
 
-CFLAGS+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
-
 PKGCONFIG_OVERRIDE+=	groonga.pc.in
 
 PKG_SYSCONFSUBDIR=	${PKGBASE}
 
 BUILD_DEFS+=		VARBASE
 
+EXAMPLE_CONF_DIR=	${PREFIX}/share/examples/groonga
+
 INSTALL_DIRS=		${BUILD_DIRS} vendor/onigmo-source
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples
 
-CONF_FILES+=		share/examples/${PKGBASE}/groonga.conf \
+CONF_FILES+=		${EXAMPLE_CONF_DIR}/groonga.conf \
 			${PKG_SYSCONFDIR}/groonga.conf
-CONF_FILES+=		share/examples/groonga/synonyms.tsv \
+CONF_FILES+=		${EXAMPLE_CONF_DIR}/synonyms.tsv \
 			${PKG_SYSCONFDIR}/synonyms.tsv
 
 OWN_DIRS+=		${VARBASE}/log/${PKGBASE}
 
-CHECK_WRKREF_SKIP+=	bin/groonga
+CHECK_WRKREF_SKIP+=		bin/groonga
 CHECK_INTERPRETER_SKIP+=	share/groonga/examples/*
 
 REPLACE_RUBY+=	data/munin/groonga_cpu_time_

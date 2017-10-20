@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.248 2017/03/06 11:53:54 hauke Exp $
+# $NetBSD: Makefile,v 1.250 2017/04/22 17:29:02 taca Exp $
 #
 
 COMMENT=	Emulators for other operating systems
@@ -84,7 +84,6 @@ SUBDIR+=	hercules
 SUBDIR+=	hercules-images
 SUBDIR+=	ia64sim
 SUBDIR+=	kegs
-SUBDIR+=	kenigma
 SUBDIR+=	keystone
 SUBDIR+=	klh10
 SUBDIR+=	libdsk
@@ -244,7 +243,6 @@ SUBDIR+=	suse121_x11
 SUBDIR+=	suse131_32_alsa
 SUBDIR+=	suse131_32_aspell
 SUBDIR+=	suse131_32_base
-SUBDIR+=	suse131_32_binutils
 SUBDIR+=	suse131_32_compat
 SUBDIR+=	suse131_32_cyrus-sasl
 SUBDIR+=	suse131_32_dbus-glib
@@ -292,6 +290,7 @@ SUBDIR+=	suse131_32_x11
 SUBDIR+=	suse131_alsa
 SUBDIR+=	suse131_aspell
 SUBDIR+=	suse131_base
+SUBDIR+=	suse131_binutils
 SUBDIR+=	suse131_compat
 SUBDIR+=	suse131_cyrus-sasl
 SUBDIR+=	suse131_dbus-glib

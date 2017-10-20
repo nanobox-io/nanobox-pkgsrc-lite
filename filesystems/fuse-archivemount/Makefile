@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.7 2016/07/01 17:55:23 jperkin Exp $
+# $NetBSD: Makefile,v 1.9 2017/08/16 20:45:36 wiz Exp $
 #
 
 DISTNAME=	archivemount-0.5.3
 PKGNAME=	fuse-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	filesystems
-MASTER_SITES=	http://www.cybernoia.de/software/archivemount/
+#MASTER_SITES=	http://www.cybernoia.de/software/archivemount/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.cybernoia.de/software/archivemount/
+#HOMEPAGE=	http://www.cybernoia.de/software/archivemount/
 COMMENT=	FUSE gateway to libarchive
 
 USE_TOOLS+=	gmake

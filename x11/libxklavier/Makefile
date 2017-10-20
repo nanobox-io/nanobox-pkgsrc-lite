@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.42 2017/02/03 07:46:25 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2017/10/15 23:19:13 prlw1 Exp $
 
 DISTNAME=	libxklavier-5.4
 PKGREVISION=	2

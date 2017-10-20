@@ -1,29 +1,23 @@
-# $NetBSD: Makefile,v 1.22 2017/01/01 16:06:16 adam Exp $
+# $NetBSD: Makefile,v 1.26 2017/09/03 08:53:09 wiz Exp $
 
 DISTNAME=	pingus-0.7.3
-PKGREVISION=	16
+PKGREVISION=	18
 CATEGORIES=	games
-MASTER_SITES=	http://pingus.seul.org/files/
+MASTER_SITES=	https://pingus.seul.org/files/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://pingus.seul.org/
+HOMEPAGE=	https://pingus.seul.org/
 COMMENT=	Lemmings(TM) Clone
 
 BUILD_DEPENDS+=		scons>=0.96:../../devel/scons
-USE_LANGUAGES+=		c c++
+USE_LANGUAGES=		c c++11
 
 MAKE_JOBS?=	1
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-SCONS_CXX=	${CXX} -std=c++11
-.else
-SCONS_CXX=	${CXX}
-.endif
 
 do-configure:
 	cd ${WRKSRC} && \
-	${PKGSRC_SETENV} ${MAKE_ENV} scons configure CXX=${SCONS_CXX:Q} CPPPATH=${PREFIX}/include LIBPATH=${PREFIX}/lib
+	${PKGSRC_SETENV} ${MAKE_ENV} scons configure CXX=${CXX:Q} CPPPATH=${PREFIX}/include LIBPATH=${PREFIX}/lib
 
 do-build:
 	cd ${WRKSRC} && \

@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.49 2017/02/25 01:08:20 mef Exp $
+# $NetBSD: Makefile,v 1.54 2017/10/18 12:06:31 gavan Exp $
 
-DISTNAME=	cyrus-imapd-2.4.18
+DISTNAME=	cyrus-imapd-2.4.20
 CATEGORIES=	mail
 MASTER_SITES=	http://cyrusimap.org/releases/
 MASTER_SITES+=	ftp://ftp.cyrusimap.org/cyrus-imapd/
 MASTER_SITES+=	ftp://ftp.cyrusimap.org/cyrus-imapd/OLD-VERSIONS/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.cyrusimap.org/
+HOMEPAGE=	https://www.cyrusimap.org/
 COMMENT=	Cyrus IMAP server
 #LICENSE=	original-bsd # like license
 
@@ -64,6 +64,11 @@ RCD_SCRIPTS=		cyrus
 FILES_SUBST+=		IMAPDCONF=${PKG_SYSCONFDIR}/imapd.conf
 
 REPLACE_PERL+=		tools/rehash
+
+SUBST_CLASSES+=		sh
+SUBST_STAGE.sh=		post-build
+SUBST_FILES.sh=		perl/imap/blib/script/cyradm
+SUBST_SED.sh+=		-e 's|^\#!.*|\#!/bin/sh|'
 
 PERL5_PACKLIST= \
 	auto/Cyrus/IMAP/.packlist			\

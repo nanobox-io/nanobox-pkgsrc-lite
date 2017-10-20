@@ -1,8 +1,8 @@
-$NetBSD: distinfo,v 1.24 2016/11/25 13:00:13 prlw1 Exp $
+$NetBSD: distinfo,v 1.26 2017/10/18 21:32:24 wiz Exp $
 
-SHA1 (gobject-introspection-1.50.0.tar.xz) = 5907f70bd275dceb4d3cb825ddce82cb1fdb4242
-RMD160 (gobject-introspection-1.50.0.tar.xz) = d2f07bcb3bdb73b09fb59b9d4ced7a7f12660c41
-SHA512 (gobject-introspection-1.50.0.tar.xz) = cb108cf3d49743e1686fe4ae99f2360799bc8825ad97bf0b97e097b3f89e2771079593de0f497a9e5b9cff892f6fbf870834a6c4d13f11bcde99162e9388ecfa
-Size (gobject-introspection-1.50.0.tar.xz) = 1415700 bytes
+SHA1 (gobject-introspection-1.54.1.tar.xz) = 975350b2a45a6de1e9334c37d7ef779c748c217a
+RMD160 (gobject-introspection-1.54.1.tar.xz) = 6aa0bd6e6f9b95fb4d87832a3833c89fc71ed599
+SHA512 (gobject-introspection-1.54.1.tar.xz) = e9ebf9072f0986017c7608e23559918182926da910bb6c5bc9265ba98bcafbf276b8466b35be8ef4953e31d72710a1c91aeecccda42ba8d0cb91801df32d1186
+Size (gobject-introspection-1.54.1.tar.xz) = 1392504 bytes
 SHA1 (patch-aa) = 562071f5524de4c50571cb0c4625dcf3c933bac5
 SHA1 (patch-ac) = 52174e01aa90a5cf75cfe2f255826c1e46f8e183

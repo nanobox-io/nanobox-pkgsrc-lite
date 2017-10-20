@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2016/06/08 19:23:50 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.13 2017/09/27 21:49:50 wiz Exp $
 
 DISTNAME=	Padre-Plugin-Vi-0.23.0
-PKGNAME=	p5-${DISTNAME:S/.0//}
-PKGREVISION=	6
+PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	7
 CATEGORIES=	editors perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Padre/}
 WRKSRC=		${WRKDIR}/${DISTNAME:S/.0//}
@@ -21,6 +20,8 @@ DEPENDS+=	p5-Padre>=0.37:../../editors/p5-Padre
 
 PERL5_PACKLIST=		auto/Padre/Plugin/Vi/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 pre-configure:
 	cd ${WRKSRC} && find `pwd` -name "*.orig" -type f -exec ${RM} {} \;

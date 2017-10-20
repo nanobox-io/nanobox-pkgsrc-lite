@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.19 2016/04/02 09:05:23 taca Exp $
+# $NetBSD: Makefile,v 1.21 2017/09/03 08:53:16 wiz Exp $
 
 PKGNAME=	${PHP_PKG_PREFIX}-fpm-${PHP_VERSION}
+PKGREVISION=	1
 CATEGORIES=	www
 
-HOMEPAGE=	http://php-fpm.org/
+HOMEPAGE=	https://php-fpm.org/
 MAINTAINER=	filip@joyent.com
 COMMENT=	FPM interface for ${PKG_PHP}
 LICENSE=	2-clause-bsd

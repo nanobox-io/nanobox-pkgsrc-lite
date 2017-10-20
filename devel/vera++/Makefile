@@ -1,18 +1,18 @@
-# $NetBSD: Makefile,v 1.19 2017/01/01 16:06:10 adam Exp $
+# $NetBSD: Makefile,v 1.23 2017/09/24 15:07:18 tnn Exp $
 #
 
 DISTNAME=	vera++-1.1.1
-PKGREVISION=	14
+PKGREVISION=	16
 CATEGORIES=	devel
-MASTER_SITES=	http://www.inspirel.com/vera/files/
+#MASTER_SITES=	http://www.inspirel.com/vera/files/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.inspirel.com/vera/
+#HOMEPAGE=	http://www.inspirel.com/vera/
 COMMENT=	Programmable verification and analysis tool for C++
 
 BUILD_TARGET=	build
 LICENSE=	boost-license
-USE_LANGUAGES=	c++
+USE_LANGUAGES=	c++11
 USE_TOOLS+=	gmake pax
 
 CXXFLAGS+=	-DVERA_ROOT=\"${PREFIX:Q}/share/vera++\"

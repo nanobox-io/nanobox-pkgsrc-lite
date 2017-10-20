@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2015/02/04 15:02:17 taca Exp $
+# $NetBSD: Makefile,v 1.5 2017/09/19 16:36:07 taca Exp $
 
 DISTNAME=	padrino-contrib-0.2.0
 CATEGORIES=	www

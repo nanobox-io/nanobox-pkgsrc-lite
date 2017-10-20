@@ -1,9 +1,13 @@
-$NetBSD: distinfo,v 1.66 2017/01/16 14:34:42 adam Exp $
+$NetBSD: distinfo,v 1.68 2017/09/28 04:58:29 wiz Exp $
 
-SHA1 (httpd-2.2.32.tar.bz2) = 36dc7f2ac97627192dcff0a121408b897f91b121
-RMD160 (httpd-2.2.32.tar.bz2) = 88789518915babeaa8dbf0e8130b6d630bebb6c3
-SHA512 (httpd-2.2.32.tar.bz2) = b1802579f4fc950705ddcf0a24f502ffadbd91d5693fdd3b290ac7ca40122f8fa48132ad1055afae9b841dd55e8bb343239be07ca431b0f60ea081f5c2fad2c3
-Size (httpd-2.2.32.tar.bz2) = 5777509 bytes
+SHA1 (CVE-2017-9798-patch-2.2.patch) = 5602d73298b1623c1aff6e2bceeec98ba0c0532e
+RMD160 (CVE-2017-9798-patch-2.2.patch) = 6dbcf86821fc69a334b537a8de1c8d610743b1b9
+SHA512 (CVE-2017-9798-patch-2.2.patch) = f4fda08d3c3f66cc6d1288ab986d63e9398de36fe82abff1f40f10a02f0ba570bd6c96795f8c00edaf865278373b467725a9e6031bd3c1eca60b622be17953d4
+Size (CVE-2017-9798-patch-2.2.patch) = 1145 bytes
+SHA1 (httpd-2.2.34.tar.bz2) = 829206394e238af0b800fc78d19c74ee466ecb23
+RMD160 (httpd-2.2.34.tar.bz2) = 7e913d60ac02c815edac6ab0614f5dc40618c073
+SHA512 (httpd-2.2.34.tar.bz2) = e6dac5865a48533c025fe17523ee74d68c3a23f9512c9441b78a140e33cfb6835573eb049b0ad424eb5c5ca78a1915778c54e8a409da95fbdd3890cb99e08240
+Size (httpd-2.2.34.tar.bz2) = 5779739 bytes
 SHA1 (patch-aa) = e0bfdf6bc9cb034bea46a390a12a5508e363c9a7
 SHA1 (patch-ab) = 365cc3b0ac2d9d68ccb94f5699fe168a1c9b0150
 SHA1 (patch-ac) = 515043b5c215d49fe8f6d3191b502c978e2a2dad

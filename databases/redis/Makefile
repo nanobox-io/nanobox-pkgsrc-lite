@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.26 2017/02/14 10:30:03 fhajny Exp $
+# $NetBSD: Makefile,v 1.31 2017/09/26 07:52:13 fhajny Exp $
 
-DISTNAME=	redis-3.2.8
+DISTNAME=	redis-4.0.2
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 
 MAINTAINER=	filip@joyent.com
-HOMEPAGE=	http://redis.io/
+HOMEPAGE=	https://redis.io/
 COMMENT=	Persistent key-value database with built-in net interface
 LICENSE=	modified-bsd
 
@@ -32,7 +32,6 @@ REDIS_DATADIR?=		${VARBASE}/db/redis
 REDIS_LOGDIR?=		${VARBASE}/log/redis
 REDIS_PIDDIR?=		${VARBASE}/run
 
-OWN_DIRS+=		${REDIS_DATADIR} ${REDIS_LOGDIR}
 OWN_DIRS_PERMS+=	${REDIS_DATADIR} ${REDIS_USER} ${REDIS_GROUP} 0770
 OWN_DIRS_PERMS+=	${REDIS_LOGDIR} ${REDIS_USER} ${REDIS_GROUP} 0770
 

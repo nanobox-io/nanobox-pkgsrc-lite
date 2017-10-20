@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2017/01/19 09:02:42 markd Exp $
+# $NetBSD: Makefile,v 1.35 2017/08/24 20:03:22 adam Exp $
 
 DISTNAME=	ksaneplugin-16.12.0
+PKGREVISION=	2
 CATEGORIES=	graphics
 COMMENT=	SANE Plugin for KDE
 MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.12.0/src/}

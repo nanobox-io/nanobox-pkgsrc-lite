@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.89 2017/03/07 20:45:43 ryoon Exp $
+# $NetBSD: mozilla-common.mk,v 1.99 2017/10/03 13:17:37 maya Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -20,6 +20,9 @@ USE_TOOLS+=		pkg-config perl gmake autoconf213 unzip zip
 USE_LANGUAGES+=		c99 c++
 UNLIMIT_RESOURCES+=	datasize
 
+CONFIGURE_ENV+=		BINDGEN_CFLAGS="-isystem${PREFIX}/include/nspr \
+			-isystem${X11BASE}/include/pixman-1"
+
 test:
 	cd ${WRKSRC}/${OBJDIR}/dist/bin &&	\
 	     ./run-mozilla.sh ${WRKSRC}/mach check-spidermonkey
@@ -29,8 +32,7 @@ test:
 TOOLS_PLATFORM.tar=	${TOOLS_PATH.bsdtar}
 USE_TOOLS+=		bsdtar
 .endif
-# GCC 4.6 is required to support nullptr.
-GCC_REQD+=		4.8
+GCC_REQD+=		4.9
 .if ${MACHINE_ARCH} == "i386"
 # Fix for PR pkg/48152.
 CXXFLAGS+=		-march=i586
@@ -51,7 +53,8 @@ CONFIGURE_ARGS+=	--with-pthreads
 CONFIGURE_ARGS+=	--enable-system-cairo
 CONFIGURE_ARGS+=	--enable-system-pixman
 CONFIGURE_ARGS+=	--with-system-libvpx
-CONFIGURE_ARGS+=	--enable-system-hunspell
+# textproc/hunspell 1.3 is too old
+#CONFIGURE_ARGS+=	--enable-system-hunspell
 CONFIGURE_ARGS+=	--enable-system-ffi
 CONFIGURE_ARGS+=	--with-system-icu
 CONFIGURE_ARGS+=	--with-system-nss
@@ -67,8 +70,6 @@ CONFIGURE_ARGS+=	--disable-libjpeg-turbo
 
 CONFIGURE_ARGS+=	--disable-elf-hack
 CONFIGURE_ARGS+=	--disable-gconf
-CONFIGURE_ARGS+=	--enable-gio
-CONFIGURE_ARGS+=	--enable-extensions=gio
 #CONFIGURE_ARGS+=	--enable-readline
 CONFIGURE_ARGS+=	--enable-url-classifier
 CONFIGURE_ARGS+=	--disable-icf
@@ -178,23 +179,24 @@ PLIST_SUBST+=	DLL_SUFFIX=".so"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.1
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/libffi/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.10.10
+BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.14
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nss+=	nss>=3.28.1
+BUILDLINK_API_DEPENDS.nss+=	nss>=3.32.1
 .include "../../devel/nss/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/MesaLib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.10.2nb4
 .include "../../graphics/cairo/buildlink3.mk"
+.include "../../lang/clang/buildlink3.mk"
+BUILDLINK_API_DEPENDS.rust+=	rust>=1.20.0
+.include "../../lang/rust/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libvpx+=	libvpx>=1.3.0
 .include "../../multimedia/libvpx/buildlink3.mk"
 .include "../../net/libIDL/buildlink3.mk"
-.include "../../textproc/hunspell/buildlink3.mk"
-# gtk2 needed even if --enable-default-toolkit=cairo-gtk3
-BUILDLINK_API_DEPENDS.gtk2+=  gtk2+>=2.18.3nb1
-.include "../../x11/gtk2/buildlink3.mk"
+# textproc/hunspell 1.3 is too old
+#.include "../../textproc/hunspell/buildlink3.mk"
 .include "../../multimedia/ffmpeg3/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 BUILDLINK_API_DEPENDS.pixman+= pixman>=0.25.2

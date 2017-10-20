@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.52 2017/01/01 14:43:25 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2017/09/18 09:53:12 maya Exp $
 
 DISTNAME=	telepathy-gabble-0.18.3
-PKGREVISION=	4
+PKGREVISION=	7
 CATEGORIES=	chat
 MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-gabble/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://telepathy.freedesktop.org/wiki/Components
+HOMEPAGE=	https://telepathy.freedesktop.org/wiki/Components
 COMMENT=	Jabber/XMPP connection manager for Telepathy
 LICENSE=	gnu-lgpl-v2.1 AND mit
 

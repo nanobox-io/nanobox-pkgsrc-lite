@@ -1,6 +1,9 @@
-$NetBSD: patch-src_printtable.cpp,v 1.1 2016/04/01 19:56:02 joerg Exp $
+$NetBSD: patch-src_printtable.cpp,v 1.3 2017/09/25 22:31:25 joerg Exp $
 
---- src/printtable.cpp.orig	2016-04-01 19:47:54.585451048 +0000
+Repeat after me: I don't know what 3rd party headers are doing, so I
+won't inflict my namespace decisions on them.
+
+--- src/printtable.cpp.orig	2017-09-25 20:13:02.634455468 +0000
 +++ src/printtable.cpp
 @@ -28,7 +28,6 @@
  #include <sstream>

@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.36 2017/02/12 06:25:48 ryoon Exp $
-#
+# $NetBSD: Makefile,v 1.39 2017/09/04 18:36:26 wiz Exp $
 
 DISTNAME=		subtitleeditor-0.30.0
 PKGREVISION=		26
 CATEGORIES=		multimedia
-MASTER_SITES=		http://download.gna.org/subtitleeditor/0.30/
+#MASTER_SITES=		http://download.gna.org/subtitleeditor/0.30/
 
 MAINTAINER=		ccatrian@eml.cc
-HOMEPAGE=		http://home.gna.org/subtitleeditor/
+#HOMEPAGE=		http://home.gna.org/subtitleeditor/
 COMMENT=		GTK+2 tool to edit movie subtitles
 LICENSE=		gnu-gpl-v2
 
@@ -15,9 +14,7 @@ USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake intltool pkg-config msgfmt
 GNU_CONFIGURE=		yes
-USE_LANGUAGES=		c c++
-
-CXXFLAGS+=		-std=c++11
+USE_LANGUAGES=		c c++11
 
 BUILDLINK_API_DEPENDS.glibmm+=	glibmm>=2.16.3
 .include "../../devel/glibmm/buildlink3.mk"

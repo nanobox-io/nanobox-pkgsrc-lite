@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/09/13 15:32:01 taca Exp $
+# $NetBSD: Makefile,v 1.7 2017/09/19 16:36:07 taca Exp $
 
 DISTNAME=	http_router-0.11.2
 CATEGORIES=	www

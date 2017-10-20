@@ -1,19 +1,20 @@
-# $NetBSD: Makefile,v 1.26 2016/08/28 15:48:32 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2017/10/17 18:45:27 adam Exp $
 
-DISTNAME=	fonttools-3.0
+DISTNAME=	fonttools-3.17.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-CATEGORIES=	fonts
-MASTER_SITES=	${MASTER_SITE_GITHUB:=behdad/}
+CATEGORIES=	fonts python
+MASTER_SITES=	${MASTER_SITE_PYPI:=F/FontTools/}
+EXTRACT_SUFX=	.zip
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	https://github.com/behdad/fonttools/
+HOMEPAGE=	http://github.com/fonttools/fonttools
 COMMENT=	Library for manipulating fonts
+LICENSE=	modified-bsd
 
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
-DEPENDS+=	${PYPKGPREFIX}-numpy-[0-9]*:../../math/py-numpy
-USE_LANGUAGES=	# none
+BUILD_DEPENDS+=	${PYPKGPREFIX}-test-[0-9]*:../../devel/py-test
 
-REPLACE_PYTHON+=	setup.py
+USE_LANGUAGES=	# none
 
 SUBST_CLASSES+=		man
 SUBST_SED.man+=		-e "s,share/man,${PKGMANDIR},"
@@ -23,10 +24,11 @@ SUBST_MESSAGE.man=	Fixing man page installation path.
 
 post-install:
 	cd ${DESTDIR}${PREFIX}/bin && \
-	for i in pyftinspect pyftmerge pyftsubset ttx; do \
-		mv $$i $$i-${PYVERSSUFFIX}; \
+	for i in fonttools pyftinspect pyftmerge pyftsubset ttx; do \
+		${MV} $${i} $${i}${PYVERSSUFFIX}; \
 	done
+	cd ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1 && \
+		${MV} ttx.1 ttx${PYVERSSUFFIX}.1 || ${TRUE}
 
-.include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

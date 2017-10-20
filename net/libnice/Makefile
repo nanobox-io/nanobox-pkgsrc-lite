@@ -1,14 +1,11 @@
-# $NetBSD: Makefile,v 1.44 2016/12/04 05:17:10 ryoon Exp $
+# $NetBSD: Makefile,v 1.47 2017/09/18 09:53:03 maya Exp $
 
-PKGREVISION= 4
+PKGREVISION= 2
 .include "Makefile.common"
 
 # introspection Makefile uses GNUisms
 USE_TOOLS+=	gmake
-# configure flag is broken in at least 0.1.13
-# http://phabricator.freedesktop.org/T127
-#CONFIGURE_ARGS+= --without-gstreamer
-CONFIGURE_ARGS+=	have_gst_check=no
+CONFIGURE_ARGS+= --without-gstreamer
 
 PKGCONFIG_OVERRIDE+=	nice/nice.pc.in
 

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.70 2016/06/30 17:38:09 wiz Exp $
+# $NetBSD: Makefile,v 1.75 2017/05/17 21:58:05 he Exp $
 
-DISTNAME=	libsndfile-1.0.27
+DISTNAME=	libsndfile-1.0.28
+PKGREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	http://www.mega-nerd.com/libsndfile/files/
 
@@ -11,12 +12,9 @@ LICENSE=	gnu-lgpl-v2.1
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake pkg-config
+USE_TOOLS+=		pkg-config
 PKGCONFIG_OVERRIDE=	sndfile.pc.in
 GNU_CONFIGURE=		yes
-
-# This package compiles with gcc2, but its configure script doesn't know that
-CONFIGURE_ENV+=		ac_cv_c_struct_hack=yes
 
 TEST_TARGET=		check
 

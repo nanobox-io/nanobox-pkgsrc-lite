@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.23 2017/01/25 19:48:50 adam Exp $
+# $NetBSD: Makefile,v 1.28 2017/09/28 13:49:19 wiz Exp $
 
-DISTNAME=	scipy-0.18.1
+DISTNAME=	scipy-0.19.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	math python
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/scipy/}
 
 MAINTAINER=	markd@NetBSD.org
-HOMEPAGE=	http://www.scipy.org/
+HOMEPAGE=	https://www.scipy.org/
 COMMENT=	Scientific Algorithms Library for Python
 LICENSE=	modified-bsd
 
@@ -51,11 +52,6 @@ REPLACE_PYTHON+=	scipy/io/matlab/tests/test_mio.py
 REPLACE_PYTHON+=	scipy/io/matlab/tests/test_mio_funcs.py
 REPLACE_PYTHON+=	scipy/io/setup.py
 REPLACE_PYTHON+=	scipy/io/tests/test_mmio.py
-REPLACE_PYTHON+=	scipy/lib/blas/setup.py
-REPLACE_PYTHON+=	scipy/lib/blas/tests/test_blas.py
-REPLACE_PYTHON+=	scipy/lib/lapack/setup.py
-REPLACE_PYTHON+=	scipy/lib/lapack/tests/test_lapack.py
-REPLACE_PYTHON+=	scipy/lib/setup.py
 REPLACE_PYTHON+=	scipy/linalg/setup.py
 REPLACE_PYTHON+=	scipy/linalg/tests/test_basic.py
 REPLACE_PYTHON+=	scipy/linalg/tests/test_blas.py
@@ -85,7 +81,6 @@ REPLACE_PYTHON+=	scipy/special/generate_ufuncs.py
 REPLACE_PYTHON+=	scipy/special/setup.py
 REPLACE_PYTHON+=	scipy/special/spfun_stats.py
 REPLACE_PYTHON+=	scipy/stats/setup.py
-REPLACE_PYTHON+=	scipy/weave/setup.py
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -115,6 +110,6 @@ do-test:
 .include "../../lang/python/distutils.mk"
 .include "../../devel/py-cython/buildlink3.mk"
 .include "../../math/fftw/buildlink3.mk"
-BUILDLINK_API_DEPENDS.py-numpy+=	${PYPKGPREFIX}-numpy>=1.7.1
+BUILDLINK_API_DEPENDS.py-numpy+=	${PYPKGPREFIX}-numpy>=1.8.2
 .include "../../math/py-numpy/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,8 @@
-# $NetBSD: options.mk,v 1.13 2017/02/26 22:16:57 wiz Exp $
+# $NetBSD: options.mk,v 1.18 2017/08/24 14:05:21 khorben Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.irssi
-PKG_SUPPORTED_OPTIONS=		inet6 perl ssl
-PKG_SUGGESTED_OPTIONS=		inet6 perl ssl
-PKG_OPTIONS_LEGACY_OPTS+=	irssi-perl:perl
+PKG_SUPPORTED_OPTIONS=		ssl perl truecolor
+PKG_SUGGESTED_OPTIONS=		ssl perl truecolor
 
 .include "../../mk/bsd.options.mk"
 
@@ -23,14 +22,12 @@ CONFIGURE_ARGS+=	--with-perl-lib=vendor
 CONFIGURE_ARGS+=	--with-perl=no
 .endif
 
-.if !empty(PKG_OPTIONS:Minet6)
-CONFIGURE_ARGS+=	--enable-ipv6
-.else
-CONFIGURE_ARGS+=	--disable-ipv6
-.endif
-
 .if !empty(PKG_OPTIONS:Mssl)
 .include "../../security/openssl/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-ssl
+.endif
+
+.if !empty(PKG_OPTIONS:Mtruecolor)
+CONFIGURE_ARGS+=	--enable-true-color
 .endif

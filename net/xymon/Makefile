@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.48 2017/02/12 06:25:54 ryoon Exp $
+# $NetBSD: Makefile,v 1.51 2017/09/28 10:40:35 spz Exp $
 #
 
-DISTNAME=		xymon-4.3.27
-PKGREVISION=		2
+DISTNAME=		xymon-4.3.28
 CATEGORIES=		net
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=xymon/}
 
 MAINTAINER=		spz@NetBSD.org
-HOMEPAGE=		http://sourceforge.net/projects/xymon/
+HOMEPAGE=		https://sourceforge.net/projects/xymon/
 COMMENT=		Network services monitor a la Big Brother
 LICENSE=		gnu-gpl-v2
 
@@ -176,10 +175,10 @@ CFILES2=		critical.cfg critical.cfg.bak
 CONF_FILES_PERMS+=	${EXAMPLEDIR}/${file} ${PKG_SYSCONFDIR.xymon}/${file} ${XYMONUSER} ${XYMONGROUP} 0664
 .endfor
 
-SECCGIFILES=		ackinfo.sh acknowledge.sh criticaleditor.sh
-SECCGIFILES+=		enadis.sh useradm.sh
+SECCGIFILES=		ackinfo.cgi acknowledge.cgi criticaleditor.cgi
+SECCGIFILES+=		enadis.cgi useradm.cgi
 .for file in ${SECCGIFILES}
-SPECIAL_PERMS+=		${SECCGIDIR}/${file} ${XYMONUSER} ${XYMONGROUP} 0400
+SPECIAL_PERMS+=		${SECCGIDIR}/../${file} ${XYMONUSER} ${XYMONGROUP} 0400
 .endfor
 
 MAKE_ENV+=		MAKE=${MAKE_PROGRAM:Q}

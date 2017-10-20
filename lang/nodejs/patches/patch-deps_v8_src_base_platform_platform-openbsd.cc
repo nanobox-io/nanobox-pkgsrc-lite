@@ -1,6 +1,8 @@
-$NetBSD: patch-deps_v8_src_base_platform_platform-openbsd.cc,v 1.1 2015/10/21 23:46:28 jmcneill Exp $
+$NetBSD: patch-deps_v8_src_base_platform_platform-openbsd.cc,v 1.3 2017/09/27 12:17:10 fhajny Exp $
 
---- deps/v8/src/base/platform/platform-openbsd.cc.orig	2015-10-13 17:20:07.000000000 +0000
+Add support for NetBSD/arm.
+
+--- deps/v8/src/base/platform/platform-openbsd.cc.orig	2017-09-26 21:14:30.000000000 +0000
 +++ deps/v8/src/base/platform/platform-openbsd.cc
 @@ -34,6 +34,48 @@
  namespace v8 {
@@ -48,6 +50,6 @@ $NetBSD: patch-deps_v8_src_base_platform_platform-openbsd.cc,v 1.1 2015/10/21 23
 +
 +#endif  // def __arm__
 +
- 
- const char* OS::LocalTimezone(double time, TimezoneCache* cache) {
-   if (std::isnan(time)) return "";
+ TimezoneCache* OS::CreateTimezoneCache() {
+   return new PosixDefaultTimezoneCache();
+ }

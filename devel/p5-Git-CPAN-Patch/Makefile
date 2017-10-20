@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2016/06/08 19:23:00 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2017/06/05 14:23:03 ryoon Exp $
 
-DISTNAME=	Git-CPAN-Patch-2.3.0
+DISTNAME=	Git-CPAN-Patch-2.3.1
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -45,6 +45,7 @@ BUILD_DEPENDS+=	p5-Devel-CheckOS-[0-9]*:../../devel/p5-Devel-CheckOS
 BUILD_DEPENDS+=	p5-Package-Constants-[0-9]*:../../devel/p5-Package-Constants
 BUILD_DEPENDS+=	p5-Parallel-ForkManager-[0-9]*:../../devel/p5-Parallel-ForkManager
 BUILD_DEPENDS+=	p5-Search-Elasticsearch-[0-9]*:../../devel/p5-Search-Elasticsearch
+BUILD_DEPENDS+=	p5-Package-DeprecationManager-[0-9]*:../../devel/p5-Package-DeprecationManager
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Git/CPAN/Patch/.packlist

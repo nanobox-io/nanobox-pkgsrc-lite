@@ -1,11 +1,19 @@
-$NetBSD: patch-configure,v 1.1 2017/01/29 11:57:03 adam Exp $
+$NetBSD: patch-configure,v 1.5 2017/07/03 21:50:32 adam Exp $
 
-Remove SSE auto-detection, it is not portable.
 Remove unwanted compiler flags.
 
---- configure.orig	2016-12-23 23:22:46.000000000 +0000
+--- configure.orig	2017-07-02 21:40:53.000000000 +0000
 +++ configure
-@@ -125,7 +124,7 @@ cflags "-std=c99 -I."
+@@ -2,7 +2,7 @@
+ 
+ CONFIG="config.mk"
+ PREFIX="/usr/local"
+-VERSION=$(grep LIQ_VERSION_STRING libimagequant.h | grep -Eo "2\.[0-9.]+")
++VERSION=$(awk -F\" '/LIQ_VERSION_STRING/ {print $2}' libimagequant.h)
+ 
+ DEBUG=
+ QUIET=0
+@@ -136,7 +136,7 @@ cflags "-std=c99 -I."
  
  # DEBUG
  if [ -z "$DEBUG" ]; then
@@ -14,21 +22,7 @@ Remove unwanted compiler flags.
      status "Debug" "no"
  else
      cflags "-O1 -g"
-@@ -133,13 +132,6 @@ else
- fi
- 
- # SSE
--if [ "$SSE" = 'auto' ]; then
--    if [[ "$(uname -m)" =~ (amd|x86_)64 ||
--          "$(grep -E -m1 "^flags" /proc/cpuinfo)" =~ "sse" ]]; then
--        SSE=1
--    fi
--fi
--
- if [ "$SSE" -eq 1 ]; then
-     status "SSE" "yes"
-     cflags "-DUSE_SSE=1"
-@@ -160,15 +152,9 @@ if [ -n "$OPENMP" ]; then
+@@ -174,15 +174,9 @@ if [ -n "$OPENMP" ]; then
      else
          OPENMPFLAGS="-fopenmp"
      fi
@@ -44,10 +38,11 @@ Remove unwanted compiler flags.
  else
      # silence warnings about omp pragmas
      cflags "-Wno-unknown-pragmas"
-@@ -177,19 +163,9 @@ else
+@@ -190,20 +184,10 @@ else
+     status "OpenMP" "no"
  fi
  
- # Cocoa
+-# Cocoa
 -if [[ "$OSTYPE" =~ "darwin" ]]; then
 -    cflags "-mmacosx-version-min=10.6"
 -    lflags "-mmacosx-version-min=10.6"
@@ -55,12 +50,12 @@ Remove unwanted compiler flags.
  
  if [[ "$OSTYPE" =~ "darwin" ]]; then
      SOLIBSUFFIX=dylib
--
+ 
 -    # Search Developer SDK paths, since Apple seems to have dropped the standard Unixy ones
 -    XCODE_CMD="xcode-select"
 -    XCODE_PATH=$($XCODE_CMD -p)
 -    DIRS+=("$XCODE_PATH/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include $XCODE_PATH/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/lib")
 -    DIRS+=("$XCODE_PATH/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/include $XCODE_PATH/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib")
+ elif [[ "$OSTYPE" =~ "msys" ]]; then
+     SOLIBSUFFIX=dll
  else
-     SOLIBSUFFIX=so
- fi

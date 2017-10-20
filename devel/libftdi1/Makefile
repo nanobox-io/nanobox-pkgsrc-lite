@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.16 2017/01/01 16:06:09 adam Exp $
+# $NetBSD: Makefile,v 1.19 2017/08/24 20:03:11 adam Exp $
 
 DISTNAME=	libftdi1-1.1
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	devel
-MASTER_SITES=	http://www.intra2net.com/en/developer/libftdi/download/
+MASTER_SITES=	https://www.intra2net.com/en/developer/libftdi/download/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.intra2net.com/en/developer/libftdi/
+HOMEPAGE=	https://www.intra2net.com/en/developer/libftdi/
 COMMENT=	Userland driver library for FTDI USB chips
 LICENSE=	gnu-lgpl-v2.1
 

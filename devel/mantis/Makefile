@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.48 2016/09/11 17:03:25 taca Exp $
+# $NetBSD: Makefile,v 1.50 2017/05/21 07:16:49 ryoon Exp $
 
-DISTNAME=	mantisbt-1.3.1
-PKGREVISION=	1
+DISTNAME=	mantisbt-2.4.1
 PKGNAME=	${DISTNAME:S/mantisbt/mantis/}
 CATEGORIES=	devel www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mantisbt/}
@@ -11,7 +10,7 @@ HOMEPAGE=	http://www.mantisbt.org/
 COMMENT=	PHP/MySQL/web based bugtracking system
 LICENSE=	gnu-gpl-v2
 
-PHP_VERSIONS_ACCEPTED=	56
+#PHP_VERSIONS_ACCEPTED=	56
 
 DEPENDS+=	${PHP_PKG_PREFIX}-json-[0-9]*:../../textproc/php-json
 

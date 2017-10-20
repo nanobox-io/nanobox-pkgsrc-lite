@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.126 2017/02/12 06:25:38 ryoon Exp $
+# $NetBSD: Makefile,v 1.130 2017/09/18 09:53:25 maya Exp $
 
 DISTNAME=	balsa-2.4.14
-PKGREVISION=	22
+PKGREVISION=	25
 CATEGORIES=	mail gnome
 MASTER_SITES=	http://pawsa.fedorapeople.org/balsa/
 EXTRACT_SUFX=	.tar.bz2
@@ -28,6 +28,8 @@ CONFIGURE_ENV+=		ac_cv_lib_iconv_iconv_open=yes
 
 EGDIR=		${PREFIX}/share/examples/balsa
 CONF_FILES=	${EGDIR}/balsa.soundlist ${PKG_SYSCONFDIR}/sound/events/balsa.soundlist
+
+CFLAGS.SunOS+=	-D__EXTENSIONS__
 
 .include "options.mk"
 

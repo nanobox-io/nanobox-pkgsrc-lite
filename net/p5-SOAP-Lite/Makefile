@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.49 2017/02/01 13:31:52 mef Exp $
+# $NetBSD: Makefile,v 1.52 2017/09/03 08:36:58 wiz Exp $
 
-DISTNAME=	SOAP-Lite-1.20
+DISTNAME=	SOAP-Lite-1.22
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=SOAP/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.soaplite.com/
+#HOMEPAGE=	http://www.soaplite.com/
 #HOMEPAGE=	http://search.cpan.org/dist/SOAP-Lite/
 COMMENT=	Perl5 module providing a lightweight interface to SOAP
 LICENSE=	${PERL5_LICENSE}

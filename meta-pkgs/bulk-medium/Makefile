@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.40 2017/01/01 14:43:47 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2017/09/29 12:40:27 wiz Exp $
 
-DISTNAME=	bulk-medium-20161229
+DISTNAME=	bulk-medium-20170929
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -67,7 +67,7 @@ BUILD_DEPENDS+=	git-[0-9]*:../../devel/git
 BUILD_DEPENDS+=	git-base-[0-9]*:../../devel/git-base
 BUILD_DEPENDS+=	git-docs-[0-9]*:../../devel/git-docs
 BUILD_DEPENDS+=	mercurial-[0-9]*:../../devel/mercurial
-BUILD_DEPENDS+=	emacs24>=24<25:../../editors/emacs24
+BUILD_DEPENDS+=	emacs25>=25<26:../../editors/emacs25
 BUILD_DEPENDS+=	emacs-packages-[0-9]*:../../editors/emacs-packages
 BUILD_DEPENDS+=	nvi-[0-9]*:../../editors/nvi
 BUILD_DEPENDS+=	vim-gtk2-[0-9]*:../../editors/vim-gtk2
@@ -83,10 +83,9 @@ BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-[0-9]*:../../graphics/py-matplotlib
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-gtk-[0-9]*:../../graphics/py-matplotlib-gtk2
 BUILD_DEPENDS+=	gawk-[0-9]*:../../lang/gawk
 BUILD_DEPENDS+=	php>=5.6<5.7:../../lang/php56
-BUILD_DEPENDS+=	ruby18-base-[0-9]*:../../lang/ruby18-base
-BUILD_DEPENDS+=	ruby21-base-[0-9]*:../../lang/ruby21-base
 BUILD_DEPENDS+=	ruby22-base-[0-9]*:../../lang/ruby22-base
 BUILD_DEPENDS+=	ruby23-base-[0-9]*:../../lang/ruby23-base
+BUILD_DEPENDS+=	ruby24-base-[0-9]*:../../lang/ruby24-base
 BUILD_DEPENDS+=	sun-jdk6-[0-9]*:../../lang/sun-jdk6
 BUILD_DEPENDS+=	sun-jre6-[0-9]*:../../lang/sun-jre6
 BUILD_DEPENDS+=	openjdk7-[0-9]*:../../lang/openjdk7
@@ -115,7 +114,7 @@ BUILD_DEPENDS+=	ghostscript-agpl-[0-9]*:../../print/ghostscript-agpl
 BUILD_DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 BUILD_DEPENDS+=	xpdf-[0-9]*:../../print/xpdf
 BUILD_DEPENDS+=	gnupg-[0-9]*:../../security/gnupg
-BUILD_DEPENDS+=	gnupg2>=2.0<2.1:../../security/gnupg2
+BUILD_DEPENDS+=	gnupg2-[0-9]*:../../security/gnupg2
 BUILD_DEPENDS+=	desktop-file-utils-[0-9]*:../../sysutils/desktop-file-utils
 BUILD_DEPENDS+=	xe-guest-utilities-[0-9]*:../../sysutils/xe-guest-utilities
 BUILD_DEPENDS+=	xenkernel45-[0-9]*:../../sysutils/xenkernel45

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/08/20 12:13:30 jperkin Exp $
+# $NetBSD: Makefile,v 1.6 2017/08/16 20:21:12 wiz Exp $
 
 DISTNAME=	libhdhomerun_20140121
 PKGNAME=	${DISTNAME:S/_/-/}
@@ -7,7 +7,7 @@ MASTER_SITES=	http://download.silicondust.com/hdhomerun/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	jmcneill@NetBSD.org
-HOMEPAGE=	http://www.silicondust.com/
+HOMEPAGE=	https://www.silicondust.com/
 COMMENT=	Client and library for Silicon Dust HD Homerun
 LICENSE=	gnu-lgpl-v2.1
 
@@ -20,7 +20,7 @@ INSTALLATION_DIRS=	bin lib include/hdhomerun
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+.if ${SHLIB_TYPE} == "dylib"
 SHLIBEXT=	dylib
 .else
 SHLIBEXT=	so

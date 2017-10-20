@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2016/04/22 16:52:14 jperkin Exp $
+# $NetBSD: Makefile,v 1.10 2017/07/04 13:31:16 fhajny Exp $
 #
 
 BUILDLINK_DEPMETHOD.libestr=	full
@@ -23,6 +23,7 @@ CONFIGURE_ARGS+=	--enable-imsolaris --disable-klog
 CONFIGURE_ENV+=		ac_cv_func_epoll_create=no
 CONFIGURE_ENV+=		ac_cv_func_epoll_create1=no
 CONFIGURE_ENV+=		ac_cv_func_inotify_init=no
+CONFIGURE_ENV+=		ac_cv_header_sys_inotify_h=no
 PLIST.solaris=		yes
 RSYSLOG_SYSMOD=		imsolaris
 .else
@@ -66,6 +67,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/platform/redhat/rsyslog.conf			\
 		${DESTDIR}${EGDIR}/rsyslog.conf
 
-BUILDLINK_API_DEPENDS.liblognorm+=	liblognorm>=1.1.2
+BUILDLINK_API_DEPENDS.liblognorm+=	liblognorm>=2.0.3
 .include "../../sysutils/liblognorm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

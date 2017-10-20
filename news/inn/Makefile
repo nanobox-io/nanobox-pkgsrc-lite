@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.124 2017/01/19 18:52:21 agc Exp $
+# $NetBSD: Makefile,v 1.126 2017/06/05 14:24:26 ryoon Exp $
 
-DISTNAME=		inn-2.5.5
-PKGREVISION=		2
+DISTNAME=		inn-2.6.1
+PKGREVISION=		1
 CATEGORIES=		news
 MASTER_SITES=		ftp://ftp.isc.org/isc/inn/
 MASTER_SITES+=		ftp://ftp.fu-berlin.de/unix/news/inn/
@@ -13,7 +13,7 @@ LICENSE=		modified-bsd AND gnu-gpl-v2
 
 CONFLICTS+=		libradius-[0-9]* nntpclnt-[0-9]*
 
-.include "Makefile.common"
+.include "../../news/inn/Makefile.common"
 
 BUILD_DEFS+=		INN_DATA_DIR
 BUILD_DEFS+=		VARBASE

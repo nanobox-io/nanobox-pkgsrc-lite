@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.43 2017/01/01 14:43:54 wiz Exp $
+# $NetBSD: Makefile,v 1.48 2017/09/25 22:26:51 joerg Exp $
 
 DISTNAME=		scribus-1.4.3
-PKGREVISION=		8
+PKGREVISION=		10
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scribus/}
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.scribus.net/
+HOMEPAGE=		https://www.scribus.net/
 COMMENT=		Publishing layout with graphical interface
 
 USE_LANGUAGES=		c c++
@@ -24,17 +24,12 @@ PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 1.4.3
 
 INSTALLATION_DIRS+=	share/pixmaps
 
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-CMAKE_ARGS+=	-DCLANG_NO_OPT=${CLANG_NO_VALUE_PROPAGATION_PASS:Q}
-.endif
-
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/resources/icons/scribus.png \
 		${DESTDIR}${PREFIX}/share/pixmaps
 
 .include "../../devel/boost-headers/buildlink3.mk"
-.include "../../print/cups15/buildlink3.mk"
+.include "../../print/cups/buildlink3.mk"
 .include "../../print/podofo/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

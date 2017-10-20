@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2016/12/01 12:51:12 martin Exp $
+# $NetBSD: Makefile,v 1.13 2017/10/15 22:31:02 prlw1 Exp $
 
-DISTNAME=	libsecret-0.18
+DISTNAME=	libsecret-0.18.5
 CATEGORIES=	security gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsecret/${PKGVERSION_NOREV}/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsecret/0.18/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	ryoon@NetBSD.org
@@ -12,7 +12,7 @@ LICENSE=	gnu-lgpl-v2.1
 
 BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
-BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes

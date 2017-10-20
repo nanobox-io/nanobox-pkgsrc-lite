@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.36 2016/06/08 19:23:23 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2017/06/05 14:23:27 ryoon Exp $
 
-DISTNAME=	Parse-RecDescent-1.967013
+DISTNAME=	Parse-RecDescent-1.967015
 PKGNAME=	p5-${DISTNAME:S/9670/967./}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

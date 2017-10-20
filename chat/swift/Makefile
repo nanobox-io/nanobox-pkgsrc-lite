@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2017/02/28 15:20:02 ryoon Exp $
+# $NetBSD: Makefile,v 1.30 2017/10/04 20:37:40 wiz Exp $
 
 DISTNAME=	swift-3.0
-PKGREVISION=	10
+PKGREVISION=	16
 CATEGORIES=	chat
 MASTER_SITES=	http://swift.im/downloads/releases/${DISTNAME}/
 
@@ -10,12 +10,12 @@ HOMEPAGE=	http://swift.im/
 COMMENT=	Swift XMPP Client
 LICENSE=	gnu-gpl-v3
 
-DEPENDS+=	scons>=1.3:../../devel/scons
+# would be nicer to build with pkgsrc version, but
+# swift-3.0 does not build with scons>=3
+#DEPENDS+=	scons>=1.3:../../devel/scons
 
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 USE_TOOLS+=	pkg-config
-
-CXXFLAGS+=	-std=c++11
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man1
 
@@ -31,16 +31,16 @@ do-configure:
 	cd ${WRKSRC} ; \
 	${ECHO} "qt=\"${QTDIR}\"" > config.py ;\
 	${ECHO} "qt5=1" >> config.py ;\
-	${ECHO} "linkflags=\"-L${PREFIX}/lib -Wl,-R${QTDIR}/lib -Wl,-R${X11BASE}/lib -Wl,-R${BUILDLINK_DIR}/lib\"" >> config.py ; \
+	${ECHO} "linkflags=\"-L${PREFIX}/lib -Wl,-R${QTDIR}/lib -Wl,-R${X11BASE}/lib -Wl,-R${BUILDLINK_DIR}/lib ${LDFLAGS}\"" >> config.py ; \
 	${ECHO} "ccflags=\"${CXXFLAGS}\"" >> config.py ; \
 	${ECHO} "allow_warnings=\"true\"" >> config.py ;
 
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PREFIX}/bin/scons Swift
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ./scons Swift
 
 do-install:
 	cd ${WRKSRC} && \
-	${SETENV} ${MAKE_ENV} ${PREFIX}/bin/scons \
+	${SETENV} ${MAKE_ENV} ./scons \
 	    SWIFT_INSTALLDIR=${DESTDIR}/${PREFIX} ${DESTDIR}/${PREFIX}
 	${INSTALL_DATA} ${WRKSRC}/Swift/Packaging/Debian/debian/swift-im.1 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1

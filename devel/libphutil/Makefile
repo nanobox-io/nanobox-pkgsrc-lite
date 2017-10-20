@@ -1,15 +1,18 @@
-# $NetBSD: Makefile,v 1.2 2016/03/04 15:50:36 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2017/06/27 10:35:46 roy Exp $
 
-DISTNAME=		libphutil-20160301
+DISTNAME=		libphutil-20170609
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GITHUB:=phacility/}
+# Track the stable branch
 GITHUB_PROJECT=		libphutil
-GITHUB_TAG=		ad3f475c8c13e22096c8c3c60df5f3d886483699
+GITHUB_TAG=		612619d0040b5e13c4e068dce443217abbc10a00
 
-MAINTAINER=		youri@NetBSD.org
+MAINTAINER=		roy@NetBSD.org
 HOMEPAGE=		https://github.com/phacility/libphutil/
 COMMENT=		Collection of utility classes and functions for PHP
 LICENSE=		apache-2.0
+
+PHP_VERSIONS_INCOMPATIBLE=	70
 
 EXTRACT_USING=		bsdtar
 USE_TOOLS+=		bsdtar pax
@@ -37,9 +40,11 @@ SUBST_FILES.php+=	scripts/test/paypal.php
 SUBST_FILES.php+=	scripts/test/progress_bar.php
 SUBST_FILES.php+=	scripts/test/prompt.php
 SUBST_FILES.php+=	scripts/test/service_profiler.php
+SUBST_FILES.php+=	scripts/timezones/generate_windows_timezone_map.php
 SUBST_FILES.php+=	scripts/update_compat_info.php
 SUBST_FILES.php+=	scripts/utils/directory_fixture.php
 SUBST_FILES.php+=	scripts/utils/lock.php
+SUBST_FILES.php+=	scripts/utils/prosediff.php
 SUBST_FILES.php+=	scripts/utils/utf8.php
 SUBST_FILES.php+=	src/parser/PhutilLanguageGuesser.php
 SUBST_FILES.php+=	src/parser/__tests__/languageguesser/php.shell-env

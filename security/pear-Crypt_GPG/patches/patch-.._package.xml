@@ -1,12 +1,14 @@
-$NetBSD: patch-.._package.xml,v 1.2 2016/10/09 12:30:30 taca Exp $
+$NetBSD: patch-.._package.xml,v 1.5 2017/09/05 15:00:04 taca Exp $
 
---- ../package.xml.orig	2016-10-07 13:50:33.000000000 +0000
+* Drop MD5 for replacing shbang line.
+
+--- ../package.xml.orig	2017-09-03 06:51:16.000000000 +0000
 +++ ../package.xml
-@@ -71,7 +71,7 @@ Added POSIX method to isRunning() consis
-    <file baseinstalldir="/" md5sum="edfcefbb570bc3a5a4df32b1ad7b0699" name="data/pinentry-cli.xml" role="data">
+@@ -63,7 +63,7 @@ Added options to configure digest/cipher
+    <file baseinstalldir="/" md5sum="d6c92e0d8c2305c82b76e3794a6cbe0a" name="data/pinentry-cli.xml" role="data">
      <tasks:replace from="@package-version@" to="version" type="package-info" />
     </file>
--   <file baseinstalldir="/" md5sum="4fb41cc616854bc332aec7a5e6dddab0" name="scripts/crypt-gpg-pinentry" role="script">
+-   <file baseinstalldir="/" md5sum="069d671c63366eaf64b050132dd76da3" name="scripts/crypt-gpg-pinentry" role="script">
 +   <file baseinstalldir="/" name="scripts/crypt-gpg-pinentry" role="script">
      <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
     </file>

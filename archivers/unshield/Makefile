@@ -1,19 +1,23 @@
-# $NetBSD: Makefile,v 1.6 2013/10/23 18:22:44 adam Exp $
+# $NetBSD: Makefile,v 1.8 2017/09/22 23:26:20 wiedi Exp $
 
-DISTNAME=	unshield-0.6
+DISTNAME=       unshield-1.4.2
+PKGREVISION=	1
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=twogood/}
+GITHUB_TAG=     ${PKGVERSION_NOREV}
+EXTRACT_SUFX=   .zip
+
 CATEGORIES=	archivers
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=synce/}
-
-MAINTAINER=	martin@NetBSD.org
-HOMEPAGE=	http://sourceforge.net/projects/synce/
 COMMENT=	Extract InstallShield .CAB files
 LICENSE=	mit
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
-GNU_CONFIGURE=		yes
+USE_CMAKE=		yes
+USE_LANGUAGES+=		c++ c
 
-PKGCONFIG_OVERRIDE+=	libunshield.pc.in
+LDFLAGS+=	-liconv
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

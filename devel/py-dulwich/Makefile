@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2017/03/05 13:04:59 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2017/10/02 12:54:28 adam Exp $
 
-DISTNAME=	dulwich-0.17.1
+DISTNAME=	dulwich-0.18.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=d/dulwich/}
@@ -11,9 +11,16 @@ COMMENT=	Python implementation of Git
 LICENSE=	apache-2.0 OR gnu-gpl-v2
 
 # TEST_DEPENDS
+BUILD_DEPENDS+=	${PYPKGPREFIX}-fastimport-[0-9]*:../../devel/py-fastimport
 BUILD_DEPENDS+=	${PYPKGPREFIX}-mock-[0-9]*:../../devel/py-mock
-#BUILD_DEPENDS+=	${PYPKGPREFIX}-gevent-[0-9]*:../../net/py-gevent
-# also needs unpackaged simple and geventhttpclient
+BUILD_DEPENDS+=	${PYPKGPREFIX}-gevent-[0-9]*:../../net/py-gevent
+BUILD_DEPENDS+=	${PYPKGPREFIX}-geventhttpclient-[0-9]*:../../net/py-geventhttpclient
+
+post-install:
+	cd ${DESTDIR}${PREFIX}/bin && \
+		${MV} dul-receive-pack dul-receive-pack${PYVERSSUFFIX} && \
+		${MV} dul-upload-pack dul-upload-pack${PYVERSSUFFIX} && \
+		${MV} dulwich dulwich${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

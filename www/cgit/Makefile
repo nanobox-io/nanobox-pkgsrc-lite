@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2017/02/10 20:10:15 roy Exp $
+# $NetBSD: Makefile,v 1.9 2017/08/01 14:59:06 wiz Exp $
 
 DISTNAME=	cgit-1.1
 CATEGORIES=	www
-MASTER_SITES=	http://git.zx2c4.com/cgit/snapshot/
+MASTER_SITES=	https://git.zx2c4.com/cgit/snapshot/
 EXTRACT_SUFX=	.tar.xz
 # cgit builds its own libgit using a known-good version
 # check release notes or README when updating the package
@@ -10,7 +10,7 @@ GIT_VER=	2.10.2
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} git-${GIT_VER}${EXTRACT_SUFX}
 SITES.git-${GIT_VER}${EXTRACT_SUFX}=	http://hjemli.net/git/git/snapshot/
 
-HOMEPAGE=	http://git.zx2c4.com/cgit/
+HOMEPAGE=	https://git.zx2c4.com/cgit/
 COMMENT=	Fast web interface for git
 MAINTAINER=	pkgsrc-users@NetBSD.org
 LICENSE=	gnu-gpl-v2
@@ -20,6 +20,8 @@ MAKE_JOBS_SAFE=		no
 USE_TOOLS+=		gmake
 MAKE_FLAGS+=		GIT_VER=${GIT_VER}
 BUILD_MAKE_FLAGS+=	CGIT_CONFIG=${PKG_SYSCONFDIR}/cgitrc
+
+MAKE_ENV.SunOS+=	NEEDS_LIBICONV=YesPlease
 
 CGIT_CONFIG=	${PKG_SYSCONFDIR}/cgitrc
 CGIT_CGIBIN=	${PREFIX}/libexec/cgi-bin
@@ -45,6 +47,7 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/filters/syntax-highlighting.sh \
 		${DESTDIR}${CGIT_FILTERS}/syntax-highlighting.sh
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

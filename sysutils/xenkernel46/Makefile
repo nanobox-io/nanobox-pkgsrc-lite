@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.9 2017/02/14 21:38:34 joerg Exp $
+# $NetBSD: Makefile,v 1.16 2017/10/17 11:10:35 bouyer Exp $
 
-VERSION=	4.6.3
+VERSION=	4.6.6
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xenkernel46-${VERSION}
-PKGREVISION=	4
+PKGREVISION=	1
 CATEGORIES=	sysutils
-MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
+MASTER_SITES=	https://downloads.xenproject.org/release/xen/${VERSION}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://xenproject.org/
@@ -15,6 +15,8 @@ LICENSE=	gnu-gpl-v2
 
 ONLY_FOR_PLATFORM=	Linux-2.6*-x86_64
 ONLY_FOR_PLATFORM+=	NetBSD-[5-9].*-x86_64
+
+PKGSRC_USE_SSP=	no
 
 NO_CONFIGURE=	yes
 USE_TOOLS+=	gmake

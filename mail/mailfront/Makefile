@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2017/02/21 16:04:04 joerg Exp $
+# $NetBSD: Makefile,v 1.16 2017/07/31 20:38:51 schmonz Exp $
 #
 
 DISTNAME=		mailfront-2.12
+PKGREVISION=		1
 CATEGORIES=		mail
 MASTER_SITES=		${HOMEPAGE}archive/
 
@@ -14,20 +15,25 @@ DEPENDS+=		daemontools-[0-9]*:../../sysutils/daemontools
 DEPENDS_QMAIL=		qmail>=1.03nb8:../../mail/qmail
 DEPENDS+=		${DEPENDS_QMAIL}
 
-# XXX optional: lua 5 or later ("make lua")
-
 DJB_RESTRICTED=		NO
 DJB_MAKE_TARGETS=	NO
+BUILD_TARGET=		all
 DJB_CONFIG_CMDS+=	${ECHO} ${PREFIX}/include > conf-include;	\
 			${ECHO} ${PREFIX}/lib/${PKGBASE} > conf-modules;
 
+FILES_SUBST+=		QMAIL_DAEMON_USER=${QMAIL_DAEMON_USER:Q}
+FILES_SUBST+=		QMAIL_LOG_USER=${QMAIL_LOG_USER:Q}
 RCD_SCRIPTS=		smtpfront
 INSTALLATION_DIRS=	share/doc/mailfront
 INSTALL_ENV+=		install_prefix=${DESTDIR:Q}
 
+BUILD_DEFS+=		QMAIL_DAEMON_USER QMAIL_LOG_USER
+
 USE_LIBTOOL=		yes
 
 MAKE_JOBS_SAFE=		no # due to hacky libtoolization
+
+.include "options.mk"
 
 .include "../../mk/bsd.prefs.mk"
 

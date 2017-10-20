@@ -1,21 +1,19 @@
-# $NetBSD: Makefile,v 1.26 2016/09/19 13:04:25 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.29 2017/10/17 10:48:20 wiz Exp $
 
-DISTNAME=	glib-networking-2.48.0
-PKGREVISION=	1
+DISTNAME=	glib-networking-2.54.0
 CATEGORIES=	net gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/glib-networking/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.gnome.org/
+HOMEPAGE=	https://www.gnome.org/
 COMMENT=	Network-related giomodules for glib
 LICENSE=	gnu-lgpl-v2
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+= --with-ca-certificates=/etc/ssl/certs/ca-certificates.crt
 USE_LIBTOOL=	yes
-USE_TOOLS+=	intltool pkg-config gmake gettext
+USE_TOOLS+=	pkg-config gmake gettext
 
 # gcc>=4.2 specific -Werror=XXX flags will be added unconditionally.
 .include "../../mk/compiler.mk"

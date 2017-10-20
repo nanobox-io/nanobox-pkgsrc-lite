@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.38 2017/01/01 14:43:35 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2017/09/18 09:53:18 maya Exp $
 
 DISTNAME=	subvertpy-0.9.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	devel scm
 MASTER_SITES=	http://samba.org/~jelmer/subvertpy/
 
 MAINTAINER=	ddeus.pkgsrc@mailnull.com
-HOMEPAGE=	http://launchpad.net/subvertpy
+HOMEPAGE=	https://launchpad.net/subvertpy
 COMMENT=	Alternative Python bindings for Subversion
 LICENSE=	gnu-lgpl-v2.1
 

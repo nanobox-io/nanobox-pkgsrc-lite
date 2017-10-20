@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.85 2016/12/04 05:17:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.88 2017/09/18 09:53:01 maya Exp $
 #
 
 DISTNAME=		parrot-${PARROT_VERSION}
-PKGREVISION=		11
+PKGREVISION=		13
 CATEGORIES=		lang
 MASTER_SITES=		ftp://ftp.parrot.org/pub/parrot/releases/${PARROT_RTYPE}/${PARROT_VERSION}/
 
@@ -25,6 +25,7 @@ MAKE_JOBS_SAFE=		no
 CONFIG_SHELL=		perl
 CONFIGURE_SCRIPT=	Configure.pl
 CONFIGURE_ARGS+=	--prefix=${PREFIX:Q} \
+			--mandir=${PREFIX:Q}/${PKGMANDIR:Q} \
 			--icu-config=${PREFIX}/bin/icu-config \
 			--without-opengl --without-pcre \
 			--without-zlib \

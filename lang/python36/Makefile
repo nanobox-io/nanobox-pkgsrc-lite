@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.5 2017/02/01 11:47:45 jperkin Exp $
+# $NetBSD: Makefile,v 1.10 2017/09/03 08:53:10 wiz Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python-${PY_DISTVERSION}
-PKGREVISION=	2
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.python.org/
+HOMEPAGE=	https://www.python.org/
 COMMENT=	Interpreted, interactive, object-oriented programming language
 LICENSE=	python-software-foundation
 

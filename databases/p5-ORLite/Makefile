@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2016/06/08 19:22:29 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2017/06/12 12:01:13 maya Exp $
 
 DISTNAME=	ORLite-1.98
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../by-authors/id/A/AD/ADAMK/}
 
@@ -21,8 +21,9 @@ DEPENDS+=	p5-Params-Util>=1.00:../../devel/p5-Params-Util
 
 BUILDLINK_API_DEPENDS.p5-DBI+=	p5-DBI>=1.607
 
-USE_LANGUAGES=	# empty
-PERL5_PACKLIST= auto/ORLite/.packlist
+USE_LANGUAGES=		# empty
+MAKE_ENV+=		PERL_USE_UNSAFE_INC=1
+PERL5_PACKLIST=		auto/ORLite/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
 
 .include "../../databases/p5-DBI/buildlink3.mk"

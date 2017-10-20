@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.28 2017/02/14 21:36:15 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2017/07/24 08:53:45 maya Exp $
 
 VERSION=	4.2.5
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xenkernel42-${VERSION}
 PKGREVISION=	15
 CATEGORIES=	sysutils
-MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
+MASTER_SITES=	https://downloads.xenproject.org/release/xen/${VERSION}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://xenproject.org/
@@ -15,6 +15,8 @@ LICENSE=	gnu-gpl-v2
 
 ONLY_FOR_PLATFORM=	Linux-2.6*-i386 Linux-2.6*-x86_64
 ONLY_FOR_PLATFORM+=	NetBSD-[5-9].*-x86_64 NetBSD-[5-9].*-i386
+
+PKGSRC_USE_SSP=	no
 
 NO_CONFIGURE=	yes
 USE_TOOLS+=	gmake

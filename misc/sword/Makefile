@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2017/01/01 16:05:59 adam Exp $
+# $NetBSD: Makefile,v 1.15 2017/09/18 09:53:02 maya Exp $
 #
 
 DISTNAME=	sword-1.7.4
-PKGREVISION=	8
+PKGREVISION=	12
 CATEGORIES=	misc
 MASTER_SITES=	http://www.crosswire.org/ftpmirror/pub/sword/source/v1.7/
 
@@ -14,7 +14,7 @@ LICENSE=	gnu-gpl-v2
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config gmake
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 
 CONFIGURE_ARGS+=	--with-clucene=${BUILDLINK_PREFIX.libclucene}
 
@@ -24,6 +24,9 @@ INSTALLATION_DIRS+=share/examples/sword
 INSTALL_TARGET= install install_config
 REQD_FILES=	${PREFIX}/share/examples/sword/sword.conf \
 		${PKG_SYSCONFDIR}/sword.conf
+
+# needed with at least GCC-5.4.0 which has a default value of 25
+CXXFLAGS+=	-ftemplate-depth=50
 
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../textproc/libclucene/buildlink3.mk"

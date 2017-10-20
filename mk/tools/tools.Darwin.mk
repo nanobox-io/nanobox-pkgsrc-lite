@@ -1,4 +1,4 @@
-# $NetBSD: tools.Darwin.mk,v 1.56 2016/04/11 04:49:41 dbj Exp $
+# $NetBSD: tools.Darwin.mk,v 1.58 2017/06/12 16:11:51 sevan Exp $
 #
 # System-supplied tools for the Darwin (Mac OS X) operating system.
 

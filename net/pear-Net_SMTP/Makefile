@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.20 2015/09/13 04:28:11 taca Exp $
+# $NetBSD: Makefile,v 1.22 2017/05/28 11:23:32 taca Exp $
 
-DISTNAME=	Net_SMTP-1.7.1
+DISTNAME=	Net_SMTP-1.8.0
 CATEGORIES+=	net mail
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	PHP classes to provide SMTP Interface
+LICENSE=	2-clause-bsd
 
 CONFLICTS=	php-pear-Net_SMTP-[0-9]*
 

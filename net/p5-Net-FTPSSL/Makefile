@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.18 2016/11/09 13:43:32 mef Exp $
-#
+# $NetBSD: Makefile,v 1.21 2017/09/17 20:36:23 wiz Exp $
 
-DISTNAME=		Net-FTPSSL-0.35
+DISTNAME=		Net-FTPSSL-0.38
 PKGNAME=		p5-${DISTNAME}
 CATEGORIES=		net perl5 security
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Net/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://developer.berlios.de/projects/net-ftpssl/
+#HOMEPAGE=		http://developer.berlios.de/projects/net-ftpssl/
 COMMENT=		Perl FTP over SSL/TLS class
 LICENSE=		${PERL5_LICENSE}
 

@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.4 2015/11/04 00:35:30 agc Exp $
+$NetBSD: distinfo,v 1.6 2017/07/25 07:52:32 adam Exp $
 
-SHA1 (celery-3.1.16.tar.gz) = 166ab2114aa4bb1a7c6db503b119037662e19d6c
-RMD160 (celery-3.1.16.tar.gz) = 7519a1f9e8e34154fe249fa580725faa43f3b0d5
-SHA512 (celery-3.1.16.tar.gz) = 935beec3e0c987746640e38120a8c9dff00c332b46914c0569cf306e3d971873708bfcab1eb76ced4be8d780c387ceec0cf2cee4f3be68b80295b240ae822371
-Size (celery-3.1.16.tar.gz) = 1296002 bytes
+SHA1 (celery-4.1.0.tar.gz) = 68c4fcb08b0e1251fdc88cadd68fca2442a163b7
+RMD160 (celery-4.1.0.tar.gz) = 39c21d70a99c055ab45d8c41bee4cca723bda818
+SHA512 (celery-4.1.0.tar.gz) = 5232adc43ba55d01f2b030382075750033e0c5c2abdc8308903e0cef7a465513b7765e2ae495da6555b377452ae233500530ef9d57e584a5352a54c5f4731c64
+Size (celery-4.1.0.tar.gz) = 1331689 bytes

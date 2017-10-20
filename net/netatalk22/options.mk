@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.2 2014/06/18 09:26:10 wiz Exp $
+# $NetBSD: options.mk,v 1.4 2017/07/12 13:56:00 hauke Exp $
 #
 PKG_OPTIONS_VAR=	PKG_OPTIONS.netatalk
 PKG_SUPPORTED_OPTIONS=	cups debug dnssd kerberos ldap pam slp
@@ -6,7 +6,7 @@ PKG_SUPPORTED_OPTIONS=	cups debug dnssd kerberos ldap pam slp
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Mcups)
-.include "../../print/cups15/buildlink3.mk"
+.include "../../print/cups/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-cups
 .else
 CONFIGURE_ARGS+=	--disable-cups
@@ -40,9 +40,12 @@ PLIST.gssapi=		yes
 CONFIGURE_ARGS+=	--without-gssapi
 .endif
 
+PLIST_VARS+=		ldap
 .if !empty(PKG_OPTIONS:Mldap)
 .include "../../databases/openldap-client/buildlink3.mk"
 CONFIGURE_ARGS+=       --with-ldap=yes
+PLIST.ldap=		yes
+CONF_FILES+=		${EGDIR}/afp_ldap.conf ${PKG_SYSCONFDIR}/afp_ldap.conf
 .else
 CONFIGURE_ARGS+=       --with-ldap=no
 .endif
@@ -54,7 +57,7 @@ CONFIGURE_ARGS+=	--with-pam
 PLIST.pam=		yes
 MESSAGE_SRC+=		MESSAGE MESSAGE.pam
 .else
-CONFIGURE_ARGS+=	--without-pam
+CONFIGURE_ARGS+=	--with-pam=no
 .endif
 
 .if !empty(PKG_OPTIONS:Mslp)

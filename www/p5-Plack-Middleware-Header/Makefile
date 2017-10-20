@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 19:25:13 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/06/12 08:29:38 maya Exp $
 
 DISTNAME=	Plack-Middleware-Header-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Plack/}
 
@@ -12,7 +12,8 @@ COMMENT=	Plack middleware to modify HTTP response headers
 LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=	# empty
-PERL5_PACKLIST= auto/Plack/Middleware/Header/.packlist
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
+PERL5_PACKLIST=	auto/Plack/Middleware/Header/.packlist
 
 DEPENDS+=	p5-Plack-[0-9]*:../../www/p5-Plack
 #DEPENDS+=	{perl>=5.10.1,p5-parent-[0-9]*}:../../devel/p5-parent

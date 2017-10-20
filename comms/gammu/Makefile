@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.20 2017/01/01 16:06:06 adam Exp $
+# $NetBSD: Makefile,v 1.25 2017/08/24 20:03:07 adam Exp $
 #
 
-DISTNAME=	gammu-1.37.91
+DISTNAME=	gammu-1.38.4
 PKGREVISION=	1
 CATEGORIES=	comms
 MASTER_SITES=	http://dl.cihar.com/gammu/releases/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://wammu.eu/gammu/
+HOMEPAGE=	https://wammu.eu/gammu/
 COMMENT=	Command line utility and library to work with mobile phones
 LICENSE=	gnu-gpl-v2
 

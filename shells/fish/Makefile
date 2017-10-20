@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.7 2015/08/18 07:31:17 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2017/08/19 09:28:38 fhajny Exp $
 
-FISHVER=		2.1.2
-DISTNAME=		fish-${FISHVER}
-PKGREVISION=		1
+DISTNAME=		fish-2.6.0
 CATEGORIES=		shells
-MASTER_SITES=		http://fishshell.com/files/${FISHVER}/
+MASTER_SITES=		http://fishshell.com/files/${PKGVERSION_NOREV}/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.fishshell.com/
 COMMENT=		User friendly command line shell for UNIX-like operating systems
 LICENSE=		gnu-gpl-v2
 
-USE_LANGUAGES+=		c++
+EXTRACT_USING=		gtar
+
+USE_LANGUAGES+=		c c++
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--without-xsel
@@ -25,6 +25,8 @@ PKG_SHELL=		bin/fish
 REPLACE_PYTHON+=	share/tools/*.py
 REPLACE_PYTHON+=	share/tools/web_config/webconfig.py
 
+LDFLAGS.SunOS+=		-lintl
+
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
@@ -34,6 +36,14 @@ CXXFLAGS.NetBSD+=	-fpermissive
 LDFLAGS+=		-lexecinfo
 .endif
 
+# Upstream intentionally omits open.1 on Darwin
+PLIST_VARS+=	open
+.if ${OPSYS} != "Darwin"
+PLIST.open=	yes
+.endif
+
+.include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../devel/gettext-tools/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

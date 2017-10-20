@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.267 2017/02/12 11:04:46 wiz Exp $
+# $NetBSD: Makefile,v 1.273 2017/09/04 20:20:54 ryoon Exp $
 
-DISTNAME=	gimp-2.8.20
-PKGREVISION=	1
+DISTNAME=	gimp-2.8.22
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.gimp.org/pub/gimp/v${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	adam@NetBSD.org
-HOMEPAGE=	http://www.gimp.org/
+HOMEPAGE=	https://www.gimp.org/
 COMMENT=	The GNU image manipulation program
-LICENSE=	gnu-lgpl-v2.1 AND gnu-gpl-v2
+LICENSE=	gnu-lgpl-v3 AND gnu-gpl-v3
 
 BUILD_DEPENDS+=	p5-XML-Parser>=2.31nb1:../../textproc/p5-XML-Parser
 CONFLICTS+=	gimp<=1.2.3

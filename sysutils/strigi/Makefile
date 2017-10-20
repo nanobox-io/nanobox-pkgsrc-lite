@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.55 2017/01/01 16:06:00 adam Exp $
+# $NetBSD: Makefile,v 1.59 2017/08/24 20:03:01 adam Exp $
 
 DISTNAME=	strigi-0.7.8
-PKGREVISION=	17
+PKGREVISION=	19
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.vandenoever.info/software/strigi/
 EXTRACT_SUFX=	.tar.bz2
@@ -11,7 +11,7 @@ HOMEPAGE=	http://strigi.sourceforge.net/
 COMMENT=	Small fast desktop searching program
 LICENSE=	gnu-lgpl-v2
 
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 USE_TOOLS+=	gmake pkg-config perl
 USE_CMAKE=	yes
 

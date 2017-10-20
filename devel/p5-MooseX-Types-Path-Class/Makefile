@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2016/07/15 10:14:30 wen Exp $
-#
+# $NetBSD: Makefile,v 1.20 2017/09/29 13:01:54 wiz Exp $
 
 DISTNAME=	MooseX-Types-Path-Class-0.09
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
 
@@ -22,6 +22,7 @@ BUILD_DEPENDS+=	p5-Test-Needs>=0:../../devel/p5-Test-Needs
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/MooseX/Types/Path/Class/.packlist
+PERL5_MODULE_TYPE=	Module::Build::Tiny
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

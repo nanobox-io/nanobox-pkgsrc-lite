@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2017/01/01 16:06:36 adam Exp $
+# $NetBSD: Makefile,v 1.16 2017/08/24 20:03:39 adam Exp $
 
 DISTNAME=	kcron-${_KDE_VERSION}
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	sysutils
 COMMENT=	Configure and schedule tasks
 

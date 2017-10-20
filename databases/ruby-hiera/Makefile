@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2016/10/20 09:02:42 fhajny Exp $
+# $NetBSD: Makefile,v 1.11 2017/09/18 03:42:14 taca Exp $
 
-DISTNAME=	hiera-1.3.4
-PKGREVISION=	2
-CATEGORIES=	time
+DISTNAME=	hiera-3.4.1
+CATEGORIES=	databases
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/puppetlabs/hiera/
@@ -10,8 +9,10 @@ COMMENT=	Light weight hierarchical data store
 LICENSE=	apache-2.0
 
 RUBYGEM_OPTIONS+=	--format-executable
-OVERRIDE_GEMSPEC+=	json_pure:json>=1.6.0
 
-.include "../../lang/ruby/json.mk"
+pre-configure:
+	cd ${WRKSRC} && ${FIND} . -type f -exec ${CHMOD} g-w {} \;
+	cd ${WRKSRC}/bin && ${CHMOD} ${BINMODE} hiera
+
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

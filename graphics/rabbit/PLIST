@@ -1,9 +1,9 @@
-@comment $NetBSD: PLIST,v 1.28 2015/09/13 15:55:39 taca Exp $
-bin/rabbirc
-bin/rabbit
-bin/rabbit-command
-bin/rabbit-slide
-bin/rabbit-theme
+@comment $NetBSD: PLIST,v 1.30 2017/09/18 05:31:02 taca Exp $
+bin/rabbirc${RUBY_SUFFIX}
+bin/rabbit${RUBY_SUFFIX}
+bin/rabbit-command${RUBY_SUFFIX}
+bin/rabbit-slide${RUBY_SUFFIX}
+bin/rabbit-theme${RUBY_SUFFIX}
 ${RUBY_VENDORLIB}/rabbit/action.rb
 ${RUBY_VENDORLIB}/rabbit/action/basic.rb
 ${RUBY_VENDORLIB}/rabbit/action/radio.rb
@@ -54,6 +54,7 @@ ${RUBY_VENDORLIB}/rabbit/frame.rb
 ${RUBY_VENDORLIB}/rabbit/front.rb
 ${RUBY_VENDORLIB}/rabbit/gem-builder.rb
 ${RUBY_VENDORLIB}/rabbit/gem-finder.rb
+${RUBY_VENDORLIB}/rabbit/gem-pusher.rb
 ${RUBY_VENDORLIB}/rabbit/gesture/handler.rb
 ${RUBY_VENDORLIB}/rabbit/gesture/processor.rb
 ${RUBY_VENDORLIB}/rabbit/gettext.rb
@@ -89,6 +90,7 @@ ${RUBY_VENDORLIB}/rabbit/parser/ext/entity.rb
 ${RUBY_VENDORLIB}/rabbit/parser/ext/escape.rb
 ${RUBY_VENDORLIB}/rabbit/parser/ext/image.rb
 ${RUBY_VENDORLIB}/rabbit/parser/ext/inline.rb
+${RUBY_VENDORLIB}/rabbit/parser/ext/rouge.rb
 ${RUBY_VENDORLIB}/rabbit/parser/ext/tex.rb
 ${RUBY_VENDORLIB}/rabbit/parser/ext/video.rb
 ${RUBY_VENDORLIB}/rabbit/parser/image.rb
@@ -109,6 +111,7 @@ ${RUBY_VENDORLIB}/rabbit/parser/rd/rt/rt2rabbit-lib.rb
 ${RUBY_VENDORLIB}/rabbit/parser/rd/visitor.rb
 ${RUBY_VENDORLIB}/rabbit/parser/wiki.rb
 ${RUBY_VENDORLIB}/rabbit/parser/wiki/output.rb
+${RUBY_VENDORLIB}/rabbit/password-reader.rb
 ${RUBY_VENDORLIB}/rabbit/path-manipulatable.rb
 ${RUBY_VENDORLIB}/rabbit/progress.rb
 ${RUBY_VENDORLIB}/rabbit/rabbit.rb
@@ -142,10 +145,7 @@ ${RUBY_VENDORLIB}/rabbit/renderer/engine.rb
 ${RUBY_VENDORLIB}/rabbit/renderer/engine/cairo.rb
 ${RUBY_VENDORLIB}/rabbit/renderer/gl.rb
 ${RUBY_VENDORLIB}/rabbit/renderer/kernel.rb
-${RUBY_VENDORLIB}/rabbit/renderer/pixmap.rb
-${RUBY_VENDORLIB}/rabbit/renderer/pixmap/base.rb
-${RUBY_VENDORLIB}/rabbit/renderer/pixmap/cairo.rb
-${RUBY_VENDORLIB}/rabbit/renderer/pixmap/gl.rb
+${RUBY_VENDORLIB}/rabbit/renderer/offscreen.rb
 ${RUBY_VENDORLIB}/rabbit/renderer/print.rb
 ${RUBY_VENDORLIB}/rabbit/renderer/print/base.rb
 ${RUBY_VENDORLIB}/rabbit/renderer/print/cairo.rb

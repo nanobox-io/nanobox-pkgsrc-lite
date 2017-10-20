@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.15 2017/03/05 14:14:52 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2017/09/16 19:26:48 wiz Exp $
 
-DISTNAME=	pbr-2.0.0
+DISTNAME=	pbr-3.1.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pbr/}
 
-MAINTAINER=	rodent@NetBSD.org
-HOMEPAGE=	http://pypi.python.org/pypi/pbr
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://docs.openstack.org/developer/pbr/
 COMMENT=	Python Build Reasonableness
 LICENSE=	apache-2.0
 
@@ -25,8 +25,7 @@ DEPENDS+=	${PYPKGPREFIX}-pip-[0-9]*:../../devel/py-pip
 REPLACE_PYTHON+=	pbr/tests/testpackage/setup.py
 
 post-install:
-	${MV} ${DESTDIR}${PREFIX}/bin/pbr \
-		${DESTDIR}${PREFIX}/bin/pbr${PYVERSSUFFIX} || ${TRUE}
+	cd ${DESTDIR}${PREFIX}/bin && ${MV} pbr pbr${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

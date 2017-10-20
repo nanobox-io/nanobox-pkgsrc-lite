@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2017/01/01 16:06:32 adam Exp $
+# $NetBSD: Makefile,v 1.16 2017/08/24 20:03:34 adam Exp $
 
 DISTNAME=		cclive-0.7.16
-PKGREVISION=		12
+PKGREVISION=		14
 CATEGORIES=		net multimedia www
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=cclive/}
 EXTRACT_SUFX=		.tar.xz
@@ -13,15 +13,9 @@ LICENSE=		gnu-gpl-v3
 
 DEPENDS+=		libquvi-scripts>=0.4.0:../../net/libquvi-scripts
 
-USE_LANGUAGES=		c++ c
+USE_LANGUAGES=		c c++0x
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
-
-.include "../../mk/compiler.mk"
-# GCC 4.4 and above needs this
-.if !empty(PKGSRC_COMPILER:Mgcc) && !empty(CC_VERSION:Mgcc-4.[4-9]*)
-CXXFLAGS+=		-std=c++0x
-.endif
 
 .include "../../net/libquvi/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"

@@ -1,7 +1,6 @@
-$NetBSD: distinfo,v 1.1 2016/01/02 10:45:30 wiz Exp $
+$NetBSD: distinfo,v 1.4 2017/08/31 08:44:34 adam Exp $
 
-SHA1 (httpbin-0.4.0.tar.gz) = 2415bec07d808de14a51777ef2495176872a4bcb
-RMD160 (httpbin-0.4.0.tar.gz) = 51586401656539904d7ab34ba6df84f7de19585e
-SHA512 (httpbin-0.4.0.tar.gz) = ce239c7c2a7715dce340f04aab417b0c73773e9ff6b33edb81540abc63be9c861c4386d1310e9ae46dcdeeff24a6b71b7b93d9b2120cb1533e7da2c10f177830
-Size (httpbin-0.4.0.tar.gz) = 88000 bytes
-SHA1 (patch-README.rst) = 858c6885424c8111448a68d8bd7e1159f79c8d96
+SHA1 (httpbin-0.6.1.tar.gz) = 522715fdad431720a1a0ad6b11eb2138bb385b94
+RMD160 (httpbin-0.6.1.tar.gz) = 19d176c7ccd26b4e3f5d13613a913d0236107fde
+SHA512 (httpbin-0.6.1.tar.gz) = 5f208e21aa56fe9289f6b6bf8fbecf60b4b92167ce38f12ae54ae38aecc8733699cb63598ef1a7779cf855607b92fa4c7b2ebdf25be7dd560150823554d34a6e
+Size (httpbin-0.6.1.tar.gz) = 85482 bytes

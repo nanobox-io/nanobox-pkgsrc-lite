@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.54 2016/12/04 05:17:32 ryoon Exp $
+# $NetBSD: Makefile,v 1.57 2017/09/18 09:53:26 maya Exp $
 
 DISTNAME=	dbmail-3.2.3
-PKGREVISION=	6
+PKGREVISION=	9
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITHUB:=pjstevns/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}

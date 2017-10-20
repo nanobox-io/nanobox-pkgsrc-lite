@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.29 2017/02/01 13:28:16 maya Exp $
+# $NetBSD: Makefile,v 1.34 2017/10/15 23:19:12 prlw1 Exp $
 
-DISTNAME=	gstreamer-1.10.3
+DISTNAME=	gstreamer-1.12.2
 PKGNAME=	${DISTNAME:S/gstreamer/gstreamer1/}
 CATEGORIES=	multimedia
-MASTER_SITES=	http://gstreamer.freedesktop.org/src/gstreamer/
+MASTER_SITES=	https://gstreamer.freedesktop.org/src/gstreamer/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://gstreamer.freedesktop.org/
+HOMEPAGE=	https://gstreamer.freedesktop.org/
 COMMENT=	Open source multimedia framework
 LICENSE=	gnu-lgpl-v2
 

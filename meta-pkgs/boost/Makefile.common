@@ -1,16 +1,19 @@
-# $NetBSD: Makefile.common,v 1.65 2017/01/03 02:31:36 wiz Exp $
+# $NetBSD: Makefile.common,v 1.70 2017/09/13 17:34:41 adam Exp $
 #
 # used by devel/boost-build/Makefile
 # used by devel/boost-docs/Makefile
 # used by devel/boost-jam/Makefile
 # used by devel/boost-headers/Makefile
 # used by devel/boost-libs/Makefile
+# used by devel/boost-mpi/Makefile
 # used by devel/py-boost/Makefile
 
 BOOST_PACKAGE?=		undefined
 BOOST_COMMENT?=		undefined
-BOOST_VERSION=		1.63.0
+BOOST_VERSION=		1.65.1
 BOOST_SHORT_VERSION=	${BOOST_VERSION:S/./_/:C/\..*$//}
+
+# Update mysql57-client/patches/patch-cmake_boost.cmake when updating version
 
 DISTNAME=		boost_${BOOST_VERSION:S/./_/g}
 CATEGORIES=		devel
@@ -29,8 +32,6 @@ COMMENT=	Free, peer-reviewed portable C++ source libraries ${BOOST_COMMENT}
 LICENSE=	boost-license
 
 CONFLICTS+=		boost<1.36.0
-
-DIST_SUBDIR=		boost-1.63.0v3
 
 DISTINFO_FILE=		${.CURDIR}/../../meta-pkgs/boost/distinfo
 PATCHDIR=		${.CURDIR}/../../meta-pkgs/boost/patches
@@ -70,10 +71,7 @@ SUBST_SED.darwin+=	-e 's,-install_name "\$$,-install_name "${PREFIX}/lib/\$$,g'
 # On SunOS, extract using pkgsrc nbtar to avoid warnings from native gtar.
 .  if ${OPSYS} == "SunOS"
 TOOLS_PLATFORM.tar=	#empty
-.    include "../../mk/compiler.mk"
-.    if !empty(CC_VERSION:Mgcc-4.[6-9]*)
 BUILDLINK_TRANSFORM+=	opt:-D_XOPEN_SOURCE=500:-D_XOPEN_SOURCE=600
-.    endif
 .  endif
 
 .  if ${OPSYS} == "Darwin"

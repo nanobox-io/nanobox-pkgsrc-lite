@@ -1,46 +1,25 @@
-# $NetBSD: Makefile,v 1.6 2017/02/23 09:35:16 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2017/10/13 12:42:12 ryoon Exp $
 
-DISTNAME=	rustc-1.15.1-src
+DISTNAME=	rustc-1.20.0-src
 PKGNAME=	${DISTNAME:S/rustc/rust/:S/-src//}
 CATEGORIES=	lang
 MASTER_SITES=	http://static.rust-lang.org/dist/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.rust-lang.org/
+HOMEPAGE=	https://www.rust-lang.org/
 COMMENT=	Safe, concurrent, practical language
 LICENSE=	mit OR apache-2.0
 
 USE_GCC_RUNTIME=	yes
-USE_LANGUAGES=		c c++
-USE_TOOLS+=		bash gmake
-
-HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--prefix=${PREFIX}
-CONFIGURE_ARGS+=	--build=${RUST_ARCH}
-CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
-CONFIGURE_ARGS+=	--release-channel=stable
-CONFIGURE_ENV+=		CFG_DISABLE_CODEGEN_TESTS=1
-
-#
-# Use the Makefile-based build system.  Unfortunately this will be going away,
-# likely in the next release, forcing us to use a cargo-based system which will
-# require further binary bootstraps.  Hold out as long as we can.
-#
-CONFIGURE_ARGS+=	--disable-rustbuild
+USE_LANGUAGES=		c c++11
+USE_TOOLS+=		bash gmake perl:build pkg-config
 
 UNLIMIT_RESOURCES+=	cputime
 
-REPLACE_BASH+=	src/rust-installer/gen-install-script.sh
-REPLACE_BASH+=	src/rust-installer/gen-installer.sh
-
-#
-# Lots of per-platform specific documentation, e.g. for each system call,
-# making it difficult to PLIST.  If it ends up being important we'll just have
-# to go with lots of PLIST.${OPSYS}
-#
-CONFIGURE_ARGS+=	--disable-docs
-
 TEST_TARGET=	check
+
+# bin/* lib/*, but names vary
+CHECK_RELRO_SUPPORTED=	no
 
 # Required for LLVM (-std=c++11)
 GCC_REQD+=	4.8
@@ -48,29 +27,9 @@ GCC_REQD+=	4.8
 .include "../../mk/bsd.prefs.mk"
 
 #
-# Use jemalloc on systems where rust does by default too.
-#
-PLIST_VARS+=		jemalloc
-.if ${OPSYS} == "Linux" || ${OPSYS} == "Darwin"
-.  include "../../devel/jemalloc/buildlink3.mk"
-CONFIGURE_ARGS+=	--jemalloc-root=${BUILDLINK_PREFIX.jemalloc}/lib
-PLIST.jemalloc=		yes
-.else
-CONFIGURE_ARGS+=	--disable-jemalloc
-.endif
-
-#
 # Under NetBSD, do not use DT_RUNPATH
 #
 BUILDLINK_TRANSFORM.NetBSD+=	rm:-Wl,--enable-new-dtags
-
-#
-# Can't use pkgsrc llvm on SunOS at the moment due to a relocation error.
-#
-.if ${OPSYS} != "SunOS"
-.  include "../../lang/llvm/buildlink3.mk"
-CONFIGURE_ARGS+=	--llvm-root=${BUILDLINK_PREFIX.llvm}
-.endif
 
 #
 # Rust unfortunately requires itself to build.  On platforms which aren't
@@ -78,60 +37,55 @@ CONFIGURE_ARGS+=	--llvm-root=${BUILDLINK_PREFIX.llvm}
 # not trust random binaries from the Internet, we need to build and provide our
 # own bootstrap.  See the stage0-bootstrap below for more details.
 #
-CONFIGURE_ARGS+=	--enable-local-rust
-CONFIGURE_ARGS+=	--local-rust-root=${WRKDIR}/rust-${RUST_STAGE0_VER}-${RUST_ARCH}/rustc
-#
 DISTFILES:=		${DEFAULT_DISTFILES}
-RUST_STAGE0_VER=	1.14.0
+RUST_STAGE0_VER=	1.19.0
 #
 .if !empty(MACHINE_PLATFORM:MDarwin-*-i386) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH:=		i686-apple-darwin
 RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+RUST_STD_STAGE0:=	rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+DISTFILES:=		${DISTFILES} ${RUST_STAGE0} ${RUST_STD_STAGE0}
 .endif
 .if !empty(MACHINE_PLATFORM:MDarwin-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH:=		x86_64-apple-darwin
 RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+RUST_STD_STAGE0:=	rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+DISTFILES:=		${DISTFILES} ${RUST_STAGE0} ${RUST_STD_STAGE0}
 .endif
 .if !empty(MACHINE_PLATFORM:MLinux-*-i386) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH:=		i686-unknown-linux-gnu
 RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+RUST_STD_STAGE0:=	rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+DISTFILES:=		${DISTFILES} ${RUST_STAGE0} ${RUST_STD_STAGE0}
 .endif
 .if !empty(MACHINE_PLATFORM:MLinux-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH:=		x86_64-unknown-linux-gnu
 RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+RUST_STD_STAGE0:=	rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+DISTFILES:=		${DISTFILES} ${RUST_STAGE0} ${RUST_STD_STAGE0}
 .endif
-.if !empty(MACHINE_PLATFORM:MSunOS-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
-RUST_ARCH:=		x86_64-sun-solaris
-RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-SITES.${RUST_STAGE0}=	https://us-east.manta.joyent.com/pkgsrc/public/pkg-bootstraps/
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
-.endif
+#.if !empty(MACHINE_PLATFORM:MSunOS-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
+#RUST_ARCH:=		x86_64-sun-solaris
+#RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+#SITES.${RUST_STAGE0}=	https://us-east.manta.joyent.com/pkgsrc/public/pkg-bootstraps/
+#DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+#.endif
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-x86_64) || make(distinfo) || make (makesum) || make(mdi)
 RUST_ARCH=		x86_64-unknown-netbsd
 RUST_STAGE0:=		rust-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
-DISTFILES:=		${DISTFILES} ${RUST_STAGE0}
+RUST_STD_STAGE0:=	rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}.tar.gz
+DISTFILES:=		${DISTFILES} ${RUST_STAGE0} ${RUST_STD_STAGE0}
 .endif
 
 .if !defined(RUST_ARCH)
 NOT_FOR_PLATFORM+=	${MACHINE_PLATFORM}
 .endif
 
-PLIST_SRC=		PLIST
-.if ${OPSYS} == "Darwin"
-PLIST_SRC+=		PLIST.lldb
-.else
-PLIST_SRC+=		PLIST.gdb
-.endif
-
 OPSYSVARS+=		SOEXT
 SOEXT.Darwin=		dylib
 SOEXT.*=		so
 
-RUST_VERHASH=		570da8f8
+RUST_VERHASH=		63283ac5
 PLIST_SUBST+=		RUST_ARCH=${RUST_ARCH:Q}
 PLIST_SUBST+=		RUST_VERHASH=${RUST_VERHASH:Q}
 PLIST_SUBST+=		SOEXT=${SOEXT:Q}
@@ -147,13 +101,47 @@ TOOLS_CREATE+=		md5sum
 TOOLS_PATH.md5sum=	${PREFIX}/bin/gmd5sum
 
 SUBST_CLASSES+=		ranlib
-SUBST_STAGE.ranlib=	pre-configure
+SUBST_STAGE.ranlib=	post-patch
 SUBST_FILES.ranlib=	mk/rt.mk
 SUBST_SED.ranlib=	-e 's,RANLIB=.* \\,RANLIB="true" \\,g'
 .endif
 
+SUBST_CLASSES+=		rpath
+SUBST_STAGE.rpath=	post-patch
+SUBST_FILES.rpath=	src/bootstrap/bin/rustc.rs
+SUBST_VARS.rpath=	PREFIX
+
+post-extract:
+	${MV} ${WRKDIR}/rust-std-${RUST_STAGE0_VER}-${RUST_ARCH}/rust-std-${RUST_ARCH}/lib/rustlib/${RUST_ARCH} \
+		${WRKDIR}/rust-${RUST_STAGE0_VER}-${RUST_ARCH}/rustc/lib/rustlib
+
+RUSTC=			${WRKDIR}/rust-${RUST_STAGE0_VER}-${RUST_ARCH}/rustc/bin/rustc
+CARGO=			${WRKDIR}/rust-${RUST_STAGE0_VER}-${RUST_ARCH}/cargo/bin/cargo
+
+SUBST_CLASSES+=		config
+SUBST_STAGE.config=	post-configure
+SUBST_FILES.config+=	config.toml
+SUBST_VARS.config+=	RUSTC CARGO PREFIX PYTHONBIN RUST_ARCH
+
+do-configure:
+	${CP} ${FILESDIR}/config.toml ${WRKSRC}/config.toml
+
+do-build:
+	cd ${WRKSRC} \
+	&& env ${MAKE_ENV} \
+		${PYTHONBIN} ./x.py dist
+
+do-install:
+	cd ${WRKSRC} \
+	&& env ${MAKE_ENV} ${INSTALL_ENV} \
+		${PYTHONBIN} ./x.py install
+
 post-install:
 	${RM} -f ${DESTDIR}${PREFIX}/lib/rustlib/install.log
+	${RM} -rf ${DESTDIR}${PREFIX}/lib/rustlib/src
+
+GENERATE_PLIST+= find ${DESTDIR}${PREFIX} \( -type f -o -type l \) -print | \
+		 sed 's,${DESTDIR}${PREFIX}/,,' | ${SORT} ;
 
 .if ${OPSYS} == "Darwin"
 .PHONY: fix-darwin-install-name
@@ -210,5 +198,13 @@ stage0-bootstrap: install
 	 ${GTAR} -zcf ${PKGNAME}-${RUST_ARCH}.tar.gz ${PKGNAME}-${RUST_ARCH})
 
 .include "../../devel/cmake/buildlink3.mk"
+.include "../../devel/libgit2/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+BUILDLINK_API_DEPENDS.llvm+=  llvm>=4.0.1nb1
+.include "../../lang/llvm/buildlink3.mk"
 .include "../../lang/python/tool.mk"
+.include "../../security/libssh2/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
+.include "../../www/curl/buildlink3.mk"
+.include "../../www/http-parser/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

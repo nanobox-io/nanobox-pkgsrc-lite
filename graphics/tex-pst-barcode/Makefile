@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2016/06/16 04:00:46 markd Exp $
+# $NetBSD: Makefile,v 1.7 2017/10/16 10:35:44 markd Exp $
 
 DISTNAME=	pst-barcode
-PKGNAME=	tex-${DISTNAME}-0.15
-TEXLIVE_REV=	40703
+PKGNAME=	tex-${DISTNAME}-0.18
+TEXLIVE_REV=	45096
 
 MAINTAINER=	minskim@NetBSD.org
 HOMEPAGE=	http://ctan.org/pkg/pst-barcode

@@ -1,18 +1,18 @@
-# $NetBSD: Makefile,v 1.6 2016/07/09 06:38:59 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2017/06/29 17:19:13 schmonz Exp $
 #
 
-DISTNAME=	etckeeper_1.3
-PKGNAME=	${DISTNAME:S/_/-/}
-PKGREVISION=	4
+DISTNAME=	etckeeper_1.18.5.orig
+PKGNAME=	${DISTNAME:S/_/-/:S/.orig$/.1/}
+PKGREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_DEBIAN:=pool/main/e/etckeeper/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://joeyh.name/code/etckeeper/
+HOMEPAGE=	http://etckeeper.branchable.com/
 COMMENT=	Store /etc in git, mercurial, bzr or darcs
 LICENSE=	gnu-gpl-v2
 
-WRKSRC=		${WRKDIR}/etckeeper
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV:S/.1$//}
 USE_LANGUAGES=	# none
 USE_TOOLS+=	sed perl:run
 
@@ -21,6 +21,11 @@ NO_BUILD=	yes
 AUTO_MKDIRS=	yes
 
 BUILD_DEFS+=	VARBASE
+
+ETCKEEPER_PATCH=etckeeper_1.18.5-1.diff.gz
+PATCHFILES+=	${ETCKEEPER_PATCH}
+SITES.${ETCKEEPER_PATCH}=	${MASTER_SITES}
+PATCH_DIST_STRIP.${ETCKEEPER_PATCH}=	-p1
 
 .include "cf-files.mk"
 
@@ -64,8 +69,8 @@ do-install:
 				${DESTDIR}${PREFIX}/libexec/etckeeper.daily
 	${INSTALL_MAN} ${WRKSRC}/etckeeper.8 \
 					${DESTDIR}${PREFIX}/${PKGMANDIR}/man8
-	${INSTALL_DATA} ${WRKSRC}/README \
-			${DESTDIR}${PREFIX}/share/doc/etckeeper/README
+	${INSTALL_DATA} ${WRKSRC}/README.md \
+			${DESTDIR}${PREFIX}/share/doc/etckeeper/README.md
 	${INSTALL_DATA} ${WRKSRC}/bash_completion \
 			${DESTDIR}${PREFIX}/share/bash-completion.d/etckeeper
 

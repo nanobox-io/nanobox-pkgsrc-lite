@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2017/02/28 15:20:10 ryoon Exp $
+# $NetBSD: Makefile,v 1.25 2017/09/18 09:53:36 maya Exp $
 
 DISTNAME=	fet-5.25.0
-PKGREVISION=	14
+PKGREVISION=	18
 CATEGORIES=	time
 MASTER_SITES=	http://lalescu.ro/liviu/fet/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -12,7 +12,6 @@ COMMENT=	Automatically schedule timetables
 LICENSE=	gnu-gpl-v2
 
 .include "../../mk/bsd.prefs.mk"
-CFLAGS+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
 
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes

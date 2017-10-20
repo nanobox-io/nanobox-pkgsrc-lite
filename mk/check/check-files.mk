@@ -1,4 +1,4 @@
-# $NetBSD: check-files.mk,v 1.31 2014/10/12 23:39:17 joerg Exp $
+# $NetBSD: check-files.mk,v 1.36 2017/10/02 14:14:04 wiz Exp $
 #
 # This file checks that the list of installed files matches the PLIST.
 # For that purpose it records the file list of LOCALBASE before and
@@ -10,7 +10,7 @@
 # CHECK_FILES
 #	"yes" to enable the check, "no" to disable it.
 #
-#	Default value: "yes" for PKG_DEVELOPERs, "no" otherwise.
+#	Default value: "yes"
 #
 # CHECK_FILES_STRICT
 #	When set to "yes", VARBASE and PKG_SYSCONFDIR are checked in
@@ -29,11 +29,7 @@ _VARGROUPS+=		check-files
 _USER_VARS.check-files=	CHECK_FILES CHECK_FILES_STRICT
 _PKG_VARS.check-files=	CHECK_FILES_SKIP
 
-.if ${PKG_DEVELOPER:Uno} != "no"
 CHECK_FILES?=		yes
-.else
-CHECK_FILES?=		no
-.endif
 CHECK_FILES_STRICT?=	no
 
 # Info index files updated when a new info file is added.
@@ -60,7 +56,7 @@ CHECK_FILES_SKIP+=	${PKG_DBDIR}/.*
 CHECK_FILES_SKIP+=	${PREFIX}/emul/linux/proc.*
 CHECK_FILES_SKIP+=	${PREFIX}/emul/linux32/proc.*
 
-# The reference-count meta-data directory used by the pkginstall framework.
+# The reference-count meta-data directory used by the {de,}install scripts.
 CHECK_FILES_SKIP+=	${PKG_DBDIR}.refcount.*
 
 # Some people have their distfiles and binary packages below ${LOCALBASE}.
@@ -78,8 +74,12 @@ CHECK_FILES_SKIP+=	${VARBASE}/.*
 .for d in ${MAKE_DIRS} ${OWN_DIRS}
 CHECK_FILES_SKIP+=	${d:C/^([^\/])/${PREFIX}\/\1/}.*
 .endfor
-.for d o g m in ${MAKE_DIRS_PERMS} ${OWN_DIRS_PERMS}
+.for _var_ in MAKE_DIRS_PERMS OWN_DIRS_PERMS
+.  if empty(${_var_}) || empty(${_var_}:C/.*/4/:M*:S/4 4 4 4//gW)
+.    for d o g m in ${${_var_}}
 CHECK_FILES_SKIP+=	${d:C/^([^\/])/${PREFIX}\/\1/}.*
+.    endfor
+.  endif
 .endfor
 
 # Mutable X11 font database files
@@ -95,6 +95,11 @@ CHECK_FILES_SKIP+=	${PREFIX}/.*/fonts.scale
     (defined(FONTS_DIRS.type1) && !empty(FONTS_DIRS.type1:M*)) || \
     (defined(FONTS_DIRS.x11) && !empty(FONTS_DIRS.x11:M*))
 CHECK_FILES_SKIP+=	${PREFIX}/.*/fonts.cache-1
+.endif
+
+# Mutable icon theme cache files
+.if !empty(ICON_THEMES:M[Yy][Ee][Ss])
+CHECK_FILES_SKIP+=	${PREFIX}/share/icons/.*/icon-theme.cache
 .endif
 
 # Mutable charset.alias file
@@ -329,8 +334,8 @@ ${_CHECK_FILES_ERRMSG.prefix}:						\
 		${SED} "s|^|        |" ${_CHECK_FILES_MISSING_SKIP};	\
 	fi >> ${.TARGET}
 
-# Check ${SYSCONFDIR} for files which are not in the PLIST and are also
-# not copied into place by the INSTALL scripts.
+# Check ${PKG_SYSCONFDIR} for files which are not in the PLIST and are
+# also not copied into place by the INSTALL scripts. 
 #
 ${_CHECK_FILES_ERRMSG.sysconfdir}:					\
 		${_CHECK_FILES_PRE.sysconfdir}				\

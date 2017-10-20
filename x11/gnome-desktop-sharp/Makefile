@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.68 2017/02/12 06:24:53 ryoon Exp $
+# $NetBSD: Makefile,v 1.71 2017/09/18 09:53:07 maya Exp $
 #
 
 DISTNAME=	gnome-desktop-sharp-2.26.0
-PKGREVISION=	61
+PKGREVISION=	63
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-desktop-sharp/2.26/}
 
@@ -48,6 +48,6 @@ BUILDLINK_API_DEPENDS.gtk-sharp+=	gtk-sharp>=2.12.2
 .include "../../x11/gtk-sharp/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gtksourceview2+=	gtksourceview2>=2.2.2
 .include "../../x11/gtksourceview2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.vte+=		vte>=0.16.14
+BUILDLINK_API_DEPENDS.vte+=		vte>=0.16.14<0.32
 .include "../../x11/vte/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

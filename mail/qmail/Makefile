@@ -1,18 +1,17 @@
-# $NetBSD: Makefile,v 1.76 2016/04/10 16:39:28 joerg Exp $
+# $NetBSD: Makefile,v 1.92 2017/08/13 23:42:55 schmonz Exp $
 #
 
-DISTNAME=		${PKGNAME_NOREV}
+DISTNAME=		netqmail-1.06
 PKGNAME=		qmail-1.03
-PKGREVISION=		20
+PKGREVISION=		32
 CATEGORIES=		mail
 MASTER_SITES=		http://qmail.org/
 
 MAINTAINER=		schmonz@NetBSD.org
-HOMEPAGE=		http://cr.yp.to/qmail.html
+HOMEPAGE=		http://qmail.org/netqmail/
 COMMENT=		Secure, reliable, efficient, simple, and fast MTA
 LICENSE=		public-domain
 
-DEPENDS+=		checkpassword-[0-9]*:../../sysutils/checkpassword
 DEPENDS+=		daemontools-[0-9]*:../../sysutils/daemontools
 DEPENDS+=		ucspi-tcp-[0-9]*:../../net/ucspi-tcp
 
@@ -22,16 +21,23 @@ CONFLICTS+=		mirrordir-[0-9]*
 CONFLICTS+=		mutt<=1.4.2.1nb1
 CONFLICTS+=		netqmail-[0-9]*
 CONFLICTS+=		pulsar<=0.1.1
-
-NOT_FOR_UNPRIVILEGED=	yes
+CONFLICTS+=		qmail-run<=20170706
 
 WRKSRC=			${WRKDIR}/${DISTNAME}
 
-PKG_DESTDIR_SUPPORT=	destdir
-USE_TOOLS+=		nroff
-
-DJB_CONFIG_CMDS=	${ECHO} ${DESTDIR:Q}${QMAILDIR:Q} > conf-destdir
+DJB_CONFIG_CMDS=	${ECHO} ${DESTDIR:Q}${QMAILDIR:Q} > conf-destdir;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_ALIAS_USER:Q}     > conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_DAEMON_USER:Q}   >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_LOG_USER:Q}      >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_ROOT_USER:Q}     >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_PASSWD_USER:Q}   >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_QUEUE_USER:Q}    >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_REMOTE_USER:Q}   >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_SEND_USER:Q}     >> conf-users;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_QMAIL_GROUP:Q}    > conf-groups;
+DJB_CONFIG_CMDS+=	${ECHO} ${QMAIL_NOFILES_GROUP:Q} >> conf-groups;
 DJB_BUILD_TARGETS=	man
+INSTALL_TARGET=		setup
 DJB_RESTRICTED=		no
 
 PKG_SYSCONFSUBDIR=	qmail
@@ -42,17 +48,19 @@ OWN_DIRS+=		${QMAILDIR} ${QMAIL_QUEUE_DIR}
 DOCDIR=			${PREFIX}/share/doc/qmail
 EGDIR=			${PREFIX}/share/examples/qmail
 SHAREDIR=		${PREFIX}/share/qmail
-PLIST_SUBST+=		DARWINSUFX=${DARWINSUFX:Q}
+MESSAGE_SRC+=		${PKGDIR}/MESSAGE
 MESSAGE_SUBST+=		DOCDIR=${DOCDIR:Q} EGDIR=${EGDIR:Q}
 FILES_SUBST+=		DOCDIR=${DOCDIR:Q} EGDIR=${EGDIR:Q}
-FILES_SUBST+=		OPENSSL=${OPENSSL:Q}
 FILES_SUBST+=		PKGMANDIR=${PKGMANDIR:Q} SHAREDIR=${SHAREDIR:Q}
 FILES_SUBST+=		QMAILDIR=${QMAILDIR:Q}
+FILES_SUBST+=		QMAIL_DAEMON_USER=${QMAIL_DAEMON_USER:Q}
+FILES_SUBST+=		QMAIL_QMAIL_GROUP=${QMAIL_QMAIL_GROUP:Q}
 FILES_SUBST+=		QMAIL_QUEUE_DIR=${QMAIL_QUEUE_DIR:Q}
 FILES_SUBST+=		QMAIL_QUEUE_EXTRA=${QMAIL_QUEUE_EXTRA:Q}
 FILES_SUBST+=		PKGNAME=${PKGNAME:Q}
 
-SETUP_PROGRAMS=		dnsfq dnsip dnsptr hostname install ipmeprint
+SETUP_PROGRAMS=		dnsfq dnsip dnsptr hostname ipmeprint
+SETUP_PROGRAMS+=	install-destdir instcheck
 SETUP_SCRIPTS=		config config-fast
 
 MANDIRS=		man
@@ -65,7 +73,11 @@ INSTALLATION_DIRS+=	${EGDIR}/users
 
 .include "../../mk/bsd.prefs.mk"
 
-BUILD_DEFS+=		QMAILDIR QMAIL_QUEUE_DIR QMAIL_QUEUE_EXTRA
+BUILD_DEFS+=		QMAILDIR QMAILPATCHES QMAIL_QUEUE_DIR QMAIL_QUEUE_EXTRA
+BUILD_DEFS+=		QMAIL_ALIAS_USER QMAIL_DAEMON_USER QMAIL_LOG_USER
+BUILD_DEFS+=		QMAIL_ROOT_USER QMAIL_PASSWD_USER QMAIL_QUEUE_USER
+BUILD_DEFS+=		QMAIL_REMOTE_USER QMAIL_SEND_USER
+BUILD_DEFS+=		QMAIL_QMAIL_GROUP QMAIL_NOFILES_GROUP
 
 .if !empty(QMAIL_QUEUE_DIR:M${QMAILDIR}/*)
 PKG_FAIL_REASON+=	"QMAIL_QUEUE_DIR must not be under ${QMAILDIR}"
@@ -86,8 +98,8 @@ SUBST_MESSAGE.logging=	Setting QUEUE_EXTRA.
 SUBST_CLASSES+=		caseclash
 SUBST_STAGE.caseclash=	do-configure
 SUBST_FILES.caseclash=	hier.c
-SUBST_SED.caseclash=	-e 's|"INSTALL"|"INSTALL${DARWINSUFX}"|g'
-SUBST_SED.caseclash+=	-e 's|"SENDMAIL"|"SENDMAIL${DARWINSUFX}"|g'
+SUBST_SED.caseclash=	-e 's|"doc","INSTALL"|".","doc/INSTALL"|g'
+SUBST_SED.caseclash+=	-e 's|"doc","SENDMAIL"|".","doc/SENDMAIL"|g'
 
 SUBST_CLASSES+=		catpages
 SUBST_STAGE.catpages=	do-configure
@@ -95,55 +107,54 @@ SUBST_FILES.catpages=	hier.c
 SUBST_SED.catpages=	-e 's|.*"man/cat[0-9]".*||g'
 SUBST_SED.catpages+=	-e 's|.*"tcp-environ\.5".*||g'	# also in ucspi-tcp
 
-SUBST_CLASSES+=		destdir
-SUBST_STAGE.destdir=	do-configure
-SUBST_FILES.destdir=	Makefile
-SUBST_SED.destdir=	-e 's|\(^load inst.*\.o\) auto_qmail\.o\(.*\)|\1 auto_destdir.o\2|g'
-SUBST_SED.destdir+=	-e 's|\(^	\./load inst.*\) auto_qmail\.o\(.*\)|\1 auto_destdir.o\2|g'
+.if defined(MANZ)
+SUBST_CLASSES+=		manzpages
+SUBST_STAGE.manzpages=	post-build
+SUBST_FILES.manzpages=	hier_destdir.c
+SUBST_SED.manzpages=	-e 's|\(.*"man/man[0-9]",".*\.[0-9]\)|\1.gz|g'
+.endif
 
 SUBST_CLASSES+=		paths
 SUBST_STAGE.paths=	do-configure
-SUBST_FILES.paths=	README.pkgsrc
-SUBST_SED.paths=	-e 's,@PKGNAME@,${PKGNAME:Q},g'
-SUBST_SED.paths+=	-e 's,@PKG_INFO@,${PKG_INFO:Q},g'
-SUBST_SED.paths+=	-e 's,@GREP@,${GREP:Q},g'
+SUBST_FILES.paths=	README.*
+SUBST_VARS.paths=	PKGNAME PKG_INFO PREFIX GREP
 
 SUBST_FILES.djbware+=	cdb_seek.c dns.c
 
-USERGROUP_PHASE=	configure
-PKG_GROUPS=		qmail nofiles
-PKG_USERS+=		alias:nofiles
-PKG_USERS+=		qmaill:nofiles qmaild:nofiles qmailp:nofiles
-PKG_USERS+=		qmailq:qmail qmailr:qmail qmails:qmail
+PKG_USERS_VARS+=	QMAIL_ALIAS_USER QMAIL_DAEMON_USER QMAIL_LOG_USER
+PKG_USERS_VARS+=	QMAIL_ROOT_USER QMAIL_PASSWD_USER QMAIL_QUEUE_USER
+PKG_USERS_VARS+=	QMAIL_REMOTE_USER QMAIL_SEND_USER
+PKG_GROUPS_VARS+=	QMAIL_QMAIL_GROUP QMAIL_NOFILES_GROUP
+PKG_GROUPS=		${QMAIL_QMAIL_GROUP} ${QMAIL_NOFILES_GROUP}
+PKG_USERS+=		${QMAIL_ALIAS_USER}:${QMAIL_NOFILES_GROUP}
+PKG_USERS+=		${QMAIL_DAEMON_USER}:${QMAIL_NOFILES_GROUP}
+PKG_USERS+=		${QMAIL_LOG_USER}:${QMAIL_NOFILES_GROUP}
+PKG_USERS+=		${QMAIL_PASSWD_USER}:${QMAIL_NOFILES_GROUP}
+PKG_USERS+=		${QMAIL_QUEUE_USER}:${QMAIL_QMAIL_GROUP}
+PKG_USERS+=		${QMAIL_REMOTE_USER}:${QMAIL_QMAIL_GROUP}
+PKG_USERS+=		${QMAIL_SEND_USER}:${QMAIL_QMAIL_GROUP}
 .for user in ${PKG_USERS:C/\:.*//}
 PKG_HOME.${user}=	${QMAILDIR}
 .endfor
 PKG_HOME.alias=		${QMAILDIR}/alias
 
-QMAIL_ROOT_ONLY_READABLES=	qmail-clean qmail-getpw qmail-local qmail-popup
-QMAIL_ROOT_ONLY_READABLES+=	qmail-pw2u qmail-remote qmail-rspawn qmail-send
-QMAIL_ROOT_ONLY_READABLES+=	splogger
-QMAIL_ROOT_ONLY_EVERYTHINGS=	qmail-lspawn qmail-newmrh qmail-newu qmail-start
+READMES=		README.pkgsrc
 
-SPECIAL_PERMS+=		${PREFIX}/bin/qmail-queue qmailq qmail 4555
-.for f in ${QMAIL_ROOT_ONLY_READABLES}
-SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0711
-.endfor
-.for f in ${QMAIL_ROOT_ONLY_EVERYTHINGS}
-SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0700
-.endfor
+post-extract:
+	for i in ${READMES}; do						\
+		${CP} ${FILESDIR}/$$i ${WRKSRC} || ${TRUE};		\
+	done
+	mkdir ${WRKSRC}/doc &&						\
+	for i in INSTALL SENDMAIL; do					\
+		${MV} ${WRKSRC}/$$i ${WRKSRC}/doc/$$i;			\
+	done
 
-OPSYSVARS+=		DARWINSUFX
-DARWINSUFX.Darwin=	.doc
-DARWINSUFX.*=		# empty
-
-post-extract: post-extract-viruscan
-	${CP} ${FILESDIR}/README.pkgsrc ${WRKSRC}
-.if ${OPSYS} == "Darwin"
-.	for i in INSTALL SENDMAIL
-	  mv ${WRKSRC}/${i} ${WRKSRC}/${i}${DARWINSUFX}
-.	endfor
-.endif
+post-patch:
+	cd ${WRKSRC}; \
+	for i in ssl_timeoutio.c tls.c; do \
+		( ${ECHO} '#ifdef TLS'; ${CAT} $$i; ${ECHO} '#endif' ) > $$i.new; \
+		mv $$i.new $$i; \
+	done
 
 pre-install:
 	${MKDIR} ${DESTDIR}${QMAILDIR}
@@ -158,24 +169,16 @@ pre-install:
 	${LN} -s ${DESTDIR}${QMAIL_QUEUE_DIR}	${DESTDIR}${QMAILDIR}/queue
 	${LN} -s ${DESTDIR}${EGDIR}/users	${DESTDIR}${QMAILDIR}/users
 
-post-install: post-install-viruscan
-	# allow packaging as non-root, fix at install time with SPECIAL_PERMS
-	${CHMOD} 0755 ${DESTDIR}${PREFIX}/bin/qmail-queue
-.	for f in ${QMAIL_ROOT_ONLY_READABLES} ${QMAIL_ROOT_ONLY_EVERYTHINGS}
-	  ${CHMOD} 0755 ${DESTDIR}${PREFIX}/bin/${f}
-.	endfor
-	# qmail's installer sets strange permissions, set them back
-.	for i in bin boot
-	  ${CHGRP} ${BINGRP} ${DESTDIR}${QMAILDIR}/${i}
-.	endfor
-.	for i in doc
-	  ${CHGRP} ${SHAREGRP} ${DESTDIR}${QMAILDIR}/${i}
-.	endfor
-.	for i in ${MANDIRS}
-	  ${CHGRP} ${MANGRP} ${DESTDIR}${QMAILDIR}/${i}
-.	endfor
+post-install:
+	for i in ${READMES}; do						\
+		${INSTALL_DATA} ${WRKSRC}/$$i ${DESTDIR}${DOCDIR};	\
+	done
 
-	${INSTALL_DATA} ${WRKSRC}/README.pkgsrc ${DESTDIR}${DOCDIR}
+	cd ${WRKSRC} && ${MAKE} instcheck install-destdir
+
+	for i in ${REJECTUTILS}; do					\
+		${INSTALL_PROGRAM} ${WRKSRC}/$$i ${DESTDIR}${PREFIX}/bin/$$i; \
+	done
 
 	${INSTALL_PROGRAM_DIR} ${DESTDIR}${SHAREDIR}/setup
 	for i in ${SETUP_PROGRAMS}; do					\

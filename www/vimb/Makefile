@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.11 2017/02/28 15:20:11 ryoon Exp $
+# $NetBSD: Makefile,v 1.15 2017/09/18 09:53:38 maya Exp $
 
-DISTNAME=	vimb-2.11
-PKGREVISION=	8
+DISTNAME=	vimb-2.12
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=fanglingsu/}
 
 MAINTAINER=	leot@NetBSD.org
-HOMEPAGE=	http://fanglingsu.github.io/vimb/
+HOMEPAGE=	https://fanglingsu.github.io/vimb/
 COMMENT=	Vim-like webkit browser
 LICENSE=	gnu-gpl-v3
 
@@ -23,7 +23,7 @@ SUBST_STAGE.configmk=	pre-configure
 SUBST_MESSAGE.configmk=	Bump _XOPEN_SOURCE version and correctly define _POSIX_SOURCE
 SUBST_FILES.configmk=	config.mk
 SUBST_SED.configmk+=	-e '/_XOPEN_SOURCE/ s/500/600/'
-SUBST_SED.configmk+=	-e '/_POSIX_SOURCE/ s/-DPOSIX_SOURCE/-DPOSIX_SOURCE=1/'
+SUBST_SED.configmk+=	-e '/_POSIX_SOURCE/ s/-D_POSIX_SOURCE/-D_POSIX_SOURCE=1/'
 
 EGDIR=		${PREFIX}/share/examples/vimb
 
@@ -33,5 +33,6 @@ NOT_PAX_MPROTECT_SAFE+=	bin/vimb
 
 .include "../../net/libsoup/buildlink3.mk"
 .include "../../www/webkit24-gtk/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

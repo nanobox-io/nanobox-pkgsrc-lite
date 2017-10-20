@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2017/01/01 16:06:30 adam Exp $
+# $NetBSD: Makefile,v 1.23 2017/08/24 20:03:33 adam Exp $
 
 DISTNAME=	dragon-${_KDE_VERSION}
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	multimedia
 COMMENT=	a simple video player for KDE
 

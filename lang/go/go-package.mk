@@ -1,4 +1,4 @@
-# $NetBSD: go-package.mk,v 1.8 2016/01/23 12:42:57 rillig Exp $
+# $NetBSD: go-package.mk,v 1.10 2017/03/20 22:33:21 bsiegert Exp $
 #
 # This file implements common logic for compiling Go programs in pkgsrc.
 # The compiled Go code is tied to a specific compiler version, and the
@@ -37,7 +37,8 @@
 
 .include "../../lang/go/version.mk"
 
-GO_DIST_BASE?=		${GO_SRCPATH}
+_GO_DIST_BASE!=		basename ${GO_SRCPATH}
+GO_DIST_BASE?=		${_GO_DIST_BASE}
 GO_BUILD_PATTERN?=	${GO_SRCPATH}/...
 
 WRKSRC=			${WRKDIR}/src/${GO_SRCPATH}
@@ -55,19 +56,25 @@ PRINT_PLIST_AWK+=	{ gsub(/${GO_PLATFORM}/, \
 			"$${GO_PLATFORM}"); \
 			print; next; }
 
+.if !target(post-extract)
 post-extract:
 	${RUN} ${MKDIR} ${WRKSRC}
-	${RUN} ${RM} -fr ${WRKDIR}/`basename ${GO_DIST_BASE}`/.hg
-	${RUN} ${MV} ${WRKDIR}/`basename ${GO_DIST_BASE}`/* ${WRKSRC}
+	${RUN} ${RM} -fr ${WRKDIR}/${GO_DIST_BASE}/.hg
+	${RUN} ${MV} ${WRKDIR}/${GO_DIST_BASE}/* ${WRKSRC}
+.endif
 
+.if !target(do-build)
 do-build:
 	${RUN} env GOPATH=${WRKDIR}:${BUILDLINK_DIR}/gopkg go install -v ${GO_BUILD_PATTERN}
+.endif
 
 .if !target(do-test)
 do-test:
 	${RUN} env GOPATH=${WRKDIR}:${BUILDLINK_DIR}/gopkg go test -v ${GO_BUILD_PATTERN}
 .endif
 
+.if !target(do-install)
 do-install:
 	${RUN} cd ${WRKDIR}; [ ! -d bin ] || ${PAX} -rw bin ${DESTDIR}${PREFIX}
 	${RUN} cd ${WRKDIR}; [ ! -d pkg ] || ${PAX} -rw src pkg ${DESTDIR}${PREFIX}/gopkg
+.endif

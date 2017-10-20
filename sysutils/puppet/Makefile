@@ -1,21 +1,18 @@
-# $NetBSD: Makefile,v 1.28 2016/09/08 15:19:18 joerg Exp $
+# $NetBSD: Makefile,v 1.33 2017/09/18 05:38:54 taca Exp $
 
-DISTNAME=		puppet-3.8.7
+DISTNAME=		puppet-5.2.0
 CATEGORIES=		sysutils
 #MASTER_SITES=		http://puppetlabs.com/downloads/puppet/
 
-MAINTAINER=		tonnerre@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.puppetlabs.com/
 COMMENT=		Configuration management framework written in Ruby
 LICENSE=		apache-2.0
 
-DEPENDS+=	${RUBY_PKGPREFIX}-facter>=1.7.0<3:../../sysutils/ruby-facter
-DEPENDS+=	${RUBY_PKGPREFIX}-hiera>=1.0.0<3:../../databases/ruby-hiera
-
-RUBY_VERSIONS_ACCEPTED=	21
-
-RUBY_JSON_REQD=		0
-OVERRIDE_GEMSPEC=	json_pure:json>0
+DEPENDS+=	${RUBY_PKGPREFIX}-facter>=1.7.0<4:../../sysutils/ruby-facter
+DEPENDS+=	${RUBY_PKGPREFIX}-hiera>=1.0.0<4:../../databases/ruby-hiera
+DEPENDS+=	${RUBY_PKGPREFIX}-gettext-setup<1:../../devel/ruby-gettext-setup
+DEPENDS+=	${RUBY_PKGPREFIX}-locale>=2.1:../../devel/ruby-locale
 
 RUBYGEM_OPTIONS+=	--format-executable
 
@@ -30,7 +27,6 @@ SUBST_FILES.prefix+=	lib/puppet/face/module/install.rb
 SUBST_FILES.prefix+=	lib/puppet/face/module/list.rb
 SUBST_FILES.prefix+=	lib/puppet/face/module/uninstall.rb
 SUBST_FILES.prefix+=	lib/puppet/face/module/upgrade.rb
-SUBST_FILES.prefix+=	lib/puppet/parser/functions/extlookup.rb
 SUBST_FILES.prefix+=	lib/puppet/reference/configuration.rb
 SUBST_FILES.prefix+=	lib/puppet/util/run_mode.rb
 SUBST_FILES.prefix+=	ext/solaris/smf/puppetd.xml
@@ -38,12 +34,10 @@ SUBST_FILES.prefix+=	ext/solaris/smf/puppetmasterd.xml
 SUBST_FILES.prefix+=	man/man5/puppet.conf.5
 SUBST_FILES.prefix+=	man/man8/puppet-apply.8
 SUBST_FILES.prefix+=	man/man8/puppet-device.8
-SUBST_FILES.prefix+=	man/man8/puppet-doc.8
 SUBST_FILES.prefix+=	man/man8/puppet-module.8
 SUBST_FILES.prefix+=	man/man8/puppet-parser.8
 SUBST_FILES.prefix+=	spec/unit/util/run_mode_spec.rb
 SUBST_FILES.prefix+=	spec/unit/util/selinux_spec.rb
-SUBST_FILES.prefix+=	spec/unit/indirector/catalog/static_compiler_spec.rb
 SUBST_SED.prefix=	-e "s|/etc/puppet|${PKG_SYSCONFDIR}|g"
 SUBST_SED.prefix+=	-e "s|/opt/csw/lib|${PREFIX}/lib|g"
 
@@ -90,8 +84,10 @@ CONF_FILES+=		${EGDIR}/svc/puppetmasterd.xml ${VARBASE}/svc/manifest/puppetmaste
 PLIST.sunos=		yes
 .endif
 
+pre-configure:
+	cd ${WRKSRC}/bin && ${CHMOD} ${BINMODE} puppet
+
 pre-build:
-	cd ${WRKSRC} && ${FIND} . -type f -exec ${CHMOD} g-w {} \;
 	cd ${WRKSRC} && \
 		${FIND} lib/puppet spec -type f -exec ${CHMOD} -x {} \;
 	cd ${WRKSRC} && ${RUBY} -Ilib bin/puppet agent			\
@@ -114,6 +110,5 @@ post-install:
 		${DESTDIR}${PREFIX}/lib/svc/method
 .endif
 
-.include "../../lang/ruby/json.mk"
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

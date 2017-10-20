@@ -1,18 +1,16 @@
-# $NetBSD: Makefile,v 1.2 2016/06/01 12:30:45 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2017/10/08 08:51:02 adam Exp $
 
-DISTNAME=	construct-2.5.2
+DISTNAME=	construct-2.8.16
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=c/construct/}
 
 MAINTAINER=	eric@cirr.com
-HOMEPAGE=	http://pypi.python.org/pypi/construct
+HOMEPAGE=	http://construct.readthedocs.io/
 COMMENT=	Powerful declarative parser for binary data
 LICENSE=	mit
 
-DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
-
-USE_LANGUAGES=	c
+USE_LANGUAGES=	# none
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

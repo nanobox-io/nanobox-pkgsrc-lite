@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.2 2017/02/05 12:36:59 bsiegert Exp $
+@comment $NetBSD: PLIST,v 1.5 2017/09/26 14:35:46 mspo Exp $
 bin/moar
 include/moar/6model/6model.h
 include/moar/6model/bootstrap.h
@@ -18,8 +18,6 @@ include/moar/6model/reprs/Decoder.h
 include/moar/6model/reprs/HashAttrStore.h
 include/moar/6model/reprs/KnowHOWAttributeREPR.h
 include/moar/6model/reprs/KnowHOWREPR.h
-include/moar/6model/reprs/Lexotic.h
-include/moar/6model/reprs/MVMArray.h
 include/moar/6model/reprs/MVMAsyncTask.h
 include/moar/6model/reprs/MVMCFunction.h
 include/moar/6model/reprs/MVMCallCapture.h
@@ -34,7 +32,9 @@ include/moar/6model/reprs/MVMIter.h
 include/moar/6model/reprs/MVMMultiCache.h
 include/moar/6model/reprs/MVMNull.h
 include/moar/6model/reprs/MVMOSHandle.h
+include/moar/6model/reprs/MVMSpeshLog.h
 include/moar/6model/reprs/MVMStaticFrame.h
+include/moar/6model/reprs/MVMStaticFrameSpesh.h
 include/moar/6model/reprs/MVMString.h
 include/moar/6model/reprs/MVMThread.h
 include/moar/6model/reprs/MultiDimArray.h
@@ -50,6 +50,7 @@ include/moar/6model/reprs/ReentrantMutex.h
 include/moar/6model/reprs/SCRef.h
 include/moar/6model/reprs/Semaphore.h
 include/moar/6model/reprs/Uninstantiable.h
+include/moar/6model/reprs/VMArray.h
 include/moar/6model/sc.h
 include/moar/6model/serialization.h
 include/moar/bithacks.h
@@ -82,6 +83,7 @@ include/moar/core/regionalloc.h
 include/moar/core/threadcontext.h
 include/moar/core/threads.h
 include/moar/core/validation.h
+include/moar/core/vector.h
 include/moar/gc/allocation.h
 include/moar/gc/collect.h
 include/moar/gc/debug.h
@@ -95,6 +97,7 @@ include/moar/gc/worklist.h
 include/moar/gcc_diag.h
 include/moar/gen/config.h
 include/moar/instrument/crossthreadwrite.h
+include/moar/instrument/line_coverage.h
 include/moar/io/asyncsocket.h
 include/moar/io/asyncsocketudp.h
 include/moar/io/dirops.h
@@ -105,13 +108,12 @@ include/moar/io/io.h
 include/moar/io/procops.h
 include/moar/io/signals.h
 include/moar/io/syncfile.h
-include/moar/io/syncpipe.h
 include/moar/io/syncsocket.h
-include/moar/io/syncstream.h
 include/moar/io/timers.h
 include/moar/jit/compile.h
-include/moar/jit/emit.h
 include/moar/jit/graph.h
+include/moar/jit/internal.h
+include/moar/jit/label.h
 include/moar/jit/log.h
 include/moar/mast/compiler.h
 include/moar/mast/driver.h
@@ -122,6 +124,7 @@ include/moar/memdebug.h
 include/moar/moar.h
 include/moar/platform/inttypes.h
 include/moar/platform/io.h
+include/moar/platform/memmem.h
 include/moar/platform/mmap.h
 include/moar/platform/setjmp.h
 include/moar/platform/stdint.h
@@ -132,20 +135,27 @@ include/moar/profiler/heapsnapshot.h
 include/moar/profiler/instrument.h
 include/moar/profiler/log.h
 include/moar/profiler/profile.h
+include/moar/profiler/telemeh.h
+include/moar/spesh/arg_guard.h
 include/moar/spesh/args.h
 include/moar/spesh/candidate.h
 include/moar/spesh/codegen.h
+include/moar/spesh/dead_bb_elimination.h
 include/moar/spesh/deopt.h
 include/moar/spesh/dump.h
 include/moar/spesh/facts.h
 include/moar/spesh/graph.h
 include/moar/spesh/inline.h
+include/moar/spesh/iterator.h
 include/moar/spesh/log.h
 include/moar/spesh/lookup.h
 include/moar/spesh/manipulate.h
 include/moar/spesh/optimize.h
 include/moar/spesh/osr.h
+include/moar/spesh/plan.h
+include/moar/spesh/stats.h
 include/moar/spesh/threshold.h
+include/moar/spesh/worker.h
 include/moar/strings/ascii.h
 include/moar/strings/decode_stream.h
 include/moar/strings/iter.h
@@ -153,6 +163,7 @@ include/moar/strings/latin1.h
 include/moar/strings/nfg.h
 include/moar/strings/normalize.h
 include/moar/strings/ops.h
+include/moar/strings/parse_num.h
 include/moar/strings/unicode.h
 include/moar/strings/unicode_gen.h
 include/moar/strings/unicode_ops.h
@@ -162,7 +173,7 @@ include/moar/strings/utf8_c8.h
 include/moar/strings/windows1252.h
 include/moar/types.h
 include/moar/uthash.h
-lib/libmoar.${EXT}
+lib/libmoar.so
 share/nqp/lib/MAST/Nodes.nqp
 share/nqp/lib/MAST/Ops.nqp
 share/pkgconfig/moar.pc

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.7 2016/10/19 14:45:26 taca Exp $
+@comment $NetBSD: PLIST,v 1.10 2017/06/04 15:41:39 taca Exp $
 ${GEM_HOME}/cache/${GEM_NAME}.gem
 ${GEM_LIBDIR}/.document
 ${GEM_LIBDIR}/.gitignore
@@ -48,8 +48,10 @@ ${GEM_LIBDIR}/lib/padrino-helpers/translation_helpers.rb
 ${GEM_LIBDIR}/lib/padrino/core_ext/output_safety.rb
 ${GEM_LIBDIR}/lib/padrino/rendering.rb
 ${GEM_LIBDIR}/lib/padrino/rendering/erb_template.rb
+${GEM_LIBDIR}/lib/padrino/rendering/erubi_template.rb
 ${GEM_LIBDIR}/lib/padrino/rendering/erubis_template.rb
 ${GEM_LIBDIR}/lib/padrino/rendering/haml_template.rb
+${GEM_LIBDIR}/lib/padrino/rendering/hamlit_template.rb
 ${GEM_LIBDIR}/lib/padrino/rendering/slim_template.rb
 ${GEM_LIBDIR}/lib/padrino/safe_buffer.rb
 ${GEM_LIBDIR}/padrino-helpers.gemspec
@@ -105,6 +107,7 @@ ${GEM_LIBDIR}/test/fixtures/render_app/app.rb
 ${GEM_LIBDIR}/test/fixtures/render_app/views/_deep.erb
 ${GEM_LIBDIR}/test/fixtures/render_app/views/_deep.haml
 ${GEM_LIBDIR}/test/fixtures/render_app/views/_deep.slim
+${GEM_LIBDIR}/test/fixtures/render_app/views/_foo.haml
 ${GEM_LIBDIR}/test/fixtures/render_app/views/_partial_block_erb.erb
 ${GEM_LIBDIR}/test/fixtures/render_app/views/_partial_block_haml.haml
 ${GEM_LIBDIR}/test/fixtures/render_app/views/_partial_block_slim.slim
@@ -126,6 +129,8 @@ ${GEM_LIBDIR}/test/fixtures/render_app/views/double_capture_slim.slim
 ${GEM_LIBDIR}/test/fixtures/render_app/views/erb/test.erb
 ${GEM_LIBDIR}/test/fixtures/render_app/views/explicit_engine.haml
 ${GEM_LIBDIR}/test/fixtures/render_app/views/haml/test.haml
+${GEM_LIBDIR}/test/fixtures/render_app/views/index.haml
+${GEM_LIBDIR}/test/fixtures/render_app/views/layouts/application.haml
 ${GEM_LIBDIR}/test/fixtures/render_app/views/render_block_erb.erb
 ${GEM_LIBDIR}/test/fixtures/render_app/views/render_block_haml.haml
 ${GEM_LIBDIR}/test/fixtures/render_app/views/render_block_slim.slim

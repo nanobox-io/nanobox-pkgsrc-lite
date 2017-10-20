@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.24 2017/01/01 08:24:44 mef Exp $
+# $NetBSD: Makefile,v 1.26 2017/09/20 12:05:46 jperkin Exp $
 
 DISTNAME=	xz-5.2.3
+PKGREVISION=	1
 CATEGORIES=	archivers
-MASTER_SITES=	http://tukaani.org/xz/
+MASTER_SITES=	https://tukaani.org/xz/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://tukaani.org/xz/
+HOMEPAGE=	https://tukaani.org/xz/
 COMMENT=	XZ utilities
 LICENSE=	public-domain AND gnu-gpl-v2
 

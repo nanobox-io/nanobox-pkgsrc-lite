@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2017/02/21 15:55:28 gdt Exp $
+# $NetBSD: Makefile,v 1.14 2017/08/19 00:28:10 jlam Exp $
 
 DISTNAME=	guile-2.0.14
 PKGNAME=	${DISTNAME:S/guile/guile20/}
@@ -8,27 +8,33 @@ MASTER_SITES=	ftp://ftp.gnu.org/gnu/guile/
 
 MAINTAINER=	root@zta.lk
 HOMEPAGE=	https://www.gnu.org/software/guile/
-COMMENT=	Official extension language for the GNU operating system
+COMMENT=	Official extension language for the GNU operating system (2.0 branch)
 LICENSE=	gnu-lgpl-v3
 
 # Currently, 2.0 is primary.
-#GUILE_PREFIX=	${PREFIX}/guile/2.0
-GUILE_PREFIX=	${PREFIX}
+#GUILE_SUBDIR=	guile/2.0
+GUILE_SUBDIR=	# empty
 
 # guile does not like the --build and --host triplets on NetBSD
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--disable-shared
 # not until boehm-gc is threaded
 CONFIGURE_ARGS+=	--without-threads
-CONFIGURE_ARGS+=	--prefix=${GUILE_PREFIX}
-CONFIGURE_ARGS+=	--mandir=${GUILE_PREFIX}/${PKGMANDIR}
-CONFIGURE_ARGS+=	--infodir=${GUILE_PREFIX}/${PKGINFODIR}
-
 CONFIGURE_ARGS+=	SHELL=${CONFIG_SHELL}
 
-# When GUILE_PREFIX is non-default, these must be enabled.
-#BUILDLINK_PASSTHRU_DIRS+=	${GUILE_PREFIX}
-#LDFLAGS+=			${COMPILER_RPATH_FLAG}${GUILE_PREFIX}/lib
+.if !empty(GUILE_SUBDIR)
+# Installation prefix is non-default.
+GUILE_PREFIX=		${PREFIX}/${GUILE_SUBDIR}
+CONFIGURE_ARGS+=	--prefix=${GUILE_PREFIX:Q}
+CONFIGURE_ARGS+=	--infodir=${GUILE_PREFIX:Q}/info
+CONFIGURE_ARGS+=	--mandir=${GUILE_PREFIX:Q}/man
+BUILDLINK_PASSTHRU_DIRS+=	${GUILE_PREFIX}
+LDFLAGS+=			${COMPILER_RPATH_FLAG}${GUILE_PREFIX}/lib
+.else
+CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
+CONFIGURE_ARGS+=	--infodir=${PREFIX:Q}/${PKGINFODIR:Q}
+CONFIGURE_ARGS+=	--mandir=${PREFIX:Q}/${PKGMANDIR:Q}
+.endif
 
 INFO_FILES=	yes
 USE_LIBTOOL=	yes
@@ -50,7 +56,6 @@ SUBST_MESSAGE.tools=	Fixing path to pkg-config in installed file.
 
 OPSYSVARS+=		GUILE_LIBNAME
 GUILE_LIBNAME.Darwin=	a
-GUILE_LIBNAME.FreeBSD=	so.30
 GUILE_LIBNAME.*=	so.22.8.1
 
 PLIST_SUBST+=		GUILE_LIBNAME=${GUILE_LIBNAME}

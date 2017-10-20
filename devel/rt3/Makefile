@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.60 2016/06/08 19:23:48 wiz Exp $
+# $NetBSD: Makefile,v 1.66 2017/09/04 18:08:22 wiz Exp $
 
 DISTNAME=		rt-3.8.17
-PKGREVISION=		7
+PKGREVISION=		10
 CATEGORIES=		devel
 MASTER_SITES=		http://download.bestpractical.com/pub/rt/release/
 
 MAINTAINER=		spz@NetBSD.org
-HOMEPAGE=		http://bestpractical.com/rt/
+HOMEPAGE=		https://bestpractical.com/rt/
 COMMENT=		Industrial-grade ticketing system
 LICENSE=		gnu-gpl-v2
 
@@ -148,4 +148,5 @@ post-extract:
 .include "Makefile.install"
 
 .include "../../databases/p5-DBI/buildlink3.mk"
+.include "../../mk/apache.mk"
 .include "../../mk/bsd.pkg.mk"

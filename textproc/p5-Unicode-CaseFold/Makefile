@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2016/06/08 19:24:41 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2017/09/18 12:41:22 wiz Exp $
 
-DISTNAME=	Unicode-CaseFold-1.00
+DISTNAME=	Unicode-CaseFold-1.01
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Unicode/}
 

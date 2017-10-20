@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.1 2017/02/13 18:33:24 fhajny Exp $
+$NetBSD: distinfo,v 1.3 2017/07/04 13:19:23 fhajny Exp $
 
-SHA1 (librelp-1.2.12.tar.gz) = 7582992279eb63012e44208813a672a586b5ab55
-RMD160 (librelp-1.2.12.tar.gz) = de4ce5d7e0faed845d1398e3f90d0ee042419644
-SHA512 (librelp-1.2.12.tar.gz) = bfc38882404e06c047bdabd203d71beba67bc5a717d2d6733863f15f0a3a09b4a792a628a1653c102c828fde7ff67cc8ade637de785399ab48a68605b23a72ed
-Size (librelp-1.2.12.tar.gz) = 437945 bytes
+SHA1 (librelp-1.2.14.tar.gz) = 13cb590d0cb36b415534339a1855e91cc771edc7
+RMD160 (librelp-1.2.14.tar.gz) = c76b261a6365b6bf1bb2a7113fb556353f7a22fc
+SHA512 (librelp-1.2.14.tar.gz) = b9a947edb7f23ba533f358d3271a61e80fcca7db8be0c20b39ec61ce4d913efed25173330a0604faebfbbdf33a051ed43234b2b41be2480dc3459c35b91acaae
+Size (librelp-1.2.14.tar.gz) = 437975 bytes
 SHA1 (patch-src_tcp.c) = 088973b11f649f6815ccf9c734f89763d520c25b

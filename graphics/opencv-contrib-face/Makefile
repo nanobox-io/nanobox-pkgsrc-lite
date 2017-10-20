@@ -1,27 +1,35 @@
-# $NetBSD: Makefile,v 1.8 2017/02/28 15:20:06 ryoon Exp $
+# $NetBSD: Makefile,v 1.12 2017/09/30 07:46:40 wiz Exp $
 
-DISTNAME=	opencv_contrib-3.1.0
+DISTNAME=	opencv_contrib-3.3.0
 PKGNAME=	${DISTNAME:S/_contrib/-contrib-face/}
-PKGREVISION=	1
 CATEGORIES=	graphics devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Itseez/}
 EXTRACT_SUFX=	.zip
 GITHUB_PROJECT=	opencv_contrib
 
 MAINTAINER=	markd@NetBSD.org
-HOMEPAGE=	http://code.opencv.org/projects/OpenCV/wiki/WikiStart
+HOMEPAGE=	https://github.com/opencv/opencv/wiki
 COMMENT=	OpenCV face recognition contributed module
 LICENSE=	modified-bsd
 
 DISTFILES=	${DEFAULT_DISTFILES} opencv-${PKGVERSION_NOREV}.zip
 
 USE_CMAKE=		yes
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
 
-INSTALL_DIRS=	modules/face
+# This is ugly, but we shouldn't let optional code download
+# at configure time. Especially when it needs to be patched
+# because of lame coding.
+SUBST_CLASSES+=		tnn
+SUBST_FILES.tnn=	${WRKDIR}/${DISTNAME}/modules/dnn_modern/CMakeLists.txt
+SUBST_MESSAGE.tnn=	Disabling build-time fetch
+SUBST_STAGE.tnn=	pre-configure
+SUBST_SED.tnn=		-e 's,3.2,999,'
+
+INSTALL_DIRS=	build/modules/face
 
 WRKSRC=		${WRKDIR}/opencv-${PKGVERSION_NOREV}/
 
@@ -29,11 +37,6 @@ PATCHDIR=	${.CURDIR}/../../graphics/opencv/patches
 
 CMAKE_ARGS+=	-D WITH_FFMPEG=OFF
 CMAKE_ARGS+=	-D BUILD_DOCS=OFF
-
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=		-std=c++11
-.endif
 
 # jasper uses SIZE_MAX and friends in its headers.
 CXXFLAGS+=		-D__STDC_LIMIT_MACROS
@@ -80,6 +83,12 @@ CMAKE_ARGS+=		-DBUILD_opencv_videostab=OFF
 CMAKE_ARGS+=		-DBUILD_opencv_python2=OFF
 
 CONFIGURE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
+
+CONFIGURE_DIRS+=	build
+CMAKE_ARG_PATH=		${WRKSRC}
+
+pre-configure:
+	${MKDIR} -p ${WRKSRC}/build
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"

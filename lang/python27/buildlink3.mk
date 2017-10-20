@@ -3,10 +3,10 @@
 BUILDLINK_TREE+=	python
 
 .if !defined(PYTHON_BUILDLINK3_MK)
-PYTHON_BUILDLINK3_MK:=
+PYTHON27_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.python+=	python>=2.7<2.8
-BUILDLINK_ABI_DEPENDS.python+=	python>=2.7.1nb2<2.8
+BUILDLINK_API_DEPENDS.python+=		python>=2.7<2.8
+BUILDLINK_ABI_DEPENDS.python+=		python>=2.7.1nb2<2.8
 BUILDLINK_PKGSRCDIR.python?=		../../base/python27
 
 .if defined(BUILDLINK_DEPMETHOD.python)

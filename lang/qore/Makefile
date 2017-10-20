@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.11 2016/12/09 19:00:18 nros Exp $
+# $NetBSD: Makefile,v 1.15 2017/10/12 18:17:46 nros Exp $
 
-DISTNAME=	qore-0.8.12.4
+DISTNAME=	qore-0.8.13
 CATEGORIES=	lang
 MASTER_SITES=   ${MASTER_SITE_GITHUB:=qorelanguage/}
 EXTRACT_SUFX=   .tar.bz2
 
 GITHUB_RELEASE=	release-${PKGVERSION_NOREV}
-GITHUB_TYPE=	release
 
 MAINTAINER=	nros@NetBSD.org
 COMMENT=	Qore programming language
@@ -21,7 +20,9 @@ PTHREAD_OPTS+=	native
 FLEX_REQD=	2.5.31
 
 PKGCONFIG_OVERRIDE+=	qore.pc.in
-REPLACE_QORE=		doxygen/qdx
+REPLACE_QORE=		bin/qdbg bin/qdbg-remote bin/qdbg-server
+REPLACE_QORE+=		bin/qget bin/rest bin/schema-reverse
+REPLACE_QORE+=		bin/sfrest bin/sqlutil doxygen/qdx
 
 CONFIGURE_ARGS+=--with-libsuffix=""
 
@@ -43,9 +44,6 @@ post-install:
 
 .include "application.mk"
 .include "options.mk"
-
-_WRAP_EXTRA_ARGS.CXX+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
-CWRAPPERS_APPEND.cxx+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
 
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"

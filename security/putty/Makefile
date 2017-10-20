@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.46 2017/02/12 06:25:57 ryoon Exp $
+# $NetBSD: Makefile,v 1.49 2017/09/03 08:53:14 wiz Exp $
 #
 
-DISTNAME=	putty-0.67
-PKGREVISION=	3
+DISTNAME=	putty-0.69
 CATEGORIES=	security
 MASTER_SITES=	http://the.earth.li/~sgtatham/putty/${PKGVERSION_NOREV}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.chiark.greenend.org.uk/~sgtatham/putty/
+HOMEPAGE=	https://www.chiark.greenend.org.uk/~sgtatham/putty/
 COMMENT=	Free implementation of Telnet and SSH for Win32 and Unix platforms
 LICENSE=	mit
 
@@ -38,6 +37,6 @@ CFLAGS+=	-DBSD_PTYS
 LDFLAGS.SunOS+=	-lsocket -lnsl
 CFLAGS.SunOS+=	-DBSD_COMP
 
-.include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/gtk3/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

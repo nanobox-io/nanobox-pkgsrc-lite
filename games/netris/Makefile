@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2015/08/18 07:31:09 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2017/09/03 08:53:09 wiz Exp $
 #
 
 DISTNAME=		netris-0.52
@@ -12,7 +12,7 @@ PATCHFILES=		netris-0.5-v6-19991206a.diff.gz
 PATCH_DIST_STRIP=	-p1
 
 MAINTAINER=		uebs@gmx.at
-HOMEPAGE=		http://www.netris.org/
+HOMEPAGE=		https://www.netris.org/
 COMMENT=		Everybody's darling T*tris in a networked version
 
 USE_TOOLS+=		gmake
@@ -33,4 +33,5 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/robot_desc ${DESTDIR}${PREFIX}/share/doc/netris
 
 .include "../../mk/curses.buildlink3.mk"
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

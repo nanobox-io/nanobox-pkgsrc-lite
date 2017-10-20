@@ -1,4 +1,4 @@
-# $NetBSD: extension.mk,v 1.49 2016/08/27 20:42:47 wiz Exp $
+# $NetBSD: extension.mk,v 1.51 2017/07/03 18:14:40 joerg Exp $
 
 .include "../../lang/python/pyversion.mk"
 
@@ -37,7 +37,7 @@ do-install:
 	 ${PYTHONBIN} ${PYSETUP} ${PYSETUPARGS} "install" ${_PYSETUPINSTALLARGS})
 .  if !target(do-test) && !(defined(TEST_TARGET) && !empty(TEST_TARGET))
 do-test:
-	(cd ${WRKSRC}/${PYSETUPSUBDIR} && ${SETENV} ${MAKE_ENV} ${PYTHONBIN} \
+	(cd ${WRKSRC}/${PYSETUPSUBDIR} && ${SETENV} ${TEST_ENV} ${PYTHONBIN} \
 	 ${PYSETUP} ${PYSETUPARGS} ${PYSETUPTESTTARGET} ${PYSETUPTESTARGS})
 .  endif
 
@@ -75,4 +75,11 @@ PRINT_PLIST_AWK+=	/^[^@]/ && /[^\/]+\.py[co]$$/ {
 PRINT_PLIST_AWK+=	gsub(/__pycache__\//, "")
 PRINT_PLIST_AWK+=	gsub(/opt-1\.pyc$$/, "pyo")
 PRINT_PLIST_AWK+=	gsub(/\.cpython-${_PYTHON_VERSION}/, "")}
+.endif
+
+DISTUTILS_BUILDDIR_IN_TEST_ENV?=	no
+
+.if ${DISTUTILS_BUILDDIR_IN_TEST_ENV} == "yes"
+DISTUTILS_BUILDDIR_CMD=	cd ${WRKSRC} && ${PYTHONBIN} ${.CURDIR}/../../lang/python/distutils-builddir.py
+TEST_ENV+=	PYTHONPATH=${DISTUTILS_BUILDDIR_CMD:sh}
 .endif

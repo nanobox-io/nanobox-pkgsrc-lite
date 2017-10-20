@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2017/01/25 11:40:29 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2017/06/14 09:30:43 maya Exp $
 
 DISTNAME=	# empty
 PKGNAME=	modular-xorg-drivers-1.19.0
@@ -31,9 +31,10 @@ DEPENDS+=	xf86-video-amdgpu-[0-9]*:../../x11/xf86-video-amdgpu
 DEPENDS+=	xf86-video-apm-[0-9]*:../../x11/xf86-video-apm
 DEPENDS+=	xf86-video-ark-[0-9]*:../../x11/xf86-video-ark
 DEPENDS+=	xf86-video-ast-[0-9]*:../../x11/xf86-video-ast
-.if !empty(MACHINE_PLATFORM:MNetBSD-7.*-i386) ||	\
-    !empty(MACHINE_PLATFORM:MNetBSD-7.*-x86_64) ||	\
-    ${OPSYS} == "Linux" || ${OPSYS} == "FreeBSD"
+.if !empty(MACHINE_PLATFORM:MNetBSD-[789].*-i386) ||	\
+    !empty(MACHINE_PLATFORM:MNetBSD-[789].*-x86_64) ||	\
+    ${OPSYS} == "Linux" || ${OPSYS} == "FreeBSD" ||	\
+    ${OPSYS} == "DragonFly" || ${OPSYS} == "SunOS"
 DEPENDS+=	xf86-video-ati-[0-9]*:../../x11/xf86-video-ati
 .else
 DEPENDS+=	xf86-video-ati6-[0-9]*:../../x11/xf86-video-ati6

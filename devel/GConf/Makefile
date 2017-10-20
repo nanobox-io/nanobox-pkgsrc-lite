@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.91 2017/01/01 14:43:29 wiz Exp $
+# $NetBSD: Makefile,v 1.93 2017/10/15 23:19:10 prlw1 Exp $
 
 .include "../../devel/GConf/Makefile.common"
 

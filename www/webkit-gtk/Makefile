@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.124 2017/02/28 15:20:00 ryoon Exp $
+# $NetBSD: Makefile,v 1.128 2017/09/18 09:53:06 maya Exp $
 
 DISTNAME=	webkitgtk-2.12.4
 PKGNAME=	${DISTNAME:S/webkitgtk/webkit-gtk/}
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	www
-MASTER_SITES=	http://www.webkitgtk.org/releases/
+MASTER_SITES=	https://www.webkitgtk.org/releases/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.webkitgtk.org/
+HOMEPAGE=	https://www.webkitgtk.org/
 COMMENT=	GTK port of the WebKit browser engine
 LICENSE=	2-clause-bsd AND gnu-lgpl-v2
 
@@ -18,7 +18,7 @@ NOT_FOR_PLATFORM=	NetBSD-[1-6]*-*
 BUILD_DEPENDS+=	gettext-tools>=0.18:../../devel/gettext-tools
 
 USE_CMAKE=	yes
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 #USE_LIBTOOL=	yes
 USE_TOOLS+=	automake bison gmake perl:build pkg-config msgfmt
 
@@ -67,7 +67,7 @@ CXXFLAGS.SunOS+=	-fpermissive
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11 -Wno-c++11-narrowing
+CXXFLAGS+=	-Wno-c++11-narrowing
 .endif
 
 .if !empty(MACHINE_PLATFORM:MSunOS-*-x86_64) || !empty(MACHINE_PLATFORM:MNetBSD-*-*arm*)

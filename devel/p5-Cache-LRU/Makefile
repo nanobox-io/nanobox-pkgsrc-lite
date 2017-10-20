@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2016/06/08 19:22:38 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2017/06/12 12:23:51 maya Exp $
 
 DISTNAME=	Cache-LRU-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Cache/}
 
@@ -15,6 +15,7 @@ BUILD_DEPENDS+=	p5-Test-Requires>=0:../../devel/p5-Test-Requires
 
 USE_LANGUAGES=	# none
 
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=	auto/Cache/LRU/.packlist
 
 .include "../../lang/perl5/module.mk"

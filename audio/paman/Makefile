@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.43 2017/02/12 06:25:04 ryoon Exp $
+# $NetBSD: Makefile,v 1.45 2017/09/08 02:38:37 ryoon Exp $
 #
 
 DISTNAME=	paman-0.9.4
-PKGREVISION=	36
+PKGREVISION=	37
 CATEGORIES=	audio
 MASTER_SITES=	http://0pointer.de/lennart/projects/paman/
 
@@ -12,12 +12,10 @@ COMMENT=	GTK frontend for the PulseAudio sound server
 LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 USE_TOOLS+=	pkg-config gmake
 
 CONFIGURE_ARGS+=	--disable-lynx
-
-CXXFLAGS+=		-std=c++11
 
 .include "../../audio/pulseaudio/buildlink3.mk"
 .include "../../devel/glibmm/buildlink3.mk"

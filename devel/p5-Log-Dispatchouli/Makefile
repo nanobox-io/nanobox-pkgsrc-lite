@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2016/10/30 05:22:40 mef Exp $
+# $NetBSD: Makefile,v 1.13 2017/06/05 14:23:12 ryoon Exp $
 
 DISTNAME=	Log-Dispatchouli-2.015
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Log/}
 
@@ -20,6 +21,9 @@ DEPENDS+=	p5-Try-Tiny>=0.04:../../devel/p5-Try-Tiny
 
 BUILD_DEPENDS+= p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 BUILD_DEPENDS+= p5-Test-Fatal-[0-9]*:../../devel/p5-Test-Fatal
+BUILD_DEPENDS+= p5-namespace-autoclean-[0-9]*:../../devel/p5-namespace-autoclean
+BUILD_DEPENDS+= p5-Specio-[0-9]*:../../devel/p5-Specio
+BUILD_DEPENDS+= p5-Params-ValidationCompiler-[0-9]*:../../devel/p5-Params-ValidationCompiler
 #BUILD_DEPENDS+=	{perl>=5.14.1,p5-Test-Simple>=0.96}:../../devel/p5-Test-Simple
 
 PERL5_PACKLIST=		auto/Log/Dispatchouli/.packlist

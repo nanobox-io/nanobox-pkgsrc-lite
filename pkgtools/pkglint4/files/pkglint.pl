@@ -1,5 +1,5 @@
 #! @PERL@
-# $NetBSD: pkglint.pl,v 1.4 2016/02/02 08:02:29 rillig Exp $
+# $NetBSD: pkglint.pl,v 1.6 2017/10/08 23:25:06 rillig Exp $
 #
 
 # pkglint - static analyzer and checker for pkgsrc packages
@@ -3773,14 +3773,6 @@ sub checkline_mk_varassign($$$$$) {
 		}
 	}
 
-	if ($varname eq "CONFIGURE_ARGS" && $value =~ m"=\$\{PREFIX\}/share/kde") {
-		$line->log_note("Please .include \"../../meta-pkgs/kde3/kde3.mk\" instead of this line.");
-		$line->explain_note(
-"That file probably does many things automatically and consistently that",
-"this package also does. When using kde3.mk, you can probably also leave",
-"out some explicit dependencies.");
-	}
-
 	if ($varname eq "EVAL_PREFIX" && $value =~ m"^([\w_]+)=") {
 		my ($eval_varname) = ($1);
 
@@ -5284,7 +5276,12 @@ sub checkfile_PLIST($) {
 "Otherwise, this warning is harmless.");
 				}
 
-			} elsif (substr($text, 0, 6) eq "share/" && $pkgpath ne "graphics/hicolor-icon-theme" && $text =~ m"^share/icons/hicolor(?:$|/)") {
+			} elsif ($text =~ m"^share/icons/[^/]+/.+$") {
+				if (defined($pkgctx_vardef) && !exists($pkgctx_vardef->{"ICON_THEMES"})) {
+					$line->log_warning("Packages that install icon theme files should set ICON_THEMES.");
+				}
+
+			} elsif ($pkgpath ne "graphics/hicolor-icon-theme" && $text =~ m"^share/icons/hicolor(?:$|/)") {
 				my $f = "../../graphics/hicolor-icon-theme/buildlink3.mk";
 				if (defined($pkgctx_included) && !exists($pkgctx_included->{$f})) {
 					$line->log_error("Please .include \"$f\" in the Makefile");

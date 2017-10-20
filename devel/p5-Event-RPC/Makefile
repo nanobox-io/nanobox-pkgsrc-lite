@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.20 2016/06/08 19:22:52 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2017/09/03 08:53:07 wiz Exp $
 
 DISTNAME=	Event-RPC-1.08
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://www.exit1.org/packages/Event-RPC/dist/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.exit1.org/Event-RPC/
+HOMEPAGE=	https://www.exit1.org/Event-RPC/
 #HOMEPAGE=	http://search.cpan.org/dist/Event-RPC/
 COMMENT=	Event based transparent Client/Server RPC framework
 LICENSE=	${PERL5_LICENSE}

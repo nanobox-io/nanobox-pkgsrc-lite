@@ -1,4 +1,4 @@
-# $NetBSD: Linux.mk,v 1.72 2017/02/01 10:00:17 sevan Exp $
+# $NetBSD: Linux.mk,v 1.77 2017/10/03 13:18:00 jperkin Exp $
 #
 # Variable definitions for the Linux operating system.
 
@@ -112,11 +112,30 @@ _STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
 _OPSYS_SUPPORTS_CWRAPPERS=	yes
 
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk
+_OPSYS_CAN_CHECK_SSP=		no  # only supports libssp at this time
 
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.
 .if exists(/usr/bin/getconf)
 _OPSYS_MAX_CMDLEN_CMD?=	/usr/bin/getconf ARG_MAX
+.endif
+
+# Register support for FORTIFY (with GCC).  Linux only supports FORTIFY
+# when optimisation is enabled, otherwise warnings are issued.
+.if !empty(CFLAGS:M-O*)
+_OPSYS_SUPPORTS_FORTIFY=yes
+.endif
+
+# Register support for RELRO on supported architectures (with GCC)
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_RELRO=	yes
+.endif
+
+# Register support for SSP on x86 architectures
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_SSP=	yes
 .endif
 
 .if ${MACHINE_ARCH} == "x86_64"

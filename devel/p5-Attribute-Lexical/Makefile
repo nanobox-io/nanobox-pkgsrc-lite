@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 19:22:34 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/08/17 13:00:21 mef Exp $
 
-DISTNAME=	Attribute-Lexical-0.004
+DISTNAME=	Attribute-Lexical-0.005
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Attribute/}
 

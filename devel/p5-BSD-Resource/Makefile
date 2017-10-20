@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.39 2016/06/08 19:22:36 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2017/06/05 14:22:37 ryoon Exp $
 
-DISTNAME=	BSD-Resource-1.2910
+DISTNAME=	BSD-Resource-1.2911
 PKGNAME=	p5-${DISTNAME:C/([0-9][0-9])([0-9][0-9])/\1.\2/}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

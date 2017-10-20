@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2016/06/08 19:22:41 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2017/06/05 14:22:42 ryoon Exp $
 
-DISTNAME=	Class-Load-0.23
+DISTNAME=	Class-Load-0.24
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -18,6 +18,7 @@ DEPENDS+=	p5-Package-Stash>=0.32:../../devel/p5-Package-Stash
 DEPENDS+=	p5-Try-Tiny-[0-9]*:../../devel/p5-Try-Tiny
 
 BUILD_DEPENDS+=	p5-Test-Fatal-[0-9]*:../../devel/p5-Test-Fatal
+BUILD_DEPENDS+=	p5-Test-Needs-[0-9]*:../../devel/p5-Test-Needs
 BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
 
 USE_LANGUAGES=		# empty

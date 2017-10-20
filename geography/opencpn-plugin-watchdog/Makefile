@@ -1,19 +1,19 @@
-# $NetBSD: Makefile,v 1.5 2017/02/12 06:25:23 ryoon Exp $
+# $NetBSD: Makefile,v 1.9 2017/08/24 13:01:33 bouyer Exp $
 #
 
-VERSION=	20160716
+VERSION=	20170611
 DISTNAME=	watchdog_pi-${VERSION}
 PKGNAME=	opencpn-plugin-watchdog-${VERSION}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_GITHUB:=seandepagnier/}
 GITHUB_PROJECT=	watchdog_pi
-GITHUB_TAG=	a724fda3c88c48e6c3e3f7a5f9ea38c152680d74
+GITHUB_TAG=	870a9231cd451b24d876097166e95ab4a55122ce
 
 MAINTAINER=	bouyer@NetBSD.org
-HOMEPAGE=	http://opencpn.org/ocpn/Plugins_external_watchdog
+HOMEPAGE=	https://opencpn.org/OpenCPN/plugins/watchdog.html
 COMMENT=	implements various configurable alarms in OpenCPN
-LICENSE=	gnu-gpl-v2
+LICENSE=	gnu-gpl-v3
 
 USE_LANGUAGES=		c c++
 USE_CMAKE=		yes

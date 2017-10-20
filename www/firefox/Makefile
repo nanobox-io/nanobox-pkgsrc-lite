@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.288 2017/03/07 20:45:43 ryoon Exp $
+# $NetBSD: Makefile,v 1.307 2017/09/30 05:34:11 ryoon Exp $
 
 FIREFOX_VER=		${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=		52.0
+MOZ_BRANCH=		56.0
 MOZ_BRANCH_MINOR=	
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
@@ -22,6 +22,8 @@ MOZILLA_DIR=	# empty
 
 # Note: when updating remember to conditionalise about-background.png in PLIST
 CONFIGURE_ARGS+=	--enable-application=browser
+
+CFLAGS+=	-I${PREFIX}/include/nspr
 
 # workround for link of libxul.so etc.
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${PREFIX}/lib/firefox ${COMPILER_RPATH_FLAG}${PREFIX}/lib

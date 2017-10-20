@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.22 2016/07/01 17:55:22 jperkin Exp $
+# $NetBSD: Makefile,v 1.24 2017/07/30 22:47:54 wiz Exp $
 #
 
 DISTNAME=	libgxps-0.2.2
-PKGREVISION=	18
+PKGREVISION=	19
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgxps/0.2/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.gnome.org/
+HOMEPAGE=	https://www.gnome.org/
 COMMENT=	Library for XPS documents
 LICENSE=	gnu-lgpl-v2
 

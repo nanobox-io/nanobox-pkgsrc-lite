@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2017/01/28 01:18:52 wiz Exp $
+@comment $NetBSD: PLIST,v 1.5 2017/10/12 08:28:40 adam Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -46,6 +46,21 @@ ${PYSITELIB}/cryptography_vectors/asymmetric/DH/KASValidityTest_FFCStatic_NOKC_Z
 ${PYSITELIB}/cryptography_vectors/asymmetric/DH/KASValidityTest_FFCStatic_NOKC_ZZOnly_resp.fax
 ${PYSITELIB}/cryptography_vectors/asymmetric/DH/RFC5114.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/DH/bad_exchange.txt
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhkey.der
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhkey.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhkey.txt
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhkey_rfc5114_2.der
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhkey_rfc5114_2.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhkey_rfc5114_2.txt
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhp.der
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhp.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhp_rfc5114_2.der
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhp_rfc5114_2.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhpub.der
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhpub.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhpub_rfc5114_2.der
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/dhpub_rfc5114_2.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/DH/rfc3526.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/DH/vec.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/DSA/FIPS_186-2/KeyPair.rsp
 ${PYSITELIB}/cryptography_vectors/asymmetric/DSA/FIPS_186-2/PQGGen.rsp
@@ -154,6 +169,7 @@ ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/oaep-custom/oaep-sha512-sha224.
 ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/oaep-custom/oaep-sha512-sha256.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/oaep-custom/oaep-sha512-sha384.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/oaep-custom/oaep-sha512-sha512.txt
+${PYSITELIB}/cryptography_vectors/asymmetric/RSA/oaep-label.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/pkcs-1v2-1d2-vec/oaep-int.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/pkcs-1v2-1d2-vec/oaep-vect.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/RSA/pkcs-1v2-1d2-vec/pss-int.txt
@@ -168,6 +184,7 @@ ${PYSITELIB}/cryptography_vectors/asymmetric/Traditional_OpenSSL_Serialization/k
 ${PYSITELIB}/cryptography_vectors/asymmetric/Traditional_OpenSSL_Serialization/key2.pem
 ${PYSITELIB}/cryptography_vectors/asymmetric/Traditional_OpenSSL_Serialization/testrsa-encrypted.pem
 ${PYSITELIB}/cryptography_vectors/asymmetric/Traditional_OpenSSL_Serialization/testrsa.pem
+${PYSITELIB}/cryptography_vectors/asymmetric/X25519/rfc7748.txt
 ${PYSITELIB}/cryptography_vectors/asymmetric/public/PKCS1/dsa.pub.pem
 ${PYSITELIB}/cryptography_vectors/asymmetric/public/PKCS1/rsa.pub.der
 ${PYSITELIB}/cryptography_vectors/asymmetric/public/PKCS1/rsa.pub.pem
@@ -274,6 +291,25 @@ ${PYSITELIB}/cryptography_vectors/ciphers/AES/CBC/CBCVarKey256.rsp
 ${PYSITELIB}/cryptography_vectors/ciphers/AES/CBC/CBCVarTxt128.rsp
 ${PYSITELIB}/cryptography_vectors/ciphers/AES/CBC/CBCVarTxt192.rsp
 ${PYSITELIB}/cryptography_vectors/ciphers/AES/CBC/CBCVarTxt256.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/DVPT128.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/DVPT128.txt
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/DVPT192.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/DVPT192.txt
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/DVPT256.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/DVPT256.txt
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/Readme.txt
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VADT128.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VADT192.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VADT256.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VNT128.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VNT192.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VNT256.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VPT128.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VPT192.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VPT256.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VTT128.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VTT192.rsp
+${PYSITELIB}/cryptography_vectors/ciphers/AES/CCM/VTT256.rsp
 ${PYSITELIB}/cryptography_vectors/ciphers/AES/CFB/CFB128GFSbox128.rsp
 ${PYSITELIB}/cryptography_vectors/ciphers/AES/CFB/CFB128GFSbox192.rsp
 ${PYSITELIB}/cryptography_vectors/ciphers/AES/CFB/CFB128GFSbox256.rsp
@@ -385,6 +421,9 @@ ${PYSITELIB}/cryptography_vectors/ciphers/Camellia/camellia-256-ecb.txt
 ${PYSITELIB}/cryptography_vectors/ciphers/Camellia/camellia-cbc.txt
 ${PYSITELIB}/cryptography_vectors/ciphers/Camellia/camellia-cfb.txt
 ${PYSITELIB}/cryptography_vectors/ciphers/Camellia/camellia-ofb.txt
+${PYSITELIB}/cryptography_vectors/ciphers/ChaCha20/rfc7539.txt
+${PYSITELIB}/cryptography_vectors/ciphers/ChaCha20Poly1305/boringssl.txt
+${PYSITELIB}/cryptography_vectors/ciphers/ChaCha20Poly1305/openssl.txt
 ${PYSITELIB}/cryptography_vectors/ciphers/IDEA/idea-cbc.txt
 ${PYSITELIB}/cryptography_vectors/ciphers/IDEA/idea-cfb.txt
 ${PYSITELIB}/cryptography_vectors/ciphers/IDEA/idea-ecb.txt
@@ -2013,6 +2052,8 @@ ${PYSITELIB}/cryptography_vectors/x509/PKITS_data/smime/SignedValidpathLenConstr
 ${PYSITELIB}/cryptography_vectors/x509/PKITS_data/smime/SignedValidpre2000UTCnotBeforeDateTest3.eml
 ${PYSITELIB}/cryptography_vectors/x509/PKITS_data/smime/SignedinhibitAnyPolicyTest3.eml
 ${PYSITELIB}/cryptography_vectors/x509/alternate-rsa-sha1-oid.pem
+${PYSITELIB}/cryptography_vectors/x509/badssl-sct.pem
+${PYSITELIB}/cryptography_vectors/x509/bigoid.pem
 ${PYSITELIB}/cryptography_vectors/x509/cryptography.io.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/aia_ca_issuers.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/aia_ocsp.pem
@@ -2034,6 +2075,7 @@ ${PYSITELIB}/cryptography_vectors/x509/custom/cp_user_notice_no_explicit_text.pe
 ${PYSITELIB}/cryptography_vectors/x509/custom/cp_user_notice_with_explicit_text.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/cp_user_notice_with_notice_reference.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/crl_all_reasons.pem
+${PYSITELIB}/cryptography_vectors/x509/custom/crl_delta_crl_indicator.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/crl_dup_entry_ext.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/crl_empty.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/crl_ian_aia_aki.pem
@@ -2043,9 +2085,11 @@ ${PYSITELIB}/cryptography_vectors/x509/custom/crl_unsupported_reason.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/dsa_selfsigned_ca.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/ec_no_named_curve.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/extended_key_usage.pem
+${PYSITELIB}/cryptography_vectors/x509/custom/freshestcrl.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/ian_uri.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/inhibit_any_policy_5.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/inhibit_any_policy_negative.pem
+${PYSITELIB}/cryptography_vectors/x509/custom/invalid_signature.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/invalid_version.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/nc_excluded.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/nc_invalid_ip_netmask.pem
@@ -2079,9 +2123,11 @@ ${PYSITELIB}/cryptography_vectors/x509/custom/unsupported_extension_critical.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/unsupported_subject_name.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/unsupported_subject_public_key_info.pem
 ${PYSITELIB}/cryptography_vectors/x509/custom/utf8_common_name.pem
+${PYSITELIB}/cryptography_vectors/x509/custom/valid_signature.pem
 ${PYSITELIB}/cryptography_vectors/x509/department-of-state-root.pem
 ${PYSITELIB}/cryptography_vectors/x509/e-trust.ru.der
 ${PYSITELIB}/cryptography_vectors/x509/ecdsa_root.pem
+${PYSITELIB}/cryptography_vectors/x509/ocsp/req-sha1.der
 ${PYSITELIB}/cryptography_vectors/x509/rapidssl_sha256_ca_g3.pem
 ${PYSITELIB}/cryptography_vectors/x509/requests/basic_constraints.pem
 ${PYSITELIB}/cryptography_vectors/x509/requests/dsa_sha1.der
@@ -2102,6 +2148,10 @@ ${PYSITELIB}/cryptography_vectors/x509/requests/unsupported_extension.pem
 ${PYSITELIB}/cryptography_vectors/x509/requests/unsupported_extension_critical.pem
 ${PYSITELIB}/cryptography_vectors/x509/san_edipartyname.der
 ${PYSITELIB}/cryptography_vectors/x509/san_x400address.der
+${PYSITELIB}/cryptography_vectors/x509/tls-feature-ocsp-staple.pem
+${PYSITELIB}/cryptography_vectors/x509/unique_identifier.pem
+${PYSITELIB}/cryptography_vectors/x509/utf8-dnsname.pem
 ${PYSITELIB}/cryptography_vectors/x509/v1_cert.pem
 ${PYSITELIB}/cryptography_vectors/x509/verisign_md2_root.pem
 ${PYSITELIB}/cryptography_vectors/x509/wildcard_san.pem
+${PYSITELIB}/cryptography_vectors/x509/wosign-bc-invalid.pem

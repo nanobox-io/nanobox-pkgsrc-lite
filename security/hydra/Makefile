@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.73 2017/02/12 06:25:57 ryoon Exp $
+# $NetBSD: Makefile,v 1.76 2017/09/18 09:53:33 maya Exp $
 #
 
 DISTNAME=	hydra-7.5
-PKGREVISION=	18
+PKGREVISION=	20
 CATEGORIES=	security
 MASTER_SITES=	http://freeworld.thc.org/releases/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://freeworld.thc.org/thc-hydra/
+#HOMEPAGE=	http://freeworld.thc.org/thc-hydra/
 COMMENT=	Login password cracker
 LICENSE=	gnu-agpl-v3
 

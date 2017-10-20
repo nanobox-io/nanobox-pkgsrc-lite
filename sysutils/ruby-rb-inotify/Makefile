@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.2 2016/03/15 15:33:02 taca Exp $
+# $NetBSD: Makefile,v 1.4 2017/06/21 14:20:11 taca Exp $
 
-DISTNAME=	rb-inotify-0.9.7
+DISTNAME=	rb-inotify-0.9.10
 CATEGORIES=	sysutils
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/nex3/rb-inotify
+HOMEPAGE=	https://github.com/nex3/rb-inotify
 COMMENT=	Ruby wrapper for Linux's inotify, using FFI
 LICENSE=	mit
 

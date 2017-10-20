@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.22 2016/07/09 06:38:50 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2017/10/16 15:47:01 jperkin Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-gpl/}
-PKGREVISION=	9
+PKGREVISION=	13
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ghostscript/}
-MASTER_SITES+=	http://ghostscript.com/releases/
+MASTER_SITES+=	https://ghostscript.com/releases/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -73,6 +73,10 @@ CONFIGURE_ENV.HPUX+=	ac_cv_func_fopen64=no
 # used when making a shared object; recompile with -fPIC
 .if !empty(PKGSRC_COMPILER:Mgcc) || !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS+=		-fPIC
+.endif
+
+.if ${OPSYS} == "SunOS" && !empty(CC_VERSION:Mgcc-[6-9]*)
+CPPFLAGS+=		-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 .endif
 
 # Interim IRIX build fix, the real problem is that fontconfig.pc doesn't

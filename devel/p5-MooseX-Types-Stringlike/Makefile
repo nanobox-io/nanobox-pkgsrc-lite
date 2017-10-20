@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2016/06/08 19:23:18 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2017/06/05 14:23:22 ryoon Exp $
 #
 
 DISTNAME=	MooseX-Types-Stringlike-0.003
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
 
@@ -13,6 +13,8 @@ COMMENT=	Commonly-used type constraints that do not ship with Moose by default
 LICENSE=	apache-2.0
 
 DEPENDS+=	p5-MooseX-Types-[0-9]*:../../devel/p5-MooseX-Types
+# for make test
+BUILD_DEPENDS+= p5-Package-DeprecationManager-[0-9]*:../../devel/p5-Package-DeprecationManager
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/MooseX/Types/Stringlike/.packlist

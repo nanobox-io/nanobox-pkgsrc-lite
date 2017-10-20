@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.2021 2016/08/26 16:51:56 joerg Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.2027 2017/09/16 09:34:25 wiz Exp $
 #
 # This file is in the public domain.
 #
@@ -309,8 +309,10 @@ OVERRIDE_DIRDEPTH?=	2
 
 # Handle alternative init systems
 #
+.if ${_USE_NEW_PKGINSTALL:Uno} == "no"
 .if ${INIT_SYSTEM} == "smf"
 .  include "smf.mk"
+.endif
 .endif
 
 # Define SMART_MESSAGES in /etc/mk.conf for messages giving the tree
@@ -371,13 +373,16 @@ USE_TOOLS+=								\
 # bsd.wrapper.mk
 USE_TOOLS+=	expr
 
-# scripts/shlib-type
-.if ${_OPSYS_SHLIB_TYPE} == "ELF/a.out"
-USE_TOOLS+=	file
-.endif
+.if ${_USE_NEW_PKGINSTALL:Uno} != "no"
+# Init services framework
+.include "init/bsd.init.mk"
 
+# Package tasks framework
+.include "pkgtasks/bsd.pkgtasks.mk"
+.else
 # INSTALL/DEINSTALL script framework
 .include "pkginstall/bsd.pkginstall.mk"
+.endif
 
 # Locking
 .include "internal/locking.mk"
@@ -431,16 +436,8 @@ _PATH_ORIG:=		${PATH}
 MAKEFLAGS+=		_PATH_ORIG=${_PATH_ORIG:Q}
 .endif
 
-.if !empty(PREPEND_PATH:M*)
-# This is very Special.  Because PREPEND_PATH is set with += in reverse order,
-# this command reverses the order again (since bootstrap bmake doesn't
-# yet support the :[-1..1] construct).
-_PATH_CMD= \
-	path=${_PATH_ORIG:Q};						\
-	for i in ${PREPEND_PATH}; do path="$$i:$$path"; done;		\
-	${ECHO} "$$path"
-PATH=	${_PATH_CMD:sh} # DOES NOT use :=, to defer evaluation
-.endif
+_PATH_COMPONENTS=	${PREPEND_PATH:[-1..1]} ${_PATH_ORIG:C,:, ,}
+PATH=	${_PATH_COMPONENTS:ts:}
 
 ################################################################
 # Many ways to disable a package.
@@ -629,6 +626,12 @@ ${.CURDIR}/${WRKDIR_BASENAME}:
 # MAKEFLAGS.su-${.TARGET}
 #	The additional flags that are passed to the make process.
 #
+# PRE_CMD.su-${.TARGET}
+#	Shell command executed before running the command that requires
+#	root privileges.  This may "exit 0" to short-circuit the command
+#	list and skip executing the command that requires the root
+#	privileges.
+#
 
 _ROOT_CMD=	cd ${.CURDIR} &&					\
 		${PKGSRC_SETENV} ${PKGSRC_MAKE_ENV}				\
@@ -640,11 +643,7 @@ _ROOT_CMD=	cd ${.CURDIR} &&					\
 
 .PHONY: su-target
 su-target: .USE
-	${RUN} \
-	case ${PRE_CMD.su-${.TARGET}:Q}"" in				\
-	"")	;;							\
-	*)	${PRE_CMD.su-${.TARGET}} ;;				\
-	esac;								\
+	${RUN}${PRE_CMD.su-${.TARGET}:U${TRUE}};			\
 	if ${_IS_ROOT_CMD}; then					\
 		${_ROOT_CMD};						\
 	else								\
@@ -830,7 +829,4 @@ ${_MAKEVARS_MK.${_phase_}}: ${WRKDIR}
 .  include "bsd.pkg.debug.mk"
 .endif
 .include "misc/warnings.mk"
-.if make(import)
-.include "misc/import.mk"
-.endif
 .include "misc/can-be-built-here.mk"

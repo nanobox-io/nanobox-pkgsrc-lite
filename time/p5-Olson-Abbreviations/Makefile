@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 19:24:51 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/06/12 07:51:05 maya Exp $
 #
 
 DISTNAME=	Olson-Abbreviations-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/EC/ECARROLL/}
 
@@ -17,6 +17,7 @@ DEPENDS+=	p5-MooseX-AttributeHelpers-[0-9]*:../../devel/p5-MooseX-AttributeHelpe
 DEPENDS+=	p5-MooseX-ClassAttribute>=0.25:../../devel/p5-MooseX-ClassAttribute
 
 USE_LANGUAGES=		# empty
+MAKE_ENV+=		PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=		auto/Olson/Abbreviations/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
 

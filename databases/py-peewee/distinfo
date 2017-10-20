@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.14 2016/10/26 14:28:16 fhajny Exp $
+$NetBSD: distinfo,v 1.17 2017/10/13 14:19:05 fhajny Exp $
 
-SHA1 (peewee-2.8.5.tar.gz) = b3bc6b2c80897f02567a94c8dbf8b0e645faf843
-RMD160 (peewee-2.8.5.tar.gz) = 406c35612c56c65718d3212747aa3bc81b00857f
-SHA512 (peewee-2.8.5.tar.gz) = cdb7c4240844ff43ce92cf652e8bd8e5e6b0dae3bb29dbb035e6554aeabfcc9a6dacf96135fa6712a4f4f6d6e354cd8b79d68543fb3bba89a7434ac259eaf197
-Size (peewee-2.8.5.tar.gz) = 645471 bytes
+SHA1 (peewee-2.10.2.tar.gz) = 93fb49dca233d3fb0cd7f9d66f1a7ab283e322a7
+RMD160 (peewee-2.10.2.tar.gz) = 7564f907223b7e0c0e14c8d67a52dc9928591522
+SHA512 (peewee-2.10.2.tar.gz) = 55f5deb6d60580ab2f7aa22e6acf772e976ee97c34991c0515a97cd7c08157645e40f1819412e128739cf40461eaf2a2c80d82f88b4a2aa42f8f16e160f3a504
+Size (peewee-2.10.2.tar.gz) = 658469 bytes

@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.33 2016/11/08 11:59:05 mef Exp $
+# $NetBSD: Makefile,v 1.35 2017/10/02 15:50:55 wiz Exp $
 
-DISTNAME=		dnsmasq-2.76
-CATEGORIES=		net
-MASTER_SITES=		http://www.thekelleys.org.uk/dnsmasq/
+DISTNAME=	dnsmasq-2.78
+CATEGORIES=	net
+MASTER_SITES=	http://www.thekelleys.org.uk/dnsmasq/
+EXTRACT_SUFX=	.tar.xz
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.thekelleys.org.uk/dnsmasq/doc.html
-COMMENT=		Lightweight, easy to configure DNS forwarder
-LICENSE=		gnu-gpl-v3
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.thekelleys.org.uk/dnsmasq/doc.html
+COMMENT=	Lightweight, easy to configure DNS forwarder
+LICENSE=	gnu-gpl-v3
 
 RCD_SCRIPTS=		dnsmasq
 EGDIR=			${PREFIX}/share/examples/dnsmasq
@@ -24,27 +25,9 @@ DNSMASQ_GROUP?=		dnsmasq
 
 PKG_GROUPS=		${DNSMASQ_GROUP}
 PKG_USERS=		${DNSMASQ_USER}:${DNSMASQ_GROUP}
-PKG_GECOS.${DNSMASQ_USER}=	DNS\ forwarder\ user
+PKG_GECOS.${DNSMASQ_USER}=DNS\ forwarder\ user
 
-PKG_OPTIONS_VAR=	PKG_OPTIONS.dnsmasq
-PKG_SUPPORTED_OPTIONS=	dbus inet6
-PKG_SUGGESTED_OPTIONS=	inet6
-PLIST_VARS+=	dbus
-
-.include "../../mk/bsd.options.mk"
-
-.if !empty(PKG_OPTIONS:Mdbus)
-USE_TOOLS+=	pkg-config
-CFLAGS+=	-DHAVE_DBUS
-.include "../../sysutils/dbus/buildlink3.mk"
-CONF_FILES+=	${EGDIR}/dnsmasq-dbus.conf \
-		${PKG_SYSCONFDIR}/dbus-1/system.d/dnsmasq-dbus.conf
-PLIST.dbus=	yes
-.endif
-
-.if empty(PKG_OPTIONS:Minet6)
-CFLAGS+=	-DNO_IPV6
-.endif
+.include "options.mk"
 
 CFLAGS.SunOS+=	-DNO_IPSET
 

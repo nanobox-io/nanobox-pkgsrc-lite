@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.11 2016/07/09 13:03:47 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/10/12 08:06:47 adam Exp $
 
-DISTNAME=	stripe-1.22.1
+DISTNAME=	stripe-1.67.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	finance python
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/stripe/}
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://stripe.com/
 COMMENT=	Stripe python bindings
 LICENSE=	mit

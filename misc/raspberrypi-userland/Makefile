@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2017/01/12 05:49:54 skrll Exp $
+# $NetBSD: Makefile,v 1.12 2017/07/30 22:32:19 wiz Exp $
 #
 
 DISTNAME=	userland-20170109
+PKGREVISION=	1
 PKGNAME=	raspberrypi-${DISTNAME}
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=jaredmcneill/}
@@ -9,7 +10,7 @@ GITHUB_PROJECT=	userland
 GITHUB_TAG=	734d76b0675685e9ec9148694f2cc00f58e5ebc0
 
 MAINTAINER=	jmcneill@NetBSD.org
-HOMEPAGE=	http://github.com/jaredmcneill/userland
+HOMEPAGE=	https://github.com/jaredmcneill/userland
 COMMENT=	Various libraries for the Raspberry Pi
 LICENSE=	modified-bsd
 

@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.1 2017/01/14 23:00:31 schmonz Exp $
+# $NetBSD: options.mk,v 1.3 2017/06/17 05:58:39 schmonz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.qmail-run
 PKG_SUPPORTED_OPTIONS+=	sasl tls

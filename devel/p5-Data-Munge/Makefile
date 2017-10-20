@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2016/06/08 19:22:46 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2017/06/05 14:22:48 ryoon Exp $
 
-DISTNAME=	Data-Munge-0.096
+DISTNAME=	Data-Munge-0.097
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

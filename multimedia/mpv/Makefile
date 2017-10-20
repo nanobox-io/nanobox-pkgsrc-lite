@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.52 2017/02/24 21:54:52 maya Exp $
+# $NetBSD: Makefile,v 1.60 2017/09/13 10:35:58 leot Exp $
 
-DISTNAME=	mpv-0.24.0
-PKGREVISION=	1
+DISTNAME=	mpv-0.27.0
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mpv-player/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	leot@NetBSD.org
-HOMEPAGE=	http://mpv.io/
+HOMEPAGE=	https://mpv.io/
 COMMENT=	Video player based on MPlayer and mplayer2
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
 
@@ -30,7 +29,7 @@ CONF_FILES+=		share/examples/mpv/encoding-profiles.conf ${PKG_SYSCONFDIR}/mpv/en
 
 SUBST_CLASSES+=		audio
 SUBST_SED.audio+=	-e "s,/dev/dsp,${DEVOSSAUDIO},"
-SUBST_FILES.audio+=	stream/audio_in.c waftools/checks/custom.py wscript
+SUBST_FILES.audio+=	audio/out/ao_oss.c stream/ai_oss.c
 SUBST_STAGE.audio=	pre-configure
 SUBST_MESSAGE.audio=	Fixing path to audio device.
 
@@ -61,7 +60,6 @@ post-install:
 .include "../../devel/waf/waf.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/application.mk"
-.include "../../multimedia/libass/buildlink3.mk"
 .include "../../multimedia/libdvdnav/buildlink3.mk"
 .include "../../multimedia/libdvdread/buildlink3.mk"
 BUILDLINK_API_DEPENDS.ffmpeg3+=	ffmpeg3>=3.2.2

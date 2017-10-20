@@ -1,4 +1,4 @@
-# $NetBSD: check-shlibs-elf.awk,v 1.13 2016/03/10 15:56:24 jperkin Exp $
+# $NetBSD: check-shlibs-elf.awk,v 1.15 2017/05/03 13:46:53 jperkin Exp $
 #
 # Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
 # All rights reserved.
@@ -121,19 +121,14 @@ function checkshlib(DSO, needed, rpath, found, dso_rpath, got_rpath, nrpath) {
 	if (!got_rpath)
 		nrpath = split(system_rpath, rpath, ":")
 	close(cmd)
-	nedirs = split(extradirs, edirs, " ")
 	for (p in rpath) {
 		if (rpath[p] == wrkdir ||
 		    substr(rpath[p], 1, length(wrkdir) + 1) == wrkdir "/") {
 			print DSO ": rpath relative to WRKDIR"
 		}
-		for (e = 1; e <= nedirs; e++) {
-			if (rpath[p] == edirs[e] ||
-			    substr(rpath[p], 1, length(edirs[e]) + 1) == edirs[e] "/") {
-				print DSO ": rpath " rpath[p] " relative to CHECK_WRKREF_EXTRA_DIRS directory " edirs[e]
-			}
-		}
 	}
+	nblist = split(blacklist, blist, " ")
+	nedirs = split(extradirs, edirs, " ")
 	for (lib in needed) {
 		found = 0
 		for (p = 1; p <= nrpath; p++) {
@@ -143,6 +138,17 @@ function checkshlib(DSO, needed, rpath, found, dso_rpath, got_rpath, nrpath) {
 			}
 			if (!libcache[libfile]) {
 				check_pkg(rpath[p] "/" lib)
+				for (b = 1; b <= nblist; b++) {
+					if (match(rpath[p] "/" lib, blist[b])) {
+						print DSO ": resolved path " rpath[p] "/" lib " matches blacklist " blist[b]
+					}
+				}
+				for (e = 1; e <= nedirs; e++) {
+					if (rpath[p] == edirs[e] ||
+					    substr(rpath[p], 1, length(edirs[e]) + 1) == edirs[e] "/") {
+						print DSO ": rpath " rpath[p] " relative to CHECK_WRKREF_EXTRA_DIRS directory " edirs[e]
+					}
+				}
 				found = 1
 				break
 			}
@@ -169,6 +175,7 @@ BEGIN {
 	readelf = ENVIRON["READELF"]
 	wrkdir = ENVIRON["WRKDIR"]
 	extradirs = ENVIRON["CHECK_WRKREF_EXTRA_DIRS"]
+	blacklist = ENVIRON["CHECK_SHLIBS_BLACKLIST"]
 	pkg_info_cmd = ENVIRON["PKG_INFO_CMD"]
 	depends_file = ENVIRON["DEPENDS_FILE"]
 	if (readelf == "")

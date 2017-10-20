@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2016/07/15 08:11:19 wen Exp $
+# $NetBSD: Makefile,v 1.23 2017/09/17 20:19:39 wiz Exp $
 
-DISTNAME=	libintl-perl-1.26
+DISTNAME=	libintl-perl-1.28
 PKGNAME=	p5-${DISTNAME:S/libintl-perl/Locale-libintl/}
 CATEGORIES=	misc devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Locale/}

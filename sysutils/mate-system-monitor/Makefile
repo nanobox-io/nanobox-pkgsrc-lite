@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2017/02/12 06:26:01 ryoon Exp $
+# $NetBSD: Makefile,v 1.6 2017/06/23 17:29:36 youri Exp $
 
-PKGREVISION= 3
 .include "../../meta-pkgs/mate/Makefile.common"
 
-DISTNAME=	mate-system-monitor-${MATE_VERSION}
+DISTNAME=	mate-system-monitor-${VERSION}
 CATEGORIES=	sysutils
 
 COMMENT=	MATE system monitor
@@ -11,8 +10,7 @@ COMMENT=	MATE system monitor
 TOOL_DEPENDS+=	itstool-[0-9]*:../../textproc/itstool
 TOOL_DEPENDS+=	libxml2-[0-9]*:../../textproc/libxml2 # for xmllint
 
-USE_LANGUAGES=	c c++
-CXXFLAGS+=	-std=c++11
+USE_LANGUAGES=	c c++11
 
 .include "../../devel/glib2/schemas.mk"
 
@@ -24,6 +22,5 @@ CXXFLAGS+=	-std=c++11
 .include "../../sysutils/libgtop/buildlink3.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/gtkmm3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

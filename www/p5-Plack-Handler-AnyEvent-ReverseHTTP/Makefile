@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2016/06/08 19:25:12 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2017/06/28 08:27:44 jperkin Exp $
 
 DISTNAME=	Plack-Handler-AnyEvent-ReverseHTTP-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Plack/}
 
@@ -18,6 +18,8 @@ DEPENDS+=	p5-AnyEvent-[0-9]*:../../devel/p5-AnyEvent
 DEPENDS+=	p5-AnyEvent-ReverseHTTP-[0-9]*:../../www/p5-AnyEvent-ReverseHTTP
 DEPENDS+=	p5-Plack-[0-9]*:../../www/p5-Plack
 DEPENDS+=	p5-Plack>=0.99:../../www/p5-Plack
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

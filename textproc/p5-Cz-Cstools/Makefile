@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.21 2016/06/08 19:24:28 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2017/09/03 08:37:00 wiz Exp $
 #
 
 DISTNAME=	Cstools-3.42
 PKGNAME=	p5-Cz-${DISTNAME}
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	textproc converters perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Cz/}
 
 MAINTAINER=	salo@NetBSD.org
-HOMEPAGE=	http://www.fi.muni.cz/~adelton/perl/
+#HOMEPAGE=	http://www.fi.muni.cz/~adelton/perl/
 COMMENT=	Tools for dealing with Czech and Slovak texts in Perl
 
 DEPENDS+=	p5-MIME-tools>=5.411.1:../../mail/p5-MIME-tools

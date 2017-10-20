@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2017/01/30 14:18:15 mef Exp $
+# $NetBSD: Makefile,v 1.3 2017/09/18 11:48:47 wiz Exp $
 
-DISTNAME=	Daemon-Generic-0.84
+DISTNAME=	Daemon-Generic-0.85
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	sysutils perl5
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/M/MU/MUIR/modules/
@@ -13,7 +13,7 @@ LICENSE=        ${PERL5_LICENSE}
 DEPENDS+=	p5-File-Flock-[0-9]*:../../devel/p5-File-Flock
 DEPENDS+=	p5-Data-Structure-Util-[0-9]*:../../devel/p5-Data-Structure-Util
 
-# for make test
+# TEST_DEPENDS
 BUILD_DEPENDS+=	p5-AnyEvent-[0-9]*:../../devel/p5-AnyEvent
 BUILD_DEPENDS+=	p5-Eval-LineNumbers-[0-9]*:../../devel/p5-Eval-LineNumbers
 

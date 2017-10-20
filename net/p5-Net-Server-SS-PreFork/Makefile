@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2016/06/08 19:24:13 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2017/06/12 07:39:31 maya Exp $
 #
 
 DISTNAME=	Net-Server-SS-PreFork-0.05
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Net/}
 
@@ -15,6 +15,7 @@ LICENSE=	${PERL5_LICENSE}
 PERL5_MODULE_TYPE=	Module::Install::Bundled
 
 USE_LANGUAGES=		# empty
+MAKE_ENV+=		PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=		auto/Net/Server/SS/PreFork/.packlist
 
 BUILD_DEPENDS+=	p5-HTTP-Server-Simple-[0-9]*:../../www/p5-HTTP-Server-Simple

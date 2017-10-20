@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2016/03/15 14:26:24 taca Exp $
+# $NetBSD: Makefile,v 1.16 2017/04/19 11:24:38 jperkin Exp $
 
-DISTNAME=	commander-4.4.0
+DISTNAME=	commander-4.4.3
 CATEGORIES=	misc
 
-MAINTAINER=	tonnerre@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ramaze.net/
 COMMENT=	The complete solution for Ruby command-line executables
 LICENSE=	ruby-license

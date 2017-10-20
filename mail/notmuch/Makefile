@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.24 2017/03/05 12:33:31 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2017/10/02 15:10:22 wiz Exp $
 
-DISTNAME=	notmuch-0.23.7
+DISTNAME=	notmuch-0.25.1
 CATEGORIES=	mail
-MASTER_SITES=	http://notmuchmail.org/releases/
+MASTER_SITES=	https://notmuchmail.org/releases/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://notmuchmail.org/
+HOMEPAGE=	https://notmuchmail.org/
 COMMENT=	Mail indexer
 LICENSE=	gnu-gpl-v3
 
@@ -41,5 +41,6 @@ LDFLAGS.SunOS+=	-lnsl
 BUILDLINK_API_DEPENDS.xapian+=	xapian>=1.2.6
 .include "../../textproc/xapian/buildlink3.mk"
 .include "../../devel/talloc/buildlink3.mk"
+BUILDLINK_API_DEPENDS.zlib+=	zlib>=1.2.5.2
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2017/01/04 23:20:31 rodent Exp $
+# $NetBSD: Makefile,v 1.5 2017/09/30 15:48:42 taca Exp $
 
 DISTNAME=	redmine-plugins-1.2.0
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME}
@@ -6,7 +6,7 @@ CATEGORIES=	devel meta-pkgs
 MASTER_SITES=	# blank
 DISTFILES=	# blank
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.redmine.org/
 COMMENT=	Redmine plugins meta package
 
@@ -19,6 +19,7 @@ DEPENDS+=	${RUBY_PKGPREFIX}-redmine_work_time-[0-9]*:../../devel/ruby-redmine_wo
 
 META_PACKAGE=	yes
 MESSAGE_SRC+=	${.CURDIR}/MESSAGE.common ${.CURDIR}/MESSAGE
+RUBY_VERSIONS_ACCEPTED=	22
 
 .include "../../lang/ruby/rubyversion.mk"
 .include "../../mk/bsd.pkg.mk"

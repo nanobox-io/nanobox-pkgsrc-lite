@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.43 2016/09/08 15:19:17 joerg Exp $
+# $NetBSD: Makefile,v 1.47 2017/09/15 00:37:14 taca Exp $
 #
 
 DISTNAME=		${RUBY_DISTNAME}
-PKGNAME=		${RUBY_PKGPREFIX}-${RUBY_EXTNAME}-${RUBY_VERSION_FULL}
-PKGREVISION=		1
+PKGNAME=		${RUBY_PKGPREFIX}-${RUBY_EXTNAME}-${RUBY_VERSION}
 RUBY_EXTNAME=		readline
 CATEGORIES=		devel ruby
 MASTER_SITES=		${MASTER_SITE_RUBY}
@@ -12,9 +11,9 @@ MAINTAINER=		taca@NetBSD.org
 HOMEPAGE=		${RUBY_HOMEPAGE}
 COMMENT=		Ruby extension to readline library
 
-RUBY_VERSIONS_ACCEPTED= 23 22 21 18
 USE_RUBY_EXTCONF=	yes
-EXTRACT_ELEMENTS=	${RUBY_DISTNAME}/ext/readline
+EXTRACT_ELEMENTS=	${RUBY_DISTNAME}/ext/readline \
+			${RUBY_DISTNAME}/include ${RUBY_DISTNAME}/internal.h
 WRKSRC=			${RUBY_WRKSRC}/ext/readline
 MAKE_ENV+=		top_srcdir=../..
 
@@ -23,10 +22,6 @@ INSTALLATION_DIRS=	${RUBY_DOC}/readline
 
 .include "options.mk"
 .include "../../lang/ruby/modules.mk"
-
-.if ${RUBY_VER} != "18"
-EXTRACT_ELEMENTS+=	${RUBY_DISTNAME}/include ${RUBY_DISTNAME}/internal.h
-.endif
 
 post-install:
 .for f in ${RUBY_DOCS}

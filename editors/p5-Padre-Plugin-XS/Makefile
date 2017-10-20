@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2016/06/08 19:23:50 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.12 2017/09/27 21:58:20 wiz Exp $
 
-DISTNAME=	Padre-Plugin-XS-0.02
+DISTNAME=	Padre-Plugin-XS-0.12
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	6
 CATEGORIES=	editors perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Padre/}
 
@@ -13,10 +11,18 @@ COMMENT=	Padre support for perl XS (and perlapi)
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Padre>=0.49:../../editors/p5-Padre
+DEPENDS+=	p5-Locale-Msgfmt-[0-9]*:../../devel/p5-Locale-Msgfmt
 DEPENDS+=	p5-Perl-APIReference>=0.04:../../devel/p5-Perl-APIReference
+DEPENDS+=	p5-Software-License-[0-9]*:../../devel/p5-Software-License
+DEPENDS+=	p5-File-Slurp-[0-9]*:../../devel/p5-File-Slurp
+DEPENDS+=	p5-File-Find-Rule-Perl-[0-9]*:../../devel/p5-File-Find-Rule-Perl
+# TEST_DEPENDS
+BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
 
 PERL5_PACKLIST=		auto/Padre/Plugin/XS/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 #pre-configure:
 #	cd ${WRKSRC} && find `pwd` -name "*.orig" -type f | xargs rm

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2015/08/18 07:31:16 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2017/09/06 10:40:31 wiz Exp $
 
 DISTNAME=	trafshow-5.2.3
 PKGREVISION=	3
@@ -7,7 +7,7 @@ MASTER_SITES=	# ftp://ftp.nsk.su/pub/RinetSoftware/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://soft.risp.ru/trafshow/index.shtml
+#HOMEPAGE=	http://soft.risp.ru/trafshow/index.shtml
 COMMENT=	Full screen visualization of the network traffic
 
 BUILD_TARGET=	trafshow
@@ -38,4 +38,5 @@ BUILDLINK_API_DEPENDS.libpcap+=	libpcap>=0.8.1
 
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

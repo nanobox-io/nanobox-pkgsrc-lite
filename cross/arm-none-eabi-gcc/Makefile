@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2017/01/22 12:35:02 ryoon Exp $
+# $NetBSD: Makefile,v 1.9 2017/09/24 21:07:17 wiedi Exp $
 
-DISTNAME=		gcc-6.3.0
+DISTNAME=		gcc-7.2.0
 PKGNAME=		cross-arm-none-eabi-${DISTNAME}
 CATEGORIES=		cross
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${PKGVERSION_NOREV}/}
@@ -13,6 +13,8 @@ MAINTAINER=		ryoon@NetBSD.org
 HOMEPAGE=		# none
 COMMENT=		GCC for bare metal ARM EABI
 EXTRACT_SUFX=		.tar.gz
+
+EXTRACT_USING=		bsdtar
 
 # for http://gcc.gnu.org/bugzilla/show_bug.cgi?id=33549
 # use makeinfo from pkgsrc/devel/gtexinfo.
@@ -30,7 +32,7 @@ CONFIGURE_SCRIPT=	../${DISTNAME}/configure
 
 CONFIG_SHELL=		${TOOLS_PATH.bash}
 WRAPPER_SHELL=		${TOOLS_PATH.bash}
-USE_TOOLS+=		bash
+USE_TOOLS+=		bash perl
 
 USE_TOOLS+=		gmake makeinfo
 GNU_CONFIGURE=		yes
@@ -49,12 +51,18 @@ INFO_FILES=		yes
 
 CONFIGURE_ARGS+=	--enable-${PLUGIN_NAME}-plugin
 
+PLIST_VARS+= 		libcpp
+
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 # geattrtab on neon.md results in a very deeply nested expression
 # with > 255 brackets. This was reported against GCC 4.9.1 at least
 # already, but it seems noone cares enough in GCC to fix the generator.
 CFLAGS+=	-fbracket-depth=1024
+.endif
+
+.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "Linux" || ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS"
+PLIST.libcpp= 		yes
 .endif
 
 post-extract:

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2016/07/27 00:10:12 wen Exp $
-#
+# $NetBSD: Makefile,v 1.17 2017/09/17 12:59:48 wiz Exp $
 
-DISTNAME=	Regexp-Assemble-0.37
+DISTNAME=	Regexp-Assemble-0.38
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Regexp/}

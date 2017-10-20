@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2016/12/30 11:17:02 jaapb Exp $
+# $NetBSD: Makefile,v 1.15 2017/10/10 09:47:25 jaapb Exp $
 
-VERSION=	1.5
+VERSION=	2.0
 GITHUB_PROJECT=	ocaml-csv
 DISTNAME=	${GITHUB_PROJECT}-${VERSION}
-PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Chris00/}
 
@@ -12,24 +11,10 @@ HOMEPAGE=	http://csv.forge.ocamlcore.org/
 COMMENT=	CSV library for OCaml
 LICENSE=	gnu-lgpl-v2.1
 
-HAS_CONFIGURE=	yes
+#HAS_CONFIGURE=	yes
 USE_LANGUAGES=	c
 
-CONFIGURE_ARGS+=	--destdir "${DESTDIR}" --prefix "${PREFIX}"
-
-OCAML_USE_OASIS=	yes
-
-#SUBST_CLASSES+=	destdir
-#SUBST_STAGE.destdir=    post-configure
-#SUBST_MESSAGE.destdir=  Changing install location to DESTDIR
-#SUBST_FILES.destdir=    setup.ml
-#SUBST_SED.destdir=      -e 's,"install" :: findlib_name,"install" :: "-destdir ${DESTDIR}${PREFIX}/lib/ocaml/site-lib" :: "-ldconf /dev/null" :: findlib_name,'
-
-pre-configure:
-	cd ${WRKSRC} && ${MAKE} setup.ml
-
-.include "../../mk/bsd.prefs.mk"
+OCAML_USE_JBUILDER=	yes
 
 .include "../../mk/ocaml.mk"
-.include "../../devel/ocaml-oasis/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

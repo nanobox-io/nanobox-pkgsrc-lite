@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2016/09/20 12:59:25 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2017/06/14 16:15:10 jperkin Exp $
 
 DISTNAME=	Test-Spelling-0.20
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Test/}
 
@@ -21,6 +21,8 @@ BUILD_DEPENDS+= p5-IPC-Run3-[0-9]*:../../devel/p5-IPC-Run3
 
 USE_LANGUAGES=  # empty
 PERL5_PACKLIST= auto/Test/Spelling/.packlist
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

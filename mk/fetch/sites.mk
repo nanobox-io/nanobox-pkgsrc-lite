@@ -1,4 +1,4 @@
-# $NetBSD: sites.mk,v 1.150 2017/01/28 00:23:35 maya Exp $
+# $NetBSD: sites.mk,v 1.154 2017/09/29 06:17:12 maya Exp $
 #
 # This Makefile fragment defines read-only MASTER_SITE_* variables
 # representing some well-known master distribution sites for software.
@@ -40,10 +40,9 @@ MASTER_SITE_OSDN+=	\
 	http://osdn.dl.osdn.jp/
 
 MASTER_SITE_PERL_CPAN+= \
+	http://cpan.perl.org/CPAN/modules/by-module/ \
 	ftp://cpan.pair.com/modules/by-module/ \
 	ftp://ftp.funet.fi/pub/languages/perl/CPAN/modules/by-module/ \
-	http://ftp.tuwien.ac.at/pub/CPAN/modules/by-module/ \
-	http://cpan.perl.org/CPAN/modules/by-module/ \
 	ftp://ftp.fi.muni.cz/pub/CPAN/modules/by-module/
 
 MASTER_SITE_R_CRAN+=    \
@@ -73,7 +72,6 @@ MASTER_SITE_SUNSITE+=   \
 MASTER_SITE_GNOME+=     \
 	http://ftp.gnome.org/pub/GNOME/ \
 	ftp://ftp.gnome.org/pub/GNOME/ \
-	http://ftp.tuwien.ac.at/hci/gnome.org/ \
 	ftp://ftp.cse.buffalo.edu/pub/Gnome/ \
 	ftp://ftp.kddlabs.co.jp/pub/GNOME/ \
 	https://download.gnome.org/
@@ -117,10 +115,16 @@ MASTER_SITE_MOZILLA_ESR+=	\
 	http://ftp.mozilla.org/pub/mozilla.org/
 
 MASTER_SITE_XEMACS+=    \
+	ftp://ftp.xemacs.org/pub/xemacs/ \
+	http://ftp.xemacs.org/ \
+	http://ftp.de.xemacs.org/pub/ftp.xemacs.org/tux/xemacs/ \
+	ftp://ftp.heanet.ie/mirrors/ftp.xemacs.org/ \
+	http://ftp.heanet.ie/mirrors/ftp.xemacs.org/ \
+	http://ftp.pt.xemacs.org/ \
+	ftp://ftp.uk.xemacs.org/sites/ftp.xemacs.org/pub/xemacs/ \
+	http://ftp.uk.xemacs.org/sites/ftp.xemacs.org/pub/xemacs/ \
 	ftp://ftp.isr.tecnico.ulisboa.pt/pub/xemacs/ \
 	http://ftp.isr.tecnico.ulisboa.pt/pub/xemacs/ \
-	ftp://ftp.heanet.ie/mirrors/ftp.xemacs.org/pub/xemacs/ \
-	http://ftp.heanet.ie/mirrors/ftp.xemacs.org/pub/xemacs/ \
 	ftp://ftp.dnsbalance.ring.gr.jp/pub/text/xemacs/
 
 # http://www.ibiblio.org/pub/mirrors/apache/ returns 200 for missing
@@ -290,7 +294,5 @@ MASTER_SITE_HASKELL_HACKAGE+=	\
 MASTER_SITE_BACKUP?=	\
 	http://cdn.NetBSD.org/pub/pkgsrc/distfiles/ \
 	http://ftp6.NetBSD.org/pub/pkgsrc/distfiles/ \
-	ftp://ftp.fr.NetBSD.org/pub/pkgsrc/distfiles/ \
 	http://ftp.fr.NetBSD.org/pub/pkgsrc/distfiles/ \
-	ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/ \
 	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/

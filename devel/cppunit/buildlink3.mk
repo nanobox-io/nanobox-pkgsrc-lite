@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.9 2012/05/07 01:53:20 dholland Exp $
+# $NetBSD: buildlink3.mk,v 1.11 2017/05/01 04:16:12 ryoon Exp $
 
 BUILDLINK_TREE+=	cppunit
 

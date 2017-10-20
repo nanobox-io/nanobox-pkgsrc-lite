@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.5 2017/02/28 15:19:59 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2017/09/09 12:09:37 ryoon Exp $
 
-PKGREVISION= 1
 .include "Makefile.common"
 
 PKGNAME=	ImageMagick6-${DISTVERSION}
@@ -45,6 +44,7 @@ SUBST_SED.pkgcfg+=	-e 's|s: MagickCore|s: MagickCore-6.Q16|g'
 SUBST_SED.pkgcfg+=	-e 's|Magick++-config|Magick++-config6|g'
 SUBST_SED.pkgcfg+=	-e 's|Magick-config |Magick-config6 |g'
 SUBST_SED.pkgcfg+=	-e 's|s Magick++|s Magick++-6.Q16|g'
+SUBST_SED.pkgcfg+=	-e 's|@PKG_CONFIG@|${PREFIX}/bin/pkg-config|g'
 SUBST_STAGE.pkgcfg=	pre-configure
 
 GCC_REQD+=		2.95.3

@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.1 2017/03/03 14:09:18 prlw1 Exp $
+# $NetBSD: Makefile,v 1.5 2017/05/12 11:42:33 jperkin Exp $
 
-DISTNAME=	e2guardian-3.5.0
+DISTNAME=	e2guardian-3.5.1
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GITHUB:=e2guardian/}
 GITHUB_PROJECT=	e2guardian
-GITHUB_TAG=	v${PKGVERSION}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	prlw1@cam.ac.uk
 HOMEPAGE=	http://www.e2guardian.org/
@@ -46,6 +47,9 @@ CONFIGURE_ARGS+=	--with-proxyuser=${E2G_USER}
 CONFIGURE_ARGS+=	--with-proxygroup=${E2G_GROUP}
 CONFIGURE_ARGS+=	--with-piddir=${VARBASE}/run
 CONFIGURE_ARGS+=	--with-logdir=${VARBASE}/log/${E2G_LOG}
+CONFIGURE_ARGS+=	--enable-ntlm
+
+LIBS.SunOS+=		-liconv
 
 .include "options.mk"
 
@@ -70,6 +74,7 @@ CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 pre-configure:
 	cd ${WRKSRC} && ${SH} autogen.sh
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

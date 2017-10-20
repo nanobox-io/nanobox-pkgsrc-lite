@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2017/01/25 12:17:08 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2017/06/05 14:23:27 ryoon Exp $
 
-DISTNAME=	Params-ValidationCompiler-0.23
+DISTNAME=	Params-ValidationCompiler-0.24
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/
 
@@ -14,6 +15,8 @@ DEPENDS+=	p5-Eval-Closure-[0-9]*:../../devel/p5-Eval-Closure
 DEPENDS+=	p5-Exception-Class-[0-9]*:../../devel/p5-Exception-Class
 # TEST_DEPENDS
 BUILD_DEPENDS+=	p5-Specio>=0.14:../../devel/p5-Specio
+BUILD_DEPENDS+=	p5-Sub-Info-[0-9]*:../../devel/p5-Sub-Info
+BUILD_DEPENDS+=	p5-Term-Table-[0-9]*:../../devel/p5-Term-Table
 BUILD_DEPENDS+=	p5-Test2-Suite-[0-9]*:../../devel/p5-Test2-Suite
 BUILD_DEPENDS+=	p5-Test2-Plugin-NoWarnings-[0-9]*:../../devel/p5-Test2-Plugin-NoWarnings
 BUILD_DEPENDS+=	p5-Test-Without-Module-[0-9]*:../../devel/p5-Test-Without-Module

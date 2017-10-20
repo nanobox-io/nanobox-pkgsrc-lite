@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2016/06/08 19:22:43 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2017/06/05 14:22:45 ryoon Exp $
 
-DISTNAME=	Config-Any-0.27
+DISTNAME=	Config-Any-0.32
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -12,6 +12,8 @@ COMMENT=	Perl extension for handling config files
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Module-Pluggable>=3.01:../../devel/p5-Module-Pluggable
+
+EXTRACT_USING=	bsdtar
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Config/Any/.packlist

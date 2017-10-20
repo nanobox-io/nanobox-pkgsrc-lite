@@ -1,14 +1,14 @@
-# $NetBSD: Makefile.common,v 1.13 2017/01/01 14:43:45 wiz Exp $
+# $NetBSD: Makefile.common,v 1.16 2017/09/03 08:53:09 wiz Exp $
 # used by lang/nodejs/Makefile
 # used by lang/nodejs4/Makefile
 # used by lang/nodejs6/Makefile
 
 CATEGORIES=	devel
-MASTER_SITES=	http://nodejs.org/dist/${DISTNAME:S/node-//}/
+MASTER_SITES=	https://nodejs.org/dist/${DISTNAME:S/node-//}/
 PKGNAME=	${DISTNAME:S/-v/js-/}
 
 MAINTAINER=	filip@joyent.com
-HOMEPAGE=	http://nodejs.org/
+HOMEPAGE=	https://nodejs.org/
 COMMENT=	V8 JavaScript for clients and servers
 LICENSE=	mit
 
@@ -26,7 +26,6 @@ GCC_REQD+=		4.8
 CONFIG_SHELL=		${PYTHONBIN}
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--shared-zlib
-CONFIGURE_ARGS+=	--with-intl=system-icu
 PTHREAD_AUTO_VARS=	yes
 
 CONFIGURE_ENV.NetBSD+=	GYP_DEFINES="OS=netbsd"
@@ -39,6 +38,11 @@ CONFIGURE_ENV+=		GYP_DEFINES="linux_use_gold_flags=0"
 REPLACE_PYTHON+=	configure
 REPLACE_PYTHON+=	tools/genv8constants.py
 REPLACE_PYTHON+=	tools/gyp/pylib/gyp/flock_tool.py
+
+REPLACE_INTERPRETER+=	node
+REPLACE.node.old=	.*node
+REPLACE.node.new=	${PREFIX}/bin/node
+REPLACE_FILES.node=	deps/npm/bin/npx-cli.js
 
 CHECK_INTERPRETER_SKIP+=	lib/node_modules/npm/*
 
@@ -73,5 +77,4 @@ post-install:
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/python/tool.mk"
-.include "../../textproc/icu/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

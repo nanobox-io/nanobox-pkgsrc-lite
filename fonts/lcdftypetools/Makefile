@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2016/10/27 11:02:41 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2017/06/20 20:50:49 markd Exp $
 
-DISTNAME=	texlive-20160523-source
-PKGNAME=	lcdftypetools-2.105
+DISTNAME=	texlive-20170524-source
+PKGNAME=	lcdftypetools-2.106
 CATEGORIES=	fonts
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2017/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -18,11 +18,9 @@ EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 USE_TOOLS+=	pkg-config
 WRKSRC=		${WRKDIR}/${DISTNAME}/texk/lcdf-typetools
-
-CXXFLAGS+=	-std=c++11
 
 CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
 CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub

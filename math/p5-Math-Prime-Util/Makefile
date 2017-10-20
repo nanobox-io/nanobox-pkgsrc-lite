@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2016/11/28 12:36:05 wen Exp $
+# $NetBSD: Makefile,v 1.18 2017/09/26 14:37:13 wiz Exp $
 
-DISTNAME=	Math-Prime-Util-0.60
+DISTNAME=	Math-Prime-Util-0.67
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	math perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Math/}
@@ -10,17 +10,12 @@ HOMEPAGE=	http://search.cpan.org/dist/Math-Prime-Util/
 COMMENT=	Perl5 utilities related to prime numbers
 LICENSE=	${PERL5_LICENSE}
 
-SUBST_CLASSES+=		perl
-SUBST_STAGE.perl=	post-patch
-SUBST_MESSAGE.perl=	Fixing path to perl
-SUBST_FILES.perl+=	bin/factor.pl bin/primes.pl
-SUBST_SED.perl=		-e "s|/usr/bin/env perl|${PERL5}|"
+DEPENDS+=	p5-Bytes-Random-Secure>=0.23:../../security/p5-Bytes-Random-Secure
+
+REPLACE_PERL+=	bin/factor.pl bin/primes.pl
+PERL5_PACKLIST=	auto/Math/Prime/Util/.packlist
 
 USE_LANGUAGES+=	c
-
-DEPENDS+=		p5-Bytes-Random-Secure>=0.23:../../security/p5-Bytes-Random-Secure
-
-PERL5_PACKLIST=		auto/Math/Prime/Util/.packlist
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

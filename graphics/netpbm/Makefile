@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.211 2017/02/23 23:13:42 wiz Exp $
+# $NetBSD: Makefile,v 1.214 2017/10/16 15:35:41 jperkin Exp $
 
-DISTNAME=	netpbm-10.77.02
+DISTNAME=	netpbm-10.79.04
 CATEGORIES=	graphics
 MASTER_SITES=	#
 # manually created from svn checkout of
@@ -11,7 +11,7 @@ MASTER_SITES=	#
 # svn checkout http://svn.code.sf.net/p/netpbm/code/userguide netpbm-userguide
 # cd netpbm-userguide && for i in *.html; do python2.7 ../netpbm/buildtools/makeman $i; done && cd ..
 # tar -cvzf /archive/distfiles/netpbm-docs-r${SVN_REVISION}.tar.gz netpbm-userguide/*.[0-9]
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX} netpbm-docs-r2897${EXTRACT_SUFX}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} netpbm-docs-r3052${EXTRACT_SUFX}
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://netpbm.sourceforge.net/
@@ -64,6 +64,21 @@ MAKE_FLAGS.SunOS+=	NETWORKLD="-lsocket -lnsl"
 
 .if ${OS_VARIANT} == "SCOOSR5"
 MAKE_FLAGS+=	NETWORKLD="-lsocket -lresolv"
+.endif
+
+.include "../../mk/compiler.mk"
+
+# Ridiculous but they hardcode it in every file so we have no choice.
+.if ${OPSYS} == "SunOS" && !empty(CC_VERSION:Mgcc-[6-9]*)
+SUBST_CLASSES+=		xopen
+SUBST_STAGE.xopen=	pre-configure
+SUBST_FILES.xopen=	*.c */*.c */*/*.c */*/*/*.c */*/*/*/*.c */*/*/*/*/*.c
+SUBST_FILES.xopen+=	lib/util/lexheader
+SUBST_SED.xopen=	-e '/_XOPEN_SOURCE/s/500/600/'
+SUBST_SED.xopen+=	-e '/_XOPEN_SOURCE/s/1$$/600/'
+SUBST_SED.xopen+=	-e '/_XOPEN_SOURCE[^0-9]*\//s/SOURCE/SOURCE 600/'
+SUBST_SED.xopen+=	-e '/_XOPEN_SOURCE$$/s/E$$/E 600/'
+SUBST_SED.xopen+=	-e '/_POSIX_SOURCE.*fdopen/s/_POSIX_SOURCE/_XOPEN_SOURCE 600/'
 .endif
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man1 ${PKGMANDIR}/man3 ${PKGMANDIR}/man5 share/netpbm

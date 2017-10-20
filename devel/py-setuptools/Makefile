@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.125 2017/03/05 14:29:27 wiz Exp $
+# $NetBSD: Makefile,v 1.140 2017/10/16 17:20:38 adam Exp $
 
-DISTNAME=	setuptools-34.3.1
+DISTNAME=	setuptools-36.6.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/setuptools/}
@@ -12,20 +12,16 @@ COMMENT=	New Python packaging system
 LICENSE=	python-software-foundation OR zpl-2.0
 
 DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
-DEPENDS+=		${PYPKGPREFIX}-appdirs-[0-9]*:../../devel/py-appdirs
-DEPENDS+=		${PYPKGPREFIX}-packaging-[0-9]*:../../devel/py-packaging
-DEPENDS+=		${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
+# included again since 36.0 in vendored version
+#DEPENDS+=		${PYPKGPREFIX}-appdirs-[0-9]*:../../devel/py-appdirs
+#DEPENDS+=		${PYPKGPREFIX}-packaging-[0-9]*:../../devel/py-packaging
+#DEPENDS+=		${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
 # needed for tests, but would introduce dependency cycle
 #BUILD_DEPENDS+=	${PYPKGPREFIX}-test-runner-[0-9]*:../../devel/py-test-runner
 
 REPLACE_PYTHON+=	setuptools/command/easy_install.py
 
 PYSETUPTESTTARGET=	pytest
-
-# upstream often forgets deleting files, and packages on Windows,
-# so permissions are usually wrong
-post-install:
-	${RM} -f ${DESTDIR}${PREFIX}/${PYSITELIB}/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info/*.orig
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"

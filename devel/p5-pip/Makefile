@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2016/06/08 19:23:48 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2017/06/28 08:27:44 jperkin Exp $
 
 DISTNAME=	pip-1.19
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/A/AD/ADAMK/}
 
@@ -27,6 +27,8 @@ BUILD_DEPENDS+=	p5-Test-Script>=1.02:../../devel/p5-Test-Script
 PERL5_PACKLIST=		auto/pip/.packlist
 #PERL5_MODULE_TYPE=	Module::Install::Bundled
 MAKE_PARAMS+=	--skipdeps
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

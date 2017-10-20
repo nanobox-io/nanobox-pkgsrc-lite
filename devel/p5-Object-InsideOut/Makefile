@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.27 2016/06/08 19:23:20 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2017/06/05 14:23:24 ryoon Exp $
 
-DISTNAME=	Object-InsideOut-4.02
+DISTNAME=	Object-InsideOut-4.04
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

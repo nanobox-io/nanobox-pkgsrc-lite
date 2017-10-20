@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.37 2016/09/12 15:43:00 taca Exp $
+# $NetBSD: Makefile,v 1.41 2017/07/06 13:34:46 taca Exp $
 #
 
-DISTNAME=	PEAR-1.10.1
+DISTNAME=	PEAR-1.10.5
 PKGNAME=	${PHP_PKG_PREFIX}-${DISTNAME:S/PEAR/pear/}
-PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	http://download.pear.php.net/package/
 EXTRACT_SUFX=	.tgz
@@ -34,7 +33,7 @@ PEAR_SRCS=		${DISTNAME}${EXTRACT_SUFX}
 DISTFILES+=		${PEAR_SRCS}
 EXTRACT_ONLY+=		${PEAR_SRCS}
 
-ARCHIVE_SRCS=		Archive_Tar-1.4.2${EXTRACT_SUFX}
+ARCHIVE_SRCS=		Archive_Tar-1.4.3${EXTRACT_SUFX}
 ARCHIVE_WRKSRC=		${WRKDIR}/${ARCHIVE_SRCS:S/${EXTRACT_SUFX}//}
 DISTFILES+=		${ARCHIVE_SRCS}
 EXTRACT_ONLY+=		${ARCHIVE_SRCS}
@@ -47,7 +46,7 @@ EXTRACT_ONLY+=		${CONSOLE_SRCS}
 STRUCTURES_SRCS=	Structures_Graph-1.1.1${EXTRACT_SUFX}
 DISTFILES+=		${STRUCTURES_SRCS}
 
-XMLUTIL_SRCS=		XML_Util-1.3.0${EXTRACT_SUFX}
+XMLUTIL_SRCS=		XML_Util-1.4.3${EXTRACT_SUFX}
 DISTFILES+=		${XMLUTIL_SRCS}
 
 #
@@ -64,12 +63,12 @@ REPLACE_SH+=		script/pear.sh
 
 INSTALLATION_DIRS+=	share/examples/pear
 
-post-extract:
+pre-patch:
 	${RM} ${WRKSRC}/INSTALL
 	${MKDIR} ${WRKSRC}/install
 	${MKDIR} ${BUNDLE}
 	${CP} ${FILESDIR}/go-pear.php ${WRKSRC}/install
-	${CP} ${FILESDIR}/PEAR.php ${BUNDLE}
+	${CP} ${WRKSRC}/PEAR.php ${BUNDLE}
 
 do-build:
 .for f in ${DISTFILES}

@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.11 2017/01/01 16:05:56 adam Exp $
+# $NetBSD: Makefile,v 1.14 2017/08/24 20:02:57 adam Exp $
 
 DISTNAME=	librevenge-0.0.4
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	converters
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libwpd/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://sourceforge.net/projects/libwpd/
+HOMEPAGE=	https://sourceforge.net/projects/libwpd/
 COMMENT=	Base library for writing document import filters
 LICENSE=	mpl-2.0
 

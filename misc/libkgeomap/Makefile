@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.32 2017/01/01 16:05:59 adam Exp $
+# $NetBSD: Makefile,v 1.35 2017/08/24 20:03:00 adam Exp $
 #
 
 PKGNAME=	libkgeomap-4.13.0
-PKGREVISION=	3
+PKGREVISION=	5
 DISTNAME=	digikam-4.13.0
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_KDE:=digikam/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.digikam.org/
+HOMEPAGE=	https://www.digikam.org/
 COMMENT=	World-Map Library interface for KDE
 LICENSE=	gnu-gpl-v2
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.29 2017/01/01 14:43:47 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2017/09/29 12:40:27 wiz Exp $
 
-DISTNAME=	bulk-large-20160317
+DISTNAME=	bulk-large-20170929
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -48,12 +48,8 @@ BUILD_DEPENDS+=	dbus-[0-9]*:../../sysutils/dbus
 BUILD_DEPENDS+=	dbus-glib-[0-9]*:../../sysutils/dbus-glib
 BUILD_DEPENDS+=	aspell-[0-9]*:../../textproc/aspell
 BUILD_DEPENDS+=	gnome-doc-utils-[0-9]*:../../textproc/gnome-doc-utils
-BUILD_DEPENDS+=	kdebase>=3<4:../../x11/kdebase3
-BUILD_DEPENDS+=	kdelibs>=3<4:../../x11/kdelibs3
 BUILD_DEPENDS+=	kdelibs4-[0-9]*:../../x11/kdelibs4
 BUILD_DEPENDS+=	${PYPKGPREFIX}-gtk2-[0-9]*:../../x11/py-gtk2
-BUILD_DEPENDS+=	qt3-libs-[0-9]*:../../x11/qt3-libs
-BUILD_DEPENDS+=	qt3-tools-[0-9]*:../../x11/qt3-tools
 BUILD_DEPENDS+=	qt4-libs-[0-9]*:../../x11/qt4-libs
 BUILD_DEPENDS+=	qt4-tools-[0-9]*:../../x11/qt4-tools
 
@@ -61,7 +57,6 @@ BUILD_DEPENDS+=	qt4-tools-[0-9]*:../../x11/qt4-tools
 # 2. Applications
 #
 BUILD_DEPENDS+=	konversation>=1.4:../../chat/konversation
-BUILD_DEPENDS+=	konversation>=1.1<1.4:../../chat/konversation-kde3
 BUILD_DEPENDS+=	asterisk>=11:../../comms/asterisk
 BUILD_DEPENDS+=	avr-gcc-[0-9]*:../../cross/avr-gcc
 BUILD_DEPENDS+=	avr-libc-[0-9]*:../../cross/avr-libc
@@ -73,7 +68,7 @@ BUILD_DEPENDS+=	mysql-server>=5.6:../../databases/mysql56-server
 BUILD_DEPENDS+=	postgresql93-[0-9]*:../../databases/postgresql93
 BUILD_DEPENDS+=	valgrind-[0-9]*:../../devel/valgrind
 BUILD_DEPENDS+=	abiword-[0-9]*:../../editors/abiword
-BUILD_DEPENDS+=	emacs24>=24<25:../../editors/emacs24
+BUILD_DEPENDS+=	emacs25>=25<26:../../editors/emacs25
 BUILD_DEPENDS+=	emacs-packages-[0-9]*:../../editors/emacs-packages
 BUILD_DEPENDS+=	xemacs-packages-[0-9]*:../../editors/xemacs-packages
 BUILD_DEPENDS+=	p5-Padre-[0-9]*:../../editors/p5-Padre
@@ -101,7 +96,8 @@ BUILD_DEPENDS+=	mit-krb5-appl-[0-9]*:../../security/mit-krb5-appl
 BUILD_DEPENDS+=	FlightCrew-[0-9]*:../../textproc/FlightCrew
 BUILD_DEPENDS+=	clearsilver-[0-9]*:../../www/clearsilver
 BUILD_DEPENDS+=	mediawiki-[0-9]*:../../www/mediawiki
-BUILD_DEPENDS+=	${RUBY_PKGPREFIX}-rails>=3.2:../../www/ruby-rails32
+BUILD_DEPENDS+=	${RUBY_PKGPREFIX}-rails32>=3.2:../../www/ruby-rails32
+BUILD_DEPENDS+=	${RUBY_PKGPREFIX}-rails42>=4.2:../../www/ruby-rails42
 
 #
 # 3. Libraries
@@ -115,13 +111,9 @@ BUILD_DEPENDS+=	mit-krb5-[0-9]*:../../security/mit-krb5
 #
 BUILD_DEPENDS+=	texlive-collection-fontsrecommended-[0-9]*:../../meta-pkgs/texlive-collection-fontsrecommended
 BUILD_DEPENDS+=	texlive-collection-fontsrecommended-doc-[0-9]*:../../meta-pkgs/texlive-collection-fontsrecommended-doc
-BUILD_DEPENDS+=	teTeX-[0-9]*:../../print/teTeX
-BUILD_DEPENDS+=	teTeX-bin>=3:../../print/teTeX3-bin
-BUILD_DEPENDS+=	teTeX-texmf>=3:../../print/teTeX3-texmf
 BUILD_DEPENDS+=	texlive-collection-basic-[0-9]*:../../meta-pkgs/texlive-collection-basic
 BUILD_DEPENDS+=	texlive-collection-basic-doc-[0-9]*:../../meta-pkgs/texlive-collection-basic-doc
-BUILD_DEPENDS+=	texlive-collection-genericrecommended-[0-9]*:../../meta-pkgs/texlive-collection-genericrecommended
-BUILD_DEPENDS+=	texlive-collection-genericrecommended-doc-[0-9]*:../../meta-pkgs/texlive-collection-genericrecommended-doc
+BUILD_DEPENDS+=	texlive-collection-plaingeneric-[0-9]*:../../meta-pkgs/texlive-collection-plaingeneric
 BUILD_DEPENDS+=	texlive-collection-latex-[0-9]*:../../meta-pkgs/texlive-collection-latex
 BUILD_DEPENDS+=	texlive-collection-latex-doc-[0-9]*:../../meta-pkgs/texlive-collection-latex-doc
 
@@ -133,7 +125,6 @@ BUILD_DEPENDS+=	desktop-gnome-[0-9]*:../../meta-pkgs/desktop-gnome
 BUILD_DEPENDS+=	gnome-[0-9]*:../../meta-pkgs/gnome
 BUILD_DEPENDS+=	gnome-platform-[0-9]*:../../meta-pkgs/gnome-platform
 BUILD_DEPENDS+=	gnustep-[0-9]*:../../meta-pkgs/gnustep
-BUILD_DEPENDS+=	kde>=3<4:../../meta-pkgs/kde3
 BUILD_DEPENDS+=	kde4-[0-9]*:../../meta-pkgs/kde4
 BUILD_DEPENDS+=	matchbox-[0-9]*:../../meta-pkgs/matchbox
 BUILD_DEPENDS+=	windowmaker-desktop-[0-9]*:../../meta-pkgs/windowmaker-desktop

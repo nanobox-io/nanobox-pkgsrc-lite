@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 19:24:01 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/06/12 07:32:08 maya Exp $
 
 DISTNAME=	Excel-Template-0.34
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	math perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Excel/}
 
@@ -18,6 +18,7 @@ DEPENDS+=	p5-XML-Parser>=0.01:../../textproc/p5-XML-Parser
 BUILD_DEPENDS+=	p5-Test-Deep>=0.095:../../devel/p5-Test-Deep
 BUILD_DEPENDS+=	p5-Test-Exception>=0.21:../../devel/p5-Test-Exception
 
+MAKE_ENV+=		PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=		auto/Excel/Template/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
 

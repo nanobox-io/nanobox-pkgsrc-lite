@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2016/09/06 05:08:48 maya Exp $
+# $NetBSD: Makefile,v 1.11 2017/08/25 16:34:45 he Exp $
 
 GCC_PKGNAME=	gcc5
 .include	"../../lang/${GCC_PKGNAME}/version.mk"
@@ -9,7 +9,7 @@ PKGNAME=	${GCC_PKGNAME}-libs-${GCC5_DIST_VERSION}
 ## The PKGREVISION of this package needs to be at least 1 more than the
 ## PKGREVISION of the lang/gcc5 package so that with the dependence pattern
 ## '{gcc5,gcc5-libs}>=5.1.*' pkg_add will choose gcc5-libs over gcc5.
-PKGREVISION=	3
+PKGREVISION=	6
 
 CATEGORIES=	lang
 MASTER_SITES=	# empty
@@ -36,7 +36,7 @@ GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 BUILD_DEFS+=		GCC_TARGET_MACHINE
 
 .include "../../mk/bsd.prefs.mk"
-.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+.if ${SHLIB_TYPE} == "dylib"
 SHLIB_EXT=	dylib
 .else
 SHLIB_EXT=	so

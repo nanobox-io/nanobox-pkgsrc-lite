@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2016/06/08 19:24:34 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2017/07/10 14:01:11 wen Exp $
 #
 
-DISTNAME=	String-CRC32-1.5
+DISTNAME=	String-CRC32-1.6
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=String/}
 

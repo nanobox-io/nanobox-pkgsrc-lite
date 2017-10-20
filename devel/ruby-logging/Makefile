@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.9 2016/03/15 16:54:33 taca Exp $
+# $NetBSD: Makefile,v 1.11 2017/04/22 16:22:56 taca Exp $
 
-DISTNAME=	logging-2.1.0
+DISTNAME=	logging-2.2.2
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	${MASTER_SITE_RUBYGEMS:=logging/}
 COMMENT=	Flexible logging library for Ruby based on log4j
-LICENSE=	ruby-license
+LICENSE=	mit
 
 DEPENDS+=	${RUBY_PKGPREFIX}-little-plugger>=1.1.3:../../devel/ruby-little-plugger
 DEPENDS+=	${RUBY_PKGPREFIX}-multi_json>=1.10:../../textproc/ruby-multi_json

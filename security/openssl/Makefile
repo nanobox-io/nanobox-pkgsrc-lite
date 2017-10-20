@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.230 2017/01/26 16:31:57 jperkin Exp $
+# $NetBSD: Makefile,v 1.232 2017/09/22 21:02:43 tez Exp $
 
 DISTNAME=	openssl-1.0.2k
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	https://www.openssl.org/source/
 
@@ -13,11 +14,11 @@ CONFLICTS=	SSLeay-[0-9]* ssleay-[0-9]*
 
 CRYPTO=		yes
 
-BUILD_DEPENDS+=	p5-Perl4-CoreLibs-[0-9]*:../../devel/p5-Perl4-CoreLibs
+#BUILD_DEPENDS+=	p5-Perl4-CoreLibs-[0-9]*:../../devel/p5-Perl4-CoreLibs
 
 USE_GCC_RUNTIME=	yes
 
-USE_TOOLS+=		fgrep gmake makedepend perl:run
+USE_TOOLS+=		fgrep gmake makedepend # perl:run
 BUILD_TARGET=		depend all
 TEST_TARGET=		tests
 MAKE_JOBS_SAFE=		no
@@ -78,12 +79,16 @@ CONFIGURE_ARGS+=	tru64-alpha-cc
 .elif ${OPSYS} == "Darwin"
 CONFIGURE_SCRIPT=	./Configure
 .  if defined(ABI) && ${ABI} == "64"
-CONFIGURE_ARGS+=	darwin64-${MACHINE_ARCH}-cc
-.  elif ${MACHINE_ARCH} == "powerpc"
-CONFIGURE_ARGS+=	darwin-ppc-cc
+_OS=			darwin64
 .  else
-CONFIGURE_ARGS+=	darwin-${MACHINE_ARCH}-cc
+_OS=			darwin
 .  endif
+.  if ${MACHINE_ARCH:Mpowerpc*}
+_ARCH=			ppc
+.  else
+_ARCH=			${MACHINE_ARCH}
+.endif
+CONFIGURE_ARGS+=	${_OS}-${_ARCH}-cc
 
 SUBST_CLASSES+=		dl
 SUBST_MESSAGE.dl=	Adding dynamic link compatibility library.
@@ -164,8 +169,8 @@ OWN_DIRS=		${PKG_SYSCONFDIR}/certs ${PKG_SYSCONFDIR}/private
 INSTALLATION_DIRS+=	share/examples/openssl
 
 # Fix the path to perl in various scripts.
-pre-configure:
-	cd ${WRKSRC} && ${PERL5} util/perlpath.pl ${PERL5}
+#pre-configure:
+#	cd ${WRKSRC} && ${PERL5} util/perlpath.pl ${PERL5}
 
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

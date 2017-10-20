@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.67 2017/01/02 13:17:29 wen Exp $
-#
+# $NetBSD: Makefile,v 1.73 2017/09/26 14:27:00 wiz Exp $
 
-DISTNAME=	Module-CoreList-5.20161220
+DISTNAME=	Module-CoreList-5.20170923
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Module/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/B/BI/BINGOS/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://metacpan.org/release/Module-CoreList

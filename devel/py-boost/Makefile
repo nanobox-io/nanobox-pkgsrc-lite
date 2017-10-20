@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2017/01/03 13:23:01 jperkin Exp $
+# $NetBSD: Makefile,v 1.8 2017/04/29 18:31:42 adam Exp $
 
 BOOST_PACKAGE=		python
 BOOST_COMMENT=		(Boost.Python binary library)
@@ -33,4 +33,5 @@ post-install:
 	${RM} -f ${DESTDIR}${PREFIX}/lib/libboost_python.*
 .endif
 
+.include "../../math/py-numpy/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

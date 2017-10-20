@@ -1,4 +1,4 @@
-# $NetBSD: Darwin.mk,v 1.86 2017/01/17 15:32:17 jperkin Exp $
+# $NetBSD: Darwin.mk,v 1.88 2017/10/10 13:57:23 jperkin Exp $
 #
 # Variable definitions for the Darwin operating system.
 
@@ -145,6 +145,7 @@ _OPSYS_PREFER.openssl?=		pkgsrc	# builtin deprecated from 10.7 onwards
 
 # Remove common GNU ld arguments incompatible with the Darwin linker.
 BUILDLINK_TRANSFORM+=	rm:-Wl,-O1
+BUILDLINK_TRANSFORM+=	rm:-Wl,-O2
 BUILDLINK_TRANSFORM+=	rm:-Wl,-Bdynamic
 BUILDLINK_TRANSFORM+=	rm:-Wl,-Bsymbolic
 BUILDLINK_TRANSFORM+=	rm:-Wl,-export-dynamic
@@ -179,6 +180,11 @@ _OPSYS_MAX_CMDLEN_CMD=	/usr/sbin/sysctl -n kern.argmax
 .  if !exists(${_OPSYS_INCLUDE_DIRS}/poll.h) && !exists(${_OPSYS_INCLUDE_DIRS}/sys/poll.h)
 CONFIGURE_ENV+=		ac_cv_func_poll=no
 .  endif
+.endif
+
+# check for kqueue(2) support
+.if exists(${_OPSYS_INCLUDE_DIRS}/sys/event.h)
+PKG_HAVE_KQUEUE=	# defined
 .endif
 
 # If the deployment target is not set explicitly, the linker in Tiger and prior

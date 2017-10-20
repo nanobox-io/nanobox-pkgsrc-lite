@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.118 2016/11/25 16:05:07 adam Exp $
+# $NetBSD: Makefile,v 1.121 2017/10/06 02:39:38 gavan Exp $
 
 .include "Makefile.common"
 CATEGORIES=	net
-PKGREVISION=	6
+PKGREVISION=	8
 
 MAINTAINER=	adam@NetBSD.org
 COMMENT=	Extensible SNMP implementation
@@ -120,6 +120,7 @@ post-extract:
 	ln -s ${WRKSRC}/include/net-snmp/system/darwin13.h ${WRKSRC}/include/net-snmp/system/darwin14.h
 	ln -s ${WRKSRC}/include/net-snmp/system/darwin13.h ${WRKSRC}/include/net-snmp/system/darwin15.h
 	ln -s ${WRKSRC}/include/net-snmp/system/darwin13.h ${WRKSRC}/include/net-snmp/system/darwin16.h
+	ln -s ${WRKSRC}/include/net-snmp/system/darwin13.h ${WRKSRC}/include/net-snmp/system/darwin17.h
 .endif
 
 post-wrapper:

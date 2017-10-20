@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.3 2016/09/20 12:59:25 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2017/09/17 13:13:31 wiz Exp $
 
-DISTNAME=	Test-EOL-1.6
+DISTNAME=	Test-EOL-2.00
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
-MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/F/FR/FREW/
+MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/E/ET/ETHER/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://search.cpan.org/CPAN/authors/id/F/FR/FREW/
+HOMEPAGE=	http://search.cpan.org/~ether/Test-EOL/
 COMMENT=	Check the correct line endings in your project
-
 LICENSE=	${PERL5_LICENSE}
 
 PERL5_PACKLIST=         auto/Test/EOL/.packlist

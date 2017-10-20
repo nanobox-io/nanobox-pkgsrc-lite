@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.91 2017/03/03 08:24:57 prlw1 Exp $
+# $NetBSD: Makefile,v 1.103 2017/10/16 09:50:58 adam Exp $
 
-DISTNAME=	gtk+-3.22.9
+DISTNAME=	gtk+-3.22.24
 PKGNAME=	${DISTNAME:S/gtk/gtk3/}
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk+/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.gtk.org/
+HOMEPAGE=	https://www.gtk.org/
 COMMENT=	GIMP Toolkit v3 - libraries for building X11 user interfaces
 LICENSE=	gnu-lgpl-v2.1
 
@@ -16,7 +16,7 @@ USE_TOOLS+=		gmake perl pkg-config bash xgettext msgmerge
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 PTHREAD_AUTO_VARS=	yes
-BUILD_DEPENDS+=		gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=		gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 TOOL_DEPENDS+=		gettext-tools>=0.19.4nb1:../../devel/gettext-tools
 # There is no logic in gettext.mk to detect the native version of xgettext,
 # and we do need it to be compiled with Glade support.
@@ -68,6 +68,10 @@ CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
 #
 post-install:
 	${RM} -f ${DESTDIR}${GTK3_IMMODULES_DB}
+
+FILES_SUBST+=		GTK_UPDATE_ICON_CACHE="${PREFIX}/bin/gtk-update-icon-cache"
+FILES_SUBST+=		ICON_THEME_DIR="${LOCALBASE}/share/icons"
+INSTALL_TEMPLATES+=	../../x11/gtk2/files/icon-cache.tmpl
 
 _BUILDING_GTK3=	yes
 .include "modules.mk"

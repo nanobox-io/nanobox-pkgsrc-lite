@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.51 2016/12/14 15:48:09 adam Exp $
+@comment $NetBSD: PLIST,v 1.57 2017/10/12 10:34:28 adam Exp $
 bin/doveadm
 bin/doveconf
 bin/dsync
@@ -46,6 +46,7 @@ include/dovecot/base64.h
 include/dovecot/bits.h
 include/dovecot/bsearch-insert-pos.h
 include/dovecot/buffer.h
+include/dovecot/byteorder.h
 include/dovecot/charset-utf8.h
 include/dovecot/child-wait.h
 include/dovecot/client-common.h
@@ -64,6 +65,7 @@ include/dovecot/data-stack.h
 include/dovecot/db-checkpassword.h
 include/dovecot/db-dict.h
 include/dovecot/db-ldap.h
+include/dovecot/db-oauth2.h
 include/dovecot/db-passwd-file.h
 include/dovecot/db-sql.h
 include/dovecot/dbox-attachment.h
@@ -149,6 +151,7 @@ include/dovecot/hex-dec.h
 include/dovecot/hmac-cram-md5.h
 include/dovecot/hmac.h
 include/dovecot/home-expand.h
+include/dovecot/hook-build.h
 include/dovecot/hostpid.h
 include/dovecot/http-auth.h
 include/dovecot/http-client-private.h
@@ -198,6 +201,7 @@ include/dovecot/imap-seqset.h
 include/dovecot/imap-settings.h
 include/dovecot/imap-state.h
 include/dovecot/imap-status.h
+include/dovecot/imap-sync-private.h
 include/dovecot/imap-sync.h
 include/dovecot/imap-url.h
 include/dovecot/imap-urlauth-backend.h
@@ -267,6 +271,7 @@ include/dovecot/istream-header-filter.h
 include/dovecot/istream-jsonstr.h
 include/dovecot/istream-mail.h
 include/dovecot/istream-metawrap.h
+include/dovecot/istream-multiplex.h
 include/dovecot/istream-nonuls.h
 include/dovecot/istream-private.h
 include/dovecot/istream-qp.h
@@ -310,6 +315,9 @@ include/dovecot/mail-index-view-private.h
 include/dovecot/mail-index.h
 include/dovecot/mail-namespace.h
 include/dovecot/mail-search-build.h
+include/dovecot/mail-search-mime-build.h
+include/dovecot/mail-search-mime-register.h
+include/dovecot/mail-search-mime.h
 include/dovecot/mail-search-parser-private.h
 include/dovecot/mail-search-parser.h
 include/dovecot/mail-search-register.h
@@ -336,6 +344,7 @@ include/dovecot/mailbox-list-fs.h
 include/dovecot/mailbox-list-index-storage.h
 include/dovecot/mailbox-list-index-sync.h
 include/dovecot/mailbox-list-index.h
+include/dovecot/mailbox-list-iter-private.h
 include/dovecot/mailbox-list-iter.h
 include/dovecot/mailbox-list-maildir.h
 include/dovecot/mailbox-list-notify-tree.h
@@ -356,6 +365,7 @@ include/dovecot/maildir-settings.h
 include/dovecot/maildir-storage.h
 include/dovecot/maildir-sync.h
 include/dovecot/maildir-uidlist.h
+include/dovecot/malloc-overflow.h
 include/dovecot/master-auth.h
 include/dovecot/master-instance.h
 include/dovecot/master-interface.h
@@ -397,6 +407,7 @@ include/dovecot/message-header-hash.h
 include/dovecot/message-header-parser.h
 include/dovecot/message-id.h
 include/dovecot/message-parser.h
+include/dovecot/message-part-data.h
 include/dovecot/message-part-serialize.h
 include/dovecot/message-part.h
 include/dovecot/message-search.h
@@ -414,6 +425,7 @@ include/dovecot/nfs-workarounds.h
 include/dovecot/notify-plugin-private.h
 include/dovecot/notify-plugin.h
 include/dovecot/numpack.h
+include/dovecot/oauth2.h
 include/dovecot/ostream-cmp.h
 include/dovecot/ostream-dot.h
 include/dovecot/ostream-encrypt.h
@@ -422,9 +434,11 @@ include/dovecot/ostream-failure-at.h
 include/dovecot/ostream-file-private.h
 include/dovecot/ostream-hash.h
 include/dovecot/ostream-metawrap.h
+include/dovecot/ostream-multiplex.h
 include/dovecot/ostream-null.h
 include/dovecot/ostream-private.h
 include/dovecot/ostream-rawlog.h
+include/dovecot/ostream-unix.h
 include/dovecot/ostream-zlib.h
 include/dovecot/ostream.h
 include/dovecot/passdb-blocking.h
@@ -468,6 +482,7 @@ include/dovecot/push-notification-triggers.h
 include/dovecot/push-notification-txn-mbox.h
 include/dovecot/push-notification-txn-msg.h
 include/dovecot/qp-decoder.h
+include/dovecot/qp-encoder.h
 include/dovecot/quota-fs.h
 include/dovecot/quota-plugin.h
 include/dovecot/quota-private.h
@@ -531,9 +546,11 @@ include/dovecot/userdb-vpopmail.h
 include/dovecot/userdb.h
 include/dovecot/utc-mktime.h
 include/dovecot/utc-offset.h
+include/dovecot/var-expand-private.h
 include/dovecot/var-expand.h
 include/dovecot/wildcard-match.h
 include/dovecot/write-full.h
+lib/dovecot/auth/lib20_auth_var_expand_crypt.la
 lib/dovecot/auth/libauthdb_imap.la
 lib/dovecot/doveadm/lib10_doveadm_acl_plugin.la
 lib/dovecot/doveadm/lib10_doveadm_expire_plugin.la
@@ -560,9 +577,11 @@ lib/dovecot/lib20_fts_plugin.la
 lib/dovecot/lib20_listescape_plugin.la
 lib/dovecot/lib20_mail_log_plugin.la
 lib/dovecot/lib20_mailbox_alias_plugin.la
+lib/dovecot/lib20_notify_status_plugin.la
 lib/dovecot/lib20_push_notification_plugin.la
 lib/dovecot/lib20_quota_clone_plugin.la
 lib/dovecot/lib20_replication_plugin.la
+lib/dovecot/lib20_var_expand_crypt.la
 lib/dovecot/lib20_virtual_plugin.la
 lib/dovecot/lib20_zlib_plugin.la
 lib/dovecot/lib21_fts_squat_plugin.la
@@ -717,6 +736,7 @@ share/doc/dovecot/wiki/Design.AuthProcess.txt
 share/doc/dovecot/wiki/Design.AuthProtocol.txt
 share/doc/dovecot/wiki/Design.Buffers.txt
 share/doc/dovecot/wiki/Design.Code.txt
+share/doc/dovecot/wiki/Design.Dcrypt.txt
 share/doc/dovecot/wiki/Design.DoveadmProtocol.HTTP.txt
 share/doc/dovecot/wiki/Design.DoveadmProtocol.txt
 share/doc/dovecot/wiki/Design.Dsync.txt
@@ -753,6 +773,7 @@ share/doc/dovecot/wiki/Errors.ChgrpNoPerm.txt
 share/doc/dovecot/wiki/FindMailLocation.txt
 share/doc/dovecot/wiki/FinishBasicConfiguration.txt
 share/doc/dovecot/wiki/HAProxy.txt
+share/doc/dovecot/wiki/HowTo.AntispamWithSieve.txt
 share/doc/dovecot/wiki/HowTo.EximAndDovecotSASL.txt
 share/doc/dovecot/wiki/HowTo.ImapcProxy.txt
 share/doc/dovecot/wiki/HowTo.PopBSMTPAndDovecot.txt
@@ -826,6 +847,7 @@ share/doc/dovecot/wiki/PasswordDatabase.IMAP.txt
 share/doc/dovecot/wiki/PasswordDatabase.PAM.txt
 share/doc/dovecot/wiki/PasswordDatabase.Shadow.txt
 share/doc/dovecot/wiki/PasswordDatabase.Static.txt
+share/doc/dovecot/wiki/PasswordDatabase.oauth2.txt
 share/doc/dovecot/wiki/PasswordDatabase.txt
 share/doc/dovecot/wiki/PerformanceTuning.txt
 share/doc/dovecot/wiki/Pigeonhole.Installation.txt
@@ -854,6 +876,7 @@ share/doc/dovecot/wiki/Pigeonhole.Sieve.Troubleshooting.txt
 share/doc/dovecot/wiki/Pigeonhole.Sieve.Usage.txt
 share/doc/dovecot/wiki/Pigeonhole.Sieve.txt
 share/doc/dovecot/wiki/Pigeonhole.txt
+share/doc/dovecot/wiki/Plugins.Apparmor.txt
 share/doc/dovecot/wiki/Plugins.Autocreate.txt
 share/doc/dovecot/wiki/Plugins.Compress.txt
 share/doc/dovecot/wiki/Plugins.Expire.txt
@@ -869,11 +892,13 @@ share/doc/dovecot/wiki/Plugins.MailFilter.txt
 share/doc/dovecot/wiki/Plugins.MailLog.txt
 share/doc/dovecot/wiki/Plugins.MailboxAlias.txt
 share/doc/dovecot/wiki/Plugins.Notify.txt
+share/doc/dovecot/wiki/Plugins.NotifyStatus.txt
 share/doc/dovecot/wiki/Plugins.PushNotification.txt
 share/doc/dovecot/wiki/Plugins.QuotaClone.txt
 share/doc/dovecot/wiki/Plugins.Snarf.txt
 share/doc/dovecot/wiki/Plugins.Stats.txt
 share/doc/dovecot/wiki/Plugins.Trash.txt
+share/doc/dovecot/wiki/Plugins.VarExpandCrypt.txt
 share/doc/dovecot/wiki/Plugins.Virtual.txt
 share/doc/dovecot/wiki/Plugins.Welcome.txt
 share/doc/dovecot/wiki/Plugins.Zlib.txt

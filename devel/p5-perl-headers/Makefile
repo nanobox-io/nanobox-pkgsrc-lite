@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.46 2017/01/05 02:18:02 schmonz Exp $
+# $NetBSD: Makefile,v 1.49 2017/09/03 08:53:07 wiz Exp $
 
 DISTNAME=		p5-perl-headers
 PKGNAME=		${DISTNAME}-${OS_VERSION}
-PKGREVISION=		11
+PKGREVISION=		12
 CATEGORIES=		devel perl5
 MASTER_SITES=		# empty
 DISTFILES=		# empty
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.perl.com/language/index.html
+#HOMEPAGE=		https://www.perl.com/language/index.html
 COMMENT=		Perl header files
 
 USE_TOOLS+=	pax

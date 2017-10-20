@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.44 2017/02/18 05:48:51 riastradh Exp $
+# $NetBSD: Makefile,v 1.53 2017/10/01 15:08:10 khorben Exp $
 #
 
 COMMENT=	Monetary, financial and related applications
 
+SUBDIR+=	cpuminer
 SUBDIR+=	gkrellm-stock
 SUBDIR+=	gnucash
 SUBDIR+=	gnucash-docs
-SUBDIR+=	kmymoney2
+SUBDIR+=	homebank
 SUBDIR+=	ledger
 SUBDIR+=	libofx
 SUBDIR+=	magento
@@ -16,8 +17,13 @@ SUBDIR+=	p5-Data-Currency
 SUBDIR+=	p5-Finance-Currency-Convert-WebserviceX
 SUBDIR+=	p5-Finance-Quote
 SUBDIR+=	p5-Locale-Currency-Format
+SUBDIR+=	py-alphalens
+SUBDIR+=	py-braintree
+SUBDIR+=	py-empyrical
+SUBDIR+=	py-fecon235
 SUBDIR+=	py-ofxparse
 SUBDIR+=	py-python-bitcoinlib
+SUBDIR+=	py-quickbooks
 SUBDIR+=	py-stripe
 SUBDIR+=	py-trytond-account
 SUBDIR+=	py-trytond-account-asset

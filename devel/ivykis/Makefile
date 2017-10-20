@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.5 2017/01/04 11:45:50 fhajny Exp $
+# $NetBSD: Makefile,v 1.9 2017/10/18 11:05:22 fhajny Exp $
 
-DISTNAME=	ivykis-0.41
+DISTNAME=	ivykis-0.42.2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=buytenh/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/buytenh/ivykis/
+HOMEPAGE=	https://github.com/buytenh/ivykis/
 COMMENT=	Asynchronous I/O readiness notification library
 LICENSE=	gnu-lgpl-v3
 
@@ -24,5 +24,7 @@ CONFIGURE_ARGS+=	ac_cv_func_epoll_create=no
 .endif
 
 PKGCONFIG_OVERRIDE+=	misc/ivykis.pc.in
+
+TEST_TARGET=		check
 
 .include "../../mk/bsd.pkg.mk"

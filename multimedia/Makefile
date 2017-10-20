@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.253 2017/02/24 18:34:28 tsutsui Exp $
+# $NetBSD: Makefile,v 1.259 2017/09/26 10:27:09 wiz Exp $
 #
 
 COMMENT=	Multimedia utilities
 
 SUBDIR+=	acidrip
-SUBDIR+=	adobe-flash-player24
+SUBDIR+=	adobe-flash-player
 SUBDIR+=	adobe-flash-plugin11
 SUBDIR+=	alevt
 SUBDIR+=	audiocd-kio
@@ -93,13 +93,12 @@ SUBDIR+=	gxine
 SUBDIR+=	handbrake
 SUBDIR+=	harvid
 SUBDIR+=	hwdecode-demos
+SUBDIR+=	intel-vaapi-driver
 SUBDIR+=	juk
 SUBDIR+=	kaffeine
-SUBDIR+=	kdemultimedia3
 SUBDIR+=	kdenlive
 SUBDIR+=	kmix
 SUBDIR+=	kmplayer
-SUBDIR+=	kmplayer-kde3
 SUBDIR+=	kodi
 SUBDIR+=	kscd
 SUBDIR+=	libaacs
@@ -152,7 +151,6 @@ SUBDIR+=	mkvtoolnix-old
 SUBDIR+=	mlt
 SUBDIR+=	mp4v2
 SUBDIR+=	mpeg-lib
-SUBDIR+=	mpeg4ip
 SUBDIR+=	mpeg_encode
 SUBDIR+=	mpeg_play
 SUBDIR+=	mplayer
@@ -177,11 +175,11 @@ SUBDIR+=	phonon-qt5-backend-vlc
 SUBDIR+=	php-ming
 SUBDIR+=	pitivi
 SUBDIR+=	pspvc
+SUBDIR+=	py-enzyme
 SUBDIR+=	py-gstreamer0.10
 SUBDIR+=	py-gstreamer1
 SUBDIR+=	py-m3u8
 SUBDIR+=	py-ming
-SUBDIR+=	realplayer-codecs
 SUBDIR+=	regionset
 SUBDIR+=	replex
 SUBDIR+=	ruby-gnome2-clutter-gstreamer

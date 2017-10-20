@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2016/06/08 19:23:25 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2017/06/12 08:38:52 maya Exp $
 
 DISTNAME=	PerlIO-via-dynamic-0.14
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/A/AL/ALEXMV/}
 
@@ -10,6 +10,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/PerlIO-via-dynamic/
 COMMENT=	Perl module for dynamic PerlIO layers
 
+MAKE_ENV+=		PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=		auto/PerlIO/via/dynamic/.packlist
 
 # The following DEPENDS applies only if the perl version is 5.10,

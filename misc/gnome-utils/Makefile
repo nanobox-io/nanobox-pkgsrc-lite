@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.157 2017/02/12 06:25:44 ryoon Exp $
+# $NetBSD: Makefile,v 1.160 2017/09/18 09:53:27 maya Exp $
 
 DISTNAME=		gnome-utils-2.32.0
-PKGREVISION=		51
+PKGREVISION=		53
 CATEGORIES=		misc gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-utils/2.32/}
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.gnome.org/
+HOMEPAGE=		https://www.gnome.org/
 COMMENT=		Set of useful GNOME2 utilities and applications
 
 USE_LIBTOOL=		yes

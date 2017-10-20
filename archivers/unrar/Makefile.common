@@ -1,15 +1,15 @@
-# $NetBSD: Makefile.common,v 1.11 2016/11/01 14:00:55 adam Exp $
+# $NetBSD: Makefile.common,v 1.15 2017/09/22 07:03:57 wiz Exp $
 #
 # used by archivers/libunrar/Makefile
 # used by archivers/unrar/Makefile
 
-DISTNAME=	unrarsrc-5.4.5
+DISTNAME=	unrarsrc-5.5.8
 PKGNAME=	${DISTNAME:S/src//}
 CATEGORIES=	archivers
-MASTER_SITES=	http://www.rarlab.com/rar/
+MASTER_SITES=	https://www.rarlab.com/rar/
 
 MAINTAINER=	wiz@NetBSD.org
-HOMEPAGE=	http://www.rarlab.com/
+HOMEPAGE=	https://www.rarlab.com/
 COMMENT=	Extract, view & test RAR archives
 LICENSE=	unrar-license
 # From private mail addressed to pkgsrc maintainers:

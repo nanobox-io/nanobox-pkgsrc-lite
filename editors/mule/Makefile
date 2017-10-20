@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.51 2015/07/04 16:18:29 joerg Exp $
+# $NetBSD: Makefile,v 1.54 2017/05/07 06:49:23 tsutsui Exp $
 
 DISTNAME=	mule-2.3
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	editors
 MASTER_SITES=	ftp://ftp.m17n.org/pub/mule/
 
@@ -25,7 +25,7 @@ GNU_CONFIGURE_MANDIR=	${PREFIX}/${PKGMANDIR}/man1
 
 .include "../../mk/bsd.prefs.mk"
 
-CFLAGS+=	-g
+CFLAGS+=	-g -fno-builtin-malloc -fno-strict-aliasing
 
 CONFIGURE_ARGS+=	${MACHINE_ARCH}--${LOWER_OPSYS} --with-x --with-x-toolkit=lucid
 CONFIGURE_ARGS+=	--terminal-face --mcpath --canna-libraries=${PREFIX}/lib
@@ -41,6 +41,10 @@ INFO_FILES=	yes
 INSTALL_MAKE_FLAGS=	prefix=${DESTDIR}${PREFIX}
 INSTALL_MAKE_FLAGS+=	infodir=${DESTDIR}${GNU_CONFIGURE_INFODIR}
 INSTALL_MAKE_FLAGS+=	mandir=${DESTDIR}${GNU_CONFIGURE_MANDIR}
+
+# Remove .orig files in the original tar archive
+post-extract:
+	rm -f ${WRKSRC}/lisp/*.orig
 
 # Remove original versions of patched files so that aren't installed.
 post-build:

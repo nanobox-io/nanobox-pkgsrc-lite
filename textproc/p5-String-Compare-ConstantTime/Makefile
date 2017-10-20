@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2016/06/08 19:24:34 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2017/06/05 14:24:46 ryoon Exp $
 
-DISTNAME=	String-Compare-ConstantTime-0.311
+DISTNAME=	String-Compare-ConstantTime-0.312
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

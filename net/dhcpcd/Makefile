@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.61 2016/10/09 10:16:28 roy Exp $
-#
+# $NetBSD: Makefile,v 1.68 2017/10/07 14:18:43 roy Exp $
 
-DISTNAME=		dhcpcd-6.11.5
+DISTNAME=		dhcpcd-7.0.0-rc3
+PKGNAME=		${DISTNAME:S/-rc/rc/}
 CATEGORIES=		net
 MASTER_SITES=		ftp://roy.marples.name/pub/dhcpcd/
 MASTER_SITES+=		http://roy.aydogan.net/dhcpcd/
@@ -9,7 +9,7 @@ MASTER_SITES+=		http://cflags.cc/roy/dhcpcd/
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		roy@NetBSD.org
-HOMEPAGE=		http://roy.marples.name/projects/dhcpcd/
+HOMEPAGE=		https://roy.marples.name/projects/dhcpcd/
 COMMENT=		DHCP / IPv4LL / IPv6RA / DHCPv6 client
 LICENSE=		modified-bsd
 

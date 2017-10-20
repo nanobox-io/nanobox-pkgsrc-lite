@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.24 2016/09/08 14:44:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.26 2017/07/14 12:56:41 joerg Exp $
 
 DISTNAME=	fep
 PKGNAME=	fep-1.0
@@ -24,10 +24,13 @@ INSTALLATION_DIRS+= bin ${PKGMANDIR}/man1
 CFLAGS+=	-Wno-error=return-type
 .endif
 
+LDFLAGS.NetBSD+=	-lcompat
+
 pre-build:
 	cd ${WRKSRC} && \
 		for i in *.[ch]; do ${SED} "s,#endif lint,#endif /* lint */,g" $${i} > $${i}.new && \
 			${MV} -f $${i}.new $${i}; \
 		done
 
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

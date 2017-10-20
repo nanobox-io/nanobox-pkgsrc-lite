@@ -1,16 +1,17 @@
-# $NetBSD: Makefile,v 1.51 2017/01/02 07:33:11 ryoon Exp $
+# $NetBSD: Makefile,v 1.58 2017/09/18 09:53:15 maya Exp $
 
 BOOST_PACKAGE=		libs
 BOOST_COMMENT=		(binary libraries)
 BOOST_CONFIG=		installed
 BOOST_INSTALL_LIBS=	yes
 
+PKGREVISION= 1
 .include "../../meta-pkgs/boost/Makefile.common"
 
 INSTALLATION_DIRS+=	lib
 
 BJAM_ARGS+=		--without-python
-PLIST_VARS+=		context fiber log long_double_math
+PLIST_VARS+=		context fiber log
 
 .if ${OPSYS} == "NetBSD" && ((${MACHINE_ARCH} == "i386") || (!empty(MACHINE_ARCH:Mearm*) && !empty(PKGSRC_COMPILER:Mgcc)))
 BJAM_ARGS+=		pch=off
@@ -31,27 +32,18 @@ BJAM_ARGS+=		--without-log
 PLIST.log=		yes
 .endif
 
-# fiber requires thread_local support, unavailable in older compilers
-# (old darwin, netbsd <6). if fiber becomes necessary, set GCC_REQD
-# on other boost-* packages, too.
+# XXX boost1.64 fiber not building even on netbsd7.99 + gcc5.4
 # fiber requires context, so also disable it where context cannot be built
 # Additionally fiber checks std::timed_mutex.
-.if ((${OPSYS} == "Darwin" && ${OS_VERSION:R} < 14) || \
-    !empty(MACHINE_PLATFORM:MNetBSD-[0-7]*-*)) || \
-    !empty(MACHINE_ARCH:Malpha) || !empty(MACHINE_ARCH:Mm68k) || \
-    !empty(MACHINE_ARCH:Msparc64) || \
-    (${OPSYS} == "NetBSD" && !empty(PKGSRC_COMPILER:Mclang))
+#.if ((${OPSYS} == "Darwin" && ${OS_VERSION:R} < 14) || \
+#    !empty(MACHINE_PLATFORM:MNetBSD-[0-7]*-*)) || \
+#    !empty(MACHINE_ARCH:Malpha) || !empty(MACHINE_ARCH:Mm68k) || \
+#    !empty(MACHINE_ARCH:Msparc64) || \
+#    (${OPSYS} == "NetBSD" && !empty(PKGSRC_COMPILER:Mclang))
 BJAM_ARGS+=		--without-fiber
-.else
-PLIST.fiber=		yes
-.endif
-
-# Long double math functions are not available on Darwin. See
-# boost/math/tools/config.hpp:53
-.if ${OPSYS} != "NetBSD" && ${OPSYS} != "FreeBSD" && \
-   (${OPSYS} != "Darwin" || !empty(MACHINE_PLATFORM:MDarwin-1[3-9].*))
-PLIST.long_double_math=	yes
-.endif
+#.else
+#PLIST.fiber=		yes
+#.endif
 
 UNLIMIT_RESOURCES+=	stacksize
 

@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.106 2017/02/28 15:20:11 ryoon Exp $
+# $NetBSD: Makefile,v 1.109 2017/09/18 09:53:37 maya Exp $
 
 DISTNAME=	epiphany-extensions-2.32.0
-PKGREVISION=	42
+PKGREVISION=	44
 CATEGORIES=	www gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/epiphany-extensions/2.32/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.gnome.org/projects/epiphany/extensions.html
+HOMEPAGE=	https://www.gnome.org/projects/epiphany/extensions.html
 COMMENT=	Extensions for the Epiphany web browser
 
 GNU_CONFIGURE=		YES

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2016/11/16 09:40:24 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2017/05/03 08:38:40 jperkin Exp $
 
 DISTNAME=	glog-0.3.4
 PKGNAME=	google-${DISTNAME}
@@ -7,7 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=google/}
 GITHUB_PROJECT=	glog
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
-MAINTAINER=	tonnerre@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/google/glog/
 COMMENT=	Application Level Logging library for C++
 LICENSE=	modified-bsd
@@ -15,7 +15,7 @@ LICENSE=	modified-bsd
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 
 PKGCONFIG_OVERRIDE+=	libglog.pc.in
 
@@ -23,11 +23,6 @@ PKGCONFIG_OVERRIDE+=	libglog.pc.in
 
 .if (${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD") && exists(/usr/include/execinfo.h)
 LIBS+=		-lexecinfo
-.endif
-
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11
 .endif
 
 .include "../../devel/googletest/buildlink3.mk"

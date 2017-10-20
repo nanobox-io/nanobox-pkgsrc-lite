@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2016/07/09 06:38:44 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2017/07/12 13:56:00 hauke Exp $
 
-DISTNAME=	netatalk-2.2.5
+DISTNAME=	netatalk-2.2.6
 PKGNAME=        ${DISTNAME:C/-/22-/}
-PKGREVISION=	4
+#PKGREVISION=	1
 CATEGORIES=	net print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=netatalk/}
 EXTRACT_SUFX=	.tar.bz2
@@ -18,7 +18,7 @@ LICENSE=	gnu-gpl-v2
 BDB_ACCEPTED=		db4 db5
 USE_LIBTOOL=		yes
 USE_OLD_DES_API=	yes
-USE_TOOLS+=		gmake perl:run
+USE_TOOLS+=		gmake pkg-config perl:run
 GNU_CONFIGURE=		yes
 
 BUILDLINK_TRANSFORM+=	l:db48:${BDB_TYPE}
@@ -31,9 +31,6 @@ CONF_FILES+=	${EGDIR}/afpd.conf ${PKG_SYSCONFDIR}/afpd.conf
 CONF_FILES+=	${EGDIR}/atalkd.conf ${PKG_SYSCONFDIR}/atalkd.conf
 CONF_FILES+=	${EGDIR}/netatalk.conf ${PKG_SYSCONFDIR}/netatalk.conf
 CONF_FILES+=	${EGDIR}/papd.conf ${PKG_SYSCONFDIR}/papd.conf
-
-CONFLICTS=		netatalk30-[0-9]* netatalk-[0-9]*
-CONFLICTS+=		netatalk-asun-[0-9]* netatalk-umich-[0-9]*
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -77,19 +74,15 @@ PLIST_VARS+=		ea
 PLIST.ea=		yes
 .endif
 
-PLIST_VARS+=		acl
-.if ${OPSYS} == "SunOS" || ${OPSYS} == "HPUX" || ${OPSYS} == "IRIX" || \
-	${OPSYS} == "AIX" || ${OPSYS} == "OSF1" || ${OPSYS} == "FreeBSD"
-PLIST.acl=		yes
-CONF_FILES+=	${EGDIR}/afp_ldap.conf ${PKG_SYSCONFDIR}/afp_ldap.conf
-.endif
-
 .include "options.mk"
 
 INSTALLATION_DIRS=	libexec/psffilters
 
-.if !empty(PKG_OPTIONS:Mpam)
 post-install:
+.if !empty(PKG_OPTIONS:Mldap)
+	${INSTALL_DATA} ${WRKSRC}/config/afp_ldap.conf ${DESTDIR}${EGDIR}
+.endif
+.if !empty(PKG_OPTIONS:Mpam)
 	${INSTALL_DATA} ${WRKSRC}/config/pam/netatalk.pam ${DESTDIR}${EGDIR}
 .endif
 

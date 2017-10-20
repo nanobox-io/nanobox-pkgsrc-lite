@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.16 2016/09/30 10:35:08 wiz Exp $
+@comment $NetBSD: PLIST,v 1.18 2017/10/05 14:33:25 wiz Exp $
 share/X11/xkb/compat/README
 share/X11/xkb/compat/accessx
 share/X11/xkb/compat/basic
@@ -42,6 +42,7 @@ share/X11/xkb/geometry/sgi_vndr/O2
 share/X11/xkb/geometry/sgi_vndr/indigo
 share/X11/xkb/geometry/sgi_vndr/indy
 share/X11/xkb/geometry/sony
+share/X11/xkb/geometry/steelseries
 share/X11/xkb/geometry/sun
 share/X11/xkb/geometry/teck
 share/X11/xkb/geometry/thinkpad
@@ -98,7 +99,6 @@ share/X11/xkb/symbols/ba
 share/X11/xkb/symbols/bd
 share/X11/xkb/symbols/be
 share/X11/xkb/symbols/bg
-share/X11/xkb/symbols/bn
 share/X11/xkb/symbols/br
 share/X11/xkb/symbols/brai
 share/X11/xkb/symbols/bt
@@ -303,6 +303,7 @@ share/locale/eo/LC_MESSAGES/xkeyboard-config.mo
 share/locale/es/LC_MESSAGES/xkeyboard-config.mo
 share/locale/fi/LC_MESSAGES/xkeyboard-config.mo
 share/locale/fr/LC_MESSAGES/xkeyboard-config.mo
+share/locale/fur/LC_MESSAGES/xkeyboard-config.mo
 share/locale/gl/LC_MESSAGES/xkeyboard-config.mo
 share/locale/hr/LC_MESSAGES/xkeyboard-config.mo
 share/locale/hu/LC_MESSAGES/xkeyboard-config.mo

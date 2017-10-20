@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2017/01/01 16:06:10 adam Exp $
+# $NetBSD: Makefile,v 1.8 2017/08/24 20:03:11 adam Exp $
 
-DISTNAME=	mdds-1.2.2
+DISTNAME=	mdds-1.2.3
 PKGNAME=	${DISTNAME:S/mdds/mdds1.2/}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://kohei.us/files/mdds/src/
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +16,8 @@ GNU_CONFIGURE=		yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake
 PKGCONFIG_OVERRIDE+=	misc/mdds.pc.in
+
+CONFIGURE_ARGS+=	--docdir=${PREFIX}/share/doc/mdds-1.2
 
 BUILDLINK_DEPMETHOD.boost-headers?=	build
 .include "../../devel/boost-headers/buildlink3.mk"

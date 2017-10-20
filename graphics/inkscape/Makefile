@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.143 2017/02/25 15:31:53 wiz Exp $
+# $NetBSD: Makefile,v 1.154 2017/09/18 09:53:23 maya Exp $
 
 DISTNAME=	inkscape-0.92.1
+PKGREVISION=	10
 CATEGORIES=	graphics
 MASTER_SITES=	https://media.inkscape.org/dl/resources/file/
 EXTRACT_SUFX=	.tar.bz2
@@ -19,10 +20,9 @@ DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 
 EXTRACT_USING=		bsdtar
 GCC_REQD+=		4.5.2
-CXXFLAGS+=		-std=c++11
 
 USE_CMAKE=		yes
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		intltool msgfmt msgmerge perl:run pkg-config
@@ -96,6 +96,7 @@ BUILDLINK_API_DEPENDS.boehm-gc+=	boehm-gc>=7.4
 .include "../../print/poppler-glib/buildlink3.mk"
 .include "../../print/poppler-includes/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../textproc/aspell/buildlink3.mk"
 .include "../../textproc/gtkspell/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"

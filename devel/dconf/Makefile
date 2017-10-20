@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.33 2016/04/20 22:00:55 prlw1 Exp $
+# $NetBSD: Makefile,v 1.38 2017/10/15 22:31:02 prlw1 Exp $
 
-DISTNAME=	dconf-0.26.0
+DISTNAME=	dconf-0.26.1
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/dconf/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -36,7 +36,7 @@ SUBST_FILES.libname+=	gsettings/Makefile.in
 SUBST_SED.libname=	-e "s|-Wl,-soname=|-install_name ${PREFIX}/lib/|g"
 SUBST_SED.libname+=	-e "/^libdconfsettings_so_LDFLAGS/s,$$, -install_name ${PREFIX}/lib/gio/modules/libdconfsettings.so,g"
 
-BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 

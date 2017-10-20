@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2016/06/08 19:23:44 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2017/06/14 16:16:34 jperkin Exp $
 
 DISTNAME=	TryCatch-1.003002
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/A/AS/ASH/}
 
@@ -27,6 +27,8 @@ BUILD_DEPENDS+=	p5-ExtUtils-Depends>=0.302:../../devel/p5-ExtUtils-Depends
 
 PERL5_PACKLIST=		auto/TryCatch/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../devel/p5-B-Hooks-OP-Check/buildlink3.mk"
 .include "../../devel/p5-B-Hooks-OP-PPAddr/buildlink3.mk"

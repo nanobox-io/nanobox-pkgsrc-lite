@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2017/02/28 15:20:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.37 2017/09/25 22:30:43 joerg Exp $
 
 DISTNAME=	calibre-1.48.0
-PKGREVISION=	24
+PKGREVISION=	31
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=calibre/}
 EXTRACT_SUFX=	.tar.xz
@@ -43,7 +43,7 @@ EXTRACT_USING=  bsdtar
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config pax
 PYTHON_VERSIONS_ACCEPTED=	27
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-mechanize, py-beautifulsoup, py-imaging, py-netifaces
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-mechanize, py-beautifulsoup
 PYDISTUTILSPKG=	yes
 PYSETUPOPTARGS=	# empty
 PYSETUPINSTALLARGS=	--prefix=${PREFIX} --root=${DESTDIR:Q}${PREFIX}
@@ -94,7 +94,7 @@ MAKE_ENV+=		PODOFO_LIB_DIR=${BUILDLINK_PREFIX.podofo}/lib
 
 # Let's depend on the ones we have in pkgsrc instead of the bundled ones.
 pre-configure:
-	cd ${WRKSRC} && rm -rf src/cherrypy src/html5lib src/chardet
+	cd ${WRKSRC} && rm -rf src/cherrypy src/html5lib src/chardet src/six.py
 
 # Turn off x bits on non-executable files.
 post-extract:

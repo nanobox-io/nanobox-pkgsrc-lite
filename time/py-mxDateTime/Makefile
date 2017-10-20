@@ -1,19 +1,19 @@
-# $NetBSD: Makefile,v 1.38 2017/01/01 14:44:02 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2017/09/04 18:08:29 wiz Exp $
 
-DISTNAME=	egenix-mx-base-3.2.7
-PKGNAME=	${PYPKGPREFIX}-mxDateTime-3.2.7
+VERSION=	3.2.9
+DISTNAME=	egenix-mx-base-${VERSION}
+PKGNAME=	${PYPKGPREFIX}-mxDateTime-${VERSION}
 CATEGORIES=	time python
 MASTER_SITES=	http://downloads.egenix.com/python/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.egenix.com/files/python/mxDateTime.html
+HOMEPAGE=	https://www.egenix.com/files/python/mxDateTime.html
 COMMENT=	Python extension that provides types and conversions for dates
 LICENSE=	egenix-public-license
 
-PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # not yet ported as of 3.2.7
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36	# not yet ported as of 3.2.9
 
 REPLACE_PYTHON+=	egenix_mx_base.py
-REPLACE_PYTHON+=	mx-base-3.2.7/mxSetup.py
 REPLACE_PYTHON+=	mx/BeeBase/FileLock.py
 REPLACE_PYTHON+=	mx/BeeBase/mxBeeBase/calc-sectorsize.py
 REPLACE_PYTHON+=	mx/BeeBase/mxBeeBase/testernesto.py

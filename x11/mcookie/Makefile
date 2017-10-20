@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.6 2017/02/27 10:20:01 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2017/10/02 15:39:11 wiz Exp $
 #
 # Changelog: see
 # https://git.kernel.org/cgit/utils/util-linux/util-linux.git/log/misc-utils/mcookie.c
 # https://git.kernel.org/cgit/utils/util-linux/util-linux.git/log/misc-utils/mcookie.1
 
-DISTNAME=	util-linux-2.29.2
+DISTNAME=	util-linux-2.30.2
 PKGNAME=	${DISTNAME:S/util-linux/mcookie/}
 CATEGORIES=	sysutils
-MASTER_SITES=	https://www.kernel.org/pub/linux/utils/util-linux/v2.29/
+MASTER_SITES=	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	reed@reedmedia.net
@@ -18,10 +18,13 @@ LICENSE=	public-domain
 BUILD_TARGET=	mcookie
 EXTRACT_USING=	bsdtar
 
-GNU_CONFIGURE=	yes
-INFO_FILES=	yes
-USE_TOOLS+=	bsdtar gmake
+CONFIG_SHELL=		bash
+GNU_CONFIGURE=		yes
+INFO_FILES=		yes
+USE_TOOLS+=		bash bsdtar gmake
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
+
+CONFIGURE_ENV.DragonFly+=	ac_cv_type_cpu_set_t=no
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/mcookie ${DESTDIR}${PREFIX}/bin

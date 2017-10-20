@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.64 2017/02/12 06:25:29 ryoon Exp $
+# $NetBSD: Makefile,v 1.71 2017/09/21 18:41:50 adam Exp $
 
-DISTNAME=	hugin-2016.2.0
-PKGREVISION=	4
+DISTNAME=	hugin-2017.0.0
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hugin/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,15 +11,20 @@ HOMEPAGE=	http://hugin.sourceforge.net/
 COMMENT=	Panorama photo stitcher
 LICENSE=	gnu-gpl-v2
 
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
+
 DEPENDS+=	enblend-enfuse>=4.0:../../graphics/enblend-enfuse
 DEPENDS+=	p5-Image-ExifTool>=8.15:../../graphics/p5-Image-ExifTool
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
-USE_LIBTOOL=		yes
 USE_TOOLS+=		msgfmt pkg-config
+CONFIGURE_ENV+=		MANDIR=${PKGMANDIR}
 
-CMAKE_ARGS+=		-DBUILD_HSI=OFF
+PY_PATCHPLIST=		yes
+REPLACE_PYTHON+=	src/hugin_script_interface/*.py
+REPLACE_PYTHON+=	src/hugin_script_interface/plugins/*.py
+REPLACE_PYTHON+=	src/hugin_script_interface/plugins-dev/*.py
 
 SUBST_CLASSES+=		apple
 SUBST_MESSAGE.apple=	Avoiding Mac OS X application bundles
@@ -31,6 +36,8 @@ SUBST_FILES.apple+=	src/hugin1/ptbatcher/CMakeLists.txt
 SUBST_FILES.apple+=	src/hugin1/stitch_project/CMakeLists.txt
 SUBST_SED.apple=	-e 's,(APPLE),(ELPPA),g'
 
+.include "../../mk/bsd.prefs.mk"
+
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
@@ -38,14 +45,17 @@ SUBST_SED.apple=	-e 's,(APPLE),(ELPPA),g'
 .include "../../devel/tclap/buildlink3.mk"
 .include "../../graphics/exiv2/buildlink3.mk"
 .include "../../graphics/glew/buildlink3.mk"
+.if ${OPSYS} != "Darwin"
 .include "../../graphics/glut/buildlink3.mk"
+.endif
 .include "../../graphics/gnome-icon-theme/buildlink3.mk"
 .include "../../graphics/lensfun/buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"
 .include "../../graphics/libpano13/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
 .include "../../graphics/vigra/buildlink3.mk"
-#.include "../../lang/python/extension.mk"
+.include "../../lang/python/application.mk"
+.include "../../lang/python/extension.mk"
 .include "../../math/fftw/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/wxGTK30/buildlink3.mk"

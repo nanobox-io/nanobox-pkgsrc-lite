@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.14 2016/10/24 13:58:56 taca Exp $
+# $NetBSD: Makefile,v 1.17 2017/08/18 10:41:40 taca Exp $
 
-DISTNAME=	fast_gettext-1.3.0
+DISTNAME=	fast_gettext-1.5.1
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/grosser/fast_gettext
+HOMEPAGE=	https://github.com/grosser/fast_gettext
 COMMENT=	Simple, fast, memory-efficient and threadsafe GetText
 LICENSE=	ruby-license
 

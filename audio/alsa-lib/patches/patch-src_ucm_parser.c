@@ -1,19 +1,15 @@
-$NetBSD: patch-src_ucm_parser.c,v 1.4 2016/04/15 08:47:50 wiz Exp $
+$NetBSD: patch-src_ucm_parser.c,v 1.7 2017/06/27 15:51:39 jperkin Exp $
 
 * SunOS has no dirent d_type
 
---- src/ucm/parser.c.orig	2013-07-08 12:31:36.000000000 +0000
+--- src/ucm/parser.c.orig	2017-06-01 06:27:36.000000000 +0000
 +++ src/ucm/parser.c
-@@ -1224,9 +1224,17 @@ int uc_mgr_import_master_config(snd_use_
- 
- static int filename_filter(const struct dirent *dirent)
+@@ -1476,7 +1476,13 @@ static int filename_filter(const struct
  {
-+#ifdef __sun
-+	struct stat s;
-+#endif
  	if (dirent == NULL)
  		return 0;
 +#ifdef __sun
++	struct stat s;
 +	stat(dirent->d_name, &s);
 +	if (s.st_mode & S_IFDIR) {
 +#else

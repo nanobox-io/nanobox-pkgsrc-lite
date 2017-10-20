@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2016/06/08 19:24:19 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2017/06/28 08:27:44 jperkin Exp $
 
 DISTNAME=		Crypt-DH-0.07
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		security perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Crypt/}
 
@@ -19,6 +19,8 @@ USE_LANGUAGES=		# empty
 
 PERL5_PACKLIST=		auto/Crypt/DH/.packlist
 MAKE_PARAMS+=		--skipdeps
+
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

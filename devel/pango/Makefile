@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.204 2017/02/12 06:24:41 ryoon Exp $
+# $NetBSD: Makefile,v 1.208 2017/10/15 23:19:11 prlw1 Exp $
 
-DISTNAME=	pango-1.40.3
-PKGREVISION=	2
+DISTNAME=	pango-1.40.12
 CATEGORIES=	devel fonts
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pango/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -22,17 +21,10 @@ CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/libdata
 # Carbon has been obsoleted; force turning it off
 #CONFIGURE_ENV+=		ac_cv_header_Carbon_Carbon_h=no
 
-PKGCONFIG_OVERRIDE=	pango-uninstalled.pc.in
 PKGCONFIG_OVERRIDE+=	pango.pc.in
-PKGCONFIG_OVERRIDE+=	pangocairo-uninstalled.pc.in
 PKGCONFIG_OVERRIDE+=	pangocairo.pc.in
-PKGCONFIG_OVERRIDE+=	pangoft2-uninstalled.pc.in
 PKGCONFIG_OVERRIDE+=	pangoft2.pc.in
-PKGCONFIG_OVERRIDE+=	pangowin32-uninstalled.pc.in
 PKGCONFIG_OVERRIDE+=	pangowin32.pc.in
-PKGCONFIG_OVERRIDE+=	pangox-uninstalled.pc.in
-PKGCONFIG_OVERRIDE+=	pangox.pc.in
-PKGCONFIG_OVERRIDE+=	pangoxft-uninstalled.pc.in
 PKGCONFIG_OVERRIDE+=	pangoxft.pc.in
 
 CHECK_FILES_SKIP+=	${PREFIX}/libdata/pango/pango.modules

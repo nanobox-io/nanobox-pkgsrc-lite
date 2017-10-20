@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.2 2016/12/04 23:12:58 rodent Exp $
+# $NetBSD: Makefile,v 1.6 2017/09/16 19:26:44 wiz Exp $
 
-DISTNAME=	ldap3-2.1.1
+DISTNAME=	ldap3-2.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	databases python
 MASTER_SITES=	${MASTER_SITE_PYPI:=l/ldap3/}
 
-MAINTAINER=	rodent@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/cannatag/ldap3
 COMMENT=	Strictly RFC 4510 conforming LDAP V3 pure Python client library
 LICENSE=	gnu-lgpl-v3

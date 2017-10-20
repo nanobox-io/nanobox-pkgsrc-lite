@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2017/02/01 13:31:52 mef Exp $
+# $NetBSD: Makefile,v 1.4 2017/09/27 16:45:52 wiz Exp $
 
-DISTNAME=	WWW-Form-UrlEncoded-0.23
+DISTNAME=	WWW-Form-UrlEncoded-0.24
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=WWW/}

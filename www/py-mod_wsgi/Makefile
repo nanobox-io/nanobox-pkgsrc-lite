@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.8 2017/01/03 13:23:04 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2017/10/11 07:17:38 adam Exp $
 
-DISTNAME=	mod_wsgi-4.4.12
+DISTNAME=	mod_wsgi-4.5.20
 PKGNAME=	${PYPKGPREFIX}-${APACHE_PKG_PREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	${MASTER_SITE_PYPI:=m/mod_wsgi/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	https://code.google.com/p/modwsgi/
+HOMEPAGE=	http://www.modwsgi.org/
 COMMENT=	WSGI module for apache
 LICENSE=	apache-2.0
 
@@ -24,8 +24,8 @@ post-extract:
 	${RM} -f ${WRKSRC}/src/__init__.py
 
 post-install:
-	${MV} ${DESTDIR}${PREFIX}/bin/mod_wsgi-express \
-		${DESTDIR}${PREFIX}/bin/mod_wsgi-express${PYVERSSUFFIX} || ${TRUE}
+	cd ${DESTDIR}${PREFIX}/bin/ && \
+		${MV} mod_wsgi-express mod_wsgi-express${PYVERSSUFFIX} || ${TRUE}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

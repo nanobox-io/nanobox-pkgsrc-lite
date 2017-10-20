@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2016/10/04 11:44:07 wen Exp $
+# $NetBSD: Makefile,v 1.8 2017/09/27 14:14:15 wiz Exp $
 
-DISTNAME=	Cookie-Baker-0.07
+DISTNAME=	Cookie-Baker-0.08
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Cookie/}
@@ -16,7 +16,7 @@ DEPENDS+=       p5-URI>=0:../../www/p5-URI
 USE_LANGUAGES=	#
 PERL5_PACKLIST= auto/Cookie/Baker/.packlist
 
-PERL5_MODULE_TYPE=	Module::Build
+PERL5_MODULE_TYPE=	Module::Build::Tiny
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

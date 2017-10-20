@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.13 2016/06/08 19:23:37 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2017/06/12 13:26:45 maya Exp $
 #
 
 DISTNAME=	Test-Fixture-DBIC-Schema-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Test/}
 
@@ -13,6 +13,7 @@ COMMENT=	Perl 5 module providing a DBIx::Class::Schema fixture data loader
 LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=	# empty
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=	auto/Test/Fixture/DBIC/Schema/.packlist
 
 DEPENDS+=	p5-DBIx-Class>=0.08008:../../databases/p5-DBIx-Class

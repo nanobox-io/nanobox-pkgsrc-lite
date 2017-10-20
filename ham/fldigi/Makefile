@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.85 2017/01/31 13:39:44 mef Exp $
+# $NetBSD: Makefile,v 1.93 2017/09/30 11:58:02 mef Exp $
 
-DISTNAME=	fldigi-3.23.21
+DISTNAME=	fldigi-4.0.10
 CATEGORIES=	ham
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fldigi/}
 
@@ -10,19 +10,13 @@ COMMENT=	Digital radio modem
 LICENSE=	gnu-gpl-v3
 
 USE_TOOLS+=	gmake pkg-config
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c c++11
 GNU_CONFIGURE=	yes
 
 # NetBSD 5.1 fails to find strip - install: exec of strip failed:
 CONFIGURE_ENV+=		STRIP=${STRIP}
 
 BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
-
-SUBST_CLASSES+=		perl
-SUBST_STAGE.perl=	post-configure
-SUBST_FILES.perl=	scripts/fldigi-shell
-SUBST_MESSAGE.perl=	Replacing Perl PATH
-SUBST_SED.perl=		-e s\|/usr/bin/perl\|${PERL5:Q}\|g
 
 SUBST_CLASSES+=		asciidoc
 SUBST_STAGE.asciidoc=	post-configure
@@ -44,7 +38,7 @@ CONFIGURE_ENV.NetBSD+=	ac_cv_header_execinfo_h=no
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11 -Wno-error=c++11-narrowing
+CXXFLAGS+=	-Wno-error=c++11-narrowing
 .endif
 
 .include "../../audio/libsamplerate/buildlink3.mk"
@@ -53,6 +47,7 @@ CXXFLAGS+=	-std=c++11 -Wno-error=c++11-narrowing
 .include "../../audio/pulseaudio/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../ham/hamlib/buildlink3.mk"
+.include "../../ham/flxmlrpc/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../textproc/xmlrpc-c/buildlink3.mk"
 #include "../../textproc/json-c/buildlink3.mk"

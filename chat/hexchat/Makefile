@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.13 2017/02/12 06:25:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.18 2017/09/18 09:53:12 maya Exp $
 
-DISTNAME=	hexchat-2.12.1
+DISTNAME=	hexchat-2.12.3
 PKGREVISION=	3
 CATEGORIES=	chat
 MASTER_SITES=	http://dl.hexchat.net/hexchat/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://hexchat.github.io/
+HOMEPAGE=	https://hexchat.github.io/
 COMMENT=	IRC client based on XChat
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1 AND mit
 

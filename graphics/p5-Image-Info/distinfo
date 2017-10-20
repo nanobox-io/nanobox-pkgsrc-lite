@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.21 2016/10/09 08:37:33 wiz Exp $
+$NetBSD: distinfo,v 1.23 2017/08/14 18:53:19 wiz Exp $
 
-SHA1 (Image-Info-1.39.tar.gz) = f0a333c53c72132921fd0f14b9e2316ef626a1c5
-RMD160 (Image-Info-1.39.tar.gz) = 0bab2065ea3d0674b638a48341b8490d6b38cbcc
-SHA512 (Image-Info-1.39.tar.gz) = c246842029f57ad8be47348489bc625c9dfda46d96a5489fffca8cf6cc294eea2321dc8ba414b959aa48b5e72785a8221db69e9afb45be6c6ad6544d9adc8a91
-Size (Image-Info-1.39.tar.gz) = 264725 bytes
+SHA1 (Image-Info-1.41.tar.gz) = 7086c8a6bd9ae790de2e03ef2262cdb5975597be
+RMD160 (Image-Info-1.41.tar.gz) = 3ae32927a34102665a07d0c1dab91e8adfea21b2
+SHA512 (Image-Info-1.41.tar.gz) = 7e3cb103efa004ce728b6e594f5b7518fa5be14a814e6f06d4a3e85563d7896fd283855cfe9e091c22b3728f6126501463f7326d704c0188ad696206f9318824
+Size (Image-Info-1.41.tar.gz) = 265977 bytes

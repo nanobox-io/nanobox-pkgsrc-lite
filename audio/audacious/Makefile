@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.46 2017/02/12 06:24:36 ryoon Exp $
+# $NetBSD: Makefile,v 1.48 2017/10/15 22:31:01 prlw1 Exp $
 
 DISTNAME=	audacious-3.5.2
 PKGREVISION=	5
@@ -18,7 +18,7 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-chardet
 PKGCONFIG_OVERRIDE+=	audacious.pc.in
 
-BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 
 # XXX does not solve linking problem completely
 LDFLAGS.Darwin+=	-flat_namespace -undefined suppress

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2017/01/19 09:23:36 markd Exp $
+# $NetBSD: Makefile,v 1.34 2017/09/18 09:53:30 maya Exp $
 
 DISTNAME=	kopete-16.12.0
+PKGREVISION=	5
 CATEGORIES=	net
 COMMENT=	Multi-protocol instant messenger client
 MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.12.0/src/}
@@ -9,6 +10,8 @@ MASTER_SITES=	${MASTER_SITE_KDE:=applications/16.12.0/src/}
 MAKE_JOBS_SAFE=	no
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
+
+USE_LANGUAGES+=	c++11
 
 CMAKE_ARGS+=	-DWITH_Xmms:BOOL=OFF
 

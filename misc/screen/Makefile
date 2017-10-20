@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.100 2017/01/25 01:17:16 maya Exp $
+# $NetBSD: Makefile,v 1.103 2017/07/18 23:02:18 kim Exp $
 
-DISTNAME=	screen-4.5.0
-PKGREVISION=	2
+DISTNAME=	screen-4.6.1
+#PKGREVISION=	1
 CATEGORIES=	misc shells
 MASTER_SITES=	${MASTER_SITE_GNU:=screen/}
 
@@ -9,6 +9,8 @@ MAINTAINER=	kimmo@suominen.com
 HOMEPAGE=	http://www.gnu.org/software/screen/screen.html
 COMMENT=	Multi-screen window manager
 LICENSE=	gnu-gpl-v3
+
+EXTRACT_USING=	bsdtar
 
 # In file included from list_display.c:36:
 # In file included from ./screen.h:150:

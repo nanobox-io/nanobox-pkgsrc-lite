@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2016/06/08 19:22:25 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2017/06/12 12:15:33 maya Exp $
 
 DISTNAME=	DBICx-Deploy-0.02
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../by-authors/id/J/JR/JROCKWAY/}
 
@@ -11,6 +11,7 @@ HOMEPAGE=	http://search.cpan.org/dist/DBICx-Deploy/
 COMMENT=	Perl 5 module to deploy a a DBIx::Class schema
 
 USE_LANGUAGES=	# empty
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=	auto/DBICx/Deploy/.packlist
 
 BUILD_DEPENDS+=	p5-DBD-SQLite-[0-9]*:../../databases/p5-DBD-SQLite

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.111 2016/11/16 10:14:36 wiz Exp $
+# $NetBSD: Makefile,v 1.114 2017/10/05 15:34:13 wiz Exp $
 
 DISTNAME=	xorg-server-${XORG_VERSION}
 PKGNAME=	modular-${DISTNAME}
@@ -15,6 +15,7 @@ NOT_FOR_PLATFORM=	Darwin-*-*
 CONFIGURE_ARGS+=	--enable-xorg
 CONFIGURE_ARGS+=	--disable-xephyr
 CONFIGURE_ARGS+=	--disable-kdrive
+CONFIGURE_ARGS.SunOS+=	--disable-input-thread
 
 .include "options.mk"
 

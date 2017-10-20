@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2012/10/08 13:45:47 asau Exp $
-#
+# $NetBSD: Makefile,v 1.4 2017/07/12 10:49:23 wiz Exp $
 
 DISTNAME=	tex-bibtex8-3.71
 CATEGORIES=	print
@@ -11,11 +10,11 @@ HOMEPAGE=	http://mirrors.ctan.org/biblio/bibtex/8-bit/
 COMMENT=	8-bit Implementation of BibTeX 0.99 with multilanguage support
 LICENSE=	gnu-gpl-v2
 
-WRKSRC=	${WRKDIR} # More than one possibility -- please check manually.
+WRKSRC=		${WRKDIR}
 
 MAKE_FILE=	unix.mak
 BUILD_TARGET=	bibtex-exe
-MAKE_FLAGS+=	CFLAGS=${CFLAGS.${PKGSRC_COMPILER}:Q}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS.${PKGSRC_COMPILER}:Q} LDFLAGS=${LDFLAGS:Q}
 MAKE_FLAGS+=	CSF_INPUT_PATH=${PREFIX}/${TEXMFDIR}/bibtex/csf
 MAKE_FLAGS+=	BIB_INPUT_PATH=${PREFIX}/${TEXMFDIR}/bibtex/bib
 MAKE_FLAGS+=	BST_INPUT_PATH=${PREFIX}/${TEXMFDIR}/bibtex/bst
@@ -39,4 +38,5 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bibtex ${DESTDIR}${PREFIX}/bin/bibtex8
 	${INSTALL_DATA} ${WRKSRC}/*.csf ${DESTDIR}${PREFIX}/${TEXMFDIR}/bibtex/csf
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

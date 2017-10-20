@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2016/09/06 12:37:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.22 2017/10/14 14:46:00 ryoon Exp $
 
 GCC_PKGNAME=	gcc49
 .include	"version.mk"
@@ -9,13 +9,12 @@ PKGNAME=	${GCC_PKGNAME}-${GCC49_DIST_VERSION}
 ## When bumping the PKGREVISION of this package the PKGREVISION of
 ## lang/gcc49-libs needs to be bump to be at least 1 more than the
 ## PKGREVISION of this package!
-#PKGREVISION=
-
+PKGREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC49_DIST_VERSION}/}
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	maya@NetBSD.org
 HOMEPAGE=	http://gcc.gnu.org/
 COMMENT=	The GNU Compiler Collection (GCC) - 4.9 Release Series
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
@@ -27,6 +26,8 @@ NOT_FOR_PLATFORM=	Interix-*-*
 
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake makeinfo sed:run
+USE_TOOLS.NetBSD+=	gsed
+
 
 GNU_CONFIGURE=		yes
 ## Build outside ${WRKSRC}
@@ -38,6 +39,7 @@ GCC_PREFIX=		${PREFIX}/${GCC_SUBPREFIX}
 GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 GNU_CONFIGURE_PREFIX=	${GCC_PREFIX}
 INFO_FILES=		yes
+CONFIGURE_ARGS+=	--disable-libstdcxx-pch
 
 UNLIMIT_RESOURCES+=	datasize
 UNLIMIT_RESOURCES+=	stacksize
@@ -70,10 +72,17 @@ CHECK_SHLIBS_SKIP+=	${GCC_PKGNAME}/lib*/libgcj_bc.so*
 ## For target librarys and libjava programs.
 CONFIGURE_ENV+=		LDFLAGS_FOR_TARGET=${LDFLAGS_FOR_TARGET:Q}
 
-.if !empty(MACHINE_PLATFORM:MNetBSD-*-*)                                                                                                                                                                     # use the native SSP code in netbsd libc, gcc libssp conflicts with it.
-CONFIGURE_ARGS+=        --disable-libssp
+.if !empty(MACHINE_PLATFORM:MNetBSD-*-*)
+# native SSP conflicts with gcc's libssp
+CONFIGURE_ARGS+=	--disable-libssp
+# Match base libstdc++ major
+SUBST_CLASSES+=		libstdc
+SUBST_STAGE.libstdc=	pre-configure
+SUBST_FILES.libstdc=	libstdc++-v3/configure
+SUBST_MESSAGE.libstdc=	Bumping libstdc++ major to 7
+SUBST_SED.libstdc=	-e 's,libtool_VERSION=6:,libtool_VERSION=7:,g'
 .else
-CONFIGURE_ARGS+=        --enable-libssp
+CONFIGURE_ARGS+=	--enable-libssp
 .endif
 
 CONFIGURE_ARGS+=	--enable-languages=${LANGS:Q}

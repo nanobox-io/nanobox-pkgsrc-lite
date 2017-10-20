@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.2 2012/10/25 06:57:04 asau Exp $
+# $NetBSD: Makefile,v 1.4 2017/09/06 10:40:34 wiz Exp $
 #
 
 DISTNAME=	unac-1.7.0
 CATEGORIES=	textproc
-MASTER_SITES=	http://www.senga.org/download/unac/
+#MASTER_SITES=	http://www.senga.org/download/unac/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.senga.org/download/unac/
+#HOMEPAGE=	http://www.senga.org/download/unac/
 COMMENT=	C library that removes accents from characters
 LICENSE=	gnu-gpl-v2
 
@@ -15,4 +15,7 @@ USE_LIBTOOL=	yes
 
 PKGCONFIG_OVERRIDE+=	unac.pc.in
 
+LIBS.SunOS+=	-liconv
+
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

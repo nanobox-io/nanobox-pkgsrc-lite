@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.2 2016/10/13 09:37:50 fhajny Exp $
+# $NetBSD: Makefile.common,v 1.4 2017/07/18 10:18:58 ryoon Exp $
 #
 # used by devel/jenkins-lts/Makefile
 # used by devel/jenkins/Makefile
@@ -8,7 +8,7 @@ PKGNAME=	jenkins-${J_VERSION}
 CATEGORIES=	devel
 EXTRACT_SUFX=	.war
 
-HOMEPAGE=	http://jenkins-ci.org/
+HOMEPAGE=	https://jenkins.io/
 LICENSE=	mit
 
 DIST_SUBDIR=	${PKGNAME_NOREV}
@@ -17,7 +17,7 @@ WRKSRC=		${WRKDIR}
 USE_LANGUAGES=	# none
 
 USE_JAVA=	run
-USE_JAVA2=	7
+USE_JAVA2=	8
 
 USE_TOOLS+=	unzip
 
@@ -29,7 +29,6 @@ INSTALLATION_DIRS=	share/jenkins
 MESSAGE_SRC=	${.CURDIR}/../../devel/jenkins/MESSAGE
 
 do-install:
-	${UNZIP_CMD} -d ${DESTDIR}${PREFIX}/share/jenkins ${WRKSRC}/jenkins.war
 	${INSTALL_DATA} ${WRKSRC}/jenkins.war ${DESTDIR}${PREFIX}/share/jenkins
 
 .include "../../mk/java-vm.mk"

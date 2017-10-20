@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.21 2017/02/03 15:23:46 maya Exp $
+# $NetBSD: Makefile.common,v 1.25 2017/10/15 23:19:12 prlw1 Exp $
 #
 # used by audio/gst-plugins1-alsa/Makefile
 # used by audio/gst-plugins1-cdparanoia/Makefile
@@ -13,8 +13,8 @@
 #
 
 GST_PLUGINS1_TYPE=	base
-GST_PLUGINS1_VER=	1.10.3
-BUILDLINK_API_DEPENDS.gstreamer1+= gstreamer1>=1.10.0
+GST_PLUGINS1_VER=	1.12.2
+BUILDLINK_API_DEPENDS.gstreamer1+= gstreamer1>=1.12.0
 LICENSE=		gnu-lgpl-v2
 
 # Disable all drivers and features by default.

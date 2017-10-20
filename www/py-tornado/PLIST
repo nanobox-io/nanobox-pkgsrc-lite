@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.12 2015/12/23 12:43:50 joerg Exp $
+@comment $NetBSD: PLIST,v 1.14 2017/05/04 09:50:21 adam Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -103,6 +103,9 @@ ${PYSITELIB}/tornado/process.pyo
 ${PYSITELIB}/tornado/queues.py
 ${PYSITELIB}/tornado/queues.pyc
 ${PYSITELIB}/tornado/queues.pyo
+${PYSITELIB}/tornado/routing.py
+${PYSITELIB}/tornado/routing.pyc
+${PYSITELIB}/tornado/routing.pyo
 ${PYSITELIB}/tornado/simple_httpclient.py
 ${PYSITELIB}/tornado/simple_httpclient.pyc
 ${PYSITELIB}/tornado/simple_httpclient.pyo
@@ -146,6 +149,9 @@ ${PYSITELIB}/tornado/test/gen_test.pyc
 ${PYSITELIB}/tornado/test/gen_test.pyo
 ${PYSITELIB}/tornado/test/gettext_translations/fr_FR/LC_MESSAGES/tornado_test.mo
 ${PYSITELIB}/tornado/test/gettext_translations/fr_FR/LC_MESSAGES/tornado_test.po
+${PYSITELIB}/tornado/test/http1connection_test.py
+${PYSITELIB}/tornado/test/http1connection_test.pyc
+${PYSITELIB}/tornado/test/http1connection_test.pyo
 ${PYSITELIB}/tornado/test/httpclient_test.py
 ${PYSITELIB}/tornado/test/httpclient_test.pyc
 ${PYSITELIB}/tornado/test/httpclient_test.pyo
@@ -189,6 +195,9 @@ ${PYSITELIB}/tornado/test/queues_test.pyo
 ${PYSITELIB}/tornado/test/resolve_test_helper.py
 ${PYSITELIB}/tornado/test/resolve_test_helper.pyc
 ${PYSITELIB}/tornado/test/resolve_test_helper.pyo
+${PYSITELIB}/tornado/test/routing_test.py
+${PYSITELIB}/tornado/test/routing_test.pyc
+${PYSITELIB}/tornado/test/routing_test.pyo
 ${PYSITELIB}/tornado/test/runtests.py
 ${PYSITELIB}/tornado/test/runtests.pyc
 ${PYSITELIB}/tornado/test/runtests.pyo
@@ -234,6 +243,9 @@ ${PYSITELIB}/tornado/test/web_test.pyo
 ${PYSITELIB}/tornado/test/websocket_test.py
 ${PYSITELIB}/tornado/test/websocket_test.pyc
 ${PYSITELIB}/tornado/test/websocket_test.pyo
+${PYSITELIB}/tornado/test/windows_test.py
+${PYSITELIB}/tornado/test/windows_test.pyc
+${PYSITELIB}/tornado/test/windows_test.pyo
 ${PYSITELIB}/tornado/test/wsgi_test.py
 ${PYSITELIB}/tornado/test/wsgi_test.pyc
 ${PYSITELIB}/tornado/test/wsgi_test.pyo

@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.28 2016/06/08 19:23:02 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2017/09/17 10:40:07 wiz Exp $
 
-DISTNAME=	IO-All-0.86
+DISTNAME=	IO-All-0.87
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:S/${MODULE_DIR}/${AUTHOR_DIR}/}
 MODULE_DIR=	modules/by-module
-AUTHOR_DIR=	authors/id/I/IN/INGY
+AUTHOR_DIR=	authors/id/F/FR/FREW
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/IO-All/

@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.43 2017/01/17 12:58:29 wiz Exp $
+# $NetBSD: Makefile,v 1.49 2017/10/14 10:14:25 adam Exp $
 
-DISTNAME=	lxml-3.7.2
+DISTNAME=	lxml-4.1.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-CATEGORIES=	textproc
-MASTER_SITES=	http://lxml.de/files/
-EXTRACT_SUFX=	.tgz
+CATEGORIES=	textproc python
+MASTER_SITES=	${MASTER_SITE_PYPI:=l/lxml/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://lxml.de/
@@ -13,12 +12,11 @@ LICENSE=	modified-bsd
 
 # as of 3.6.1, two test failures on NetBSD, see
 # https://bugs.launchpad.net/lxml/+bug/1522052
-# third error in 3.6.1
-# https://bugs.launchpad.net/lxml/+bug/1608479
-# two more errors since 3.7.2
-# https://bugs.launchpad.net/lxml/+bug/1655054
+# new error since 3.8.0
+# https://bugs.launchpad.net/lxml/+bug/1710409
 TEST_TARGET=	test_inplace
 
+.include "../../devel/py-cython/buildlink3.mk"
 .include "../../lang/python/egg.mk"
 BUILDLINK_API_DEPENDS.libxml2+=	libxml2>=2.7.8
 .include "../../textproc/libxml2/buildlink3.mk"
@@ -26,4 +24,4 @@ BUILDLINK_API_DEPENDS.libxslt+=	libxslt>=1.1.26
 .include "../../textproc/libxslt/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
 # needed for "make test" with python-3.x -- fixes first two errors noted above
-#MAKE_ENV+=     LC_ALL=en_US.UTF-8
+MAKE_ENV+=	LC_ALL=en_US.UTF-8

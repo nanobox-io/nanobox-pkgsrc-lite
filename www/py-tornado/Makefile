@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.20 2017/02/06 01:22:46 markd Exp $
+# $NetBSD: Makefile,v 1.24 2017/09/07 15:20:33 adam Exp $
 
-DISTNAME=	tornado-4.3
+DISTNAME=	tornado-4.5.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_PYPI:=t/tornado/}
@@ -11,7 +11,6 @@ COMMENT=	Fast and non-blocking web framework
 LICENSE=	apache-2.0
 
 DEPENDS+=	${PYPKGPREFIX}-curl>=7.18.2:../../www/py-curl
-DEPENDS+=	${PYPKGPREFIX}-backports_abc>=0.4:../../devel/py-backports_abc
 
 REPLACE_PYTHON+=	setup.py
 REPLACE_PYTHON+=	tornado/*.py
@@ -29,10 +28,11 @@ DEPENDS+=	${PYPKGPREFIX}-backports.ssl_match_hostname-[0-9]*:../../security/py-b
 DEPENDS+=	${PYPKGPREFIX}-certifi-[0-9]*:../../security/py-certifi
 DEPENDS+=	${PYPKGPREFIX}-singledispatch>0:../../devel/py-singledispatch
 .endif
-.if "${PYPKGPREFIX}" != "py35" && "${PYPKGPREFIX}" != "py36"
+.if "${PYPKGPREFIX}" == "py27" || "${PYPKGPREFIX}" == "py34"
+DEPENDS+=	${PYPKGPREFIX}-backports_abc>=0.4:../../devel/py-backports_abc
 PLIST.requires=	yes
 .endif
 
-.include "../../lang/python/egg.mk"
 .include "../../lang/python/application.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

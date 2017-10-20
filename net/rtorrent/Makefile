@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.64 2017/01/01 16:06:34 adam Exp $
+# $NetBSD: Makefile,v 1.67 2017/08/24 20:03:36 adam Exp $
 
 DISTNAME=	rtorrent-0.9.6
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	http://rtorrent.net/downloads/
 
@@ -10,7 +10,7 @@ HOMEPAGE=	http://rakshasa.github.io/rtorrent/
 COMMENT=	Ncurses based torrent client with support for sessions
 LICENSE=	gnu-gpl-v2
 
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_LIBTOOL=		yes
 USE_NCURSES=		yes # chgat
 USE_TOOLS+=		gmake pkg-config
@@ -40,10 +40,6 @@ CXXFLAGS+=	-fpermissive -fno-strength-reduce -fno-thread-jumps \
 
 .if !empty(CC_VERSION:Mgcc-*) && !empty(MACHINE_ARCH:Mi?86)
 CXXFLAGS+=	-march=i486
-.endif
-
-.if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11
 .endif
 
 INSTALLATION_DIRS=	share/examples/rtorrent

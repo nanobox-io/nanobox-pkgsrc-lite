@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2017/02/12 06:25:30 ryoon Exp $
+# $NetBSD: Makefile,v 1.11 2017/10/09 08:17:41 wiz Exp $
 
 DISTNAME=	opencv-2.4.11
 PKGREVISION=	6
@@ -7,12 +7,12 @@ MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opencvlibrary/}
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	anthony.mallet@laas.fr
-HOMEPAGE=	http://code.opencv.org/projects/OpenCV/wiki/WikiStart
+HOMEPAGE=	http://opencv.org/
 COMMENT=	Library for computer vision problems
 LICENSE=	modified-bsd
 
 USE_CMAKE=		yes
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c c++11
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
@@ -34,11 +34,6 @@ CXXFLAGS+=	-D__STDC_LIMIT_MACROS
 CHECK_WRKREF_SKIP=	${PREFIX}/lib/libopencv_core.*
 
 .include "options.mk"
-
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-std=c++11
-.endif
 
 CMAKE_ARGS+=		-DZLIB_ROOT=${BUILDLINK_PREFIX.zlib}
 CMAKE_ARGS.SunOS+=	-DENABLE_PRECOMPILED_HEADERS=NO

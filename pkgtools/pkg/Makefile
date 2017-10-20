@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2016/11/21 14:04:35 marino Exp $
+# $NetBSD: Makefile,v 1.21 2017/08/19 00:24:13 jlam Exp $
 
 DISTNAME=	pkg-1.9.99.4
+PKGREVISION=	1
 CATEGORIES=	pkgtools
 MASTER_SITES=	http://files.etoilebsd.net/pkg/
 EXTRACT_SUFX=	.tar.xz
@@ -91,6 +92,9 @@ SUBST_STAGE.vuxml=	post-patch
 SUBST_FILES.vuxml=	libpkg/pkg_audit.c
 SUBST_SED.vuxml=	-e "s|https://vuxml.FreeBSD.org/freebsd|http://muscles.dragonflybsd.org/pkgsrc-vuxml/reports|"
 SUBST_MESSAGE.vuxml=	Direct audit reports to Pkgsrc vuxml
+
+# Install manpages under ${PKGMANDIR}.
+INSTALL_MAKE_FLAGS+=	mandir=${PREFIX:Q}/${PKGMANDIR:Q}
 
 .if defined(PACKAGE_BUILDING) # set by Synth which has custom location, so use default path
 PKG.portsdir?=	/usr/pkgsrc

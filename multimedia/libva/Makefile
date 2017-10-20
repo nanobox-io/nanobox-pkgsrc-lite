@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.14 2017/03/06 10:19:57 maya Exp $
-#
+# $NetBSD: Makefile,v 1.18 2017/09/14 11:33:33 adam Exp $
 
-DISTNAME=	libva-1.7.3
-PKGREVISION=	4
+DISTNAME=	libva-1.8.3
 CATEGORIES=	multimedia
-MASTER_SITES=	http://www.freedesktop.org/software/vaapi/releases/libva/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=01org/}
 EXTRACT_SUFX=	.tar.bz2
+GITHUB_RELEASE=	${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.freedesktop.org/wiki/Software/vaapi
+HOMEPAGE=	https://github.com/01org/libva
 COMMENT=	Video Acceleration API
 LICENSE=	mit
 
@@ -18,7 +17,16 @@ USE_TOOLS+=	autoreconf autoconf automake gmake pkg-config
 
 .include "../../mk/bsd.prefs.mk"
 
+#
+# vaapi drivers (e.g. intel-vaapi-driver) can be installed under
+# ${PREFIX}/lib/dri and linked against native X.org. Instruct libva's
+# DRIVER_SEARCH_PATH to look at them too for native X.org.
+#
+.if ${X11_TYPE} == "native"
+DRIVER_SEARCH_PATH=	${X11BASE}/lib/dri:${PREFIX}/lib/dri
+.else
 DRIVER_SEARCH_PATH=	${X11BASE}/lib/dri
+.endif
 
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-drivers-path=${DRIVER_SEARCH_PATH:Q}

@@ -1,13 +1,13 @@
-# $NetBSD: options.mk,v 1.5 2017/01/01 22:36:34 leot Exp $
+# $NetBSD: options.mk,v 1.10 2017/10/18 20:25:41 adam Exp $
 
 # Global and legacy options
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ffmpeg3
-PKG_SUPPORTED_OPTIONS=	ass doc ebur128 fdk-aac fontconfig freetype \
-			gnutls lame libvpx opencore-amr openssl opus theora \
-			vorbis x264 x265 xcb xvid
+PKG_SUPPORTED_OPTIONS=	ass doc fdk-aac fontconfig freetype gnutls \
+			lame libvpx opencore-amr openssl opus rpi \
+			rtmp theora vorbis x11 x264 x265 xcb xvid
 PKG_SUGGESTED_OPTIONS=	lame ass freetype fontconfig libvpx openssl \
-			theora vorbis x264 xvid
+			theora vorbis x11 x264 xvid
 
 PLIST_VARS+=		doc
 
@@ -26,14 +26,6 @@ PKG_SUGGESTED_OPTIONS+=	vaapi
 .endif
 
 .include "../../mk/bsd.options.mk"
-
-# EBU R128 audio loudness normalization
-.if !empty(PKG_OPTIONS:Mebur128)
-CONFIGURE_ARGS+=	--enable-libebur128
-.include "../../audio/libebur128/buildlink3.mk"
-.else
-CONFIGURE_ARGS+=	--disable-libebur128
-.endif
 
 # Fontconfig
 .if !empty(PKG_OPTIONS:Mfontconfig)
@@ -115,6 +107,12 @@ CONFIGURE_ARGS+=	--enable-openssl
 CONFIGURE_ARGS+=	--disable-openssl
 .endif
 
+# RTMP support via librtmp
+.if !empty(PKG_OPTIONS:Mrtmp)
+CONFIGURE_ARGS+=	--enable-librtmp
+.include "../../net/rtmpdump/buildlink3.mk"
+.endif
+
 # OGG Theora support
 .if !empty(PKG_OPTIONS:Mtheora)
 CONFIGURE_ARGS+=	--enable-libtheora
@@ -139,6 +137,20 @@ CONFIGURE_ARGS+=	--enable-libmp3lame
 .if !empty(PKG_OPTIONS:Mopus)
 CONFIGURE_ARGS+=	--enable-libopus
 .include "../../audio/libopus/buildlink3.mk"
+.endif
+
+# Raspberry Pi support
+.if !empty(PKG_OPTIONS:Mrpi)
+CONFIGURE_ARGS+=	--disable-xvmc
+CONFIGURE_ARGS+=	--enable-omx-rpi
+CONFIGURE_ARGS+=	--enable-mmal
+SUBST_CLASSES+=		vc
+SUBST_STAGE.vc=		pre-configure
+SUBST_MESSAGE.vc=	Fixing path to VideoCore libraries.
+SUBST_FILES.vc=		configure
+SUBST_SED.vc+=		-e 's;-isystem/opt/vc;-I${PREFIX};g'
+SUBST_SED.vc+=		-e 's;/opt/vc;${PREFIX};g'
+.include "../../misc/raspberrypi-userland/buildlink3.mk"
 .endif
 
 # XviD support
@@ -166,7 +178,7 @@ CONFIGURE_ARGS+=	--disable-libx265
 .endif
 
 # VDPAU support
-.if !empty(PKG_OPTIONS:Mvdpau)
+.if !empty(PKG_OPTIONS:Mvdpau) && !empty(PKG_OPTIONS:Mx11)
 CONFIGURE_ARGS+=	--enable-vdpau
 .include "../../multimedia/libvdpau/buildlink3.mk"
 .else
@@ -174,7 +186,7 @@ CONFIGURE_ARGS+=	--disable-vdpau
 .endif
 
 # VAAPI support
-.if !empty(PKG_OPTIONS:Mvaapi)
+.if !empty(PKG_OPTIONS:Mvaapi) && !empty(PKG_OPTIONS:Mx11)
 CONFIGURE_ARGS+=	--enable-vaapi
 .include "../../multimedia/libva/buildlink3.mk"
 .else

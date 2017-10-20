@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.56 2016/11/19 17:43:38 dholland Exp $
+# $NetBSD: options.mk,v 1.58 2017/09/27 13:50:27 wiz Exp $
 
 .if defined(PKGNAME) && empty(PKGNAME:Mmplayer-share*)
 
@@ -44,9 +44,6 @@ PKG_SUPPORTED_OPTIONS+=	vdpau
 PKG_SUPPORTED_OPTIONS+=	lirc
 .endif
 
-.  if ${OPSYS} != "SunOS"
-PKG_SUPPORTED_OPTIONS+=	arts
-.  endif
 .elif !empty(PKGNAME:M*mencoder*)
 PKG_SUPPORTED_OPTIONS+=	faac lame
 .endif
@@ -71,10 +68,6 @@ PKG_SUPPORTED_OPTIONS+= mplayer-runtime-cpudetection
 .endif
 .if ${MACHINE_ARCH} == "i386"
 PKG_SUPPORTED_OPTIONS+= mplayer-default-cflags mplayer-win32
-.endif
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "powerpc" || \
-    ${MACHINE_ARCH} == "alpha"
-PKG_SUPPORTED_OPTIONS+=	mplayer-real
 .endif
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 PKG_SUPPORTED_OPTIONS+=	mplayer-ssse3
@@ -115,14 +108,6 @@ CONFIGURE_ARGS+=	--enable-aa
 .  include "../../graphics/aalib/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-aa
-.endif
-
-.if !empty(PKG_OPTIONS:Marts)
-CONFIGURE_ARGS+=	--enable-arts
-EXTRA_LIBS+=		-lartsc
-.  include "../../audio/arts/buildlink3.mk"
-.else
-CONFIGURE_ARGS+=	--disable-arts
 .endif
 
 .if !empty(PKG_OPTIONS:Mcaca)
@@ -243,13 +228,6 @@ CONFIGURE_ARGS+=	--disable-mlib
 CONFIGURE_ARGS+=	--enable-menu
 .else
 CONFIGURE_ARGS+=	--disable-menu
-.endif
-
-.if !empty(PKG_OPTIONS:Mmplayer-real)
-CONFIGURE_ARGS+=	--enable-real
-DEPENDS+=		realplayer-codecs>=8nb2:../../multimedia/realplayer-codecs
-.else
-CONFIGURE_ARGS+=	--disable-real
 .endif
 
 .if !empty(PKG_OPTIONS:Mmplayer-runtime-cpudetection)

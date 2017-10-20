@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.10 2017/01/01 14:44:06 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2017/07/30 22:32:28 wiz Exp $
 
-DISTNAME=	pygments.rb-0.6.3
-PKGREVISION=	2
+DISTNAME=	pygments.rb-1.1.2
 CATEGORIES=	textproc
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/tmm1/pygments.rb
+HOMEPAGE=	https://github.com/tmm1/pygments.rb
 COMMENT=	Pygments wrapper for ruby
 LICENSE=	mit
 
-DEPENDS+=	${RUBY_PKGPREFIX}-posix-spawn>=0.3.6<0.4:../../devel/ruby-posix-spawn
-DEPENDS+=	${RUBY_PKGPREFIX}-yajl>=1.2.0<1.3:../../textproc/ruby-yajl
+DEPENDS+=	${RUBY_PKGPREFIX}-multi_json>=1.0.0:../../textproc/ruby-multi_json
 
 REPLACE_PYTHON=	lib/pygments/mentos.py
 

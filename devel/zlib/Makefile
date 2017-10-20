@@ -1,53 +1,29 @@
-# $NetBSD: Makefile,v 1.54 2017/01/19 18:52:08 agc Exp $
+# $NetBSD: Makefile,v 1.1 2013/03/05 22:18:37 imil Exp $
+# -*- mode: makefile; tab-width: 8; indent-tabs-mode: 1 -*-
+# vim: ts=8 sw=8 ft=make noet
 
-DISTNAME=	zlib-1.2.11
-PKGREVISION=	3
-CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/}
-MASTER_SITES+=	http://zlib.net/
-DISTFILES=	# empty
+VERSION=		1.2.11
+DISTNAME=		zlib-${VERSION}
+PKGREVISION=		5
+PKGNAME=		zlib-${VERSION}
+CATEGORIES=		devel
+MASTER_SITES=		http://zlib.net/
 
 MAINTAINER=	joerg@NetBSD.org
 HOMEPAGE=	http://www.zlib.net/
 COMMENT=	General purpose data compression library
 LICENSE=	zlib
 
-USE_LIBTOOL=		yes
+USE_CONFIGURE=		yes
 
-PKGCONFIG_OVERRIDE+=	zlib.pc.in
+WRKSRC=			${WRKDIR}/zlib-${VERSION}
 
-CFLAGS+=		${CPPFLAGS}
-LDFLAGS.Cygwin=		-no-undefined
+USE_LANGUAGES+=		c
 
-.include "../../mk/bsd.prefs.mk"
-.if !empty(MACHINE_ARCH:Mi386)
-# use NO_DIVIDE for adler32 if processor does not do division in hardware
-# which avoids needing emulation provided by libgcc_s
-CPPFLAGS.SunOS+=	-DNO_DIVIDE
-.endif
-LDFLAGS.SunOS+=	-Wl,-zignore	# avoid unused reference to libgcc_s.so
+pre-build:
+	cd ${WRKSRC}; ./configure --prefix=${PREFIX}
 
-SUBST_CLASSES+= pc
-SUBST_MESSAGE.pc= pkg-config file substitutions
-SUBST_STAGE.pc= pre-configure
-SUBST_FILES.pc= zlib.pc.in
-SUBST_SED.pc=	-e "s,@prefix@,${PREFIX},g"
-SUBST_SED.pc+=	-e "s,@exec_prefix@,${PREFIX},g"
-SUBST_SED.pc+=	-e "s,@VERSION@,${PKGVERSION_NOREV},g"
-SUBST_SED.pc+=	-e "s,@includedir@,${PREFIX}/include,g"
-SUBST_SED.pc+=	-e "s,@libdir@,${PREFIX}/lib,g"
-SUBST_SED.pc+=	-e "s,@sharedlibdir@,${PREFIX}/lib,g"
-
-INSTALLATION_DIRS=	include lib/pkgconfig ${PKGMANDIR}/man3
-
-do-extract:
-	${CP} -r ${FILESDIR} ${WRKSRC}
-
-do-install:
-	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libz.la ${DESTDIR}${PREFIX}/lib
-	${INSTALL_MAN} ${WRKSRC}/zlib.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
-	${INSTALL_DATA} ${WRKSRC}/zconf.h ${DESTDIR}${PREFIX}/include
-	${INSTALL_DATA} ${WRKSRC}/zlib.h ${DESTDIR}${PREFIX}/include
-	${INSTALL_DATA} ${WRKSRC}/zlib.pc.in ${DESTDIR}${PREFIX}/lib/pkgconfig/zlib.pc
+post-install:
+	cp ${FILESDIR}/libz.la ${DESTDIR}${PREFIX}/lib/libz.la
 
 .include "../../mk/bsd.pkg.mk"

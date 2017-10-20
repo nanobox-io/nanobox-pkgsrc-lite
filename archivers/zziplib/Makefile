@@ -1,17 +1,14 @@
-# $NetBSD: Makefile,v 1.19 2014/10/09 14:05:55 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2017/07/04 09:27:23 wiz Exp $
 
-DISTNAME=	zziplib-0.13.59
+DISTNAME=	zziplib-0.13.67
 CATEGORIES=	archivers
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=zziplib/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=gdraheim/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://zziplib.sourceforge.net/
+HOMEPAGE=	https://github.com/gdraheim/zziplib
 COMMENT=	Library for ZIP archive handling
-
 LICENSE=	gnu-lgpl-v2 OR mpl-1.1
-
-.include "../../mk/bsd.prefs.mk"
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
@@ -20,7 +17,7 @@ CONFIGURE_ARGS+=	--disable-builddir
 
 CFLAGS+=	-std=gnu89
 
-BUILD_DIRS=	zzip zzipwrap bins
+BUILD_DIRS=		zzip zzipwrap bins
 
 TEST_TARGET=		check
 

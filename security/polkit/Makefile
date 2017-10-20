@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2016/07/09 06:38:56 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2017/10/15 23:19:12 prlw1 Exp $
 #
 
 DISTNAME=	polkit-0.113

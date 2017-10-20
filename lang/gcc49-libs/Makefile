@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2016/09/06 12:38:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2017/10/14 14:47:43 ryoon Exp $
 
 GCC_PKGNAME=	gcc49
 .include	"../../lang/${GCC_PKGNAME}/version.mk"
@@ -9,7 +9,7 @@ PKGNAME=	${GCC_PKGNAME}-libs-${GCC49_DIST_VERSION}
 ## The PKGREVISION of this package needs to be at least 1 more than the
 ## PKGREVISION of the lang/gcc49 package so that with the dependence pattern
 ## '{gcc49,gcc49-libs}>=4.9.*' pkg_add will choose gcc49-libs over gcc49.
-PKGREVISION=	1
+PKGREVISION=	6
 
 CATEGORIES=	lang
 MASTER_SITES=	# empty
@@ -36,7 +36,7 @@ GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 BUILD_DEFS+=		GCC_TARGET_MACHINE
 
 .include "../../mk/bsd.prefs.mk"
-.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+.if ${SHLIB_TYPE} == "dylib"
 SHLIB_EXT=	dylib
 .else
 SHLIB_EXT=	so

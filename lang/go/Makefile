@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.48 2016/10/27 18:58:00 bsiegert Exp $
+# $NetBSD: Makefile,v 1.57 2017/10/04 10:03:53 jperkin Exp $
 
 .include "version.mk"
 
@@ -6,6 +6,7 @@ DISTNAME=	go${GO_VERSION}.src
 PKGNAME=	go-${GO_VERSION}
 CATEGORIES=	lang
 MASTER_SITES=	https://storage.googleapis.com/golang/
+EXTRACT_USING=	bsdtar
 
 MAINTAINER=	bsiegert@NetBSD.org
 HOMEPAGE=	http://golang.org/
@@ -32,8 +33,10 @@ REPLACE_BASH+=	misc/arm/a
 REPLACE_BASH+=	misc/benchcmp
 REPLACE_BASH+=	misc/cgo/errors/test.bash
 REPLACE_BASH+=	misc/cgo/fortran/test.bash
+REPLACE_BASH+=	misc/cgo/testcarchive/test.bash
 REPLACE_BASH+=	misc/cgo/testcshared/test.bash
 REPLACE_BASH+=	misc/cgo/testgodefs/test.bash
+REPLACE_BASH+=	misc/cgo/testplugin/test.bash
 REPLACE_BASH+=	misc/cgo/testsanitizers/test.bash
 REPLACE_BASH+=	misc/nacl/go_nacl_386_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_amd64p32_exec
@@ -46,6 +49,7 @@ REPLACE_BASH+=	src/clean.bash
 REPLACE_BASH+=	src/cmd/compile/internal/big/vendor.bash
 REPLACE_BASH+=	src/cmd/dist/mkdeps.bash
 REPLACE_BASH+=	src/cmd/go/mkalldocs.sh
+REPLACE_BASH+=	src/internal/trace/mkcanned.bash
 REPLACE_BASH+=	src/iostest.bash
 REPLACE_BASH+=	src/make.bash
 REPLACE_BASH+=	src/naclmake.bash
@@ -61,6 +65,15 @@ REPLACE_PERL+=	src/net/http/cgi/testdata/test.cgi
 REPLACE_PERL+=	src/regexp/syntax/make_perl_groups.pl
 REPLACE_PERL+=	src/syscall/*.pl
 REPLACE_PERL+=	test/errchk
+
+# uses own linker, which does not support relro on NetBSD
+CHECK_RELRO_SKIP+=		go/bin/go
+CHECK_RELRO_SKIP+=		go/bin/gofmt
+CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/asm
+CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/compile
+CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/link
+# also does not support SSP at this time
+CHECK_SSP_SKIP=			${CHECK_RELRO_SKIP}
 
 # uses /bin/rc (for Plan 9)
 CHECK_INTERPRETER_SKIP+=	go/include/plan9/mklibc.rc
@@ -80,14 +93,10 @@ PLIST_VARS+=	route
 PLIST.route=	yes
 .endif
 
-pre-build:
-	cd ${WRKSRC}/src/syscall && \
-		env GOOS=${LOWER_OPSYS:Q} GOARCH=${GOARCH:Q} \
-		${PERL5} mksyscall_solaris.pl \
-		syscall_solaris.go syscall_solaris_amd64.go > zsyscall_solaris_amd64.go
-
 do-build:
 	cd ${WRKSRC}/src && env GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:Q} GOROOT_FINAL=${GOROOT_FINAL:Q} ${BASH} ./make.bash
+# for RELRO build:
+#	cd ${WRKSRC}/src && env GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:Q} GOROOT_FINAL=${GOROOT_FINAL:Q} GO_LDFLAGS="-buildmode=pie" ${BASH} ./make.bash
 
 do-install:
 	cd ${WRKSRC} && rm -rf .hgignore .hgtags pkg/obj

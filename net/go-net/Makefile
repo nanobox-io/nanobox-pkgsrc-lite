@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.12 2016/12/10 19:07:20 wiedi Exp $
-#
+# $NetBSD: Makefile,v 1.17 2017/07/22 19:32:41 wiz Exp $
 
-DISTNAME=		go-net-20160910
-PKGREVISION=		2
+DISTNAME=		go-net-20170308
+PKGREVISION=		1
 CATEGORIES=		net
 MASTER_SITES=		${MASTER_SITE_GITHUB:=golang/}
 GITHUB_PROJECT=		net
-GITHUB_TAG=		cfe3c2a752
+GITHUB_TAG=		a6577fa
 
 MAINTAINER=		bsiegert@NetBSD.org
 HOMEPAGE=		http://golang.org/
@@ -15,6 +14,8 @@ LICENSE=		modified-bsd
 
 GO_SRCPATH=		golang.org/x/net
 GO_DIST_BASE=		${GITHUB_PROJECT}-${GITHUB_TAG}*
+
+CHECK_RELRO_SKIP+=	bin/h2i
 
 .include "../../mk/bsd.prefs.mk"
 

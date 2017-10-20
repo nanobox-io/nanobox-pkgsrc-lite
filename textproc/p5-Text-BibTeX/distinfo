@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.19 2017/01/16 10:55:14 wiz Exp $
+$NetBSD: distinfo,v 1.24 2017/09/04 12:37:13 wiz Exp $
 
-SHA1 (Text-BibTeX-0.78.tar.gz) = 033bfdeb7400d04af9fd8103b146618bec48b990
-RMD160 (Text-BibTeX-0.78.tar.gz) = aba7af5efb76abff8dd6a6861fc5b5af291f9ab6
-SHA512 (Text-BibTeX-0.78.tar.gz) = b888e2273db40a104a1206462b172587140389aa69eb725db589f137a532b87958182bf31734f873bc5f1dec2f6bedc6ed93c0e40ed82c014a0aff3f573242b5
-Size (Text-BibTeX-0.78.tar.gz) = 295794 bytes
+SHA1 (Text-BibTeX-0.85.tar.gz) = 93ea1f24de5397bbfe0adc9501cf312f8a41dfb2
+RMD160 (Text-BibTeX-0.85.tar.gz) = b338a4681df3640320c55e6b5e147decbe203a33
+SHA512 (Text-BibTeX-0.85.tar.gz) = e9ed337bde11b26626fc43c03bead2be54c0724194e19b4f543923634533220bbd68588f6349892eba0e6df6d305a51350fe82cfcb6cd24ea154284e4819b841
+Size (Text-BibTeX-0.85.tar.gz) = 299430 bytes
 SHA1 (patch-inc_MyBuilder.pm) = c584445f48a0e390925cefe8e7b1222aa129b1d6

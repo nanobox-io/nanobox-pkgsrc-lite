@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.7 2016/12/04 05:17:20 ryoon Exp $
+# $NetBSD: Makefile,v 1.10 2017/09/18 09:53:13 maya Exp $
 
 DISTNAME=	sqlite3-1.1.5
 PKGNAME=	erlang-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_GITHUB:=processone/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/processone/erlang-sqlite3/
+HOMEPAGE=	https://github.com/processone/erlang-sqlite3/
 COMMENT=	Sqlite gen_server port for Erlang
 LICENSE=	erlang-public-license
 

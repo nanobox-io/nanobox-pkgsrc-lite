@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.5 2011/12/13 15:48:55 taca Exp $
+# $NetBSD: Makefile,v 1.8 2017/07/30 22:32:11 wiz Exp $
 
 DISTNAME=	activerecord-cassandra-adapter-0.1.0
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/-adapter//}
+PKGREVISION=	1
 CATEGORIES=	databases
 
-MAINTAINER=	tonnerre@NetBSD.org
-HOMEPAGE=	http://github.com/winebarrel/activerecord-cassandra-adapter
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	https://github.com/winebarrel/activerecord-cassandra-adapter
 COMMENT=	ActiveRecord Cassandra adapter
 
 DEPENDS+=	${RUBY_ACTIVERECORD_DEPENDS}

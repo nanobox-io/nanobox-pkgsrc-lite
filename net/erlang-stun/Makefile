@@ -1,16 +1,16 @@
-# $NetBSD: Makefile,v 1.4 2017/01/03 18:30:50 fhajny Exp $
+# $NetBSD: Makefile,v 1.9 2017/10/17 14:51:42 fhajny Exp $
 
-DISTNAME=	stun-1.0.9
+DISTNAME=	stun-1.0.15
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=processone/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/processone/stun/
+HOMEPAGE=	https://github.com/processone/stun/
 COMMENT=	STUN and TURN library for Erlang / Elixir
 LICENSE=	apache-2.0
 
-DEPENDS+=	erlang-fast_tls>=1.0.9:../../security/erlang-fast_tls
-DEPENDS+=	erlang-p1_utils>=1.0.6:../../misc/erlang-p1_utils
+DEPENDS+=	erlang-fast_tls>=1.0.16:../../security/erlang-fast_tls
+DEPENDS+=	erlang-p1_utils>=1.0.10:../../misc/erlang-p1_utils
 
 GITHUB_PROJECT=	stun
 

@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.17 2016/12/22 12:51:16 maya Exp $
+# $NetBSD: Makefile,v 1.19 2017/08/01 14:58:55 wiz Exp $
 #
 
-DISTNAME=	libSystem-0.3.0
-PKGNAME=	deforaos-libsystem-0.3.0
+DISTNAME=	libSystem-0.3.1
+PKGNAME=	deforaos-libsystem-0.3.1
 CATEGORIES=	devel
-MASTER_SITES=	http://www.defora.org/os/download/download/4392/
+MASTER_SITES=	https://www.defora.org/os/download/download/4446/
 
 MAINTAINER=	khorben@defora.org
-HOMEPAGE=	http://www.defora.org/
+HOMEPAGE=	https://www.defora.org/
 COMMENT=	DeforaOS core system library
 LICENSE=	gnu-lgpl-v3
 

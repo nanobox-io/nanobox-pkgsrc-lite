@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.21 2016/12/04 05:17:13 ryoon Exp $
+# $NetBSD: Makefile,v 1.24 2017/09/18 09:53:06 maya Exp $
 
 DISTNAME=	rest-0.7.93
 PKGNAME=	${DISTNAME:S/rest/librest07/}
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rest/0.7/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://wiki.gnome.org/Projects/Librest
+HOMEPAGE=	https://wiki.gnome.org/Projects/Librest
 COMMENT=	Library for "RESTful" web services
 LICENSE=	gnu-lgpl-v2.1
 

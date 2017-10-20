@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.105 2016/12/03 03:32:35 sevan Exp $
+# $NetBSD: Makefile,v 1.107 2017/09/26 10:26:56 wiz Exp $
 #
 
 COMMENT=	Communication utilities
@@ -36,7 +36,6 @@ SUBDIR+=	libmal
 SUBDIR+=	libopensync
 SUBDIR+=	libopensync-plugin-evolution2
 SUBDIR+=	libopensync-plugin-file
-SUBDIR+=	libopensync-plugin-kdepim
 SUBDIR+=	libopensync-plugin-syncml
 SUBDIR+=	libsyncml
 SUBDIR+=	libticables2
@@ -70,8 +69,8 @@ SUBDIR+=	pilotmgr
 SUBDIR+=	plp
 SUBDIR+=	py-colorama
 SUBDIR+=	py-gammu
-SUBDIR+=	py-python-termstyle
 SUBDIR+=	py-serial
+SUBDIR+=	py-termstyle
 SUBDIR+=	qpage
 SUBDIR+=	ruby-termios
 SUBDIR+=	scmxx

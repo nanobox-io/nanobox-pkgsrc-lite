@@ -1,20 +1,20 @@
-# $NetBSD: Makefile,v 1.99 2017/02/12 06:25:19 ryoon Exp $
+# $NetBSD: Makefile,v 1.102 2017/09/21 15:06:17 jperkin Exp $
 
-DISTNAME=	fontforge-dist-20160404
+DISTNAME=	fontforge-dist-20170731
 PKGNAME=	${DISTNAME:S/-dist-/-/}
-PKGREVISION=	2
 CATEGORIES=	fonts editors
 MASTER_SITES=	${MASTER_SITE_GITHUB:=fontforge/}
-GITHUB_PROJECT=	fontforge
-GITHUB_RELEASE=	${PKGVERSION_NOREV}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://fontforge.github.io/
 COMMENT=	Postscript font editor
 LICENSE=	modified-bsd
 
+GITHUB_PROJECT=	fontforge
+GITHUB_RELEASE=	${PKGVERSION_NOREV}
 EXTRACT_USING=	bsdtar
-WRKSRC=		${WRKDIR}/fontforge-2.0.20140101
+WRKSRC=		${WRKDIR}/fontforge-2.0.${PKGVERSION_NOREV}
 
 USE_LANGUAGES=		c
 USE_LIBTOOL=		yes
@@ -33,6 +33,13 @@ CHECK_INTERPRETER_SKIP+=share/fontforge/python/simple/*
 
 PY_PATCHPLIST=		yes
 
+.include "../../mk/bsd.prefs.mk"
+
+# Requires GNU date features
+.if ${OPSYS} == "SunOS"
+TOOLS_PLATFORM.date=
+.endif
+
 .include "options.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
@@ -44,7 +51,9 @@ PY_PATCHPLIST=		yes
 .include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+.include "../../graphics/libspiro/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
+.include "../../graphics/potrace/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

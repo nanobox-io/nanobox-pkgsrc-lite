@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2017/02/05 12:36:59 bsiegert Exp $
+# $NetBSD: Makefile,v 1.7 2017/09/26 14:35:46 mspo Exp $
 
-DISTNAME=	MoarVM-2017.01
+DISTNAME=	MoarVM-2017.09.1
+PKGREVISION=	1
 CATEGORIES=	devel perl6
 MASTER_SITES=	http://www.moarvm.org/releases/
 
@@ -11,6 +12,7 @@ LICENSE=	artistic-2.0
 
 USE_TOOLS+=	perl gmake
 USE_LANGUAGES=	c c++
+NOT_PAX_MPROTECT_SAFE=	bin/moar
 
 HAS_CONFIGURE=		yes
 CONFIG_SHELL=		${PERL5}

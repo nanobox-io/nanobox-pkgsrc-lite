@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.19 2016/07/09 06:38:10 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2017/10/09 15:30:12 jperkin Exp $
 #
 
-DISTNAME=	netbeans-8.1-201510222201
-PKGNAME=	netbeans-ide-8.1
-PKGREVISION=	1
+DISTNAME=	netbeans-8.2-201609300101
+PKGNAME=	netbeans-ide-8.2
 CATEGORIES=	editors
-MASTER_SITES=	http://download.netbeans.org/netbeans/8.1/final/zip/
+MASTER_SITES=	http://download.netbeans.org/netbeans/${PKGVERSION_NOREV}/final/zip/
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	drue@users.sourceforge.net
@@ -28,6 +27,7 @@ SHAREDIR=	${PREFIX}/share/${PKGBASE}
 DOCDIR=		${PREFIX}/share/doc/html/${PKGBASE}
 
 CHECK_SHLIBS_SUPPORTED=	no
+CHECK_SSP_SUPPORTED=	no
 INSTALLATION_DIRS=	bin
 
 do-install:

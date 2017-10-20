@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2017/02/06 10:23:40 maya Exp $
+# $NetBSD: Makefile,v 1.28 2017/07/07 10:13:57 jperkin Exp $
 
-DISTNAME=	libpciaccess-0.13.4
+DISTNAME=	libpciaccess-0.13.5
 PKGREVISION=	1
 CATEGORIES=	sysutils x11
 MASTER_SITES=	${MASTER_SITE_XORG:=lib/}

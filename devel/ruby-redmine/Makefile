@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2017/02/28 15:20:03 ryoon Exp $
+# $NetBSD: Makefile,v 1.25 2017/10/06 14:34:01 jperkin Exp $
 
 DISTNAME=	redmine-3.3.2
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	3
 PREV_PKGPATH=	devel/redmine
 CATEGORIES=	devel
 MASTER_SITES=	http://www.redmine.org/releases/
@@ -12,9 +12,11 @@ HOMEPAGE=	http://www.redmine.org/
 COMMENT=	Flexible project management web application
 LICENSE=	gnu-gpl-v2 # and so on.
 
-.include "../../lang/ruby/rubyversion.mk"
+# nokogirl version required is broken in Ruby 2.3
+# Ruby 2.4 will be supported by Redmine 3.4.
+RUBY_VERSIONS_ACCEPTED=	22
 
-RUBY_VERSIONS_INCOMPATIBLE=	23 # nokogirl version required is broken in 2.3
+.include "../../lang/ruby/rubyversion.mk"
 
 GEMS_DISTFILES+=	actionmailer-4.2.7.1.gem actionpack-4.2.7.1.gem
 GEMS_DISTFILES+=	actionpack-action_caching-1.1.1.gem
@@ -112,6 +114,7 @@ CHECK_INTERPRETER_SKIP+=${RM_DIR}/gems/gems/loofah-2.0.3/benchmark/benchmark.rb
 
 # Selenium has Linux .so files.
 CHECK_SHLIBS_SUPPORTED=	no
+CHECK_SSP_SUPPORTED=	no
 
 SUBST_CLASSES+=		pkgcfg
 SUBST_FILES.pkgcfg=	rmagick-2.16.0/ext/RMagick/extconf.rb

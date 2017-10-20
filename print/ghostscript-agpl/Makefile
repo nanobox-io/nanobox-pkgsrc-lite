@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.23 2016/10/27 11:32:16 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2017/10/06 06:15:00 adam Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-agpl/}
 CATEGORIES=	print
-MASTER_SITES=	${MASTER_SITE_GITHUB:=ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=ArtifexSoftware/ghostpdl-downloads/releases/download/gs922/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://ghostscript.com/
+HOMEPAGE=	https://ghostscript.com/
 COMMENT=	Postscript interpreter
 # Plus adobe verbatim for Resources/CMap.
 LICENSE=	gnu-agpl-v3
@@ -20,11 +20,12 @@ USE_TOOLS+=		gmake perl:run lex pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-system-libtiff
 CONFIGURE_ARGS+=	--disable-cups
+CONFIGURE_ENV+=		LPLIBDIR=${PREFIX}/lib
+CONFIGURE_ENV.HPUX+=	ac_cv_func_fopen64=no
 UNLIMIT_RESOURCES+=	datasize	# gsromfs1.c
 
 BUILD_TARGET=		so
 INSTALL_TARGET=		soinstall
-CONFIGURE_ARGS+=	--with-omni=no	# otherwise pulls in libstdc++
 
 REPLACE_PERL+=		toolbin/localcluster/clusterpush.pl
 REPLACE_PERL+=		toolbin/checkdeps.pl
@@ -53,8 +54,6 @@ SUBST_MESSAGE.resdir=	Fixing resource directory path
 SUBST_FILES.resdir=	Resource/Init/gs_res.ps
 SUBST_SED.resdir=	-e "s|/Resource/|${GS_RESOURCEDIR}/|g"
 
-CONFIGURE_ENV.HPUX+=	ac_cv_func_fopen64=no
-
 # On Linux-*-x86_64, there was an error message:
 # gp_unix.o: relocation R_X86_64_32 against `a local symbol' can not be
 # used when making a shared object; recompile with -fPIC
@@ -65,8 +64,6 @@ CFLAGS+=		-fPIC
 # Interim IRIX build fix, the real problem is that fontconfig.pc doesn't
 # require linking against libiconv when it should do so.
 BUILDLINK_TRANSFORM.IRIX+=	l:fontconfig:fontconfig:iconv
-
-CONFIGURE_ENV+=	LPLIBDIR=${PREFIX}/lib
 
 .include "options.mk"
 

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2016/06/08 19:22:27 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2017/06/12 12:18:56 maya Exp $
 
 DISTNAME=	DBIx-Class-UUIDColumns-0.02006
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
 
@@ -18,6 +18,7 @@ DEPENDS+=	p5-Class-Accessor-Grouped>=0:../../devel/p5-Class-Accessor-Grouped
 BUILD_DEPENDS+= p5-DBD-SQLite>=1.11:../../databases/p5-DBD-SQLite
 
 USE_LANGUAGES=	# empty
+MAKE_ENV+=	PERL_USE_UNSAFE_INC=1
 PERL5_PACKLIST=	auto/DBIx/Class/UUIDColumns/.packlist
 
 .include "../../lang/perl5/module.mk"

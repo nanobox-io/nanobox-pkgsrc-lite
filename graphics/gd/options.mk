@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.5 2016/08/02 18:29:21 adam Exp $
+# $NetBSD: options.mk,v 1.7 2017/09/04 06:20:45 adam Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gd
 PKG_SUPPORTED_OPTIONS=	x11

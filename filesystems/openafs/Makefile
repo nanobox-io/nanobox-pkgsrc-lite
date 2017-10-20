@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2016/10/03 08:30:13 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2017/10/08 07:53:05 sevan Exp $
 
-DISTNAME=	openafs-1.6.17-src
+DISTNAME=	openafs-1.6.21-src
 PKGNAME=	${DISTNAME:C/-src//}
-PKGREVISION=	2
 CATEGORIES=	filesystems net sysutils
-MASTER_SITES=	http://www.openafs.org/dl/openafs/1.6.17/
+MASTER_SITES=	http://www.openafs.org/dl/openafs/1.6.21/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	gendalia@NetBSD.org
@@ -54,9 +53,7 @@ pre-patch:
 	done
 
 post-patch:
-	cd ${WRKSRC}/src/config && for i in 80 90; do \
-		${CP} param.nbsd70.h param.nbsd$$i.h; \
-	done
+	${CP} ${WRKSRC}/src/config/param.armv6_nbsd80.h ${WRKSRC}/src/config/param.armv7_nbsd80.h 
 
 MAKE_ENV+=	LD_RUN_PATH=${PREFIX}/lib
 

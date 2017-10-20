@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.47 2017/02/12 06:24:48 ryoon Exp $
+# $NetBSD: Makefile,v 1.53 2017/10/19 20:32:07 leot Exp $
 
-DISTNAME=	mupdf-1.10a-source
+DISTNAME=	mupdf-1.11-source
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	5
+PKGREVISION=	4
 CATEGORIES=	print
-MASTER_SITES=	http://mupdf.com/downloads/archive/
+MASTER_SITES=	https://mupdf.com/downloads/archive/
 
 MAINTAINER=	leot@NetBSD.org
-HOMEPAGE=	http://mupdf.com/
+HOMEPAGE=	https://mupdf.com/
 COMMENT=	Lightweight PDF, XPS and E-book viewer and toolkit
 LICENSE=	gnu-agpl-v3
 
@@ -18,7 +18,7 @@ USE_TOOLS+=	pkg-config gmake
 INSTALLATION_DIRS+=	bin include lib/pkgconfig
 INSTALL_MAKE_FLAGS+=	prefix=${PREFIX}
 INSTALL_MAKE_FLAGS+=	mandir=${PREFIX}/${PKGMANDIR}
-LDFLAGS=		${COMPILER_RPATH_FLAG}${X11BASE}/lib
+LDFLAGS+=		${COMPILER_RPATH_FLAG}${X11BASE}/lib
 MAKE_FLAGS+=		LDFLAGS=${LDFLAGS:Q}
 MAKE_FLAGS+=		XCFLAGS=${CFLAGS:Q}
 MAKE_FLAGS+=		build=release
@@ -38,7 +38,7 @@ post-extract:
 	    ${WRKSRC}/thirdparty/glfw \
 	    ${WRKSRC}/thirdparty/harfbuzz \
 	    ${WRKSRC}/thirdparty/jbig2dec \
-	    ${WRKSRC}/thirdparty/jpeg \
+	    ${WRKSRC}/thirdparty/libjpeg \
 	    ${WRKSRC}/thirdparty/openjpeg \
 	    ${WRKSRC}/thirdparty/zlib
 
@@ -53,6 +53,7 @@ post-install:
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/jbig2dec/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../graphics/openjpeg/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

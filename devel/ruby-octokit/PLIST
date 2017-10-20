@@ -1,10 +1,11 @@
-@comment $NetBSD: PLIST,v 1.3 2016/10/24 14:13:08 taca Exp $
+@comment $NetBSD: PLIST,v 1.5 2017/04/22 16:24:44 taca Exp $
 ${GEM_HOME}/cache/${GEM_NAME}.gem
 ${GEM_LIBDIR}/.document
 ${GEM_LIBDIR}/CONTRIBUTING.md
 ${GEM_LIBDIR}/LICENSE.md
 ${GEM_LIBDIR}/README.md
 ${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/lib/ext/sawyer/relation.rb
 ${GEM_LIBDIR}/lib/octokit.rb
 ${GEM_LIBDIR}/lib/octokit/arguments.rb
 ${GEM_LIBDIR}/lib/octokit/authentication.rb
@@ -21,6 +22,7 @@ ${GEM_LIBDIR}/lib/octokit/client/feeds.rb
 ${GEM_LIBDIR}/lib/octokit/client/gists.rb
 ${GEM_LIBDIR}/lib/octokit/client/gitignore.rb
 ${GEM_LIBDIR}/lib/octokit/client/hooks.rb
+${GEM_LIBDIR}/lib/octokit/client/integrations.rb
 ${GEM_LIBDIR}/lib/octokit/client/issues.rb
 ${GEM_LIBDIR}/lib/octokit/client/labels.rb
 ${GEM_LIBDIR}/lib/octokit/client/legacy_search.rb
@@ -32,6 +34,7 @@ ${GEM_LIBDIR}/lib/octokit/client/notifications.rb
 ${GEM_LIBDIR}/lib/octokit/client/objects.rb
 ${GEM_LIBDIR}/lib/octokit/client/organizations.rb
 ${GEM_LIBDIR}/lib/octokit/client/pages.rb
+${GEM_LIBDIR}/lib/octokit/client/projects.rb
 ${GEM_LIBDIR}/lib/octokit/client/pub_sub_hubbub.rb
 ${GEM_LIBDIR}/lib/octokit/client/pull_requests.rb
 ${GEM_LIBDIR}/lib/octokit/client/rate_limit.rb
@@ -40,12 +43,14 @@ ${GEM_LIBDIR}/lib/octokit/client/refs.rb
 ${GEM_LIBDIR}/lib/octokit/client/releases.rb
 ${GEM_LIBDIR}/lib/octokit/client/repositories.rb
 ${GEM_LIBDIR}/lib/octokit/client/repository_invitations.rb
+${GEM_LIBDIR}/lib/octokit/client/reviews.rb
 ${GEM_LIBDIR}/lib/octokit/client/say.rb
 ${GEM_LIBDIR}/lib/octokit/client/search.rb
 ${GEM_LIBDIR}/lib/octokit/client/service_status.rb
 ${GEM_LIBDIR}/lib/octokit/client/source_import.rb
 ${GEM_LIBDIR}/lib/octokit/client/stats.rb
 ${GEM_LIBDIR}/lib/octokit/client/statuses.rb
+${GEM_LIBDIR}/lib/octokit/client/traffic.rb
 ${GEM_LIBDIR}/lib/octokit/client/users.rb
 ${GEM_LIBDIR}/lib/octokit/configurable.rb
 ${GEM_LIBDIR}/lib/octokit/connection.rb

@@ -1,5 +1,29 @@
-# $NetBSD: modules.mk,v 1.37 2016/04/10 16:39:28 joerg Exp $
-
+# $NetBSD: modules.mk,v 1.41 2017/05/30 16:02:00 taca Exp $
+#
+#
+# Package-settable variables:
+#
+#
+# USE_RUBY_EXTCONF	Use extconf script.
+#
+# RUBY_EXTCONF		specify extconf script name (default: extconf.rb).
+# RUBY_EXTCONF_CHECK	make sure to check existence of Makefile after
+#			executing extconf script (default: yes).
+# RUBY_EXTCONF_DEBUG	variable for trigger Ruby debuger for extconf.
+# RUBY_EXTCONF_MAKEFILE	name of Makefile checked by RUBY_EXTCONF_CHECK
+#			(default: Makefile)
+#
+# USE_RUBY_SETUP	Uset setup script.
+# USE_RUBY_SETUP_PKG	Use pkgsrc's ruby-setup package.
+#
+# RUBY_SETUP		specify setup script name (default: setup.rb).
+#
+#
+# USE_RUBY_INSTALL	use simple install.rb script to install
+#			(default: undefined)
+# RUBY_SIMPLE_INSTALL	name of simple install.rb script (default: install.rb)
+#
+#
 .if !defined(_RUBY_MODULE_MK)
 _RUBY_MODULE_MK=	# defined
 
@@ -22,28 +46,11 @@ DEPENDS+= ${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 
 .if defined(RUBY_RAILS_SUPPORTED)
 .include "../../lang/ruby/rails.mk"
-.if ${RUBY_RAILS} > 3
-RUBY_RDOC_REQD?=	2.5.0
 .endif
-.endif
-
-#
-# rdoc version
-#
-.include "../../lang/ruby/rdoc.mk"
 
 CONFIGURE_ENV+=		RUBY=${RUBY:Q} RDOC=${RDOC:Q}
 
-#
 # extconf.rb support
-#
-# USE_RUBY_EXTCONF	Use extconf script.
-#
-# RUBY_EXTCONF		specify extconf script name (default: extconf.rb).
-# RUBY_EXTCONF_CHECK	make sure to check existence of Makefile after
-#			executing extconf script (default: yes).
-# RUBY_EXTCONF_MAKEFILE	name of Makefile checked by RUBY_EXTCONF_CHECK
-#			(default: Makefile)
 #
 .if defined(USE_RUBY_EXTCONF) && empty(USE_RUBY_EXTCONF:M[nN][oO])
 
@@ -52,6 +59,7 @@ INSTALL_TARGET?=	site-install
 CONFIGURE_ARGS+=	${RUBY_EXTCONF_ARGS}
 RUBY_EXTCONF_ARGS?=	--with-opt-dir=${PREFIX:Q} --vendor
 RUBY_EXTCONF_CHECK?=	yes
+RUBY_EXTCONF_DEBUG?=	# -r debug
 RUBY_EXTCONF_MAKEFILE?=	Makefile
 
 do-configure:	ruby-extconf-configure
@@ -60,9 +68,9 @@ do-configure:	ruby-extconf-configure
 ruby-extconf-configure:
 .for d in ${RUBY_EXTCONF_SUBDIRS}
 	@${ECHO_MSG} "===>  Running ${RUBY_EXTCONF} in ${d} to configure"; \
-	${ECHO_MSG} "${RUBY} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}"
+	${ECHO_MSG} "${RUBY} ${RUBY_EXTCONF_DEBUG} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}"
 	${RUN}cd ${WRKSRC}/${d}; \
-	${SETENV} ${CONFIGURE_ENV} ${RUBY} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}
+	${SETENV} ${CONFIGURE_ENV} ${RUBY} ${RUBY_EXTCONF_DEBUG} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}
 .if empty(RUBY_EXTCONF_CHECK:M[nN][oO])
 	${RUN}cd ${WRKSRC}/${d}; \
 		${TEST} -f ${RUBY_EXTCONF_MAKEFILE}
@@ -92,9 +100,9 @@ ruby-extconf-install:
 .else
 ruby-extconf-configure:
 	@${ECHO_MSG} "===>  Running ${RUBY_EXTCONF} to configure"; \
-	${ECHO_MSG} "${RUBY} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}"
+	${ECHO_MSG} "${RUBY} ${RUBY_EXTCONF_DEBUG} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}"
 	${RUN}cd ${WRKSRC}; \
-	${SETENV} ${CONFIGURE_ENV} ${RUBY} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}
+	${SETENV} ${CONFIGURE_ENV} ${RUBY} ${RUBY_EXTCONF_DEBUG} ${RUBY_EXTCONF} ${CONFIGURE_ARGS}
 .if empty(RUBY_EXTCONF_CHECK:M[nN][oO])
 	${RUN}cd ${WRKSRC}/${d}; \
 		${TEST} -f ${RUBY_EXTCONF_MAKEFILE}
@@ -103,11 +111,6 @@ ruby-extconf-configure:
 
 #
 # setup.rb support
-#
-# USE_RUBY_SETUP	Uset setup script.
-# USE_RUBY_SETUP_PKG	Use pkgsrc's ruby-setup package.
-#
-# RUBY_SETUP		specify setup script name (default: setup.rb).
 #
 .elif defined(USE_RUBY_SETUP) && empty(USE_RUBY_SETUP:M[nN][oO])
 
@@ -161,11 +164,6 @@ ruby-setup-install:
 
 #
 # install.rb support
-#
-# USE_RUBY_INSTALL	use simple install.rb script to install
-#			(default: undefined)
-# RUBY_SIMPLE_INSTALL	name of simple install.rb script (default: install.rb)
-#
 .elif defined(USE_RUBY_INSTALL) && empty(USE_RUBY_INSTALL:M[nN][oO])
 
 RUBY_SIMPLE_INSTALL?=	install.rb
@@ -189,23 +187,6 @@ ruby-simple-install:
 	${SETENV} ${INSTALL_ENV} ${MAKE_ENV} ${RUBY} ${RUBY_SIMPLE_INSTALL} ${INSTALL_TARGET}
 .endif
 .endif # USE_RUBY_INSTALL
-
-.if defined(USE_RAKE) && empty(USE_RAKE:M[nN][oO])
-
-.if ${RUBY_VER} == "18"
-.if !empty(USE_RAKE:M[Rr][Uu][Nn])
-DEPENDS+=	${RUBY_PKGPREFIX}-rake>=0.8.7:../../devel/ruby-rake
-.else
-BUILD_DEPENDS+=	${RUBY_PKGPREFIX}-rake>=0.8.7:../../devel/ruby-rake
-.endif
-.endif
-
-# RAKE
-#	The path to the ``rake'' binary.
-#
-RAKE=		${LOCALBASE}/bin/${RAKE_NAME}
-MAKE_ENV+=	RAKE=${RAKE:Q}
-.endif
 
 .include "replace.mk"
 .endif

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.106 2017/02/12 06:24:37 ryoon Exp $
+# $NetBSD: Makefile,v 1.109 2017/09/18 09:52:57 maya Exp $
 
 DISTNAME=		gnome-pilot-2.0.17
-PKGREVISION=		57
+PKGREVISION=		59
 CATEGORIES=		comms gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-pilot/2.0/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.gnome.org/
+HOMEPAGE=		https://www.gnome.org/
 COMMENT=		Handheld synchronisation for GNOME
 
 BUILD_DEPENDS+=		gob2-[0-9]*:../../devel/gob2

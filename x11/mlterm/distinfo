@@ -1,8 +1,8 @@
-$NetBSD: distinfo,v 1.67 2017/02/04 16:20:12 tsutsui Exp $
+$NetBSD: distinfo,v 1.70 2017/10/20 17:57:21 tsutsui Exp $
 
-SHA1 (mlterm-3.8.0.tar.gz) = 94476d46abbfd15d7b5f828a51dd166e39d322f8
-RMD160 (mlterm-3.8.0.tar.gz) = c34673c7d4a10dc851a5e397a5e6b573c34d5e59
-SHA512 (mlterm-3.8.0.tar.gz) = 86d163aaf24668dea77e54ff775cb448c6c699bcc82e1d84fe9a9fbed90d9c834ee3e61348de77713b2dbd229b37b76d2be817d788710f224cd5c53e7f93049f
-Size (mlterm-3.8.0.tar.gz) = 3756779 bytes
+SHA1 (mlterm-3.8.3.tar.gz) = 2b0a4fcb04474c63c64c48231a1c1bf50e7eb56b
+RMD160 (mlterm-3.8.3.tar.gz) = 0500995c20b0fb56bb74bf0cae18d1ca71ae7b60
+SHA512 (mlterm-3.8.3.tar.gz) = 831d3e1513bea3faa77a3e8d0c040d2f363bce2ac92925f4eb87374838a60a2ccc889d788149cbe31a278f69a1099c88aa21278da1c954ac32579445be98b152
+Size (mlterm-3.8.3.tar.gz) = 3850354 bytes
 SHA1 (patch-configure) = 54643fa501cc65d3513c1e21ece6c2a234a7798a
 SHA1 (patch-etc_font-fb) = 03f0b2ecee20ef3201c8e4ce17f03ac90f657b00

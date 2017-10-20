@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.22 2017/01/12 14:44:43 fhajny Exp $
+# $NetBSD: Makefile,v 1.27 2017/10/13 14:23:10 fhajny Exp $
 
-DISTNAME=	libbson-1.5.3
+DISTNAME=	libbson-1.8.1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mongodb/}
 
 MAINTAINER=	filip@joyent.com
-HOMEPAGE=	http://github.com/mongodb/libbson/
+HOMEPAGE=	https://github.com/mongodb/libbson/
 COMMENT=	BSON utility library
 LICENSE=	apache-2.0
 

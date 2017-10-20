@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.13 2016/10/15 13:59:37 taca Exp $
+# $NetBSD: Makefile,v 1.16 2017/07/30 22:32:19 wiz Exp $
 
-DISTNAME=	mail-2.6.4
+DISTNAME=	mail-2.6.6
 CATEGORIES=	mail
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://github.com/mikel/mail
+HOMEPAGE=	https://github.com/mikel/mail
 COMMENT=	Mail provides a nice Ruby DSL for making, sending and reading emails
 LICENSE=	mit
 
