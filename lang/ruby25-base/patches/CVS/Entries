@@ -1,0 +1,15 @@
+/patch-configure/1.4/Fri Jan 26 13:25:29 2018//
+/patch-ext_dbm_extconf.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_mkmf.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rdoc_ri_driver.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_commands_setup__command.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_config__file.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_defaults.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_dependency__installer.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_install__update__options.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_installer.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_platform.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-lib_rubygems_specification.rb/1.1/Mon Jan  8 14:19:06 2018//
+/patch-test_rubygems_test__gem.rb/1.1/Mon Jan  8 14:19:06 2018//
+D
